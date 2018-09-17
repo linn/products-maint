@@ -1,4 +1,4 @@
-﻿namespace Linn.SalesAccounts.Service.Models
+﻿namespace Linn.Products.Service.Models
 {
     using Linn.Common.Configuration;
 
