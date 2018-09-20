@@ -29,7 +29,8 @@
 
         private object GetSalesArticlesByEanCodeExport()
         {
-            var results = this.salesArticleReportService.GetEanCodeResults();
+            var results = this.salesArticleReportService.GetEanCodeCsvResults();
+
             return this.Negotiate
                 .WithModel(results)
                 .WithAllowedMediaRange("text/csv")
