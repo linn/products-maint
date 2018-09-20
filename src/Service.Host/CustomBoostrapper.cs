@@ -59,8 +59,7 @@
                     builder.RegisterModule<AmazonCredentialsModule>();
                     builder.RegisterModule<AmazonSqsModule>();
                     builder.RegisterModule<LoggingModule>();
-                    builder.RegisterModule<ServiceModule>();
-                    builder.RegisterModule<PersistenceModule>();
+                    builder.RegisterModule<ResponsesModule>();
                 });
 
             base.ConfigureApplicationContainer(existingContainer);
@@ -71,9 +70,6 @@
             lifetimeScope.Update(
                 builder =>
                 {
-                    builder.RegisterModule<AmazonCredentialsModule>();
-                    builder.RegisterModule<AmazonSqsModule>();
-                    builder.RegisterModule<LoggingModule>();
                     builder.RegisterModule<ServiceModule>();
                     builder.RegisterModule<PersistenceModule>();
                 });
@@ -83,8 +79,7 @@
 
         private static void Log(Exception ex, ILog log)
         {
-            var exception = ex as AggregateException;
-            if (exception != null)
+            if (ex is AggregateException exception)
             {
                 foreach (var inner in exception.InnerExceptions)
                 {
