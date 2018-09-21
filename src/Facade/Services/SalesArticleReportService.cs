@@ -26,9 +26,7 @@
         public IResult<IEnumerable<IEnumerable<string>>> GetEanCodeCsvResults()
         {
             var results = this.eanCodeReportService.GetEanCodeReport();
-            IEnumerable<IEnumerable<string>> resource = results.ConvertFinalModelToResource().results
-                .Select(c => c.values
-                    .Select(d => string.IsNullOrEmpty(d.textDisplayValue) ? d.displayValue?.ToString() : d.textDisplayValue));
+            var resource = results.ConvertFinalModelToCsvResource();
 
             return new SuccessResult<IEnumerable<IEnumerable<string>>>(resource);
         }

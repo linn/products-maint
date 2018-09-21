@@ -11,8 +11,4 @@
     <PackageReference Include="linn.common.serialization" Version="2.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ReportModels\" />
-  </ItemGroup>
-
 </Project>

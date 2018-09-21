@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Domain.Tests.EanCodeReportServiceSpecs
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using FluentAssertions;
 
@@ -34,9 +35,9 @@
         {
             this.Results.ReportTitle.DisplayValue.Should().Be("Sales Article EAN Codes");
             this.Results.GetRowValues().Should().HaveCount(3);
-            this.Results.GetGridTextValue(0, 0).Should().Be("a");
-            this.Results.GetGridTextValue(0, 1).Should().Be("aa");
-            this.Results.GetGridTextValue(0, 2).Should().Be("aaa");
+            this.Results.Rows.First(a => a.RowIndex == 0).RowTitle.Should().Be("a");
+            this.Results.GetGridTextValue(0, 0).Should().Be("aa");
+            this.Results.GetGridTextValue(0, 1).Should().Be("aaa");
         }
     }
 }
