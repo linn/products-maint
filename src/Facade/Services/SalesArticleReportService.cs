@@ -1,7 +1,6 @@
 ﻿namespace Linn.Products.Facade.Services
 {
     using System.Collections.Generic;
-    using System.Linq;
 
     using Linn.Common.Facade;
     using Linn.Common.Reporting.Models;
@@ -25,10 +24,8 @@
 
         public IResult<IEnumerable<IEnumerable<string>>> GetEanCodeCsvResults()
         {
-            var results = this.eanCodeReportService.GetEanCodeReport();
-            var resource = results.ConvertFinalModelToCsvResource();
-
-            return new SuccessResult<IEnumerable<IEnumerable<string>>>(resource);
+            var results = this.eanCodeReportService.GetEanCodeReport().ConvertToCsvList();
+            return new SuccessResult<IEnumerable<IEnumerable<string>>>(results);
         }
     }
 }

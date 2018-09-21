@@ -33,6 +33,7 @@
                     with.Dependency<IResourceBuilder<ResultsModel>>(new ResultsModelResourceBuilder());
                     with.Module<SalesArticleReportsModule>();
                     with.ResponseProcessor<ResultsModelJsonResponseProcessor>();
+                    with.ResponseProcessor<IEnumerableCsvResponseProcessor>();
 
                     with.RequestStartup(
                         (container, pipelines, context) =>
