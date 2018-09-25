@@ -1,5 +1,5 @@
-﻿import React, { Component, PropTypes } from 'react';
-import { Modal, Button, Popover, Tooltip, OverlayTrigger, Glyphicon } from 'react-bootstrap';
+﻿import React, { Component } from 'react';
+import { Modal, Button, Glyphicon } from 'react-bootstrap';
 import ReactMarkdown from 'react-markdown';
 
 export class MarkdownModal extends Component {

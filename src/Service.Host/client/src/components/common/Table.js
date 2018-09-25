@@ -1,4 +1,4 @@
-﻿import React, { Component } from 'react';
+﻿import React from 'react';
 import { reportResultType } from './PropTypes';
 import { formatTitle, displayError, setDrilldown, setValueDrilldown, setTextValueDrilldown } from './DisplayUtilities';
 import classnames from 'classnames';
@@ -100,7 +100,10 @@ Table.PropTypes = {
     showTitle: PropTypes.boolean,
     showTotals: PropTypes.boolean,
     placeholderRows: PropTypes.number,
-    placeholderColumns: PropTypes.number
+    placeholderColumns: PropTypes.number,
+    containsSubtotals: PropTypes.boolean,
+    fixColumnWidths: PropTypes.boolean,
+    showRowTitles: PropTypes.boolean
 }
 
 export default Table;

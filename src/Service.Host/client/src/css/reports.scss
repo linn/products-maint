@@ -3,6 +3,17 @@
     margin-bottom: 20px;
 }
 
+.single-line-field {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 180px;
+}
+
+.link-value {
+    color: black;
+}
+
 .placeholder {
     &:after {
         content: '';
@@ -14,7 +25,6 @@
         width: 100%;
         height: 100%;
         opacity: 0.3;
-        background-image: url(/sales/reporting/Content/images/loading.gif);
         background-repeat: no-repeat;
         background-position: center;
         background-size: 60px;
