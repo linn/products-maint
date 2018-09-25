@@ -28,7 +28,10 @@
                                   ReportTitle = new NameModel("Sales Article EAN Codes")
                               };
 
-            foreach (var salesArticle in articles)
+            results.SetColumnType(0, GridDisplayType.TextValue);
+            results.SetColumnType(1, GridDisplayType.TextValue);
+
+            foreach (var salesArticle in articles.OrderBy(a => a.ArticleNumber))
             {
                 var row = results.AddRow(salesArticle.ArticleNumber);
                 results.SetGridTextValue(row.RowIndex, 0, salesArticle.InvoiceDescription);

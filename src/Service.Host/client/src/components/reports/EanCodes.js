@@ -1,11 +1,12 @@
 ﻿import React, { Component } from 'react';
 import { Loading } from '../common/Loading';
-import { Grid, Row, Col, Table, OverlayTrigger, Tooltip, Button, Glyphicon } from 'react-bootstrap';
+import { Grid, Row, Col, OverlayTrigger, Tooltip, Button, Glyphicon } from 'react-bootstrap';
 import config from '../../config';
+import Table from '../common/Table';
 
 class EanCodes extends Component {
     render() {
-        const { xxx } = this.props;
+        const { reportData, loading } = this.props;
 
         return (
             <div>
@@ -16,22 +17,14 @@ class EanCodes extends Component {
                         </Col>
                         <Col xs={2}>
                             <OverlayTrigger placement="top" overlay={<Tooltip id="tooltip1">Download report as CSV file</Tooltip>}>
-                                <Button style={{ marginTop: '25px', marginBottom: '10px' }} href={`${config.appRoot}/`}><Glyphicon className="text-muted" glyph="export" /> Export</Button>
+                                <Button style={{ marginTop: '25px', marginBottom: '10px' }} href={`${config.appRoot}/products/reports/sales-article-ean-codes/export`}><Glyphicon className="text-muted" glyph="export" /> Export</Button>
                             </OverlayTrigger>
                         </Col>
                     </Row>
                     <Row>
+                        {loading ? <Loading /> : ''}
                         <Col xs={10}>
-                            <Table>
-                                <thead>
-                                    <tr>
-                                        <th style={{ width: '45%' }}></th>
-                                        <th style={{ width: '20%' }}></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </Table>
+                            <Table reportData={reportData} showTotals={false} placeholderRows={10} placeholderColumns={3} showTitle={false} />
                         </Col>
                     </Row>
                 </Grid>
