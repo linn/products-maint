@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Utility library Resources</Description>
+    <Authors>Linn</Authors>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Linn.Common.Resources</AssemblyName>
+    <PackageId>Linn.Common.Resources</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.4.0" />
+    <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
+  </ItemGroup>
+
+
+</Project>

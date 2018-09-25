@@ -6,4 +6,9 @@
     <RootNamespace>Linn.Products.Domain</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="linn.common.reporting" Version="1.0.0" />
+    <PackageReference Include="linn.common.serialization" Version="2.0.0" />
+  </ItemGroup>
+
 </Project>

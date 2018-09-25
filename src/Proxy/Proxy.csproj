@@ -10,4 +10,9 @@
     <PackageReference Include="Linn.Common.Proxy" Version="3.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Resources\Resources.csproj" />
+  </ItemGroup>
+
 </Project>
