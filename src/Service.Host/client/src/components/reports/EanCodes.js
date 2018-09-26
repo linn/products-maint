@@ -6,13 +6,14 @@ import Table from '../common/Table';
 class EanCodes extends Component {
     render() {
         const { reportData, loading, options, config } = this.props;
+        const optionsTitle = options.cartonisedOnly && options.cartonisedOnly !== 'false' ? '(Cartonised products only)' : '';
 
         return (
             <div>
                 <Grid fluid={false}>
                     <Row>
                         <Col xs={8}>
-                            <h3>Sales Article Ean Codes</h3>
+                            <h3>Sales Article Ean Codes {optionsTitle}</h3>
                         </Col>
                         <Col xs={2}>
                             <OverlayTrigger placement="top" overlay={<Tooltip id="tooltip1">Download report as CSV file</Tooltip>}>
