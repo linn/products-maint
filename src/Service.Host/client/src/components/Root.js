@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Route, Redirect, IndexRoute } from 'react-router';
+import { Route, Redirect } from 'react-router';
 import { OidcProvider } from 'redux-oidc';
 import { ConnectedRouter as Router } from 'react-router-redux';
 import history from '../history';
