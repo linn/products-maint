@@ -31,7 +31,6 @@ describe('<EanCodes />', () => {
         });
 
         test('Should render Table and Loader when loading', () => {
-            wrapper = shallow(<EanCodes options={options} loading={true} reportData={reportData} config={config} />);
             expect(wrapper.find(Table)).toHaveLength(1);
             expect(wrapper.find(Loading)).toHaveLength(1);
         });
