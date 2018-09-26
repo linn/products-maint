@@ -1,5 +1,5 @@
 ﻿import { combineReducers } from 'redux';
 import results from './results';
-import parameters from './parameters';
+import options from './options';
 
-export default combineReducers({ results, parameters });
+export default combineReducers({ results, options });

@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class App extends Component {
     render() {
@@ -8,6 +9,8 @@ class App extends Component {
             <h2>Products</h2>
                 <Row>
                     <Col xs={12}>
+                        <h2>Reports</h2>
+                        <Link style={{ display: 'block' }} to="/products/reports/sales-article-ean-codes">Sales Article Ean Codes Report</Link>
                     </Col>
                 </Row >
             </Grid >

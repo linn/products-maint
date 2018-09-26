@@ -28,8 +28,8 @@ class Root extends Component {
                             <Route exact path="/products/reports" component={App} />
                             <Route exact path="/products/maint/signin-oidc-client" component={Callback} />
 
-                            <Route exact path="/products/reports/sales-article-ean-codes/options" component={EanCodesOptions} />
-                            <Route exact path="/products/reports/sales-article-ean-codes" component={EanCodes} />
+                            <Route exact path="/products/reports/sales-article-ean-codes" component={EanCodesOptions} />
+                            <Route exact path="/products/reports/sales-article-ean-codes/report" component={EanCodes} />
                         </div>
                     </Router>
                 </OidcProvider>

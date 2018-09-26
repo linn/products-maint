@@ -6,7 +6,7 @@ import Table from '../common/Table';
 
 class EanCodes extends Component {
     render() {
-        const { reportData, loading } = this.props;
+        const { reportData, loading, options } = this.props;
 
         return (
             <div>
@@ -17,7 +17,7 @@ class EanCodes extends Component {
                         </Col>
                         <Col xs={2}>
                             <OverlayTrigger placement="top" overlay={<Tooltip id="tooltip1">Download report as CSV file</Tooltip>}>
-                                <Button style={{ marginTop: '25px', marginBottom: '10px' }} href={`${config.appRoot}/products/reports/sales-article-ean-codes/export`}><Glyphicon className="text-muted" glyph="export" /> Export</Button>
+                                <Button style={{ marginTop: '25px', marginBottom: '10px' }} href={`${config.appRoot}/products/reports/sales-article-ean-codes/export?includePhasedOut=${options.includePhasedOut}`}><Glyphicon className="text-muted" glyph="export" /> Export</Button>
                             </OverlayTrigger>
                         </Col>
                     </Row>
