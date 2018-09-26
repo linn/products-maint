@@ -8,6 +8,8 @@ import Navigation from './Navigation';
 import App from './App';
 import Callback from '../containers/Callback';
 import userManager from '../helpers/userManager';
+import EanCodesOptions from '../containers/reportOptions/EanCodesOptions';
+import EanCodes from '../containers/reports/EanCodes';
 
 class Root extends Component {
     render() {
@@ -23,7 +25,11 @@ class Root extends Component {
                             <Route path="/" render={() => { document.title = 'Products'; return false; }} />
                             <Route exact path="/" render={() => <Redirect to="/products/maint" />} />
                             <Route exact path="/products/maint" component={App} />
+                            <Route exact path="/products/reports" component={App} />
                             <Route exact path="/products/maint/signin-oidc-client" component={Callback} />
+
+                            <Route exact path="/products/reports/sales-article-ean-codes" component={EanCodesOptions} />
+                            <Route exact path="/products/reports/sales-article-ean-codes/report" component={EanCodes} />
                         </div>
                     </Router>
                 </OidcProvider>

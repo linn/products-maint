@@ -1,9 +1,11 @@
 ﻿namespace Linn.Products.Service.Modules
 {
     using Linn.Products.Facade.Services;
+    using Linn.Products.Resources;
     using Linn.Products.Service.Models;
 
     using Nancy;
+    using Nancy.ModelBinding;
 
     public sealed class SalesArticleReportsModule : NancyModule
     {
@@ -19,7 +21,10 @@
 
         private object GetSalesArticlesByEanCode()
         {
-            var results = this.salesArticleReportService.GetEanCodeResults();
+            var resource = this.Bind<EanCodesReportRequestResource>();
+            var results = this.salesArticleReportService.GetEanCodeResults(
+                resource.IncludePhasedOut,
+                resource.CartonisedOnly);
 
             return this.Negotiate
                 .WithModel(results)
@@ -29,7 +34,10 @@
 
         private object GetSalesArticlesByEanCodeExport()
         {
-            var results = this.salesArticleReportService.GetEanCodeCsvResults();
+            var resource = this.Bind<EanCodesReportRequestResource>();
+            var results = this.salesArticleReportService.GetEanCodeCsvResults(
+                resource.IncludePhasedOut,
+                resource.CartonisedOnly);
 
             return this.Negotiate
                 .WithModel(results)

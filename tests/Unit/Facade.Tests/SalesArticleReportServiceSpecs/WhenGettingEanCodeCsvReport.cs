@@ -25,15 +25,15 @@
                               };
             results.AddRow("row");
             results.SetGridTextValue(0, 0, "val");
-            this.EanCodeReportService.GetEanCodeReport()
+            this.EanCodeReportService.GetEanCodeReport(true, true)
                 .Returns(results);
-            this.result = this.Sut.GetEanCodeCsvResults();
+            this.result = this.Sut.GetEanCodeCsvResults(true, true);
         }
 
         [Test]
         public void ShouldGetResults()
         {
-            this.EanCodeReportService.Received().GetEanCodeReport();
+            this.EanCodeReportService.Received().GetEanCodeReport(true, true);
         }
 
         [Test]

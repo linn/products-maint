@@ -16,15 +16,15 @@
         [SetUp]
         public void SetUp()
         {
-            this.EanCodeReportService.GetEanCodeReport()
+            this.EanCodeReportService.GetEanCodeReport(true, true)
                 .Returns(new ResultsModel { ReportTitle = new NameModel("title") });
-            this.result = this.Sut.GetEanCodeResults();
+            this.result = this.Sut.GetEanCodeResults(true, true);
         }
 
         [Test]
         public void ShouldGetResults()
         {
-            this.EanCodeReportService.Received().GetEanCodeReport();
+            this.EanCodeReportService.Received().GetEanCodeReport(true, true);
         }
 
         [Test]

@@ -33,5 +33,7 @@
         public string VatCode { get; set; }
 
         public string EanCode { get; set; }
+
+        public string CartonType { get; set; }
     }
 }
