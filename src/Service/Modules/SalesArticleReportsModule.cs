@@ -22,7 +22,9 @@
         private object GetSalesArticlesByEanCode()
         {
             var resource = this.Bind<EanCodesReportRequestResource>();
-            var results = this.salesArticleReportService.GetEanCodeResults(resource.IncludePhasedOut);
+            var results = this.salesArticleReportService.GetEanCodeResults(
+                resource.IncludePhasedOut,
+                resource.CartonisedOnly);
 
             return this.Negotiate
                 .WithModel(results)
@@ -33,7 +35,9 @@
         private object GetSalesArticlesByEanCodeExport()
         {
             var resource = this.Bind<EanCodesReportRequestResource>();
-            var results = this.salesArticleReportService.GetEanCodeCsvResults();
+            var results = this.salesArticleReportService.GetEanCodeCsvResults(
+                resource.IncludePhasedOut,
+                resource.CartonisedOnly);
 
             return this.Negotiate
                 .WithModel(results)

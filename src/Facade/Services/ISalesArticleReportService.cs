@@ -7,8 +7,10 @@
 
     public interface ISalesArticleReportService
     {
-        IResult<ResultsModel> GetEanCodeResults(bool includePhasedOut = false);
+        IResult<ResultsModel> GetEanCodeResults(bool includePhasedOut = false, bool cartonisedOnly = false);
 
-        IResult<IEnumerable<IEnumerable<string>>> GetEanCodeCsvResults(bool includePhasedOut = false);
+        IResult<IEnumerable<IEnumerable<string>>> GetEanCodeCsvResults(
+            bool includePhasedOut = false,
+            bool cartonisedOnly = false);
     }
 }

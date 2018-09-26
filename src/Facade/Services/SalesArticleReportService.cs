@@ -16,15 +16,18 @@
             this.eanCodeReportService = eanCodeReportService;
         }
 
-        public IResult<ResultsModel> GetEanCodeResults(bool includePhasedOut = false)
+        public IResult<ResultsModel> GetEanCodeResults(bool includePhasedOut = false, bool cartonisedOnly = false)
         {
-            var results = this.eanCodeReportService.GetEanCodeReport(includePhasedOut);
+            var results = this.eanCodeReportService.GetEanCodeReport(includePhasedOut, cartonisedOnly);
             return new SuccessResult<ResultsModel>(results);
         }
 
-        public IResult<IEnumerable<IEnumerable<string>>> GetEanCodeCsvResults(bool includePhasedOut = false)
+        public IResult<IEnumerable<IEnumerable<string>>> GetEanCodeCsvResults(
+            bool includePhasedOut = false,
+            bool cartonisedOnly = false)
         {
-            var results = this.eanCodeReportService.GetEanCodeReport(includePhasedOut).ConvertToCsvList();
+            var results = this.eanCodeReportService.GetEanCodeReport(includePhasedOut, cartonisedOnly)
+                .ConvertToCsvList();
             return new SuccessResult<IEnumerable<IEnumerable<string>>>(results);
         }
     }
