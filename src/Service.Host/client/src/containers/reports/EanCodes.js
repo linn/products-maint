@@ -3,6 +3,7 @@ import EanCodes from '../../components/reports/EanCodes';
 import initialiseOnMount from '../common/initialiseOnMount';
 import { fetchEanCodesReport } from '../../actions/eanCodesReport';
 import queryString from 'query-string';
+import config from '../../config';
 
 const getOptions = ownProps => {
     const query = ownProps.location.search ? queryString.parse(ownProps.location.search) : { includePhasedOut: false, cartonisedOnly: true };
@@ -12,7 +13,8 @@ const getOptions = ownProps => {
 const mapStateToProps = (state, ownProps) => ({
     reportData: state.eanCodesReport.results.data,
     loading: state.eanCodesReport.results.loading,
-    options: getOptions(ownProps)
+    options: getOptions(ownProps),
+    config 
 });
 
 const initialise = ({ options }) => dispatch => {
