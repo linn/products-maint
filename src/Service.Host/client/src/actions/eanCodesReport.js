@@ -2,9 +2,9 @@
 import * as actionTypes from './index';
 import { CALL_API } from 'redux-api-middleware';
 
-export const fetchEanCodesReport = (includePhasedOut) => ({
+export const fetchEanCodesReport = (includePhasedOut, cartonisedOnly) => ({
     [CALL_API]: {
-        endpoint: `${config.appRoot}/products/reports/sales-article-ean-codes?includePhasedOut=${includePhasedOut}`,
+        endpoint: `${config.appRoot}/products/reports/sales-article-ean-codes?includePhasedOut=${includePhasedOut}&cartonisedOnly=${cartonisedOnly}`,
         method: 'GET',
         options: { requiresAuth: true },
         headers: {
@@ -14,7 +14,7 @@ export const fetchEanCodesReport = (includePhasedOut) => ({
             {
                 type: actionTypes.REQUEST_EAN_CODE_REPORT,
                 payload: {
-                    options: { includePhasedOut }}
+                    options: { includePhasedOut, cartonisedOnly }}
             },
             {
                 type: actionTypes.RECEIVE_EAN_CODE_REPORT,

@@ -5,7 +5,7 @@ import { fetchEanCodesReport } from '../../actions/eanCodesReport';
 import queryString from 'query-string';
 
 const getOptions = ownProps => {
-    const query = ownProps.location.search ? queryString.parse(ownProps.location.search) : { includePhasedOut: false };
+    const query = ownProps.location.search ? queryString.parse(ownProps.location.search) : { includePhasedOut: false, cartonisedOnly: true };
     return query;
 }
 
@@ -16,7 +16,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const initialise = ({ options }) => dispatch => {
-    dispatch(fetchEanCodesReport(options.includePhasedOut));
+    dispatch(fetchEanCodesReport(options.includePhasedOut, options.cartonisedOnly));
 };
 
 const mapDispatchToProps = {
