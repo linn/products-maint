@@ -3,10 +3,13 @@ import CartonDetails from '../../components/reports/CartonDetails';
 import initialiseOnMount from '../common/initialiseOnMount';
 import { fetchCartonDetailsReport } from '../../actions/cartonDetailsReport';
 import config from '../../config';
+import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
+
+const reportName = 'cartonDetailsReport';
 
 const mapStateToProps = (state, ownProps) => ({
-    reportData: state.cartonDetailsReport.results.data,
-    loading: state.cartonDetailsReport.results.loading,
+    reportData: getReportData(state, reportName),
+    loading: getReportLoading(state, reportName),
     config 
 });
 
