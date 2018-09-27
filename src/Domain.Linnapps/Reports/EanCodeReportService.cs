@@ -1,9 +1,9 @@
-﻿namespace Linn.Products.Domain.Reports
+﻿namespace Linn.Products.Domain.Linnapps.Reports
 {
     using System.Linq;
 
     using Linn.Common.Reporting.Models;
-    using Linn.Products.Domain.RemoteServices;
+    using Linn.Products.Domain.Linnapps.RemoteServices;
 
     public class EanCodeReportService : IEanCodeReportService
     {

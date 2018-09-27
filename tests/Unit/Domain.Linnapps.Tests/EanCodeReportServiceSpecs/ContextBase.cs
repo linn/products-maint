@@ -1,8 +1,8 @@
-﻿namespace Linn.Products.Domain.Tests.EanCodeReportServiceSpecs
+﻿namespace Domain.Linnapps.Tests.EanCodeReportServiceSpecs
 {
     using Linn.Common.Reporting.Models;
-    using Linn.Products.Domain.RemoteServices;
-    using Linn.Products.Domain.Reports;
+    using Linn.Products.Domain.Linnapps.RemoteServices;
+    using Linn.Products.Domain.Linnapps.Reports;
 
     using NSubstitute;
 

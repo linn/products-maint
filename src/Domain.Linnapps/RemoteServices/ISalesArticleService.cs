@@ -1,8 +1,8 @@
-﻿namespace Linn.Products.Domain.RemoteServices
+﻿namespace Linn.Products.Domain.Linnapps.RemoteServices
 {
     using System.Collections.Generic;
 
-    using Linn.Products.Domain.Products;
+    using Linn.Products.Domain.Linnapps.Products;
 
     public interface ISalesArticleService
     {
