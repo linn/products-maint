@@ -4,7 +4,7 @@
     using Linn.Common.Facade;
     using Linn.Common.Reporting.Models;
     using Linn.Common.Reporting.Resources.Extensions;
-    using Linn.Products.Domain.Reports;
+    using Linn.Products.Domain.Linnapps.Reports;
 
     public class SalesArticleReportService : ISalesArticleReportService
     {

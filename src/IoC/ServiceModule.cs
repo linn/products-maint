@@ -4,8 +4,8 @@
 
     using Linn.Common.Configuration;
     using Linn.Common.Proxy;
-    using Linn.Products.Domain.RemoteServices;
-    using Linn.Products.Domain.Reports;
+    using Linn.Products.Domain.Linnapps.RemoteServices;
+    using Linn.Products.Domain.Linnapps.Reports;
     using Linn.Products.Facade.Services;
     using Linn.Products.Proxy;
 
