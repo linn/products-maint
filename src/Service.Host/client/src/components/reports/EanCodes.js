@@ -2,11 +2,14 @@
 import { Loading } from '../common/Loading';
 import { Grid, Row, Col, OverlayTrigger, Tooltip, Button, Glyphicon } from 'react-bootstrap';
 import Table from '../common/Table';
+import ExportButton from '../common/ExportButton';
 
 class EanCodes extends Component {
     render() {
         const { reportData, loading, options, config } = this.props;
         const optionsTitle = options.cartonisedOnly && options.cartonisedOnly !== 'false' ? '(Cartonised products only)' : '';
+        const href =
+            `${config.appRoot}/products/reports/sales-article-ean-codes/export?includePhasedOut=${options.includePhasedOut}&cartonisedOnly=${options.cartonisedOnly}`;
 
         return (
             <div>
@@ -16,9 +19,7 @@ class EanCodes extends Component {
                             <h3>Sales Article Ean Codes {optionsTitle}</h3>
                         </Col>
                         <Col xs={2}>
-                            <OverlayTrigger placement="top" overlay={<Tooltip id="tooltip1">Download report as CSV file</Tooltip>}>
-                                <Button style={{ marginTop: '25px', marginBottom: '10px' }} href={`${config.appRoot}/products/reports/sales-article-ean-codes/export?includePhasedOut=${options.includePhasedOut}&cartonisedOnly=${options.cartonisedOnly}`}><Glyphicon className="text-muted" glyph="export" /> Export</Button>
-                            </OverlayTrigger>
+                            <ExportButton href={href} />
                         </Col>
                     </Row>
                     <Row>
