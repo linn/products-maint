@@ -18,6 +18,7 @@
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
+            builder.RegisterType<TariffService>().As<ITariffService>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();

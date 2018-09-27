@@ -7,6 +7,7 @@ import history from '../history';
 import Navigation from './Navigation';
 import App from './App';
 import Callback from '../containers/Callback';
+import Tariffs from '../containers/Tariffs';
 import userManager from '../helpers/userManager';
 
 class Root extends Component {
@@ -24,6 +25,7 @@ class Root extends Component {
                             <Route exact path="/" render={() => <Redirect to="/products/maint" />} />
                             <Route exact path="/products/maint" component={App} />
                             <Route exact path="/products/maint/signin-oidc-client" component={Callback} />
+                            <Route exact path="/products/maint/tariffs" component={Tariffs} />
                         </div>
                     </Router>
                 </OidcProvider>

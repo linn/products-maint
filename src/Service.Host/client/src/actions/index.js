@@ -1,0 +1,4 @@
+﻿export const FETCH_ERROR = 'FETCH_ERROR';
+
+export const REQUEST_TARIFFS = 'REQUEST_CURRENCIES';
+export const RECEIVE_TARIFFS = 'RECEIVE_CURRENCIES';

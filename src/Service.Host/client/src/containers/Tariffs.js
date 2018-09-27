@@ -1,0 +1,21 @@
+﻿import { connect } from 'react-redux';
+import Tariffs from '../components/Tariffs';
+import { withRouter } from 'react-router'
+import { fetchTariffs } from '../actions/Tariffs';
+import { getTariffs, getTariffsLoading } from '../selectors/TariffsSelectors';
+import initialiseOnMount from './common/initialiseOnMount';
+
+const mapStateToProps = (state) => ({
+    tariffs: getTariffs(state),
+    loading: getTariffsLoading(state)
+});
+
+const initialise = () => dispatch => {
+    dispatch(fetchTariffs());
+};
+
+const mapDispatchToProps = {
+    initialise
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(initialiseOnMount(Tariffs)));
