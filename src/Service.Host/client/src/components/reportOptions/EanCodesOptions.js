@@ -41,21 +41,21 @@ class EanCodesOptions extends Component {
                         <Col xs={10}>
                             <Checkbox checked={this.state.includePhasedOut} onChange={ch => this.handlePhaseOutChange(ch.target.checked)}>
                                 Include phased out
-                        </Checkbox>
+                            </Checkbox>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs={10}>
                             <Checkbox checked={this.state.cartonisedOnly} onChange={ch => this.handleCartonisedOnlyChange(ch.target.checked)}>
                                 Cartonised Only
-                        </Checkbox>
+                            </Checkbox>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs={10}>
                             <Button bsClass="btn" onClick={() => this.handleClick()}>
                                 Run Report
-                        </Button>
+                            </Button>
                         </Col>
                     </Row>
                 </Grid>
