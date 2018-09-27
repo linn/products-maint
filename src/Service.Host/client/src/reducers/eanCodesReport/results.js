@@ -1,23 +1,6 @@
-﻿import * as actionTypes from '../../actions';
+﻿import reportResults from '../reducerFactories/reportResults';
+import * as actionTypes from '../../actions';
 
-const defaultState = { loading : false, data: null }
-
-export default function results(state = defaultState, action) {
-    switch (action.type) {
-    case actionTypes.REQUEST_EAN_CODE_REPORT:
-        return {
-            ...state,
-            loading: true,
-            data: null
-        }
-
-        case actionTypes.RECEIVE_EAN_CODE_REPORT:
-        return {
-            ...state,
-            loading: false,
-            data: action.payload.data.reportResults[0]
-        }
-
-    default:
-        return state;
-    }}
+export default reportResults(
+    actionTypes.REQUEST_EAN_CODE_REPORT,
+    actionTypes.RECEIVE_EAN_CODE_REPORT);
