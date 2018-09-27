@@ -8,8 +8,8 @@
 
     using Linn.Common.Proxy;
     using Linn.Common.Serialization.Json;
-    using Linn.Products.Domain.Products;
-    using Linn.Products.Domain.RemoteServices;
+    using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Domain.Linnapps.RemoteServices;
     using Linn.Products.Proxy.Exceptions;
     using Linn.Products.Resources.External;
 

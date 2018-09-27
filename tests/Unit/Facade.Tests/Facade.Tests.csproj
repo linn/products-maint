@@ -18,9 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Domain.Linnapps\Domain.Linnapps.csproj" />
     <ProjectReference Include="..\..\..\src\Domain\Domain.csproj" />
     <ProjectReference Include="..\..\..\src\Facade\Facade.csproj" />
-    <ProjectReference Include="..\..\..\src\Persistence\Persistence.csproj" />
   </ItemGroup>
 
 </Project>

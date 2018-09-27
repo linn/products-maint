@@ -1,29 +1,29 @@
-﻿namespace Linn.Products.Domain.Tests.EanCodeReportServiceSpecs
+﻿namespace Domain.Linnapps.Tests.EanCodeReportServiceSpecs
 {
     using System.Collections.Generic;
     using System.Linq;
 
     using FluentAssertions;
 
-    using Linn.Products.Domain.Products;
+    using Linn.Products.Domain.Linnapps.Products;
 
     using NSubstitute;
 
     using NUnit.Framework;
 
-    public class WhenGettingReport : ContextBase
+    public class WhenGettingCartonisedReport : ContextBase
     {
         [SetUp]
         public void SetUp()
         {
-            this.IncludePhasedOut = false;
-            this.CartonisedOnly = false;
+            this.IncludePhasedOut = true;
+            this.CartonisedOnly = true;
 
             this.SalesArticleService.GetByDiscountFamily("HIFI", this.IncludePhasedOut).Returns(
                 new List<SalesArticle>
                     {
-                        new SalesArticle { ArticleNumber = "a", InvoiceDescription = "aa", EanCode = "aaa" },
-                        new SalesArticle { ArticleNumber = "b", InvoiceDescription = "b", EanCode = "b" },
+                        new SalesArticle { ArticleNumber = "a", InvoiceDescription = "aa", EanCode = "aaa", CartonType = "C1" },
+                        new SalesArticle { ArticleNumber = "b", InvoiceDescription = "bb", EanCode = "bbb", CartonType = "C2" },
                         new SalesArticle { ArticleNumber = "c", InvoiceDescription = "c", EanCode = "c" }
                     });
 
@@ -34,10 +34,13 @@
         public void ShouldReturnResults()
         {
             this.Results.ReportTitle.DisplayValue.Should().Be("Sales Article EAN Codes");
-            this.Results.GetRowValues().Should().HaveCount(3);
+            this.Results.GetRowValues().Should().HaveCount(2);
             this.Results.Rows.First(a => a.RowIndex == 0).RowTitle.Should().Be("a");
             this.Results.GetGridTextValue(0, 0).Should().Be("aa");
             this.Results.GetGridTextValue(0, 1).Should().Be("aaa");
+            this.Results.Rows.First(a => a.RowIndex == 1).RowTitle.Should().Be("b");
+            this.Results.GetGridTextValue(1, 0).Should().Be("bb");
+            this.Results.GetGridTextValue(1, 1).Should().Be("bbb");
         }
     }
 }

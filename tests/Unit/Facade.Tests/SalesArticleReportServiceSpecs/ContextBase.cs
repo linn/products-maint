@@ -1,6 +1,6 @@
 ﻿namespace Linn.Products.Facade.Tests.SalesArticleReportServiceSpecs
 {
-    using Linn.Products.Domain.Reports;
+    using Linn.Products.Domain.Linnapps.Reports;
     using Linn.Products.Facade.Services;
 
     using NSubstitute;

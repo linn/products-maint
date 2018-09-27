@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Domain.Products
+﻿namespace Linn.Products.Domain.Linnapps.Products
 {
     using System;
     using System.ComponentModel.DataAnnotations;

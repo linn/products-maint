@@ -10,7 +10,7 @@
 
     using Linn.Common.Proxy;
     using Linn.Common.Serialization.Json;
-    using Linn.Products.Domain.Products;
+    using Linn.Products.Domain.Linnapps.Products;
 
     using NSubstitute;
 
