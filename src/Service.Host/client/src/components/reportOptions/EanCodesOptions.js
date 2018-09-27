@@ -7,7 +7,7 @@ class EanCodesOptions extends Component {
         this.state = {
             includePhasedOut: props.prevOptions ? props.prevOptions.includePhasedOut : false,
             cartonisedOnly: props.prevOptions ? props.prevOptions.cartonisedOnly : true
-    };
+        };
     }
 
     handlePhaseOutChange(checked) {
@@ -31,37 +31,35 @@ class EanCodesOptions extends Component {
 
     render() {
         return (
-            <Grid>
-                <PageHeader>
-                    <small>Ean Codes of Sales Articles</small>
-                </PageHeader>
-                <Row>
-                    <Col xs={10}>
-                        <h3>Select Options</h3>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={10}>
-                        <Checkbox checked={this.state.includePhasedOut} onChange={ch => this.handlePhaseOutChange(ch.target.checked)}>
-                            Include phased out
+            <div className="container">
+                <Grid>
+                    <PageHeader>
+                        <small>Ean Codes of Sales Articles Report Options</small>
+                    </PageHeader>
+
+                    <Row>
+                        <Col xs={10}>
+                            <Checkbox checked={this.state.includePhasedOut} onChange={ch => this.handlePhaseOutChange(ch.target.checked)}>
+                                Include phased out
                         </Checkbox>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={10}>
-                        <Checkbox checked={this.state.cartonisedOnly} onChange={ch => this.handleCartonisedOnlyChange(ch.target.checked)}>
-                            Cartonised Only
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={10}>
+                            <Checkbox checked={this.state.cartonisedOnly} onChange={ch => this.handleCartonisedOnlyChange(ch.target.checked)}>
+                                Cartonised Only
                         </Checkbox>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={10}>
-                        <Button bsClass="btn" onClick={() => this.handleClick()}>
-                            Run Report
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={10}>
+                            <Button bsClass="btn" onClick={() => this.handleClick()}>
+                                Run Report
                         </Button>
-                    </Col>
-                </Row>
-            </Grid>
+                        </Col>
+                    </Row>
+                </Grid>
+            </div>
         );
     }
 }
