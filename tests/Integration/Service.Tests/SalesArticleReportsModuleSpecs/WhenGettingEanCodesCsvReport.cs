@@ -19,10 +19,16 @@
         public void SetUp()
         {
             var results = new ResultsModel(new[] { "col1 " });
-            this.SalesArticleReportService.GetEanCodeCsvResults()
+            this.SalesArticleReportService.GetEanCodeCsvResults(true, true)
                 .Returns(new SuccessResult<IEnumerable<IEnumerable<string>>>(new List<List<string>>()));
 
-            this.Response = this.Browser.Get("/products/reports/sales-article-ean-codes/export").Result;
+            this.Response = this.Browser.Get(
+                "/products/reports/sales-article-ean-codes/export",
+                with =>
+                    {
+                        with.Query("cartonisedOnly", "true");
+                        with.Query("includePhasedOut", "true");
+                    }).Result;
         }
 
         [Test]
@@ -34,7 +40,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SalesArticleReportService.Received().GetEanCodeCsvResults();
+            this.SalesArticleReportService.Received().GetEanCodeCsvResults(true, true);
         }
     }
 }

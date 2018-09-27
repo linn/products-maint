@@ -21,7 +21,7 @@
         public void SetUp()
         {
             var results = new ResultsModel(new[] { "col1 " });
-            this.SalesArticleReportService.GetEanCodeResults().Returns(
+            this.SalesArticleReportService.GetEanCodeResults(true, true).Returns(
                 new SuccessResult<ResultsModel>(results)
                     {
                         Data = new ResultsModel { ReportTitle = new NameModel("t") }
@@ -32,6 +32,8 @@
                 with =>
                 {
                     with.Header("Accept", "application/json");
+                    with.Query("cartonisedOnly", "true");
+                    with.Query("includePhasedOut", "true");
                 }).Result;
         }
 
@@ -44,7 +46,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SalesArticleReportService.Received().GetEanCodeResults();
+            this.SalesArticleReportService.Received().GetEanCodeResults(true, true);
         }
 
         [Test]

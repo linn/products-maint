@@ -65,7 +65,8 @@
                                  {
                                      ArticleNumber = r.ArticleNumber,
                                      InvoiceDescription = r.InvoiceDescription,
-                                     EanCode = r.EanCode
+                                     EanCode = r.EanCode,
+                                     CartonType = r.CartonType
                                  });
         }
     }

@@ -7,6 +7,7 @@ import userManager from './helpers/userManager';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './css/index.scss';
+import './css/reports.scss';
 import '../assets/kaboom/kaboom.css';
 
 const initialState = {};
