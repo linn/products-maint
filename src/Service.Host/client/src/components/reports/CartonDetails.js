@@ -5,7 +5,7 @@ import Table from '../common/Table';
 
 class CartonDetails extends Component {
     render() {
-        const { reportData, loading, config } = this.props;
+        const { reportData, loading } = this.props;
 
         return (
             <div>

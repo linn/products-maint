@@ -33,7 +33,6 @@
             this.Results.Rows.First(a => a.RowIndex == 0).RowTitle.Should().Be("1");
             this.Results.GetGridTextValue(0, 0).Should().Be("pr 1");
             this.Results.GetGridTextValue(0, 1).Should().Be("pr 1 desc");
-            this.Results.GetGridTextValue(0, 2).Should().BeNull();
         }
     }
 }

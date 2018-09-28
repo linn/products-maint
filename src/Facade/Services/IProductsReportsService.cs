@@ -6,5 +6,7 @@
     public interface IProductsReportsService
     {
         IResult<ResultsModel> GetProductRanges(bool includePhasedOut = false);
+
+        IResult<ResultsModel> GetSalesProductByProductRange(int productRangeId, bool includePhasedOut = false);
     }
 }

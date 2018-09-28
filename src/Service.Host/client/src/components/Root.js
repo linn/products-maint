@@ -14,6 +14,7 @@ import CartonDetailsOptions from '../components/reportOptions/CartonDetailsOptio
 import CartonDetails from '../containers/reports/CartonDetails';
 import ProductRangesOptions from '../containers/reportOptions/ProductRangesOptions';
 import ProductRanges from '../containers/reports/ProductRanges';
+import SalesProductsByProductRange from '../containers/reports/SalesProductsByProductRange';
 
 class Root extends Component {
     render() {
@@ -40,6 +41,7 @@ class Root extends Component {
 
                             <Route exact path="/products/reports/product-ranges" component={ProductRangesOptions} />
                             <Route exact path="/products/reports/product-ranges/report" component={ProductRanges} />
+                            <Route exact path="/products/reports/sales-products-by-product-range" component={SalesProductsByProductRange} />
                         </div>
                     </Router>
                 </OidcProvider>

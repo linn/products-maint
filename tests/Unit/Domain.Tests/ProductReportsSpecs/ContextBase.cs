@@ -14,6 +14,8 @@
 
         protected IProductRangeRepository ProductRangeRepository { get; private set; }
 
+        protected ISalesProductRepository SalesProductRepository { get; private set; }
+
         protected ResultsModel Results { get; set; }
 
         [SetUp]
@@ -21,7 +23,9 @@
         {
             this.ProductRangeRepository = Substitute.For<IProductRangeRepository>();
 
-            this.Sut = new ProductReports(this.ProductRangeRepository);
+            this.SalesProductRepository = Substitute.For<ISalesProductRepository>();
+
+            this.Sut = new ProductReports(this.ProductRangeRepository, this.SalesProductRepository);
         }
     }
 }

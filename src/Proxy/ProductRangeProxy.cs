@@ -42,7 +42,7 @@
             var json = new JsonSerializer();
             var results = json.Deserialize<IEnumerable<ProductRangeResource>>(response.Value);
 
-            return results.Select(p => new ProductRange(p.Name) { Id = p.Id, Description = p.Description, PhasedOutOn = p.phasedOutOn });
+            return results.Select(p => new ProductRange(p.Name) { Id = p.Id, Description = p.Description, PhasedOutOn = p.PhasedOutOn });
         }
     }
 }

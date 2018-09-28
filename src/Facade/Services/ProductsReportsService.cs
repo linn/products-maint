@@ -18,5 +18,11 @@
             var results = this.productReports.GetProductRangeReport(includePhasedOut);
             return new SuccessResult<ResultsModel>(results);
         }
+
+        public IResult<ResultsModel> GetSalesProductByProductRange(int productRangeId, bool includePhasedOut = false)
+        {
+            var results = this.productReports.GetSalesProductByRangeReport(productRangeId, includePhasedOut);
+            return new SuccessResult<ResultsModel>(results);
+        }
     }
 }

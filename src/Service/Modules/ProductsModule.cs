@@ -16,12 +16,26 @@
             this.productsReportsService = productsReportsService;
 
             this.Get("/products/reports/product-ranges", _ => this.GetProductRanges());
+            this.Get("/products/reports/sales-products-by-product-range", _ => this.GetSalesProductByRange());
         }
 
         private object GetProductRanges()
         {
             var resource = this.Bind<IncludePhasedOutRequestResource>();
             var results = this.productsReportsService.GetProductRanges(resource.IncludePhasedOut);
+
+            return this.Negotiate
+                .WithModel(results)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
+        }
+
+        private object GetSalesProductByRange()
+        {
+            var resource = this.Bind<SalesProductReportRequestResource>();
+            var results = this.productsReportsService.GetSalesProductByProductRange(
+                resource.ProductRangeId,
+                resource.IncludePhasedOut);
 
             return this.Negotiate
                 .WithModel(results)

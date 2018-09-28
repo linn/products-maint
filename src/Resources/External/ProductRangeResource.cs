@@ -10,6 +10,6 @@
 
         public string Description { get; set; }
 
-        public DateTime? phasedOutOn { get; set; }
+        public DateTime? PhasedOutOn { get; set; }
     }
 }

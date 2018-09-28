@@ -2,14 +2,14 @@
 {
     using System;
 
-    public class ProductRange : Entity
+    public class SalesProduct : Entity
     {
-        public ProductRange(string name)
+        public SalesProduct(string name)
         {
             this.Name = name;
         }
 
-        private ProductRange()
+        private SalesProduct()
         {
             // ef
         }
@@ -18,12 +18,12 @@
 
         public string Description { get; set; }
 
-        public string CreatedBy { get; set; }
+        public ProductRange ProductRange { get; set; }
 
-        public DateTime CreatedOn { get; set; }
-
-        public string PhasedOutBy { get; set; }
+        public DateTime? PhasedInOn { get; set; }
 
         public DateTime? PhasedOutOn { get; set; }
+
+        public bool DisplayOnTradeSite { get; set; }
     }
 }
