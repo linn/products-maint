@@ -12,6 +12,8 @@ import EanCodesOptions from '../containers/reportOptions/EanCodesOptions';
 import EanCodes from '../containers/reports/EanCodes';
 import CartonDetailsOptions from '../components/reportOptions/CartonDetailsOptions';
 import CartonDetails from '../containers/reports/CartonDetails';
+import ProductRangesOptions from '../containers/reportOptions/ProductRangesOptions';
+import ProductRanges from '../containers/reports/ProductRanges';
 
 class Root extends Component {
     render() {
@@ -35,6 +37,9 @@ class Root extends Component {
 
                             <Route exact path="/products/reports/carton-details" component={CartonDetailsOptions} />
                             <Route exact path="/products/reports/carton-details/report" component={CartonDetails} />
+
+                            <Route exact path="/products/reports/product-ranges" component={ProductRangesOptions} />
+                            <Route exact path="/products/reports/product-ranges/report" component={ProductRanges} />
                         </div>
                     </Router>
                 </OidcProvider>

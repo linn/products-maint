@@ -12,6 +12,7 @@ class App extends Component {
                         <h2>Reports</h2>
                         <Link style={{ display: 'block' }} to="/products/reports/sales-article-ean-codes">Sales Article Ean Codes Report</Link>
                         <Link style={{ display: 'block' }} to="/products/reports/carton-details/report">Carton Details Report</Link>
+                        <Link style={{ display: 'block' }} to="/products/reports/product-ranges">Product Ranges Report</Link>
                     </Col>
                 </Row >
             </Grid >

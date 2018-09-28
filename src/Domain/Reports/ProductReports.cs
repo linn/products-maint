@@ -22,7 +22,7 @@
                 productRanges = productRanges.Where(p => p.PhasedOutOn == null);
             }
 
-            var results = new ResultsModel(new[] { "Name", "Description", "Phased Out On" })
+            var results = new ResultsModel(new[] { "Name", "Description" })
                               {
                                   RowHeader = "Id",
                                   ReportTitle = new NameModel("Product Ranges")
@@ -30,14 +30,23 @@
 
             results.SetColumnType(0, GridDisplayType.TextValue);
             results.SetColumnType(1, GridDisplayType.TextValue);
-            results.SetColumnType(2, GridDisplayType.TextValue);
+
+            if (includePhasedOut)
+            {
+                results.AddColumn("Phased Out On");
+                results.SetColumnType(2, GridDisplayType.TextValue);
+            }
+
 
             foreach (var productRange in productRanges.OrderBy(a => a.Name))
             {
                 var row = results.AddRow(productRange.Id.ToString());
                 results.SetGridTextValue(row.RowIndex, 0, productRange.Name);
                 results.SetGridTextValue(row.RowIndex, 1, productRange.Description);
-                results.SetGridTextValue(row.RowIndex, 2, productRange.PhasedOutOn?.ToShortDateString());
+                if (includePhasedOut)
+                {
+                    results.SetGridTextValue(row.RowIndex, 2, productRange.PhasedOutOn?.ToShortDateString());
+                }
             }
 
             return results;
