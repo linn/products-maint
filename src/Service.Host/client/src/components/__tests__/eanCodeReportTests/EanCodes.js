@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import EanCodes from '../../reports/EanCodes';
 import Table from '../../common/Table';
 import { Loading } from '../../common/Loading';
-import { Button } from 'react-bootstrap';
+import ExportButton from '../../common/ExportButton';
 
 describe('<EanCodes />', () => {
     let reportData = {},
@@ -20,9 +20,8 @@ describe('<EanCodes />', () => {
     });
 
     test('Should render export button', () => {
-        expect(wrapper.find(Button)).toHaveLength(1);
-        expect(wrapper.find(Button).props().href).toEqual('/products/reports/sales-article-ean-codes/export?includePhasedOut=false&cartonisedOnly=true');
-        expect(wrapper.find(Loading)).toHaveLength(0);
+        expect(wrapper.find(ExportButton)).toHaveLength(1);
+        expect(wrapper.find(ExportButton).props().href).toEqual('/products/reports/sales-article-ean-codes/export?includePhasedOut=false&cartonisedOnly=true');
     });
 
     describe('loading', () => {
