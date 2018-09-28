@@ -37,7 +37,6 @@
     <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="client\src\selectors\__tests__\" />
     <Folder Include="coverage\" />
   </ItemGroup>
 </Project>
