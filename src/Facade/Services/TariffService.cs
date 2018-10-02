@@ -14,9 +14,9 @@
             this.tariffRepository = tariffRepository;
         }
 
-        public IResult<IEnumerable<Tariff>> GetTariffs()
+        public IResult<IEnumerable<Tariff>> GetTariffs(string searchTerm)
         {
-            var tariffs = this.tariffRepository.SearchTariffs(string.Empty);
+            var tariffs = this.tariffRepository.SearchTariffs(searchTerm);
             return new SuccessResult<IEnumerable<Tariff>>(tariffs);
         }
     }

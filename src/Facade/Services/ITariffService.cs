@@ -6,6 +6,6 @@
 
     public interface ITariffService
     {
-        IResult<IEnumerable<Tariff>> GetTariffs();
+        IResult<IEnumerable<Tariff>> GetTariffs(string searchTerm);
     }
 }

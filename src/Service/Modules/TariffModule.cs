@@ -2,6 +2,8 @@
 {
     using Facade.Services;
     using Nancy;
+    using Nancy.ModelBinding;
+    using Resources;
 
     public sealed class TariffModule : NancyModule
     {
@@ -15,7 +17,8 @@
 
         private object GetTariffs()
         {
-            var tariffs = this.tariffService.GetTariffs();
+            var resource = this.Bind<TariffQueryResource>();
+            var tariffs = this.tariffService.GetTariffs(resource.SearchTerm);
 
             return this.Negotiate.WithModel(tariffs);
         }

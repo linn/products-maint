@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Persistence.Linnapps.Repositories
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Domain.Linnapps.Products;
     using Domain.Repositories;
 
@@ -15,7 +16,13 @@
 
         public IEnumerable<Tariff> SearchTariffs(string searchTerm)
         {
-            return this.serviceDbContext.Tariffs;
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                return this.serviceDbContext.Tariffs;
+            }
+
+            return this.serviceDbContext.Tariffs.Where(t =>
+                t.TariffCode.Contains(searchTerm) || t.Description.Contains(searchTerm));
         }
 
         public Tariff GetTariffById(int id)
