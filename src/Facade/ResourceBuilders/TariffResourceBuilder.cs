@@ -4,7 +4,7 @@
     using System.Linq;
     using Common.Facade;
     using Common.Resources;
-    using Domain.Products;
+    using Domain.Linnapps.Products;
     using Resources;
 
     public class TariffResourceBuilder : IResourceBuilder<Tariff>

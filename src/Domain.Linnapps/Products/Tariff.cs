@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Linn.Products.Domain.Products
+﻿namespace Linn.Products.Domain.Linnapps.Products
 {
+    using System;
+
     public class Tariff
     {
         public int Id { get; set; }

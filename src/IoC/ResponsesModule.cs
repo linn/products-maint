@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using Autofac;
-    using Domain.Products;
+    using Domain.Linnapps.Products;
     using Linn.Common.Facade;
     using Linn.Common.Reporting.Models;
     using Linn.Products.Facade.ResourceBuilders;

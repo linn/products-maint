@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common.Facade;
-    using Domain.Products;
+    using Domain.Linnapps.Products;
 
     public class TariffsResourceBuilder : IResourceBuilder<IEnumerable<Tariff>>
     {

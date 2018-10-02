@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using Common.Facade;
-    using Domain.Products;
+    using Domain.Linnapps.Products;
 
     public interface ITariffService
     {

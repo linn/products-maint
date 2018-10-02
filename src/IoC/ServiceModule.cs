@@ -10,6 +10,7 @@
     using Linn.Products.Domain.Repositories;
     using Linn.Products.Facade.Services;
     using Linn.Products.Proxy;
+    using Persistence.Linnapps;
 
     public class ServiceModule : Module
     {

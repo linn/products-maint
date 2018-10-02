@@ -4,7 +4,7 @@
     using Common.Facade;
     using Common.Nancy.Facade;
     using Common.Reporting.Models;
-    using Domain.Products;
+    using Domain.Linnapps.Products;
 
     public class TariffsReponseProcessor : JsonResponseProcessor<IEnumerable<Tariff>>
     {
