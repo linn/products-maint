@@ -2,32 +2,21 @@
 {
     using System;
 
-    public class Carton : Entity
+    public class ProductRange : Entity
     {
-        public Carton(string name, double width, double depth, double height)
+        public ProductRange(string name)
         {
             this.Name = name;
-            this.Width = width;
-            this.Depth = depth;
-            this.Height = height;
         }
 
-        private Carton()
+        private ProductRange()
         {
             // ef
         }
 
-        public double Depth { get; set; }
-
-        public double Height { get; set; }
-
         public string Name { get; set; }
 
         public string Description { get; set; }
-
-        public double Volume => this.Width * this.Depth * this.Height;
-
-        public double Width { get; set; }
 
         public string CreatedBy { get; set; }
 
