@@ -1,5 +1,5 @@
 ﻿export const getTariffs = ({ tariffs }) => {
-    if (!tariffs || !tariffs.items) {
+    if (!tariffs) {
         return null;
     }
 

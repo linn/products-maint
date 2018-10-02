@@ -14,6 +14,12 @@ class App extends Component {
                         <Link style={{ display: 'block' }} to="/products/reports/carton-details/report">Carton Details Report</Link>
                     </Col>
                 </Row >
+                <Row>
+                    <Col xs={12}>
+                        <h2>Utilities</h2>
+                        <Link style={{ display: 'block' }} to="/products/maint/tariffs">Tariffs</Link>
+                    </Col>
+                </Row >
             </Grid >
         );
     }
