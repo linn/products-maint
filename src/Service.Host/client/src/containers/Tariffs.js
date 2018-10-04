@@ -1,7 +1,7 @@
 ﻿import { connect } from 'react-redux';
 import Tariffs from '../components/Tariffs';
 import { withRouter } from 'react-router'
-import { fetchTariffs } from '../actions/Tariffs';
+import { fetchTariffs } from '../actions/tariffs';
 import { getTariffs, getTariffsLoading } from '../selectors/TariffsSelectors';
 import initialiseOnMount from './common/initialiseOnMount';
 
