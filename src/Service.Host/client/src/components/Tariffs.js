@@ -9,18 +9,6 @@ class Tariffs extends Component {
     render() {
         const { tariffs, loading } = this.props;
 
-        if (loading || !tariffs) {
-            return (
-                <div>
-                    <Grid fluid={false}>
-                        <Row>
-                            <Loading />
-                        </Row>
-                    </Grid>
-                </div>
-            );
-        }
-
         return (
             <div>
                 <Grid fluid={false}>
@@ -30,11 +18,19 @@ class Tariffs extends Component {
                         <FormControl autoFocus value={this.state.searchTerm} onChange={e => this.handleSearchTermChange(e)} type="text" placeholder="Search by tariff code or description" style={{ width: '50%' }} ></FormControl>
                     </FormGroup>
 
-                    <ListGroup>
-                        {tariffs.map((tariff, i) => (
-                            <ListGroupItem key={i} onClick={() => this.handleDiscountSchemeClick(tariff)}>{tariff.tariffCode} {tariff.description}</ListGroupItem>
-                        ))}
-                    </ListGroup>
+                    {tariffs.length > 0
+                        ? (
+                            <ListGroup>
+                                {tariffs.map((tariff, i) => (
+                                    <ListGroupItem key={i} onClick={() => this.handleDiscountSchemeClick(tariff)}>{tariff.tariffCode} {tariff.description}</ListGroupItem>
+                                ))}
+                            </ListGroup>
+                        )
+                        : loading ? <Loading />
+                        : <span>No matching tariffs</span>
+                    }
+
+
                 </Grid>
             </div>
         );
