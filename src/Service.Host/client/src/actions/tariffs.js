@@ -2,9 +2,22 @@
 import * as actionTypes from '.';
 import { CALL_API } from 'redux-api-middleware';
 
-export const fetchTariffs = () => ({
+let timeoutId;
+
+export const fetchTariffs = searchTerm => async dispatch => {
+    if (searchTerm) {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(async () => {
+            dispatch(performTariffSearch(searchTerm));
+        }, 500);
+    }
+};
+
+const performTariffSearch = searchTerm => ({
     [CALL_API]: {
-        endpoint: `${config.appRoot}/products/maint/tariffs`,
+        endpoint: `${config.appRoot}/products/maint/tariffs?searchTerm=${searchTerm}`,
         method: 'GET',
         headers: {
             Accept: 'application/json'
@@ -25,3 +38,13 @@ export const fetchTariffs = () => ({
         ]
     }
 });
+
+const setTariffSearchTermCreator = searchTerm => ({
+    type: actionTypes.SET_TARIFF_SEARCH_TERM,
+    payload: searchTerm
+});
+
+export const setTariffSearchTerm = searchTerm => dispatch => {
+    dispatch(setTariffSearchTermCreator(searchTerm));
+    dispatch(fetchTariffs());
+};

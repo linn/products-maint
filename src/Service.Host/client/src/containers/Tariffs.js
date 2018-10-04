@@ -10,12 +10,8 @@ const mapStateToProps = (state) => ({
     loading: getTariffsLoading(state)
 });
 
-const initialise = () => dispatch => {
-    dispatch(fetchTariffs());
-};
-
 const mapDispatchToProps = {
-    initialise
+    fetchTariffs
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(initialiseOnMount(Tariffs)));

@@ -2,7 +2,9 @@
 
 const defaultState = {
     loading: false,
-    items: null
+    items: null,
+    searchTerm: '',
+    items: []
 }
 
 const tariffs = (state = defaultState, action) => {
@@ -10,7 +12,7 @@ const tariffs = (state = defaultState, action) => {
         case actionTypes.REQUEST_TARIFFS:
         return {
             ...state,
-            loading: true
+            loading: true,
         }
 
         case actionTypes.RECEIVE_TARIFFS:
@@ -18,6 +20,12 @@ const tariffs = (state = defaultState, action) => {
             ...state,
             loading: false,
             items: action.payload.data
+        }
+
+        case actionTypes.SET_TARIFF_SEARCH_TERM:
+        return {
+            ...state,
+            searchTerm: action.payload
         }
 
     default:
