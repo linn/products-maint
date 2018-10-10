@@ -9,11 +9,24 @@
     {
         private readonly ICartonReportsService cartonReportsService;
 
-        public CartonsModule(ICartonReportsService cartonReportsService)
+        private readonly ICartonTypeService cartonTypeService;
+
+        public CartonsModule(ICartonReportsService cartonReportsService, ICartonTypeService cartonTypeService)
         {
             this.cartonReportsService = cartonReportsService;
+            this.cartonTypeService = cartonTypeService;
 
             this.Get("/products/reports/carton-details", _ => this.GetCartonDetails());
+            this.Get("/products/maint/carton-types/{name}", parameters => this.GetCartonType(parameters.name));
+        }
+
+        private object GetCartonType(string name)
+        {
+            var result = this.cartonTypeService.GetCartonType(name);
+            return this.Negotiate
+                .WithModel(result)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object GetCartonDetails()
