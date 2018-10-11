@@ -2,12 +2,22 @@
 {
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Resources;
 
     public class CartonTypeResourceBuilder : IResourceBuilder<CartonType>
     {
-        public CartonType Build(CartonType cartonType)
+        public CartonTypeResource Build(CartonType cartonType)
         {
-            return cartonType;
+            return new CartonTypeResource
+                       {
+                           Description = cartonType.Description,
+                           Name = cartonType.Name,
+                           Depth = cartonType.Depth,
+                           Width = cartonType.Width,
+                           Height = cartonType.Height,
+                           NumberOfLargeLabels = cartonType.NumberOfLargeLabels,
+                           NumberOfSmallLabels = cartonType.NumberOfSmallLabels
+                       };
         }
 
         object IResourceBuilder<CartonType>.Build(CartonType cartonType) => this.Build(cartonType);

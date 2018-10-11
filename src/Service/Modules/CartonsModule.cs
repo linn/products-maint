@@ -1,9 +1,11 @@
 ﻿namespace Linn.Products.Service.Modules
 {
     using Linn.Products.Facade.Services;
+    using Linn.Products.Resources;
     using Linn.Products.Service.Models;
 
     using Nancy;
+    using Nancy.ModelBinding;
 
     public sealed class CartonsModule : NancyModule
     {
@@ -18,6 +20,18 @@
 
             this.Get("/products/reports/carton-details", _ => this.GetCartonDetails());
             this.Get("/products/maint/carton-types/{name}", parameters => this.GetCartonType(parameters.name));
+            this.Post("/products/maint/carton-types", _ => this.AddCartonType());
+        }
+
+        private object AddCartonType()
+        {
+            var resource = this.Bind<CartonTypeResource>();
+
+            var cartonResult = this.cartonTypeService.AddCartonType(resource);
+            return this.Negotiate
+                .WithModel(cartonResult)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object GetCartonType(string name)

@@ -13,36 +13,41 @@
 
     using NUnit.Framework;
 
-    public class WhenGettingCartonType : ContextBase
+    public class WhenAddingCartonType : ContextBase
     {
+        private CartonTypeResource requestResource;
+
         [SetUp]
         public void SetUp()
         {
+            this.requestResource = new CartonTypeResource { Name = "c1" };
             var cartonType = new CartonType { Name = "c1" };
-            this.CartonTypeService.GetCartonType("c1")
-                .Returns(new SuccessResult<CartonType>(cartonType)
+            this.CartonTypeService.AddCartonType(Arg.Any<CartonTypeResource>())
+                .Returns(new CreatedResult<CartonType>(cartonType)
                              {
                                  Data = cartonType
                              });
 
-            this.Response = this.Browser.Get(
-                "/products/maint/carton-types/c1",
+            this.Response = this.Browser.Post(
+                "/products/maint/carton-types",
                 with =>
                 {
                     with.Header("Accept", "application/json");
+                    with.Header("Content-Type", "application/json");
+                    with.JsonBody(this.requestResource);
                 }).Result;
         }
 
         [Test]
-        public void ShouldReturnOk()
+        public void ShouldReturnCreated()
         {
-            this.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            this.Response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
 
         [Test]
         public void ShouldCallService()
         {
-            this.CartonTypeService.Received().GetCartonType("c1");
+            this.CartonTypeService.Received().AddCartonType(Arg.Is<CartonTypeResource>(r => r.Name == this.requestResource.Name));
         }
 
         [Test]

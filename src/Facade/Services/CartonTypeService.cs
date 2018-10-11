@@ -3,6 +3,7 @@
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Repositories;
+    using Linn.Products.Resources;
 
     public class CartonTypeService : ICartonTypeService
     {
@@ -22,6 +23,23 @@
             }
 
             return new SuccessResult<CartonType>(cartonType);
+        }
+
+        public IResult<CartonType> AddCartonType(CartonTypeResource resource)
+        {
+            var cartonType = new CartonType
+                                 {
+                                     Name = resource.Name,
+                                     Description = resource.Description,
+                                     Depth = resource.Depth,
+                                     Width = resource.Width,
+                                     Height = resource.Height,
+                                     NumberOfLargeLabels = resource.NumberOfLargeLabels,
+                                     NumberOfSmallLabels = resource.NumberOfSmallLabels
+                                 };
+            this.cartonTypeRepository.Add(cartonType);
+
+            return new CreatedResult<CartonType>(cartonType);
         }
     }
 }
