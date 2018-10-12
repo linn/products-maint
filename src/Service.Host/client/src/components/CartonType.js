@@ -56,6 +56,18 @@ class CartonType extends Component {
         this.setState({ cartonType: { ...this.state.cartonType, description: e.target.value } });
     }
 
+    handleWidthChange(e) {
+        this.setState({ cartonType: { ...this.state.cartonType, width: e.target.value } });
+    }
+
+    handleDepthChange(e) {
+        this.setState({ cartonType: { ...this.state.cartonType, depth: e.target.value } });
+    }
+
+    handleHeightChange(e) {
+        this.setState({ cartonType: { ...this.state.cartonType, height: e.target.value } });
+    }
+
     render() {
         const { cartonType, loading } = this.props;
 
@@ -80,7 +92,7 @@ class CartonType extends Component {
                                 <div className="pull-right">Name</div>
                             </Col>
                             <Col sm={3}>
-                                {this.editing() || this.creating()
+                                {this.creating()
                                     ? <div><FormControl type="text" onChange={(e) => this.handleNameChange(e)} placeholder="Name" defaultValue={cartonType.name}></FormControl></div>
                                     : cartonType.name
                                 }
@@ -100,7 +112,45 @@ class CartonType extends Component {
                             </Col>
                         </FormGroup>
                     </Row>
-                   
+                    <Row>
+                        <FormGroup controlId="width" className="container">
+                            <Col componentClass={ControlLabel} sm={3}>
+                                <div className="pull-right">Width</div>
+                            </Col>
+                            <Col sm={6}>
+                                {this.editing() || this.creating()
+                                    ? <FormControl type="number" placeholder="Width" onChange={(e) => this.handleWidthChange(e)} defaultValue={cartonType.width}></FormControl>
+                                    : cartonType.width
+                                }
+                            </Col>
+                        </FormGroup>
+                    </Row>
+                    <Row>
+                        <FormGroup controlId="depth" className="container">
+                            <Col componentClass={ControlLabel} sm={3}>
+                                <div className="pull-right">Depth</div>
+                            </Col>
+                            <Col sm={6}>
+                                {this.editing() || this.creating()
+                                    ? <FormControl type="number" placeholder="Description" onChange={(e) => this.handleDepthChange(e)} defaultValue={cartonType.depth}></FormControl>
+                                    : cartonType.depth
+                                }
+                            </Col>
+                        </FormGroup>
+                    </Row>
+                    <Row>
+                        <FormGroup controlId="height" className="container">
+                            <Col componentClass={ControlLabel} sm={3}>
+                                <div className="pull-right">Height</div>
+                            </Col>
+                            <Col sm={6}>
+                                {this.editing() || this.creating()
+                                    ? <FormControl type="number" placeholder="Description" onChange={(e) => this.handleHeightChange(e)} defaultValue={cartonType.height}></FormControl>
+                                    : cartonType.height
+                                }
+                            </Col>
+                        </FormGroup>
+                    </Row>
                     <Row>
                         <Col sm={3} />
                         <Col sm={4}>
