@@ -8,6 +8,7 @@ const defaultState = {
 const cartonTypes = (state = defaultState, action) => {
     switch (action.type) {
         case actionTypes.REQUEST_ADD_CARTON_TYPE:
+        case actionTypes.REQUEST_UPDATE_CARTON_TYPE:
         case actionTypes.REQUEST_CARTON_TYPE:
         return {
             ...state,
@@ -15,6 +16,7 @@ const cartonTypes = (state = defaultState, action) => {
         }
 
         case actionTypes.RECEIVE_CARTON_TYPE:
+        case actionTypes.RECEIVE_NEW_CARTON_TYPE:
         return {
             ...state,
             loading: false,

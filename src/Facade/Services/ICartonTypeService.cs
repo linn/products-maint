@@ -9,5 +9,7 @@
         IResult<CartonType> GetCartonType(string name);
 
         IResult<CartonType> AddCartonType(CartonTypeResource resource);
+
+        IResult<CartonType> UpdateCartonType(string name, CartonTypeUpdateResource resource);
     }
 }

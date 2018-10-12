@@ -1,7 +1,7 @@
 ﻿import { connect } from 'react-redux';
 import CartonType from '../components/CartonType';
 import initialiseOnMount from './common/initialiseOnMount';
-import { fetchCartonType } from '../actions/cartonTypes';
+import { fetchCartonType, updateCartonType } from '../actions/cartonTypes';
 
 const mapStateToProps = ({ cartonType }, { match }) => ({
     cartonType: cartonType.item,
@@ -14,7 +14,8 @@ const initialise = ({ cartonTypeId }) => dispatch => {
 };
 
 const mapDispatchToProps = {
-    initialise
+    initialise,
+    updateCartonType
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(CartonType));

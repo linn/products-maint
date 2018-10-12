@@ -21,7 +21,7 @@ class CartonType extends Component {
     }
 
     handleEditClick() {
-        this.setState({ cartonType: {}, editStatus: 'edit' });
+        this.setState({ cartonType: this.props.cartonType, editStatus: 'edit' });
     }
 
     handleCancelClick() {
@@ -34,11 +34,12 @@ class CartonType extends Component {
     }
 
     handleSaveClick() {
+        const { cartonTypeId, addCartonType, updateCartonType } = this.props;
         if (this.creating()) {
-            this.setState({ editStatus: 'view' });
-            this.props.addCartonType(this.state.cartonType);
+            addCartonType(this.state.cartonType);
         } else if (this.editing()) {
             this.setState({ editStatus: 'view' });
+            updateCartonType(cartonTypeId, this.state.cartonType);
         }
     }
 

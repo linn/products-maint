@@ -1,21 +1,7 @@
 ﻿namespace Linn.Products.Resources
 {
-    using Linn.Common.Resources;
-
-    public class CartonTypeResource : HypermediaResource
+    public class CartonTypeResource : CartonTypeUpdateResource
     {
         public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        public decimal Height { get; set; }
-
-        public decimal Width { get; set; }
-
-        public decimal Depth { get; set; }
-
-        public int NumberOfSmallLabels { get; set; }
-
-        public int NumberOfLargeLabels { get; set; }
     }
 }

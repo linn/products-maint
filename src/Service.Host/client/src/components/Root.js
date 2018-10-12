@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Route, Redirect } from 'react-router';
+import { Route, Redirect, Switch } from 'react-router';
 import { OidcProvider } from 'redux-oidc';
 import { ConnectedRouter as Router } from 'react-router-redux';
 import history from '../history';
@@ -41,9 +41,11 @@ class Root extends Component {
                             <Route exact path="/products/reports/carton-details" component={CartonDetailsOptions} />
                             <Route exact path="/products/reports/carton-details/report" component={CartonDetails} />
 
+                            <Switch>
                             <Route exact path="/products/maint/carton-types/create" component={CreateCartonType} />
                             <Route exact path="/products/maint/carton-types/:cartonTypeId" component={CartonType} />
                             <Route exact path="/products/maint/carton-types" component={CartonDetails} />
+                            </Switch>
 
                             <Route exact path="/products/reports/product-ranges" component={ProductRangesOptions} />
                             <Route exact path="/products/reports/product-ranges/report" component={ProductRanges} />

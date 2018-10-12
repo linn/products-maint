@@ -20,7 +20,19 @@
 
             this.Get("/products/reports/carton-details", _ => this.GetCartonDetails());
             this.Get("/products/maint/carton-types/{name}", parameters => this.GetCartonType(parameters.name));
+            this.Put("/products/maint/carton-types/{name}", parameters => this.UpdateCartonType(parameters.name));
             this.Post("/products/maint/carton-types", _ => this.AddCartonType());
+        }
+
+        private object UpdateCartonType(string name)
+        {
+            var resource = this.Bind<CartonTypeUpdateResource>();
+
+            var cartonResult = this.cartonTypeService.UpdateCartonType(name, resource);
+            return this.Negotiate
+                .WithModel(cartonResult)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object AddCartonType()

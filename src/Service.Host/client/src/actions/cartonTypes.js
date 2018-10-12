@@ -27,7 +27,7 @@ export const fetchCartonType = cartonTypeId => ({
     }
 });
 
-export const addCartonType = (carton) => ({
+export const addCartonType = carton => ({
     [CALL_API]: {
         endpoint: `${config.appRoot}/products/maint/carton-types`,
         method: 'POST',
@@ -40,7 +40,34 @@ export const addCartonType = (carton) => ({
         types: [
             {
                 type: actionTypes.REQUEST_ADD_CARTON_TYPE,
-                payload: { carton }
+                payload: {}
+            },
+            {
+                type: actionTypes.RECEIVE_NEW_CARTON_TYPE,
+                payload: async (action, state, res) => ({ data: await res.json() })
+            },
+            {
+                type: actionTypes.FETCH_ERROR,
+                payload: (action, state, res) => res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
+            }
+        ]
+    }
+});
+
+export const updateCartonType = (cartonTypeId, carton) => ({
+    [CALL_API]: {
+        endpoint: encodeURI(`${config.appRoot}/products/maint/carton-types/${cartonTypeId}`),
+        method: 'PUT',
+        options: { requiresAuth: true },
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(carton),
+        types: [
+            {
+                type: actionTypes.REQUEST_UPDATE_CARTON_TYPE,
+                payload: {}
             },
             {
                 type: actionTypes.RECEIVE_CARTON_TYPE,
@@ -53,4 +80,3 @@ export const addCartonType = (carton) => ({
         ]
     }
 });
-
