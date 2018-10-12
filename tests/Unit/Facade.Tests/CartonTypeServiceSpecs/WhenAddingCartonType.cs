@@ -47,6 +47,8 @@
             dataResult.Height.Should().Be(this.resource.Height);
             dataResult.Depth.Should().Be(this.resource.Depth);
             dataResult.Width.Should().Be(this.resource.Width);
+            dataResult.NumberOfLargeLabels.Should().Be(1);
+            dataResult.NumberOfSmallLabels.Should().Be(0);
         }
     }
 }

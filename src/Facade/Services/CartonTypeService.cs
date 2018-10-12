@@ -34,8 +34,8 @@
                                      Depth = resource.Depth,
                                      Width = resource.Width,
                                      Height = resource.Height,
-                                     NumberOfLargeLabels = resource.NumberOfLargeLabels,
-                                     NumberOfSmallLabels = resource.NumberOfSmallLabels
+                                     NumberOfLargeLabels = 1,
+                                     NumberOfSmallLabels = 0
                                  };
             this.cartonTypeRepository.Add(cartonType);
 
@@ -54,8 +54,6 @@
             cartonType.Depth = resource.Depth;
             cartonType.Width = resource.Width;
             cartonType.Height = resource.Height;
-            cartonType.NumberOfLargeLabels = resource.NumberOfLargeLabels;
-            cartonType.NumberOfSmallLabels = resource.NumberOfSmallLabels;
 
             return new SuccessResult<CartonType>(cartonType);
         }

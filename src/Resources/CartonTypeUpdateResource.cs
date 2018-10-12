@@ -11,9 +11,5 @@
         public decimal Width { get; set; }
 
         public decimal Depth { get; set; }
-
-        public int NumberOfSmallLabels { get; set; }
-
-        public int NumberOfLargeLabels { get; set; }
     }
 }
