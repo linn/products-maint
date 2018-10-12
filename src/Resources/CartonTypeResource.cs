@@ -1,6 +1,8 @@
 ﻿namespace Linn.Products.Resources
 {
-    public class CartonTypeResource
+    using Linn.Common.Resources;
+
+    public class CartonTypeResource : HypermediaResource
     {
         public string Name { get; set; }
 

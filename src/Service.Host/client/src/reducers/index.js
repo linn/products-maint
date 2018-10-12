@@ -5,6 +5,7 @@ import eanCodesReport from './eanCodesReport';
 import cartonDetailsReport from './cartonDetailsReport';
 import productRangesReport from './productRangesReport';
 import salesProductsByProductRangeReport from './salesProductsByProductRangeReport';
+import cartonType from './cartonType';
 
 const rootReducer = combineReducers({
     oidc,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     cartonDetailsReport,
     router,
     productRangesReport,
-    salesProductsByProductRangeReport
+    salesProductsByProductRangeReport,
+    cartonType
 });
 
 export default rootReducer;
