@@ -91,7 +91,7 @@ class CartonType extends Component {
                             <Col componentClass={ControlLabel} sm={3}>
                                 <div className="pull-right">Name</div>
                             </Col>
-                            <Col sm={3}>
+                            <Col sm={3} id="carton-type-name">
                                 {this.creating()
                                     ? <div><FormControl type="text" onChange={(e) => this.handleNameChange(e)} placeholder="Name" defaultValue={cartonType.name}></FormControl></div>
                                     : cartonType.name
@@ -155,8 +155,8 @@ class CartonType extends Component {
                         <Col sm={3} />
                         <Col sm={4}>
                             {this.editing() || this.creating()
-                                ? <div><Button bsStyle="link" onClick={() => this.handleCancelClick()}>Cancel</Button> <Button className="pull-right" bsStyle="primary" type="submit" onClick={() => this.handleSaveClick()}>Save</Button></div>
-                                : <div><Button bsStyle="link" onClick={() => this.handleBackClick()}>Back</Button> <Button className="pull-right" onClick={() => this.handleEditClick()}>Edit</Button></div>}
+                                ? <div><Button id="cancel-button" bsStyle="link" onClick={() => this.handleCancelClick()}>Cancel</Button> <Button id="save-button" className="pull-right" bsStyle="primary" type="submit" onClick={() => this.handleSaveClick()}>Save</Button></div>
+                                : <div><Button id="back-button" bsStyle="link" onClick={() => this.handleBackClick()}>Back</Button> <Button id="edit-button" className="pull-right" onClick={() => this.handleEditClick()}>Edit</Button></div>}
                         </Col>
                     </Row>
                 </Grid>
