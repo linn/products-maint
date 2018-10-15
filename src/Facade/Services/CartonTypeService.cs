@@ -1,7 +1,10 @@
 ﻿namespace Linn.Products.Facade.Services
 {
+    using System;
+
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.Exceptions;
     using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Resources;
 
@@ -27,12 +30,22 @@
 
         public IResult<CartonType> AddCartonType(CartonTypeResource resource)
         {
-            var cartonType = new CartonType(resource.Name, resource.Width, resource.Height, resource.Depth)
-                                 {
-                                     Description = resource.Description,
-                                     NumberOfLargeLabels = 1,
-                                     NumberOfSmallLabels = 0
-                                 };
+            CartonType cartonType;
+
+            try
+            {
+                cartonType = new CartonType(resource.Name, resource.Width, resource.Height, resource.Depth)
+                                     {
+                                         Description = resource.Description,
+                                         NumberOfLargeLabels = 1,
+                                         NumberOfSmallLabels = 0
+                                     };
+            }
+            catch (IncompleteDataException exception)
+            {
+                return new BadRequestResult<CartonType>(exception.Message);
+            }
+
             this.cartonTypeRepository.Add(cartonType);
 
             return new CreatedResult<CartonType>(cartonType);

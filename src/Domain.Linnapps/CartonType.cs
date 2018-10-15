@@ -8,12 +8,12 @@
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new DomainException("A carton type must have a name");
+                throw new IncompleteDataException("A carton type must have a name");
             }
 
             if (width <= 0 || height <= 0 || depth <= 0)
             {
-                throw new DomainException("A carton type must have valid dimensions");
+                throw new IncompleteDataException("A carton type must have valid dimensions");
             }
 
             this.Name = name;
