@@ -6,4 +6,8 @@
     <RootNamespace>Linn.Products.Persistence.Linnapps</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Linnapps\Domain.Linnapps.csproj" />
+  </ItemGroup>
+
 </Project>

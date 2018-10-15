@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -18,7 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Domain.Linnapps\Domain.Linnapps.csproj" />
     <ProjectReference Include="..\..\..\src\Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\Facade\Facade.csproj" />
     <ProjectReference Include="..\..\..\src\Resources\Resources.csproj" />
     <ProjectReference Include="..\..\..\src\Service\Service.csproj" />
   </ItemGroup>

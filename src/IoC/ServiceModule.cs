@@ -24,6 +24,7 @@
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
             builder.RegisterType<CartonReportsService>().As<ICartonReportsService>();
             builder.RegisterType<ProductsReportsService>().As<IProductsReportsService>();
+            builder.RegisterType<CartonTypeService>().As<ICartonTypeService>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();

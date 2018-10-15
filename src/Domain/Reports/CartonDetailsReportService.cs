@@ -35,6 +35,8 @@
                 results.SetGridValue(row.RowIndex, 3, (decimal)carton.Depth);
             }
 
+            results.RowDrillDownTemplates.Add(new DrillDownModel("carton", "/products/maint/carton-types/{rowId}"));
+
             return results;
         }
     }
