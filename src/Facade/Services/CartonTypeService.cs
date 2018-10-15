@@ -27,13 +27,9 @@
 
         public IResult<CartonType> AddCartonType(CartonTypeResource resource)
         {
-            var cartonType = new CartonType
+            var cartonType = new CartonType(resource.Name, resource.Width, resource.Height, resource.Depth)
                                  {
-                                     Name = resource.Name,
                                      Description = resource.Description,
-                                     Depth = resource.Depth,
-                                     Width = resource.Width,
-                                     Height = resource.Height,
                                      NumberOfLargeLabels = 1,
                                      NumberOfSmallLabels = 0
                                  };

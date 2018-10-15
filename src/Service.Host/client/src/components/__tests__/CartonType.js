@@ -80,10 +80,10 @@ describe('<CartonType />', () => {
 
         test('Should set fields', () => {
             const name = wrapper.find(FormControl).at(0),
-                  description = wrapper.find(FormControl).at(1),
-                  width = wrapper.find(FormControl).at(2),
-                  depth = wrapper.find(FormControl).at(3),
-                  height = wrapper.find(FormControl).at(4);
+                description = wrapper.find(FormControl).at(1),
+                width = wrapper.find(FormControl).at(2),
+                height = wrapper.find(FormControl).at(3),
+                depth = wrapper.find(FormControl).at(4);
 
             name.simulate('change', { target: { value: 'N' } });
             description.simulate('change', { target: { value: 'D' } });

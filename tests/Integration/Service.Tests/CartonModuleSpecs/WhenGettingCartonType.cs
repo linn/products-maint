@@ -18,7 +18,7 @@
         [SetUp]
         public void SetUp()
         {
-            var cartonType = new CartonType { Name = "c1" };
+            var cartonType = new CartonType("c1", 1, 2, 3);
             this.CartonTypeService.GetCartonType("c1")
                 .Returns(new SuccessResult<CartonType>(cartonType)
                              {

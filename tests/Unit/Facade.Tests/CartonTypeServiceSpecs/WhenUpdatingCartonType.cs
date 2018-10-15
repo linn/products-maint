@@ -33,7 +33,7 @@
                                     NumberOfLargeLabels = 4
                                 };
             this.CartonTypeRepository.GetCarton(this.name)
-                .Returns(new CartonType { Name = this.name });
+                .Returns(new CartonType(this.name, 1, 1, 1));
             this.result = this.Sut.UpdateCartonType(this.name, this.resource);
         }
 

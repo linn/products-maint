@@ -21,7 +21,7 @@
         public void SetUp()
         {
             this.requestResource = new CartonTypeUpdateResource { Description = "d1" };
-            var cartonType = new CartonType { Name = "c1" };
+            var cartonType = new CartonType("c1", 1, 2, 3);
             this.CartonTypeService.UpdateCartonType("c1", Arg.Any<CartonTypeUpdateResource>())
                 .Returns(new SuccessResult<CartonType>(cartonType)
                              {

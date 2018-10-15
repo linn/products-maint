@@ -20,7 +20,7 @@
         {
             this.name = "cartonName";
             this.CartonTypeRepository.GetCarton(this.name)
-                .Returns(new CartonType { Name = this.name });
+                .Returns(new CartonType(this.name, 1, 2, 3));
             this.result = this.Sut.GetCartonType(this.name);
         }
 

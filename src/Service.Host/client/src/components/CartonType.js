@@ -126,19 +126,6 @@ class CartonType extends Component {
                         </FormGroup>
                     </Row>
                     <Row>
-                        <FormGroup controlId="depth" className="container">
-                            <Col componentClass={ControlLabel} sm={3}>
-                                <div className="pull-right">Depth</div>
-                            </Col>
-                            <Col sm={6}>
-                                {this.editing() || this.creating()
-                                    ? <FormControl type="number" placeholder="Description" onChange={(e) => this.handleDepthChange(e)} defaultValue={cartonType.depth}></FormControl>
-                                    : cartonType.depth
-                                }
-                            </Col>
-                        </FormGroup>
-                    </Row>
-                    <Row>
                         <FormGroup controlId="height" className="container">
                             <Col componentClass={ControlLabel} sm={3}>
                                 <div className="pull-right">Height</div>
@@ -147,6 +134,19 @@ class CartonType extends Component {
                                 {this.editing() || this.creating()
                                     ? <FormControl type="number" placeholder="Description" onChange={(e) => this.handleHeightChange(e)} defaultValue={cartonType.height}></FormControl>
                                     : cartonType.height
+                                }
+                            </Col>
+                        </FormGroup>
+                    </Row>
+                    <Row>
+                        <FormGroup controlId="depth" className="container">
+                            <Col componentClass={ControlLabel} sm={3}>
+                                <div className="pull-right">Depth</div>
+                            </Col>
+                            <Col sm={6}>
+                                {this.editing() || this.creating()
+                                    ? <FormControl type="number" placeholder="Description" onChange={(e) => this.handleDepthChange(e)} defaultValue={cartonType.depth}></FormControl>
+                                    : cartonType.depth
                                 }
                             </Col>
                         </FormGroup>
