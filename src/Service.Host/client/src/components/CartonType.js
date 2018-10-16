@@ -75,7 +75,7 @@ class CartonType extends Component {
     }
 
     render() {
-        const { cartonType, loading, fetchError } = this.props;
+        const { cartonType, loading, errorMessage } = this.props;
 
         if (loading || !cartonType) {
             return <Loading />;
@@ -168,11 +168,11 @@ class CartonType extends Component {
                     <Row>
                         <Col sm={3} />
                         <Col sm={4}>
-                            {fetchError ? fetchError.errors ?
+                            {errorMessage ?
                                 <Alert style={{marginTop: "15px"}}  bsStyle="warning">
-                                    <strong>{fetchError.errors[0]}</strong>
+                                    <strong>{errorMessage}</strong>
                                 </Alert>
-                                : '' : ''}
+                                : '' }
                         </Col>
                     </Row>
                 </Grid>

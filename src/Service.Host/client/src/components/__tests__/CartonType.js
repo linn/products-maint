@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import { shallow, mount } from 'enzyme';
 import CartonType from '../CartonType';
-import { Button, FormControl } from 'react-bootstrap';
+import { Button, FormControl, Alert } from 'react-bootstrap';
 
 describe('<CartonType />', () => {
     describe('View Carton', () => {
@@ -26,6 +26,17 @@ describe('<CartonType />', () => {
             button.simulate('click');
 
             expect(wrapper.state('editStatus')).toBe('edit');
+        });
+
+        describe('with errors', () => {
+            wrapper = shallow(<CartonType cartonType={cartonType} updateCartonType={updateCartonType} addCartonType={addCartonType} errorMessage='We have an error' />);
+
+            test('Should show Alert', () => {
+                const alert = wrapper.find(Alert);
+
+                expect(alert).toHaveLength(1);
+                expect(alert.html()).toContain('We have an error');
+            });
         });
     });
 
