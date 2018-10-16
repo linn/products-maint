@@ -4,11 +4,7 @@
         return null;
     }
 
-    if (cartonType.item) {
-        return cartonType.item;
-    }
-
-    return null;
+    return cartonType.item ? cartonType.item : null;
 }
 
 export const getCartonLoading = (state) => {
@@ -26,9 +22,5 @@ export const getCartonEditStatus = (state) => {
         return null;
     }
 
-    if (!cartonType.editStatus) {
-        return 'view';
-    }
-
-    return cartonType.editStatus;
+    return cartonType.editStatus ? cartonType.editStatus : 'view';
 }
