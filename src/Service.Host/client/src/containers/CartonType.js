@@ -3,12 +3,13 @@ import CartonType from '../components/CartonType';
 import initialiseOnMount from './common/initialiseOnMount';
 import { fetchCartonType, updateCartonType, resetCartonType } from '../actions/cartonTypes';
 import { getSingleErrorMessage } from '../selectors/fetchErrorSelectors';
+import { getCartonType, getCartonLoading, getCartonEditStatus } from '../selectors/cartonTypeSelectors';
 
 const mapStateToProps = (state, { match }) => ({
-    cartonType: state.cartonType.item,
+    cartonType: getCartonType(state),
     cartonTypeId: match.params.cartonTypeId,
-    editStatus: state.cartonType.editStatus ? state.cartonType.editStatus : 'view',
-    loading: state.cartonType.loading,
+    editStatus: getCartonEditStatus(state), 
+    loading: getCartonLoading(state),
     errorMessage: getSingleErrorMessage(state)
 });
 
