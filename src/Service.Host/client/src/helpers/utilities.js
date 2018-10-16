@@ -11,3 +11,8 @@ export const getHref = (itemWithLinks, rel) => {
 
     return null;
 }
+
+export const makeNumber = (str, defaultValue = 0) => {
+    var result = Number(str);
+    return Number.isNaN(result) ? defaultValue : result;
+}

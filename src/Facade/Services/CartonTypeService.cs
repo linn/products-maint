@@ -59,6 +59,11 @@
                 return new NotFoundResult<CartonType>();
             }
 
+            if (resource.Width <= 0 || resource.Height <= 0 || resource.Depth <= 0)
+            {
+                return new BadRequestResult<CartonType>("Valid dimensions must be supplied when updating carton type");
+            }
+
             cartonType.Description = resource.Description;
             cartonType.Depth = resource.Depth;
             cartonType.Width = resource.Width;

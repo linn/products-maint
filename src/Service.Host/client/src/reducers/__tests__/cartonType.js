@@ -15,7 +15,30 @@ describe('carton type reducer', () => {
         };
 
         const expected = {
-            loading: true
+            loading: true,
+            editStatus: 'view'
+        };
+
+        deepFreeze(state);
+
+        expect(cartonType(state, action)).toEqual(expected);
+    });
+
+    test('when resetting carton type', () => {
+        const state = {
+            loading: false, 
+            item: { name: 'name'}
+        };
+
+        const action = {
+            type: actionTypes.RESET_CARTON_TYPE,
+            payload: {}
+        };
+
+        const expected = {
+            loading: false,
+            item: { name: 'name' },
+            editStatus: 'view'
         };
 
         deepFreeze(state);
@@ -34,7 +57,8 @@ describe('carton type reducer', () => {
         };
 
         const expected = {
-            loading: true
+            loading: false,
+            editStatus: 'edit'
         };
 
         deepFreeze(state);
@@ -53,7 +77,8 @@ describe('carton type reducer', () => {
         };
 
         const expected = {
-            loading: true
+            loading: true,
+            editStatus: 'create'
         };
 
         deepFreeze(state);
@@ -74,7 +99,8 @@ describe('carton type reducer', () => {
 
         const expected = {
             loading: false,
-            item: { name: 'carton 1' }
+            item: { name: 'carton 1' },
+            editStatus: 'view'
         };
 
         deepFreeze(state);
@@ -95,7 +121,8 @@ describe('carton type reducer', () => {
 
         const expected = {
             loading: false,
-            item: { name: 'carton 1' }
+            item: { name: 'carton 1' },
+            editStatus: 'view'
         };
 
         deepFreeze(state);

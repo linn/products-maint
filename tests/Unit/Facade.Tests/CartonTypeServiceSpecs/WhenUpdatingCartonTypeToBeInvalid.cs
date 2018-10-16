@@ -10,7 +10,7 @@
 
     using NUnit.Framework;
 
-    public class WhenUpdatingCartonType : ContextBase
+    public class WhenUpdatingCartonTypeToBeInvalid : ContextBase
     {
         private IResult<CartonType> result;
 
@@ -24,10 +24,7 @@
             this.name = "c1";
             this.resource = new CartonTypeUpdateResource
                                 {
-                                    Description = "new desc",
-                                    Height = 4m,
-                                    Depth = 4m,
-                                    Width = 4m,
+                                    Description = "new desc"
                                 };
             this.CartonTypeRepository.GetCarton(this.name)
                 .Returns(new CartonType(this.name, 1, 1, 1));
@@ -41,15 +38,9 @@
         }
 
         [Test]
-        public void ShouldReturnSuccess()
+        public void ShouldReturnBadRequest()
         {
-            this.result.Should().BeOfType<SuccessResult<CartonType>>();
-            var dataResult = ((SuccessResult<CartonType>)this.result).Data;
-            dataResult.Name.Should().Be(this.name);
-            dataResult.Description.Should().Be(this.resource.Description);
-            dataResult.Height.Should().Be(this.resource.Height);
-            dataResult.Width.Should().Be(this.resource.Width);
-            dataResult.Depth.Should().Be(this.resource.Depth);
+            this.result.Should().BeOfType<BadRequestResult<CartonType>>();
         }
     }
 }

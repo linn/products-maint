@@ -1,12 +1,15 @@
 ﻿import { connect } from 'react-redux';
 import CartonType from '../components/CartonType';
 import initialiseOnMount from './common/initialiseOnMount';
-import { fetchCartonType, updateCartonType } from '../actions/cartonTypes';
+import { fetchCartonType, updateCartonType, resetCartonType } from '../actions/cartonTypes';
+import { getSingleErrorMessage } from '../selectors/fetchErrorSelectors';
 
-const mapStateToProps = ({ cartonType }, { match }) => ({
-    cartonType: cartonType.item,
+const mapStateToProps = (state, { match }) => ({
+    cartonType: state.cartonType.item,
     cartonTypeId: match.params.cartonTypeId,
-    loading: cartonType.loading
+    editStatus: state.cartonType.editStatus ? state.cartonType.editStatus : 'view',
+    loading: state.cartonType.loading,
+    errorMessage: getSingleErrorMessage(state)
 });
 
 const initialise = ({ cartonTypeId }) => dispatch => {
@@ -15,7 +18,8 @@ const initialise = ({ cartonTypeId }) => dispatch => {
 
 const mapDispatchToProps = {
     initialise,
-    updateCartonType
+    updateCartonType,
+    resetCartonType
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(CartonType));

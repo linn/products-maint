@@ -6,6 +6,7 @@ import cartonDetailsReport from './cartonDetailsReport';
 import productRangesReport from './productRangesReport';
 import salesProductsByProductRangeReport from './salesProductsByProductRangeReport';
 import cartonType from './cartonType';
+import fetchError from './fetchError';
 
 const rootReducer = combineReducers({
     oidc,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     router,
     productRangesReport,
     salesProductsByProductRangeReport,
-    cartonType
+    cartonType,
+    fetchError
 });
 
 export default rootReducer;

@@ -1,15 +1,18 @@
 ﻿import React from 'react';
 import { connect } from 'react-redux';
-import { addCartonType } from '../actions/cartonTypes';
+import { addCartonType, resetCartonType } from '../actions/cartonTypes';
 import CartonType from '../components/CartonType';
+import { getSingleErrorMessage } from '../selectors/fetchErrorSelectors';
 
 const mapStateToProps = state => ({
     cartonType: {},
-    editStatus: 'create'
+    editStatus: 'create',
+    errorMessage: getSingleErrorMessage(state)
 });
 
 const mapDispatchToProps = {
-    addCartonType
+    addCartonType,
+    resetCartonType
 }
 
 export default connect(
