@@ -48,7 +48,7 @@ export const addCartonType = carton => ({
             },
             {
                 type: actionTypes.FETCH_ERROR,
-                payload: (action, state, res) => res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
+                payload: async (action, state, res) => res ? { error: { status: res.status, statusText: `Error - ${res.status} ${res.statusText}`, details: await res.json() } } : `Network request failed`
             }
         ]
     }
@@ -75,8 +75,13 @@ export const updateCartonType = (cartonTypeId, carton) => ({
             },
             {
                 type: actionTypes.FETCH_ERROR,
-                payload: (action, state, res) => res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
+                payload: async (action, state, res) => res ? { error: { status: res.status, statusText: `Error - ${res.status} ${res.statusText}`, details: await res.json() } } : `Network request failed`
             }
         ]
     }
+});
+
+export const resetCartonType = () => ({
+    type: actionTypes.RESET_CARTON_TYPE,
+    payload: {}
 });

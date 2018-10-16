@@ -1,11 +1,16 @@
 ﻿import React, { Component } from 'react';
-import { FormGroup, ControlLabel, FormControl, Grid, Row, Col, Button } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Grid, Row, Col, Button, Alert } from 'react-bootstrap';
 import { Loading } from './common/Loading';
+import { makeNumber } from '../helpers/utilities';
 
 class CartonType extends Component {
     constructor(props) {
         super(props);
         this.state = { cartonType: this.props.cartonType, editStatus: this.props.editStatus || 'view' };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ editStatus: nextProps.editStatus });
     }
 
     viewing() {
@@ -25,10 +30,12 @@ class CartonType extends Component {
     }
 
     handleCancelClick() {
-        const { cartonType, history } = this.props;
+        const { cartonType, history, resetCartonType } = this.props;
         if (this.creating()) {
+            resetCartonType();
             history.push('/products/reports/carton-details/report');
         } else if (this.editing()) {
+            resetCartonType();
             this.setState({ cartonType, editStatus: 'view' });
         }
     }
@@ -38,7 +45,6 @@ class CartonType extends Component {
         if (this.creating()) {
             addCartonType(this.state.cartonType);
         } else if (this.editing()) {
-            this.setState({ editStatus: 'view' });
             updateCartonType(cartonTypeId, this.state.cartonType);
         }
     }
@@ -57,19 +63,19 @@ class CartonType extends Component {
     }
 
     handleWidthChange(e) {
-        this.setState({ cartonType: { ...this.state.cartonType, width: e.target.value } });
+        this.setState({ cartonType: { ...this.state.cartonType, width: makeNumber(e.target.value) } });
     }
 
     handleDepthChange(e) {
-        this.setState({ cartonType: { ...this.state.cartonType, depth: e.target.value } });
+        this.setState({ cartonType: { ...this.state.cartonType, depth: makeNumber(e.target.value) } });
     }
 
     handleHeightChange(e) {
-        this.setState({ cartonType: { ...this.state.cartonType, height: e.target.value } });
+        this.setState({ cartonType: { ...this.state.cartonType, height: makeNumber(e.target.value) } });
     }
 
     render() {
-        const { cartonType, loading } = this.props;
+        const { cartonType, loading, fetchError } = this.props;
 
         if (loading || !cartonType) {
             return <Loading />;
@@ -157,6 +163,16 @@ class CartonType extends Component {
                             {this.editing() || this.creating()
                                 ? <div><Button id="cancel-button" bsStyle="link" onClick={() => this.handleCancelClick()}>Cancel</Button> <Button id="save-button" className="pull-right" bsStyle="primary" type="submit" onClick={() => this.handleSaveClick()}>Save</Button></div>
                                 : <div><Button id="back-button" bsStyle="link" onClick={() => this.handleBackClick()}>Back</Button> <Button id="edit-button" className="pull-right" onClick={() => this.handleEditClick()}>Edit</Button></div>}
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm={3} />
+                        <Col sm={4}>
+                            {fetchError ? fetchError.errors ?
+                                <Alert style={{marginTop: "15px"}}  bsStyle="warning">
+                                    <strong>{fetchError.errors[0]}</strong>
+                                </Alert>
+                                : '' : ''}
                         </Col>
                     </Row>
                 </Grid>

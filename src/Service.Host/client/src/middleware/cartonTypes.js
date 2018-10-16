@@ -6,9 +6,9 @@ export default () => next => action => {
     const result = next(action);
 
     switch (action.type) {
-        case actionTypes.RECEIVE_NEW_CARTON_TYPE:
-            history.push(getSelfHref(action.payload.data));
-            break;
+    case actionTypes.RECEIVE_NEW_CARTON_TYPE:
+        history.push(getSelfHref(action.payload.data));
+        break;
     }
 
     return result;
