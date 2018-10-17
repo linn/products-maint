@@ -6,7 +6,7 @@ import { Loading } from '../../common/Loading';
 import ExportButton from '../../common/ExportButton';
 
 describe('<EanCodes />', () => {
-    let reportData = {},
+    let reportData = { results: [] },
         config = { appRoot: '' },
         options = { cartonisedOnly: true, includePhasedOut: false },
         wrapper;

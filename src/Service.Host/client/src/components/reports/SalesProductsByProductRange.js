@@ -16,7 +16,7 @@ class SalesProductsByProductRange extends Component {
                             <h3>{optionsTitle}ales products for product range {options.productRangeName}</h3>
                         </Col>
                         <Col xs={2}>
-                            <Link style={{ display: 'block', 'margin-top': '20px' }} to={`/products/reports/product-ranges/report?includePhasedOut=${options.includePhasedOut}`}>Back To Ranges</Link>
+                            <Link style={{ display: 'block', marginTop: '20px' }} to={`/products/reports/product-ranges/report?includePhasedOut=${options.includePhasedOut}`}>Back To Ranges</Link>
                         </Col>
                     </Row>
                     <Row>
