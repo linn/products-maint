@@ -94,16 +94,16 @@ const Table = (
         </div>
     );
 
-Table.PropTypes = {
+Table.propTypes = {
     reportData: reportResultType,
     title: PropTypes.object,
-    showTitle: PropTypes.boolean,
-    showTotals: PropTypes.boolean,
+    showTitle: PropTypes.bool,
+    showTotals: PropTypes.bool,
     placeholderRows: PropTypes.number,
     placeholderColumns: PropTypes.number,
-    containsSubtotals: PropTypes.boolean,
-    fixColumnWidths: PropTypes.boolean,
-    showRowTitles: PropTypes.boolean
+    containsSubtotals: PropTypes.bool,
+    fixColumnWidths: PropTypes.bool,
+    showRowTitles: PropTypes.bool
 }
 
 export default Table;

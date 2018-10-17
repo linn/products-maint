@@ -5,7 +5,7 @@ import Table from '../../common/Table';
 import { Loading } from '../../common/Loading';
 
 describe('<CartonDetails />', () => {
-    let reportData = {},
+    let reportData = { results: [] },
         config = { appRoot: '' },
         wrapper;
 

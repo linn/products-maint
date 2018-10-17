@@ -7,16 +7,16 @@ const headersType = PropTypes.shape({
 });
 
 const resultDetailsType = PropTypes.shape({
-    rowTitle: PropTypes.string.isRequired,
+    rowTitle: PropTypes.object.isRequired,
     rowSortOrder: PropTypes.number,
-    values: PropTypes.arrayOf(PropTypes.number).isRequired
+    values: PropTypes.arrayOf(PropTypes.object).isRequired
 });
 
 export const reportResultType = PropTypes.shape({
-    title: PropTypes.object.isRequired,
-    resultType: PropTypes.string.isRequired,
-    reportValueType: PropTypes.string.isRequired,
-    headers: headersType.isRequired,
+    title: PropTypes.object,
+    resultType: PropTypes.string,
+    reportValueType: PropTypes.string,
+    headers: headersType,
     results: PropTypes.arrayOf(resultDetailsType).isRequired,
-    totals: resultDetailsType.isRequired
+    totals: resultDetailsType
 });
