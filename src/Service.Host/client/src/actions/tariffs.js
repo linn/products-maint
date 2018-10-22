@@ -38,13 +38,3 @@ const performTariffSearch = searchTerm => ({
         ]
     }
 });
-
-const setTariffSearchTermCreator = searchTerm => ({
-    type: actionTypes.SET_TARIFF_SEARCH_TERM,
-    payload: searchTerm
-});
-
-export const setTariffSearchTerm = searchTerm => dispatch => {
-    dispatch(setTariffSearchTermCreator(searchTerm));
-    dispatch(fetchTariffs());
-};

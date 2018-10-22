@@ -8,6 +8,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="client\src\components\__tests__\Tariffs\" />
     <Folder Include="Properties\" />
     <Compile Remove="client\build\**" />
     <Compile Remove="client\coverage\**" />
@@ -37,9 +38,7 @@
     <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="client\src\components\__tests__\" />
     <Folder Include="client\src\reducers\__tests__\" />
-    <Folder Include="client\src\selectors\__tests__\" />
     <Folder Include="coverage\" />
   </ItemGroup>
 </Project>

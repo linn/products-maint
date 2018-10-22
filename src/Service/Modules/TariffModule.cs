@@ -13,6 +13,7 @@
         {
             this.tariffService = tariffService;
             this.Get("/products/maint/tariffs", _ => this.GetTariffs());
+            this.Get("/products/maint/tariffs/{id:int}", parameters => this.GetTariff(parameters.id));
         }
 
         private object GetTariffs()
@@ -21,6 +22,12 @@
             var tariffs = this.tariffService.GetTariffs(resource.SearchTerm);
 
             return this.Negotiate.WithModel(tariffs);
+        }
+
+        private object GetTariff(int id)
+        {
+            var tariff = this.tariffService.GetTariff(id);
+            return this.Negotiate.WithModel(tariff);
         }
     }
 }

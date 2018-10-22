@@ -13,11 +13,3 @@ export const getTariffsLoading = ({ tariffs }) => {
 
     return tariffs.loading;
 }
-
-export const getTariffsSearchTerm = ({ tariffs }) => {
-    if (!tariffs) {
-        return null;
-    }
-
-    return tariffs.searchTerm;
-}

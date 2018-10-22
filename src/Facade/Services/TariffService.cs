@@ -19,5 +19,17 @@
             var tariffs = this.tariffRepository.SearchTariffs(searchTerm);
             return new SuccessResult<IEnumerable<Tariff>>(tariffs);
         }
+
+        public IResult<Tariff> GetTariff(int id)
+        {
+            var tariff = this.tariffRepository.GetTariffById(id);
+
+            if (tariff == null)
+            {
+                return new NotFoundResult<Tariff>($"no tariff with id {id}");
+            }
+
+            return new SuccessResult<Tariff>(tariff);
+        }
     }
 }

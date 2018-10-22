@@ -22,7 +22,7 @@ class Tariffs extends Component {
                         ? (
                             <ListGroup>
                                 {tariffs.map((tariff, i) => (
-                                    <ListGroupItem key={i} onClick={() => this.handleDiscountSchemeClick(tariff)}>{tariff.tariffCode} {tariff.description}</ListGroupItem>
+                                    <ListGroupItem key={i} onClick={() => this.handleTariffClick(tariff)}><strong>{tariff.tariffCode}</strong> {tariff.description}</ListGroupItem>
                                 ))}
                             </ListGroup>
                         )

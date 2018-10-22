@@ -22,12 +22,12 @@
             }
 
             return this.serviceDbContext.Tariffs.Where(t =>
-                t.TariffCode.Contains(searchTerm) || t.Description.Contains(searchTerm));
+                t.TariffCode.Contains(searchTerm) || t.Description.ToLower().Contains(searchTerm.ToLower()));
         }
 
         public Tariff GetTariffById(int id)
         {
-            throw new System.NotImplementedException();
+            return this.serviceDbContext.Tariffs.SingleOrDefault(t => t.Id == id);
         }
     }
 }

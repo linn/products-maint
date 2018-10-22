@@ -7,5 +7,7 @@
     public interface ITariffService
     {
         IResult<IEnumerable<Tariff>> GetTariffs(string searchTerm);
+
+        IResult<Tariff> GetTariff(int id);
     }
 }

@@ -2,7 +2,7 @@
 import Tariffs from '../components/Tariffs';
 import { withRouter } from 'react-router'
 import { fetchTariffs } from '../actions/tariffs';
-import { getTariffs, getTariffsLoading } from '../selectors/TariffsSelectors';
+import { getTariffs, getTariffsLoading } from '../selectors/tariffSelectors';
 import initialiseOnMount from './common/initialiseOnMount';
 
 const mapStateToProps = (state) => ({

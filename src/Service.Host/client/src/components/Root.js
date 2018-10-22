@@ -7,6 +7,7 @@ import history from '../history';
 import Navigation from './Navigation';
 import App from './App';
 import Callback from '../containers/Callback';
+import Tariff from '../containers/Tariff';
 import Tariffs from '../containers/Tariffs';
 import userManager from '../helpers/userManager';
 import EanCodesOptions from '../containers/reportOptions/EanCodesOptions';
@@ -30,6 +31,7 @@ class Root extends Component {
                             <Route exact path="/products/maint" component={App} />
                             <Route exact path="/products/maint/signin-oidc-client" component={Callback} />
                             <Route exact path="/products/maint/tariffs" component={Tariffs} />
+                            <Route exact path="/products/maint/tariffs/:id" component={Tariff} />
                             <Route exact path="/products/reports" component={App} />							
                             <Route exact path="/products/reports/sales-article-ean-codes" component={EanCodesOptions} />
                             <Route exact path="/products/reports/sales-article-ean-codes/report" component={EanCodes} />
