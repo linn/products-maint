@@ -4,6 +4,7 @@
     using Common.Facade;
     using Domain.Linnapps.Products;
     using Domain.Repositories;
+    using Resources;
 
     public class TariffService : ITariffService
     {
@@ -30,6 +31,29 @@
             }
 
             return new SuccessResult<Tariff>(tariff);
+        }
+
+        public IResult<Tariff> AddTariff(TariffResource resource)
+        {
+            Tariff tariff;
+
+            tariff = new Tariff()
+            {
+                Description = resource.Description,
+                TariffCode = resource.TariffCode,
+                USTariffCode = resource.USTariffCode,
+                DateInvalid = resource.DateInvalid,
+                Duty = resource.Duty
+            };
+
+            this.tariffRepository.Add(tariff);
+
+            return new CreatedResult<Tariff>(tariff);
+        }
+
+        public IResult<Tariff> UpdateTariff(int id, TariffResource resource)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

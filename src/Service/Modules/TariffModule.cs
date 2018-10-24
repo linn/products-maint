@@ -14,6 +14,8 @@
             this.tariffService = tariffService;
             this.Get("/products/maint/tariffs", _ => this.GetTariffs());
             this.Get("/products/maint/tariffs/{id:int}", parameters => this.GetTariff(parameters.id));
+            this.Put("/products/maint/tariffs/{id:int}", parameters => this.UpdateTariff(parameters.id));
+            this.Post("/products/maint/tariffs", _ => this.AddTariff());
         }
 
         private object GetTariffs()
@@ -28,6 +30,21 @@
         {
             var tariff = this.tariffService.GetTariff(id);
             return this.Negotiate.WithModel(tariff);
+        }
+
+        private object UpdateTariff(int id)
+        {
+            var tariff = this.tariffService.GetTariff(id);
+            return this.Negotiate.WithModel(tariff);
+        }
+
+        private object AddTariff()
+        {
+            var resource = this.Bind<TariffResource>();
+
+            var result = this.tariffService.AddTariff(resource);
+
+            return this.Negotiate.WithModel(result);
         }
     }
 }

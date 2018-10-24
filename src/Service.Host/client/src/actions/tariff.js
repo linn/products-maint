@@ -25,3 +25,31 @@ export const fetchTariff = (tariffUri) => ({
         ],
     }
 });
+
+
+export const addTariff = tariff => ({
+    [CALL_API]: {
+        endpoint: `${config.appRoot}/products/maint/tariffs`,
+        method: 'POST',
+        options: { requiresAuth: true },
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(tariff),
+        types: [
+            {
+                type: actionTypes.REQUEST_ADD_TARIFF,
+                payload: {}
+            },
+            {
+                type: actionTypes.RECEIVE_NEW_TARIFF,
+                payload: async (action, state, res) => ({ data: await res.json() })
+            },
+            {
+                type: actionTypes.FETCH_ERROR,
+                payload: async (action, state, res) => res ? { error: { status: res.status, statusText: `Error - ${res.status} ${res.statusText}`, details: await res.json() } } : `Network request failed`
+            }
+        ]
+    }
+});

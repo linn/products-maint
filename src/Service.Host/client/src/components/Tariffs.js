@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Grid, Row, ListGroup, ListGroupItem, FormGroup, InputGroup, FormControl } from 'react-bootstrap';
+import { Grid, Row, ListGroup, ListGroupItem, FormGroup, InputGroup, FormControl, Button } from 'react-bootstrap';
 import { Loading } from './common/Loading';
 import { getSelfHref } from '../helpers/utilities';
 
@@ -15,6 +15,7 @@ class Tariffs extends Component {
                     <h2>Tariffs</h2>
 
                     <FormGroup>
+                        <Button id="create-button" className="pull-right" onClick={() => this.handleCreateClick()}>Create</Button>
                         <FormControl autoFocus value={this.state.searchTerm} onChange={e => this.handleSearchTermChange(e)} type="text" placeholder="Search by tariff code or description" style={{ width: '50%' }} ></FormControl>
                     </FormGroup>
 
@@ -49,6 +50,11 @@ class Tariffs extends Component {
         const tariffUri = getSelfHref(tariff);
         const { history } = this.props;
         history.push(`${tariffUri}`);
+    }
+
+    handleCreateClick() {
+        const { history } = this.props;
+        history.push("/products/maint/tariffs/create");
     }
 }
 

@@ -13,3 +13,19 @@ export const getTariffsLoading = ({ tariffs }) => {
 
     return tariffs.loading;
 }
+
+export const getTariff = ({ tariff }) => {
+    if (!tariff) {
+        return null;
+    }
+
+    return tariff.item;
+}
+
+export const getTariffLoading = ({ tariff }) => {
+    if (!tariff) {
+        return null;
+    }
+
+    return tariff.loading;
+}

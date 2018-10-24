@@ -29,5 +29,14 @@
         {
             return this.serviceDbContext.Tariffs.SingleOrDefault(t => t.Id == id);
         }
+
+        public void Add(Tariff tariff)
+        {
+            var nextId = this.serviceDbContext.Tariffs.Max(t => t.Id) + 1;
+
+            tariff.Id = nextId;
+
+            this.serviceDbContext.Tariffs.Add(tariff);
+        }
     }
 }
