@@ -19,16 +19,21 @@
             // domain services
             builder.RegisterType<EanCodeReportService>().As<IEanCodeReportService>();
             builder.RegisterType<CartonDetailsReportService>().As<ICartonDetailsReportService>();
+            builder.RegisterType<ProductReports>().As<IProductReports>();
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
             builder.RegisterType<TariffService>().As<ITariffService>();
             builder.RegisterType<CartonReportsService>().As<ICartonReportsService>();
+            builder.RegisterType<ProductsReportsService>().As<IProductsReportsService>();
+            builder.RegisterType<CartonTypeService>().As<ICartonTypeService>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();
             builder.RegisterType<SalesArticleProxy>().As<ISalesArticleService>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
             builder.RegisterType<CartonProxy>().As<ICartonRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
+            builder.RegisterType<ProductRangeProxy>().As<IProductRangeRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
+            builder.RegisterType<SalesProductProxy>().As<ISalesProductRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
         }
     }
 }

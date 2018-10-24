@@ -29,9 +29,9 @@
 
         public double Width { get; set; }
 
-        public virtual string CreatedBy { get; set; }
+        public string CreatedBy { get; set; }
 
-        public virtual DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public string PhasedOutBy { get; set; }
 
