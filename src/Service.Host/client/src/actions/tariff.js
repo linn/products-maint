@@ -53,3 +53,30 @@ export const addTariff = tariff => ({
         ]
     }
 });
+
+export const updateTariff = (id, tariff) => ({
+    [CALL_API]: {
+        endpoint: `${config.appRoot}/products/maint/tariffs/${id}`,
+        method: 'PUT',
+        options: { requiresAuth: true },
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(tariff),
+        types: [
+            {
+                type: actionTypes.REQUEST_UPDATE_TARIFF,
+                payload: {}
+            },
+            {
+                type: actionTypes.RECEIVE_TARIFF,
+                payload: async (action, state, res) => ({ data: await res.json() })
+            },
+            {
+                type: actionTypes.FETCH_ERROR,
+                payload: async (action, state, res) => res ? { error: { status: res.status, statusText: `Error - ${res.status} ${res.statusText}`, details: await res.json() } } : `Network request failed`
+            }
+        ]
+    }
+});

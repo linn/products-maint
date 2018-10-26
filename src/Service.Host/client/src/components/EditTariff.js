@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Grid, Row, Col, Button } from 'react-bootstrap';
 import { Loading } from './common/Loading';
+import { getSelfHref } from '../helpers/utilities';
 
 class EditTariff extends Component {
 
@@ -18,14 +19,15 @@ class EditTariff extends Component {
     }
 
     handleSaveClick() {
-        const { addTariff, updateTariff, tariffId } = this.props;
+        const { addTariff, updateTariff, id, history } = this.props;
+
         if (this.creating()) {
-            addTariff(this.state.tariff);
+            addTariff(this.state.tariff).then(() => history.push("/products/maint/tariffs"));
         } else if (this.editing()) {
-            updateTariff(tariffId, this.state.tariff);
+            let tariffUrl = getSelfHref(this.state.tariff);
+            updateTariff(id, this.state.tariff).then(() => history.push(tariffUrl));
         }
     }
-
 
     handleCancelClick() {
         const { history } = this.props;
@@ -92,7 +94,7 @@ class EditTariff extends Component {
 
                     <FormGroup controlId="usTariffCode" className="container">
                         <Col componentClass={ControlLabel} sm={3}>
-                            <div className="pull-right">Tariff Code</div>
+                            <div className="pull-right">US Tariff Code</div>
                         </Col>
                         <Col sm={6}>
                             <FormControl type="text" placeholder="US Tariff Code" onChange={(e) => this.handleusTariffCodeChange(e)} defaultValue={tariff.usTariffCode}></FormControl>
