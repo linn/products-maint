@@ -6,7 +6,7 @@
     using Linn.Products.Domain.Linnapps.Exceptions;
     using Linn.Products.Persistence.Linnapps;
 
-    public abstract class FacadeService<T, TKey, TResource, TUpdateResource> : IFacadeService<T, TKey, TResource, TUpdateResource>
+    public abstract class FacadeService<T, TKey, TResource> : IFacadeService<T, TKey, TResource>
     {
         private readonly IRepository<T, TKey> repository;
 
@@ -49,7 +49,7 @@
             return new CreatedResult<T>(entity);
         }
 
-        public IResult<T> Update(TKey id, TUpdateResource updateResource)
+        public IResult<T> Update(TKey id, TResource updateResource)
         {
             var entity = this.repository.FindById(id);
             if (entity == null)
@@ -71,6 +71,6 @@
 
         protected abstract T CreateFromResource(TResource resource);
 
-        protected abstract void UpdateFromResource(T entity, TUpdateResource updateResource);
+        protected abstract void UpdateFromResource(T entity, TResource updateResource);
     }
 }

@@ -27,7 +27,7 @@
             builder.RegisterType<CartonReportsService>().As<ICartonReportsService>();
             builder.RegisterType<ProductsReportsService>().As<IProductsReportsService>();
             builder.RegisterType<CartonTypeService>().As<ICartonTypeService>();
-            builder.RegisterType<SernosConfigService>().As<IFacadeService<SernosConfig, string, SernosConfigResource, SernosConfigUpdateResource>>();
+            builder.RegisterType<SernosConfigService>().As<IFacadeService<SernosConfig, string, SernosConfigResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();

@@ -4,7 +4,7 @@
     using Linn.Products.Persistence.Linnapps;
     using Linn.Products.Resources;
 
-    public class SernosConfigService : FacadeService<SernosConfig, string, SernosConfigResource, SernosConfigUpdateResource>
+    public class SernosConfigService : FacadeService<SernosConfig, string, SernosConfigResource>
     {
         public SernosConfigService(IRepository<SernosConfig, string> repository)
             : base(repository)
@@ -19,7 +19,7 @@
                        };
         }
 
-        protected override void UpdateFromResource(SernosConfig sernosConfig, SernosConfigUpdateResource updateResource)
+        protected override void UpdateFromResource(SernosConfig sernosConfig, SernosConfigResource updateResource)
         {
             sernosConfig.Update(updateResource.SerialNumbered, updateResource.NumberOfSernos, updateResource.NumberOfBoxes);
             sernosConfig.Description = updateResource.Description;
