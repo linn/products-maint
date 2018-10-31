@@ -56,18 +56,15 @@
                                },
                            new SernosConfig("S", "Y", 1, 1)
                                {
-                                   Description = "Serial Numbered In Ones",
-                                   StartOn = "ANY"
+                                   Description = "Serial Numbered In Ones"
                                },
                            new SernosConfig("P1", "Y", 2, 1)
                                {
-                                   Description = "Serial Numbered In Pairs, One Box",
-                                   StartOn = "ANY"
+                                   Description = "Serial Numbered In Pairs, One Box"
                                },
                            new SernosConfig("P2", "Y", 2, 2)
                                {
-                                   Description = "Serial Numbered In Pairs, Two Boxes",
-                                   StartOn = "ANY"
+                                   Description = "Serial Numbered In Pairs, Two Boxes"
                                }
                        };
         }

@@ -26,10 +26,13 @@
                                 {
                                     Name = "Nonsense",
                                     Description = "new desc",
-                                    SerialNumbered = "N"
+                                    SerialNumbered = "Y",
+                                    NumberOfSernos = 2,
+                                    NumberOfBoxes = 1,
+                                    StartOn = "ANY"
                                 };
             this.SernosConfigRepository.FindById(this.name)
-                .Returns(new SernosConfig(this.name, "Y", 1, 1));
+                .Returns(new SernosConfig(this.name, "N", 1, 1));
             this.result = this.Sut.Update(this.name, this.resource);
         }
 
@@ -46,7 +49,8 @@
             var dataResult = ((SuccessResult<SernosConfig>)this.result).Data;
             dataResult.Name.Should().Be(this.name);
             dataResult.Description.Should().Be(this.resource.Description);
-            dataResult.SerialNumbered.Should().Be("N");
+            dataResult.SerialNumbered.Should().Be("Y");
+            dataResult.StartOn.Should().Be("ANY");
         }
     }
 }

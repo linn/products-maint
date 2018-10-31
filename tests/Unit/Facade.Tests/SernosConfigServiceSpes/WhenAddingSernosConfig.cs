@@ -22,7 +22,8 @@
             this.resource = new SernosConfigResource
                                 {
                                     Name = "cartonName",
-                                    Description = "Desc"
+                                    Description = "Desc",
+                                    StartOn = "Any"
                                 };
 
             this.result = this.Sut.Add(this.resource);
@@ -40,6 +41,7 @@
             this.result.Should().BeOfType<CreatedResult<SernosConfig>>();
             var dataResult = ((CreatedResult<SernosConfig>)this.result).Data;
             dataResult.Name.Should().Be(this.resource.Name);
+            dataResult.StartOn.Should().Be("ANY");
             dataResult.Description.Should().Be(this.resource.Description);
         }
     }

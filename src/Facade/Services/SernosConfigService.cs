@@ -13,15 +13,19 @@
 
         protected override SernosConfig CreateFromResource(SernosConfigResource resource)
         {
-            return new SernosConfig(resource.Name, resource.SerialNumbered, resource.NumberOfSernos, resource.NumberOfBoxes)
+            var config = new SernosConfig(resource.Name, resource.SerialNumbered, resource.NumberOfSernos, resource.NumberOfBoxes)
                        {
                            Description = resource.Description
                        };
+            config.SetStartOn(resource.StartOn);
+
+            return config;
         }
 
         protected override void UpdateFromResource(SernosConfig sernosConfig, SernosConfigResource updateResource)
         {
             sernosConfig.Update(updateResource.SerialNumbered, updateResource.NumberOfSernos, updateResource.NumberOfBoxes);
+            sernosConfig.SetStartOn(updateResource.StartOn);
             sernosConfig.Description = updateResource.Description;
         }
     }
