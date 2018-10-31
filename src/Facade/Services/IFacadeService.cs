@@ -3,39 +3,15 @@
     using System.Collections.Generic;
 
     using Linn.Common.Facade;
-    using Linn.Products.Domain.Linnapps;
 
-    public interface IFacadeService<T, in TResource, in Tkey>
+    public interface IFacadeService<T, in TKey, in TResource, in TUpdateResource>
     {
-        IResult<T> Get(Tkey id);
+        IResult<T> GetById(TKey id);
 
         IResult<IEnumerable<T>> GetAll();
 
         IResult<T> Add(TResource resource);
 
-        IResult<T> Update(Tkey id, TResource resource);
-    }
-
-    public class SernosConfigService : IFacadeService<SernosConfig, SernosConfig, string>
-    {
-        public IResult<SernosConfig> Get(string id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IResult<IEnumerable<SernosConfig>> GetAll()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IResult<SernosConfig> Add(SernosConfig resource)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IResult<SernosConfig> Update(string id, SernosConfig resource)
-        {
-            throw new System.NotImplementedException();
-        }
+        IResult<T> Update(TKey id, TUpdateResource updateResource);
     }
 }

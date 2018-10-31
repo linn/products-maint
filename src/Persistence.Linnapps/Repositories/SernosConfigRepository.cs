@@ -1,11 +1,13 @@
 ﻿namespace Linn.Products.Persistence.Linnapps.Repositories
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Domain.Linnapps.Repositories;
 
-    public class SernosConfigRepository : ISernosConfigRepository
+    public class SernosConfigRepository : IRepository<SernosConfig, string>
     {
         private readonly List<SernosConfig> sernosConfigurations;
 
@@ -14,19 +16,34 @@
             this.sernosConfigurations = this.MakeSernosConfigs();
         }
 
-        public SernosConfig Get(string name)
+        public SernosConfig FindById(string key)
         {
-            return this.sernosConfigurations.Find(a => a.Name == name);
+            return this.sernosConfigurations.Find(a => a.Name == key);
         }
 
-        public IEnumerable<SernosConfig> GetAll()
+        public IQueryable<SernosConfig> FindAll()
         {
-            return this.sernosConfigurations;
+            return this.sernosConfigurations.AsQueryable();
         }
 
         public void Add(SernosConfig sernosConfig)
         {
             this.sernosConfigurations.Add(sernosConfig);
+        }
+
+        public void Remove(SernosConfig entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SernosConfig FindBy(Expression<Func<SernosConfig, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<SernosConfig> FilterBy(Expression<Func<SernosConfig, bool>> expression)
+        {
+            throw new NotImplementedException();
         }
 
         private List<SernosConfig> MakeSernosConfigs()
