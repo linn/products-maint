@@ -17,3 +17,17 @@ export const REQUEST_CARTON_TYPE = 'REQUEST_CARTON_TYPE';
 export const RECEIVE_CARTON_TYPE = 'RECEIVE_CARTON_TYPE';
 export const RECEIVE_NEW_CARTON_TYPE = 'RECEIVE_NEW_CARTON_TYPE';
 export const RESET_CARTON_TYPE = 'RESET_CARTON_TYPE';
+
+const makeActionTypes = (entityType) => {
+    var types = {};
+    types['REQUEST_'.concat(entityType)] = 'REQUEST_'.concat(entityType);
+    types['REQUEST_ADD_'.concat(entityType)] = 'REQUEST_ADD_'.concat(entityType);
+    types['REQUEST_UPDATE_'.concat(entityType)] = 'REQUEST_UPDATE_'.concat(entityType);
+    types['RESET_'.concat(entityType)] = 'RESET_'.concat(entityType);
+    types['RECEIVE_'.concat(entityType)] = 'RECEIVE_'.concat(entityType);
+    types['RECEIVE_NEW_'.concat(entityType)] = 'RECEIVE_NEW_'.concat(entityType);
+
+    return types;
+}
+
+export const sernosConfigActionTypes = makeActionTypes('SERNOS_CONFIG');
