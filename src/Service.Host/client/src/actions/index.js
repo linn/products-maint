@@ -20,12 +20,12 @@ export const RESET_CARTON_TYPE = 'RESET_CARTON_TYPE';
 
 const makeActionTypes = (entityType) => {
     var types = {};
-    types['REQUEST_'.concat(entityType)] = 'REQUEST_'.concat(entityType);
-    types['REQUEST_ADD_'.concat(entityType)] = 'REQUEST_ADD_'.concat(entityType);
-    types['REQUEST_UPDATE_'.concat(entityType)] = 'REQUEST_UPDATE_'.concat(entityType);
-    types['RESET_'.concat(entityType)] = 'RESET_'.concat(entityType);
-    types['RECEIVE_'.concat(entityType)] = 'RECEIVE_'.concat(entityType);
-    types['RECEIVE_NEW_'.concat(entityType)] = 'RECEIVE_NEW_'.concat(entityType);
+    types[`REQUEST_${entityType}`] = `REQUEST_${entityType}`;
+    types[`REQUEST_ADD_${entityType}`] = `REQUEST_ADD_${entityType}`;
+    types[`REQUEST_UPDATE_${entityType}`] = `REQUEST_UPDATE_${entityType}`;
+    types[`RESET_${entityType}`] = `RESET_${entityType}`;
+    types[`RECEIVE_${entityType}`] = `RECEIVE_${entityType}`;
+    types[`RECEIVE_NEW_${entityType}`] = `RECEIVE_NEW_${entityType}`;
 
     return types;
 }

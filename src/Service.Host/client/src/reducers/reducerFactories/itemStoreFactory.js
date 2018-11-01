@@ -2,33 +2,33 @@
 {
     return (state = defaultState, action) => {
         switch (action.type) {
-        case actionTypes['REQUEST_ADD_'.concat(itemRoot)]:
+        case actionTypes[`REQUEST_ADD_${itemRoot}`]:
             return {
                 ...state,
                 loading: true,
                 editStatus: 'create'
             }
-        case actionTypes['REQUEST_'.concat(itemRoot)]:
+        case actionTypes[`REQUEST_${itemRoot}`]:
             return {
                 ...state,
                 loading: true,
                 editStatus: 'view'
             }
 
-        case actionTypes['REQUEST_UPDATE_'.concat(itemRoot)]:
+        case actionTypes[`REQUEST_UPDATE_${itemRoot}`]:
             return {
                 ...state,
                 editStatus: 'edit'
             }
 
-        case actionTypes['RESET_'.concat(itemRoot)]:
+        case actionTypes[`RESET_${itemRoot}`]:
             return {
                 ...state,
                 editStatus: 'view'
             }
 
-        case actionTypes['RECEIVE_'.concat(itemRoot)]:
-            case actionTypes['RECEIVE_NEW_'.concat(itemRoot)]:
+        case actionTypes[`RECEIVE_${itemRoot}`]:
+        case actionTypes[`RECEIVE_NEW_${itemRoot}`]:
             return {
                 ...state,
                 loading: false,
