@@ -1,4 +1,4 @@
-﻿import { sernosConfigSelectors } from '../sernosConfigSelectors';
+﻿import sernosConfigSelectors from '../sernosConfigSelectors';
 
 describe('when getting', () => {
     test('should return sernos config', () => {

@@ -17,6 +17,8 @@ import ProductRanges from '../containers/reports/ProductRanges';
 import SalesProductsByProductRange from '../containers/reports/SalesProductsByProductRange';
 import CreateCartonType from '../containers/CreateCartonType';
 import CartonType from '../containers/CartonType';
+import SernosConfig from '../containers/sernosConfig/SernosConfig';
+import CreateSernosConfig from '../containers/sernosConfig/CreateSernosConfig';
 
 class Root extends Component {
     render() {
@@ -42,9 +44,14 @@ class Root extends Component {
                             <Route exact path="/products/reports/carton-details/report" component={CartonDetails} />
 
                             <Switch>
-                            <Route exact path="/products/maint/carton-types/create" component={CreateCartonType} />
-                            <Route exact path="/products/maint/carton-types/:cartonTypeId" component={CartonType} />
-                            <Route exact path="/products/maint/carton-types" component={CartonDetails} />
+                                <Route exact path="/products/maint/carton-types/create" component={CreateCartonType} />
+                                <Route exact path="/products/maint/carton-types/:cartonTypeId" component={CartonType} />
+                                <Route exact path="/products/maint/carton-types" component={CartonDetails} />
+                            </Switch>
+
+                            <Switch>
+                                <Route exact path="/products/maint/sernos-configs/create" component={CreateSernosConfig} />
+                                <Route exact path="/products/maint/sernos-configs/:sernosConfigId" component={SernosConfig} />
                             </Switch>
 
                             <Route exact path="/products/reports/product-ranges" component={ProductRangesOptions} />

@@ -48,16 +48,15 @@
 
         private List<SernosConfig> MakeSernosConfigs()
         {
+            var example = new SernosConfig("S", "Y", 1, 1) { Description = "Serial Numbered In Ones" };
+            example.SetStartOn("Any");
             return new List<SernosConfig>
                        {
                            new SernosConfig("N", "N")
                                {
                                    Description = "Not Serial Numbered"
                                },
-                           new SernosConfig("S", "Y", 1, 1)
-                               {
-                                   Description = "Serial Numbered In Ones"
-                               },
+                           example,
                            new SernosConfig("P1", "Y", 2, 1)
                                {
                                    Description = "Serial Numbered In Pairs, One Box"
