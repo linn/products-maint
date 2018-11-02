@@ -38,7 +38,7 @@
     "enzyme": "^3.1.1",
     "enzyme-adapter-react-16": "^1.0.4",
     "file-loader": "^1.1.5",
-    "jest": "^21.2.1",
+    "jest": "^23.6.0",
     "node-sass": "^4.9.4",
     "path": "^0.12.7",
     "postcss-loader": "^2.0.6",
