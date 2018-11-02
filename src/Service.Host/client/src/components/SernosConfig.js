@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { FormGroup, ControlLabel, FormControl, Grid, Row, Col, Button, Alert } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Grid, Row, Col, Button, Alert, Checkbox, DropdownButton, MenuItem } from 'react-bootstrap';
 import { Loading } from './common/Loading';
 import { makeNumber } from '../helpers/utilities';
 
@@ -62,6 +62,22 @@ class SernosConfig extends Component {
         this.setState({ sernosConfig: { ...this.state.sernosConfig, description: e.target.value } });
     }
 
+    handleNumberOfSernosChange(e) {
+        this.setState({ sernosConfig: { ...this.state.sernosConfig, numberOfSernos: makeNumber(e.target.value) } });
+    }
+
+    handleNumberOfBoxesChange(e) {
+        this.setState({ sernosConfig: { ...this.state.sernosConfig, numberOfBoxes: makeNumber(e.target.value) } });
+    }
+
+    handleSerialNumberedChange(checked) {
+        this.setState({ sernosConfig: { ...this.state.sernosConfig, serialNumbered: checked ? 'Y' : 'N' } });
+    }
+
+    handleStartOnChange(selected) {
+        this.setState({ sernosConfig: { ...this.state.sernosConfig, startOn: selected } });
+    }
+
     render() {
         const { sernosConfig, loading, errorMessage } = this.props;
 
@@ -113,6 +129,67 @@ class SernosConfig extends Component {
                                 {this.editing() || this.creating()
                                     ? <FormControl type="text" placeholder="Description" onChange={(e) => this.handleDescriptionChange(e)} defaultValue={sernosConfig.description}></FormControl>
                                     : sernosConfig.description
+                                }
+                            </Col>
+                        </FormGroup>
+                    </Row>
+                    <Row>
+                        <FormGroup controlId="serial-numbered" className="container">
+                            <Col xs={3} componentClass={ControlLabel}>
+                                <div className="pull-right">Serial Numbered</div>
+                            </Col>
+                            <Col xs={9}>
+                                {this.editing() || this.creating()
+                                    ? <Checkbox checked={this.state.sernosConfig.serialNumbered === 'Y'} onChange={ch => this.handleSerialNumberedChange(ch.target.checked)}>
+                                    </Checkbox>
+                                    : <div>{sernosConfig.serialNumbered}</div>
+                                }
+                            </Col>
+                        </FormGroup>
+                    </Row>
+                    <Row>
+                        <FormGroup controlId="number-of-sernos" className="container">
+                            <Col componentClass={ControlLabel} sm={3}>
+                                <div className="pull-right">Number Of Serial Nos</div>
+                            </Col>
+                            <Col sm={6}>
+                                {this.editing() || this.creating()
+                                    ? <FormControl type="number" placeholder="Number Of Sernos" onChange={(e) => this.handleNumberOfSernosChange(e)} defaultValue={sernosConfig.numberOfSernos}></FormControl>
+                                    : sernosConfig.numberOfSernos
+                                }
+                            </Col>
+                        </FormGroup>
+                    </Row>
+                    <Row>
+                        <FormGroup controlId="number-of-boxes" className="container">
+                            <Col componentClass={ControlLabel} sm={3}>
+                                <div className="pull-right">Number Of Boxes</div>
+                            </Col>
+                            <Col sm={6}>
+                                {this.editing() || this.creating()
+                                    ? <FormControl type="number" placeholder="Number Of Boxes" onChange={(e) => this.handleNumberOfBoxesChange(e)} defaultValue={sernosConfig.numberOfBoxes}></FormControl>
+                                    : sernosConfig.numberOfBoxes
+                                }
+                            </Col>
+                        </FormGroup>
+                    </Row>
+                    <Row>
+                        <FormGroup controlId="start-on" className="container">
+                            <Col componentClass={ControlLabel} sm={3}>
+                                <div className="pull-right">Start On</div>
+                            </Col>
+                            <Col sm={6}>
+                                {this.editing() || this.creating()
+                                    ?
+                                    <DropdownButton title={this.state.sernosConfig.startOn ? this.state.sernosConfig.startOn : '-'}
+                                        key={sernosConfig.startOn}
+                                        id={sernosConfig.startOn}
+                                        onSelect={e => this.handleStartOnChange(e)}>
+                                        <MenuItem eventKey="Any">Any</MenuItem>
+                                        <MenuItem eventKey="Odd">Odd</MenuItem>
+                                        <MenuItem eventKey="Even">Even</MenuItem>
+                                    </DropdownButton>
+                                    : sernosConfig.startOn
                                 }
                             </Col>
                         </FormGroup>

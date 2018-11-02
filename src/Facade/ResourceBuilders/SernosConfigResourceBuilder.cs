@@ -19,7 +19,7 @@
                            NumberOfBoxes = sernosConfig.NumberOfBoxes,
                            NumberOfSernos = sernosConfig.NumberOfSernos,
                            SerialNumbered = sernosConfig.SerialNumbered,
-                           StartOn = sernosConfig.StartOn,
+                           StartOn = $"{sernosConfig.StartOn?.Substring(0, 1)}{sernosConfig.StartOn?.Substring(1).ToLowerInvariant()}",
                            Links = this.BuildLinks(sernosConfig).ToArray()
             };
         }
