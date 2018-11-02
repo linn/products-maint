@@ -1,5 +1,6 @@
 ﻿import { sernosConfigActionTypes as actionTypes } from '../actions';
 import itemStoreFactory from './reducerFactories/itemStoreFactory';
+import * as itemTypes from '../itemTypes';
 
 const defaultState = {
     loading: false,
@@ -7,4 +8,4 @@ const defaultState = {
     editStatus: 'view'
 }
 
-export default itemStoreFactory('SERNOS_CONFIG', actionTypes, defaultState);
+export default itemStoreFactory(itemTypes.sernosConfig.actionType, actionTypes, defaultState);
