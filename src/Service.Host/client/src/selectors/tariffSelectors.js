@@ -1,17 +1,17 @@
-﻿export const getTariffs = ({ tariffs }) => {
-    if (!tariffs) {
+﻿export const getTariffs = ({ searchTariffs }) => {
+    if (!searchTariffs) {
         return null;
     }
 
-    return tariffs.items;
+    return searchTariffs.items;
 }
 
-export const getTariffsLoading = ({ tariffs }) => {
-    if (!tariffs) {
+export const getTariffsLoading = ({ searchTariffs }) => {
+    if (!searchTariffs) {
         return null;
     }
 
-    return tariffs.loading;
+    return searchTariffs.loading;
 }
 
 export const getTariff = ({ tariff }) => {

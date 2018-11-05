@@ -33,6 +33,8 @@ class EditTariff extends Component {
         const { history } = this.props;
         if (this.creating()) {
             history.push('/products/maint/tariffs');
+        } else if (this.editing()) {
+            history.push(getSelfHref(this.state.tariff));
         }
     }
 

@@ -6,15 +6,15 @@ const defaultState = {
     searchTerm: ''
 }
 
-const tariffs = (state = defaultState, action) => {
+const searchTariffs = (state = defaultState, action) => {
     switch (action.type) {
-        case actionTypes.REQUEST_TARIFFS:
+        case actionTypes.REQUEST_SEARCH_TARIFFS:
         return {
             ...state,
             loading: true,
         }
 
-        case actionTypes.RECEIVE_TARIFFS:
+        case actionTypes.RECEIVE_SEARCH_TARIFFS:
         return {
             ...state,
             loading: false,
@@ -32,4 +32,4 @@ const tariffs = (state = defaultState, action) => {
     }
 }
 
-export default tariffs;
+export default searchTariffs;

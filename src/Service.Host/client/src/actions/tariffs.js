@@ -24,11 +24,11 @@ const performTariffSearch = searchTerm => ({
         },
         types: [
             {
-                type: actionTypes.REQUEST_TARIFFS,
+                type: actionTypes.REQUEST_SEARCH_TARIFFS,
                 payload: {}
             },
             {
-                type: actionTypes.RECEIVE_TARIFFS,
+                type: actionTypes.RECEIVE_SEARCH_TARIFFS,
                 payload: async (action, state, res) => ({ data: await res.json() })
             },
             {

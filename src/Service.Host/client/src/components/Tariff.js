@@ -47,7 +47,7 @@ class Tariff extends Component {
                 </div>
                 <div>
                     <Button id="edit-button" bsStyle="primary" type="submit" onClick={() => this.handleEditClick()}>Edit</Button>
-                    <Button id="back-button" bsStyle="link" onClick={() => this.handleBackClick()}>Cancel</Button>
+                    <Button id="back-button" bsStyle="link" onClick={() => this.handleBackClick()}>Back</Button>
                 </div>
             </Grid>
         );
