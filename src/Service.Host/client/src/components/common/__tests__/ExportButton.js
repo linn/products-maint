@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import { shallow } from 'enzyme';
 import ExportButton from '../ExportButton';
-import { Button } from 'react-bootstrap';
+import { Button } from 'reactstrap';
 
 describe('<ExportButton />', () => {
     const

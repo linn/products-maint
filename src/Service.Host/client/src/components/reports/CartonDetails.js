@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Loading } from '../common/Loading';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'reactstrap';
 import Table from '../common/Table';
 import { Link } from 'react-router-dom';
 
@@ -10,10 +10,11 @@ class CartonDetails extends Component {
 
         return (
             <div>
-                <Grid fluid={false}>
+                <Container fluid={false}>
                     <Row>
                         <Col xs={8}>
                             <h3>Carton Details</h3>
+                            {loading ? <Loading /> : ''}
                         </Col>
                     </Row>
                     <Row>
@@ -22,12 +23,11 @@ class CartonDetails extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        {loading ? <Loading /> : ''}
                         <Col xs={10}>
                             <Table reportData={reportData} showTotals={false} placeholderRows={10} placeholderColumns={3} showTitle={false} />
                         </Col>
                     </Row>
-                </Grid>
+                </Container>
             </div>
         );
     }

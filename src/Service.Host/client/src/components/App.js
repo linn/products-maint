@@ -1,11 +1,11 @@
 ﻿import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 class App extends Component {
     render() {
         return (
-            <Grid fluid={false}>
+            <Container fluid={false}>
             <h2>Products</h2>
                 <Row>
                     <Col xs={12}>
@@ -15,7 +15,7 @@ class App extends Component {
                         <Link style={{ display: 'block' }} to="/products/reports/product-ranges">Product Ranges Report</Link>
                     </Col>
                 </Row >
-            </Grid >
+            </Container >
         );
     }
 }

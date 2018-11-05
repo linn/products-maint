@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Loading } from '../common/Loading';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'reactstrap';
 import Table from '../common/Table';
 
 class ProductRanges extends Component {
@@ -9,21 +9,21 @@ class ProductRanges extends Component {
         const optionsTitle = !options.includePhasedOut || options.includePhasedOut === 'false' ? 'Live ' : '';
         return (
             <div>
-                <Grid fluid={false}>
+                <Container fluid={false}>
                     <Row>
                         <Col xs={8}>
                             <h3>{optionsTitle}Product Ranges</h3>
                         </Col>
                         <Col xs={2}>
+                            {loading ? <Loading /> : ''}
                         </Col>
                     </Row>
                     <Row>
-                        {loading ? <Loading /> : ''}
                         <Col xs={10}>
-                            <Table reportData={reportData} showTotals={false} placeholderRows={10} placeholderColumns={3} showRowTitles={false} showTitle={false} />
+                            <Table size="sm" reportData={reportData} showTotals={false} placeholderRows={10} placeholderColumns={3} showRowTitles={false} showTitle={false} />
                         </Col>
                     </Row>
-                </Grid>
+                </Container>
             </div>
         );
     }
