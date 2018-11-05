@@ -17,13 +17,13 @@ class EanCodes extends Component {
                     <Row>
                         <Col xs={8}>
                             <h3>Sales Article Ean Codes {optionsTitle}</h3>
+                            {loading ? <Loading /> : ''}
                         </Col>
                         <Col xs={2}>
                             <ExportButton href={href} />
                         </Col>
                     </Row>
                     <Row>
-                        {loading ? <Loading /> : ''}
                         <Col xs={10}>
                             <Table reportData={reportData} showTotals={false} placeholderRows={10} placeholderColumns={3} showTitle={false} />
                         </Col>

@@ -15,10 +15,10 @@ class ProductRanges extends Component {
                             <h3>{optionsTitle}Product Ranges</h3>
                         </Col>
                         <Col xs={2}>
+                            {loading ? <Loading /> : ''}
                         </Col>
                     </Row>
                     <Row>
-                        {loading ? <Loading /> : ''}
                         <Col xs={10}>
                             <Table size="sm" reportData={reportData} showTotals={false} placeholderRows={10} placeholderColumns={3} showRowTitles={false} showTitle={false} />
                         </Col>

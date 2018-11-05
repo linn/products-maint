@@ -14,13 +14,13 @@ class CartonDetails extends Component {
                     <Row>
                         <Col xs={8}>
                             <h3>Carton Details</h3>
+                            {loading ? <Loading /> : ''}
                         </Col>
                     </Row>
                     <Row>
                         <Col xs={10}>
                             <Link style={{ display: 'block' }} to="/products/maint/carton-types/create">Create new carton type</Link>
                         </Col>
-                        {loading ? <Loading /> : ''}
                     </Row>
                     <Row>
                         <Col xs={10}>
