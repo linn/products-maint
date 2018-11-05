@@ -1,7 +1,5 @@
 ﻿namespace Linn.Products.Facade.Services
 {
-    using System;
-
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Exceptions;
@@ -35,11 +33,11 @@
             try
             {
                 cartonType = new CartonType(resource.Name, resource.Width, resource.Height, resource.Depth)
-                                     {
-                                         Description = resource.Description,
-                                         NumberOfLargeLabels = 1,
-                                         NumberOfSmallLabels = 0
-                                     };
+                                 {
+                                     Description = resource.Description,
+                                     NumberOfLargeLabels = 1,
+                                     NumberOfSmallLabels = 0
+                                 };
             }
             catch (IncompleteDataException exception)
             {

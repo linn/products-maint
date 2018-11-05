@@ -17,6 +17,7 @@
             builder.RegisterType<TariffResourceBuilder>().As<IResourceBuilder<Tariff>>();
             builder.RegisterType<TariffsResourceBuilder>().As<IResourceBuilder<IEnumerable<Tariff>>>();
             builder.RegisterType<CartonTypeResourceBuilder>().As<IResourceBuilder<CartonType>>();
+            builder.RegisterType<SernosConfigResourceBuilder>().As<IResourceBuilder<SernosConfig>>();
         }
     }
 }

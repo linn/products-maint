@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.IoC
 {
     using Autofac;
+    using Domain.Linnapps;
     using Persistence.Linnapps;
     using Persistence.Linnapps.Repositories;
     using Linn.Products.Domain.Linnapps.Repositories;
@@ -15,6 +16,7 @@
 
             // linnapps repositories
             builder.RegisterType<CartonTypeRepository>().As<ICartonTypeRepository>();
+            builder.RegisterType<SernosConfigRepository>().As<IRepository<SernosConfig, string>>();
         }
     }
 }

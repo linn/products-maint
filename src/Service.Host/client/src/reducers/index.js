@@ -7,6 +7,7 @@ import searchTariffs from './searchTariffs';
 import productRangesReport from './productRangesReport';
 import salesProductsByProductRangeReport from './salesProductsByProductRangeReport';
 import cartonType from './cartonType';
+import sernosConfig from './sernosConfig';
 import fetchError from './fetchError';
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     productRangesReport,
     salesProductsByProductRangeReport,
     cartonType,
+    sernosConfig,
     fetchError
 });
 

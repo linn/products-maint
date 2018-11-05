@@ -4,13 +4,14 @@
 
     using Linn.Common.Configuration;
     using Linn.Common.Proxy;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.RemoteServices;
     using Linn.Products.Domain.Linnapps.Reports;
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
     using Linn.Products.Facade.Services;
     using Linn.Products.Proxy;
-    using Persistence.Linnapps;
+    using Linn.Products.Resources;
 
     public class ServiceModule : Module
     {
@@ -27,6 +28,7 @@
             builder.RegisterType<CartonReportsService>().As<ICartonReportsService>();
             builder.RegisterType<ProductsReportsService>().As<IProductsReportsService>();
             builder.RegisterType<CartonTypeService>().As<ICartonTypeService>();
+            builder.RegisterType<SernosConfigService>().As<IFacadeService<SernosConfig, string, SernosConfigResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();
