@@ -4,7 +4,7 @@ describe('when getting tariffs', () => {
     test('should return items', () => {
 
         const state = {
-            tariffs: {
+            searchTariffs: {
                 items: [{
                     tariffCode: '1'
                 }]
@@ -21,7 +21,7 @@ describe('when getting loading', () => {
     test('should return loading', () => {
 
         const state = {
-            tariffs: {
+            searchTariffs: {
                 items: [],
                 loading: true
             }
