@@ -40,7 +40,7 @@ class EditTariff extends Component {
         this.setState({ tariff: { ...this.state.tariff, description: e.target.value } });
     }
 
-    handletariffCodeChange(e) {
+    handleTariffCodeChange(e) {
         this.setState({ tariff: { ...this.state.tariff, tariffCode: e.target.value } });
     }
 
@@ -79,7 +79,7 @@ class EditTariff extends Component {
                             <div className="pull-right">Tariff Code</div>
                         </Col>
                         <Col sm={6}>
-                            <FormControl type="text" placeholder="Tariff Code" onChange={(e) => this.handletariffCodeChange(e)} defaultValue={tariff.tariffCode}></FormControl>
+                            <FormControl type="text" placeholder="Tariff Code" onChange={(e) => this.handleTariffCodeChange(e)} defaultValue={tariff.tariffCode}></FormControl>
                         </Col>
                     </FormGroup>
 

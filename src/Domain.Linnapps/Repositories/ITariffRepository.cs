@@ -1,7 +1,7 @@
-﻿namespace Linn.Products.Domain.Repositories
+﻿namespace Linn.Products.Domain.Linnapps.Repositories
 {
     using System.Collections.Generic;
-    using Linnapps.Products;
+    using Products;
 
     public interface ITariffRepository
     {

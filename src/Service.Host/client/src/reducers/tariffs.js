@@ -2,9 +2,8 @@
 
 const defaultState = {
     loading: false,
-    items: null,
-    searchTerm: '',
-    items: []
+    items: [],
+    searchTerm: ''
 }
 
 const tariffs = (state = defaultState, action) => {

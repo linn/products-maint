@@ -12,7 +12,7 @@ const mapStateToProps = (state, { match }) => ({
 });
 
 const initialise = ({ id }) => dispatch => {
-    dispatch(fetchTariff(`/products/maint/tariffs/${id}`));
+    dispatch(fetchTariff(id));
 };
 
 const mapDispatchToProps = {

@@ -11,7 +11,7 @@
 
         public string USTariffCode { get; set; }
 
-        public DateTime? DateInvalid { get; set; }
+        public string DateInvalid { get; set; }
 
         public decimal Duty { get; set; }
     }

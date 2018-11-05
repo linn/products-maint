@@ -1,8 +1,10 @@
 ﻿namespace Linn.Products.Facade.Services
 {
+    using System;
     using System.Collections.Generic;
     using Common.Facade;
     using Domain.Linnapps.Products;
+    using Domain.Linnapps.Repositories;
     using Domain.Repositories;
     using Resources;
 
@@ -42,7 +44,7 @@
                 Description = resource.Description,
                 TariffCode = resource.TariffCode,
                 USTariffCode = resource.USTariffCode,
-                DateInvalid = resource.DateInvalid,
+                DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? null : (DateTime?) Convert.ToDateTime(resource.DateInvalid),
                 Duty = resource.Duty
             };
 
@@ -53,7 +55,20 @@
 
         public IResult<Tariff> UpdateTariff(int id, TariffResource resource)
         {
-            throw new System.NotImplementedException();
+            var tariff = this.tariffRepository.GetTariffById(id);
+
+            if (tariff == null)
+            {
+                return new NotFoundResult<Tariff>($"No tariff with id {id}");
+            }
+
+            tariff.TariffCode = resource.TariffCode;
+            tariff.USTariffCode = resource.USTariffCode;
+            tariff.Description = resource.Description;
+            tariff.DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? null : (DateTime?)Convert.ToDateTime(resource.DateInvalid);
+            tariff.Duty = resource.Duty;
+
+            return new SuccessResult<Tariff>(tariff);
         }
     }
 }

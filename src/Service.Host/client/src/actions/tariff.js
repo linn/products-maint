@@ -2,9 +2,9 @@
 import * as actionTypes from '.';
 import { CALL_API } from 'redux-api-middleware';
 
-export const fetchTariff = (tariffUri) => ({
+export const fetchTariff = (id) => ({
     [CALL_API]: {
-        endpoint: `${config.appRoot}${tariffUri}`,
+        endpoint: `${config.appRoot}/products/maint/tariffs/${id}`,
         method: 'GET',
         headers: {
             Accept: 'application/json'
@@ -12,7 +12,7 @@ export const fetchTariff = (tariffUri) => ({
         types: [
             {
                 type: actionTypes.REQUEST_TARIFF,
-                payload: { data: tariffUri }
+                payload: { data: `/products/maint/tariffs/${id}` }
             },
             {
                 type: actionTypes.RECEIVE_TARIFF,

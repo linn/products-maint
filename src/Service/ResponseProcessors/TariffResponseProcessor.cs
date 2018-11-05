@@ -4,9 +4,9 @@
     using Common.Nancy.Facade;
     using Domain.Linnapps.Products;
 
-    public class TariffReponseProcessor : JsonResponseProcessor<Tariff>
+    public class TariffResponseProcessor : JsonResponseProcessor<Tariff>
     {
-        public TariffReponseProcessor(IResourceBuilder<Tariff> resourceBuilder)
+        public TariffResponseProcessor(IResourceBuilder<Tariff> resourceBuilder)
             : base(resourceBuilder, "tariff", 1)
         {
         }

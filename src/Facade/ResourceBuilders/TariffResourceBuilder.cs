@@ -17,7 +17,7 @@
                 Description = tariff.Description,
                 USTariffCode = tariff.USTariffCode,
                 Duty = tariff.Duty,
-                DateInvalid = tariff.DateInvalid,
+                DateInvalid = tariff.DateInvalid?.ToString("o"),
                 Links = this.BuildLinks(tariff).ToArray()
             };
         }

@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Domain.Linnapps.Products;
-    using Domain.Repositories;
+    using Domain.Linnapps.Repositories;
 
     public class TariffRepository : ITariffRepository
     {

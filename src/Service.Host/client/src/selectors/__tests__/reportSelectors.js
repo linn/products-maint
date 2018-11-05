@@ -1,7 +1,7 @@
 ﻿import { getReportData, getReportOptions, getReportLoading, getReportState } from '../reportSelectors';
 
 describe('when getting results', () => {
-    test('should return item', () => {
+    test('should return results', () => {
 
         const state = {
             reportName: {

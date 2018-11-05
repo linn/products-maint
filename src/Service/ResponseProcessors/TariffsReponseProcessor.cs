@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using Common.Facade;
     using Common.Nancy.Facade;
-    using Common.Reporting.Models;
     using Domain.Linnapps.Products;
 
     public class TariffsReponseProcessor : JsonResponseProcessor<IEnumerable<Tariff>>
