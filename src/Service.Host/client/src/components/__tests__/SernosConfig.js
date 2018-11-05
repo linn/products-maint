@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import { shallow, mount } from 'enzyme';
 import SernosConfig from '../SernosConfig';
-import { Button, FormControl, Alert } from 'react-bootstrap';
+import { Button, Input, Alert } from 'reactstrap';
 
 describe('<SernosConfig />', () => {
     describe('View Sernos Config', () => {
@@ -11,7 +11,7 @@ describe('<SernosConfig />', () => {
             wrapper = shallow(<SernosConfig sernosConfig={sernosConfig} updateSernosConfig={updateSernosConfig} addSernosConfig={addSernosConfig} />);
 
         test('Should render view', () => {
-            expect(wrapper.find(FormControl)).toHaveLength(0);
+            expect(wrapper.find(Input)).toHaveLength(0);
             expect(wrapper.find('#sernos-config-name').html()).toContain('name1');
         });
 
@@ -47,7 +47,7 @@ describe('<SernosConfig />', () => {
             wrapper = shallow(<SernosConfig sernosConfig={sernosConfig} updateSernosConfig={updateSernosConfig} addSernosConfig={addSernosConfig} sernosConfigId='name1' editStatus='edit' />);
 
         test('Should render edit', () => {
-            expect(wrapper.find(FormControl)).toHaveLength(3);
+            expect(wrapper.find(Input)).toHaveLength(5);
             expect(wrapper.find('#sernos-config-name').html()).toContain('name1');
         });
 
@@ -58,7 +58,7 @@ describe('<SernosConfig />', () => {
         });
 
         test('Should update width', () => {
-            const desc = wrapper.find(FormControl).at(0);
+            const desc = wrapper.find(Input).at(0);
             desc.simulate('change', { target: { value: 'new desc' } });
             expect(wrapper.state('sernosConfig').description).toBe('new desc');
         });
@@ -80,7 +80,7 @@ describe('<SernosConfig />', () => {
             wrapper = shallow(<SernosConfig sernosConfig={sernosConfig} updateSernosConfig={updateSernosConfig} addSernosConfig={addSernosConfig} editStatus='create' />);
 
         test('Should render create', () => {
-            expect(wrapper.find(FormControl)).toHaveLength(4);
+            expect(wrapper.find(Input)).toHaveLength(6);
         });
 
         test('Should render save and cancel buttons', () => {
@@ -90,8 +90,8 @@ describe('<SernosConfig />', () => {
         });
 
         test('Should set fields', () => {
-            const name = wrapper.find(FormControl).at(0),
-                description = wrapper.find(FormControl).at(1);
+            const name = wrapper.find(Input).at(0),
+                description = wrapper.find(Input).at(1);
 
             name.simulate('change', { target: { value: 'N' } });
             description.simulate('change', { target: { value: 'D' } });

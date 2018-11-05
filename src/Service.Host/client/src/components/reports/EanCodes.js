@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Loading } from '../common/Loading';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'reactstrap';
 import Table from '../common/Table';
 import ExportButton from '../common/ExportButton';
 
@@ -13,7 +13,7 @@ class EanCodes extends Component {
 
         return (
             <div>
-                <Grid fluid={false}>
+                <Container fluid={false}>
                     <Row>
                         <Col xs={8}>
                             <h3>Sales Article Ean Codes {optionsTitle}</h3>
@@ -28,7 +28,7 @@ class EanCodes extends Component {
                             <Table reportData={reportData} showTotals={false} placeholderRows={10} placeholderColumns={3} showTitle={false} />
                         </Col>
                     </Row>
-                </Grid>
+                </Container>
             </div>
         );
     }

@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import { shallow, mount } from 'enzyme';
 import CartonType from '../CartonType';
-import { Button, FormControl, Alert } from 'react-bootstrap';
+import { Button, Input, Alert } from 'reactstrap';
 
 describe('<CartonType />', () => {
     describe('View Carton', () => {
@@ -11,7 +11,7 @@ describe('<CartonType />', () => {
             wrapper = shallow(<CartonType cartonType={cartonType} updateCartonType={updateCartonType} addCartonType={addCartonType} />);
 
         test('Should render view', () => {
-            expect(wrapper.find(FormControl)).toHaveLength(0);
+            expect(wrapper.find(Input)).toHaveLength(0);
             expect(wrapper.find('#carton-type-name').html()).toContain('name1');
         });
 
@@ -47,7 +47,7 @@ describe('<CartonType />', () => {
             wrapper = shallow(<CartonType cartonType={cartonType} updateCartonType={updateCartonType} addCartonType={addCartonType} cartonTypeId='name1' editStatus='edit' />);
 
         test('Should render edit', () => {
-            expect(wrapper.find(FormControl)).toHaveLength(4);
+            expect(wrapper.find(Input)).toHaveLength(4);
             expect(wrapper.find('#carton-type-name').html()).toContain('name1');
         });
 
@@ -58,7 +58,7 @@ describe('<CartonType />', () => {
         });
 
         test('Should update width', () => {
-            const widthInput = wrapper.find(FormControl).at(1);
+            const widthInput = wrapper.find(Input).at(1);
             widthInput.simulate('change', { target: { value: 55 } });
             expect(wrapper.state('cartonType').width).toBe(55);
         });
@@ -80,7 +80,7 @@ describe('<CartonType />', () => {
             wrapper = shallow(<CartonType cartonType={cartonType} updateCartonType={updateCartonType} addCartonType={addCartonType} editStatus='create' />);
 
         test('Should render create', () => {
-            expect(wrapper.find(FormControl)).toHaveLength(5);
+            expect(wrapper.find(Input)).toHaveLength(5);
         });
 
         test('Should render save and cancel buttons', () => {
@@ -90,11 +90,11 @@ describe('<CartonType />', () => {
         });
 
         test('Should set fields', () => {
-            const name = wrapper.find(FormControl).at(0),
-                description = wrapper.find(FormControl).at(1),
-                width = wrapper.find(FormControl).at(2),
-                height = wrapper.find(FormControl).at(3),
-                depth = wrapper.find(FormControl).at(4);
+            const name = wrapper.find(Input).at(0),
+                description = wrapper.find(Input).at(1),
+                width = wrapper.find(Input).at(2),
+                height = wrapper.find(Input).at(3),
+                depth = wrapper.find(Input).at(4);
 
             name.simulate('change', { target: { value: 'N' } });
             description.simulate('change', { target: { value: 'D' } });

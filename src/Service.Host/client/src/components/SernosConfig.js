@@ -1,12 +1,14 @@
 ﻿import React, { Component } from 'react';
-import { FormGroup, ControlLabel, FormControl, Grid, Row, Col, Button, Alert, Checkbox, DropdownButton, MenuItem } from 'react-bootstrap';
+import { FormGroup, Input, Container, Row, Col, Button, Alert } from 'reactstrap';
 import { Loading } from './common/Loading';
 import { makeNumber } from '../helpers/utilities';
 
 class SernosConfig extends Component {
     constructor(props) {
         super(props);
-        this.state = { sernosConfig: this.props.sernosConfig, editStatus: this.props.editStatus || 'view' };
+        this.state = { dropdownOpen: false, sernosConfig: this.props.sernosConfig, editStatus: this.props.editStatus || 'view' };
+
+        this.toggle = this.toggle.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -74,8 +76,14 @@ class SernosConfig extends Component {
         this.setState({ sernosConfig: { ...this.state.sernosConfig, serialNumbered: checked ? 'Y' : 'N' } });
     }
 
-    handleStartOnChange(selected) {
-        this.setState({ sernosConfig: { ...this.state.sernosConfig, startOn: selected } });
+    handleStartOnChange(e) {
+        this.setState({ sernosConfig: { ...this.state.sernosConfig, startOn: e.currentTarget.value } });
+    }
+
+    toggle() {
+        this.setState(prevState => ({
+            dropdownOpen: !prevState.dropdownOpen
+        }));
     }
 
     render() {
@@ -84,135 +92,123 @@ class SernosConfig extends Component {
         if (loading || !sernosConfig) {
             return( 
                 errorMessage?
-                <Grid>
+                <Container>
                 <Row>
                     <Col sm={8}>
-                        <Alert style={{ marginTop: "15px" }} bsStyle="warning" >
+                        <Alert style={{ marginTop: "15px" }} color="warning" >
                         <strong>{errorMessage}</strong>
                         </Alert >
                     </Col>
                 </Row>                
-                </Grid>
+                </Container>
         :  <Loading />);
         }
 
         return (
             <div className="container">
-                <Grid>
-                    <Row>
-                        <FormGroup controlId="header">
+                <Container>
+                        <FormGroup row>
                             <Col sm={3} />
-                            <Col componentClass={ControlLabel} sm={4}>
+                            <Col sm={4}>
                                 <h2>Sernos Config</h2>
                             </Col>
                         </FormGroup>
-                    </Row>
-                    <Row>
-                        <FormGroup controlId="name" className="container">
-                            <Col componentClass={ControlLabel} sm={3}>
+                        <FormGroup row>
+                            <Col sm={3}>
                                 <div className="pull-right">Name</div>
                             </Col>
                             <Col sm={3} id="sernos-config-name">
                                 {this.creating()
-                                    ? <div><FormControl type="text" onChange={(e) => this.handleNameChange(e)} placeholder="Name" defaultValue={sernosConfig.name}></FormControl></div>
+                                    ? <div><Input type="text" onChange={(e) => this.handleNameChange(e)} placeholder="Name" defaultValue={sernosConfig.name}></Input></div>
                                     : sernosConfig.name
                                 }
                             </Col>
                         </FormGroup>
-                    </Row>
-                    <Row>
-                        <FormGroup controlId="description" className="container">
-                            <Col componentClass={ControlLabel} sm={3}>
+                        <FormGroup row>
+                            <Col  sm={3}>
                                 <div className="pull-right">Description</div>
                             </Col>
                             <Col sm={6}>
                                 {this.editing() || this.creating()
-                                    ? <FormControl type="text" placeholder="Description" onChange={(e) => this.handleDescriptionChange(e)} defaultValue={sernosConfig.description}></FormControl>
+                                    ? <Input type="text" placeholder="Description" onChange={(e) => this.handleDescriptionChange(e)} defaultValue={sernosConfig.description}></Input>
                                     : sernosConfig.description
                                 }
                             </Col>
                         </FormGroup>
-                    </Row>
-                    <Row>
-                        <FormGroup controlId="serial-numbered" className="container">
-                            <Col xs={3} componentClass={ControlLabel}>
+                        <FormGroup row>
+                            <Col xs={3} >
                                 <div className="pull-right">Serial Numbered</div>
                             </Col>
-                            <Col xs={9}>
+                            <Col xs={8}>
                                 {this.editing() || this.creating()
-                                    ? <Checkbox checked={this.state.sernosConfig.serialNumbered === 'Y'} onChange={ch => this.handleSerialNumberedChange(ch.target.checked)}>
-                                    </Checkbox>
+                                ? <Input type="checkbox" checked={this.state.sernosConfig.serialNumbered === 'Y'} onChange={ch => this.handleSerialNumberedChange(ch.target.checked)}>
+                                </Input>
                                     : <div>{sernosConfig.serialNumbered}</div>
                                 }
                             </Col>
                         </FormGroup>
-                    </Row>
-                    <Row>
-                        <FormGroup controlId="number-of-sernos" className="container">
-                            <Col componentClass={ControlLabel} sm={3}>
+                        <FormGroup row>
+                            <Col sm={3}>
                                 <div className="pull-right">Number Of Serial Nos</div>
                             </Col>
                             <Col sm={6}>
                                 {this.editing() || this.creating()
-                                    ? <FormControl type="number" placeholder="Number Of Sernos" onChange={(e) => this.handleNumberOfSernosChange(e)} defaultValue={sernosConfig.numberOfSernos}></FormControl>
+                                    ? <Input type="number" placeholder="Number Of Sernos" onChange={(e) => this.handleNumberOfSernosChange(e)} defaultValue={sernosConfig.numberOfSernos}></Input>
                                     : sernosConfig.numberOfSernos
                                 }
                             </Col>
                         </FormGroup>
-                    </Row>
-                    <Row>
-                        <FormGroup controlId="number-of-boxes" className="container">
-                            <Col componentClass={ControlLabel} sm={3}>
+                        <FormGroup row>
+                            <Col sm={3}>
                                 <div className="pull-right">Number Of Boxes</div>
                             </Col>
                             <Col sm={6}>
                                 {this.editing() || this.creating()
-                                    ? <FormControl type="number" placeholder="Number Of Boxes" onChange={(e) => this.handleNumberOfBoxesChange(e)} defaultValue={sernosConfig.numberOfBoxes}></FormControl>
+                                    ? <Input type="number" placeholder="Number Of Boxes" onChange={(e) => this.handleNumberOfBoxesChange(e)} defaultValue={sernosConfig.numberOfBoxes}></Input>
                                     : sernosConfig.numberOfBoxes
                                 }
                             </Col>
                         </FormGroup>
-                    </Row>
-                    <Row>
-                        <FormGroup controlId="start-on" className="container">
-                            <Col componentClass={ControlLabel} sm={3}>
+                        <FormGroup row>
+                            <Col sm={3}>
                                 <div className="pull-right">Start On</div>
                             </Col>
                             <Col sm={6}>
                                 {this.editing() || this.creating()
-                                    ?
-                                    <DropdownButton title={this.state.sernosConfig.startOn ? this.state.sernosConfig.startOn : '-'}
-                                        key={sernosConfig.startOn}
-                                        id={sernosConfig.startOn}
-                                        onSelect={e => this.handleStartOnChange(e)}>
-                                        <MenuItem eventKey="Any">Any</MenuItem>
-                                        <MenuItem eventKey="Odd">Odd</MenuItem>
-                                        <MenuItem eventKey="Even">Even</MenuItem>
-                                    </DropdownButton>
-                                    : sernosConfig.startOn
+                                ?
+                    <div>
+                        <Input value={this.state.sernosConfig.startOn} type="select" name="select" id="exampleSelect" onChange={e => this.handleStartOnChange(e)}>
+                            <option value="">-</option>
+                            <option value="Any">Any</option>
+                            <option value="Odd">Odd</option>
+                            <option value="Even">Even</option>
+                        </Input></div>
+                                : sernosConfig.startOn
                                 }
                             </Col>
-                        </FormGroup>
-                    </Row>
+                    </FormGroup>
                     <Row>
                         <Col sm={3} />
                         <Col sm={4}>
                             {this.editing() || this.creating()
-                                ? <div><Button id="cancel-button" bsStyle="link" onClick={() => this.handleCancelClick()}>Cancel</Button> <Button id="save-button" className="pull-right" bsStyle="primary" type="submit" onClick={() => this.handleSaveClick()}>Save</Button></div>
-                                : <div><Button id="back-button" bsStyle="link" onClick={() => this.handleBackClick()}>Back</Button> <Button id="edit-button" className="pull-right" onClick={() => this.handleEditClick()}>Edit</Button></div>}
+                                ? <div>
+                                        <Button color="link" id="cancel-button" onClick={() => this.handleCancelClick()}>Cancel</Button>
+                                        <Button color="primary" id="save-button" className="pull-right" color="primary" type="submit" onClick={() => this.handleSaveClick()}>Save</Button></div>
+                                : <div><Button color="link" id="back-button" onClick={() => this.handleBackClick()}>Back</Button>
+                                    <Button color="primary" outline id="edit-button" className="pull-right" onClick={() => this.handleEditClick()}>Edit</Button></div>}
                         </Col>
                     </Row>
                     <Row>
                         <Col sm={3} />
                         <Col sm={4}>
                             {errorMessage ?
-                                <Alert style={{marginTop: "15px"}}  bsStyle="warning">
+                                <Alert style={{marginTop: "15px"}} color="warning">
                                     <strong>{errorMessage}</strong>
                                 </Alert>
                                 : '' }
                         </Col>
                     </Row>
-                </Grid>
+                </Container>
             </div>
         );
     }

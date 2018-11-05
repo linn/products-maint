@@ -1,18 +1,18 @@
 ﻿import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'reactstrap';
 import Breadcrumbs from '../containers/Breadcrumbs';
 
 class Navigation extends Component {
 
     render() {
         return (
-            <Grid className="header" fluid={false}>
+            <Container className="header" fluid={false}>
                 <Row>
                     <Col xs={12}>
                         <Breadcrumbs />
                     </Col>
                 </Row>
-            </Grid>
+            </Container>
         );
     }
 }

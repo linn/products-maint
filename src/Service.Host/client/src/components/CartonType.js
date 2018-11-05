@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { FormGroup, ControlLabel, FormControl, Grid, Row, Col, Button, Alert } from 'react-bootstrap';
+import { FormGroup, Container, Row, Col, Button, Alert, Label, Input, Form } from 'reactstrap';
 import { Loading } from './common/Loading';
 import { makeNumber } from '../helpers/utilities';
 
@@ -83,99 +83,93 @@ class CartonType extends Component {
 
         return (
             <div className="container">
-                <Grid>
+                <Container>
                     <Row>
-                        <FormGroup controlId="header">
-                            <Col sm={3} />
-                            <Col componentClass={ControlLabel} sm={4}>
+                            <Col sm="3" />
+                            <Col sm="7">
                                 <h2>Carton Type</h2>
                             </Col>
-                        </FormGroup>
                     </Row>
-                    <Row>
-                        <FormGroup controlId="name" className="container">
-                            <Col componentClass={ControlLabel} sm={3}>
+ 
+                        <FormGroup row>
+                            <Col sm={3}>
                                 <div className="pull-right">Name</div>
                             </Col>
-                            <Col sm={3} id="carton-type-name">
+                            <Col sm={9} >
+                                <div id="carton-type-name">
                                 {this.creating()
-                                    ? <div><FormControl type="text" onChange={(e) => this.handleNameChange(e)} placeholder="Name" defaultValue={cartonType.name}></FormControl></div>
-                                    : cartonType.name
-                                }
+                                    ? <div><Input type="text" onChange={(e) => this.handleNameChange(e)} placeholder="Name" defaultValue={cartonType.name}></Input></div>
+                                    : <Label> {cartonType.name} </Label>
+                                    }
+                                </div>
                             </Col>
                         </FormGroup>
-                    </Row>
-                    <Row>
-                        <FormGroup controlId="description" className="container">
-                            <Col componentClass={ControlLabel} sm={3}>
+      
+                        <FormGroup row>
+                            <Col sm={3}>
                                 <div className="pull-right">Description</div>
                             </Col>
                             <Col sm={6}>
                                 {this.editing() || this.creating()
-                                    ? <FormControl type="text" placeholder="Description" onChange={(e) => this.handleDescriptionChange(e)} defaultValue={cartonType.description}></FormControl>
+                                    ? <Input type="text" placeholder="Description" onChange={(e) => this.handleDescriptionChange(e)} defaultValue={cartonType.description}></Input>
                                     : cartonType.description
                                 }
                             </Col>
                         </FormGroup>
-                    </Row>
-                    <Row>
-                        <FormGroup controlId="width" className="container">
-                            <Col componentClass={ControlLabel} sm={3}>
+                        <FormGroup row>
+                            <Col sm={3}>
                                 <div className="pull-right">Width</div>
                             </Col>
                             <Col sm={6}>
                                 {this.editing() || this.creating()
-                                    ? <FormControl type="number" placeholder="Width" onChange={(e) => this.handleWidthChange(e)} defaultValue={cartonType.width}></FormControl>
+                                    ? <Input type="number" placeholder="Width" onChange={(e) => this.handleWidthChange(e)} defaultValue={cartonType.width}></Input>
                                     : cartonType.width
                                 }
                             </Col>
                         </FormGroup>
-                    </Row>
-                    <Row>
-                        <FormGroup controlId="height" className="container">
-                            <Col componentClass={ControlLabel} sm={3}>
+                        <FormGroup row>
+                            <Col sm={3}>
                                 <div className="pull-right">Height</div>
                             </Col>
                             <Col sm={6}>
                                 {this.editing() || this.creating()
-                                    ? <FormControl type="number" placeholder="Description" onChange={(e) => this.handleHeightChange(e)} defaultValue={cartonType.height}></FormControl>
+                                    ? <Input type="number" placeholder="Description" onChange={(e) => this.handleHeightChange(e)} defaultValue={cartonType.height}></Input>
                                     : cartonType.height
                                 }
                             </Col>
                         </FormGroup>
-                    </Row>
-                    <Row>
-                        <FormGroup controlId="depth" className="container">
-                            <Col componentClass={ControlLabel} sm={3}>
+                        <FormGroup row>
+                            <Col sm={3}>
                                 <div className="pull-right">Depth</div>
                             </Col>
                             <Col sm={6}>
                                 {this.editing() || this.creating()
-                                    ? <FormControl type="number" placeholder="Description" onChange={(e) => this.handleDepthChange(e)} defaultValue={cartonType.depth}></FormControl>
+                                    ? <Input type="number" placeholder="Description" onChange={(e) => this.handleDepthChange(e)} defaultValue={cartonType.depth}></Input>
                                     : cartonType.depth
                                 }
                             </Col>
                         </FormGroup>
-                    </Row>
                     <Row>
                         <Col sm={3} />
                         <Col sm={4}>
                             {this.editing() || this.creating()
-                                ? <div><Button id="cancel-button" bsStyle="link" onClick={() => this.handleCancelClick()}>Cancel</Button> <Button id="save-button" className="pull-right" bsStyle="primary" type="submit" onClick={() => this.handleSaveClick()}>Save</Button></div>
-                                : <div><Button id="back-button" bsStyle="link" onClick={() => this.handleBackClick()}>Back</Button> <Button id="edit-button" className="pull-right" onClick={() => this.handleEditClick()}>Edit</Button></div>}
+                                ? <div><Button color="link" id="cancel-button" onClick={() => this.handleCancelClick()}>Cancel</Button>
+                                    <Button color="primary" id="save-button" className="pull-right" type="submit" onClick={() => this.handleSaveClick()}>Save</Button></div>
+                                : <div><Button color="link" id="back-button" onClick={() => this.handleBackClick()}>Back</Button>
+                                       <Button color="primary" outline id="edit-button" className="pull-right" onClick={() => this.handleEditClick()}>Edit</Button></div>}
                         </Col>
                     </Row>
                     <Row>
                         <Col sm={3} />
                         <Col sm={4}>
                             {errorMessage ?
-                                <Alert style={{marginTop: "15px"}}  bsStyle="warning">
+                                <Alert style={{marginTop: "15px"}} color="warning">
                                     <strong>{errorMessage}</strong>
                                 </Alert>
                                 : '' }
                         </Col>
                     </Row>
-                </Grid>
+                </Container>
             </div>
         );
     }
