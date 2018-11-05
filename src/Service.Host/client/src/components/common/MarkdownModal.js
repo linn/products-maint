@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Modal, Button } from 'reactstrap';
+import { Modal, Button, Glyphicon } from 'react-bootstrap';
 import ReactMarkdown from 'react-markdown';
 
 export class MarkdownModal extends Component {
@@ -24,7 +24,7 @@ export class MarkdownModal extends Component {
         return (
             this.state.helpText ?
                 <div>
-                    <Button style={{ opacity: 0.5 }} color="link" className="screen-only" onClick={() => this.openModal()}></Button>
+                    <Button style={{ opacity: 0.5 }} bsStyle="link" className="screen-only" onClick={() => this.openModal()}><Glyphicon glyph="question-sign" /></Button>
                     <Modal show={this.state.showModal} onHide={() => this.closeModal()}>
                         <Modal.Header closeButton>
                             <Modal.Title>Report Description</Modal.Title>

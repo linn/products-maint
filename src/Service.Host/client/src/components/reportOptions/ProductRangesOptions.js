@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Container, Input, Row, Col, Button } from 'reactstrap';
+import { PageHeader, Grid, Checkbox, Row, Col, Button } from 'react-bootstrap';
 
 class ProductRangesOptions extends Component {
     constructor(props) {
@@ -27,25 +27,26 @@ class ProductRangesOptions extends Component {
     render() {
         return (
             <div className="container">
-                <Container>
-                    <h2>
+                <Grid>
+                    <PageHeader>
                         <small>Product Ranges Report Options</small>
-                    </h2>
+                    </PageHeader>
 
                     <Row>
                         <Col xs={10}>
-                            <Input type="checkbox" checked={this.state.includePhasedOut} onChange={ch => this.handlePhaseOutChange(ch.target.checked)}>
-                            </Input> Include phased out
+                            <Checkbox checked={this.state.includePhasedOut} onChange={ch => this.handlePhaseOutChange(ch.target.checked)}>
+                                Include phased out
+                            </Checkbox>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs={10}>
-                            <Button color="primary" onClick={() => this.handleClick()}>
+                            <Button bsClass="btn" onClick={() => this.handleClick()}>
                                 Run Report
                             </Button>
                         </Col>
                     </Row>
-                </Container>
+                </Grid>
             </div>
         );
     }

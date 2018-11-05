@@ -13,7 +13,7 @@ const getCellClassName = (isVarianceColumn, isTotalColumn, value, textValue, def
 );
 
 const getTableClassNames = (containsSubtotals, defaults = []) => classnames(
-    defaults, 'table', 'table-sm', 'table-bordered', 'small',
+    defaults, 'table', 'table-condensed', 'table-bordered', 'small',
     { 'table-striped': !containsSubtotals }
 );
 

@@ -1,9 +1,19 @@
 ﻿import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { history } from 'react-router';
+import { Breadcrumb } from 'react-bootstrap';
+import { toTitleCase, isUpperCase } from '../helpers/strings';
+
+const BreadcrumbItem = ({ caption, href, onClick }) => (
+    <Breadcrumb.Item href={href} onClick={e => onClick(e)} >
+        {isUpperCase(caption) ? caption : toTitleCase(caption)}
+    </Breadcrumb.Item>
+);
 
 class Breadcrumbs extends Component {
+
     render() {
-        const { location, history, rootPathLength = 2 } = this.props;
+        const { location, history, rootPathLength = 2 } = this.props
 
         const crumbs = location.pathname
             .split('/')
@@ -22,7 +32,7 @@ class Breadcrumbs extends Component {
 
                 return [
                     ...sofar,
-                    <BreadcrumbItem key={i} caption={crumb || 'Home'} onClick={e => handleClick(e)} ><a href={href}> {crumb || 'Home'}</a> </BreadcrumbItem>
+                    <BreadcrumbItem key={i} caption={crumb || 'Home'} href={href} onClick={e => handleClick(e)} />
                 ];
             }, []);
 

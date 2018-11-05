@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import { shallow } from 'enzyme';
 import EanCodesOptions from '../../reportOptions/EanCodesOptions';
-import { Input, Button } from 'reactstrap';
+import { Checkbox, Button } from 'react-bootstrap';
 
 describe('<EanCodesOptions />',
     () => {
@@ -10,7 +10,7 @@ describe('<EanCodesOptions />',
             wrapper = shallow(<EanCodesOptions prevOptions={prevOptions} history={history} />);
 
         test('Should render two checkboxes', () => {
-            expect(wrapper.find(Input)).toHaveLength(2);
+                expect(wrapper.find(Checkbox)).toHaveLength(2);
             });
 
         test('Should render button', () => {

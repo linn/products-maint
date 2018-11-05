@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Container, Row, Col, Button } from 'reactstrap';
+import { PageHeader, Grid, Checkbox, Row, Col, Button } from 'react-bootstrap';
 
 class CartonDetailsOptions extends Component {
     handleClick() {
@@ -15,19 +15,19 @@ class CartonDetailsOptions extends Component {
     render() {
         return (
             <div className="container">
-                <Container>
-                    <h2>
+                <Grid>
+                    <PageHeader>
                         <small>Carton Details Report</small>
-                    </h2>
+                    </PageHeader>
 
                     <Row>
                         <Col xs={10}>
-                            <Button color="primary" onClick={() => this.handleClick()}>
+                            <Button bsClass="btn" onClick={() => this.handleClick()}>
                                 Run Report
                             </Button>
                         </Col>
                     </Row>
-                </Container>
+                </Grid>
             </div>
         );
     }

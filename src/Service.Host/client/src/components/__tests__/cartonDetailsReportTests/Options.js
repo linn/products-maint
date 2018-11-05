@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import { shallow } from 'enzyme';
 import CartonDetailsOptions from '../../reportOptions/CartonDetailsOptions';
-import { Button } from 'reactstrap';
+import { Button } from 'react-bootstrap';
 
 describe('<CartonDetailsOptions />', () => {
     let history = { push : jest.fn() },
