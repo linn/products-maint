@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { connect } from 'react-redux';
-import sernosConfigs from '../../actions/sernosConfigs';
+import sernosConfigActions from '../../actions/sernosConfigActions';
 import SernosConfig from '../../components/SernosConfig';
 import { getSingleErrorMessage } from '../../selectors/fetchErrorSelectors';
 
@@ -11,8 +11,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    addSernosConfig: sernosConfigs.add,
-    resetSernosConfig: sernosConfigs.reset
+    addSernosConfig: sernosConfigActions.add,
+    resetSernosConfig: sernosConfigActions.reset
 }
 
 export default connect(

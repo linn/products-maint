@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.IoC
 {
+    using System.Collections.Generic;
+
     using Autofac;
 
     using Linn.Common.Facade;
@@ -15,6 +17,7 @@
             builder.RegisterType<ResultsModelResourceBuilder>().As<IResourceBuilder<ResultsModel>>();
             builder.RegisterType<CartonTypeResourceBuilder>().As<IResourceBuilder<CartonType>>();
             builder.RegisterType<SernosConfigResourceBuilder>().As<IResourceBuilder<SernosConfig>>();
+            builder.RegisterType<SernosConfigsResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosConfig>>>();
         }
     }
 }
