@@ -62,7 +62,7 @@ const Table = (
             {!reportData
                 ? <Placeholder rows={placeholderRows} columns={placeholderColumns} /> :
                 reportData.error ? displayError(reportData.message)
-                    : <div>
+                    : <div style={{backgroundColor: "white"}}>
                         <table className={getTableClassNames(containsSubtotals)}>
                             <tbody>
                                 <tr key="headers">

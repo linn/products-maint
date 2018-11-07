@@ -7,6 +7,10 @@ import history from '../history';
 import Navigation from './Navigation';
 import App from './App';
 import Callback from '../containers/Callback';
+import Tariff from '../containers/Tariff';
+import Tariffs from '../containers/Tariffs';
+import CreateTariff from '../containers/CreateTariff';
+import UpdateTariff from '../containers/UpdateTariff';
 import userManager from '../helpers/userManager';
 import EanCodesOptions from '../containers/reportOptions/EanCodesOptions';
 import EanCodes from '../containers/reports/EanCodes';
@@ -37,9 +41,16 @@ class Root extends Component {
                             <Route path="/" render={() => { document.title = 'Products'; return false; }} />
                             <Route exact path="/" render={() => <Redirect to="/products/maint" />} />
                             <Route exact path="/products/maint" component={App} />
-                            <Route exact path="/products/reports" component={App} />
                             <Route exact path="/products/maint/signin-oidc-client" component={Callback} />
 
+                            <Switch>
+                                <Route exact path="/products/maint/tariffs/create" component={CreateTariff} />
+                                <Route exact path="/products/maint/tariffs/:id/edit" component={UpdateTariff} />
+                                <Route exact path="/products/maint/tariffs/:id" component={Tariff} />
+                                <Route exact path="/products/maint/tariffs" component={Tariffs} />
+                            </Switch>
+
+                            <Route exact path="/products/reports" component={App} />							
                             <Route exact path="/products/reports/sales-article-ean-codes" component={EanCodesOptions} />
                             <Route exact path="/products/reports/sales-article-ean-codes/report" component={EanCodes} />
 
