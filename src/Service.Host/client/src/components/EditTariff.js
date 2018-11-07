@@ -35,7 +35,7 @@ class EditTariff extends Component {
             history.push('/products/maint/tariffs');
         } else if (this.editing()) {
             history.push(getSelfHref(this.state.tariff));
-        }
+        } 
     }
 
     handleDescriptionChange(e) {
