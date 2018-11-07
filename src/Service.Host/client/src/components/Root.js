@@ -20,6 +20,7 @@ import CartonType from '../containers/CartonType';
 import SernosConfig from '../containers/sernosConfig/SernosConfig';
 import SernosConfigs from '../containers/sernosConfig/SernosConfigs';
 import CreateSernosConfig from '../containers/sernosConfig/CreateSernosConfig';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 class Root extends Component {
     render() {
@@ -30,6 +31,7 @@ class Root extends Component {
                 <OidcProvider store={store} userManager={userManager}>
                     <Router history={history}>
                         <div>
+                            <CssBaseline />
                             <Navigation />
 
                             <Route path="/" render={() => { document.title = 'Products'; return false; }} />

@@ -33,7 +33,7 @@ class SernosConfig extends Component {
         const { sernosConfig, history, resetSernosConfig } = this.props;
         if (this.creating()) {
             resetSernosConfig();
-            history.push('/products/maint');
+            history.push('/products/maint/sernos-configs');
         } else if (this.editing()) {
             resetSernosConfig();
             this.setState({ sernosConfig, editStatus: 'view' });
@@ -51,7 +51,7 @@ class SernosConfig extends Component {
 
     handleBackClick() {
         const { history } = this.props;
-        history.push('/products/maint');
+        history.push('/products/maint/sernos-configs');
     }
 
     handleNameChange(e) {
@@ -183,7 +183,7 @@ class SernosConfig extends Component {
                                     ?
                                     <DropdownButton title={this.state.sernosConfig.startOn ? this.state.sernosConfig.startOn : '-'}
                                         key={sernosConfig.startOn}
-                                        id={sernosConfig.startOn}
+                                        id="start-on-dropdown"
                                         onSelect={e => this.handleStartOnChange(e)}>
                                         <MenuItem eventKey="Any">Any</MenuItem>
                                         <MenuItem eventKey="Odd">Odd</MenuItem>

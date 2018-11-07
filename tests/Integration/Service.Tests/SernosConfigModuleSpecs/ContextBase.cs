@@ -32,8 +32,10 @@
                 {
                     with.Dependency(this.SernosConfigService);
                     with.Dependency<IResourceBuilder<SernosConfig>>(new SernosConfigResourceBuilder());
+                    with.Dependency<IResourceBuilder<IEnumerable<SernosConfig>>>(new SernosConfigsResourceBuilder());
                     with.Module<SernosConfigModule>();
                     with.ResponseProcessor<SernosConfigResponseProcessor>();
+                    with.ResponseProcessor<SernosConfigsResponseProcessor>();
                     with.RequestStartup(
                         (container, pipelines, context) =>
                         {

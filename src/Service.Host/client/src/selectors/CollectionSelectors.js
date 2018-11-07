@@ -9,12 +9,13 @@
     }
 
     this.getItem = (state, id) => {
-        const storeItems = state[itemType];
-        if (!storeItems || !storeItems.items) {
-            return null;
-        }
+        const storeItems = this.getItems(state);
+        return storeItems.find(a => a[idField] === id);
+    }
 
-        return storeItems.items.find(a => a[idField] === id);
+    this.getItemByHref = (state, href) => {
+        const storeItems = this.getItems(state);
+        return storeItems.find(a => a.href === href);
     }
 
     this.getLoading = (state) => {
