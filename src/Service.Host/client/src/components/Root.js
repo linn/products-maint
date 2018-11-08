@@ -22,7 +22,9 @@ import SalesProductsByProductRange from '../containers/reports/SalesProductsByPr
 import CreateCartonType from '../containers/CreateCartonType';
 import CartonType from '../containers/CartonType';
 import SernosConfig from '../containers/sernosConfig/SernosConfig';
+import SernosConfigs from '../containers/sernosConfig/SernosConfigs';
 import CreateSernosConfig from '../containers/sernosConfig/CreateSernosConfig';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 class Root extends Component {
     render() {
@@ -33,6 +35,7 @@ class Root extends Component {
                 <OidcProvider store={store} userManager={userManager}>
                     <Router history={history}>
                         <div>
+                            <CssBaseline />
                             <Navigation />
 
                             <Route path="/" render={() => { document.title = 'Products'; return false; }} />
@@ -61,6 +64,7 @@ class Root extends Component {
                             </Switch>
 
                             <Switch>
+                                <Route exact path="/products/maint/sernos-configs" component={SernosConfigs} />
                                 <Route exact path="/products/maint/sernos-configs/create" component={CreateSernosConfig} />
                                 <Route exact path="/products/maint/sernos-configs/:sernosConfigId" component={SernosConfig} />
                             </Switch>

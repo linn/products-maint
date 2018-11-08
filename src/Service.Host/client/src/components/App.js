@@ -6,7 +6,12 @@ class App extends Component {
     render() {
         return (
             <Grid fluid={false}>
-            <h2>Products</h2>
+                <h2>Products</h2>
+                <Row>
+                    <Col xs={12}>
+                        <Link style={{ display: 'block' }} to="/products/maint/sernos-configs">Sernos Config Types</Link>
+                    </Col>
+                </Row >
                 <Row>
                     <Col xs={12}>
                         <h2>Reports</h2>

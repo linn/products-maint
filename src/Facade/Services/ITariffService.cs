@@ -1,9 +1,10 @@
 ﻿namespace Linn.Products.Facade.Services
 {
     using System.Collections.Generic;
-    using Common.Facade;
-    using Domain.Linnapps.Products;
-    using Resources;
+
+    using Linn.Common.Facade;
+    using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Resources;
 
     public interface ITariffService
     {

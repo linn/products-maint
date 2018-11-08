@@ -1,9 +1,10 @@
 ﻿namespace Linn.Products.Service.Modules
 {
-    using Facade.Services;
+    using Linn.Products.Facade.Services;
+    using Linn.Products.Resources;
+
     using Nancy;
     using Nancy.ModelBinding;
-    using Resources;
 
     public sealed class TariffModule : NancyModule
     {

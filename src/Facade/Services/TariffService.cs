@@ -2,11 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using Common.Facade;
-    using Domain.Linnapps.Products;
-    using Domain.Linnapps.Repositories;
-    using Domain.Repositories;
-    using Resources;
+
+    using Linn.Common.Facade;
+    using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Domain.Linnapps.Repositories;
+    using Linn.Products.Resources;
 
     public class TariffService : ITariffService
     {
@@ -37,16 +37,14 @@
 
         public IResult<Tariff> AddTariff(TariffResource resource)
         {
-            Tariff tariff;
-
-            tariff = new Tariff()
-            {
-                Description = resource.Description,
-                TariffCode = resource.TariffCode,
-                USTariffCode = resource.USTariffCode,
-                DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? null : (DateTime?) Convert.ToDateTime(resource.DateInvalid),
-                Duty = resource.Duty
-            };
+            var tariff = new Tariff
+                             {
+                                 Description = resource.Description,
+                                 TariffCode = resource.TariffCode,
+                                 USTariffCode = resource.USTariffCode,
+                                 DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? null : (DateTime?)Convert.ToDateTime(resource.DateInvalid),
+                                 Duty = resource.Duty
+                             };
 
             this.tariffRepository.Add(tariff);
 

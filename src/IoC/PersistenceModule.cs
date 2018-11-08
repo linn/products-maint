@@ -1,10 +1,11 @@
 ﻿namespace Linn.Products.IoC
 {
     using Autofac;
-    using Domain.Linnapps;
-    using Persistence.Linnapps;
-    using Persistence.Linnapps.Repositories;
+
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Repositories;
+    using Linn.Products.Persistence.Linnapps;
+    using Linn.Products.Persistence.Linnapps.Repositories;
 
     public class PersistenceModule : Module
     {

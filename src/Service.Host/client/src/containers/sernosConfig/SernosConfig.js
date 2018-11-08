@@ -1,7 +1,7 @@
 ﻿import { connect } from 'react-redux';
 import SernosConfig from '../../components/SernosConfig';
 import initialiseOnMount from '../common/initialiseOnMount';
-import sernosConfigs from '../../actions/sernosConfigs';
+import sernosConfigActions from '../../actions/sernosConfigActions';
 import { getSingleErrorMessage } from '../../selectors/fetchErrorSelectors';
 import sernosConfigSelectors from '../../selectors/sernosConfigSelectors';
 
@@ -14,13 +14,13 @@ const mapStateToProps = (state, { match }) => ({
 });
 
 const initialise = ({ sernosConfigId }) => dispatch => {
-    dispatch(sernosConfigs.fetch(sernosConfigId));
+    dispatch(sernosConfigActions.fetch(sernosConfigId));
 };
 
 const mapDispatchToProps = {
     initialise,
-    updateSernosConfig : sernosConfigs.update,
-    resetSernosConfig : sernosConfigs.reset
+    updateSernosConfig: sernosConfigActions.update,
+    resetSernosConfig: sernosConfigActions.reset
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(SernosConfig));
