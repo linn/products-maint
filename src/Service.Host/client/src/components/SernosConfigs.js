@@ -33,7 +33,7 @@ class SernosConfigs extends Component {
         }
 
         return (
-            <div style={{ paddingLeft: 40 }} >
+            <div className="linn-container" >
                 <div className={classes.root}>
                 <h2>Serial Number Config Types</h2>
                     <List>

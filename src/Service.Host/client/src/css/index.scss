@@ -16,3 +16,28 @@
 .control-label-left {
     text-align: left !important;
 }
+
+.linn-container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 768px) {
+    .linn-container {
+        width: 750px;
+    }
+}
+
+@media (min-width: 992px) {
+    .linn-container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .linn-container {
+        width: 1170px;
+    }
+}
