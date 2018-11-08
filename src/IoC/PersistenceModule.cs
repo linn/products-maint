@@ -11,6 +11,7 @@
         {
             // linnapps repositories
             builder.RegisterType<CartonTypeRepository>().As<ICartonTypeRepository>();
+            // builder.RegisterType(<SA>)
         }
     }
 }
