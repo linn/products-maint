@@ -7,23 +7,23 @@
 
     using Linn.Products.Domain.Linnapps;
 
-    public class SACoreTypeRepository : IRepository<SaCoreType, int>
+    public class SaCoreTypeRepository : IRepository<SaCoreType, int>
     {
-        private List<SaCoreType> sACoreTypes = new List<SaCoreType>();
+        private readonly List<SaCoreType> saCoreTypes = new List<SaCoreType>();
 
         public SaCoreType FindById(int key)
         {
-            return this.sACoreTypes.SingleOrDefault(c => c.CoreType == key);
+            return this.saCoreTypes.SingleOrDefault(c => c.CoreType == key);
         }
 
         public IQueryable<SaCoreType> FindAll()
         {
-            return this.sACoreTypes.AsQueryable();
+            return this.saCoreTypes.AsQueryable();
         }
 
         public void Add(SaCoreType entity)
         {
-            this.sACoreTypes.Add(entity);
+            this.saCoreTypes.Add(entity);
         }
 
         public void Remove(SaCoreType entity)

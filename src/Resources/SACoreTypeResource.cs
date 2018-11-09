@@ -4,7 +4,7 @@
 
     public class SaCoreTypeResource : HypermediaResource
     {
-        public int coreType { get; set; }
+        public int CoreType { get; set; }
 
         public string Description { get; set; }
 

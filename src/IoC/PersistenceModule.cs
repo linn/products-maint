@@ -15,7 +15,7 @@
 
             // linnapps repositories
             builder.RegisterType<CartonTypeRepository>().As<ICartonTypeRepository>();
-            builder.RegisterType<SACoreTypeRepository>().As<IRepository<SaCoreType, int>>();
+            builder.RegisterType<SaCoreTypeRepository>().As<IRepository<SaCoreType, int>>();
             builder.RegisterType<SernosConfigRepository>().As<IRepository<SernosConfig, string>>();
             builder.RegisterType<TariffRepository>().As<ITariffRepository>();
         }

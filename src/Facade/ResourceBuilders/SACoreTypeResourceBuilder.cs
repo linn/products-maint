@@ -14,7 +14,7 @@
         {
             return new SaCoreTypeResource
                        {
-                            coreType = saCoreType.CoreType,
+                            CoreType = saCoreType.CoreType,
                             Description  = saCoreType.Description,
                             DateInvalid = saCoreType.DateInvalid?.ToString("o"),
                             SortOrder = saCoreType.SortOrder,

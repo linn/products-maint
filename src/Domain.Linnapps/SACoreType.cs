@@ -2,15 +2,17 @@
 {
     using System;
 
+    using Linn.Products.Domain.Linnapps.Exceptions;
+
     public class SaCoreType
     {
         public SaCoreType(
-                          int coreType, 
-                          string description, 
-                          DateTime? dateInvalid = null, 
-                          int? lookAheadDays = null, 
-                          int? sortOrder = null, 
-                          int? triggerLevel = null)
+            int coreType,
+            string description,
+            DateTime? dateInvalid = null,
+            int? lookAheadDays = null,
+            int? sortOrder = null,
+            int? triggerLevel = null)
         {
             this.CoreType = coreType;
             this.Description = description;
@@ -30,5 +32,20 @@
         public int? SortOrder { get; set; }
 
         public int? TriggerLevel { get; set; }
+
+        public void Update(
+            string description,
+            DateTime? dateInvalid = null,
+            int? lookAheadDays = null,
+            int? sortOrder = null,
+            int? triggerLevel = null)
+        {
+            // TODO some sanity checking?
+            this.Description = description;
+            this.DateInvalid = dateInvalid;
+            this.LookAheadDays = lookAheadDays;
+            this.SortOrder = sortOrder;
+            this.TriggerLevel = triggerLevel;
+        }
     }
 }
