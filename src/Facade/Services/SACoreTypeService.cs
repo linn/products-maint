@@ -5,20 +5,21 @@
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Repositories;
+    using Linn.Products.Persistence.Linnapps;
     using Linn.Products.Resources;
 
     public class SACoreTypeService : ISACoreTypeService
     {
-        private readonly ISACoreTypeRepository repository;
+        private readonly IRepository<SACoreType, int> repository;
 
-        public SACoreTypeService(ISACoreTypeRepository repository)
+        public SACoreTypeService(IRepository<SACoreType, int> repository)
         {
             this.repository = repository;
         }
 
         public IResult<SACoreType> GetSACoreType(int coreType)
         {
-            var result = this.repository.GetByCoreType(coreType);
+            var result = this.repository.FindById(coreType);
             if (result == null)
             {
                 return new NotFoundResult<SACoreType>();
@@ -28,7 +29,7 @@
 
         public IResult<IEnumerable<SACoreType>> GetAllSACoreTypes()
         {
-            var result = this.repository.GetAll();
+            var result = this.repository.FindAll();
             return new SuccessResult<IEnumerable<SACoreType>>(result);
         }
 
@@ -50,7 +51,7 @@
 
         public IResult<SACoreType> UpdateSACoreType(int coreType, SACoreTypeResource resource)
         {
-            var sACoreType = this.repository.GetByCoreType(coreType);
+            var sACoreType = this.repository.FindById(coreType);
             if (sACoreType == null)
             {
                 return new NotFoundResult<SACoreType>();

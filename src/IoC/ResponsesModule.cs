@@ -20,6 +20,8 @@
             builder.RegisterType<CartonTypeResourceBuilder>().As<IResourceBuilder<CartonType>>();
             builder.RegisterType<SernosConfigResourceBuilder>().As<IResourceBuilder<SernosConfig>>();
             builder.RegisterType<SernosConfigsResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosConfig>>>();
+            builder.RegisterType<SACoreTypeResourceBuilder>().As<IResourceBuilder<SACoreType>>();
+            builder.RegisterType<SACoreTypesResourceBuilder>().As<IResourceBuilder<IEnumerable<SACoreType>>>();
         }
     }
 }

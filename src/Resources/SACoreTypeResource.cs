@@ -3,7 +3,9 @@
     using Linn.Common.Resources;
 
     public class SACoreTypeResource : HypermediaResource
-    { 
+    {
+        public int coreType { get; set; }
+
         public string Description { get; set; }
 
         public string DateInvalid { get; set; }

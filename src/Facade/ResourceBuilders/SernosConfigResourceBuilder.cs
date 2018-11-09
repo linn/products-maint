@@ -21,7 +21,7 @@
                            SerialNumbered = sernosConfig.SerialNumbered,
                            StartOn = $"{sernosConfig.StartOn?.Substring(0, 1)}{sernosConfig.StartOn?.Substring(1).ToLowerInvariant()}",
                            Links = this.BuildLinks(sernosConfig).ToArray()
-            };
+                       };
         }
 
         object IResourceBuilder<SernosConfig>.Build(SernosConfig sernosConfig) => this.Build(sernosConfig);

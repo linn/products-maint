@@ -29,8 +29,7 @@
             builder.RegisterType<CartonReportsService>().As<ICartonReportsService>();
             builder.RegisterType<ProductsReportsService>().As<IProductsReportsService>();
             builder.RegisterType<CartonTypeService>().As<ICartonTypeService>();
-
-            builder.RegisterType<SACoreTypeService>().As<ISACoreTypeService>(); 
+            builder.RegisterType<SACoreTypeService>().As<IFacadeService<SACoreType, int, SACoreTypeResource>>(); 
             builder.RegisterType<SernosConfigService>().As<IFacadeService<SernosConfig, string, SernosConfigResource>>();
 
 

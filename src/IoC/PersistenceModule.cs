@@ -11,14 +11,13 @@
     {
         protected override void Load(ContainerBuilder builder)
         {
-            // persistence linnapps
-            builder.RegisterType<TariffRepository>().As<ITariffRepository>();
             builder.RegisterType<ServiceDbContext>().InstancePerRequest();
 
             // linnapps repositories
             builder.RegisterType<CartonTypeRepository>().As<ICartonTypeRepository>();
-
+            builder.RegisterType<SACoreTypeRepository>().As<IRepository<SACoreType, int>>();
             builder.RegisterType<SernosConfigRepository>().As<IRepository<SernosConfig, string>>();
+            builder.RegisterType<TariffRepository>().As<ITariffRepository>();
         }
     }
 }
