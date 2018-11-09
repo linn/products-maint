@@ -6,9 +6,9 @@
     using Linn.Common.Nancy.Facade;
     using Linn.Products.Domain.Linnapps;
 
-    public class SACoreTypesResponseProcessor : JsonResponseProcessor<IEnumerable<SACoreType>>
+    public class SaCoreTypesResponseProcessor : JsonResponseProcessor<IEnumerable<SaCoreType>>
     {
-        public SACoreTypesResponseProcessor(IResourceBuilder<IEnumerable<SACoreType>> resourceBuilder)
+        public SaCoreTypesResponseProcessor(IResourceBuilder<IEnumerable<SaCoreType>> resourceBuilder)
             : base(resourceBuilder, "sa-core-types", 1)
         {
         }

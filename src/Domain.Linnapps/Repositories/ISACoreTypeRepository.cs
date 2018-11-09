@@ -5,10 +5,10 @@
 
     public interface ISACoreTypeRepository
     {
-        SACoreType GetByCoreType(int coreType);
+        SaCoreType GetByCoreType(int coreType);
 
-        IEnumerable<SACoreType> GetAll();
+        IEnumerable<SaCoreType> GetAll();
 
-        void Add(SACoreType sACoreType);
+        void Add(SaCoreType sACoreType);
     }
 }

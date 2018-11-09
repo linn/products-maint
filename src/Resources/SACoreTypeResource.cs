@@ -2,7 +2,7 @@
 {
     using Linn.Common.Resources;
 
-    public class SACoreTypeResource : HypermediaResource
+    public class SaCoreTypeResource : HypermediaResource
     {
         public int coreType { get; set; }
 

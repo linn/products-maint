@@ -2,8 +2,23 @@
 {
     using System;
 
-    public class SACoreType
+    public class SaCoreType
     {
+        public SaCoreType(
+                          int coreType, 
+                          string description, 
+                          DateTime? dateInvalid = null, 
+                          int? lookAheadDays = null, 
+                          int? sortOrder = null, 
+                          int? triggerLevel = null)
+        {
+            this.CoreType = coreType;
+            this.Description = description;
+            this.DateInvalid = dateInvalid;
+            this.SortOrder = sortOrder;
+            this.TriggerLevel = triggerLevel;
+        }
+
         public int CoreType { get; set; }
 
         public string Description { get; set; }

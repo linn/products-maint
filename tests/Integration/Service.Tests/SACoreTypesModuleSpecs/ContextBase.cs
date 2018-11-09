@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.Tests.SACoreTypesModuleSpecs
+﻿namespace Linn.Products.Service.Tests.SaCoreTypesModuleSpecs
 {
     using System.Collections.Generic;
     using System.Security.Claims;
@@ -19,22 +19,22 @@
 
     public abstract class ContextBase : NancyContextBase
     {
-        protected IFacadeService<SACoreType, int, SACoreTypeResource> SACoreTypeService { get; set; }
+        protected IFacadeService<SaCoreType, int, SaCoreTypeResource> SaCoreTypeService { get; set; }
 
         [SetUp]
         public void EstablishContext()
         {
-            this.SACoreTypeService = Substitute.For<IFacadeService<SACoreType, int, SACoreTypeResource>>();
+            this.SaCoreTypeService = Substitute.For<IFacadeService<SaCoreType, int, SaCoreTypeResource>>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
                     {
-                        with.Dependency(this.SACoreTypeService);
-                        with.Dependency<IResourceBuilder<SACoreType>>(new SACoreTypeResourceBuilder());
-                        with.Dependency<IResourceBuilder<IEnumerable<SACoreType>>>(new SACoreTypesResourceBuilder());
-                        with.Module<SACoreTypesModule>();
-                        with.ResponseProcessor<SACoreTypeResponseProcessor>();
-                        with.ResponseProcessor<SACoreTypesResponseProcessor>();
+                        with.Dependency(this.SaCoreTypeService);
+                        with.Dependency<IResourceBuilder<SaCoreType>>(new SaCoreTypeResourceBuilder());
+                        with.Dependency<IResourceBuilder<IEnumerable<SaCoreType>>>(new SaCoreTypesResourceBuilder());
+                        with.Module<SaCoreTypesModule>();
+                        with.ResponseProcessor<SaCoreTypeResponseProcessor>();
+                        with.ResponseProcessor<SaCoreTypesResponseProcessor>();
                         with.RequestStartup(
                             (container, pipelines, context) =>
                                 {

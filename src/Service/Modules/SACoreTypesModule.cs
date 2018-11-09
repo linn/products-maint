@@ -10,45 +10,47 @@
     using Nancy;
     using Nancy.ModelBinding;
 
-    public sealed class SACoreTypesModule : NancyModule
+    public sealed class SaCoreTypesModule : NancyModule
     {
-        private readonly IFacadeService<SACoreType, int, SACoreTypeResource> sACoreTypeService;
+        private readonly IFacadeService<SaCoreType, int, SaCoreTypeResource> saCoreTypeService;
 
-        public SACoreTypesModule(IFacadeService<SACoreType, int, SACoreTypeResource> sACoreTypeService)
+        public SaCoreTypesModule(IFacadeService<SaCoreType, int, SaCoreTypeResource> saCoreTypeService)
         {
-            this.sACoreTypeService = sACoreTypeService;
-            this.Get("/products/maint/sa-core-types", _ => this.GetSACoreTypes());
-            this.Get("/products/maint/sa-core-types/{coreType}", parameters => this.GetSACoreType(parameters.coreType));
-            this.Put("/products/maint/sa-core-types/{coreType}", parameters => this.UpdateSACoreType(parameters.coreType));
-            this.Post("/products/maint/sa-core-types", _ => this.AddSACoreType());
+            this.saCoreTypeService = saCoreTypeService;
+            this.Get("/products/maint/sa-core-types", _ => this.GetSaCoreTypes());
+            this.Get("/products/maint/sa-core-types/{coreType}", parameters => this.GetSaCoreType(parameters.coreType));
+            this.Put("/products/maint/sa-core-types/{coreType}", parameters => this.UpdateSaCoreType(parameters.coreType));
+            this.Post("/products/maint/sa-core-types", _ => this.AddSaCoreType());
         }
 
-        private object GetSACoreTypes()
+        private object GetSaCoreTypes()
         {
-            var result = this.sACoreTypeService.GetAll();
+            var result = this.saCoreTypeService.GetAll();
             return this.Negotiate.WithModel(result)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
 
-        private object GetSACoreType(int coreType)
+        private object GetSaCoreType(int coreType)
         {
-            var result = this.sACoreTypeService.GetById(coreType);
+            var result = this.saCoreTypeService.GetById(coreType);
             return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
 
-        private object UpdateSACoreType(int coreType)
+        private object UpdateSaCoreType(int coreType)
         {
-            var resource = this.Bind<SACoreTypeResource>();
-            var result = this.sACoreTypeService.Update(coreType, resource);
-            return this.Negotiate.WithModel(result);
+            var resource = this.Bind<SaCoreTypeResource>();
+            var result = this.saCoreTypeService.Update(coreType, resource);
+            return this.Negotiate.WithModel(result).WithModel(result)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
-        private object AddSACoreType()
+        private object AddSaCoreType()
         {
-            var resource = this.Bind<SACoreTypeResource>();
-            var result = this.sACoreTypeService.Add(resource);
+            var resource = this.Bind<SaCoreTypeResource>();
+            var result = this.saCoreTypeService.Add(resource);
             return this.Negotiate.WithModel(result);
         }
     }

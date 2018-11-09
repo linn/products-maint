@@ -1,5 +1,8 @@
 ﻿namespace Linn.Products.Service.Tests.SaCoreTypesModuleSpecs
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -13,18 +16,18 @@
 
     using NUnit.Framework;
 
-    public class WhenGettingSaCoreType : ContextBase
+    public class WhenGettingAllSaCoreTypes : ContextBase
     {
         [SetUp]
         public void SetUp()
         {
-            var saCoreType = new SaCoreType(1, "description");
-                                
-            this.SaCoreTypeService.GetById(1)
-                .Returns(new SuccessResult<SaCoreType>(saCoreType));
-
+            var saCoreType1 = new SaCoreType(1, "description");
+            var saCoreType2 = new SaCoreType(2, "description");
+            this.SaCoreTypeService.GetAll()
+                .Returns(new SuccessResult<IEnumerable<SaCoreType>>(new List<SaCoreType> { saCoreType1, saCoreType2 }));
+          
             this.Response = this.Browser.Get(
-                "/products/maint/sa-core-types/1",
+                "/products/maint/sa-core-types/",
                 with =>
                     {
                         with.Header("Accept", "application/json");
@@ -40,14 +43,16 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SaCoreTypeService.Received().GetById(1);
+            this.SaCoreTypeService.Received().GetAll();
         }
 
         [Test]
         public void ShouldReturnResource()
         {
-            var resource = this.Response.Body.DeserializeJson<SaCoreTypeResource>();
-            resource.coreType.Should().Be(1);
+            var resources = this.Response.Body.DeserializeJson<IEnumerable<SaCoreTypeResource>>().ToList();
+            resources.Should().HaveCount(2);
+            resources.Should().Contain(a => a.coreType == 1);
+            resources.Should().Contain(a => a.coreType == 2);
         }
     }
 }

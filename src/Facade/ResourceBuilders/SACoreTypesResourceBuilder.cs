@@ -8,19 +8,19 @@
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
 
-    public class SACoreTypesResourceBuilder : IResourceBuilder<IEnumerable<SACoreType>>
+    public class SaCoreTypesResourceBuilder : IResourceBuilder<IEnumerable<SaCoreType>>
     {
-        private readonly SACoreTypeResourceBuilder sACoreTypeResourceBuilder = new SACoreTypeResourceBuilder();
+        private readonly SaCoreTypeResourceBuilder sACoreTypeResourceBuilder = new SaCoreTypeResourceBuilder();
 
-        public IEnumerable<SACoreTypeResource> Build(IEnumerable<SACoreType> sACoreTypes)
+        public IEnumerable<SaCoreTypeResource> Build(IEnumerable<SaCoreType> sACoreTypes)
         {
             return sACoreTypes.Select(a => this.sACoreTypeResourceBuilder.Build(a));
         }
 
-        object IResourceBuilder<IEnumerable<SACoreType>>.Build(IEnumerable<SACoreType> sACoreType) =>
-            this.Build(sACoreType);
+        object IResourceBuilder<IEnumerable<SaCoreType>>.Build(IEnumerable<SaCoreType> saCoreType) =>
+            this.Build(saCoreType);
 
-        public string GetLocation(IEnumerable<SACoreType> sACoreTypes)
+        public string GetLocation(IEnumerable<SaCoreType> saCoreTypes)
         {
             throw new NotImplementedException();
         }

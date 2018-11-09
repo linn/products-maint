@@ -4,66 +4,64 @@
     using System.Collections.Generic;
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Persistence.Linnapps;
     using Linn.Products.Resources;
 
-    public class SACoreTypeService : ISACoreTypeService
+    public class SaCoreTypeService : IFacadeService<SaCoreType, int, SaCoreTypeResource>
     {
-        private readonly IRepository<SACoreType, int> repository;
+        private readonly IRepository<SaCoreType, int> repository;
 
-        public SACoreTypeService(IRepository<SACoreType, int> repository)
+        public SaCoreTypeService(IRepository<SaCoreType, int> repository)
         {
             this.repository = repository;
         }
 
-        public IResult<SACoreType> GetSACoreType(int coreType)
+        public IResult<SaCoreType> GetById(int coreType)
         {
             var result = this.repository.FindById(coreType);
             if (result == null)
             {
-                return new NotFoundResult<SACoreType>();
+                return new NotFoundResult<SaCoreType>();
             }
-            return new SuccessResult<SACoreType>(result);
+
+            return new SuccessResult<SaCoreType>(result);
         }
 
-        public IResult<IEnumerable<SACoreType>> GetAllSACoreTypes()
+        public IResult<IEnumerable<SaCoreType>> GetAll()
         {
             var result = this.repository.FindAll();
-            return new SuccessResult<IEnumerable<SACoreType>>(result);
+            return new SuccessResult<IEnumerable<SaCoreType>>(result);
         }
 
-        public IResult<SACoreType> AddSACoreType(SACoreTypeResource resource)
+        public IResult<SaCoreType> Add(SaCoreTypeResource resource)
         {
-            var coreType = new SACoreType
-                               {
-                                   Description = resource.Description,
-                                   DateInvalid = DateTime.Parse(resource.DateInvalid),
-                                   LookAheadDays = resource.LookAheadDays,
-                                   SortOrder = resource.SortOrder,
-                                   TriggerLevel = resource.TriggerLevel
-                               };
-
+            var coreType = new SaCoreType(
+                resource.coreType,
+                resource.Description,
+                DateTime.Parse(resource.DateInvalid),
+                resource.LookAheadDays,
+                resource.SortOrder,
+                resource.TriggerLevel);
+                              
             this.repository.Add(coreType);
-            
-            return new SuccessResult<SACoreType>(coreType);    
+            return new SuccessResult<SaCoreType>(coreType);    
         }
 
-        public IResult<SACoreType> UpdateSACoreType(int coreType, SACoreTypeResource resource)
+        public IResult<SaCoreType> Update(int coreType, SaCoreTypeResource resource)
         {
-            var sACoreType = this.repository.FindById(coreType);
-            if (sACoreType == null)
+            var saCoreType = this.repository.FindById(coreType);
+            if (saCoreType == null)
             {
-                return new NotFoundResult<SACoreType>();
+                return new NotFoundResult<SaCoreType>();
             }
 
-            sACoreType.Description = resource.Description;
-            sACoreType.DateInvalid = DateTime.Parse(resource.DateInvalid);
-            sACoreType.LookAheadDays = resource.LookAheadDays;
-            sACoreType.SortOrder = resource.SortOrder;
-            sACoreType.TriggerLevel = resource.TriggerLevel;
+            saCoreType.Description = resource.Description;
+            saCoreType.DateInvalid = DateTime.Parse(resource.DateInvalid);
+            saCoreType.LookAheadDays = resource.LookAheadDays;
+            saCoreType.SortOrder = resource.SortOrder;
+            saCoreType.TriggerLevel = resource.TriggerLevel;
 
-            return new SuccessResult<SACoreType>(sACoreType);
+            return new SuccessResult<SaCoreType>(saCoreType);
         }
     }
 }

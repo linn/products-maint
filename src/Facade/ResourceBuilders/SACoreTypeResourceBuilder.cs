@@ -8,35 +8,35 @@
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
 
-    public class SACoreTypeResourceBuilder : IResourceBuilder<SACoreType>
+    public class SaCoreTypeResourceBuilder : IResourceBuilder<SaCoreType>
     {
-        public SACoreTypeResource Build(SACoreType sACoreType)
+        public SaCoreTypeResource Build(SaCoreType saCoreType)
         {
-            return new SACoreTypeResource
+            return new SaCoreTypeResource
                        {
-                            coreType = sACoreType.CoreType,
-                            Description  = sACoreType.Description,
-                            DateInvalid = sACoreType.DateInvalid?.ToString("o"),
-                            SortOrder = sACoreType.SortOrder,
-                            TriggerLevel = sACoreType.TriggerLevel,
-                            LookAheadDays = sACoreType.LookAheadDays,
-                            Links = this.BuildLinks(sACoreType).ToArray()
+                            coreType = saCoreType.CoreType,
+                            Description  = saCoreType.Description,
+                            DateInvalid = saCoreType.DateInvalid?.ToString("o"),
+                            SortOrder = saCoreType.SortOrder,
+                            TriggerLevel = saCoreType.TriggerLevel,
+                            LookAheadDays = saCoreType.LookAheadDays,
+                            Links = this.BuildLinks(saCoreType).ToArray()
                        };
         }
 
-        object IResourceBuilder<SACoreType>.Build(SACoreType SACoreType) => this.Build(SACoreType);
+        object IResourceBuilder<SaCoreType>.Build(SaCoreType saCoreType) => this.Build(saCoreType);
 
-        public string GetLocation(SACoreType SACoreType)
+        public string GetLocation(SaCoreType saCoreType)
         {
-            return $"/products/maint/sa-core-types/{SACoreType.CoreType}";
+            return $"/products/maint/sa-core-types/{saCoreType.CoreType}";
         }
 
-        private IEnumerable<LinkResource> BuildLinks(SACoreType SACoreType)
+        private IEnumerable<LinkResource> BuildLinks(SaCoreType saCoreType)
         {
             yield return new LinkResource
                              {
                                  Rel = "self",
-                                 Href = this.GetLocation(SACoreType)
+                                 Href = this.GetLocation(saCoreType)
                              };
         }
     }

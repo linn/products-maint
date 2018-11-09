@@ -6,10 +6,10 @@
     using Linn.Common.Nancy.Facade;
     using Linn.Products.Domain.Linnapps;
 
-    public class SACoreTypeResponseProcessor : JsonResponseProcessor<SACoreType>
+    public class SaCoreTypeResponseProcessor : JsonResponseProcessor<SaCoreType>
     {
-        public SACoreTypeResponseProcessor(IResourceBuilder<SACoreType> resourceBuilder)
-            : base(resourceBuilder, "sa-core-types", 1)
+        public SaCoreTypeResponseProcessor(IResourceBuilder<SaCoreType> resourceBuilder)
+            : base(resourceBuilder, "sa-core-type", 1)
         {
         }
     }

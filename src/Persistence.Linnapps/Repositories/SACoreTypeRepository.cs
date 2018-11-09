@@ -7,36 +7,36 @@
 
     using Linn.Products.Domain.Linnapps;
 
-    public class SACoreTypeRepository : IRepository<SACoreType, int>
+    public class SACoreTypeRepository : IRepository<SaCoreType, int>
     {
-        private List<SACoreType> sACoreTypes = new List<SACoreType>();
+        private List<SaCoreType> sACoreTypes = new List<SaCoreType>();
 
-        public SACoreType FindById(int key)
+        public SaCoreType FindById(int key)
         {
             return this.sACoreTypes.SingleOrDefault(c => c.CoreType == key);
         }
 
-        public IQueryable<SACoreType> FindAll()
+        public IQueryable<SaCoreType> FindAll()
         {
             return this.sACoreTypes.AsQueryable();
         }
 
-        public void Add(SACoreType entity)
+        public void Add(SaCoreType entity)
         {
             this.sACoreTypes.Add(entity);
         }
 
-        public void Remove(SACoreType entity)
+        public void Remove(SaCoreType entity)
         {
             throw new NotImplementedException();
         }
 
-        public SACoreType FindBy(Expression<Func<SACoreType, bool>> expression)
+        public SaCoreType FindBy(Expression<Func<SaCoreType, bool>> expression)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<SACoreType> FilterBy(Expression<Func<SACoreType, bool>> expression)
+        public IQueryable<SaCoreType> FilterBy(Expression<Func<SaCoreType, bool>> expression)
         {
             throw new NotImplementedException();
         }
