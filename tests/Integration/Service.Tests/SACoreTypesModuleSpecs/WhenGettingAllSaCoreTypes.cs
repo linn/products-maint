@@ -51,8 +51,8 @@
         {
             var resources = this.Response.Body.DeserializeJson<IEnumerable<SaCoreTypeResource>>().ToList();
             resources.Should().HaveCount(2);
-            resources.Should().Contain(a => a.coreType == 1);
-            resources.Should().Contain(a => a.coreType == 2);
+            resources.Should().Contain(a => a.CoreType == 1);
+            resources.Should().Contain(a => a.CoreType == 2);
         }
     }
 }

@@ -47,7 +47,7 @@
         public void ShouldReturnResource()
         {
             var resource = this.Response.Body.DeserializeJson<SaCoreTypeResource>();
-            resource.coreType.Should().Be(1);
+            resource.CoreType.Should().Be(1);
         }
     }
 }
