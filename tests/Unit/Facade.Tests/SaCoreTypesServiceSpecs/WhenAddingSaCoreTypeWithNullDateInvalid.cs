@@ -44,7 +44,7 @@
             var dataResult = ((CreatedResult<SaCoreType>)this.result).Data;
             dataResult.Description.Should().Be(this.resource.Description);
             dataResult.CoreType.Should().Be(1);
-            dataResult.DateInvalid.Should().Be(null);
+            dataResult.DateInvalid.Should().BeNull();
         }
     }
 }

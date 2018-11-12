@@ -45,3 +45,5 @@ export const RESET_CARTON_TYPE = 'RESET_CARTON_TYPE';
 
 export const sernosConfigActionTypes = makeActionTypes(itemTypes.sernosConfig.actionType);
 export const sernosConfigsActionTypes = makeActionTypes(itemTypes.sernosConfigs.actionType, false);
+
+export const saCoreTypesActionTypes = makeActionTypes(itemTypes.saCoreTypes.actionType, false);
