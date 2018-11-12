@@ -24,7 +24,7 @@
                                 {
                                     CoreType = 1,
                                     Description = "new desc",
-                                    DateInvalid = "28/03/1995",
+                                    DateInvalid = "28/032020",
                                     SortOrder = 2,
                                     LookAheadDays = 10,
                                     TriggerLevel = 1
