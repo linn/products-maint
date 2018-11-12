@@ -3,7 +3,7 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    public interface ISACoreTypeRepository
+    public interface ISaCoreTypeRepository
     {
         SaCoreType GetByCoreType(int coreType);
 

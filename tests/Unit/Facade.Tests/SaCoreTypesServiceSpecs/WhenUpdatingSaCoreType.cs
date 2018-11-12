@@ -24,7 +24,7 @@
                                 {
                                     CoreType = 1,
                                     Description = "new desc",
-                                    DateInvalid = "1995/03/28",
+                                    DateInvalid = 28.March(1995).ToString("o"),
                                     SortOrder = 2,
                                     LookAheadDays = 10,
                                     TriggerLevel = 1

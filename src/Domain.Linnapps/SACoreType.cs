@@ -40,7 +40,6 @@
             int? sortOrder = null,
             int? triggerLevel = null)
         {
-            // TODO some sanity checking?
             this.Description = description;
             this.DateInvalid = dateInvalid;
             this.LookAheadDays = lookAheadDays;
