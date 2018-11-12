@@ -15,13 +15,12 @@
             this.repository = repository;
         }
 
-
         protected override SaCoreType CreateFromResource(SaCoreTypeResource resource)
         {
             var coreType = new SaCoreType(
                 resource.CoreType,
                 resource.Description,
-                DateTime.Parse(resource.DateInvalid),
+                string.IsNullOrEmpty(resource.DateInvalid) ? (DateTime?)null : DateTime.Parse(resource.DateInvalid),
                 resource.LookAheadDays,
                 resource.SortOrder,
                 resource.TriggerLevel);

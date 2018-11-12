@@ -10,11 +10,11 @@
 
     public class SaCoreTypesResourceBuilder : IResourceBuilder<IEnumerable<SaCoreType>>
     {
-        private readonly SaCoreTypeResourceBuilder sACoreTypeResourceBuilder = new SaCoreTypeResourceBuilder();
+        private readonly SaCoreTypeResourceBuilder saCoreTypeResourceBuilder = new SaCoreTypeResourceBuilder();
 
-        public IEnumerable<SaCoreTypeResource> Build(IEnumerable<SaCoreType> sACoreTypes)
+        public IEnumerable<SaCoreTypeResource> Build(IEnumerable<SaCoreType> saCoreTypes)
         {
-            return sACoreTypes.Select(a => this.sACoreTypeResourceBuilder.Build(a));
+            return saCoreTypes.Select(a => this.saCoreTypeResourceBuilder.Build(a));
         }
 
         object IResourceBuilder<IEnumerable<SaCoreType>>.Build(IEnumerable<SaCoreType> saCoreType) =>

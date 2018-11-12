@@ -19,8 +19,7 @@
         [SetUp]
         public void SetUp()
         {
-            
-            this.resource = new SaCoreTypeResource()
+            this.resource = new SaCoreTypeResource
                                 {
                                     CoreType = 1,
                                     Description = "new desc",
