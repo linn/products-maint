@@ -24,7 +24,7 @@
                                 {
                                     CoreType = 1,
                                     Description = "new desc",
-                                    DateInvalid = "28/032020",
+                                    DateInvalid = "1995/03/28",
                                     SortOrder = 2,
                                     LookAheadDays = 10,
                                     TriggerLevel = 1
@@ -46,7 +46,7 @@
             this.result.Should().BeOfType<SuccessResult<SaCoreType>>();
             var dataResult = ((SuccessResult<SaCoreType>)this.result).Data;
             dataResult.CoreType.Should().Be(1);
-            dataResult.Description.Should().Be(this.resource.Description);
+            dataResult.Description.Should().Be("new desc");
         }
     }
 }

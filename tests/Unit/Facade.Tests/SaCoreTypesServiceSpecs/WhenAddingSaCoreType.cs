@@ -25,7 +25,7 @@
                                 {
                                     CoreType = 1,
                                     Description = "Desc",
-                                    DateInvalid = "28/03/2019"
+                                    DateInvalid = "2019/03/28"
                                 };
 
             this.result = this.Sut.Add(this.resource);
