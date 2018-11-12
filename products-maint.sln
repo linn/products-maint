@@ -58,13 +58,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{95A1
 		scripts\test.sh = scripts\test.sh
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Linnapps", "src\Domain.Linnapps\Domain.Linnapps.csproj", "{F2A910E3-2E83-4D7E-9819-B7731DFD3A6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Linnapps", "src\Domain.Linnapps\Domain.Linnapps.csproj", "{F2A910E3-2E83-4D7E-9819-B7731DFD3A6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Linnapps.Tests", "tests\Unit\Domain.Linnapps.Tests\Domain.Linnapps.Tests.csproj", "{C466BE09-6197-4CC0-B0FE-AFBEFDD979A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Linnapps.Tests", "tests\Unit\Domain.Linnapps.Tests\Domain.Linnapps.Tests.csproj", "{C466BE09-6197-4CC0-B0FE-AFBEFDD979A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence.Linnapps", "src\Persistence.Linnapps\Persistence.Linnapps.csproj", "{DD9A2300-41C1-480C-872F-2AEEC1ACCCCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence.Linnapps", "src\Persistence.Linnapps\Persistence.Linnapps.csproj", "{DD9A2300-41C1-480C-872F-2AEEC1ACCCCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "src\Persistence\Persistence.csproj", "{3F5E475F-58BB-4F74-B843-046F19BAE712}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "src\Persistence\Persistence.csproj", "{3F5E475F-58BB-4F74-B843-046F19BAE712}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
