@@ -11,6 +11,7 @@ import sernosConfig from './sernosConfig';
 import sernosConfigs from './sernosConfigs';
 import fetchError from './fetchError';
 import saCoreTypes from './saCoreTypes'
+import saCoreType from './saCoreType'
 
 const rootReducer = combineReducers({
     oidc,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
     sernosConfig,
     sernosConfigs,
     saCoreTypes,
+    saCoreType,
     fetchError
     
 });

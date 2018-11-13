@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import SaCoreTypes from '../../components/SaCoreTypes';
 import initialiseOnMount from '../common/initialiseOnMount';
-import saCoreTypeActions from '../../actions/saCoreTypeActions';
+import saCoreTypeActions from '../../actions/saCoreTypesActions';
 import saCoreTypesSelectors from '../../selectors/saCoreTypesSelector';
 
 const mapStateToProps = (state) => ({

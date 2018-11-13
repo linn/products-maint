@@ -25,6 +25,7 @@ import SernosConfig from '../containers/sernosConfig/SernosConfig';
 import SernosConfigs from '../containers/sernosConfig/SernosConfigs';
 import CreateSernosConfig from '../containers/sernosConfig/CreateSernosConfig';
 import SaCoreTypes from '../containers/saCoreType/SaCoreTypes';
+import SaCoreType from '../containers/SaCoreType/SaCoreType';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 class Root extends Component {
@@ -70,11 +71,16 @@ class Root extends Component {
                                 <Route exact path="/products/maint/sernos-configs/:sernosConfigId" component={SernosConfig} />
                             </Switch>
 
+                            <Switch>
+                                <Route exact path="/products/maint/sa-core-types" component={SaCoreTypes}/>
+                                <Route exact path="/products/maint/sa-core-types/:coreType" component={SaCoreType}/>
+                            </Switch>
+
                             <Route exact path="/products/reports/product-ranges" component={ProductRangesOptions} />
                             <Route exact path="/products/reports/product-ranges/report" component={ProductRanges} />
                             <Route exact path="/products/reports/sales-products-by-product-range" component={SalesProductsByProductRange} />
 
-                            <Route exact path="/products/maint/sa-core-types" component={SaCoreTypes}/>
+                            
                         </div>
                     </Router>
                 </OidcProvider>

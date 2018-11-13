@@ -54,7 +54,7 @@
 
                            new SaCoreType(2, "BUILT TO ORDER", null, null, 20, 0),
 
-                           new SaCoreType(1, "SALES ADVISED PRODUCT", DateTime.Parse("2007/09/07"), null, 30, 0),
+                           new SaCoreType(3, "SALES ADVISED PRODUCT", DateTime.Parse("2007/09/07"), null, 30, 0),
 
                            new SaCoreType(4, "CORE PRODUCT",null, null, 5, 10),
                            
