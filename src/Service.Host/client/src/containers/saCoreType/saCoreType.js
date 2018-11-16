@@ -19,6 +19,8 @@ const initialise = ({ saCoreTypeId }) => dispatch => {
 
 const mapDispatchToProps = {
     initialise,
+    updateSaCoreType: saCoreTypeActions.update,
+    resetSaCoreType: saCoreTypeActions.reset
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(SaCoreType));

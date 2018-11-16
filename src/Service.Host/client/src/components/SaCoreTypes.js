@@ -43,7 +43,7 @@ class SaCoreTypes extends Component {
                             </ListItem>))}
                     </List>
                 </div>
-                <Link style={{ display: 'block' }} to="#">Create new sales article core type</Link>
+                <Link style={{ display: 'block' }} to="/products/maint/sa-core-types/create">Create new sales article core type</Link>
             </div>
         );
     }

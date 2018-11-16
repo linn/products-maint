@@ -26,6 +26,7 @@ import SernosConfigs from '../containers/sernosConfig/SernosConfigs';
 import CreateSernosConfig from '../containers/sernosConfig/CreateSernosConfig';
 import SaCoreTypes from '../containers/saCoreType/SaCoreTypes';
 import SaCoreType from '../containers/SaCoreType/SaCoreType';
+import CreateSaCoreType from '../containers/saCoreType/CreateSaCoreType';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 class Root extends Component {
@@ -73,6 +74,7 @@ class Root extends Component {
 
                             <Switch>
                                 <Route exact path="/products/maint/sa-core-types" component={SaCoreTypes}/>
+                                <Route exact path="/products/maint/sa-core-types/create" component={CreateSaCoreType} />
                                 <Route exact path="/products/maint/sa-core-types/:coreType" component={SaCoreType}/>
                             </Switch>
 
