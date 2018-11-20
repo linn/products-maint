@@ -1,13 +1,29 @@
 ﻿import React, { Component } from 'react';
-import { FormGroup, ControlLabel, FormControl, Grid, Row, Col, Button } from 'react-bootstrap';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 import { Loading } from './common/Loading';
 import { getSelfHref } from '../helpers/utilities';
+import TextInput from './common/Forms/TextInput';
+
+
+const styles = theme => ({
+    paper: {
+        padding: theme.spacing.unit * 6
+    },
+    pullRight: {
+        float: 'right'
+    }
+});
 
 class EditTariff extends Component {
 
     constructor(props) {
         super(props);
         this.state = { tariff: this.props.tariff, editStatus: this.props.editStatus || 'view' };
+        this.handleTariffFieldChange = this.handleTariffFieldChange.bind(this);
     }
 
     editing() {
@@ -38,101 +54,108 @@ class EditTariff extends Component {
         } 
     }
 
-    handleDescriptionChange(e) {
-        this.setState({ tariff: { ...this.state.tariff, description: e.target.value } });
-    }
-
-    handleTariffCodeChange(e) {
-        this.setState({ tariff: { ...this.state.tariff, tariffCode: e.target.value } });
-    }
-
-    handleusTariffCodeChange(e) {
-        this.setState({ tariff: { ...this.state.tariff, usTariffCode: e.target.value } });
-    }
-
-    handleDutyChange(e) {
-        this.setState({ tariff: { ...this.state.tariff, duty: e.target.value } });
-    }
-
-    handleDateInvalidChange(e) {
-        this.setState({ tariff: { ...this.state.tariff, duty: e.target.value } });
+    handleTariffFieldChange(propertyName, newValue) {
+        this.setState({ tariff: { ...this.state.tariff, [propertyName]: newValue } });
     }
 
     render() {
-        const { tariff, loading } = this.props;
+        const { tariff, loading, classes } = this.props;
 
         if (loading || !tariff) {
             return (
-                <div>
-                    <Grid fluid={false}>
-                        <Row>
+                <div className="linn-container">
+                    <Grid container spacing={24}>
+                        <Paper className={classes.paper}>
                             <Loading />
-                        </Row>
+                        </Paper>
                     </Grid>
                 </div>
             );
         }
 
         return (
-            <Grid fluid={false}>
-                    <Row>
-                    <FormGroup controlId="tariffCode" className="container">
-                        <Col componentClass={ControlLabel} sm={3}>
-                            <div className="pull-right">Tariff Code</div>
-                        </Col>
-                        <Col sm={6}>
-                            <FormControl type="text" placeholder="Tariff Code" onChange={(e) => this.handleTariffCodeChange(e)} defaultValue={tariff.tariffCode}></FormControl>
-                        </Col>
-                    </FormGroup>
+            <div className="linn-container">
+                <Grid container spacing={24}>
+                    <Grid item sm="12">
+                        <Paper className={classes.paper}>
+                            <div>
+                                <TextInput
+                                    label="Tariff Code"
+                                    value={tariff.tariffCode}
+                                    placeholder="Tariff Code"
+                                    width="half"
+                                    propertyName="tariffCode"
+                                    changeState={this.handleTariffFieldChange}
+                                />
+                            </div>
 
-                    <FormGroup controlId="description" className="container">
-                        <Col componentClass={ControlLabel} sm={3}>
-                            <div className="pull-right">Description</div>
-                        </Col>
-                        <Col sm={6}>
-                            <FormControl type="text" placeholder="Description" onChange={(e) => this.handleDescriptionChange(e)} defaultValue={tariff.description}></FormControl>
-                        </Col>
-                    </FormGroup>
+                            <div>
+                                <TextInput
+                                    label="Description"
+                                    value={tariff.description}
+                                    placeholder="Description"
+                                    width="full"
+                                    propertyName="description"
+                                    changeState={this.handleTariffFieldChange}
+                                />
+                            </div>
 
-                    <FormGroup controlId="usTariffCode" className="container">
-                        <Col componentClass={ControlLabel} sm={3}>
-                            <div className="pull-right">US Tariff Code</div>
-                        </Col>
-                        <Col sm={6}>
-                            <FormControl type="text" placeholder="US Tariff Code" onChange={(e) => this.handleusTariffCodeChange(e)} defaultValue={tariff.usTariffCode}></FormControl>
-                        </Col>
-                    </FormGroup>
+                            <div>
+                                <TextInput
+                                    label="US Tariff Code"
+                                    value={tariff.usTariffCode}
+                                    width="half"
+                                    placeholder="US Tariff Code"
+                                    propertyName="usTariffCode"
+                                    changeState={this.handleTariffFieldChange}
+                                />
+                            </div>
 
-                    <FormGroup controlId="duty" className="container">
-                        <Col componentClass={ControlLabel} sm={3}>
-                            <div className="pull-right">Duty %</div>
-                        </Col>
-                        <Col sm={6}>
-                            <FormControl type="text" placeholder="Duty %" onChange={(e) => this.handleDutyChange(e)} defaultValue={tariff.duty}></FormControl>
-                        </Col>
-                    </FormGroup>
+                            <div>
+                                <TextInput
+                                    label="Duty"
+                                    value={tariff.duty}
+                                    placeholder="Duty"
+                                    width="short"
+                                    suffix="%"
+                                    type="number"
+                                    propertyName="duty"
+                                    changeState={this.handleTariffFieldChange}
+                                />
+                            </div>
 
-                    <FormGroup controlId="dateInvalid" className="container">
-                        <Col componentClass={ControlLabel} sm={3}>
-                            <div className="pull-right">Date Invalid</div>
-                        </Col>
-                        <Col sm={6}>
-                            <FormControl type="text" placeholder="Date Invalid" onChange={(e) => this.handleDateInvalidChange(e)} defaultValue={tariff.dateInvalid}></FormControl>
-                        </Col>
-                    </FormGroup>
-                </Row>
-                <Row>
-                    <Col sm={3} />
-                    <Col sm={4}>
-                        <div>
-                            <Button id="save-button" bsStyle="primary" type="submit" onClick={() => this.handleSaveClick()}>Save</Button>
-                            <Button id="cancel-button" bsStyle="link" onClick={() => this.handleCancelClick()}>Cancel</Button>
-                        </div>
-                    </Col>
-                </Row>
-            </Grid>
+                            <div>
+                                <TextInput
+                                    label="Date Invalid"
+                                    value={tariff.dateInvalid}
+                                    placeholder="Date Invalid"
+                                    width="short"
+                                    type="date"
+                                    propertyName="dateInvalid"
+                                    changeState={this.handleTariffFieldChange}
+                                />
+                            </div>
+
+                            <div className={classes.pullRight}>
+                                <Button id="cancel-button"
+                                        onClick={() => this.handleCancelClick()}>
+                                    Cancel
+                                </Button>
+
+                                <Button id="save-button"
+                                        variant="outlined"
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => this.handleSaveClick()}>
+                                    Save
+                                </Button>
+                            </div>
+                        </Paper>
+                    </Grid>
+                </Grid>
+            </div>
         );
     }
 }
 
-export default EditTariff;
+export default withStyles(styles)(EditTariff);
