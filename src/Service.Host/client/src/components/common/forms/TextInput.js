@@ -11,6 +11,9 @@ const styles = theme => ({
     biggerText: {
         fontSize: 14
     },
+    fontSize18: {
+        fontSize: 18
+    },
     shortWidth: {
         width: '30%'
     },
@@ -54,7 +57,7 @@ class TextInput extends Component {
         }
     }
 
-    controlStyling() {
+    getControlClassname() {
         const { classes, width } = this.props;
 
         switch (width) {
@@ -96,15 +99,26 @@ class TextInput extends Component {
         return inputProps;
     }
 
+    buildInputLabelProps() {
+        const { classes, shrink, type } = this.props;
+        let inputProps = {}
+
+        inputProps.className = classes.fontSize18;
+
+        if (shrink || (type === "date")) {
+            inputProps.shrink = true;
+        }
+
+        return inputProps;
+    }
+
     render() {
         const { label, value, placeholder, type } = this.props;
-        let className = this.controlStyling();
-        let inputProps = this.buildInputProps();
 
         return (
             <div>
                 <TextField
-                    className={className}
+                    className={this.getControlClassname()}
                     label={label}
                     defaultValue={value}
                     placeholder={placeholder}
@@ -112,7 +126,8 @@ class TextInput extends Component {
                     onChange={e => this.onChange(e)}
                     margin="normal"
                     variant="outlined"
-                    InputProps={inputProps}
+                    InputProps={this.buildInputProps()}
+                    InputLabelProps={this.buildInputLabelProps()}
                 />
             </div>
         );

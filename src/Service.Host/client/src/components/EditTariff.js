@@ -1,5 +1,4 @@
 ﻿import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
@@ -7,14 +6,12 @@ import { Link } from 'react-router-dom';
 import { Loading } from './common/Loading';
 import { getSelfHref } from '../helpers/utilities';
 import TextInput from './common/Forms/TextInput';
+import SaveCancelButtons from './common/Forms/SaveCancelButtons';
 
 
 const styles = theme => ({
     paper: {
         padding: theme.spacing.unit * 6
-    },
-    pullRight: {
-        float: 'right'
     }
 });
 
@@ -23,6 +20,9 @@ class EditTariff extends Component {
     constructor(props) {
         super(props);
         this.state = { tariff: this.props.tariff, editStatus: this.props.editStatus || 'view' };
+
+        this.handleSaveClick = this.handleSaveClick.bind(this);
+        this.handleCancelClick = this.handleCancelClick.bind(this);
         this.handleTariffFieldChange = this.handleTariffFieldChange.bind(this);
     }
 
@@ -136,20 +136,10 @@ class EditTariff extends Component {
                                 />
                             </div>
 
-                            <div className={classes.pullRight}>
-                                <Button id="cancel-button"
-                                        onClick={() => this.handleCancelClick()}>
-                                    Cancel
-                                </Button>
-
-                                <Button id="save-button"
-                                        variant="outlined"
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={() => this.handleSaveClick()}>
-                                    Save
-                                </Button>
-                            </div>
+                            <SaveCancelButtons
+                                saveClick={this.handleSaveClick}
+                                cancelClick={this.handleCancelClick}        
+                            />
                         </Paper>
                     </Grid>
                 </Grid>
