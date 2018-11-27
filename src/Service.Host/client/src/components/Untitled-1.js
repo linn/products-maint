@@ -9,17 +9,19 @@ import Button from '@material-ui/core/Button';
 import  DatePicker  from 'material-ui/DatePicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { createMuiTheme } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import Grid from '@material-ui/core/Grid';
 
 
 const styles = theme => ({
 
     textField: {
-     
-        textAlign: 'center',
-        fontSize: 15,
-        width: '80%'
+        left: '20% !important' ,
+        right: '20%',
+        justify: 'center',
+        paddingBottom: 20,
+        paddingTop: 20,
+        width: '60%',
+        fontSize: 15
     },
 
     buttonRight: {
@@ -50,17 +52,8 @@ const styles = theme => ({
         marginLeft: '20%',
         marginRight: '20%',
         paddingBottom: 30,
-        textAlign: 'center',
+        justify: 'center',
     },
-
-    root: {
-        position: 'absolute',
-        left: '13%',
-        width: '80%',
-        margin: 0 +'auto',
-        display: 'flex',
-     
-    }
 });
 
 
@@ -68,11 +61,11 @@ const styles = theme => ({
 
 
 class SaCoreType extends Component {
-    constructor(props) {
+   
+ constructor(props) {
         super(props);
         this.state = { saCoreType: this.props.saCoreType, editStatus: this.props.editStatus || "view" };
     }
-
     componentWillReceiveProps(nextProps) {
         this.setState({ editStatus: nextProps.editStatus, saCoreType: nextProps.saCoreType });
     }
@@ -116,8 +109,8 @@ class SaCoreType extends Component {
         this.setState({ saCoreType: { ...this.state.saCoreType, description: e.target.value } });
     }
 
-    handleDateInvalidChange = (e, date ) => {
-        this.setState({ saCoreType: { ...this.state.saCoreType, dateInvalid: date } });
+    handleDateInvalidChange = (e) => {
+        this.setState({ saCoreType: { ...this.state.saCoreType, dateInvalid: e.target.value } });
     }
 
     handleLookAheadDaysChange = (e) => {
@@ -143,15 +136,15 @@ class SaCoreType extends Component {
         }
 
         return (
-            <Grid container spacing={24} className={this.props.classes.root}>
+            <div className={this.props.classes.root}>
                 
-                <Grid item xs={12}><h2 
+                <h2 
                     className={this.props.classes.h2}>  
                     {this.creating() ? 
                     <span> Add Sales Article Core Type </span> : 
                     <span>Sales Article Core Type Details </span>} 
-                </h2> </Grid>
-                <Grid item xs={6}>
+                </h2>
+                
                 <TextField
                     label="Core Type"
                     type="number"
@@ -171,8 +164,7 @@ class SaCoreType extends Component {
                     helperText={this.creating() ? "Required" : ""}
                     onChange={(e) => this.handleCoreTypeChange(e)}
                 />
-                </Grid>
-                <Grid item xs={6}>
+
                 <TextField
                     label="Description"
                     id="margin-normal"
@@ -188,11 +180,32 @@ class SaCoreType extends Component {
                         className: this.props.classes.resize,
                     }}
                     onChange={(e) => this.handleDescriptionChange(e)}
-                /> </Grid>
+                />
               
+                  {/* <MuiThemeProvider them={{}}>
+                      <DatePicker hintText="Click Here"  inputStyle={{   left: '20% !important' ,
+        right: '20% !important',
+        justify: 'center', postion: 'fixed'}} /> 
+                    </MuiThemeProvider> */}
                   
-                  
-                 <Grid item xs={6}>
+                <TextField
+                    label="Date Invalid"
+                    id="margin-normal"
+                    type="date"
+                    value={this.creating()? "" : moment(this.state.saCoreType.dateInvalid).format('YYYY-MM-DD') }
+                    className={this.props.classes.textField}
+                    InputProps={{
+                        classes: {
+                            input: this.props.classes.resize,
+                        },
+                    }}
+                    InputLabelProps={{
+                        shrink: true,
+                        className: this.props.classes.resize,
+                    }}
+                    onChange={(e) => this.handleDateInvalidChange(e)}
+                />
+
                 <TextField
                     label="Look Ahead Days"
                     id="margin-normal"
@@ -210,8 +223,7 @@ class SaCoreType extends Component {
                     }}
                     onChange={(e) => this.handleLookAheadDaysChange(e)}
                 />
-                    </Grid>
-                    <Grid item xs={6}>
+
                 <TextField
                     label="Trigger Level"
                     id="margin-normal"
@@ -229,8 +241,7 @@ class SaCoreType extends Component {
                     }}
                     onChange={(e) => this.handleTriggerLevelChange(e)}
                 />
-                </Grid>
-                <Grid item xs={6}>
+
                 <TextField
                     label="Sort Order"
                     id="margin-normal"
@@ -248,52 +259,8 @@ class SaCoreType extends Component {
                     }}
                     onChange={(e) => this.handleSortOrderChange(e)}
                 />
-                </Grid>
-                <Grid item xs={6}>
-                <InputLabel children="Date Invalid" className={this.props.classes.label}/>
-                 { <MuiThemeProvider them={{}}>
-                      <DatePicker 
-                        hintText="Date Invalid"  
-                        label="width: 100%;"
-                        value={this.creating()? null : ( this.state.saCoreType.dateInvalid ? new Date(this.state.saCoreType.dateInvalid) : null ) }
-                        formatDate={(date) => moment(date).format('DD-MM-YYYY')}
-                        onChange={this.handleDateInvalidChange.bind(this)}
-                    /> 
-                    </MuiThemeProvider> }
-                </Grid>
-                <Grid item xs={6}>
-               
-                </Grid>  
-               
-                <Grid item xs={2}></Grid>
-                <Grid item xs={2}></Grid>
-                <Grid item xs={2}>
-                <Button
-                                disabled={JSON.stringify(this.state.saCoreType) === JSON.stringify(this.props.saCoreType)}
-                                variant="contained" color="secondary"
-                                onClick={(e) => this.handleResetClick(this.props)}
-                               
-                               >
-                               
-                                Reset
-                            </Button>
-                            <Button
-                                disabled={JSON.stringify(this.state.saCoreType) === JSON.stringify(this.props.saCoreType)}
-                                variant="contained"
-                                onClick={(e) => this.handleSaveClick(e)}
-                                color="primary"
-                                >
-                                Save
-                            </Button>
-               
-                    
                 
-                </Grid>  
-                
-               
-                 
-                
-                {/* {
+                {
                     this.creating() ?
                         <div className={this.props.classes.buttons}>
                             <Button
@@ -324,17 +291,11 @@ class SaCoreType extends Component {
                                 Reset
                             </Button>
 
-                            <Button
-                                disabled={JSON.stringify(this.state.saCoreType) === JSON.stringify(this.props.saCoreType)}
-                                variant="contained"
-                                onClick={(e) => this.handleSaveClick(e)}
-                                color="primary"
-                                className={this.props.classes.buttonRight}>
-                                Save
-                            </Button>
+                            
                         </div>
-                } */}
-            </Grid>
+
+
+                }
         );
     }
 };
