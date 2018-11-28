@@ -6,6 +6,7 @@
 
     using Nancy;
     using Nancy.ModelBinding;
+    using Nancy.Security;
 
     public sealed class SalesArticleReportsModule : NancyModule
     {
@@ -21,6 +22,7 @@
 
         private object GetSalesArticlesByEanCode()
         {
+            this.RequiresAuthentication();
             var resource = this.Bind<EanCodesReportRequestResource>();
             var results = this.salesArticleReportService.GetEanCodeResults(
                 resource.IncludePhasedOut,
@@ -34,6 +36,7 @@
 
         private object GetSalesArticlesByEanCodeExport()
         {
+            this.RequiresAuthentication();
             var resource = this.Bind<EanCodesReportRequestResource>();
             var results = this.salesArticleReportService.GetEanCodeCsvResults(
                 resource.IncludePhasedOut,
