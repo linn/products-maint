@@ -25,7 +25,7 @@ import SernosConfig from '../containers/sernosConfig/SernosConfig';
 import SernosConfigs from '../containers/sernosConfig/SernosConfigs';
 import CreateSernosConfig from '../containers/sernosConfig/CreateSernosConfig';
 import SaCoreTypes from '../containers/saCoreType/SaCoreTypes';
-import SaCoreType from '../containers/SaCoreType/SaCoreType';
+import SaCoreType from '../containers/saCoreType/SaCoreType';
 import CreateSaCoreType from '../containers/saCoreType/CreateSaCoreType';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
