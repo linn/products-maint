@@ -89,7 +89,7 @@ class SaCoreType extends Component {
     }
 
     render() {
-        const { saCoreType, loading, errorMessage, addSaCoreType } = this.props;
+        const { saCoreType, loading, errorMessage, addSaCoreType, classes } = this.props;
 
         if (loading || !saCoreType) {
             return (
@@ -97,10 +97,10 @@ class SaCoreType extends Component {
         }
 
         return (
-            <div className={this.props.classes.root}>
+            <div className={classes.root}>
                 <Grid container spacing={24}>
                     <Grid item xs={12} >
-                        <h2 className={this.props.classes.h2}>
+                        <h2 className={classes.h2}>
                             {this.creating() ?
                                 <span> Add Sales Article Core Type </span> :
                                 <span>Sales Article Core Type Details </span>}
@@ -174,7 +174,7 @@ class SaCoreType extends Component {
                             backClick={this.handleCancelClick}
                         />
                         <SaveCancelButtons
-                            disabled={JSON.stringify(this.state.saCoreType) === JSON.stringify(this.props.saCoreType)}
+                            disabled={JSON.stringify(this.state.saCoreType) === JSON.stringify(saCoreType)}
                             saveClick={this.creating() ? this.handleAddClick : this.handleSaveClick}
                             cancelClick={this.handleResetClick}
                         />
