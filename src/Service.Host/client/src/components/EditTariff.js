@@ -5,8 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { Loading } from './common/Loading';
 import { getSelfHref } from '../helpers/utilities';
-import TextInput from './common/Forms/TextInput';
-import SaveCancelButtons from './common/Forms/SaveCancelButtons';
+import TextInput from './common/forms/TextInput';
+import SaveCancelButtons from './common/forms/SaveCancelButtons';
 
 
 const styles = theme => ({
