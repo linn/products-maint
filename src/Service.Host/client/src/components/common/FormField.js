@@ -21,6 +21,19 @@ class FormField extends Component {
     
     constructor(props) {
         super(props);
+        this.state = {
+            value: this.props.value
+        }
+           
+    }
+
+    onChange(e) {
+        const { onChange, propertyName } = this.props;
+
+        this.state.value = e.target.value;
+        if (onChange) {
+            onChange(propertyName, e.target.value);
+        }
     }
 
     render () {
@@ -42,7 +55,7 @@ class FormField extends Component {
                          className: classes.label,
                          shrink: true
                     }}
-                    onChange={(e) => onChange(e)}
+                    onChange={e => this.onChange(e)}
                     helperText={config.required ? "Required" : ""}
                 />
             </div>

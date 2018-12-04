@@ -23,15 +23,19 @@ const styles = theme => ({
 });
 
 class SaCoreType extends Component {
+    
     constructor(props) {
         super(props);
         this.state = { saCoreType: this.props.saCoreType, editStatus: this.props.editStatus || "view" };
+
+        this.handleFieldChange = this.handleFieldChange.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({ editStatus: nextProps.editStatus, saCoreType: nextProps.saCoreType });
     }
 
+    // Status
     viewing() {
         return this.state.editStatus === 'view';
     }
@@ -44,6 +48,7 @@ class SaCoreType extends Component {
         return this.state.editStatus === 'create';
     }
 
+    // Button event Handlers
     handleSaveClick = () => {
         const { saCoreTypeId, updateSaCoreType } = this.props;
         updateSaCoreType(saCoreTypeId, this.state.saCoreType);
@@ -63,29 +68,9 @@ class SaCoreType extends Component {
         history.push('/products/maint/sa-core-types');
     }
 
-    handleCoreTypeChange = (e) => {
-        this.setState({ saCoreType: { ...this.state.saCoreType, coreType: makeNumber(e.target.value, null) } });
-    }
-
-    handleDescriptionChange = (e) => {
-        this.setState({ saCoreType: { ...this.state.saCoreType, description: e.target.value } });
-    }
-
-    handleDateInvalidChange = (e) => {
-        this.setState({ saCoreType: { ...this.state.saCoreType, dateInvalid: e.target.value } });
-    }
-
-    handleLookAheadDaysChange = (e) => {
-        this.setState({ saCoreType: { ...this.state.saCoreType, lookAheadDays: makeNumber(e.target.value, null) } });
-    }
-
-    handleTriggerLevelChange = (e) => {
-        this.setState({ saCoreType: { ...this.state.saCoreType, triggerLevel: makeNumber(e.target.value, null) } });
-    }
-
-    handleSortOrderChange = (e) => {
-
-        this.setState({ saCoreType: { ...this.state.saCoreType, sortOrder: makeNumber(e.target.value, null) } });
+    // Fiels Change Event Handler
+    handleFieldChange(propertyName, newValue) {
+        this.setState({ saCoreType: { ...this.state.saCoreType, [propertyName]: newValue } });
     }
 
     render() {
@@ -114,8 +99,9 @@ class SaCoreType extends Component {
                                 disabled: !this.creating(),
                                 required: true
                             }}
+                            propertyName="coreType"
                             value={this.state.saCoreType.coreType}
-                            onChange={(e) => this.handleCoreTypeChange(e)}
+                            onChange={this.handleFieldChange}
                         />
                     </Grid>
                     <Grid item xs={6}  >
@@ -125,8 +111,9 @@ class SaCoreType extends Component {
                                 label: "Description",
                                 disabled: false,
                             }}
+                            propertyName="description"
                             value={this.state.saCoreType.description}
-                            onChange={(e) => this.handleDescriptionChange(e)}
+                            onChange={this.handleFieldChange}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -135,8 +122,9 @@ class SaCoreType extends Component {
                                 type: "number",
                                 label: "Look Ahead Days",
                             }}
+                            propertyName="lookAheadDays"
                             value={this.state.saCoreType.lookAheadDays}
-                            onChange={(e) => this.handleLookAheadDaysChange(e)}
+                            onChange={this.handleFieldChange}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -145,8 +133,9 @@ class SaCoreType extends Component {
                                 type: "number",
                                 label: "Trigger Level",
                             }}
+                            propertyName="triggerLevel"
                             value={this.state.saCoreType.triggerLevel}
-                            onChange={(e) => this.handleTriggerLevelChange(e)}
+                            onChange={this.handleFieldChange}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -155,8 +144,9 @@ class SaCoreType extends Component {
                                 type: "number",
                                 label: "Sort Order",
                             }}
+                            propertyName="sortOrder"
                             value={this.state.saCoreType.sortOrder}
-                            onChange={(e) => this.handleSortOrderChange(e)}
+                            onChange={this.handleFieldChange}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -165,8 +155,9 @@ class SaCoreType extends Component {
                                 label: "Date Invalid",
                                 type: "date"
                             }}
-                            value={this.creating() ? "" : moment(this.state.saCoreType.dateInvalid).format('YYYY-MM-DD')}
-                            onChange={(e) => this.handleDateInvalidChange(e)}
+                            propertyName="dateInvalid"
+                            value={this.creating() ? null : moment(this.state.saCoreType.dateInvalid).format('YYYY-MM-DD')}
+                            onChange={this.handleFieldChange}
                         />
                     </Grid>
                     <Grid item xs={12}>
