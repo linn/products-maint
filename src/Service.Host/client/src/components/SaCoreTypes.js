@@ -37,8 +37,9 @@ class SaCoreTypes extends Component {
                 <div className={classes.root}>
                 <h2>Sales Article Core Types</h2>
                     <List>
-                        {saCoreTypes.map((ct, i) => (<ListItem key={i} button component="a" href={ct.href}>
-                                {ct.coreType} - {ct.description}
+                        {saCoreTypes.map((ct, i) => (<ListItem key={i} button>
+                               
+                                <Link style={{ display: 'block' }} to={ct.href}> {ct.coreType} - {ct.description}</Link>
                             </ListItem>))}
                     </List>
                 </div>

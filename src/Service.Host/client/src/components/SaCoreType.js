@@ -12,7 +12,7 @@ import BackButton from './common/BackButton';
 
 const styles = theme => ({
     root: {
-        width: "90%",
+        width: "70%",
         margin: "0 auto"
 
     },

@@ -1,0 +1,71 @@
+{
+  "sections": [
+    {
+      "id": "products",
+      "title": "Products",
+      "links": [
+        {
+          "rel": "landing",
+          "href": "/products"
+        }
+      ],
+      "items": [
+        {
+          "title": "Sernos Config Types",
+          "href": "/products/maint/sernos-configs",
+          "showInMenu": true
+        }
+      ]
+    },
+    {
+      "id": "reports",
+      "title": "Reports",
+      "links": [
+        {
+          "rel": "landing",
+          "href": "/reports"
+        }
+      ],
+      "items": [
+        {
+          "title": "Carton Details Report",
+          "href": "/products/maint/carton-details/report",
+          "showInMenu": true
+        },
+        {
+          "title": "Product Ranges Report",
+          "href": "/products/reports/product-ranges",
+          "showInMenu": true
+        },
+        {
+          "title": "Sales Article Ean Codes Report",
+          "href": "/products/reportst/sales-article-ean-codes",
+          "showInMenu": true
+        }
+      ]
+    },
+    {
+      "id": "utilities",
+      "title": "Utilities",
+      "links": [
+        {
+          "rel": "landing",
+          "href": "/Utilities"
+        }
+      ],
+      "items": [
+        {
+          "title": "Tariffs",
+          "href": "/products/maint/tariffs",
+          "showInMenu": true
+        },
+        {
+          "title": "Sales Article Core Types",
+          "href": "/products/maint/sa-core-types",
+          "showInMenu": true
+        }
+      ]
+    }
+
+  ]
+}
