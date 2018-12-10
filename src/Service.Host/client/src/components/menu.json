@@ -29,7 +29,7 @@
       "items": [
         {
           "title": "Carton Details Report",
-          "href": "/products/maint/carton-details/report",
+          "href": "/products/reports/carton-details/report",
           "showInMenu": true
         },
         {
@@ -39,7 +39,7 @@
         },
         {
           "title": "Sales Article Ean Codes Report",
-          "href": "/products/reportst/sales-article-ean-codes",
+          "href": "/products/reports/sales-article-ean-codes",
           "showInMenu": true
         }
       ]
