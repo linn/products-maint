@@ -37,7 +37,7 @@ class FormField extends Component {
     }
 
     render () {
-        const { config, value, classes, onChange} = this.props;
+        const { config, value, classes} = this.props;
         return ( 
             <div>
                 <TextField

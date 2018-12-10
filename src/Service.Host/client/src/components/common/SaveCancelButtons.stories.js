@@ -4,7 +4,12 @@ import { action } from '@storybook/addon-actions';
 
 import  SaveCancelButtons  from './SaveCancelButtons';
 
+export const actions = {
+  saveClick: action('Saved'),
+  cancelClick: action('Cancelled'),
+};
 
 
 storiesOf('SaveCancelButtons', module)
-  .add('default', () => <SaveCancelButtons />);
+  .addDecorator(story => <div style={{ position: "absolute", right: '45%', padding: '3rem'  }}>{story()}</div>)
+  .add('default', () => <SaveCancelButtons {...actions} />);

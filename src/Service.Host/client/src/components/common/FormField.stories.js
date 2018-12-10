@@ -4,12 +4,12 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs/react';
 
 import  FormField  from './FormField';
+ 
 let config = {
     label: "Label",
     disabled: false,
     type:"number",
     required:true
-    
 }
 
 export const actions = {
@@ -19,5 +19,5 @@ export const actions = {
 storiesOf('FormField', module)
     .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
     .addDecorator(withKnobs)
-    .add('default  ', () => { return <FormField config={object('config', {...config})} {...actions} /> });
+    .add('default  ', () => { return <FormField config={object('config', {...config})} propertyName="fieldProperty" {...actions} /> });
     
