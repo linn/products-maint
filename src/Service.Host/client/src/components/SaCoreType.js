@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Loading } from './common/Loading';
-import { makeNumber } from '../helpers/utilities'
 import moment from 'moment';
 import Grid from '@material-ui/core/Grid';
 import FormField from './common/FormField'
 import SaveCancelButtons from './common/SaveCancelButtons'
 import BackButton from './common/BackButton';
-
 
 const styles = theme => ({
     root: {
@@ -27,7 +25,6 @@ class SaCoreType extends Component {
     constructor(props) {
         super(props);
         this.state = { saCoreType: this.props.saCoreType, editStatus: this.props.editStatus || "view" };
-
         this.handleFieldChange = this.handleFieldChange.bind(this);
     }
 
@@ -101,8 +98,7 @@ class SaCoreType extends Component {
                             }}
                             propertyName="coreType"
                             value={this.state.saCoreType.coreType}
-                            onChange={this.handleFieldChange}
-                        />
+                            onChange={this.handleFieldChange} />
                     </Grid>
                     <Grid item xs={6}  >
                         <FormField
@@ -113,8 +109,7 @@ class SaCoreType extends Component {
                             }}
                             propertyName="description"
                             value={this.state.saCoreType.description}
-                            onChange={this.handleFieldChange}
-                        />
+                            onChange={this.handleFieldChange} />
                     </Grid>
                     <Grid item xs={6}>
                         <FormField
@@ -124,8 +119,7 @@ class SaCoreType extends Component {
                             }}
                             propertyName="lookAheadDays"
                             value={this.state.saCoreType.lookAheadDays}
-                            onChange={this.handleFieldChange}
-                        />
+                            onChange={this.handleFieldChange} />
                     </Grid>
                     <Grid item xs={6}>
                         <FormField
@@ -135,8 +129,7 @@ class SaCoreType extends Component {
                             }}
                             propertyName="triggerLevel"
                             value={this.state.saCoreType.triggerLevel}
-                            onChange={this.handleFieldChange}
-                        />
+                            onChange={this.handleFieldChange} />
                     </Grid>
                     <Grid item xs={6}>
                         <FormField
@@ -146,8 +139,7 @@ class SaCoreType extends Component {
                             }}
                             propertyName="sortOrder"
                             value={this.state.saCoreType.sortOrder}
-                            onChange={this.handleFieldChange}
-                        />
+                            onChange={this.handleFieldChange} />
                     </Grid>
                     <Grid item xs={6}>
                         <FormField
@@ -157,18 +149,15 @@ class SaCoreType extends Component {
                             }}
                             propertyName="dateInvalid"
                             value={this.creating() ? null : moment(this.state.saCoreType.dateInvalid).format('YYYY-MM-DD')}
-                            onChange={this.handleFieldChange}
-                        />
+                            onChange={this.handleFieldChange} />
                     </Grid>
                     <Grid item xs={12}>
                         <BackButton
-                            backClick={this.handleCancelClick}
-                        />
+                            backClick={this.handleCancelClick} />
                         <SaveCancelButtons
                             disabled={JSON.stringify(this.state.saCoreType) === JSON.stringify(saCoreType)}
                             saveClick={this.creating() ? this.handleAddClick : this.handleSaveClick}
-                            cancelClick={this.handleResetClick}
-                        />
+                            cancelClick={this.handleResetClick} />
                     </Grid>
                 </Grid>
             </div>
