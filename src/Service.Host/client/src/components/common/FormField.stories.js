@@ -17,7 +17,7 @@ export const actions = {
   };
 
 storiesOf('FormField', module)
-    .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
+    .addDecorator(story => <div style={{ padding: '3rem', width: "60%" }}>{story()}</div>)
     .addDecorator(withKnobs)
     .add('default  ', () => { return <FormField config={object('config', {...config})} propertyName="fieldProperty" {...actions} /> });
     
