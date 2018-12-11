@@ -10,6 +10,8 @@ import cartonType from './cartonType';
 import sernosConfig from './sernosConfig';
 import sernosConfigs from './sernosConfigs';
 import fetchError from './fetchError';
+import saCoreTypes from './saCoreTypes'
+import saCoreType from './saCoreType'
 
 const rootReducer = combineReducers({
     oidc,
@@ -22,7 +24,10 @@ const rootReducer = combineReducers({
     cartonType,
     sernosConfig,
     sernosConfigs,
+    saCoreTypes,
+    saCoreType,
     fetchError
+    
 });
 
 export default rootReducer;

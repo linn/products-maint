@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 
-const styles = {
+export const styles = {
     outer: {
         textAlign: 'center',
         margin: '20px',

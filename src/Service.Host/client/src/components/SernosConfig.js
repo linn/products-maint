@@ -219,4 +219,3 @@ class SernosConfig extends Component {
 }
 
 export default SernosConfig;
-

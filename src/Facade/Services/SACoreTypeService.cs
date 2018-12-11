@@ -32,7 +32,7 @@
         {
             saCoreType.Update(
                 resource.Description,
-                DateTime.Parse(resource.DateInvalid),
+                string.IsNullOrEmpty(resource.DateInvalid) ? (DateTime?)null : DateTime.Parse(resource.DateInvalid),
                 resource.LookAheadDays,
                 resource.SortOrder,
                 resource.TriggerLevel);
