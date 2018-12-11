@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 const styles = {
     textField: {
-        width: "90%",
+        width: "100%",
         margin: "0 auto"
     },
     label: {

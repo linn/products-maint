@@ -64,6 +64,7 @@
     "webpack-hot-middleware": "^2.24.3"
   },
   "dependencies": {
+    "@bit/lewisre.linn.components.form-field": "^1.0.0",
     "@date-io/moment": "0.0.2",
     "@material-ui/core": "^3.6.0",
     "@material-ui/icons": "^3.0.1",
