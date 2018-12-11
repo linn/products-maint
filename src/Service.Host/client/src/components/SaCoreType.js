@@ -4,9 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { Loading } from './common/Loading';
 import moment from 'moment';
 import Grid from '@material-ui/core/Grid';
-import FormField from 'FormField'
-import SaveCancelButtons from './common/SaveCancelButtons'
-import BackButton from './common/BackButton';
+import FormField from '@bit/linnitdev.react-components.components.form-field';
+import SaveCancelButtons from '@bit/linnitdev.react-components.components.save-cancel-buttons';
+import BackButton from '@bit/linnitdev.react-components.components.back-button';
 
 const styles = theme => ({
     root: {
