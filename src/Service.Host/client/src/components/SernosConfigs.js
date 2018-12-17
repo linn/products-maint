@@ -22,24 +22,26 @@ class SernosConfigs extends Component {
         const { sernosConfigs, loading, errorMessage, classes } = this.props;
 
         if (loading || !sernosConfigs) {
-            return( 
-                errorMessage?
-                <Grid>
-                    <Paper style={{ marginTop: "15px" }}  >
-                    <strong>{errorMessage}</strong>
-                    </Paper >
-                </Grid>
-        :  <Loading />);
+            return (
+                errorMessage ?
+                    <Grid>
+                        <Paper style={{ marginTop: "15px" }}  >
+                            <strong>{errorMessage}</strong>
+                        </Paper >
+                    </Grid>
+                    : <Loading />);
         }
 
         return (
             <div className="linn-container" >
                 <div className={classes.root}>
-                <h2>Serial Number Config Types</h2>
+                    <h2>Serial Number Config Types</h2>
                     <List>
-                        {sernosConfigs.map((sc, i) => (<ListItem key={i} button component="a" href={sc.href}>
-                                {sc.name} - {sc.description}
-                            </ListItem>))}
+                        {sernosConfigs.map((sc, i) => (
+                            <ListItem key={i} button>
+                                <Link style={{ display: 'block' }} to={sc.href} >{sc.name} - {sc.description}</Link>
+                            </ListItem>
+                        ))}
                     </List>
                 </div>
                 <Link style={{ display: 'block' }} to="/products/maint/sernos-configs/create">Create new serial number config type</Link>
