@@ -54,9 +54,7 @@
     "webpack-hot-middleware": "^2.24.3"
   },
   "dependencies": {
-    "@bit/linnitdev.react-components.components.back-button": "^1.0.1",
-    "@bit/linnitdev.react-components.components.form-field": "^1.0.1",
-    "@bit/linnitdev.react-components.components.save-cancel-buttons": "^1.0.1",
+    "@linn-it/linn-form-components-library": "0.0.8",
     "@material-ui/core": "^3.4.0",
     "@material-ui/icons": "^3.0.1",
     "babel-polyfill": "^6.26.0",
