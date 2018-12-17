@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { Typography, TextField, Paper, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import ErrorCard from '../components/common/ErrorCard';
-import MaterialLoading from '../components/common/MaterialLoading';
-import MaterialCheckbox from '../components/common/MaterialCheckbox';
-import MaterialDropdown from '../components/common/MaterialDropdown';
+import CircularLoading from '../components/common/CircularLoading';
+import CheckboxWithLabel from '../components/common/CheckboxWithLabel';
+import Dropdown from '../components/common/Dropdown';
 
 const styles = () => ({
     root: {
@@ -84,7 +84,7 @@ class SernosConfig extends Component {
                 {loading || !sernosConfig
                     ? errorMessage
                         ? <ErrorCard errorMessage={errorMessage} />
-                        : <MaterialLoading />
+                        : <CircularLoading />
                     : <Fragment>
                         <Typography variant='h2' align='center' gutterBottom>
                             Sernos Config
@@ -119,7 +119,7 @@ class SernosConfig extends Component {
                             }}
                             onChange={e => this.handleChange(e, 'description')}
                         />
-                        <MaterialCheckbox
+                        <CheckboxWithLabel
                             label='Serial Numbered'
                             checked={this.state.sernosConfig.serialNumbered === 'Y' ? true : false}
                             onChange={e => this.handleCheckboxChange(e, 'serialNumbered')}
@@ -156,7 +156,7 @@ class SernosConfig extends Component {
                             }}
                             onChange={e => this.handleChange(e, 'numberOfBoxes')}
                         />
-                        <MaterialDropdown
+                        <Dropdown
                             label='Start On'
                             items={['', 'Any', 'Odd', 'Even']}
                             onChange={e => this.handleChange(e, 'startOn')}

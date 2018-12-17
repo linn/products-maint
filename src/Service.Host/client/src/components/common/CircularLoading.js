@@ -14,10 +14,10 @@ const styles = () => ({
     }
 })
 
-const MaterialLoading = ({ classes }) => (
+const CircularLoading = ({ classes }) => (
     <div className={classes.root}>
         <CircularProgress className={classes.loading} />
     </div>
 );
 
-export default withStyles(styles)(MaterialLoading);
+export default withStyles(styles)(CircularLoading);

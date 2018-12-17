@@ -1,9 +1,9 @@
 import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
 import { FormControlLabel } from '@material-ui/core';
-import MaterialCheckbox from '../MaterialCheckbox';
+import CheckboxWithLabel from '../CheckboxWithLabel';
 
-describe('<MaterialCheckbox />', () => {
+describe('<CheckboxWithLabel />', () => {
     describe('when rendering', () => {
         const shallow = createShallow({ dive: true });
 
@@ -12,7 +12,7 @@ describe('<MaterialCheckbox />', () => {
         }
 
         it('should render label', () => {
-            const wrapper = shallow(<MaterialCheckbox {...props} />);
+            const wrapper = shallow(<CheckboxWithLabel {...props} />);
             expect(wrapper.find(FormControlLabel)).toHaveLength(1);
             expect(wrapper.find(FormControlLabel).html()).toContain('checkbox label');
         });

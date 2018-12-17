@@ -14,7 +14,7 @@ const styles = (theme) => ({
     }
 });
 
-const MaterialDropdown = ({ classes, label, items, onChange, value }) => (
+const Dropdown = ({ classes, label, items, onChange, value }) => (
     <FormControl className={`${classes.root} ${classes.typography}`}>
         <InputLabel className={classes.typography}>{label}</InputLabel>
         <Select
@@ -29,4 +29,4 @@ const MaterialDropdown = ({ classes, label, items, onChange, value }) => (
     </FormControl>
 );
 
-export default withStyles(styles)(MaterialDropdown);
+export default withStyles(styles)(Dropdown);

@@ -9,7 +9,7 @@ const styles = {
     }
 }
 
-const MaterialCheckbox = ({ classes, checked, color = 'primary', label, onChange }) => (
+const CheckboxWithLabel = ({ classes, checked, color = 'primary', label, onChange }) => (
     <FormControlLabel
         label={label}
         classes={{ label: `${classes.root}` }}
@@ -23,4 +23,4 @@ const MaterialCheckbox = ({ classes, checked, color = 'primary', label, onChange
     />
 )
 
-export default withStyles(styles)(MaterialCheckbox);
+export default withStyles(styles)(CheckboxWithLabel);

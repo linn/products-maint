@@ -2,9 +2,9 @@
 import { createShallow } from '@material-ui/core/test-utils';
 import SernosConfig from '../SernosConfig';
 import { Typography, TextField, Paper, Button } from '@material-ui/core';
-import MaterialCheckbox from '../common/MaterialCheckbox';
-import MaterialDropdown from '../common/MaterialDropdown';
-import MaterialLoading from '../common/MaterialLoading';
+import CheckboxWithLabel from '../common/CheckboxWithLabel';
+import Dropdown from '../common/Dropdown';
+import CircularLoading from '../common/CircularLoading';
 import ErrorCard from '../common/ErrorCard';
 
 
@@ -16,7 +16,7 @@ describe('<SernosConfig />', () => {
         it('should show loading component', () => {
             const wrapper = shallow(<SernosConfig loading={true} />);
             expect(wrapper.find(Paper)).toHaveLength(1);
-            expect(wrapper.find(MaterialLoading)).toHaveLength(1);
+            expect(wrapper.find(CircularLoading)).toHaveLength(1);
         });
 
         it('should show error message if present', () => {
@@ -60,12 +60,12 @@ describe('<SernosConfig />', () => {
         });
 
         it('should render checkbox', () => {
-            expect(wrapper.find(MaterialDropdown)).toHaveLength(1);
-            expect(wrapper.find(MaterialDropdown).html()).toContain('Even');
+            expect(wrapper.find(Dropdown)).toHaveLength(1);
+            expect(wrapper.find(Dropdown).html()).toContain('Even');
         });
 
         it('should render dropdown', () => {
-            expect(wrapper.find(MaterialCheckbox)).toHaveLength(1);
+            expect(wrapper.find(CheckboxWithLabel)).toHaveLength(1);
         });
 
         it('should render buttons', () => {
