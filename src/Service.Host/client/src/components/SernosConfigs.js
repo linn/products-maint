@@ -38,9 +38,7 @@ class SernosConfigs extends Component {
                     <h2>Serial Number Config Types</h2>
                     <List>
                         {sernosConfigs.map((sc, i) => (
-                            <ListItem key={i} button>
-                                <Link style={{ display: 'block' }} to={sc.href} >{sc.name} - {sc.description}</Link>
-                            </ListItem>
+                            <ListItem key={i} component={Link} to={sc.href} button>{sc.name} - {sc.description}</ListItem>
                         ))}
                     </List>
                 </div>

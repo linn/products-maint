@@ -1,29 +1,40 @@
 ﻿import React from 'react';
 import SernosConfigs from '../SernosConfigs';
-import { Link } from 'react-router-dom';
-import ListItem from '@material-ui/core/ListItem';
-import { mount } from 'enzyme';
-import { BrowserRouter } from 'react-router-dom';
+import { createShallow } from '@material-ui/core/test-utils';
 
 describe('<SernosConfigs />', () => {
-    describe('View Sernos Configs', () => {
-        let sernosConfigs = [{ name: 'name1', href: '/name1' }, { name: 'name2', href: 'name2' }];
+    const getListItems = () => wrapper.find('WithStyles(ListItem)');
+    const getLinks = () => wrapper.find('Link');
+    const shallow = createShallow({ dive: true });;
+    let wrapper, props;
 
-        const wrapper = mount(
-            <BrowserRouter>
-                <SernosConfigs sernosConfigs={sernosConfigs} />
-            </BrowserRouter>
-        );
+    beforeEach(() => {
+        props = {
+            sernosConfigs: [
+                {
+                    name: 'P1',
+                    description: 'Serial Numbered In Pairs, One Box',
+                    href: '/products/main/sernos-configs/1'
+                },
+                {
+                    name: 'P2',
+                    description: 'Serial Numbered In Pairs, Two Boxes',
+                    href: '/products/main/sernos-configs/1'
+                }
+            ]
+        }
 
-        test('Should render view', () => {
-            expect(wrapper.find(ListItem)).toHaveLength(2);
-            expect(wrapper.find(ListItem).at(0).html()).toContain('name1');
-            expect(wrapper.find(ListItem).at(1).html()).toContain('name2');
-        });
+        wrapper = shallow(<SernosConfigs {...props} />);
+    });
 
-        test('Should render create link', () => {
-            expect(wrapper.find(Link)).toHaveLength(3);
-            expect(wrapper.find(Link).at(2).html()).toContain('Create new serial number config type');
-        });
+    it('should render list items', () => {
+        expect(getListItems()).toHaveLength(2);
+        expect(getListItems().at(0).props().children).toEqual(['P1', ' - ', 'Serial Numbered In Pairs, One Box']);
+        expect(getListItems().at(1).props().children).toEqual(['P2', ' - ', 'Serial Numbered In Pairs, Two Boxes']);
+    });
+
+    it('should render create link', () => {
+        expect(getLinks()).toHaveLength(1);
+        expect(getLinks().at(0).props().children).toEqual('Create new serial number config type');
     });
 });

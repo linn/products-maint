@@ -1,75 +1,90 @@
 ﻿import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
 import SernosConfig from '../SernosConfig';
-import { Typography, TextField, Paper, Button } from '@material-ui/core';
-import CheckboxWithLabel from '../common/CheckboxWithLabel';
-import Dropdown from '../common/Dropdown';
-import CircularLoading from '../common/CircularLoading';
-import ErrorCard from '../common/ErrorCard';
-
 
 describe('<SernosConfig />', () => {
+    const getPaper = () => wrapper.find('WithStyles(Paper)');
+    const getLoading = () => wrapper.find('WithStyles(CircularLoading)');
+    const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');
+    const getTypography = () => wrapper.find('WithStyles(Typography)');
+    const getTextFields = () => wrapper.find('TextField');
+    const getDropdowns = () => wrapper.find('WithStyles(Dropdown)');
+    const getCheckboxWithLabels = () => wrapper.find('WithStyles(CheckboxWithLabel)');
+    const getButtons = () => wrapper.find('WithStyles(Button)');
     const shallow = createShallow({ dive: true });
+    let wrapper, props;
 
-    describe('when sernos config is loading', () => {
+    beforeEach(() => {
+        props = {
+            loading: true
+        }
 
-        it('should show loading component', () => {
-            const wrapper = shallow(<SernosConfig loading={true} />);
-            expect(wrapper.find(Paper)).toHaveLength(1);
-            expect(wrapper.find(CircularLoading)).toHaveLength(1);
+        wrapper = shallow(<SernosConfig {...props} />)
+    });
+
+    describe('when loading with no error message', () => {
+
+        it('should render paper container', () => {
+            expect(getPaper()).toHaveLength(1);
         });
 
-        it('should show error message if present', () => {
-            const wrapper = shallow(<SernosConfig loading={true} errorMessage={'error'} />);
-            expect(wrapper.find(Paper)).toHaveLength(1);
-            expect(wrapper.find(ErrorCard)).toHaveLength(1);
+        it('should render loading spinner', () => {
+            expect(getLoading()).toHaveLength(1);
         });
     });
 
-    describe('when sernos config has loaded', () => {
-
-        const props = {
-            sernosConfig: {
-                name: 'sernos config',
-                description: 'sernos description',
-                serialNumbered: 'Y',
-                numberOfSernos: 2,
-                numberOfBoxes: 1,
-                startOn: 'Even'
-            },
-            loading: false
-        }
-
-        const wrapper = shallow(<SernosConfig {...props} />);
+    describe('when loading with error message', () => {
+        beforeEach(() => {
+            wrapper.setProps({ errorMessage: 'an error has occurred' });
+        });
 
         it('should render paper container', () => {
-            expect(wrapper.find(Paper)).toHaveLength(1);
+            expect(getPaper()).toHaveLength(1);
+        });
+
+        it('should render error message', () => {
+            expect(getErrorCard()).toHaveLength(1);
+        })
+    });
+
+    describe('when sernos cofig has loaded without error message', () => {
+        beforeEach(() => {
+            wrapper.setProps({
+                sernosConfig: {
+                    name: 'P1',
+                    description: 'Serial Numbered In Pairs, One Box',
+                    serialNumbered: 'Y',
+                    numberOfSernos: 2,
+                    numberOfBoxes: 1,
+                    startOn: 'Even'
+                },
+                loading: false,
+                errorMessage: null
+            });
+        });
+
+        it('should render paper container', () => {
+            expect(getPaper()).toHaveLength(1);
         });
 
         it('should render title', () => {
-            expect(wrapper.find(Typography)).toHaveLength(1);
-            expect(wrapper.find(Typography).html()).toContain('Sernos Config');
+            expect(getTypography()).toHaveLength(1);
         });
 
         it('should render text fields', () => {
-            expect(wrapper.find(TextField)).toHaveLength(4);
-            expect(wrapper.find(TextField).first().html()).toContain('sernos config');
-            expect(wrapper.find(TextField).at(1).html()).toContain('sernos description');
-            expect(wrapper.find(TextField).at(2).html()).toContain('2');
-            expect(wrapper.find(TextField).at(3).html()).toContain('1');
+            expect(getTextFields()).toHaveLength(4);
         });
 
         it('should render checkbox', () => {
-            expect(wrapper.find(Dropdown)).toHaveLength(1);
-            expect(wrapper.find(Dropdown).html()).toContain('Even');
+            expect(getCheckboxWithLabels()).toHaveLength(1);
         });
 
         it('should render dropdown', () => {
-            expect(wrapper.find(CheckboxWithLabel)).toHaveLength(1);
+            expect(getDropdowns()).toHaveLength(1);
         });
 
         it('should render buttons', () => {
-            expect(wrapper.find(Button)).toHaveLength(3);
+            expect(getButtons()).toHaveLength(3);
         });
     });
 });
