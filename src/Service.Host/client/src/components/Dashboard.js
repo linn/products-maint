@@ -172,6 +172,7 @@ class Dashboard extends React.Component
                     <List> 
                         {this.getTopLevelMenu().map((text, index) => (
                             <MenuList 
+                                key={index}
                                 title={text} 
                                 list={menu[index].items} 
                                 selected={this.state.selected}/>

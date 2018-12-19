@@ -1,111 +1,90 @@
 ﻿import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { createShallow } from '@material-ui/core/test-utils';
 import SernosConfig from '../SernosConfig';
-import { Button, FormControl, Alert } from 'react-bootstrap';
 
 describe('<SernosConfig />', () => {
-    describe('View Sernos Config', () => {
-        let updateSernosConfig = jest.fn(),
-            addSernosConfig = jest.fn(),
-            sernosConfig = { name: 'name1', description: 'd' },
-            wrapper = shallow(<SernosConfig sernosConfig={sernosConfig} updateSernosConfig={updateSernosConfig} addSernosConfig={addSernosConfig} />);
+    const getPaper = () => wrapper.find('WithStyles(Paper)');
+    const getLoading = () => wrapper.find('WithStyles(CircularLoading)');
+    const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');
+    const getTypography = () => wrapper.find('WithStyles(Typography)');
+    const getTextFields = () => wrapper.find('TextField');
+    const getDropdowns = () => wrapper.find('WithStyles(Dropdown)');
+    const getCheckboxWithLabels = () => wrapper.find('WithStyles(CheckboxWithLabel)');
+    const getButtons = () => wrapper.find('WithStyles(Button)');
+    const shallow = createShallow({ dive: true });
+    let wrapper, props;
 
-        test('Should render view', () => {
-            expect(wrapper.find(FormControl)).toHaveLength(0);
-            expect(wrapper.find('#sernos-config-name').html()).toContain('name1');
+    beforeEach(() => {
+        props = {
+            loading: true
+        }
+
+        wrapper = shallow(<SernosConfig {...props} />)
+    });
+
+    describe('when loading with no error message', () => {
+
+        it('should render paper container', () => {
+            expect(getPaper()).toHaveLength(1);
         });
 
-        test('Should render edit and back buttons', () => {
-            expect(wrapper.find(Button)).toHaveLength(2);
-            expect(wrapper.find('#edit-button')).toHaveLength(1);
-            expect(wrapper.find('#back-button')).toHaveLength(1);
+        it('should render loading spinner', () => {
+            expect(getLoading()).toHaveLength(1);
+        });
+    });
+
+    describe('when loading with error message', () => {
+        beforeEach(() => {
+            wrapper.setProps({ errorMessage: 'an error has occurred' });
         });
 
-        test('Should change state when edit button clicked', () => {
-            const button = wrapper.find('#edit-button');
-            button.simulate('click');
-
-            expect(wrapper.state('editStatus')).toBe('edit');
+        it('should render paper container', () => {
+            expect(getPaper()).toHaveLength(1);
         });
 
-        describe('with errors', () => {
-            wrapper = shallow(<SernosConfig sernosConfig={sernosConfig} updateSernosConfig={updateSernosConfig} addSernosConfig={addSernosConfig} errorMessage='We have an error' />);
+        it('should render error message', () => {
+            expect(getErrorCard()).toHaveLength(1);
+        });
+    });
 
-            test('Should show Alert', () => {
-                const alert = wrapper.find(Alert);
-
-                expect(alert).toHaveLength(1);
-                expect(alert.html()).toContain('We have an error');
+    describe('when sernos cofig has loaded without error message', () => {
+        beforeEach(() => {
+            wrapper.setProps({
+                sernosConfig: {
+                    name: 'P1',
+                    description: 'Serial Numbered In Pairs, One Box',
+                    serialNumbered: 'Y',
+                    numberOfSernos: 2,
+                    numberOfBoxes: 1,
+                    startOn: 'Even'
+                },
+                loading: false,
+                errorMessage: null
             });
         });
-    });
 
-    describe('Edit Sernos Config', () => {
-        let updateSernosConfig = jest.fn(),
-            addSernosConfig = jest.fn(),
-            sernosConfig = { name: 'name1', description: 'd' },
-            wrapper = shallow(<SernosConfig sernosConfig={sernosConfig} updateSernosConfig={updateSernosConfig} addSernosConfig={addSernosConfig} sernosConfigId='name1' editStatus='edit' />);
-
-        test('Should render edit', () => {
-            expect(wrapper.find(FormControl)).toHaveLength(3);
-            expect(wrapper.find('#sernos-config-name').html()).toContain('name1');
+        it('should render paper container', () => {
+            expect(getPaper()).toHaveLength(1);
         });
 
-        test('Should render save and cancel buttons', () => {
-            expect(wrapper.find(Button)).toHaveLength(2);
-            expect(wrapper.find('#save-button')).toHaveLength(1);
-            expect(wrapper.find('#cancel-button')).toHaveLength(1);
+        it('should render title', () => {
+            expect(getTypography()).toHaveLength(1);
         });
 
-        test('Should update width', () => {
-            const desc = wrapper.find(FormControl).at(0);
-            desc.simulate('change', { target: { value: 'new desc' } });
-            expect(wrapper.state('sernosConfig').description).toBe('new desc');
+        it('should render text fields', () => {
+            expect(getTextFields()).toHaveLength(4);
         });
 
-        test('Should call update when save button clicked', () => {
-            const button = wrapper.find('#save-button');
-            button.simulate('click');
-
-            expect(updateSernosConfig.mock.calls.length).toBe(1);
-            expect(updateSernosConfig.mock.calls[0][0]).toBe('name1');
-            expect(updateSernosConfig.mock.calls[0][1]).toEqual({ "description": "new desc", "name": "name1" });
-        });
-    });
-
-    describe('Create Sernos Config', () => {
-        let updateSernosConfig = jest.fn(),
-            addSernosConfig = jest.fn(),
-            sernosConfig = {},
-            wrapper = shallow(<SernosConfig sernosConfig={sernosConfig} updateSernosConfig={updateSernosConfig} addSernosConfig={addSernosConfig} editStatus='create' />);
-
-        test('Should render create', () => {
-            expect(wrapper.find(FormControl)).toHaveLength(4);
+        it('should render checkbox', () => {
+            expect(getCheckboxWithLabels()).toHaveLength(1);
         });
 
-        test('Should render save and cancel buttons', () => {
-            expect(wrapper.find(Button)).toHaveLength(2);
-            expect(wrapper.find('#save-button')).toHaveLength(1);
-            expect(wrapper.find('#cancel-button')).toHaveLength(1);
+        it('should render dropdown', () => {
+            expect(getDropdowns()).toHaveLength(1);
         });
 
-        test('Should set fields', () => {
-            const name = wrapper.find(FormControl).at(0),
-                description = wrapper.find(FormControl).at(1);
-
-            name.simulate('change', { target: { value: 'N' } });
-            description.simulate('change', { target: { value: 'D' } });
-           
-            expect(wrapper.state('sernosConfig').name).toBe('N');
-            expect(wrapper.state('sernosConfig').description).toBe('D');
-        });
-
-        test('Should call add when save button clicked', () => {
-            const button = wrapper.find('#save-button');
-            button.simulate('click');
-
-            expect(addSernosConfig.mock.calls.length).toBe(1);
-            expect(addSernosConfig.mock.calls[0][0]).toEqual({ 'description': 'D', 'name': 'N' });
+        it('should render buttons', () => {
+            expect(getButtons()).toHaveLength(3);
         });
     });
 });

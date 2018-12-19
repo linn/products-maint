@@ -1,22 +1,84 @@
 ﻿import React from 'react';
-import { shallow } from 'enzyme';
 import SernosConfigs from '../SernosConfigs';
-import { Link } from 'react-router-dom';
-import ListItem from '@material-ui/core/ListItem';
+import { createShallow } from '@material-ui/core/test-utils';
 
 describe('<SernosConfigs />', () => {
-    describe('View Sernos Configs', () => {
-        let sernosConfigs = [{ name: 'name1' }, { name: 'name2' }],
-            wrapper = shallow(<SernosConfigs sernosConfigs={sernosConfigs} />).dive();
+    const getListItems = () => wrapper.find('WithStyles(ListItem)');
+    const getLinks = () => wrapper.find('Link');
+    const getLoading = () => wrapper.find('WithStyles(CircularLoading)');
+    const getPaper = () => wrapper.find('WithStyles(Paper)');
+    const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');
+    const getTypography = () => wrapper.find('WithStyles(Typography)');
+    const shallow = createShallow({ dive: true });
+    let wrapper, props;
 
-        test('Should render view', () => {
-            expect(wrapper.find(ListItem)).toHaveLength(2);
-            expect(wrapper.find(ListItem).at(0).html()).toContain('name1');
-            expect(wrapper.find(ListItem).at(1).html()).toContain('name2');
+    beforeEach(() => {
+        props = {
+            loading: true,
+            sernosConfigs: null
+        }
+
+        wrapper = shallow(<SernosConfigs {...props} />);
+    });
+
+    describe('when loading', () => {
+        it('should render paper container', () => {
+            expect(getPaper()).toHaveLength(1);
         });
 
-        test('Should render create link', () => {
-            expect(wrapper.find(Link)).toHaveLength(1);
+        it('should render loading spinner', () => {
+            expect(getLoading()).toHaveLength(1);
+        });
+    });
+
+    describe('when there is an error message', () => {
+        beforeEach(() => {
+            wrapper.setProps({ errorMessage: 'an error has occurred' });
+        });
+
+        it('should render paper container', () => {
+            expect(getPaper()).toHaveLength(1);
+        });
+
+        it('should render error message', () => {
+            expect(getErrorCard()).toHaveLength(1);
+            expect(getErrorCard().props().errorMessage).toEqual('an error has occurred');
+        });
+    });
+
+    describe('when sernos configs have loaded without error', () => {
+        beforeEach(() => {
+            wrapper.setProps({
+                sernosConfigs: [
+                    {
+                        name: 'P1',
+                        description: 'Serial Numbered In Pairs, One Box',
+                        href: '/products/main/sernos-configs/1'
+                    },
+                    {
+                        name: 'P2',
+                        description: 'Serial Numbered In Pairs, Two Boxes',
+                        href: '/products/main/sernos-configs/1'
+                    }
+                ],
+                loading: false,
+                errorMessage: null
+            });
+        });
+
+        it('should render title', () => {
+            expect(getTypography()).toHaveLength(1);
+        });
+
+        it('should render list items', () => {
+            expect(getListItems()).toHaveLength(2);
+            expect(getListItems().at(0).props().children).toEqual(['P1', ' - ', 'Serial Numbered In Pairs, One Box']);
+            expect(getListItems().at(1).props().children).toEqual(['P2', ' - ', 'Serial Numbered In Pairs, Two Boxes']);
+        });
+
+        it('should render create link', () => {
+            expect(getLinks()).toHaveLength(1);
+            expect(getLinks().at(0).props().children).toEqual('Create new serial number config type');
         });
     });
 });
