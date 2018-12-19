@@ -1,11 +1,12 @@
 import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
+import { InputLabel, Select } from '@material-ui/core';
 import Dropdown from '../Dropdown';
 
 describe('<Dropdown />', () => {
-    const getInputLabel = () => wrapper.find('WithStyles(WithFormControlContext(InputLabel))');
+    const getInputLabel = () => wrapper.find(InputLabel);
+    const getSelect = () => wrapper.find(Select);
     const getMenuItems = () => wrapper.find('WithStyles(MenuItem)');
-    const getSelect = () => wrapper.find('WithStyles(WithFormControlContext(Select))');
     const shallow = createShallow({ dive: true });
     let wrapper, props;
 

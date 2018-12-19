@@ -44,7 +44,7 @@ describe('<SernosConfig />', () => {
 
         it('should render error message', () => {
             expect(getErrorCard()).toHaveLength(1);
-        })
+        });
     });
 
     describe('when sernos cofig has loaded without error message', () => {

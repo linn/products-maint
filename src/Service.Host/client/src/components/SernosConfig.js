@@ -6,6 +6,7 @@ import ErrorCard from '../components/common/ErrorCard';
 import CircularLoading from '../components/common/CircularLoading';
 import CheckboxWithLabel from '../components/common/CheckboxWithLabel';
 import Dropdown from '../components/common/Dropdown';
+import { getSelfHref } from '../helpers/utilities'
 
 const styles = () => ({
     root: {
@@ -37,6 +38,12 @@ class SernosConfig extends Component {
             editStatus: this.props.editStatus || 'edit',
             edited: false
         };
+    }
+    
+    static getDerivedStateFromProps(nextProps, prevState) {
+        return getSelfHref(nextProps.sernosConfig) !== getSelfHref(prevState.sernosConfig)
+            ? { sernosConfig: nextProps.sernosConfig }
+            : null;
     }
 
     handleCancelClick() {
@@ -85,119 +92,121 @@ class SernosConfig extends Component {
                     ? errorMessage
                         ? <ErrorCard errorMessage={errorMessage} />
                         : <CircularLoading />
-                    : <Fragment>
-                        <Typography variant='h2' align='center' gutterBottom>
-                            Sernos Config
+                    : (
+                        <Fragment>
+                            <Typography variant='h2' align='center' gutterBottom>
+                                Sernos Config
                         </Typography>
-                        <TextField
-                            className={classes.fullWidth}
-                            name='name'
-                            label='Name'
-                            value={this.state.sernosConfig.name}
-                            margin='normal'
-                            variant='filled'
-                            InputProps={{
-                                className: classes.fontOverride
-                            }}
-                            InputLabelProps={{
-                                className: classes.fontOverride
-                            }}
-                            onChange={e => this.handleChange(e, 'name')}
-                        />
-                        <TextField
-                            className={`${classes.fullWidth} ${classes.fontOverride}`}
-                            name='description'
-                            label='Description'
-                            value={this.state.sernosConfig.description}
-                            margin='normal'
-                            variant='filled'
-                            InputProps={{
-                                className: classes.fontOverride
-                            }}
-                            InputLabelProps={{
-                                className: classes.fontOverride
-                            }}
-                            onChange={e => this.handleChange(e, 'description')}
-                        />
-                        <CheckboxWithLabel
-                            label='Serial Numbered'
-                            checked={this.state.sernosConfig.serialNumbered === 'Y' ? true : false}
-                            onChange={e => this.handleCheckboxChange(e, 'serialNumbered')}
-                        />
-                        <TextField
-                            className={`${classes.fullWidth} ${classes.fontOverride}`}
-                            name='numberOfSernos'
-                            label='Number of Serial Nos'
-                            value={this.state.sernosConfig.numberOfSernos}
-                            margin='normal'
-                            variant='filled'
-                            type='number'
-                            InputProps={{
-                                className: classes.fontOverride
-                            }}
-                            InputLabelProps={{
-                                className: classes.fontOverride
-                            }}
-                            onChange={e => this.handleChange(e, 'numberOfSernos')}
-                        />
-                        <TextField
-                            className={`${classes.fullWidth} ${classes.fontOverride}`}
-                            name='numberOfBoxes'
-                            label='Number of Serial Boxes'
-                            value={this.state.sernosConfig.numberOfBoxes}
-                            margin='normal'
-                            variant='filled'
-                            type='number'
-                            InputProps={{
-                                className: classes.fontOverride
-                            }}
-                            InputLabelProps={{
-                                className: classes.fontOverride
-                            }}
-                            onChange={e => this.handleChange(e, 'numberOfBoxes')}
-                        />
-                        <Dropdown
-                            label='Start On'
-                            items={['', 'Any', 'Odd', 'Even']}
-                            onChange={e => this.handleChange(e, 'startOn')}
-                            value={this.state.sernosConfig.startOn}
-                        />
-                        <Button
-                            className={classes.fontOverride}
-                            id="back-button"
-                            component={Link}
-                            to="/products/maint/sernos-configs"
-                            variant="outlined"
-                        >
-                            Back
-                        </Button>
-                        <div className={classes.pullRight}>
+                            <TextField
+                                className={classes.fullWidth}
+                                name='name'
+                                label='Name'
+                                value={this.state.sernosConfig.name}
+                                margin='normal'
+                                variant='filled'
+                                InputProps={{
+                                    className: classes.fontOverride
+                                }}
+                                InputLabelProps={{
+                                    className: classes.fontOverride
+                                }}
+                                onChange={e => this.handleChange(e, 'name')}
+                            />
+                            <TextField
+                                className={`${classes.fullWidth} ${classes.fontOverride}`}
+                                name='description'
+                                label='Description'
+                                value={this.state.sernosConfig.description}
+                                margin='normal'
+                                variant='filled'
+                                InputProps={{
+                                    className: classes.fontOverride
+                                }}
+                                InputLabelProps={{
+                                    className: classes.fontOverride
+                                }}
+                                onChange={e => this.handleChange(e, 'description')}
+                            />
+                            <CheckboxWithLabel
+                                label='Serial Numbered'
+                                checked={this.state.sernosConfig.serialNumbered === 'Y' ? true : false}
+                                onChange={e => this.handleCheckboxChange(e, 'serialNumbered')}
+                            />
+                            <TextField
+                                className={`${classes.fullWidth} ${classes.fontOverride}`}
+                                name='numberOfSernos'
+                                label='Number of Serial Nos'
+                                value={this.state.sernosConfig.numberOfSernos}
+                                margin='normal'
+                                variant='filled'
+                                type='number'
+                                InputProps={{
+                                    className: classes.fontOverride
+                                }}
+                                InputLabelProps={{
+                                    className: classes.fontOverride
+                                }}
+                                onChange={e => this.handleChange(e, 'numberOfSernos')}
+                            />
+                            <TextField
+                                className={`${classes.fullWidth} ${classes.fontOverride}`}
+                                name='numberOfBoxes'
+                                label='Number of Serial Boxes'
+                                value={this.state.sernosConfig.numberOfBoxes}
+                                margin='normal'
+                                variant='filled'
+                                type='number'
+                                InputProps={{
+                                    className: classes.fontOverride
+                                }}
+                                InputLabelProps={{
+                                    className: classes.fontOverride
+                                }}
+                                onChange={e => this.handleChange(e, 'numberOfBoxes')}
+                            />
+                            <Dropdown
+                                label='Start On'
+                                items={['', 'Any', 'Odd', 'Even']}
+                                onChange={e => this.handleChange(e, 'startOn')}
+                                value={this.state.sernosConfig.startOn}
+                            />
                             <Button
-                                style={{ marginRight: '10px' }}
                                 className={classes.fontOverride}
-                                id="cancel-button"
-                                color="primary"
+                                id="back-button"
+                                component={Link}
+                                to="/products/maint/sernos-configs"
                                 variant="outlined"
-                                onClick={() => this.handleCancelClick()}
-                                disabled={!this.state.edited}
                             >
-                                Cancel
+                                Back
                             </Button>
-                            <Button
-                                onClick={() => this.handleSaveClick()}
-                                className={classes.fontOverride}
-                                id="edit-button"
-                                variant="outlined"
-                                variant="contained"
-                                color="secondary"
-                                disabled={!this.state.edited}
-                            >
-                                Save
+                            <div className={classes.pullRight}>
+                                <Button
+                                    style={{ marginRight: '10px' }}
+                                    className={classes.fontOverride}
+                                    id="cancel-button"
+                                    color="primary"
+                                    variant="outlined"
+                                    onClick={() => this.handleCancelClick()}
+                                    disabled={!this.state.edited}
+                                >
+                                    Cancel
                             </Button>
-                        </div>
+                                <Button
+                                    onClick={() => this.handleSaveClick()}
+                                    className={classes.fontOverride}
+                                    id="edit-button"
+                                    variant="outlined"
+                                    variant="contained"
+                                    color="secondary"
+                                    disabled={!this.state.edited}
+                                >
+                                    Save
+                            </Button>
+                            </div>
 
-                        {errorMessage && <ErrorCard errorMessage={errorMessage} />}
-                    </Fragment>
+                            {errorMessage && <ErrorCard errorMessage={errorMessage} />}
+                        </Fragment>
+                    )
                 }
             </Paper>
         );

@@ -1,52 +1,39 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import { Loading } from './common/Loading';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import CircularLoading from './common/CircularLoading';
+import ErrorCard from '../components/common/ErrorCard';
 import { withStyles } from '@material-ui/core/styles';
+import { List, ListItem, Paper, Typography } from '@material-ui/core';
 
-const styles = theme => ({
+const styles = () => ({
     root: {
-        width: '100%'
+        margin: 40,
+        padding: 40
     }
 });
 
-class SernosConfigs extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        const { sernosConfigs, loading, errorMessage, classes } = this.props;
-
-        if (loading || !sernosConfigs) {
-            return (
-                errorMessage ?
-                    <Grid>
-                        <Paper style={{ marginTop: "15px" }}  >
-                            <strong>{errorMessage}</strong>
-                        </Paper >
-                    </Grid>
-                    : <Loading />);
-        }
-
-        return (
-            <div className="linn-container" >
-                <div className={classes.root}>
-                    <h2>Serial Number Config Types</h2>
+const SernosConfigs = ({ sernosConfigs, loading, errorMessage, classes }) => (
+    <Paper className={classes.root}>
+        {loading || !sernosConfigs
+            ? errorMessage
+                ? <ErrorCard errorMessage={errorMessage} />
+                : <CircularLoading />
+            : (
+                <Fragment>
+                    <Typography variant='h2' align='center' gutterBottom>
+                        Sernos Config
+                    </Typography>
                     <List>
                         {sernosConfigs.map((sc, i) => (
                             <ListItem key={i} component={Link} to={sc.href} button>{sc.name} - {sc.description}</ListItem>
                         ))}
                     </List>
-                </div>
-                <Link style={{ display: 'block' }} to="/products/maint/sernos-configs/create">Create new serial number config type</Link>
-            </div>
-        );
-    }
-}
+                    <Link style={{ display: 'block' }} to="/products/maint/sernos-configs/create">Create new serial number config type</Link>
+                </Fragment>
+            )
+        }
+    </Paper>
+)
 
 export default withStyles(styles)(SernosConfigs);
 
