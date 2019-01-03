@@ -30,7 +30,7 @@ describe('<SernosConfig />', () => {
 
         it('should render loading spinner', () => {
             expect(getLoading()).toHaveLength(1);
-        });
+        });        
     });
 
     describe('when loading with error message', () => {
