@@ -19,7 +19,7 @@ describe('<Dropdown />', () => {
             label: 'dropdown label'
         };
         wrapper = shallow(<Dropdown {...props} />);
-    })
+    });
 
     it('should render label', () => {
         expect(getInputLabel()).toHaveLength(1);

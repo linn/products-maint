@@ -96,7 +96,7 @@ class SernosConfig extends Component {
                         <Fragment>
                             <Typography variant='h2' align='center' gutterBottom>
                                 Sernos Config
-                        </Typography>
+                            </Typography>
                             <TextField
                                 className={classes.fullWidth}
                                 name='name'
@@ -190,13 +190,12 @@ class SernosConfig extends Component {
                                     disabled={!this.state.edited}
                                 >
                                     Cancel
-                            </Button>
+                                </Button>
                                 <Button
                                     onClick={() => this.handleSaveClick()}
                                     className={classes.fontOverride}
-                                    id="edit-button"
+                                    id="save-button"
                                     variant="outlined"
-                                    variant="contained"
                                     color="secondary"
                                     disabled={!this.state.edited}
                                 >
