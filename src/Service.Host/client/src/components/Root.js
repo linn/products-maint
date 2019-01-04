@@ -28,6 +28,7 @@ import SaCoreTypes from '../containers/saCoreType/SaCoreTypes';
 import SaCoreType from '../containers/saCoreType/SaCoreType';
 import CreateSaCoreType from '../containers/saCoreType/CreateSaCoreType';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import SaForecasts from '../containers/salesArticles/SaForecasts';
 
 class Root extends Component {
     render() {
@@ -76,6 +77,10 @@ class Root extends Component {
                                 <Route exact path="/products/maint/sa-core-types" component={SaCoreTypes}/>
                                 <Route exact path="/products/maint/sa-core-types/create" component={CreateSaCoreType} />
                                 <Route exact path="/products/maint/sa-core-types/:coreType" component={SaCoreType}/>
+                            </Switch>
+
+                            <Switch>
+                                <Route exact path="/products/maint/sales-articles/forecasts" component={SaForecasts} />
                             </Switch>
 
                             <Route exact path="/products/reports/product-ranges" component={ProductRangesOptions} />

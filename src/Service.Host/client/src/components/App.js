@@ -10,6 +10,7 @@ class App extends Component {
                 <Row>
                     <Col xs={12}>
                         <Link style={{ display: 'block' }} to="/products/maint/sernos-configs">Sernos Config Types</Link>
+                        <Link style={{ display: 'block' }} to="/products/maint/sales-articles/forecasts">Sales Article Forecast Details</Link>
                     </Col>
                 </Row >
                 <Row>
