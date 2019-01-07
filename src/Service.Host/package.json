@@ -19,7 +19,10 @@
       "raf/polyfill",
       "./react-animation-test-shim.js",
       "./setup-enzyme.js"
-    ]
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
   },
   "author": "",
   "license": "ISC",
