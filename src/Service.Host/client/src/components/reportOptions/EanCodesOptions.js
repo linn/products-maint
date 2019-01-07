@@ -2,8 +2,7 @@
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import CheckboxWithLabel from '../common/CheckboxWithLabel';
 
 const styles = theme => ({
     root: {
@@ -46,33 +45,20 @@ class EanCodesOptions extends Component {
         return (
             <div className={classes.root}>
                 <Grid container spacing={24} justify="center">
-
                     <Grid item xs={12}>
                     <h4>Ean Codes of Sales Articles Report Options</h4>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={this.state.includePhasedOut}
-                                    onChange={ch => this.handlePhaseOutChange(ch.target.checked)}
-                                    value={this.state.includePhasedOut}
-                                    color="primary"
-                                />
-                            }
-                            label="Include phased out"
-                        />
+                         <CheckboxWithLabel
+                                label='Include Phased Out'
+                                checked={this.state.includePhasedOut}
+                                onChange={ch => this.handlePhaseOutChange(ch.target.checked)}
+                            />
                     </Grid>
                     <Grid item xs={12}>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={this.state.cartonisedOnly}
-                                    onChange={ch => this.handleCartonisedOnlyChange(ch.target.checked)}
-                                    value={this.state.cartonisedOnly}
-                                    color="primary"
-                                />
-                            }
-                            label="Cartonised Only"
-                        />
+                        <CheckboxWithLabel
+                                label='Cartonised Only'
+                                checked={this.state.cartonisedOnly}
+                                onChange={ch => this.handlePhaseOutChange(ch.target.checked)}
+                            />
                     </Grid>
                             <Button variant="outlined" bsClass="btn" onClick={() => this.handleClick()}>
                                 Run Report

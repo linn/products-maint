@@ -33,7 +33,7 @@ class CartonDetailsOptions extends Component {
 
         history.push(
             {
-                pathname: `/products/reports/sales-article-ean-codes/report`,
+                pathname: `/products/reports/carton-details/report`,
                 search: `?includePhasedOut=${this.state.includePhasedOut}&cartonisedOnly=${this.state.cartonisedOnly}`
             }
         );

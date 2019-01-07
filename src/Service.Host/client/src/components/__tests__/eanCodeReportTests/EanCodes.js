@@ -1,27 +1,31 @@
 ﻿import React from 'react';
-import { shallow } from 'enzyme';
+import { createShallow } from '@material-ui/core/test-utils';
 import EanCodes from '../../reports/EanCodes';
-import Table from '../../common/Table';
-import { Loading } from '../../common/Loading';
-import ExportButton from '../../common/ExportButton';
 
 describe('<EanCodes />', () => {
+
+    const getReportTable = () => wrapper.find('WithStyles(ReportTable)');
+    const getExportButton = () => wrapper.find('WithStyles(ExportButton)');
+    const getLoading = () => wrapper.find('Loading');
+    const shallow = createShallow({ dive: true });
+
     let reportData = { results: [] },
         config = { appRoot: '' },
         options = { cartonisedOnly: true, includePhasedOut: false },
         wrapper;
-    beforeEach(() => {
-        wrapper = shallow(<EanCodes options={options} loading={false} reportData={reportData} config={config} />);
+    
+        beforeEach(() => {
+        wrapper = shallow(<EanCodes options={options} loading={false} reportData={reportData} config={config} />)
     });
 
     test('Should render Table', () => {
-        expect(wrapper.find(Table)).toHaveLength(1);
-        expect(wrapper.find(Loading)).toHaveLength(0);
+        expect(getReportTable()).toHaveLength(1);
+        expect(getLoading()).toHaveLength(0);
     });
 
     test('Should render export button', () => {
-        expect(wrapper.find(ExportButton)).toHaveLength(1);
-        expect(wrapper.find(ExportButton).props().href).toEqual('/products/reports/sales-article-ean-codes/export?includePhasedOut=false&cartonisedOnly=true');
+        expect(getExportButton()).toHaveLength(1);
+        expect(getExportButton().props().href).toEqual('/products/reports/sales-article-ean-codes/export?includePhasedOut=false&cartonisedOnly=true');
     });
 
     describe('loading', () => {
@@ -30,8 +34,8 @@ describe('<EanCodes />', () => {
         });
 
         test('Should render Table and Loader when loading', () => {
-            expect(wrapper.find(Table)).toHaveLength(1);
-            expect(wrapper.find(Loading)).toHaveLength(1);
+            expect(getReportTable()).toHaveLength(1);
+            expect(getLoading()).toHaveLength(1);
         });
 
     });

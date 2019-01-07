@@ -1,27 +1,35 @@
 ﻿import React from 'react';
-import { shallow } from 'enzyme';
 import CartonDetails from '../../reports/CartonDetails';
-import Table from '../../common/Table';
+import { createShallow } from '@material-ui/core/test-utils';
 import { Loading } from '../../common/Loading';
 
 describe('<CartonDetails />', () => {
+    const getReportTable = () => wrapper.find('WithStyles(ReportTable)');
+    const getLoading = () => wrapper.find('Loading');
+    const shallow = createShallow({ dive: true });
+
     let reportData = { results: [] },
         config = { appRoot: '' },
         wrapper;
 
-    test('Should render Table', () => {
+    beforeEach(() => {
         wrapper = shallow(<CartonDetails loading={false} reportData={reportData} config={config} />);
-        expect(wrapper.find(Table)).toHaveLength(1);
-        expect(wrapper.find(Loading)).toHaveLength(0);
+    });
+
+    test('Should render Table', () => {
+        expect(getReportTable()).toHaveLength(1);
+        expect(getLoading()).toHaveLength(0);
     });
 
     describe('loading', () => {
 
-        test('Should render Table and Loader when loading', () => {
+        beforeEach(() => {
             wrapper = shallow(<CartonDetails loading={true} reportData={reportData} config={config} />);
-            expect(wrapper.find(Table)).toHaveLength(1);
-            expect(wrapper.find(Loading)).toHaveLength(1);
         });
 
+        test('Should render Table and Loader when loading', () => {
+            expect(getReportTable()).toHaveLength(1);
+            expect(getLoading()).toHaveLength(1);
+        });
     });
 });
