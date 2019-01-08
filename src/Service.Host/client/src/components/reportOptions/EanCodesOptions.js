@@ -50,14 +50,14 @@ class EanCodesOptions extends Component {
                          <CheckboxWithLabel
                                 label='Include Phased Out'
                                 checked={this.state.includePhasedOut}
-                                onChange={ch => this.handlePhaseOutChange(ch.target.checked)}
+                                onChange={e => this.handlePhaseOutChange(e.target.checked)}
                             />
                     </Grid>
                     <Grid item xs={12}>
                         <CheckboxWithLabel
                                 label='Cartonised Only'
                                 checked={this.state.cartonisedOnly}
-                                onChange={ch => this.handlePhaseOutChange(ch.target.checked)}
+                                onChange={e => this.handleCartonisedOnlyChange(e.target.checked)}
                             />
                     </Grid>
                             <Button variant="outlined" bsClass="btn" onClick={() => this.handleClick()}>

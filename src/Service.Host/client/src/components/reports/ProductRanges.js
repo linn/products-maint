@@ -6,7 +6,6 @@ import {ReportTable } from '@linn-it/linn-form-components-library';
 
 const styles = theme => ({
     root: {
-      flexGrow: 1,
       paddingLeft: "20%",
       paddingRight: "20%",
     },
@@ -24,7 +23,13 @@ class ProductRanges extends Component {
                     </Grid>
                     <Grid item xs={12}>
                         {loading ? <Loading /> : ''}
-                        <ReportTable reportData={reportData} showTotals={false} placeholderRows={10} placeholderColumns={3} showRowTitles={false} showTitle={false} />
+                        <ReportTable 
+                            reportData={reportData} 
+                            showTotals={false} placeholderRows={10} 
+                            placeholderColumns={3} 
+                            showRowTitles={false} 
+                            showTitle={false} 
+                        />
                     </Grid>
                 </Grid>
             </div>
