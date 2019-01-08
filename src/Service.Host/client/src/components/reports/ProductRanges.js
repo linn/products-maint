@@ -1,32 +1,40 @@
 ﻿import React, { Component } from 'react';
-import { Loading } from '../common/Loading';
-import { Grid, Row, Col } from 'react-bootstrap';
-import Table from '../common/Table';
+import { Loading } from '@linn-it/linn-form-components-library';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import {ReportTable } from '@linn-it/linn-form-components-library';
+
+const styles = theme => ({
+    root: {
+      paddingLeft: "20%",
+      paddingRight: "20%",
+    },
+});
 
 class ProductRanges extends Component {
     render() {
-        const { reportData, loading, options } = this.props;
+        const { reportData, loading, options, classes } = this.props;
         const optionsTitle = !options.includePhasedOut || options.includePhasedOut === 'false' ? 'Live ' : '';
         return (
-            <div>
-                <Grid fluid={false}>
-                    <Row>
-                        <Col xs={8}>
-                            <h3>{optionsTitle}Product Ranges</h3>
-                        </Col>
-                        <Col xs={2}>
-                        </Col>
-                    </Row>
-                    <Row>
+            <div className={classes.root}>
+                <Grid container spacing={24} justify="center">
+                    <Grid item xs={12}>   
+                        <h3>{optionsTitle}Product Ranges</h3>    
+                    </Grid>
+                    <Grid item xs={12}>
                         {loading ? <Loading /> : ''}
-                        <Col xs={10}>
-                            <Table reportData={reportData} showTotals={false} placeholderRows={10} placeholderColumns={3} showRowTitles={false} showTitle={false} />
-                        </Col>
-                    </Row>
+                        <ReportTable 
+                            reportData={reportData} 
+                            showTotals={false} placeholderRows={10} 
+                            placeholderColumns={3} 
+                            showRowTitles={false} 
+                            showTitle={false} 
+                        />
+                    </Grid>
                 </Grid>
             </div>
         );
     }
 }
 
-export default ProductRanges;
+export default withStyles(styles)(ProductRanges);
