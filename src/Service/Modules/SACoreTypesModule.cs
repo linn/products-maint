@@ -1,7 +1,5 @@
 ﻿namespace Linn.Products.Service.Modules
 {
-    using System;
-
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;

@@ -4,6 +4,8 @@ const makeActionTypes = (entityType, makeAll = true) => {
     var types = {};
     types[`REQUEST_${entityType}`] = `REQUEST_${entityType}`;
     types[`RECEIVE_${entityType}`] = `RECEIVE_${entityType}`;
+    types[`REQUEST_SEARCH_${entityType}`] = `REQUEST_SEARCH_${entityType}`;
+    types[`RECEIVE_SEARCH_${entityType}`] = `RECEIVE_SEARCH_${entityType}`;
 
     if (makeAll) {
         types[`REQUEST_ADD_${entityType}`] = `REQUEST_ADD_${entityType}`;
@@ -48,3 +50,6 @@ export const sernosConfigsActionTypes = makeActionTypes(itemTypes.sernosConfigs.
 
 export const saCoreTypeActionTypes = makeActionTypes(itemTypes.saCoreType.actionType);
 export const saCoreTypesActionTypes = makeActionTypes(itemTypes.saCoreTypes.actionType, false);
+
+export const salesArticleActionTypes = makeActionTypes(itemTypes.salesArticle.actionType);
+export const salesArticlesActionTypes = makeActionTypes(itemTypes.salesArticles.actionType, false);

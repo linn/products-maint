@@ -21,7 +21,6 @@
             builder.RegisterType<EanCodeReportService>().As<IEanCodeReportService>();
             builder.RegisterType<CartonDetailsReportService>().As<ICartonDetailsReportService>();
             builder.RegisterType<ProductReports>().As<IProductReports>();
-           
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();

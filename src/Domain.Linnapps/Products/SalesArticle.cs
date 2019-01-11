@@ -25,5 +25,13 @@
         public DateTime? PhaseOutDate { get; set; }
 
         public string CartonType { get; set; }
+
+        public decimal? PercentageOfRootProductSales { get; set; }
+
+        public DateTime? ForecastFromDate { get; set; }
+
+        public DateTime? ForecastToDate { get; set; }
+
+        public string ForecastType { get; set; }
     }
 }

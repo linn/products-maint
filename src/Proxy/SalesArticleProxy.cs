@@ -25,6 +25,24 @@
             this.rootUri = rootUri;
         }
 
+        public SalesArticle GetSalesArticle(string id)
+        {
+            var uri = new Uri($"{this.rootUri}/linnapps-api/sales-articles?articleNumber={id}", UriKind.RelativeOrAbsolute);
+            var response = this.restClient.Get(
+                CancellationToken.None,
+                uri,
+                new Dictionary<string, string>(),
+                DefaultHeaders.JsonGetHeaders()).Result;
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new ProxyException($"Error trying to get sales article {id}");
+            }
+
+            var json = new JsonSerializer();
+            return json.Deserialize<SalesArticle>(response.Value);
+        }
+
         public IEnumerable<SalesArticle> Search(string searchTerm)
         {
             var uri = new Uri($"{this.rootUri}/linnapps-api/sales-articles/search?searchTerm={searchTerm}", UriKind.RelativeOrAbsolute);
@@ -40,7 +58,7 @@
             }
 
             var json = new JsonSerializer();
-            return json.Deserialize<IEnumerable<SalesArticle>>(response.Value);
+            return json.Deserialize<IEnumerable<SalesArticle>>(response.Value).Take(20);
         }
 
         public IEnumerable<SalesArticle> GetByDiscountFamily(string discountFamily, bool includePhasedOut = false)
@@ -58,7 +76,7 @@
             }
 
             var json = new JsonSerializer();
-            var resources = json.Deserialize<IEnumerable<SalesArticleResource>>(response.Value);
+            var resources = json.Deserialize<IEnumerable<SalesArticleExternalResource>>(response.Value);
             return resources
                 .Where(a => a.DiscountFamily == discountFamily && a.PhaseOutDate.HasValue == includePhasedOut)
                 .Select(r => new SalesArticle

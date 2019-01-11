@@ -32,7 +32,7 @@ class SaForecasts extends Component {
                 <Grid container spacing={24}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
-                            <Typeahead items={items} fetchItems={fetchItems} loading={loading} classes={classes} title={title} />
+                            <Typeahead items={items} fetchItems={fetchItems} loading={loading} title={title} />
                         </Paper>
                     </Grid>
                 </Grid>
