@@ -1,6 +1,4 @@
 ﻿import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { history } from 'react-router';
 import { Breadcrumb } from 'react-bootstrap';
 import { toTitleCase, isUpperCase } from '../helpers/strings';
 

@@ -1,19 +1,22 @@
-﻿import React from 'react';
-import CartonDetails from '../../reports/CartonDetails';
+import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
-import { Loading } from '../../common/Loading';
+import SalesProductsByProductRange from '../reports/SalesProductsByProductRange';
 
-describe('<CartonDetails />', () => {
+describe('<SalesProductsByProductRange />', () => {
+
     const getReportTable = () => wrapper.find('WithStyles(ReportTable)');
     const getLoading = () => wrapper.find('Loading');
     const shallow = createShallow({ dive: true });
 
     let reportData = { results: [] },
-        config = { appRoot: '' },
+        options = {  includePhasedOut: false },
         wrapper;
-
-    beforeEach(() => {
-        wrapper = shallow(<CartonDetails loading={false} reportData={reportData} config={config} />);
+    
+        beforeEach(() => {
+        wrapper = shallow(<SalesProductsByProductRange 
+            options={options} 
+            loading={false} 
+            reportData={reportData} />)
     });
 
     test('Should render Table', () => {
@@ -22,9 +25,11 @@ describe('<CartonDetails />', () => {
     });
 
     describe('loading', () => {
-
         beforeEach(() => {
-            wrapper = shallow(<CartonDetails loading={true} reportData={reportData} config={config} />);
+            wrapper = shallow(<SalesProductsByProductRange 
+                options={options} 
+                loading={true} 
+                reportData={reportData}/>);
         });
 
         test('Should render Table and Loader when loading', () => {
