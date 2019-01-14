@@ -5,10 +5,6 @@ import Root from './components/Root';
 import { AppContainer } from 'react-hot-loader';
 import userManager from './helpers/userManager';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import './css/index.scss';
-import './css/reports.scss';
-import '../assets/kaboom/kaboom.css';
 import 'typeface-roboto';
 
 const initialState = {};
