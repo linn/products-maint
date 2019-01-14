@@ -17,6 +17,7 @@
             builder.RegisterType<CartonTypeRepository>().As<ICartonTypeRepository>();
             builder.RegisterType<SaCoreTypeRepository>().As<IRepository<SaCoreType, int>>();
             builder.RegisterType<SernosConfigRepository>().As<IRepository<SernosConfig, string>>();
+            builder.RegisterType<TypeOfSaleRepository>().As<IRepository<TypeOfSale, string>>();
             builder.RegisterType<TariffRepository>().As<ITariffRepository>();
         }
     }
