@@ -6,6 +6,8 @@
     {
         public TypeOfSale(string name, string description, string nominal, string department, string realSale)
         {
+            this.CheckConfigurationIsValid(name, description, nominal, department, realSale);
+
             this.Name = name;
             this.Description = description;
             this.Nominal = nominal;
