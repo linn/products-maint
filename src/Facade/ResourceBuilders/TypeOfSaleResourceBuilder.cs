@@ -25,7 +25,7 @@
 
         public string GetLocation(TypeOfSale typeOfSale)
         {
-            return $"/products/maint/type-of-sale/{typeOfSale.Name}";
+            return $"/products/maint/types-of-sale/{typeOfSale.Name}";
         }
 
         private IEnumerable<LinkResource> BuildLinks(TypeOfSale typeOfSale)
