@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Oracle.EntityFrameworkCore" Version="2.18.0-beta1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Domain.Linnapps\Domain.Linnapps.csproj" />
   </ItemGroup>
 

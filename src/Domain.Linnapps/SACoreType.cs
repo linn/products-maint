@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Domain.Linnapps
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     using Linn.Products.Domain.Linnapps.Exceptions;
 
@@ -20,7 +21,7 @@
             this.SortOrder = sortOrder;
             this.TriggerLevel = triggerLevel;
         }
-
+        [Key]
         public int CoreType { get; set; }
 
         public string Description { get; set; }
