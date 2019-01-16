@@ -50,3 +50,6 @@ export const sernosConfigsActionTypes = makeActionTypes(itemTypes.sernosConfigs.
 
 export const saCoreTypeActionTypes = makeActionTypes(itemTypes.saCoreType.actionType);
 export const saCoreTypesActionTypes = makeActionTypes(itemTypes.saCoreTypes.actionType, false);
+
+export const typeOfSaleActionTypes = makeActionTypes(itemTypes.typeOfSale.actionType);
+export const typesOfSaleActionTypes = makeActionTypes(itemTypes.typesOfSale.actionType, false);
