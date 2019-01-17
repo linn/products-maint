@@ -7,3 +7,6 @@ export const sernosConfigs = new ItemType('sernosConfigs', 'SERNOS_CONFIGS', '/p
 
 export const saCoreType = new ItemType('saCoreType', 'SA_CORE_TYPE', '/products/maint/sa-core-types');
 export const saCoreTypes = new ItemType('saCoreTypes', 'SA_CORE_TYPES', '/products/maint/sa-core-types');
+
+export const typeOfSale = new ItemType('typeOfSale', 'TYPE_OF_SALE', '/products/maint/types-of-sale');
+export const typesOfSale = new ItemType('typesOfSale', 'TYPES_OF_SALE', '/products/maint/types-of-sale');

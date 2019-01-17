@@ -25,8 +25,9 @@ class App extends Component {
                         <h2>Utilities</h2>
                         <Link style={{ display: 'block' }} to="/products/maint/tariffs">Tariffs</Link>
                         <Link style={{ display: 'block' }} to="/products/maint/sa-core-types">Sales Article Core Types</Link>
+                        <Link style={{ display: 'block' }} to="/products/maint/types-of-sale">Types of Sale</Link>
                     </Col>
-                </Row >
+                </Row >                
             </Grid >
         );
     }

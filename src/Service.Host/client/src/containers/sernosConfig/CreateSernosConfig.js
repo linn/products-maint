@@ -1,5 +1,4 @@
-﻿import React from 'react';
-import { connect } from 'react-redux';
+﻿import { connect } from 'react-redux';
 import sernosConfigActions from '../../actions/sernosConfigActions';
 import SernosConfig from '../../components/SernosConfig';
 import { getSingleErrorMessage } from '../../selectors/fetchErrorSelectors';

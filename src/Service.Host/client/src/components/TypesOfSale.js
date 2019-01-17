@@ -1,4 +1,4 @@
-﻿import React, { Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import CircularLoading from './common/CircularLoading';
 import ErrorCard from '../components/common/ErrorCard';
@@ -12,28 +12,27 @@ const styles = () => ({
     }
 });
 
-const SernosConfigs = ({ sernosConfigs, loading, errorMessage, classes }) => (
+const TypesOfSale = ({ typesOfSale, loading, errorMessage, classes }) => (
     <Paper className={classes.root}>
-        {loading || !sernosConfigs
+        {loading || !typesOfSale
             ? errorMessage
                 ? <ErrorCard errorMessage={errorMessage} />
                 : <CircularLoading />
             : (
                 <Fragment>
                     <Typography variant="h2" align="center" gutterBottom>
-                        Sernos Config
+                        Types of Sale
                     </Typography>
                     <List>
-                        {sernosConfigs.map((sc) => (
-                            <ListItem key={sc.href} component={Link} to={sc.href} button>{sc.name} - {sc.description}</ListItem>
+                        {typesOfSale.map((ts) => (
+                            <ListItem key={ts.href} component={Link} to={ts.href} button>{ts.name} - {ts.description}</ListItem>
                         ))}
                     </List>
-                    <Link style={{ display: 'block' }} to="/products/maint/sernos-configs/create">Create new serial number config type</Link>
+                    <Link style={{ display: 'block' }} to="/products/maint/types-of-sale/create">Create new Type of Sale</Link>
                 </Fragment>
             )
         }
     </Paper>
-)
+);
 
-export default withStyles(styles)(SernosConfigs);
-
+export default withStyles(styles)(TypesOfSale);

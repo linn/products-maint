@@ -28,6 +28,9 @@ import SaCoreTypes from '../containers/saCoreType/SaCoreTypes';
 import SaCoreType from '../containers/saCoreType/SaCoreType';
 import CreateSaCoreType from '../containers/saCoreType/CreateSaCoreType';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import TypesOfSale from '../containers/typesOfSale/TypesOfSale';
+import TypeOfSale from '../containers/typesOfSale/TypeOfSale';
+import CreateTypeOfSale from '../containers/typesOfSale/CreateTypeOfSale';
 
 class Root extends Component {
     render() {
@@ -53,7 +56,7 @@ class Root extends Component {
                                 <Route exact path="/products/maint/tariffs" component={Tariffs} />
                             </Switch>
 
-                            <Route exact path="/products/reports" component={App} />							
+                            <Route exact path="/products/reports" component={App} />
                             <Route exact path="/products/reports/sales-article-ean-codes" component={EanCodesOptions} />
                             <Route exact path="/products/reports/sales-article-ean-codes/report" component={EanCodes} />
 
@@ -73,9 +76,15 @@ class Root extends Component {
                             </Switch>
 
                             <Switch>
-                                <Route exact path="/products/maint/sa-core-types" component={SaCoreTypes}/>
+                                <Route exact path="/products/maint/sa-core-types" component={SaCoreTypes} />
                                 <Route exact path="/products/maint/sa-core-types/create" component={CreateSaCoreType} />
-                                <Route exact path="/products/maint/sa-core-types/:coreType" component={SaCoreType}/>
+                                <Route exact path="/products/maint/sa-core-types/:coreType" component={SaCoreType} />
+                            </Switch>
+
+                            <Switch>
+                                <Route exact path="/products/maint/types-of-sale" component={TypesOfSale} />
+                                <Route exact path="/products/maint/types-of-sale/create" component={CreateTypeOfSale} />
+                                <Route exact path="/products/maint/types-of-sale/:typeOfSaleId" component={TypeOfSale} />
                             </Switch>
 
                             <Route exact path="/products/reports/product-ranges" component={ProductRangesOptions} />
