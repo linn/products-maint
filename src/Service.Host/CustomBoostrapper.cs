@@ -13,7 +13,7 @@
     using Nancy.Configuration;
     using Nancy.Conventions;
 
-    public class CustomBoostrapper : AutofacNancyBootstrapper
+    public class CustomBootstrapper : AutofacNancyBootstrapper
     {
         public override void Configure(INancyEnvironment environment)
         {
