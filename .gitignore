@@ -48,7 +48,7 @@ obj/
 *.csproj.DotSettings
 
 project.lock.json
-config.json
+
 
 # tests
 TestResult.xml
@@ -58,7 +58,7 @@ TestResult.xml
 *.ncrunchsolution.user
 
 # nuget
-packages/
+
 
 # ef helpers
 int-update.sh
