@@ -29,13 +29,13 @@
         }
 
         [Test]
-        public void ShouldAddTypeOfSale()
+        public void ShouldNotAddTypeOfSale()
         {
             this.TypeOfSaleRepository.DidNotReceive().Add(Arg.Any<TypeOfSale>());
         }
 
         [Test]
-        public void ShouldReturnCreated()
+        public void ShouldReturnBadRequest()
         {
             this.result.Should().BeOfType<BadRequestResult<TypeOfSale>>();
         }
