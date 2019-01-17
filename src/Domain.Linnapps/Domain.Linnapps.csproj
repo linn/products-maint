@@ -9,7 +9,6 @@
   <ItemGroup>
     <PackageReference Include="Linn.Common.Reporting" Version="1.0.0" />
     <PackageReference Include="Linn.Common.Serialization" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.2.0" />
   </ItemGroup>
 
 </Project>

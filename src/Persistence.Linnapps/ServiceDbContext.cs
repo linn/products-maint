@@ -7,7 +7,6 @@
     using Oracle.EntityFrameworkCore;
     using Linn.Products.Domain.Linnapps;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Logging;
 
     public class ServiceDbContext : DbContext 
     {
@@ -25,12 +24,8 @@
             base.OnModelCreating(builder);
         }
     
-        public static readonly Microsoft.Extensions.Logging.LoggerFactory LoggerFactory =
-            new LoggerFactory(new[] { new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider() });
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLoggerFactory(LoggerFactory); // logs underlying sql TODO: remove
             optionsBuilder.UseOracle(@"User Id=dev;Password=mayday; Data Source = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=dev-ora)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=DEV.LINN.CO.UK)));"); // TODO: extract config
             base.OnConfiguring(optionsBuilder);
         }
