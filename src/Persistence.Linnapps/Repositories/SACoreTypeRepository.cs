@@ -19,16 +19,12 @@
 
         public SaCoreType FindById(int key)
         {
-            ServiceDbContext db = this.serviceDbContext;
-            return db.SaCoreTypes.Find(key);
+            return this.serviceDbContext.SaCoreTypes.Where(b => b.CoreType == key).ToList().First();
         }
 
         public IQueryable<SaCoreType> FindAll()
         {
-            var dbContext = this.serviceDbContext;
-            var res = this.serviceDbContext.SaCoreTypes;
-            return res.AsQueryable();
-
+            return this.serviceDbContext.SaCoreTypes;
         }
 
         public void Add(SaCoreType entity)
@@ -51,6 +47,5 @@
         {
             throw new NotImplementedException();
         }
-
     }
 }

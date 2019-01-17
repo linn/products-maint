@@ -1,11 +1,8 @@
 ﻿
 namespace Linn.Products.IoC
 {
-    using System.Transactions;
-
     using Autofac;
 
-    using Linn.Common.Persistence;
     using Linn.Products.Persistence;
     using Linn.Products.Persistence.Linnapps;
 
