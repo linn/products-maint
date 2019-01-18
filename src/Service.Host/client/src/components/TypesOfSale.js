@@ -25,10 +25,14 @@ const TypesOfSale = ({ typesOfSale, loading, errorMessage, classes }) => (
                     </Typography>
                     <List>
                         {typesOfSale.map((ts) => (
-                            <ListItem key={ts.href} component={Link} to={ts.href} button>{ts.name} - {ts.description}</ListItem>
+                            <ListItem key={ts.href} component={Link} to={ts.href} button>
+                                <Typography>{ts.name} - {ts.description}</Typography>
+                            </ListItem>
                         ))}
-                    </List>
-                    <Link style={{ display: 'block' }} to="/products/maint/types-of-sale/create">Create new Type of Sale</Link>
+                        <ListItem component={Link} to="/products/maint/types-of-sale/create" button>
+                            <Typography color="primary">Create new Type of Sale</Typography>
+                        </ListItem>
+                    </List>                    
                 </Fragment>
             )
         }

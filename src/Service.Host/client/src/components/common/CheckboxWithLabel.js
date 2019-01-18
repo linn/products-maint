@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
     root: {
         width: '100%',
-        fontSize: 14
     }
 }
 
@@ -13,6 +12,8 @@ const CheckboxWithLabel = ({ classes, checked, color = 'primary', label, onChang
     <FormControlLabel
         label={label}
         classes={{ label: `${classes.root}` }}
+        style={{ marginLeft: 0, paddingLeft: 0 }}
+        labelPlacement='start'
         control={
             <Checkbox
                 checked={checked}

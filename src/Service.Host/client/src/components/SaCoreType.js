@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Loading } from './common/Loading';
 import moment from 'moment';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Typography } from '@material-ui/core';
 import { BackButton, SaveCancelButtons, FormField } from '@linn-it/linn-form-components-library';
 
-const styles = theme => ({
+const styles = () => ({
     root: {
         width: "70%",
-        margin: "0 auto"
-
+        margin: 40
     },
     grid: {
         width: "100%",
@@ -82,8 +81,8 @@ class SaCoreType extends Component {
                     <Grid item xs={12} >
                         <h2 className={classes.h2}>
                             {this.creating() ?
-                                <span> Add Sales Article Core Type </span> :
-                                <span>Sales Article Core Type Details </span>}
+                                <Typography variant='h4' gutterBottom>Add Sales Article Core Type </Typography> :
+                                <Typography variant='h4' gutterBottom>Sales Article Core Type Details </Typography>}
                         </h2>
                     </Grid>
                     <Grid item xs={6}  >

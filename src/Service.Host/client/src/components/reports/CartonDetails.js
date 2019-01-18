@@ -1,11 +1,11 @@
 ﻿import React, { Component } from 'react';
 import { Loading } from '@linn-it/linn-form-components-library';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Typography } from '@material-ui/core';
 import { ReportTable } from '@linn-it/linn-form-components-library';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = () => ({
     root: {
         paddingLeft: "20%",
         paddingRight: "20%",
@@ -20,10 +20,12 @@ class CartonDetails extends Component {
             <div className={classes.root}>
                 <Grid container spacing={24} justify="center">
                     <Grid item xs={12}>
-                        <h3>Carton Details</h3>
+                        <Typography variant='h4' gutterBottom>Carton Details</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Link style={{ display: 'block' }} to="/products/maint/carton-types/create">Create new carton type</Link>
+                        <Link style={{ display: 'block' }} to="/products/maint/carton-types/create">
+                            <Typography>Create new carton type</Typography>
+                        </Link>
                     </Grid>
                     <Grid item xs={12}>
                         {loading ? <Loading /> : ''}
