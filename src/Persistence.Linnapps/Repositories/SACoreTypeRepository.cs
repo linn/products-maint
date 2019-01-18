@@ -6,29 +6,31 @@
     using System.Linq.Expressions;
 
     using Linn.Products.Domain.Linnapps;
+    using Microsoft.EntityFrameworkCore;
 
     public class SaCoreTypeRepository : IRepository<SaCoreType, int>
     {
-        private readonly List<SaCoreType> saCoreTypes = new List<SaCoreType>();
+        private readonly ServiceDbContext serviceDbContext;
 
-        public SaCoreTypeRepository()
+        public SaCoreTypeRepository(ServiceDbContext serviceDbContext)
         {
-            this.saCoreTypes = this.MakeSaCoreTypes();
+            this.serviceDbContext = serviceDbContext;
         }
 
         public SaCoreType FindById(int key)
         {
-            return this.saCoreTypes.SingleOrDefault(c => c.CoreType == key);
+            return this.serviceDbContext.SaCoreTypes.Where(b => b.CoreType == key).ToList().First();
         }
 
         public IQueryable<SaCoreType> FindAll()
         {
-            return this.saCoreTypes.AsQueryable();
+            return this.serviceDbContext.SaCoreTypes;
         }
 
         public void Add(SaCoreType entity)
         {
-            this.saCoreTypes.Add(entity);
+            this.serviceDbContext.SaCoreTypes.Add(entity);
+            this.serviceDbContext.SaveChanges();
         }
 
         public void Remove(SaCoreType entity)
@@ -44,24 +46,6 @@
         public IQueryable<SaCoreType> FilterBy(Expression<Func<SaCoreType, bool>> expression)
         {
             throw new NotImplementedException();
-        }
-
-        private List<SaCoreType> MakeSaCoreTypes()
-        {
-            return new List<SaCoreType>
-                       {
-                           new SaCoreType(1, "CORE PRODUCT (SUGGESTED)", DateTime.Parse("2007/09/07"), null, 1000, null),
-
-                           new SaCoreType(2, "BUILT TO ORDER", null, null, 20, 0),
-
-                           new SaCoreType(3, "SALES ADVISED PRODUCT", DateTime.Parse("2007/09/07"), null, 30, 0),
-
-                           new SaCoreType(4, "CORE PRODUCT",null, null, 5, 10),
-                           
-                           new SaCoreType(5, "END OF LIFE", null, null, 40, null),
-                           
-                           new SaCoreType(6, "SPECIAL ORDER PRODUCT", null, 15, 50, null),
-                       };
         }
     }
 }
