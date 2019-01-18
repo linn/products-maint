@@ -4,11 +4,9 @@ import { createShallow } from '@material-ui/core/test-utils';
 
 describe('<TypesOfSale />', () => {
     const getListItems = () => wrapper.find('WithStyles(ListItem)');
-    const getLinks = () => wrapper.find('Link');
     const getLoading = () => wrapper.find('WithStyles(CircularLoading)');
     const getPaper = () => wrapper.find('WithStyles(Paper)');
-    const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');
-    const getTypography = () => wrapper.find('WithStyles(Typography)');
+    const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');    
     const shallow = createShallow({ dive: true });
     let wrapper, props;
 
@@ -66,19 +64,8 @@ describe('<TypesOfSale />', () => {
             });
         });
 
-        it('should render title', () => {
-            expect(getTypography()).toHaveLength(1);
-        });
-
-        it('should render list items', () => {
-            expect(getListItems()).toHaveLength(2);
-            expect(getListItems().at(0).props().children).toEqual(['LSLPL', ' - ', 'LINNSIGHT SALE OF LINN PRODUCTS']);
-            expect(getListItems().at(1).props().children).toEqual(['DL', ' - ', 'SALES OF LINN RECORDS DOWNLOADS']);
-        });
-
-        it('should render create link', () => {
-            expect(getLinks()).toHaveLength(1);
-            expect(getLinks().at(0).props().children).toEqual('Create new Type of Sale');
+        it('should render list items', () => {            
+            expect(getListItems()).toHaveLength(3);
         });
     });
 });
