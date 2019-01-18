@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Domain.Linnapps\Domain.Linnapps.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
-  </ItemGroup>
-
 </Project>
