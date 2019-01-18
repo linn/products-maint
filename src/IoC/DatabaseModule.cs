@@ -1,5 +1,4 @@
-﻿
-namespace Linn.Products.IoC
+﻿namespace Linn.Products.IoC
 {
     using Autofac;
 
