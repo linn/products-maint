@@ -1,11 +1,13 @@
 ﻿namespace Linn.Products.Persistence.Linnapps
 {
     using System.Collections.Generic;
-    using System.Data;
 
     using Domain.Linnapps.Products;
-    using Oracle.EntityFrameworkCore;
+
+    using Linn.Common.Configuration;
     using Linn.Products.Domain.Linnapps;
+
+    using Oracle.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
     public class ServiceDbContext : DbContext 
@@ -26,7 +28,11 @@
     
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseOracle(@"User Id=dev;Password=mayday; Data Source = (DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=dev-ora)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=DEV.LINN.CO.UK)));"); // TODO: extract config
+            var host = ConfigurationManager.Configuration["DATABASE_HOST"];
+            var userId = ConfigurationManager.Configuration["DATABASE_USER_ID"];
+            var password = ConfigurationManager.Configuration["DATABASE_PASSWORD"];
+            var serviceId = ConfigurationManager.Configuration["DATABASE_NAME"];
+            optionsBuilder.UseOracle($"User Id={userId};Password={password}; Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME={serviceId})));"); 
             base.OnConfiguring(optionsBuilder);
         }
 
