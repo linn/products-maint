@@ -36,7 +36,8 @@
             builder.Entity<SernosConfig>().HasKey(t => t.Name);
             builder.Entity<SernosConfig>().Property(t => t.Name).HasColumnName("NAME");
             builder.Entity<SernosConfig>().Property(t => t.Description).HasColumnName("DESCRIPTION");
-            builder.Entity<SernosConfig>().Property(t => t.SerialNumbered).HasColumnName("NUM_OF_SERNOS");
+            builder.Entity<SernosConfig>().Property(t => t.SerialNumbered).HasColumnName("SERIAL_NUMBERED");
+            builder.Entity<SernosConfig>().Property(t => t.NumberOfSernos).HasColumnName("NUM_OF_SERNOS");
             builder.Entity<SernosConfig>().Property(t => t.NumberOfBoxes).HasColumnName("NUM_OF_BOXES");
             builder.Entity<SernosConfig>().Property(t => t.StartOn).HasColumnName("START_ON");
 
