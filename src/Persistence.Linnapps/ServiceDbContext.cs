@@ -23,6 +23,23 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<SaCoreType>().ToTable("SA_CORE_TYPES");
+            builder.Entity<SaCoreType>().HasKey(t => t.CoreType);
+            builder.Entity<SaCoreType>().Property(t => t.CoreType).HasColumnName("CORE_TYPE");
+            builder.Entity<SaCoreType>().Property(t => t.TriggerLevel).HasColumnName("TRIGGER_LEVEL");
+            builder.Entity<SaCoreType>().Property(t => t.Description).HasColumnName("DESCRIPTION");
+            builder.Entity<SaCoreType>().Property(t => t.DateInvalid).HasColumnName("DATE_INVALID");
+            builder.Entity<SaCoreType>().Property(t => t.LookAheadDays).HasColumnName("LOOKAHEAD_DAYS");
+            builder.Entity<SaCoreType>().Property(t => t.SortOrder).HasColumnName("SORT_ORDER");
+
+            builder.Entity<SernosConfig>().ToTable("SERNOS_CONFIG");
+            builder.Entity<SernosConfig>().HasKey(t => t.Name);
+            builder.Entity<SernosConfig>().Property(t => t.Name).HasColumnName("NAME");
+            builder.Entity<SernosConfig>().Property(t => t.Description).HasColumnName("DESCRIPTION");
+            builder.Entity<SernosConfig>().Property(t => t.SerialNumbered).HasColumnName("NUM_OF_SERNOS");
+            builder.Entity<SernosConfig>().Property(t => t.NumberOfBoxes).HasColumnName("NUM_OF_BOXES");
+            builder.Entity<SernosConfig>().Property(t => t.StartOn).HasColumnName("START_ON");
+
             base.OnModelCreating(builder);
         }
     

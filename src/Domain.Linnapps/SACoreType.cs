@@ -6,7 +6,6 @@
 
     using Linn.Products.Domain.Linnapps.Exceptions;
 
-    [Table("SA_CORE_TYPES")]
     public class SaCoreType
     {
         public SaCoreType(
@@ -23,23 +22,16 @@
             this.SortOrder = sortOrder;
             this.TriggerLevel = triggerLevel;
         }
-        [Key]
-        [Column("CORE_TYPE")]
+
         public int CoreType { get; set; }
 
-        [Column("DESCRIPTION")]
         public string Description { get; set; }
 
-        [Column("DATE_INVALID")]
         public DateTime? DateInvalid { get; set; }
 
-        [Column("LOOKAHEAD_DAYS")]
         public int? LookAheadDays { get; set; }
-
-        [Column("SORT_ORDER")]
         public int? SortOrder { get; set; }
 
-        [Column("TRIGGER_LEVEL")]
         public int? TriggerLevel { get; set; }
 
         public void Update(
