@@ -31,6 +31,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TypesOfSale from '../containers/typesOfSale/TypesOfSale';
 import TypeOfSale from '../containers/typesOfSale/TypeOfSale';
 import CreateTypeOfSale from '../containers/typesOfSale/CreateTypeOfSale';
+import 'typeface-roboto';
 
 class Root extends Component {
     render() {

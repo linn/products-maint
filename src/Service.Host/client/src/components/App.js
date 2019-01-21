@@ -1,36 +1,48 @@
-﻿import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import { List, ListItem, Paper, Typography } from '@material-ui/core';
 
-class App extends Component {
-    render() {
-        return (
-            <Grid fluid={false}>
-                <h2>Products</h2>
-                <Row>
-                    <Col xs={12}>
-                        <Link style={{ display: 'block' }} to="/products/maint/sernos-configs">Sernos Config Types</Link>
-                    </Col>
-                </Row >
-                <Row>
-                    <Col xs={12}>
-                        <h2>Reports</h2>
-                        <Link style={{ display: 'block' }} to="/products/reports/sales-article-ean-codes">Sales Article Ean Codes Report</Link>
-                        <Link style={{ display: 'block' }} to="/products/reports/carton-details/report">Carton Details Report</Link>
-                        <Link style={{ display: 'block' }} to="/products/reports/product-ranges">Product Ranges Report</Link>
-                    </Col>
-                </Row >
-                <Row>
-                    <Col xs={12}>
-                        <h2>Utilities</h2>
-                        <Link style={{ display: 'block' }} to="/products/maint/tariffs">Tariffs</Link>
-                        <Link style={{ display: 'block' }} to="/products/maint/sa-core-types">Sales Article Core Types</Link>
-                        <Link style={{ display: 'block' }} to="/products/maint/types-of-sale">Types of Sale</Link>
-                    </Col>
-                </Row >                
-            </Grid >
-        );
-    }
-}
+const styles = () => ({
+    root: {
+        margin: '40px',
+        padding: '40px'
+    },
+});
 
-export default App;
+const App = ({ classes }) => (
+    <Paper className={classes.root}>
+        <Typography variant="h6">Products</Typography>
+        <List>
+            <ListItem component={Link} to="/products/maint/sernos-configs" button>
+                <Typography color="primary">Sernos Config Types</Typography>
+            </ListItem>
+        </List>
+        <Typography variant="h6">Reports</Typography>
+        <List>
+            <ListItem component={Link} to="/products/reports/sales-article-ean-codes" button>
+                <Typography color="primary">Sales Article Ean Codes Report</Typography>
+            </ListItem>
+            <ListItem component={Link} to="/products/reports/carton-details/report" button>
+                <Typography color="primary">Carton Details Report</Typography>
+            </ListItem>
+            <ListItem component={Link} to="/products/reports/product-ranges" button>
+                <Typography color="primary">Product Ranges Report</Typography>
+            </ListItem>
+        </List>
+        <Typography variant="h6">Utlities</Typography>
+        <List>
+            <ListItem component={Link} to="/products/maint/tariffs" button>
+                <Typography color="primary">Tariffs</Typography>
+            </ListItem>
+            <ListItem component={Link} to="/products/maint/sa-core-types" button>
+                <Typography color="primary">Sales Article Core Types</Typography>
+            </ListItem>
+            <ListItem component={Link} to="/products/maint/types-of-sale" button>
+                <Typography color="primary">Types of Sale</Typography>
+            </ListItem>
+        </List>
+    </Paper>
+);
+
+export default withStyles(styles)(App);

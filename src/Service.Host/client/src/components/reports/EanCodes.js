@@ -1,13 +1,14 @@
 ﻿import React, { Component } from 'react';
 import { Loading } from '@linn-it/linn-form-components-library';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Typography } from '@material-ui/core';
 import { ReportTable, ExportButton } from '@linn-it/linn-form-components-library';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     root: {
-      paddingLeft: "20%",
-      paddingRight: "20%",
+        paddingLeft: "20%",
+        paddingRight: "20%",
+        marginTop: 40
     },
 });
 
@@ -20,14 +21,14 @@ class EanCodes extends Component {
 
         return (
             <div className={classes.root}>
-            <Grid container spacing={24} justify="center">
+                <Grid container spacing={24} justify="center">
                     <Grid container xs={12}>
-                    <Grid item xs={6}>
-                            <h3>Sales Article Ean Codes {optionsTitle}</h3>
+                        <Grid item xs={6}>
+                            <Typography variant='h4' gutterBottom>Sales Article Ean Codes {optionsTitle}</Typography>
                         </Grid>
                         <Grid item xs={6}>
                             <ExportButton href={href} />
-                        </Grid> 
+                        </Grid>
                     </Grid>
                     <Grid item xs={12}>
                         {loading ? <Loading /> : ''}

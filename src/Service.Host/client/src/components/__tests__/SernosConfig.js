@@ -8,8 +8,6 @@ describe('<SernosConfig />', () => {
     const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');
     const getTypography = () => wrapper.find('WithStyles(Typography)');
     const getTextFields = () => wrapper.find('TextField');
-    const getDropdowns = () => wrapper.find('WithStyles(Dropdown)');
-    const getCheckboxWithLabels = () => wrapper.find('WithStyles(CheckboxWithLabel)');
     const getButtons = () => wrapper.find('WithStyles(Button)');
     const shallow = createShallow({ dive: true });
     let wrapper, props;
@@ -72,15 +70,7 @@ describe('<SernosConfig />', () => {
         });
 
         it('should render text fields', () => {
-            expect(getTextFields()).toHaveLength(4);
-        });
-
-        it('should render checkbox', () => {
-            expect(getCheckboxWithLabels()).toHaveLength(1);
-        });
-
-        it('should render dropdown', () => {
-            expect(getDropdowns()).toHaveLength(1);
+            expect(getTextFields()).toHaveLength(6);
         });
 
         it('should render buttons', () => {
