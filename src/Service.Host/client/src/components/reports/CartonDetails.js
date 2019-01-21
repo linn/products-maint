@@ -1,36 +1,40 @@
 ﻿import React, { Component } from 'react';
-import { Loading } from '../common/Loading';
-import { Grid, Row, Col } from 'react-bootstrap';
-import Table from '../common/Table';
+import { Loading } from '@linn-it/linn-form-components-library';
+import { Grid, Typography } from '@material-ui/core';
+import { ReportTable } from '@linn-it/linn-form-components-library';
 import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = () => ({
+    root: {
+        paddingLeft: "20%",
+        paddingRight: "20%",
+    },
+});
 
 class CartonDetails extends Component {
     render() {
-        const { reportData, loading } = this.props;
+        const { reportData, loading, classes } = this.props;
 
         return (
-            <div>
-                <Grid fluid={false}>
-                    <Row>
-                        <Col xs={8}>
-                            <h3>Carton Details</h3>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs={10}>
-                            <Link style={{ display: 'block' }} to="/products/maint/carton-types/create">Create new carton type</Link>
-                        </Col>
-                    </Row>
-                    <Row>
+            <div className={classes.root}>
+                <Grid container spacing={24} justify="center">
+                    <Grid item xs={12}>
+                        <Typography variant='h4' gutterBottom>Carton Details</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Link style={{ display: 'block' }} to="/products/maint/carton-types/create">
+                            <Typography>Create new carton type</Typography>
+                        </Link>
+                    </Grid>
+                    <Grid item xs={12}>
                         {loading ? <Loading /> : ''}
-                        <Col xs={10}>
-                            <Table reportData={reportData} showTotals={false} placeholderRows={10} placeholderColumns={3} showTitle={false} />
-                        </Col>
-                    </Row>
+                        <ReportTable reportData={reportData} showTotals={false} placeholderRows={10} placeholderColumns={3} showTitle={false} />
+                    </Grid>
                 </Grid>
             </div>
         );
     }
 }
 
-export default CartonDetails;
+export default withStyles(styles)(CartonDetails);

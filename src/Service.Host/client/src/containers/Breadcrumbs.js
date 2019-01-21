@@ -1,6 +1,6 @@
 ﻿import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { Breadcrumbs } from '@linn-it/linn-form-components-library';
 
 const mapStateToProps = state => ({
 });

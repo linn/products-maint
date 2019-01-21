@@ -1,7 +1,5 @@
 ﻿import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import { Button, Grid, Paper, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { Loading } from './common/Loading';
@@ -31,7 +29,7 @@ class Tariff extends Component {
         if (loading || !tariff) {
             return (
                 <div className="linn-container">
-                    <Grid container spacing={24}>
+                    <Grid container style={{ marginTop: 40 }} spacing={24}>
                         <Paper className={classes.paper}>
                             <Loading />
                         </Paper>
@@ -42,36 +40,40 @@ class Tariff extends Component {
 
         return (
             <div className="linn-container">
-                <Grid container spacing={24}>
+                <Grid container style={{ marginTop: 40 }} spacing={24}>
                     <Grid item sm="12">
                         <Paper className={classes.paper}>
-                            <h2>{tariff.tariffCode}</h2>
+                            <Typography variant='h4' gutterBottom>{tariff.tariffCode}</Typography>
                             <div style={{ marginBottom: '10px' }}>
-                                <strong>Description:</strong> {tariff.description}
+                                <Typography style={{ fontWeight: 600, display: 'inline-block' }}>Description:</Typography> 
+                                <Typography style={{ display: 'inline-block' }}>{tariff.description}</Typography>
                             </div>
                             <div style={{ marginBottom: '10px' }}>
-                                <strong>US Tariff Code:</strong> {tariff.usTariffCode}
+                                <Typography style={{ fontWeight: 600, display: 'inline-block' }}>US Tariff Code:</Typography> 
+                                <Typography style={{ display: 'inline-block' }}>{tariff.usTariffCode}</Typography>
                             </div>
                             <div style={{ marginBottom: '10px' }}>
-                                <strong>Date Invalid:</strong> {tariff.dateInvalid}
+                                <Typography style={{ fontWeight: 600, display: 'inline-block' }}>Date Invalid:</Typography> 
+                                <Typography style={{ display: 'inline-block' }}>{tariff.dateInvalid}</Typography>
                             </div>
                             <div style={{ marginBottom: '10px' }}>
-                                <strong>Duty %:</strong> {tariff.duty}
+                                <Typography style={{ fontWeight: 600, display: 'inline-block' }}>Duty %:</Typography> 
+                                <Typography style={{ display: 'inline-block' }}>{tariff.duty}</Typography>
                             </div>
                             <span> </span>
                             <div className={classes.pullRight}>
                                 <Button id="back-button"
-                                        component={Link}
-                                        to="/products/maint/tariffs">
+                                    component={Link}
+                                    to="/products/maint/tariffs">
                                     Back
                                 </Button>
 
                                 <Button id="edit-button"
-                                        variant="outlined"
-                                        component={Link}
-                                        variant="contained"
-                                        color="primary"
-                                        to={`${getSelfHref(tariff)}/edit`}>
+                                    variant="outlined"
+                                    component={Link}
+                                    variant="contained"
+                                    color="primary"
+                                    to={`${getSelfHref(tariff)}/edit`}>
                                     Edit
                                 </Button>
                             </div>

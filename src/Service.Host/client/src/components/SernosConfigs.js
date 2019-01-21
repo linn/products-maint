@@ -1,14 +1,15 @@
-﻿import React, { Component, Fragment } from 'react';
+﻿import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import CircularLoading from './common/CircularLoading';
 import ErrorCard from '../components/common/ErrorCard';
 import { withStyles } from '@material-ui/core/styles';
 import { List, ListItem, Paper, Typography } from '@material-ui/core';
 
-const styles = () => ({
+const styles = (theme) => ({
     root: {
-        margin: 40,
-        padding: 40
+        ...theme.typography,
+        margin: '40px',
+        padding: '40px'
     }
 });
 
@@ -20,15 +21,17 @@ const SernosConfigs = ({ sernosConfigs, loading, errorMessage, classes }) => (
                 : <CircularLoading />
             : (
                 <Fragment>
-                    <Typography variant='h2' align='center' gutterBottom>
+                    <Typography variant="h3" align="center" gutterBottom>
                         Sernos Config
                     </Typography>
                     <List>
-                        {sernosConfigs.map((sc, i) => (
-                            <ListItem key={i} component={Link} to={sc.href} button>{sc.name} - {sc.description}</ListItem>
+                        {sernosConfigs.map((sc) => (
+                            <ListItem key={sc.href} component={Link} to={sc.href} button>{sc.name} - {sc.description}</ListItem>
                         ))}
+                        <ListItem component={Link} to="/products/maint/sernos-configs/create" button>
+                            <Typography color="primary">Create new serial number config type</Typography>
+                        </ListItem>
                     </List>
-                    <Link style={{ display: 'block' }} to="/products/maint/sernos-configs/create">Create new serial number config type</Link>
                 </Fragment>
             )
         }

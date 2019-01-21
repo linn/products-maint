@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Domain.Linnapps
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
     using Linn.Products.Domain.Linnapps.Exceptions;
@@ -16,11 +18,6 @@
             this.SerialNumbered = serialNumbered;
             this.NumberOfSernos = numberOfSernos;
             this.NumberOfBoxes = numberOfBoxes;
-        }
-
-        private SernosConfig()
-        {
-            // ef
         }
 
         public string Name { get; private set; }

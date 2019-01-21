@@ -3,8 +3,8 @@
     using System.Collections.Generic;
 
     using Linn.Common.Facade;
+    using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps.Exceptions;
-    using Linn.Products.Persistence.Linnapps;
 
     public abstract class FacadeService<T, TKey, TResource> : IFacadeService<T, TKey, TResource>
     {

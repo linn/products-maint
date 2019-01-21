@@ -1,7 +1,7 @@
 ﻿namespace Linn.Products.Facade.Tests.FacadeServiceSpecs
 {
+    using Linn.Common.Persistence;
     using Linn.Products.Facade.Services;
-    using Linn.Products.Persistence.Linnapps;
 
     public class TestService : FacadeService<TestEntity, int, TestEntity>
     {

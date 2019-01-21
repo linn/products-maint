@@ -2,6 +2,7 @@
 {
     using Autofac;
 
+    using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Persistence.Linnapps;
@@ -17,6 +18,7 @@
             builder.RegisterType<CartonTypeRepository>().As<ICartonTypeRepository>();
             builder.RegisterType<SaCoreTypeRepository>().As<IRepository<SaCoreType, int>>();
             builder.RegisterType<SernosConfigRepository>().As<IRepository<SernosConfig, string>>();
+            builder.RegisterType<TypeOfSaleRepository>().As<IRepository<TypeOfSale, string>>();
             builder.RegisterType<TariffRepository>().As<ITariffRepository>();
         }
     }

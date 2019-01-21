@@ -30,6 +30,7 @@
             builder.RegisterType<CartonTypeService>().As<ICartonTypeService>();
             builder.RegisterType<SaCoreTypeService>().As<IFacadeService<SaCoreType, int, SaCoreTypeResource>>(); 
             builder.RegisterType<SernosConfigService>().As<IFacadeService<SernosConfig, string, SernosConfigResource>>();
+            builder.RegisterType<TypeOfSaleService>().As<IFacadeService<TypeOfSale, string, TypeOfSaleResource>>();
 
 
             // rest client proxies

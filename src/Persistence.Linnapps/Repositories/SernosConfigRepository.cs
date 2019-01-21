@@ -1,34 +1,35 @@
 ﻿namespace Linn.Products.Persistence.Linnapps.Repositories
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
 
+    using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
 
     public class SernosConfigRepository : IRepository<SernosConfig, string>
     {
-        private readonly List<SernosConfig> sernosConfigurations;
+        private readonly ServiceDbContext serviceDbContext;
 
-        public SernosConfigRepository()
+        public SernosConfigRepository(ServiceDbContext serviceDbContext)
         {
-            this.sernosConfigurations = this.MakeSernosConfigs();
+            this.serviceDbContext = serviceDbContext;
         }
 
         public SernosConfig FindById(string key)
         {
-            return this.sernosConfigurations.Find(a => a.Name == key);
+            return this.serviceDbContext.SernosConfigs.Where(a => a.Name == key).ToList().First();
         }
 
         public IQueryable<SernosConfig> FindAll()
         {
-            return this.sernosConfigurations.AsQueryable();
+            return this.serviceDbContext.SernosConfigs;
         }
 
         public void Add(SernosConfig sernosConfig)
         {
-            this.sernosConfigurations.Add(sernosConfig);
+            this.serviceDbContext.SernosConfigs.Add(sernosConfig);
+            this.serviceDbContext.SaveChanges();
         }
 
         public void Remove(SernosConfig entity)
@@ -46,26 +47,5 @@
             throw new NotImplementedException();
         }
 
-        private List<SernosConfig> MakeSernosConfigs()
-        {
-            var example = new SernosConfig("S", "Y", 1, 1) { Description = "Serial Numbered In Ones" };
-            example.SetStartOn("Any");
-            return new List<SernosConfig>
-                       {
-                           new SernosConfig("N", "N")
-                               {
-                                   Description = "Not Serial Numbered"
-                               },
-                           example,
-                           new SernosConfig("P1", "Y", 2, 1)
-                               {
-                                   Description = "Serial Numbered In Pairs, One Box"
-                               },
-                           new SernosConfig("P2", "Y", 2, 2)
-                               {
-                                   Description = "Serial Numbered In Pairs, Two Boxes"
-                               }
-                       };
-        }
     }
 }

@@ -1,29 +1,25 @@
 ﻿import React from 'react';
-import { shallow } from 'enzyme';
+import { createShallow} from '@material-ui/core/test-utils';
 import EanCodesOptions from '../../reportOptions/EanCodesOptions';
-import { Checkbox, Button } from 'react-bootstrap';
 
-describe('<EanCodesOptions />',
-    () => {
-        let history = { push : jest.fn() },
-            prevOptions = { cartonisedOnly: true, includePhasedOut: false },
-            wrapper = shallow(<EanCodesOptions prevOptions={prevOptions} history={history} />);
+describe('<EanCodesOptions />', () => {
+    const getButton = () => wrapper.find('WithStyles(Button)');
+    const getCheckbox = () => wrapper.find('WithStyles(Checkbox)').first();
+    const shallow = createShallow({ dive: true });
 
-        test('Should render two checkboxes', () => {
-                expect(wrapper.find(Checkbox)).toHaveLength(2);
-            });
+    let wrapper, history;
 
-        test('Should render button', () => {
-            expect(wrapper.find(Button)).toHaveLength(1);
-        });
+    beforeEach(() => { 
+        history = { push: jest.fn() }; 
+        wrapper = shallow(<EanCodesOptions history={history}  />)
+    });
 
-        test('Should redirect when button clicked', () => {
-            let button = wrapper.find(Button);
-            button.simulate("click");
-
-            expect(history.push).toHaveBeenCalledWith({
-                pathname: `/products/reports/sales-article-ean-codes/report`,
-                search: `?includePhasedOut=false&cartonisedOnly=true`
-            });
+    test('Should redirect with state parameters when button clicked', () => {
+        wrapper.setState({ includePhasedOut: true, cartonisedOnly: true});
+        getButton().simulate("click");
+        expect(history.push).toHaveBeenCalledWith({
+            pathname: `/products/reports/sales-article-ean-codes/report`,
+            search: "?includePhasedOut=true&cartonisedOnly=true"
         });
     });
+});

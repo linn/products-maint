@@ -10,8 +10,10 @@ import cartonType from './cartonType';
 import sernosConfig from './sernosConfig';
 import sernosConfigs from './sernosConfigs';
 import fetchError from './fetchError';
-import saCoreTypes from './saCoreTypes'
-import saCoreType from './saCoreType'
+import saCoreTypes from './saCoreTypes';
+import saCoreType from './saCoreType';
+import typesOfSale from './typesOfSale';
+import typeOfSale from './typeOfSale';
 import salesArticles from './salesArticles'
 
 const rootReducer = combineReducers({
@@ -28,7 +30,9 @@ const rootReducer = combineReducers({
     saCoreTypes,
     saCoreType,
     fetchError,
-    salesArticles
+    salesArticles,
+    typesOfSale,
+    typeOfSale
 });
 
 export default rootReducer;

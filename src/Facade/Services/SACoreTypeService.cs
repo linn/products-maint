@@ -2,17 +2,14 @@
 {
     using System;
 
+    using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Persistence.Linnapps;
     using Linn.Products.Resources;
 
     public class SaCoreTypeService : FacadeService<SaCoreType, int, SaCoreTypeResource>
     {
-        private readonly IRepository<SaCoreType, int> repository;
-
         public SaCoreTypeService(IRepository<SaCoreType, int> repository) : base(repository)
         {
-            this.repository = repository;
         }
 
         protected override SaCoreType CreateFromResource(SaCoreTypeResource resource)
