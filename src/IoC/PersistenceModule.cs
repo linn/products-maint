@@ -12,6 +12,7 @@
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ServiceDbContext>().InstancePerRequest();
+            builder.RegisterType<TransactionManager>().As<ITransactionManager>();
 
             // linnapps repositories
             builder.RegisterType<CartonTypeRepository>().As<ICartonTypeRepository>();

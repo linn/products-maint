@@ -7,14 +7,17 @@
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Resources;
+    using Persistence.Linnapps;
 
     public class TariffService : ITariffService
     {
         private readonly ITariffRepository tariffRepository;
+        private readonly ITransactionManager transactionManager;
 
-        public TariffService(ITariffRepository tariffRepository)
+        public TariffService(ITariffRepository tariffRepository, ITransactionManager transactionManager)
         {
             this.tariffRepository = tariffRepository;
+            this.transactionManager = transactionManager;
         }
 
         public IResult<IEnumerable<Tariff>> GetTariffs(string searchTerm)
@@ -47,6 +50,7 @@
                              };
 
             this.tariffRepository.Add(tariff);
+            this.transactionManager.Commit();
 
             return new CreatedResult<Tariff>(tariff);
         }
@@ -65,6 +69,8 @@
             tariff.Description = resource.Description;
             tariff.DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? null : (DateTime?)Convert.ToDateTime(resource.DateInvalid);
             tariff.Duty = resource.Duty;
+
+            this.transactionManager.Commit();
 
             return new SuccessResult<Tariff>(tariff);
         }
