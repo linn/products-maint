@@ -25,7 +25,7 @@
             var saCoreType2 = new SaCoreType(2, "description");
             this.SaCoreTypeService.GetAll()
                 .Returns(new SuccessResult<IEnumerable<SaCoreType>>(new List<SaCoreType> { saCoreType1, saCoreType2 }));
-          
+
             this.Response = this.Browser.Get(
                 "/products/maint/sa-core-types/",
                 with =>

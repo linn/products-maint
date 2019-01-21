@@ -1,16 +1,12 @@
 ﻿namespace Linn.Products.Persistence.Linnapps
 {
-    using System.Collections.Generic;
-
-    using Domain.Linnapps.Products;
-
     using Linn.Common.Configuration;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.Products;
 
-    using Oracle.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class ServiceDbContext : DbContext 
+    public class ServiceDbContext : DbContext
     {
         public DbSet<SaCoreType> SaCoreTypes { get; set; }
 

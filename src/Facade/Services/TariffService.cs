@@ -2,12 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using Common.Persistence;
     using Linn.Common.Facade;
+    using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Resources;
-    using Linn.Products.Persistence.Linnapps;
 
     public class TariffService : ITariffService
     {
@@ -67,7 +66,7 @@
             tariff.TariffCode = resource.TariffCode;
             tariff.USTariffCode = resource.USTariffCode;
             tariff.Description = resource.Description;
-            tariff.DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? null : (DateTime?)Convert.ToDateTime(resource.DateInvalid);
+            tariff.DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? (DateTime?)null : DateTime.Parse(resource.DateInvalid);
             tariff.Duty = resource.Duty;
 
             this.transactionManager.Commit();
