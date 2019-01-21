@@ -25,9 +25,9 @@
                 t.TariffCode.Contains(searchTerm) || t.Description.ToLower().Contains(searchTerm.ToLower()));
         }
 
-        public Tariff GetTariffById(int id)
+        public Tariff FindById(int id)
         {
-            return this.serviceDbContext.Tariffs.SingleOrDefault(t => t.Id == id);
+            return this.serviceDbContext.Tariffs.Where(t => t.Id == id).ToList().FirstOrDefault();
         }
 
         public void Add(Tariff tariff)

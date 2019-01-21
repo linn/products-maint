@@ -16,7 +16,7 @@ class SaveCancelButtons extends Component {
         return (
             <div className={classes.pullRight}>
                 <Button id="cancel-button"
-                    onClick={() => saveClick()}>
+                    onClick={() => cancelClick()}>
                     Cancel
                 </Button>
 
@@ -24,7 +24,7 @@ class SaveCancelButtons extends Component {
                     variant="outlined"
                     variant="contained"
                     color="primary"
-                    onClick={() => cancelClick()}>
+                    onClick={() => saveClick()}>
                     Save
                 </Button>
             </div>
