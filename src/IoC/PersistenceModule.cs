@@ -1,7 +1,6 @@
 ﻿namespace Linn.Products.IoC
 {
     using Autofac;
-
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Repositories;
@@ -13,6 +12,7 @@
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ServiceDbContext>().InstancePerRequest();
+            builder.RegisterType<TransactionManager>().As<ITransactionManager>();
 
             // linnapps repositories
             builder.RegisterType<CartonTypeRepository>().As<ICartonTypeRepository>();

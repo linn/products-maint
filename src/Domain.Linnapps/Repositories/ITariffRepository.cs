@@ -7,7 +7,7 @@
     {
         IEnumerable<Tariff> SearchTariffs(string searchTerm);
 
-        Tariff GetTariffById(int id);
+        Tariff FindById(int id);
 
         void Add(Tariff tariff);
     }
