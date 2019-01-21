@@ -28,7 +28,7 @@
 
         public IResult<Tariff> GetTariff(int id)
         {
-            var tariff = this.tariffRepository.GetTariffById(id);
+            var tariff = this.tariffRepository.FindById(id);
 
             if (tariff == null)
             {
@@ -57,7 +57,7 @@
 
         public IResult<Tariff> UpdateTariff(int id, TariffResource resource)
         {
-            var tariff = this.tariffRepository.GetTariffById(id);
+            var tariff = this.tariffRepository.FindById(id);
 
             if (tariff == null)
             {
