@@ -2,12 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-
+    using Common.Persistence;
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Resources;
-    using Persistence.Linnapps;
+    using Linn.Products.Persistence.Linnapps;
 
     public class TariffService : ITariffService
     {
