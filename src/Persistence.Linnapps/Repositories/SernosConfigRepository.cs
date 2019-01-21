@@ -1,10 +1,10 @@
 ﻿namespace Linn.Products.Persistence.Linnapps.Repositories
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
 
+    using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
 
     public class SernosConfigRepository : IRepository<SernosConfig, string>

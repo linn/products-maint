@@ -2,6 +2,7 @@
 {
     using Autofac;
 
+    using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Persistence.Linnapps;

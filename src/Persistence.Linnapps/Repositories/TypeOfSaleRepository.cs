@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Linq.Expressions;
 
+    using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
 
     public class TypeOfSaleRepository : IRepository<TypeOfSale, string>

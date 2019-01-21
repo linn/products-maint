@@ -1,10 +1,8 @@
 ﻿namespace Linn.Products.Domain.Linnapps
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    using Linn.Products.Domain.Linnapps.Exceptions;
+    using Linn.Common.Domain.Exceptions;
 
     public class SernosConfig
     {
