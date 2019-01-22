@@ -6,6 +6,7 @@ const makeActionTypes = (entityType, makeAll = true) => {
     types[`RECEIVE_${entityType}`] = `RECEIVE_${entityType}`;
     types[`REQUEST_SEARCH_${entityType}`] = `REQUEST_SEARCH_${entityType}`;
     types[`RECEIVE_SEARCH_${entityType}`] = `RECEIVE_SEARCH_${entityType}`;
+    types[`CLEAR_SEARCH_${entityType}`] = `CLEAR_SEARCH_${entityType}`;
 
     if (makeAll) {
         types[`REQUEST_ADD_${entityType}`] = `REQUEST_ADD_${entityType}`;

@@ -1,11 +1,8 @@
 ﻿import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { Loading } from '../common/Loading';
-import { getSelfHref } from '../../helpers/utilities';
+import { ListItem, InputAdornment, TextField, Typography } from '@material-ui/core';
+import { Title, Loading } from '@linn-it/linn-form-components-library';
 
 const styles = theme => ({
     paper: {
@@ -27,11 +24,29 @@ const styles = theme => ({
 });
 
 class Typeahead extends Component {
+    constructor(props) {
+        super();
+        props.clearSearch();
+        this.debounceTimer = null;
+    }
+
     handleSearchTermChange(e) {
-        e.preventDefault();
-        const { fetchItems} = this.props;
+        const { fetchItems, clearSearch } = this.props;
         const searchTerm = e.target.value;
-        fetchItems(searchTerm);
+        if (searchTerm) {
+            if (this.debounceTimer) {
+                clearTimeout(this.debounceTimer);
+            }
+
+            this.debounceTimer = setTimeout(() => fetchItems(searchTerm), 500);
+        } else {
+            if (this.debounceTimer) {
+                clearTimeout(this.debounceTimer);
+            }
+
+            clearSearch();
+        }
+
     }
 
     render() {
@@ -39,7 +54,7 @@ class Typeahead extends Component {
 
         return (
                 <div>
-                    <h2>{title}</h2>
+                    <Title text={title} />
                     <TextField
                         className={classes.halfWidth}
                         placeholder="Search by id or description"
@@ -62,12 +77,15 @@ class Typeahead extends Component {
                         ? (
                             <List>
                                 {items.map((item, i) => (
-                                    <ListItem key={i} key={i} button component="a" href={getSelfHref(item)}><span className={classes.boldHeader}>{item.id}</span>{item.description}</ListItem>
+                                <ListItem key={i} key={i} button component="a" href={item.href}>
+                                    <Typography style={{ fontWeight: 600, width: 140 }}>{item.id}</Typography>
+                                    <Typography>{item.description}</Typography>
+                                </ListItem>
                                 ))}
                             </List>
                         )
                         : loading ? <Loading />
-                            : <div>No matching items</div>
+                        : <div><Typography>No matching items</Typography></div>
                     }
                 </div>
         );

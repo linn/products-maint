@@ -27,7 +27,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@linn-it/linn-form-components-library": "0.0.9",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-jest": "^21.2.0",
@@ -58,6 +57,7 @@
     "webpack-hot-middleware": "^2.24.3"
   },
   "dependencies": {
+    "@linn-it/linn-form-components-library": "0.1.1",
     "@material-ui/core": "^3.4.0",
     "@material-ui/icons": "^3.0.1",
     "babel-polyfill": "^6.26.0",

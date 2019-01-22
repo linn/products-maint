@@ -25,14 +25,14 @@ const styles = theme => ({
 
 class SaForecasts extends Component {
     render() {
-        const { items, title, classes, fetchItems, loading } = this.props;
+        const { items, title, classes, fetchItems, loading, clearSearch } = this.props;
 
         return (
             <div className="linn-container">
                 <Grid container spacing={24}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
-                            <Typeahead items={items} fetchItems={fetchItems} loading={loading} title={title} />
+                            <Typeahead items={items} fetchItems={fetchItems} clearSearch={clearSearch} loading={loading} title={title} />
                         </Paper>
                     </Grid>
                 </Grid>

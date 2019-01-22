@@ -52,4 +52,10 @@ export default function FetchApiActions(actionTypeRoot, uri, actionTypes) {
             ]
         }
     });
+
+    this.clearSearch = () => ({
+        type: actionTypes[`CLEAR_SEARCH_${actionTypeRoot}`],
+        payload: {}
+    });
+
 }
