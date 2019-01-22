@@ -1,6 +1,6 @@
 ﻿namespace Linn.Products.Domain.Linnapps
 {
-    using Linn.Products.Domain.Linnapps.Exceptions;
+    using Linn.Common.Domain.Exceptions;
 
     public class TypeOfSale
     {

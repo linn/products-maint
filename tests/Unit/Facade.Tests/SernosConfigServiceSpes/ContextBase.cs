@@ -1,8 +1,8 @@
 ﻿namespace Linn.Products.Facade.Tests.SernosConfigServiceSpes
 {
+    using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Facade.Services;
-    using Linn.Products.Persistence.Linnapps;
 
     using NSubstitute;
 

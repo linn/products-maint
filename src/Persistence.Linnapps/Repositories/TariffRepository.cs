@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Domain.Linnapps.Products;
-    using Domain.Linnapps.Repositories;
+
+    using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Domain.Linnapps.Repositories;
 
     public class TariffRepository : ITariffRepository
     {

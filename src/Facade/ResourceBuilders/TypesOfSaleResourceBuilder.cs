@@ -1,6 +1,5 @@
 ﻿namespace Linn.Products.Facade.ResourceBuilders
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
