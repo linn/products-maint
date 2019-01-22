@@ -6,6 +6,7 @@
     using Linn.Common.Proxy;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.RemoteServices;
+    using Linn.Products.Domain.Linnapps.ReportModels;
     using Linn.Products.Domain.Linnapps.Reports;
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
@@ -21,6 +22,7 @@
             builder.RegisterType<EanCodeReportService>().As<IEanCodeReportService>();
             builder.RegisterType<CartonDetailsReportService>().As<ICartonDetailsReportService>();
             builder.RegisterType<ProductReports>().As<IProductReports>();
+            builder.RegisterType<StockTriggerLevelReportService>().As<IStockTriggerLevelReportService>();
            
 
             // facade services
@@ -32,7 +34,7 @@
             builder.RegisterType<SaCoreTypeService>().As<IFacadeService<SaCoreType, int, SaCoreTypeResource>>(); 
             builder.RegisterType<SernosConfigService>().As<IFacadeService<SernosConfig, string, SernosConfigResource>>();
             builder.RegisterType<TypeOfSaleService>().As<IFacadeService<TypeOfSale, string, TypeOfSaleResource>>();
-
+           
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();
