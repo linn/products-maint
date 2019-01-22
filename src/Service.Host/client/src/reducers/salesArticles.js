@@ -4,7 +4,8 @@ import * as itemTypes from '../itemTypes';
 
 const defaultState = {
     loading: false,
-    items: []
+    items: [],
+    searchItems: []
 }
 
 export default collectionStoreFactory(itemTypes.salesArticles.actionType, actionTypes, defaultState);

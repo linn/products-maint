@@ -23,16 +23,17 @@ const styles = theme => ({
     }
 });
 
-class SaForecasts extends Component {
+class SalesArticles extends Component {
     render() {
-        const { items, title, classes, fetchItems, loading, clearSearch } = this.props;
+        const { items, classes, fetchItems, loading, clearSearch } = this.props;
+        const forecastItems = items.map(item => ({ ...item, href: `${item.href.substring(0, item.href.indexOf('?'))}/details?${item.href.substring(item.href.indexOf('?') + 1, item.href.length)}` }));
 
         return (
             <div className="linn-container">
                 <Grid container spacing={24}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
-                            <Typeahead items={items} fetchItems={fetchItems} clearSearch={clearSearch} loading={loading} title={title} />
+                            <Typeahead items={forecastItems} fetchItems={fetchItems} clearSearch={clearSearch} loading={loading} title="Search for Sales Article" />
                         </Paper>
                     </Grid>
                 </Grid>
@@ -41,4 +42,4 @@ class SaForecasts extends Component {
     }
 }
 
-export default withStyles(styles)(SaForecasts);
+export default withStyles(styles)(SalesArticles);

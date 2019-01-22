@@ -46,7 +46,6 @@ class Typeahead extends Component {
 
             clearSearch();
         }
-
     }
 
     render() {
