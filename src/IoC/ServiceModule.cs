@@ -3,6 +3,7 @@
     using Autofac;
 
     using Linn.Common.Configuration;
+    using Linn.Common.Facade;
     using Linn.Common.Proxy;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.RemoteServices;
@@ -28,7 +29,7 @@
             builder.RegisterType<CartonReportsService>().As<ICartonReportsService>();
             builder.RegisterType<ProductsReportsService>().As<IProductsReportsService>();
             builder.RegisterType<CartonTypeService>().As<ICartonTypeService>();
-            builder.RegisterType<SaCoreTypeService>().As<IFacadeService<SaCoreType, int, SaCoreTypeResource>>(); 
+            builder.RegisterType<SaCoreTypeService>().As<IFacadeService<SaCoreType, int, SaCoreTypeResource>>();
             builder.RegisterType<SernosConfigService>().As<IFacadeService<SernosConfig, string, SernosConfigResource>>();
             builder.RegisterType<TypeOfSaleService>().As<IFacadeService<TypeOfSale, string, TypeOfSaleResource>>();
 

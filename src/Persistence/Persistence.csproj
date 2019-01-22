@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="linn.common.persistence" Version="2.0.1" />
+    <PackageReference Include="Linn.Common.Persistence" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>

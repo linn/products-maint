@@ -19,7 +19,7 @@
         public void SetUp()
         {
             var saCoreType = new SaCoreType(1, "description");
-                                
+
             this.SaCoreTypeService.GetById(1)
                 .Returns(new SuccessResult<SaCoreType>(saCoreType));
 

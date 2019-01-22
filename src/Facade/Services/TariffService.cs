@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-
     using Linn.Common.Facade;
+    using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Resources;
@@ -11,10 +11,12 @@
     public class TariffService : ITariffService
     {
         private readonly ITariffRepository tariffRepository;
+        private readonly ITransactionManager transactionManager;
 
-        public TariffService(ITariffRepository tariffRepository)
+        public TariffService(ITariffRepository tariffRepository, ITransactionManager transactionManager)
         {
             this.tariffRepository = tariffRepository;
+            this.transactionManager = transactionManager;
         }
 
         public IResult<IEnumerable<Tariff>> GetTariffs(string searchTerm)
@@ -25,7 +27,7 @@
 
         public IResult<Tariff> GetTariff(int id)
         {
-            var tariff = this.tariffRepository.GetTariffById(id);
+            var tariff = this.tariffRepository.FindById(id);
 
             if (tariff == null)
             {
@@ -42,18 +44,19 @@
                                  Description = resource.Description,
                                  TariffCode = resource.TariffCode,
                                  USTariffCode = resource.USTariffCode,
-                                 DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? null : (DateTime?)Convert.ToDateTime(resource.DateInvalid),
+                                 DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? (DateTime?)null : DateTime.Parse(resource.DateInvalid),
                                  Duty = resource.Duty
                              };
 
             this.tariffRepository.Add(tariff);
+            this.transactionManager.Commit();
 
             return new CreatedResult<Tariff>(tariff);
         }
 
         public IResult<Tariff> UpdateTariff(int id, TariffResource resource)
         {
-            var tariff = this.tariffRepository.GetTariffById(id);
+            var tariff = this.tariffRepository.FindById(id);
 
             if (tariff == null)
             {
@@ -63,8 +66,10 @@
             tariff.TariffCode = resource.TariffCode;
             tariff.USTariffCode = resource.USTariffCode;
             tariff.Description = resource.Description;
-            tariff.DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? null : (DateTime?)Convert.ToDateTime(resource.DateInvalid);
+            tariff.DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? (DateTime?)null : DateTime.Parse(resource.DateInvalid);
             tariff.Duty = resource.Duty;
+
+            this.transactionManager.Commit();
 
             return new SuccessResult<Tariff>(tariff);
         }

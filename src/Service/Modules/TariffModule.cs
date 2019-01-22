@@ -35,7 +35,8 @@
 
         private object UpdateTariff(int id)
         {
-            var tariff = this.tariffService.GetTariff(id);
+            var resource = this.Bind<TariffResource>();
+            var tariff = this.tariffService.UpdateTariff(id, resource);
             return this.Negotiate.WithModel(tariff);
         }
 
