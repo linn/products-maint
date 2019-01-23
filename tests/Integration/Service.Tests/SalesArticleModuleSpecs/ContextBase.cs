@@ -7,6 +7,7 @@
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
     using Linn.Products.Facade.ResourceBuilders;
+    using Linn.Products.Resources;
     using Linn.Products.Service.Modules;
     using Linn.Products.Service.ResponseProcessors;
     using Linn.Products.Service.Tests;
@@ -21,15 +22,19 @@
     {
         protected ISalesArticleService SalesArticleService { get; private set; }
 
+        protected IFacadeService<SalesArticle, string, SalesArticleResource> SalesArticleForecastService { get; private set; }
+
         [SetUp]
         public void EstablishContext()
         {
             this.SalesArticleService = Substitute.For<ISalesArticleService>();
+            this.SalesArticleForecastService = Substitute.For<IFacadeService<SalesArticle, string, SalesArticleResource>>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
                 {
                     with.Dependency(this.SalesArticleService);
+                    with.Dependency(this.SalesArticleForecastService);
                     with.Dependency<IResourceBuilder<SalesArticle>>(new SalesArticleResourceBuilder());
                     with.Dependency<IResourceBuilder<IEnumerable<SalesArticle>>>(new SalesArticlesResourceBuilder());
                     with.Module<SalesArticleModule>();

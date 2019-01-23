@@ -1,10 +1,6 @@
 ﻿namespace Linn.Products.Domain.Linnapps
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
-    using Linn.Products.Domain.Linnapps.Exceptions;
 
     public class SaCoreType
     {
@@ -30,6 +26,7 @@
         public DateTime? DateInvalid { get; set; }
 
         public int? LookAheadDays { get; set; }
+
         public int? SortOrder { get; set; }
 
         public int? TriggerLevel { get; set; }

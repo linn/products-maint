@@ -2,6 +2,7 @@
 {
     using FluentAssertions;
 
+    using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
 
@@ -20,7 +21,7 @@
         public void SetUp()
         {
             this.salesArticle = new SalesArticle { ArticleNumber = "sa" };
-            this.SalesArticleService.GetSalesArticle("sa").Returns(this.salesArticle);
+            this.SalesArticleForecastService.GetById("sa").Returns(new SuccessResult<SalesArticle>(this.salesArticle));
 
             this.Response = this.Browser.Get(
                 "/products/maint/sales-articles",
@@ -40,7 +41,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SalesArticleService.Received().GetSalesArticle("sa");
+            this.SalesArticleForecastService.Received().GetById("sa");
         }
 
         [Test]

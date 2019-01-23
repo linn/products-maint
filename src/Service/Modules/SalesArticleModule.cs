@@ -14,11 +14,16 @@
 
     public sealed class SalesArticleModule : NancyModule
     {
-        private readonly ISalesArticleService salesArticleService;
+        private readonly IFacadeService<SalesArticle, string, SalesArticleResource> salesArticleForecastService;
 
-        public SalesArticleModule(ISalesArticleService salesArticleService)
+        private readonly ISalesArticleService salesArticleProxyService;
+
+        public SalesArticleModule(
+            IFacadeService<SalesArticle, string, SalesArticleResource> salesArticleForecastService,
+            ISalesArticleService salesArticleProxyService)
         {
-            this.salesArticleService = salesArticleService;
+            this.salesArticleForecastService = salesArticleForecastService;
+            this.salesArticleProxyService = salesArticleProxyService;
 
             this.Get("/products/maint/sales-articles", _ => this.GetSalesArticles());
             this.Put("/products/maint/sales-articles/{id*}", parameters => this.UpdateSalesArticle(parameters.id));
@@ -36,13 +41,13 @@
             if (!string.IsNullOrEmpty(resource.ArticleNumber))
             {
                 return this.Negotiate
-                    .WithModel(new SuccessResult<SalesArticle>(this.salesArticleService.GetSalesArticle(resource.ArticleNumber)))
+                    .WithModel(this.salesArticleForecastService.GetById(resource.ArticleNumber))
                     .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                     .WithView("Index");
             }
 
             return this.Negotiate
-                .WithModel(new SuccessResult<IEnumerable<SalesArticle>>(this.salesArticleService.Search(resource.SearchTerm)))
+                .WithModel(new SuccessResult<IEnumerable<SalesArticle>>(this.salesArticleProxyService.Search(resource.SearchTerm)))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
