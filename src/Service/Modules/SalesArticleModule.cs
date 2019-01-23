@@ -21,6 +21,12 @@
             this.salesArticleService = salesArticleService;
 
             this.Get("/products/maint/sales-articles", _ => this.GetSalesArticles());
+            this.Put("/products/maint/sales-articles/{id*}", parameters => this.UpdateSalesArticle(parameters.id));
+        }
+
+        private object UpdateSalesArticle(string id)
+        {
+            throw new System.NotImplementedException();
         }
 
         private object GetSalesArticles()

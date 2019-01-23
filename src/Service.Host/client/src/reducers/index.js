@@ -14,6 +14,7 @@ import saCoreTypes from './saCoreTypes';
 import saCoreType from './saCoreType';
 import typesOfSale from './typesOfSale';
 import typeOfSale from './typeOfSale';
+import salesArticle from './salesArticle'
 import salesArticles from './salesArticles'
 
 const rootReducer = combineReducers({
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
     saCoreTypes,
     saCoreType,
     fetchError,
+    salesArticle,
     salesArticles,
     typesOfSale,
     typeOfSale
