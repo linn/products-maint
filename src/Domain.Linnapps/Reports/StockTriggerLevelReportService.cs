@@ -3,9 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
+    using System.Xml;
 
     using Linn.Products.Domain.Linnapps.ReportModels;
     using Linn.Common.Configuration;
+    using Linn.Common.Reporting.Models;
 
     using Oracle.ManagedDataAccess.Client;
 
@@ -20,7 +23,7 @@
             return int.Parse(obj.ToString());
         }
 
-        public IEnumerable<StockTriggerLevelReport> GetStockTriggerLevelReportAtLocation(int locationId)
+        public ResultsModel GetStockTriggerLevelReportAtLocation(int locationId)
         {
             var host = ConfigurationManager.Configuration["DATABASE_HOST"];
             var userId = ConfigurationManager.Configuration["DATABASE_USER_ID"];
@@ -53,31 +56,45 @@
             order by stl.part_number, sl.stock_rotation_date";
 
             var cmd = new OracleCommand(sql, connection) { CommandType = CommandType.Text};
-            var reportValues = new List<StockTriggerLevelReport>();
-
             var dataAdapter = new OracleDataAdapter(cmd);
             var dataSet = new DataSet();
+
             dataAdapter.Fill(dataSet);
 
             var table = dataSet.Tables[0];
+            var results = new ResultsModel(new[] { "Part Number", "Trigger Level", "Max Capacity", "Qty At Location", "Pallet Number", "Location Code", "Qty Available", "QtyAllocated", "Stock Rotation Date" })
+                              {
+                                  ReportTitle = new NameModel($"Stock Trigger Levels at Location {locationId}")
+                              };
+
+            results.SetColumnType(0, GridDisplayType.TextValue);
+            results.SetColumnType(1, GridDisplayType.Value);
+            results.SetColumnType(2, GridDisplayType.TextValue);
+            results.SetColumnType(3, GridDisplayType.TextValue);
+            results.SetColumnType(4, GridDisplayType.TextValue);
+            results.SetColumnType(5, GridDisplayType.TextValue);
+            results.SetColumnType(6, GridDisplayType.TextValue);
+            results.SetColumnType(7, GridDisplayType.TextValue);
+            results.SetColumnType(8, GridDisplayType.TextValue);
+
+            var rowId = 0;
 
             foreach (DataRow tableRow in table.Rows)
-            { 
-                reportValues.Add(
-                    new StockTriggerLevelReport()
-                        {
-                            PartNumber = tableRow[1].ToString(),
-                            TriggerLevel = NullOrNumber(tableRow[2]),
-                            MaxCapacity = NullOrNumber(tableRow[3]),
-                            QtyAtLocation = NullOrNumber(tableRow[4]),
-                            PalletNumber = NullOrNumber(tableRow[6]),
-                            LocationCode = tableRow[7] == DBNull.Value ? null : tableRow[7].ToString(),
-                            QtyAvailable = NullOrNumber(tableRow[8]),
-                            QtyAllocated = NullOrNumber(tableRow[9]),
-                            StockRotationDate = DateTime.Parse(tableRow[10].ToString())
-                        });
+            {
+                var row = results.AddRow((rowId++).ToString());
+
+                results.SetGridTextValue(row.RowIndex, 0, tableRow[1].ToString());
+                results.SetGridValue(row.RowIndex, 1, NullOrNumber(tableRow[2]));
+                results.SetGridValue(row.RowIndex, 2, NullOrNumber(tableRow[3]));
+                results.SetGridValue(row.RowIndex, 3, NullOrNumber(tableRow[4]));
+                results.SetGridValue(row.RowIndex, 4, NullOrNumber(tableRow[6]));
+                results.SetGridTextValue(row.RowIndex, 6, tableRow[7] == DBNull.Value ? null : tableRow[7].ToString());
+                results.SetGridValue(row.RowIndex, 5, NullOrNumber(tableRow[8]));
+                results.SetGridValue(row.RowIndex, 7, NullOrNumber(tableRow[9]));
+                results.SetGridTextValue(row.RowIndex, 8, tableRow[10].ToString()); 
             }
-            return reportValues;
+
+            return results; 
         }
     }
 }

@@ -7,6 +7,7 @@
 
     public interface IStockTriggerLevelReportService
     {
-        IEnumerable<StockTriggerLevelReport> GetStockTriggerLevelReportAtLocation(int locationId);
+        ResultsModel GetStockTriggerLevelReportAtLocation(int locationId);
+
     }
 }
