@@ -9,7 +9,8 @@
 
     public class SaCoreTypeService : FacadeService<SaCoreType, int, SaCoreTypeResource>
     {
-        public SaCoreTypeService(IRepository<SaCoreType, int> repository) : base(repository)
+        public SaCoreTypeService(IRepository<SaCoreType, int> repository, ITransactionManager transactionManager)
+            : base(repository, transactionManager)
         {
         }
 

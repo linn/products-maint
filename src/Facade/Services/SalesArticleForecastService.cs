@@ -9,7 +9,10 @@
 
     public class SalesArticleForecastService : FacadeService<SalesArticle, string, SalesArticleResource>
     {
-        public SalesArticleForecastService(IRepository<SalesArticle, string> repository) : base(repository)
+        public SalesArticleForecastService(
+            IRepository<SalesArticle, string> repository,
+            ITransactionManager transactionManager)
+            : base(repository, transactionManager)
         {
         }
 

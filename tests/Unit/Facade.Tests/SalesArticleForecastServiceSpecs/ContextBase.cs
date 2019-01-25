@@ -14,11 +14,14 @@
 
         protected IRepository<SalesArticle, string> SalesArticleRepository { get; private set; }
 
+        protected ITransactionManager TransactionManager { get; private set; }
+
         [SetUp]
         public void SetUpContext()
         {
             this.SalesArticleRepository = Substitute.For<IRepository<SalesArticle, string>>();
-            this.Sut = new SalesArticleForecastService(this.SalesArticleRepository);
+            this.TransactionManager = Substitute.For<ITransactionManager>();
+            this.Sut = new SalesArticleForecastService(this.SalesArticleRepository, this.TransactionManager);
         }
     }
 }

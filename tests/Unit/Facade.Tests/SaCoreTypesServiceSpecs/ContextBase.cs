@@ -14,11 +14,14 @@
 
         protected IRepository<SaCoreType, int> SaCoreTypeRepository { get; private set; }
 
+        protected ITransactionManager TransactionManager { get; private set; }
+
         [SetUp]
         public void SetUpContext()
         {
             this.SaCoreTypeRepository = Substitute.For<IRepository<SaCoreType, int>>();
-            this.Sut = new SaCoreTypeService(this.SaCoreTypeRepository);
+            this.TransactionManager = Substitute.For<ITransactionManager>();
+            this.Sut = new SaCoreTypeService(this.SaCoreTypeRepository, this.TransactionManager);
         }
     }
 }

@@ -7,8 +7,8 @@
 
     public class SernosConfigService : FacadeService<SernosConfig, string, SernosConfigResource>
     {
-        public SernosConfigService(IRepository<SernosConfig, string> repository)
-            : base(repository)
+        public SernosConfigService(IRepository<SernosConfig, string> repository, ITransactionManager transactionManager)
+            : base(repository, transactionManager)
         {
         }
 
