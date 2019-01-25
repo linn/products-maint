@@ -2,7 +2,7 @@
 {
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
-
+    using Models;
     using Nancy;
     using Nancy.ModelBinding;
 
@@ -24,13 +24,17 @@
             var resource = this.Bind<TariffQueryResource>();
             var tariffs = this.tariffService.GetTariffs(resource.SearchTerm);
 
-            return this.Negotiate.WithModel(tariffs);
+            return this.Negotiate.WithModel(tariffs)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index"); ;
         }
 
         private object GetTariff(int id)
         {
             var tariff = this.tariffService.GetTariff(id);
-            return this.Negotiate.WithModel(tariff);
+            return this.Negotiate.WithModel(tariff)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index"); ;
         }
 
         private object UpdateTariff(int id)
