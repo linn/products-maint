@@ -31,7 +31,14 @@
 
         private object UpdateSalesArticle(string id)
         {
-            throw new System.NotImplementedException();
+            this.RequiresAuthentication();
+            var resource = this.Bind<SalesArticleResource>();
+            var result = this.salesArticleForecastService.Update(id, resource);
+
+            return this.Negotiate
+                .WithModel(result)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object GetSalesArticles()
