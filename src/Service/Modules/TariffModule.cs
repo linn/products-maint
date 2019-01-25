@@ -2,7 +2,7 @@
 {
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
-    using Models;
+    using Linn.Products.Service.Models;
     using Nancy;
     using Nancy.ModelBinding;
 
