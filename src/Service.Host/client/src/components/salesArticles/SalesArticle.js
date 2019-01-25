@@ -110,6 +110,25 @@ class SalesArticle extends Component {
                             value={moment(this.state.salesArticle.forecastToDate).format('YYYY-MM-DD')}
                             onChange={this.handleFieldChange} />
                     </Grid>
+                    <Grid item xs={6}>
+                        <FormField
+                            config={{
+                                label: "Forecast Type"
+                            }}
+                            propertyName="forecastType"
+                            value={this.state.salesArticle.forecastType} 
+                            onChange={this.handleFieldChange} />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <FormField
+                            config={{
+                                label: "% of Root Product Sales",
+                                type: "number"
+                            }}
+                            propertyName="percentageOfRootProductSales"
+                            value={this.state.salesArticle.percentageOfRootProductSales}
+                            onChange={this.handleFieldChange} />
+                    </Grid>
                     <Grid item xs={12}>
                         <BackButton
                             backClick={this.handleCancelClick} />

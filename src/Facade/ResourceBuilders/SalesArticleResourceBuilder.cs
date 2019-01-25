@@ -17,6 +17,17 @@
                            Id = salesArticle.ArticleNumber,
                            ArticleNumber = salesArticle.ArticleNumber,
                            Description  = salesArticle.InvoiceDescription,
+                           CartonType = salesArticle.CartonType,
+                           ForecastType = salesArticle.ForecastType,
+                           ForecastFromDate = salesArticle.ForecastFromDate?.ToString("o"),
+                           ForecastToDate = salesArticle.ForecastToDate?.ToString("o"),
+                           PercentageOfRootProductSales = salesArticle.PercentageOfRootProductSales,
+                           EanCode = salesArticle.EanCode,
+                           SaDiscountFamily = salesArticle.SaDiscountFamily,
+                           PhaseInDate = salesArticle.PhaseInDate?.ToString("o"),
+                           PhaseOutDate = salesArticle.PhaseOutDate?.ToString("o"),
+                           TypeOfSale = salesArticle.TypeOfSale,
+                           PackingDescription = salesArticle.PackingDescription,
                            Links = this.BuildLinks(salesArticle).ToArray()
                        };
         }
