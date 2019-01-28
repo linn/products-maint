@@ -20,20 +20,24 @@ module.exports = {
     module: {
         rules: [
             {
-                exclude: [
-                    /\.html$/,
-                    /\.(js|jsx)$/,
-                    /\.css$/,
-                    /\.scss$/,
-                    /\.json$/,
-                    /\.svg$/
-                ],
+                exclude: [/\.html$/, /\.(js|jsx)$/, /\.css$/, /\.scss$/, /\.json$/, /\.svg$/],
                 use: {
                     loader: 'url-loader',
                     query: {
                         limit: 10000,
                         name: 'media/[name].[hash:8].[ext]'
                     }
+                }
+            },
+            {
+                enforce: 'pre',
+                test: /\.js$/,
+                exclude: /(node_modules)/,
+                use: {
+                    loader: 'eslint-loader'
+                },
+                options: {
+                    emitWarning: true
                 }
             },
             {
@@ -89,7 +93,8 @@ module.exports = {
         new webpack.NoEmitOnErrorsPlugin(), // do not emit compiled assets that include errors
         new webpack.DefinePlugin({
             'PROCESS.ENV': {
-                'appRoot': JSON.stringify('http://localhost:61798')
+                appRoot: JSON.stringify('http://localhost:61798')
             }
         })
-    ]};
+    ]
+};
