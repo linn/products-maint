@@ -5,6 +5,7 @@ import cartonDetailsReport from './cartonDetailsReport';
 import tariff from './tariff';
 import searchTariffs from './searchTariffs';
 import productRangesReport from './productRangesReport';
+import stockTriggerLevelsReport from './stockTriggerLevelReports';
 import salesProductsByProductRangeReport from './salesProductsByProductRangeReport';
 import cartonType from './cartonType';
 import sernosConfig from './sernosConfig';
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
     saCoreType,
     typesOfSale,
     typeOfSale,
+    stockTriggerLevelsReport,
     fetchError
 });
 
