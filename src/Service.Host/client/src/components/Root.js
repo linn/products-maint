@@ -45,7 +45,6 @@ class Root extends Component {
                     <Router history={history}>
                         <div>
                             <CssBaseline />
-                            <Navigation />
 
                             <Route path="/" render={() => { document.title = 'Products'; return false; }} />
                             <Route exact path="/" render={() => <Redirect to="/products/maint" />} />
