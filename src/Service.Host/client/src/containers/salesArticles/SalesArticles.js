@@ -12,7 +12,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     fetchItems: salesArticlesActions.search,
-    clearSearch: salesArticlesActions.clearSearch
+    clearSearch: salesArticlesActions.clearSearch,
+    classes: {}
+
 };
 
 export default connect(

@@ -15,6 +15,8 @@
     using Linn.Products.Proxy;
     using Linn.Products.Resources;
 
+    using IStockTriggerLevelReportService = Linn.Products.Domain.Linnapps.RemoteServices.IStockTriggerLevelReportService;
+
     public class ServiceModule : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -23,7 +25,8 @@
             builder.RegisterType<EanCodeReportService>().As<IEanCodeReportService>();
             builder.RegisterType<CartonDetailsReportService>().As<ICartonDetailsReportService>();
             builder.RegisterType<ProductReports>().As<IProductReports>();
-
+            builder.RegisterType<Domain.Linnapps.Reports.StockTriggerLevelReportService>().As<Domain.Linnapps.Reports.IStockTriggerLevelReportService>();
+           
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
             builder.RegisterType<TariffService>().As<ITariffService>();
@@ -33,6 +36,7 @@
             builder.RegisterType<SaCoreTypeService>().As<IFacadeService<SaCoreType, int, SaCoreTypeResource>>();
             builder.RegisterType<SernosConfigService>().As<IFacadeService<SernosConfig, string, SernosConfigResource>>();
             builder.RegisterType<TypeOfSaleService>().As<IFacadeService<TypeOfSale, string, TypeOfSaleResource>>();
+            builder.RegisterType<Facade.Services.StockTriggerLevelReportService>().As<Facade.Services.IStockTriggerLevelsService>();
             builder.RegisterType<SalesArticleForecastService>().As<IFacadeService<SalesArticle, string, SalesArticleResource>>();
 
             // rest client proxies
@@ -41,6 +45,9 @@
             builder.RegisterType<CartonProxy>().As<ICartonRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
             builder.RegisterType<ProductRangeProxy>().As<IProductRangeRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
             builder.RegisterType<SalesProductProxy>().As<ISalesProductRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
+
+            // Oracle proxies
+            builder.RegisterType<StockTriggerLevelReportProxy>().As<IStockTriggerLevelReportService>();
         }
     }
 }

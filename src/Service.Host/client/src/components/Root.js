@@ -19,6 +19,8 @@ import CartonDetailsOptions from './reportOptions/CartonDetailsOptions';
 import CartonDetails from '../containers/reports/CartonDetails';
 import ProductRangesOptions from '../containers/reportOptions/ProductRangesOptions';
 import ProductRanges from '../containers/reports/ProductRanges';
+import StockTriggerLevelParts from '../containers/reports/StockTriggerLevelParts';
+import StockTriggerLevelsByPart from '../containers/reports/StockTriggerLevelsByPart';
 import SalesProductsByProductRange from '../containers/reports/SalesProductsByProductRange';
 import CreateCartonType from '../containers/CreateCartonType';
 import CartonType from '../containers/CartonType';
@@ -97,6 +99,8 @@ class Root extends Component {
                             <Route exact path="/products/reports/product-ranges" component={ProductRangesOptions} />
                             <Route exact path="/products/reports/product-ranges/report" component={ProductRanges} />
                             <Route exact path="/products/reports/sales-products-by-product-range" component={SalesProductsByProductRange} />
+                            <Route exact path="/products/reports/stock-trigger-levels/:locationId" component={StockTriggerLevelParts} />
+                            <Route exact path="/products/reports/stock-trigger-levels/:locationId/:partNumber" component={StockTriggerLevelsByPart} />
                         </div>
                     </Router>
                 </OidcProvider>
