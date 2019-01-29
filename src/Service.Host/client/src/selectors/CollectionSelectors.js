@@ -8,6 +8,15 @@
         return storeItems.items ? storeItems.items : [];
     }
 
+    this.getSearchItems = (state) => {
+        const storeItems = state[itemType];
+        if (!storeItems) {
+            return [];
+        }
+
+        return storeItems.searchItems ? storeItems.searchItems : [];
+    }
+
     this.getItem = (state, id) => {
         const storeItems = this.getItems(state);
         return storeItems.find(a => a[idField] === id);
@@ -25,5 +34,14 @@
         }
 
         return storeItems.loading;
+    }
+
+    this.getSearchLoading = (state) => {
+        const storeItems = state[itemType];
+        if (!storeItems) {
+            return null;
+        }
+
+        return storeItems.searchLoading;
     }
 }

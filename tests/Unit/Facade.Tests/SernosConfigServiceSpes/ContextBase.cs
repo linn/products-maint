@@ -14,11 +14,14 @@
 
         protected IRepository<SernosConfig, string> SernosConfigRepository { get; private set; }
 
+        protected ITransactionManager TransactionManager { get; private set; }
+
         [SetUp]
         public void SetUpContext()
         {
             this.SernosConfigRepository = Substitute.For<IRepository<SernosConfig, string>>();
-            this.Sut = new SernosConfigService(this.SernosConfigRepository);
+            this.TransactionManager = Substitute.For<ITransactionManager>();
+            this.Sut = new SernosConfigService(this.SernosConfigRepository, this.TransactionManager);
         }
     }
 }

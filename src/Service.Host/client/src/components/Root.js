@@ -32,6 +32,8 @@ import TypesOfSale from '../containers/typesOfSale/TypesOfSale';
 import TypeOfSale from '../containers/typesOfSale/TypeOfSale';
 import CreateTypeOfSale from '../containers/typesOfSale/CreateTypeOfSale';
 import 'typeface-roboto';
+import SalesArticles from '../containers/salesArticles/SalesArticles';
+import SalesArticle from '../containers/salesArticles/SalesArticle';
 
 class Root extends Component {
     render() {
@@ -63,6 +65,11 @@ class Root extends Component {
 
                             <Route exact path="/products/reports/carton-details" component={CartonDetailsOptions} />
                             <Route exact path="/products/reports/carton-details/report" component={CartonDetails} />
+
+                            <Switch>
+                                <Route exact path="/products/maint/sales-articles" component={SalesArticles} />
+                                <Route exact path="/products/maint/sales-articles/details" component={SalesArticle} />
+                            </Switch>
 
                             <Switch>
                                 <Route exact path="/products/maint/carton-types/create" component={CreateCartonType} />

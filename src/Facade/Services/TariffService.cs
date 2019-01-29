@@ -44,7 +44,7 @@
                                  Description = resource.Description,
                                  TariffCode = resource.TariffCode,
                                  USTariffCode = resource.USTariffCode,
-                                 DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? null : (DateTime?)Convert.ToDateTime(resource.DateInvalid),
+                                 DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? (DateTime?)null : DateTime.Parse(resource.DateInvalid),
                                  Duty = resource.Duty
                              };
 

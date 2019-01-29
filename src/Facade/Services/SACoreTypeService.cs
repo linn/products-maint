@@ -9,11 +9,9 @@
 
     public class SaCoreTypeService : FacadeService<SaCoreType, int, SaCoreTypeResource>
     {
-        private readonly IRepository<SaCoreType, int> repository;
-
-        public SaCoreTypeService(IRepository<SaCoreType, int> repository) : base(repository)
+        public SaCoreTypeService(IRepository<SaCoreType, int> repository, ITransactionManager transactionManager)
+            : base(repository, transactionManager)
         {
-            this.repository = repository;
         }
 
         protected override SaCoreType CreateFromResource(SaCoreTypeResource resource)

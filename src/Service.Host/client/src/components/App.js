@@ -17,6 +17,9 @@ const App = ({ classes }) => (
             <ListItem component={Link} to="/products/maint/sernos-configs" button>
                 <Typography color="primary">Sernos Config Types</Typography>
             </ListItem>
+            <ListItem component={Link} to="/products/maint/sales-articles" button>
+                <Typography color="primary">Sales Article Forecast Details</Typography>
+            </ListItem>
         </List>
         <Typography variant="h6">Reports</Typography>
         <List>

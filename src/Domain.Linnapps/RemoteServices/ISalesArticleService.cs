@@ -6,6 +6,8 @@
 
     public interface ISalesArticleService
     {
+        SalesArticle GetSalesArticle(string id);
+
         IEnumerable<SalesArticle> Search(string searchTerm);
 
         IEnumerable<SalesArticle> GetByDiscountFamily(string discountFamily, bool includePhasedOut);

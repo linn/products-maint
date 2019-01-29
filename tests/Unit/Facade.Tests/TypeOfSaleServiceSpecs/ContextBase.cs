@@ -14,11 +14,14 @@
 
         protected IRepository<TypeOfSale, string> TypeOfSaleRepository { get; private set; }
 
+        protected ITransactionManager TransactionManager { get; private set; }
+
         [SetUp]
         public void SetUpContext()
         {
             this.TypeOfSaleRepository = Substitute.For<IRepository<TypeOfSale, string>>();
-            this.Sut = new TypeOfSaleService(this.TypeOfSaleRepository);
+            this.TransactionManager = Substitute.For<ITransactionManager>();
+            this.Sut = new TypeOfSaleService(this.TypeOfSaleRepository, this.TransactionManager);
         }
     }
 }

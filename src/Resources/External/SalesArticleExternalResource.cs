@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class SalesArticleResource
+    public class SalesArticleExternalResource
     {
         public string ArticleNumber { get; set; }
 
@@ -20,7 +20,7 @@
 
         public int MinimumOrderQty { get; set; }
 
-        public int OrderMulitple { get; set; }
+        public int OrderMultiple { get; set; }
 
         public DateTime? PhaseInDate { get; set; }
 
@@ -35,5 +35,13 @@
         public string EanCode { get; set; }
 
         public string CartonType { get; set; }
+
+        public decimal? PercentageOfRootProductSales { get; set; }
+
+        public DateTime? ForecastFromDate { get; set; }
+
+        public DateTime? ForecastToDate { get; set; }
+
+        public string ForecastType { get; set; }
     }
 }

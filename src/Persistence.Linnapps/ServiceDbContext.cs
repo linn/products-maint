@@ -14,11 +14,14 @@
 
         public DbSet<Tariff> Tariffs { get; set; }
 
+        public DbSet<SalesArticle> SalesArticles { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             this.BuildSaCoreType(builder);
             this.BuildSernosConfig(builder);
             this.BuildTariffs(builder);
+            this.BuildSalesArticles(builder);
 
             base.OnModelCreating(builder);
         }
@@ -70,6 +73,25 @@
             builder.Entity<Tariff>().Property(t => t.DateInvalid).HasColumnName("DATE_INVALID");
             builder.Entity<Tariff>().Property(t => t.Duty).HasColumnName("DUTY");
             builder.Entity<Tariff>().Property(t => t.USTariffCode).HasColumnName("US_TARIFF_CODE").HasMaxLength(14);
+        }
+
+        private void BuildSalesArticles(ModelBuilder builder)
+        {
+            builder.Entity<SalesArticle>().ToTable("SALES_ARTICLES");
+            builder.Entity<SalesArticle>().HasKey(t => t.ArticleNumber);
+            builder.Entity<SalesArticle>().Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER").HasMaxLength(14);
+            builder.Entity<SalesArticle>().Property(t => t.InvoiceDescription).HasColumnName("INVOICE_DESCRIPTION").HasMaxLength(100);
+            builder.Entity<SalesArticle>().Property(t => t.CartonType).HasColumnName("CARTON_TYPE").HasMaxLength(10);
+            builder.Entity<SalesArticle>().Property(t => t.EanCode).HasColumnName("EAN_CODE").HasMaxLength(13);
+            builder.Entity<SalesArticle>().Property(t => t.PackingDescription).HasColumnName("PACKING_DESCRIPTION").HasMaxLength(50);
+            builder.Entity<SalesArticle>().Property(t => t.SaDiscountFamily).HasColumnName("SA_DISCOUNT_FAMILY").HasMaxLength(10);
+            builder.Entity<SalesArticle>().Property(t => t.TypeOfSale).HasColumnName("TYPE_OF_SALE").HasMaxLength(10);
+            builder.Entity<SalesArticle>().Property(t => t.ForecastType).HasColumnName("FORECAST_TYPE").HasMaxLength(4);
+            builder.Entity<SalesArticle>().Property(t => t.ForecastFromDate).HasColumnName("FORECAST_FROM_DATE");
+            builder.Entity<SalesArticle>().Property(t => t.ForecastToDate).HasColumnName("FORECAST_TO_DATE");
+            builder.Entity<SalesArticle>().Property(t => t.PhaseInDate).HasColumnName("PHASE_IN_DATE");
+            builder.Entity<SalesArticle>().Property(t => t.PhaseOutDate).HasColumnName("PHASE_OUT_DATE");
+            builder.Entity<SalesArticle>().Property(t => t.PercentageOfRootProductSales).HasColumnName("PERCENTAGE_SALES");
         }
     }
 }
