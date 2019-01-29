@@ -26,6 +26,7 @@
             this.salesArticleProxyService = salesArticleProxyService;
 
             this.Get("/products/maint/sales-articles", _ => this.GetSalesArticles());
+            this.Get("/products/maint/sales-articles/details", _ => this.GetApp());
             this.Put("/products/maint/sales-articles/{id*}", parameters => this.UpdateSalesArticle(parameters.id));
         }
 
@@ -57,6 +58,11 @@
                 .WithModel(new SuccessResult<IEnumerable<SalesArticle>>(this.salesArticleProxyService.Search(resource.SearchTerm)))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
+        }
+
+        private object GetApp()
+        {
+            return this.Negotiate.WithModel(ApplicationSettings.Get()).WithView("Index");
         }
     }
 }
