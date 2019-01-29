@@ -14,6 +14,7 @@ const mapDispatchToProps = {
     fetchItems: salesArticlesActions.search,
     clearSearch: salesArticlesActions.clearSearch,
     classes: {}
+
 };
 
 export default connect(

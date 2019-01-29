@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router';
 import { OidcProvider } from 'redux-oidc';
 import { Router } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import history from '../history';
 import Navigation from './Navigation';
 import App from './App';
@@ -14,7 +15,7 @@ import UpdateTariff from '../containers/UpdateTariff';
 import userManager from '../helpers/userManager';
 import EanCodesOptions from '../containers/reportOptions/EanCodesOptions';
 import EanCodes from '../containers/reports/EanCodes';
-import CartonDetailsOptions from '../components/reportOptions/CartonDetailsOptions';
+import CartonDetailsOptions from './reportOptions/CartonDetailsOptions';
 import CartonDetails from '../containers/reports/CartonDetails';
 import ProductRangesOptions from '../containers/reportOptions/ProductRangesOptions';
 import ProductRanges from '../containers/reports/ProductRanges';
@@ -29,11 +30,12 @@ import CreateSernosConfig from '../containers/sernosConfig/CreateSernosConfig';
 import SaCoreTypes from '../containers/saCoreType/SaCoreTypes';
 import SaCoreType from '../containers/saCoreType/SaCoreType';
 import CreateSaCoreType from '../containers/saCoreType/CreateSaCoreType';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TypesOfSale from '../containers/typesOfSale/TypesOfSale';
 import TypeOfSale from '../containers/typesOfSale/TypeOfSale';
 import CreateTypeOfSale from '../containers/typesOfSale/CreateTypeOfSale';
 import 'typeface-roboto';
+import SalesArticles from '../containers/salesArticles/SalesArticles';
+import SalesArticle from '../containers/salesArticles/SalesArticle';
 
 class Root extends Component {
     render() {
@@ -45,7 +47,6 @@ class Root extends Component {
                     <Router history={history}>
                         <div>
                             <CssBaseline />
-                            <Navigation />
 
                             <Route path="/" render={() => { document.title = 'Products'; return false; }} />
                             <Route exact path="/" render={() => <Redirect to="/products/maint" />} />
@@ -65,6 +66,11 @@ class Root extends Component {
 
                             <Route exact path="/products/reports/carton-details" component={CartonDetailsOptions} />
                             <Route exact path="/products/reports/carton-details/report" component={CartonDetails} />
+
+                            <Switch>
+                                <Route exact path="/products/maint/sales-articles" component={SalesArticles} />
+                                <Route exact path="/products/maint/sales-articles/:articleNumber" component={SalesArticle} />
+                            </Switch>
 
                             <Switch>
                                 <Route exact path="/products/maint/carton-types/create" component={CreateCartonType} />
