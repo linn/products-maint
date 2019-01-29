@@ -22,7 +22,7 @@ namespace Linn.Products.Service.Tests.StockTriggerLevelReportModuleSpecs
         public void SetUp()
         {
             var results = new ResultsModel(new[] { "col1 " });
-            this.StockTriggerLevelReportService.GetPartDataAtLocation(18104)
+            this.StockTriggerLevelsService.GetPartDataAtLocation(18104)
                 .Returns(new SuccessResult<ResultsModel>(results)
                              {
                                  Data = new ResultsModel { ReportTitle = new NameModel("title") }
@@ -45,7 +45,7 @@ namespace Linn.Products.Service.Tests.StockTriggerLevelReportModuleSpecs
         [Test]
         public void ShouldCallService()
         {
-            this.StockTriggerLevelReportService.Received().GetPartDataAtLocation(18104);
+            this.StockTriggerLevelsService.Received().GetPartDataAtLocation(18104);
         }
 
         [Test]

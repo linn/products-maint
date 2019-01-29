@@ -18,17 +18,17 @@
 
     public abstract class ContextBase : NancyContextBase
     {
-        protected Facade.Services.IStockTriggerLevelReportService StockTriggerLevelReportService { get; private set; }
+        protected Facade.Services.IStockTriggerLevelsService StockTriggerLevelsService { get; private set; }
 
         [SetUp]
         public void EstablishContext()
         {
-            this.StockTriggerLevelReportService = Substitute.For<Facade.Services.IStockTriggerLevelReportService>();
+            this.StockTriggerLevelsService = Substitute.For<Facade.Services.IStockTriggerLevelsService>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
                 {
-                    with.Dependency(this.StockTriggerLevelReportService);
+                    with.Dependency(this.StockTriggerLevelsService);
                     with.Dependency<IResourceBuilder<ResultsModel>>(new ResultsModelResourceBuilder());
                     with.Module<StockTriggerLevelReportModule>();
                     with.ResponseProcessor<ResultsModelJsonResponseProcessor>();

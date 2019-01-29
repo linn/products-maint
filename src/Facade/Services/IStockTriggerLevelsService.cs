@@ -5,7 +5,7 @@
     using Linn.Common.Facade;
     using Linn.Common.Reporting.Models;
 
-    public interface IStockTriggerLevelReportService
+    public interface IStockTriggerLevelsService
     {
         IResult<ResultsModel> GetStockTriggerLevelsForPartAtLocation(int locationId, string partNumber);
 
