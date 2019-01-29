@@ -21,7 +21,7 @@
             var table = this.databaseService.GetStockTriggerLevelsForPartAtLocation(locationId, partNumber);
             var results = new ResultsModel(new[] {"Pallet Number", "Location Code", "Qty Available", "Qty Allocated", "Stock Rotation Date"})
                               {
-                                  ReportTitle = new NameModel($"Stock Trigger Levels for Part {partNumber} at Location {locationId}")
+                                  ReportTitle = new NameModel($"Part {partNumber} Availability")
                               };
 
             results.SetColumnType(0, GridDisplayType.Value);
@@ -50,7 +50,7 @@
             var table = this.databaseService.GetPartDataAtLocation(locationId);
             var results = new ResultsModel(new[] { "Trigger Level", "Max Capacity", "Qty At Location" })
                               {
-                                  ReportTitle = new NameModel($"Stock Trigger Levels at Location {locationId}")
+                                  ReportTitle = new NameModel($"Stock Trigger Levels")
                               };
 
             results.SetColumnType(0, GridDisplayType.TextValue);
