@@ -4,20 +4,17 @@ import initialiseOnMount from '../common/initialiseOnMount';
 import salesArticleActions from '../../actions/salesArticle';
 import { getSingleErrorMessage } from '../../selectors/fetchErrorSelectors';
 import salesArticleSelectors from '../../selectors/salesArticleSelectors';
-import queryString from 'query-string';
 
-const getArticle = location => (location.search ? queryString.parse(location.search) : null);
-
-const mapStateToProps = (state, { location }) => ({
+const mapStateToProps = (state, { match }) => ({
     salesArticle: salesArticleSelectors.getItem(state),
-    id: getArticle(location).articleNumber,
+    id: match.params.articleNumber,
     editStatus: salesArticleSelectors.getEditStatus(state),
     loading: salesArticleSelectors.getLoading(state),
     errorMessage: getSingleErrorMessage(state)
 });
 
 const initialise = ({ id }) => dispatch => {
-    dispatch(salesArticleActions.fetchByQueryString('articleNumber', id));
+    dispatch(salesArticleActions.fetch(id));
 };
 
 const mapDispatchToProps = {

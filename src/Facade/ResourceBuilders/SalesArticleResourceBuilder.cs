@@ -1,5 +1,6 @@
 ﻿namespace Linn.Products.Facade.ResourceBuilders
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -36,7 +37,7 @@
 
         public string GetLocation(SalesArticle salesArticle)
         {
-            return $"/products/maint/sales-articles?articleNumber={salesArticle.ArticleNumber}";
+            return $"/products/maint/sales-articles/{Uri.EscapeDataString(salesArticle.ArticleNumber)}";
         }
 
         private IEnumerable<LinkResource> BuildLinks(SalesArticle salesArticle)
