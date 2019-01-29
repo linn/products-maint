@@ -26,7 +26,6 @@
             this.salesArticleProxyService = salesArticleProxyService;
 
             this.Get("/products/maint/sales-articles", _ => this.GetSalesArticles());
-            this.Get("/products/maint/sales-articles/details", _ => this.GetSalesArticles());
             this.Put("/products/maint/sales-articles/{id*}", parameters => this.UpdateSalesArticle(parameters.id));
         }
 
