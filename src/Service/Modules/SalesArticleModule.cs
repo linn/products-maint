@@ -26,7 +26,16 @@
             this.salesArticleProxyService = salesArticleProxyService;
 
             this.Get("/products/maint/sales-articles", _ => this.GetSalesArticles());
+            this.Get("/products/maint/sales-articles/{id*}", parameters => this.GetSalesArticle(parameters.id));
             this.Put("/products/maint/sales-articles/{id*}", parameters => this.UpdateSalesArticle(parameters.id));
+        }
+
+        private object GetSalesArticle(string id)
+        {
+            return this.Negotiate
+                .WithModel(this.salesArticleForecastService.GetById(id))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object UpdateSalesArticle(string id)

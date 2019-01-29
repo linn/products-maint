@@ -14,11 +14,7 @@ const styles = theme => ({
 const SalesArticles = ({ items, classes, fetchItems, loading, clearSearch }) => {
     const forecastItems = items.map(item => ({
         ...item,
-        name: item.articleNumber,
-        href: `${item.href.substring(0, item.href.indexOf('?'))}/details?${item.href.substring(
-            item.href.indexOf('?') + 1,
-            item.href.length
-        )}`
+        name: item.articleNumber
     }));
 
     return (

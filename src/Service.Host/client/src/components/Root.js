@@ -68,7 +68,7 @@ class Root extends Component {
 
                             <Switch>
                                 <Route exact path="/products/maint/sales-articles" component={SalesArticles} />
-                                <Route exact path="/products/maint/sales-articles/details" component={SalesArticle} />
+                                <Route exact path="/products/maint/sales-articles/:articleNumber" component={SalesArticle} />
                             </Switch>
 
                             <Switch>
