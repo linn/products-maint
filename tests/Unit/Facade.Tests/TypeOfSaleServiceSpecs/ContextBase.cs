@@ -1,8 +1,8 @@
 ﻿namespace Linn.Products.Facade.Tests.TypeOfSaleServiceSpecs
 {
+    using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Facade.Services;
-    using Linn.Products.Persistence.Linnapps;
 
     using NSubstitute;
 
@@ -14,11 +14,14 @@
 
         protected IRepository<TypeOfSale, string> TypeOfSaleRepository { get; private set; }
 
+        protected ITransactionManager TransactionManager { get; private set; }
+
         [SetUp]
         public void SetUpContext()
         {
             this.TypeOfSaleRepository = Substitute.For<IRepository<TypeOfSale, string>>();
-            this.Sut = new TypeOfSaleService(this.TypeOfSaleRepository);
+            this.TransactionManager = Substitute.For<ITransactionManager>();
+            this.Sut = new TypeOfSaleService(this.TypeOfSaleRepository, this.TransactionManager);
         }
     }
 }

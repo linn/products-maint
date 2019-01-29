@@ -1,7 +1,6 @@
 ﻿namespace Linn.Products.Domain.Linnapps.Products
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
 
     public class SalesArticle
     {
@@ -17,13 +16,30 @@
 
         public string SaDiscountFamily { get; set; }
 
-        [Display(Name = "Phased In")]
-        [DataType(DataType.Date)] public DateTime? PhaseInDate { get; set; }
+        public DateTime? PhaseInDate { get; set; }
 
-        [Display(Name = "Phased Out")]
-        [DataType(DataType.Date)]
         public DateTime? PhaseOutDate { get; set; }
 
         public string CartonType { get; set; }
+
+        public decimal? PercentageOfRootProductSales { get; set; }
+
+        public DateTime? ForecastFromDate { get; set; }
+
+        public DateTime? ForecastToDate { get; set; }
+
+        public string ForecastType { get; set; }
+
+        public void UpdateForecastInformation(
+            string forecastType,
+            DateTime? forecastFromDate,
+            DateTime? forecastToDate,
+            decimal? percentageOfRootProductSales)
+        {
+            this.ForecastType = forecastType;
+            this.ForecastFromDate = forecastFromDate;
+            this.ForecastToDate = forecastToDate;
+            this.PercentageOfRootProductSales = percentageOfRootProductSales;
+        }
     }
 }

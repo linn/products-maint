@@ -13,6 +13,6 @@
 
         public string DateInvalid { get; set; }
 
-        public decimal Duty { get; set; }
+        public decimal? Duty { get; set; }
     }
 }

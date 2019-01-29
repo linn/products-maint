@@ -1,15 +1,15 @@
 ﻿import React, { Component } from 'react';
 import { Loading } from '@linn-it/linn-form-components-library';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Paper } from '@material-ui/core';
 import { ReportTable } from '@linn-it/linn-form-components-library';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = () => ({
     root: {
-        paddingLeft: "20%",
-        paddingRight: "20%",
-    },
+        margin: 40,
+        padding: 40
+    }
 });
 
 class CartonDetails extends Component {
@@ -17,7 +17,7 @@ class CartonDetails extends Component {
         const { reportData, loading, classes } = this.props;
 
         return (
-            <div className={classes.root}>
+            <Paper className={classes.root}>
                 <Grid container spacing={24} justify="center">
                     <Grid item xs={12}>
                         <Typography variant='h4' gutterBottom>Carton Details</Typography>
@@ -32,7 +32,7 @@ class CartonDetails extends Component {
                         <ReportTable reportData={reportData} showTotals={false} placeholderRows={10} placeholderColumns={3} showTitle={false} />
                     </Grid>
                 </Grid>
-            </div>
+            </Paper>
         );
     }
 }

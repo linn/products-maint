@@ -14,6 +14,6 @@
 
         public DateTime? DateInvalid { get; set; }
 
-        public decimal Duty { get; set; }
+        public decimal? Duty { get; set; }
     }
 }

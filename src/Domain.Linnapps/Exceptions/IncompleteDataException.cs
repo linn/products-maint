@@ -2,6 +2,8 @@
 {
     using System;
 
+    using Linn.Common.Domain.Exceptions;
+
     public class IncompleteDataException : DomainException
     {
         public IncompleteDataException(string message)

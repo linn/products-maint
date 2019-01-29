@@ -1,8 +1,8 @@
 ﻿namespace Linn.Products.Service.ResponseProcessors
 {
-    using Common.Facade;
-    using Common.Nancy.Facade;
-    using Domain.Linnapps.Products;
+    using Linn.Common.Facade;
+    using Linn.Common.Nancy.Facade;
+    using Linn.Products.Domain.Linnapps.Products;
 
     public class TariffResponseProcessor : JsonResponseProcessor<Tariff>
     {

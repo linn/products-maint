@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Common.Facade;
-    using Domain.Linnapps.Products;
+
+    using Linn.Common.Facade;
+    using Linn.Products.Domain.Linnapps.Products;
 
     public class TariffsResourceBuilder : IResourceBuilder<IEnumerable<Tariff>>
     {

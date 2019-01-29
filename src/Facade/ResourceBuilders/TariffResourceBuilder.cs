@@ -2,10 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Common.Facade;
-    using Common.Resources;
-    using Domain.Linnapps.Products;
-    using Resources;
+
+    using Linn.Common.Facade;
+    using Linn.Common.Resources;
+    using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Resources;
 
     public class TariffResourceBuilder : IResourceBuilder<Tariff>
     {
@@ -22,11 +23,11 @@
             };
         }
 
+        public string GetLocation(Tariff tariff) => $"/products/maint/tariffs/{tariff.Id}";
+
         private IEnumerable<LinkResource> BuildLinks(Tariff tariff)
         {
             yield return new LinkResource("self", this.GetLocation(tariff));
         }
-
-        public string GetLocation(Tariff tariff) => $"/products/maint/tariffs/{tariff.Id}";
     }
 }
