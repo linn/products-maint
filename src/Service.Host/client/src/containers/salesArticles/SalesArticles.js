@@ -1,6 +1,6 @@
 ﻿import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import SalesArticles from '../../components/salesArticles/SalesArticles';
-import { withRouter } from 'react-router'
 import salesArticlesActions from '../../actions/salesArticles';
 import initialiseOnMount from '../common/initialiseOnMount';
 import salesArticlesSelectors from '../../selectors/salesArticlesSelectors';
@@ -15,4 +15,7 @@ const mapDispatchToProps = {
     clearSearch: salesArticlesActions.clearSearch
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(initialiseOnMount(SalesArticles)));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(initialiseOnMount(SalesArticles)));
