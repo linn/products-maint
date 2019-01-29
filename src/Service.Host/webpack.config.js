@@ -34,10 +34,10 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
                 use: {
-                    loader: 'eslint-loader'
-                },
-                options: {
-                    emitWarning: true
+                    loader: 'eslint-loader',
+                    options: {
+                        emitWarning: true
+                    }
                 }
             },
             {

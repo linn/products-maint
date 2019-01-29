@@ -26,7 +26,7 @@
 
             return this.Negotiate.WithModel(tariffs)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                .WithView("Index"); ;
+                .WithView("Index");
         }
 
         private object GetTariff(int id)
@@ -34,7 +34,7 @@
             var tariff = this.tariffService.GetTariff(id);
             return this.Negotiate.WithModel(tariff)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                .WithView("Index"); ;
+                .WithView("Index");
         }
 
         private object UpdateTariff(int id)

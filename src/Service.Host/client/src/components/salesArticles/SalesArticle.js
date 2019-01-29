@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Loading } from '../common/Loading';
 import moment from 'moment';
-import { Grid, Typography } from '@material-ui/core';
-import { BackButton, SaveCancelButtons, FormField, Title } from '@linn-it/linn-form-components-library';
+import { Grid } from '@material-ui/core';
+import {
+    BackButton,
+    SaveCancelButtons,
+    FormField,
+    Title
+} from '@linn-it/linn-form-components-library';
+import { Loading } from '../common/Loading';
 
 const styles = () => ({
     root: {
@@ -17,7 +22,6 @@ const styles = () => ({
 });
 
 class SalesArticle extends Component {
-    
     constructor(props) {
         super(props);
         this.state = { salesArticle: this.props.salesArticle, editStatus: this.props.editStatus || "view" };
@@ -58,7 +62,7 @@ class SalesArticle extends Component {
     }
 
     render() {
-        const { salesArticle, loading, errorMessage, addSalesArticle, classes } = this.props;
+        const { salesArticle, loading, errorMessage, classes } = this.props;
 
         if (loading || !salesArticle) {
             return (
@@ -69,9 +73,9 @@ class SalesArticle extends Component {
             <div className={classes.root}>
                 <Grid container spacing={24}>
                     <Grid item xs={12} >
-                        <Title text="Sales Article Details" /> 
+                        <Title text="Sales Article Details" />
                     </Grid>
-                    <Grid item xs={6}  >
+                    <Grid item xs={6} >
                         <FormField
                             config={{
                                 label: "Article Number",
@@ -80,7 +84,7 @@ class SalesArticle extends Component {
                             propertyName="id"
                             value={this.state.salesArticle.articleNumber} />
                     </Grid>
-                    <Grid item xs={6}  >
+                    <Grid item xs={6}>
                         <FormField
                             propertyName="description"
                             config={{
@@ -88,7 +92,8 @@ class SalesArticle extends Component {
                                 disabled: true
                             }}
                             propertyName="description"
-                            value={this.state.salesArticle.description} />
+                            value={this.state.salesArticle.description}
+                        />
                     </Grid>
                     <Grid item xs={6}>
                         <FormField
@@ -141,6 +146,6 @@ class SalesArticle extends Component {
             </div>
         );
     }
-};
+}
 
 export default withStyles(styles)(SalesArticle);
