@@ -11,29 +11,21 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 const styles = theme => ({
   root: {
     width: "100%",
-    fontSize: '12px !important'
+    fontSize: '14px !important'
 
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4,
   },
-  titles: {
-    paddingLeft: theme.spacing.unit * 4,
-    fontSize: '12px !important',
-    fontWeight: "bold !important",
-  },
-  noPad: {
-    padding: "0px !important"
-  }
+
 });
 
 const theme = createMuiTheme({
   overrides: {
     MuiTypography: {
       root: {
-        fontSize: "12px !important",
+        fontSize: "14px !important",
       },
-     
     },
   }
 });
@@ -61,7 +53,7 @@ class MenuList extends React.Component {
           {this.state.open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
 
-        <Collapse in={this.state.open} timeout="auto" unmountOnExit className={classes.noPad}>
+        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
         <MuiThemeProvider theme={theme}>
           <List component="div" disablePadding>
             {entries.map((entry, index) => (

@@ -9,7 +9,7 @@ const styles = theme => ({
     root: {
         position: "relative",
         width: "100%",
-        font: "12px!important"
+        font: "14px!important"
     },
     paper: {
         height: "auto",
@@ -24,7 +24,7 @@ const theme = createMuiTheme({
     overrides: {
       MuiTypography: {
         root: {
-          fontSize: "12px !important",
+          fontSize: "14px !important",
         },
        
       },

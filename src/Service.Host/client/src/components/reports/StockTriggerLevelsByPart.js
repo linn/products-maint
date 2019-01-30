@@ -8,8 +8,8 @@ import { ErrorCard, Title } from '@linn-it/linn-form-components-library';
 
 const styles = theme => ({
     root: {
-        paddingLeft: "1%",
-        paddingRight: "1%",
+        paddingLeft: "10%",
+        paddingRight: "10%",
         paddingTop: "30px",
         paddingBottom: "30px"
     },

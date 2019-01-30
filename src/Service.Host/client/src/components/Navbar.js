@@ -129,6 +129,7 @@ class Navbar extends React.Component {
                                         />
                                 ))}
                             </Tabs>
+                            
                         </AppBar>
                         {this.state.lists && (this.state.value || this.state.value === 0) ?
                             <TabContainer className={classes.container}>
