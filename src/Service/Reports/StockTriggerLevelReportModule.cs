@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Service.Modules
 {
     using Linn.Products.Facade.Services;
+    using Linn.Products.Service.Models;
 
     using Nancy;
 
@@ -19,13 +20,15 @@
         {
             var results =
                 this.stockTriggerLevelsService.GetStockTriggerLevelsForPartAtLocation(locationId, partNumber);
-            return this.Negotiate.WithModel(results);
+            return this.Negotiate.WithModel(results).WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object GetPartDataAtLocation(int locationId)
         {
             var results = this.stockTriggerLevelsService.GetPartDataAtLocation(locationId);
-            return this.Negotiate.WithModel(results);
+            return this.Negotiate.WithModel(results).WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
     }
 }
