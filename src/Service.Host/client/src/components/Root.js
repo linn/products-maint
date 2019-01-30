@@ -105,6 +105,7 @@ class Root extends Component {
                             <Route exact path="/products/reports/product-ranges" component={ProductRangesOptions} />
                             <Route exact path="/products/reports/product-ranges/report" component={ProductRanges} />
                             <Route exact path="/products/reports/sales-products-by-product-range" component={SalesProductsByProductRange} />
+
                             <Route exact path="/products/reports/parts-at-location/:locationId" component={StockTriggerLevelParts} />
                             <Route exact path="/products/reports/stock-trigger-levels/:locationId/:partNumber" component={StockTriggerLevelsByPart} />
                         </div>

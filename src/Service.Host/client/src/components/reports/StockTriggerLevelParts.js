@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { Loading } from '@linn-it/linn-form-components-library';
 import { Grid, Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+
 import { ReportTable, Title, ErrorCard } from '@linn-it/linn-form-components-library';
 
 const styles = theme => ({
     root: {
         margin: 40,
         padding: 40,
+
         paddingTop: "30px",
         paddingBottom: "30px"
     },

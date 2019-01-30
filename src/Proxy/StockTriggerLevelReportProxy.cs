@@ -11,12 +11,14 @@
         private readonly string host = ConfigurationManager.Configuration["DATABASE_HOST"];
         private readonly string userId = ConfigurationManager.Configuration["DATABASE_USER_ID"];
         private readonly string password = ConfigurationManager.Configuration["DATABASE_PASSWORD"];
+
         private readonly string databaseName = ConfigurationManager.Configuration["DATABASE_NAME"];
 
         public DataTable GetStockTriggerLevelsForPartAtLocation(int locationId, string partNumber)
         {
             var dataSource = $"(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT=1521))(CONNECT_DATA=(SERVICE_NAME={this.databaseName})(SERVER=dedicated)))";
             var connection = new OracleConnection($"Data Source={dataSource};User Id={userId};Password={password};");
+
             var sql =
             $@"select sl.part_number,
             sl.pallet_number, sl.location_id, l.location_code,
@@ -49,6 +51,7 @@
         {
             var dataSource = $"(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT=1521))(CONNECT_DATA=(SERVICE_NAME={this.databaseName})(SERVER=dedicated)))";
             var connection = new OracleConnection($"Data Source={dataSource};User Id={userId};Password={password};");
+
             var sql =
                $@"select stl.stl_id, stl.part_number, stl.trigger_level, stl.maximum_capacity,
             stl.location_id, stl.pallet_number,
