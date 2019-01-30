@@ -8,11 +8,12 @@ import { ErrorCard, Title } from '@linn-it/linn-form-components-library';
 
 const styles = theme => ({
     root: {
-        paddingLeft: "1%",
-        paddingRight: "1%",
+        margin: 40,
+        padding: 40,
         paddingTop: "30px",
         paddingBottom: "30px"
     },
+    
     message: {
         paddingTop: "100px",
         paddingBottom: "100px"
@@ -24,7 +25,8 @@ class StockTriggerLevelsByPart extends Component {
     handleBackClick = () => {
         const { history } = this.props;
         let locationId = this.props.match.params.locationId;
-        history.push('/products/reports/stock-trigger-levels/' + locationId);
+
+        history.push('/products/reports/parts-at-location/' + locationId);
     }
 
     render() {
