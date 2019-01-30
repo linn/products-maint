@@ -1028,6 +1028,11 @@
                   "title": "Stock Profile By Part",
                   "href": "/stores/stock/StockGraphByPart.aspx",
                   "showInMenu": false
+                },
+                 {
+                  "title": "SMT Top Up Report",
+                  "href": "/products/reports/parts-at-location/18104",
+                  "showInMenu": true
                 }
               ]
             },
