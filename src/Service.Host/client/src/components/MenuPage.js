@@ -30,8 +30,8 @@ const theme = createMuiTheme({
       },
       MuiListItem: {
         root: {
-          paddingTop: "0px !important",
-          paddingBottom: "0px !important"
+          paddingTop: "10px !important",
+          paddingBottom: "10px !important"
         },
        
       },

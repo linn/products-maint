@@ -25,7 +25,7 @@ class StockTriggerLevelsByPart extends Component {
     handleBackClick = () => {
         const { history } = this.props;
         let locationId = this.props.match.params.locationId;
-        history.push('/products/reports/stock-trigger-levels/' + locationId);
+        history.push('/products/reports/parts-at-location/' + locationId);
     }
 
     render() {

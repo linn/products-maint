@@ -123,7 +123,7 @@ class Navbar extends React.Component {
                                 {topLevels.map((item, index) => (
                                     <Tab 
                                         key={index} 
-                                        classes={index == topLevels.length -1 ? { root: classes.tabRight} : {root: classes.tab}} 
+                                        classes={{root: classes.tab}} 
                                         label={<span className={classes.tabLabel}>{item.title}</span>} 
                                         selected={false} 
                                         />
