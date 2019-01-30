@@ -4,6 +4,8 @@ import configureStore from './configureStore';
 import Root from './components/Root';
 import { AppContainer } from 'react-hot-loader';
 import userManager from './helpers/userManager';
+import Navigation from './components/Navigation';
+
 
 import 'typeface-roboto';
 
@@ -13,9 +15,11 @@ const user = store.getState().oidc.user;
 
 const render = Component => {
     ReactDOM.render(
+       
         <AppContainer>
             <Component store={store} />
-        </AppContainer>,
+        </AppContainer>
+        ,
         document.getElementById('root')
     );
 };

@@ -42,10 +42,16 @@ class Root extends Component {
         const { store } = this.props;
 
         return (
+            <div>
+            <Navigation />
+            <div style={{paddingTop: "40px"}}>
             <Provider store={store}>
                 <OidcProvider store={store} userManager={userManager}>
+             
+               
                     <Router history={history}>
                         <div>
+                           
                             <CssBaseline />
 
                             <Route path="/" render={() => { document.title = 'Products'; return false; }} />
@@ -103,8 +109,10 @@ class Root extends Component {
                             <Route exact path="/products/reports/stock-trigger-levels/:locationId/:partNumber" component={StockTriggerLevelsByPart} />
                         </div>
                     </Router>
+                
                 </OidcProvider>
-            </Provider>
+                
+            </Provider> </div> </div>
         );
 
     }
