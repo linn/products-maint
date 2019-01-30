@@ -6,8 +6,8 @@ import { ReportTable, Title, ErrorCard } from '@linn-it/linn-form-components-lib
 
 const styles = theme => ({
     root: {
-        paddingLeft: "10%",
-        paddingRight: "10%",
+        margin: 40,
+        padding: 40,
         paddingTop: "30px",
         paddingBottom: "30px"
     },
