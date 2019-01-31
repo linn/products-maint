@@ -25,7 +25,7 @@ const fetchError = (state = defaultState, action) => {
                 { statusText: action.payload }
     }
 
-    return state;
+    return defaultState;
 }
 
 export default fetchError;
