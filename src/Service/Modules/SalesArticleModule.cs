@@ -42,6 +42,7 @@
         {
             this.RequiresAuthentication();
             var resource = this.Bind<SalesArticleResource>();
+
             var result = this.salesArticleForecastService.Update(id, resource);
 
             return this.Negotiate
