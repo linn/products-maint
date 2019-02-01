@@ -5,13 +5,12 @@ import { Grid, Paper } from '@material-ui/core';
 import {
     BackButton,
     SaveCancelButtons,
-//    InputField,
+    InputField,
     Title,
     ErrorCard
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import { Loading } from '../common/Loading';
-import InputField from './InputField';
 
 const styles = () => ({
     root: {
@@ -57,12 +56,7 @@ class SalesArticle extends Component {
         const { id, updateSalesArticle } = this.props;
         const { salesArticle } = this.state;
 
-        updateSalesArticle(id, {
-            ...salesArticle,
-            percentageOfRootProductSales: salesArticle.percentageOfRootProductSales
-                ? parseFloat(salesArticle.percentageOfRootProductSales)
-                : null
-        });
+        updateSalesArticle(id, salesArticle);
     };
 
     handleResetClick = () => {
@@ -84,7 +78,7 @@ class SalesArticle extends Component {
         return editStatus === 'view';
     }
 
-    handleFieldChange(newValue, propertyName) {
+    handleFieldChange(propertyName, newValue) {
         this.setState({ editStatus: 'edit' });
         this.setState({ salesArticle: { ...this.state.salesArticle, [propertyName]: newValue } });
     }
