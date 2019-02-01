@@ -25,24 +25,6 @@
             this.rootUri = rootUri;
         }
 
-        public SalesArticle GetSalesArticle(string id)
-        {
-            var uri = new Uri($"{this.rootUri}/linnapps-api/sales-articles?articleNumber={id}", UriKind.RelativeOrAbsolute);
-            var response = this.restClient.Get(
-                CancellationToken.None,
-                uri,
-                new Dictionary<string, string>(),
-                DefaultHeaders.JsonGetHeaders()).Result;
-
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                throw new ProxyException($"Error trying to get sales article {id}");
-            }
-
-            var json = new JsonSerializer();
-            return json.Deserialize<SalesArticle>(response.Value);
-        }
-
         public IEnumerable<SalesArticle> Search(string searchTerm)
         {
             var uri = new Uri($"{this.rootUri}/linnapps-api/sales-articles/search?searchTerm={searchTerm}", UriKind.RelativeOrAbsolute);
