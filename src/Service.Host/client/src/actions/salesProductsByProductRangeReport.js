@@ -1,10 +1,12 @@
-﻿import config from '../config';
+﻿import { CALL_API } from 'redux-api-middleware';
+import config from '../config';
 import * as actionTypes from './index';
-import { CALL_API } from 'redux-api-middleware';
 
-export const fetchSalesProductsByProductRangeReport = (productRangeId, includePhasedOut) => ({
+export default (productRangeId, includePhasedOut) => ({
     [CALL_API]: {
-        endpoint: `${config.appRoot}/products/reports/sales-products-by-product-range?includePhasedOut=${includePhasedOut}&productRangeId=${productRangeId}`,
+        endpoint: `${
+            config.appRoot
+        }/products/reports/sales-products-by-product-range?includePhasedOut=${includePhasedOut}&productRangeId=${productRangeId}`,
         method: 'GET',
         options: { requiresAuth: true },
         headers: {
@@ -28,4 +30,3 @@ export const fetchSalesProductsByProductRangeReport = (productRangeId, includePh
         ]
     }
 });
-

@@ -1,16 +1,16 @@
 ﻿import { connect } from 'react-redux';
 import CartonDetails from '../../components/reports/CartonDetails';
 import initialiseOnMount from '../common/initialiseOnMount';
-import { fetchCartonDetailsReport } from '../../actions/cartonDetailsReport';
+import fetchCartonDetailsReport from '../../actions/cartonDetailsReport';
 import config from '../../config';
 import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
 
 const reportName = 'cartonDetailsReport';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
     reportData: getReportData(state, reportName),
     loading: getReportLoading(state, reportName),
-    config 
+    config
 });
 
 const initialise = () => dispatch => {
@@ -21,4 +21,7 @@ const mapDispatchToProps = {
     initialise
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(CartonDetails));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(initialiseOnMount(CartonDetails));

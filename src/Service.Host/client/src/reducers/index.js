@@ -15,8 +15,8 @@ import saCoreTypes from './saCoreTypes';
 import saCoreType from './saCoreType';
 import typesOfSale from './typesOfSale';
 import typeOfSale from './typeOfSale';
-import salesArticle from './salesArticle'
-import salesArticles from './salesArticles'
+import salesArticle from './salesArticle';
+import salesArticles from './salesArticles';
 
 const rootReducer = combineReducers({
     oidc,
@@ -36,8 +36,7 @@ const rootReducer = combineReducers({
     salesArticles,
     typesOfSale,
     typeOfSale,
-    stockTriggerLevelsReport,
-    fetchError
+    stockTriggerLevelsReport
 });
 
 export default rootReducer;

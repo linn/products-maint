@@ -6,4 +6,4 @@ export default reportResults(
     actionTypes.RECEIVE_STOCK_TRIGGER_LEVELS_REPORT,
     actionTypes.RECEIVE_STOCK_TRIGGER_LEVELS_REPORT_BY_PART,
     actionTypes.RECEIVE_STOCK_TRIGGER_LEVELS_REPORT_BY_PART
-    );
+);

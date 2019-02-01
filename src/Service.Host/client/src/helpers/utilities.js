@@ -1,8 +1,4 @@
-﻿export const getSelfHref = itemWithLinks => {
-    return getHref(itemWithLinks, 'self');
-}
-
-export const getHref = (itemWithLinks, rel) => {
+﻿export const getHref = (itemWithLinks, rel) => {
     if (itemWithLinks && itemWithLinks.links && itemWithLinks.links.length > 0) {
         const link = itemWithLinks.links.find(l => l.rel === rel);
 
@@ -10,9 +6,13 @@ export const getHref = (itemWithLinks, rel) => {
     }
 
     return null;
-}
+};
+
+export const getSelfHref = itemWithLinks => {
+    return getHref(itemWithLinks, 'self');
+};
 
 export const makeNumber = (str, defaultValue = 0) => {
-    var result = Number(str);
+    const result = Number(str);
     return Number.isNaN(result) ? defaultValue : result;
-}
+};

@@ -1,8 +1,8 @@
-﻿import config from '../config';
+﻿import { CALL_API } from 'redux-api-middleware';
+import config from '../config';
 import * as actionTypes from './index';
-import { CALL_API } from 'redux-api-middleware';
 
-export const fetchCartonDetailsReport = () => ({
+export default () => ({
     [CALL_API]: {
         endpoint: `${config.appRoot}/products/reports/carton-details`,
         method: 'GET',
@@ -21,9 +21,9 @@ export const fetchCartonDetailsReport = () => ({
             },
             {
                 type: actionTypes.FETCH_ERROR,
-                payload: (action, state, res) => res ? `Report - ${res.status} ${res.statusText}` : `Network request failed`
+                payload: (action, state, res) =>
+                    res ? `Report - ${res.status} ${res.statusText}` : `Network request failed`
             }
         ]
     }
 });
-

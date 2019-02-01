@@ -1,5 +1,5 @@
-﻿import collectionStoreFactory from '../reducerFactories/collectionStoreFactory';
-import deepFreeze from 'deep-freeze';
+﻿import deepFreeze from 'deep-freeze';
+import collectionStoreFactory from '../reducerFactories/collectionStoreFactory';
 
 describe('collection store reducer factory', () => {
     const actionTypes = {

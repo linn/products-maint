@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import typeOfSaleActions from '../../actions/typeOfSaleActions';
 import TypeOfSale from '../../components/TypeOfSale';
-import { getSingleErrorMessage } from '../../selectors/fetchErrorSelectors';
+import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 
 const mapStateToProps = state => ({
     typeOfSale: {},
@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     addTypeOfSale: typeOfSaleActions.add,
     resetTypeOfSale: typeOfSaleActions.reset
-}
+};
 
 export default connect(
     mapStateToProps,

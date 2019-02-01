@@ -6,6 +6,10 @@ const defaultState = {
     loading: false,
     items: [],
     searchItems: []
-}
+};
 
-export default collectionStoreFactory(itemTypes.salesArticles.actionType, actionTypes, defaultState);
+export default collectionStoreFactory(
+    itemTypes.salesArticles.actionType,
+    actionTypes,
+    defaultState
+);

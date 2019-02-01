@@ -1,12 +1,11 @@
-﻿import reportResults from '../reducerFactories/reportResults';
-import deepFreeze from 'deep-freeze';
+﻿import deepFreeze from 'deep-freeze';
+import reportResults from '../reducerFactories/reportResults';
 
 describe('standard report reducer factory', () => {
-    const
-        defaultState = { loading: false, data: null },
-        requestType = 'REQUEST',
-        receiveType = 'RECEIVE',
-        generatedReducer = reportResults(requestType, receiveType, defaultState);
+    const defaultState = { loading: false, data: null };
+    const requestType = 'REQUEST';
+    const receiveType = 'RECEIVE';
+    const generatedReducer = reportResults(requestType, receiveType, defaultState);
 
     test('when requesting report', () => {
         const state = {
@@ -28,7 +27,6 @@ describe('standard report reducer factory', () => {
 
         expect(generatedReducer(state, action)).toEqual(expected);
     });
-
 
     test('when receiving report', () => {
         const state = {

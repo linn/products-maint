@@ -1,7 +1,7 @@
 ﻿export const getReportState = (state, reportName) => {
     const reportState = state[reportName];
-    return reportState ? reportState : {}
-}
+    return reportState || {};
+};
 
 export const getReportData = (state, reportName) => {
     const reportState = getReportState(state, reportName);

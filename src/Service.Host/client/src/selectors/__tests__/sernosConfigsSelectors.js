@@ -2,7 +2,6 @@
 
 describe('when getting items', () => {
     test('should return sernos configs', () => {
-
         const state = {
             sernosConfigs: {
                 items: [{ name: 'name' }]
@@ -17,7 +16,6 @@ describe('when getting items', () => {
 
 describe('when getting nothing', () => {
     test('should return empty', () => {
-
         const state = {
             sernosConfigs: {
                 items: null
@@ -30,7 +28,6 @@ describe('when getting nothing', () => {
 
 describe('when getting loading', () => {
     test('should return true', () => {
-
         const state = {
             sernosConfigs: {
                 items: null,
@@ -44,10 +41,9 @@ describe('when getting loading', () => {
 
 describe('when getting item by id', () => {
     test('should return item', () => {
-
         const state = {
             sernosConfigs: {
-                items: [{ 'name': '1' }, { 'name': '2' }],
+                items: [{ name: '1' }, { name: '2' }],
                 loading: false
             }
         };
@@ -60,10 +56,9 @@ describe('when getting item by id', () => {
 
 describe('when getting item by href', () => {
     test('should return item', () => {
-
         const state = {
             sernosConfigs: {
-                items: [{ name: '1', href : '/1' }, { name: '2', href: '/2' }],
+                items: [{ name: '1', href: '/1' }, { name: '2', href: '/2' }],
                 loading: false
             }
         };

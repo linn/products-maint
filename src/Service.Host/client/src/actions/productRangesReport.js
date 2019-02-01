@@ -1,8 +1,8 @@
-﻿import config from '../config';
+﻿import { CALL_API } from 'redux-api-middleware';
+import config from '../config';
 import * as actionTypes from './index';
-import { CALL_API } from 'redux-api-middleware';
 
-export const fetchProductRangesReport = (includePhasedOut) => ({
+export default includePhasedOut => ({
     [CALL_API]: {
         endpoint: `${config.appRoot}/products/reports/product-ranges?includePhasedOut=${includePhasedOut}`,
         method: 'GET',
@@ -14,7 +14,8 @@ export const fetchProductRangesReport = (includePhasedOut) => ({
             {
                 type: actionTypes.REQUEST_PRODUCT_RANGES_REPORT,
                 payload: {
-                    options: { includePhasedOut }}
+                    options: { includePhasedOut }
+                }
             },
             {
                 type: actionTypes.RECEIVE_PRODUCT_RANGES_REPORT,
@@ -27,4 +28,3 @@ export const fetchProductRangesReport = (includePhasedOut) => ({
         ]
     }
 });
-

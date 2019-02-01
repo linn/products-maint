@@ -1,17 +1,15 @@
-﻿import salesProductsByProductRangeReport from '../salesProductsByProductRangeReport';
-import deepFreeze from 'deep-freeze';
+﻿import deepFreeze from 'deep-freeze';
+import salesProductsByProductRangeReport from '../salesProductsByProductRangeReport';
 import * as actionTypes from '../../actions';
 
 describe('Sales Product By Range Report reducer', () => {
-
     test('when requesting report', () => {
         const state = {
             results: {
                 loading: false,
                 data: {}
             },
-            options: {
-            }
+            options: {}
         };
 
         const action = {
@@ -33,7 +31,6 @@ describe('Sales Product By Range Report reducer', () => {
 
         expect(salesProductsByProductRangeReport(state, action)).toEqual(expected);
     });
-
 
     test('when receiving report', () => {
         const state = {

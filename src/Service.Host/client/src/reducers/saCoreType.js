@@ -6,6 +6,6 @@ const defaultState = {
     loading: false,
     item: null,
     editStatus: 'view'
-}
+};
 
 export default itemStoreFactory(itemTypes.saCoreType.actionType, actionTypes, defaultState);

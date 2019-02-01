@@ -1,5 +1,5 @@
-﻿import fetchError from '../fetchError';
-import deepFreeze from 'deep-freeze';
+﻿import deepFreeze from 'deep-freeze';
+import fetchError from '../fetchError';
 import * as actionTypes from '../../actions';
 
 describe('fetch error reducer', () => {
@@ -9,8 +9,7 @@ describe('fetch error reducer', () => {
         const action = {
             type: actionTypes.FETCH_ERROR,
             payload: {
-                error:
-                {
+                error: {
                     status: 400,
                     statusText: '400 Bad Request',
                     details: { errors: ['Error 1', 'Error 2'] }
