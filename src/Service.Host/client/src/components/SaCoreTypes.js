@@ -1,60 +1,62 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Grid, Paper, List, ListItem, Typography } from '@material-ui/core';
-import { Loading } from './common/Loading';
 import { withStyles } from '@material-ui/core/styles';
+import { List, ListItem, Paper, Typography, Button } from '@material-ui/core';
+import { Title, Loading } from '@linn-it/linn-form-components-library';
 
 const styles = () => ({
     root: {
-        width: '100%',
-        marginTop: 40
+        margin: '40px',
+        padding: '40px',
+        marginBottom: '80px'
+    },
+    createButton: {
+        float: 'right'
     }
 });
 
-class SaCoreTypes extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        const { saCoreTypes, loading, errorMessage, classes } = this.props;
-
-        if (loading || !saCoreTypes) {
-            return (
-                errorMessage
-                    ? (
-                        <Grid>
-                            <Paper style={{ marginTop: "15px" }}  >
-                                <strong>{errorMessage}</strong>
-                            </Paper >
-                        </Grid>
-                    ) : <Loading />
-            );
-        }
-
-        return (
-            <div className="linn-container" >
-                <div className={classes.root}>
-                    <Typography variant="h4" gutterBottom>Sales Article Core Types</Typography>
-                    <List>
-                        {saCoreTypes.map((ct, i) => (
-                            <ListItem key={i} button>
-                                <Link style={{ display: 'block' }} to={ct.href}>
-                                    <Typography color='primary'>{ct.coreType} - {ct.description}</Typography>
-                                </Link>
-                            </ListItem>
-                        ))}
-                        <ListItem button>
-                            <Link style={{ display: 'block' }} to="/products/maint/sa-core-types/create">
-                                <Typography color="primary">Create new sales article core type</Typography>
-                            </Link>
+const SaCoreTypes = ({ classes, saCoreTypes, loading }) => (
+    <div>
+        {loading ? (
+            <Loading />
+        ) : (
+            <Paper className={classes.root}>
+                <Title text="Sales Article Core Types" />
+                <List>
+                    {saCoreTypes.map(saCoreType => (
+                        <ListItem
+                            key={saCoreType.coreType}
+                            component={Link}
+                            to={saCoreType.href}
+                            button
+                        >
+                            <Typography color="primary">
+                                {saCoreType.coreType} - {saCoreType.description}
+                            </Typography>
                         </ListItem>
-                    </List>
-                </div>
-            </div>
-        );
-    }
-}
+                    ))}
+                </List>
+                <span className={classes.createButton}>
+                    <Link to="/products/maint/sa-core-types/create">
+                        <Button color="primary" variant="contained">
+                            Create
+                        </Button>
+                    </Link>
+                </span>
+            </Paper>
+        )}
+    </div>
+);
+
+SaCoreTypes.defaultProps = {
+    saCoreTypes: {}
+};
+
+SaCoreTypes.propTypes = {
+    classes: PropTypes.shape({}).isRequired,
+    loading: PropTypes.bool.isRequired,
+    saCoreTypes: PropTypes.shape({})
+};
 
 export default withStyles(styles)(SaCoreTypes);
-
