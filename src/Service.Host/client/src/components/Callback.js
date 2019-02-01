@@ -1,7 +1,8 @@
 ﻿import React from 'react';
 import { CallbackComponent } from 'redux-oidc';
 import userManager from '../helpers/userManager';
-import { Loading } from './common/Loading';
+import { Loading } from '@linn-it/linn-form-components-library';
+
 
 class Callback extends React.Component {
     render() {
