@@ -82,7 +82,7 @@ export default function UpdateApiActions(actionTypeRoot, uri, actionTypes) {
 
     this.update = (id, item) => ({
         [CALL_API]: {
-            endpoint: `${config.appRoot}${uri}/${encodeURIComponent(id)}`,
+            endpoint: `${config.appRoot}${uri}/${id}`,
             method: 'PUT',
             options: { requiresAuth: true },
             headers: {
