@@ -1,169 +1,211 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Loading } from './common/Loading';
-import moment from 'moment';
-import { Grid, Typography } from '@material-ui/core';
-import { BackButton, SaveCancelButtons, FormField } from '@linn-it/linn-form-components-library';
+import { Grid, Paper } from '@material-ui/core';
+import {
+    BackButton,
+    SaveCancelButtons,
+    InputField,
+    Loading,
+    Title
+} from '@linn-it/linn-form-components-library';
 
 const styles = () => ({
     root: {
-        width: "70%",
-        margin: 40
+        margin: 40,
+        padding: 40
     },
     grid: {
-        width: "100%",
-        margin: "0 auto"
+        width: '100%',
+        margin: '0 auto'
     }
 });
 
 class SaCoreType extends Component {
-    
     constructor(props) {
         super(props);
-        this.state = { saCoreType: this.props.saCoreType, editStatus: this.props.editStatus || "view" };
         this.handleFieldChange = this.handleFieldChange.bind(this);
+        this.state = {
+            editStatus: 'view',
+            saCoreType: null
+        };
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({ editStatus: nextProps.editStatus, saCoreType: nextProps.saCoreType });
+    static getDerivedStateFromProps(props, state) {
+        if (!state.saCoreType && props.saCoreType) {
+            return { saCoreType: props.saCoreType };
+        }
+        return null;
     }
 
-    // Status
-    viewing() {
-        return this.state.editStatus === 'view';
-    }
-
-    editing() {
-        return this.state.editStatus === 'edit';
-    }
-
-    creating() {
-        return this.state.editStatus === 'create';
-    }
-
-    // Button event Handlers
     handleSaveClick = () => {
+        const { history } = this.props;
         const { saCoreTypeId, updateSaCoreType } = this.props;
-        updateSaCoreType(saCoreTypeId, this.state.saCoreType);
-    }
+        updateSaCoreType(saCoreTypeId, { ...this.state }.saCoreType);
+        history.push('/products/maint/sa-core-types');
+    };
 
     handleResetClick = () => {
-        this.setState({ saCoreType: this.props.saCoreType })
-    }
+        const { saCoreType } = this.props;
+        this.setState({ saCoreType });
+    };
 
     handleAddClick = () => {
         const { addSaCoreType } = this.props;
-        addSaCoreType(this.state.saCoreType);
-    }
+        addSaCoreType({ ...this.state }.saCoreType);
+    };
 
     handleCancelClick = () => {
         const { history } = this.props;
         history.push('/products/maint/sa-core-types');
+    };
+
+    creating() {
+        const { editStatus } = this.props;
+        return editStatus === 'create';
     }
 
-    // Fiels Change Event Handler
-    handleFieldChange(propertyName, newValue) {
-        this.setState({ saCoreType: { ...this.state.saCoreType, [propertyName]: newValue } });
+    editing() {
+        const { editStatus } = this.props;
+        return editStatus === 'edit';
+    }
+
+    edited() {
+        const initState = { ...this.props }.saCoreType;
+        const { saCoreType } = this.state;
+        return JSON.stringify(initState) !== JSON.stringify(saCoreType);
+    }
+
+    viewing() {
+        const { editStatus } = this.props;
+        return editStatus === 'view';
+    }
+
+    handleFieldChange(propertyName, val) {
+        this.setState(prevState => ({
+            saCoreType: {
+                ...prevState.saCoreType,
+                [propertyName]: val
+            }
+        }));
     }
 
     render() {
-        const { saCoreType, loading, errorMessage, addSaCoreType, classes } = this.props;
-
+        const { loading, classes } = this.props;
+        const { saCoreType } = this.state;
         if (loading || !saCoreType) {
-            return (
-                <Loading />);
+            return <Loading />;
         }
 
         return (
-            <div className={classes.root}>
+            <Paper className={classes.root}>
                 <Grid container spacing={24}>
-                    <Grid item xs={12} >
-                        <h2 className={classes.h2}>
-                            {this.creating() ?
-                                <Typography variant='h4' gutterBottom>Add Sales Article Core Type </Typography> :
-                                <Typography variant='h4' gutterBottom>Sales Article Core Type Details </Typography>}
-                        </h2>
+                    <Grid item xs={12}>
+                        {this.creating() ? (
+                            <Title text="Add Sales Article Core Type" />
+                        ) : (
+                            <Title text="Sales Article Core Type Details" />
+                        )}
                     </Grid>
-                    <Grid item xs={6}  >
-                        <FormField
-                            config={{
-                                type: "number",
-                                label: "Core Type",
-                                disabled: !this.creating(),
-                                required: true
-                            }}
+                    <Grid item xs={4}>
+                        <InputField
+                            fullWidth
+                            disabled={!this.creating()}
+                            value={saCoreType.coreType}
+                            label="Core Type"
+                            helperText={
+                                !this.creating()
+                                    ? 'This field cannot be changed'
+                                    : 'This field is required'
+                            }
+                            onChange={this.handleFieldChange}
                             propertyName="coreType"
-                            value={this.state.saCoreType.coreType}
-                            onChange={this.handleFieldChange} />
+                        />
                     </Grid>
-                    <Grid item xs={6}  >
-                        <FormField
+                    <Grid item xs={8}>
+                        <InputField
+                            value={saCoreType.description}
+                            label="Description"
+                            fullWidth
+                            onChange={this.handleFieldChange}
                             propertyName="description"
-                            config={{
-                                label: "Description",
-                                disabled: false,
-                            }}
-                            propertyName="description"
-                            value={this.state.saCoreType.description}
-                            onChange={this.handleFieldChange} />
+                        />
                     </Grid>
-                    <Grid item xs={6}>
-                        <FormField
-                            config={{
-                                type: "number",
-                                label: "Look Ahead Days",
-                            }}
+                    <Grid item xs={3}>
+                        <InputField
+                            fullWidth
+                            type="number"
+                            value={saCoreType.lookAheadDays}
+                            label="Look Ahead Days"
+                            onChange={this.handleFieldChange}
                             propertyName="lookAheadDays"
-                            value={this.state.saCoreType.lookAheadDays}
-                            onChange={this.handleFieldChange} />
+                        />
                     </Grid>
-                    <Grid item xs={6}>
-                        <FormField
-                            config={{
-                                type: "number",
-                                label: "Trigger Level",
-                            }}
+                    <Grid item xs={3}>
+                        <InputField
+                            fullWidth
+                            type="number"
+                            value={saCoreType.triggerLevel}
+                            label="Trigger level"
+                            onChange={this.handleFieldChange}
                             propertyName="triggerLevel"
-                            value={this.state.saCoreType.triggerLevel}
-                            onChange={this.handleFieldChange} />
+                        />
                     </Grid>
-                    <Grid item xs={6}>
-                        <FormField
-                            config={{
-                                type: "number",
-                                label: "Sort Order",
-                            }}
+                    <Grid item xs={3}>
+                        <InputField
+                            fullWidth
+                            type="number"
+                            value={saCoreType.sortOrder}
+                            label="Sort Order"
+                            onChange={this.handleFieldChange}
                             propertyName="sortOrder"
-                            value={this.state.saCoreType.sortOrder}
-                            onChange={this.handleFieldChange} />
+                        />
                     </Grid>
-                    <Grid item xs={6}>
-                        <FormField
-                            config={{
-                                label: "Date Invalid",
-                                type: "date"
-                            }}
+                    <Grid item xs={3}>
+                        <InputField
+                            fullWidth
+                            type="date"
+                            value={saCoreType.dateInvalid}
+                            label="Date Invalid"
+                            onChange={this.handleFieldChange}
                             propertyName="dateInvalid"
-                            value={this.creating() ? null : moment(this.state.saCoreType.dateInvalid).format('YYYY-MM-DD')}
-                            onChange={this.handleFieldChange} />
+                        />
                     </Grid>
                     <Grid item xs={12}>
-                        <BackButton
-                            backClick={this.handleCancelClick} />
+                        <BackButton backClick={this.handleCancelClick} />
                         <SaveCancelButtons
-                            disabled={JSON.stringify(this.state.saCoreType) === JSON.stringify(saCoreType)}
+                            disabled={
+                                // disabled if not edited, or no coreType supplied
+                                !this.edited() ||
+                                (!saCoreType.coreType || saCoreType.coreType.length === 0)
+                            }
                             saveClick={this.creating() ? this.handleAddClick : this.handleSaveClick}
-                            cancelClick={this.handleResetClick} />
+                            cancelClick={this.handleResetClick}
+                        />
                     </Grid>
                 </Grid>
-            </div>
+            </Paper>
         );
     }
+}
+
+SaCoreType.defaultProps = {
+    saCoreType: {},
+    addSaCoreType: null,
+    updateSaCoreType: null,
+    loading: null,
+    saCoreTypeId: null
 };
 
 SaCoreType.propTypes = {
-    classes: PropTypes.object.isRequired,
+    classes: PropTypes.shape({}).isRequired,
+    saCoreType: PropTypes.shape({}),
+    history: PropTypes.shape({}).isRequired,
+    editStatus: PropTypes.string.isRequired,
+    saCoreTypeId: PropTypes.string,
+    updateSaCoreType: PropTypes.func,
+    addSaCoreType: PropTypes.func,
+    loading: PropTypes.bool
 };
 
 export default withStyles(styles)(SaCoreType);
