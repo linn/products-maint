@@ -7,7 +7,8 @@ import {
     SaveCancelButtons,
     InputField,
     Loading,
-    Title
+    Title,
+    ErrorCard
 } from '@linn-it/linn-form-components-library';
 
 const styles = () => ({
@@ -39,23 +40,26 @@ class SaCoreType extends Component {
     }
 
     handleSaveClick = () => {
-        const { history } = this.props;
         const { saCoreTypeId, updateSaCoreType } = this.props;
         updateSaCoreType(saCoreTypeId, { ...this.state }.saCoreType);
-        history.push('/products/maint/sa-core-types');
+        this.setState({ editStatus: 'view' });
     };
 
     handleResetClick = () => {
         const { saCoreType } = this.props;
         this.setState({ saCoreType });
+        this.setState({ editStatus: 'view' });
     };
 
     handleAddClick = () => {
         const { addSaCoreType } = this.props;
-        addSaCoreType({ ...this.state }.saCoreType);
+        const { saCoreType } = this.state;
+        addSaCoreType(saCoreType);
+        this.setState({ editStatus: 'view' });
     };
 
     handleCancelClick = () => {
+        this.setState({ editStatus: 'view' });
         const { history } = this.props;
         history.push('/products/maint/sa-core-types');
     };
@@ -66,14 +70,8 @@ class SaCoreType extends Component {
     }
 
     editing() {
-        const { editStatus } = this.props;
+        const { editStatus } = this.state;
         return editStatus === 'edit';
-    }
-
-    edited() {
-        const initState = { ...this.props }.saCoreType;
-        const { saCoreType } = this.state;
-        return JSON.stringify(initState) !== JSON.stringify(saCoreType);
     }
 
     viewing() {
@@ -86,12 +84,13 @@ class SaCoreType extends Component {
             saCoreType: {
                 ...prevState.saCoreType,
                 [propertyName]: val
-            }
+            },
+            editStatus: 'edit'
         }));
     }
 
     render() {
-        const { loading, classes } = this.props;
+        const { loading, classes, errorMessage } = this.props;
         const { saCoreType } = this.state;
         if (loading || !saCoreType) {
             return <Loading />;
@@ -107,6 +106,11 @@ class SaCoreType extends Component {
                             <Title text="Sales Article Core Type Details" />
                         )}
                     </Grid>
+                    {errorMessage && (
+                        <Grid item xs={12}>
+                            <ErrorCard errorMessage={errorMessage} />
+                        </Grid>
+                    )}
                     <Grid item xs={4}>
                         <InputField
                             fullWidth
@@ -175,8 +179,7 @@ class SaCoreType extends Component {
                         <BackButton backClick={this.handleCancelClick} />
                         <SaveCancelButtons
                             disabled={
-                                // disabled if not edited, or no coreType supplied
-                                !this.edited() ||
+                                !this.editing() ||
                                 (!saCoreType.coreType || saCoreType.coreType.length === 0)
                             }
                             saveClick={this.creating() ? this.handleAddClick : this.handleSaveClick}
@@ -194,6 +197,7 @@ SaCoreType.defaultProps = {
     addSaCoreType: null,
     updateSaCoreType: null,
     loading: null,
+    errorMessage: '',
     saCoreTypeId: null
 };
 
@@ -202,6 +206,7 @@ SaCoreType.propTypes = {
     saCoreType: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
+    errorMessage: PropTypes.string,
     saCoreTypeId: PropTypes.string,
     updateSaCoreType: PropTypes.func,
     addSaCoreType: PropTypes.func,
