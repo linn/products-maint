@@ -104,7 +104,7 @@ class SalesArticle extends Component {
                     <Grid item xs={5}>
                         <InputField
                             label="Article Number"
-                            disabled={true}
+                            disabled
                             propertyName="id"
                             value={salesArticle.articleNumber}
                         />
@@ -113,8 +113,8 @@ class SalesArticle extends Component {
                         <InputField
                             propertyName="description"
                             label="Description"
-                            fullWidth={true}
-                            disabled={true}
+                            fullWidth
+                            disabled
                             value={salesArticle.description}
                         />
                     </Grid>
