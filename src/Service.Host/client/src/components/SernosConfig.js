@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import {
     BackButton,
     SaveCancelButtons,
@@ -12,6 +12,7 @@ import {
 } from '@linn-it/linn-form-components-library';
 import Dropdown from './Dropdown';
 import InputField from './InputField';
+import Page from './Page';
 
 const styles = () => ({
     root: {
@@ -92,7 +93,7 @@ class SernosConfig extends Component {
     }
 
     render() {
-        const { loading, classes, errorMessage } = this.props;
+        const { loading, errorMessage, history } = this.props;
         const { sernosConfig } = this.state;
         const startOnOptions = ['', 'Any', 'Odd', 'Even'];
         const serialNumberedOptions = ['Y', 'N'];
@@ -101,7 +102,7 @@ class SernosConfig extends Component {
         }
 
         return (
-            <Paper className={classes.root}>
+            <Page history={history}>
                 <Grid container spacing={24} justify="center">
                     <Grid item xs={12}>
                         {this.creating() ? (
@@ -191,7 +192,7 @@ class SernosConfig extends Component {
                         />
                     </Grid>
                 </Grid>
-            </Paper>
+            </Page>
         );
     }
 }
