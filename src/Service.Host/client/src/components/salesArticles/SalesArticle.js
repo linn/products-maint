@@ -2,15 +2,9 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import { Grid, Paper } from '@material-ui/core';
-import {
-    BackButton,
-    SaveCancelButtons,
-    InputField,
-    Title,
-    ErrorCard,
-    Loading
-} from '@linn-it/linn-form-components-library';
+import { InputField, Title, ErrorCard, Loading } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
+import SaveBackCancelButtons from '../common/SaveBackCancelButtons';
 
 const styles = () => ({
     root: {
@@ -160,11 +154,11 @@ class SalesArticle extends Component {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <BackButton backClick={this.handleBackClick} />
-                        <SaveCancelButtons
-                            disabled={this.viewing()}
+                        <SaveBackCancelButtons
+                            saveDisabled={this.viewing()}
                             saveClick={this.handleSaveClick}
                             cancelClick={this.handleResetClick}
+                            backClick={this.handleBackClick}
                         />
                     </Grid>
                 </Grid>
