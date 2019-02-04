@@ -7,10 +7,10 @@ import {
     SaveCancelButtons,
     InputField,
     Title,
-    ErrorCard
+    ErrorCard,
+    Loading
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
-import { Loading } from '../common/Loading';
 
 const styles = () => ({
     root: {
@@ -60,7 +60,9 @@ class SalesArticle extends Component {
     };
 
     handleResetClick = () => {
-        this.setState({ salesArticle: this.setArticleFromProps(this.props.salesArticle) });
+        const { salesArticle } = this.props;
+
+        this.setState({ salesArticle: this.setArticleFromProps(salesArticle) });
         this.setState({ editStatus: 'view' });
     };
 
@@ -70,7 +72,9 @@ class SalesArticle extends Component {
     };
 
     editing() {
-        return this.state.editStatus === 'edit';
+        const { editStatus } = this.state;
+
+        return editStatus === 'edit';
     }
 
     viewing() {
@@ -79,8 +83,9 @@ class SalesArticle extends Component {
     }
 
     handleFieldChange(propertyName, newValue) {
+        const { salesArticle } = this.state;
         this.setState({ editStatus: 'edit' });
-        this.setState({ salesArticle: { ...this.state.salesArticle, [propertyName]: newValue } });
+        this.setState({ salesArticle: { ...salesArticle, [propertyName]: newValue } });
     }
 
     render() {

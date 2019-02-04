@@ -8,7 +8,9 @@ import { getReportData, getReportLoading } from '../../selectors/reportSelectors
 
 const reportName = 'eanCodesReport';
 const getOptions = ownProps => {
-    const query = ownProps.location.search ? queryString.parse(ownProps.location.search) : { includePhasedOut: false, cartonisedOnly: true };
+    const query = ownProps.location.search
+        ? queryString.parse(ownProps.location.search)
+        : { includePhasedOut: false, cartonisedOnly: true };
     return query;
 };
 

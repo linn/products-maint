@@ -1,4 +1,4 @@
-﻿export default function ItemSelectors (item) {
+﻿export default function ItemSelectors(item) {
     this.getItem = state => {
         const storeItem = state[item];
         if (!storeItem) {

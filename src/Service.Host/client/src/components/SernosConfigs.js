@@ -1,9 +1,9 @@
 ﻿import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import CircularLoading from './common/CircularLoading';
-import ErrorCard from '../components/common/ErrorCard';
 import { withStyles } from '@material-ui/core/styles';
 import { List, ListItem, Paper, Typography } from '@material-ui/core';
+import { ErrorCard } from '@linn-it/linn-form-components-library';
+import CircularLoading from './common/CircularLoading';
 
 const styles = (theme) => ({
     root: {

@@ -38,6 +38,7 @@
                     item: action.payload.data,
                     editStatus: 'view'
                 };
+            default:
         }
 
         return state;

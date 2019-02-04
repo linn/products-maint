@@ -5,7 +5,7 @@ import typesOfSaleActions from '../../actions/typesOfSaleActions';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import typesOfSaleSelectors from '../../selectors/typesOfSaleSelectors';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     typesOfSale: typesOfSaleSelectors.getItems(state),
     loading: typesOfSaleSelectors.getLoading(state),
     errorMessage: getSingleErrorMessage(state)

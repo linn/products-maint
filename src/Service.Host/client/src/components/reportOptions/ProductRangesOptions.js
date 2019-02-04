@@ -4,13 +4,14 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import PropTypes from 'prop-types';
 
-const styles = theme => ({
+const styles = () => ({
     root: {
         flexGrow: 1,
-        paddingLeft: "20%",
-        paddingRight: "20%",
-    },
+        paddingLeft: '20%',
+        paddingRight: '20%'
+    }
 });
 
 class ProductRangesOptions extends Component {
@@ -27,17 +28,17 @@ class ProductRangesOptions extends Component {
 
     handleClick() {
         const { history } = this.props;
+        const { includePhasedOut } = this.state;
 
-        history.push(
-            {
-                pathname: `/products/reports/product-ranges/report`,
-                search: `?includePhasedOut=${this.state.includePhasedOut}`
-            }
-        );
+        history.push({
+            pathname: `/products/reports/product-ranges/report`,
+            search: `?includePhasedOut=${includePhasedOut}`
+        });
     }
 
     render() {
-        const {classes } = this.props;
+        const { classes } = this.props;
+        const { includePhasedOut } = this.state;
         return (
             <div className={classes.root}>
                 <Grid container spacing={24} justify="center">
@@ -46,9 +47,9 @@ class ProductRangesOptions extends Component {
                         <FormControlLabel
                             control={
                                 <Checkbox
-                                    checked={this.state.includePhasedOut}
+                                    checked={includePhasedOut}
                                     onChange={ch => this.handlePhaseOutChange(ch.target.checked)}
-                                    value={this.state.includePhasedOut}
+                                    value={includePhasedOut}
                                     color="primary"
                                 />
                             }
@@ -63,5 +64,19 @@ class ProductRangesOptions extends Component {
         );
     }
 }
+
+ProductRangesOptions.propTypes = {
+    history: PropTypes.shape({ push: PropTypes.func }).isRequired,
+    classes: PropTypes.shape({}),
+    prevOptions: PropTypes.shape({
+        includePhasedOut: PropTypes.bool,
+        cartonisedOnly: PropTypes.bool
+    })
+};
+
+ProductRangesOptions.defaultProps = {
+    classes: {},
+    prevOptions: {}
+};
 
 export default withStyles(styles)(ProductRangesOptions);
