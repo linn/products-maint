@@ -1,17 +1,15 @@
-﻿import eanCodesReport from '../eanCodesReport';
-import deepFreeze from 'deep-freeze';
+﻿import deepFreeze from 'deep-freeze';
+import eanCodesReport from '../eanCodesReport';
 import * as actionTypes from '../../actions';
 
 describe('ean Codes Report reducer', () => {
-
     test('when requesting report', () => {
         const state = {
             results: {
                 loading: false,
                 data: {}
             },
-            options: {
-            }
+            options: {}
         };
 
         const action = {
@@ -41,8 +39,7 @@ describe('ean Codes Report reducer', () => {
                 loading: true,
                 data: null
             },
-            options: {
-            }
+            options: {}
         };
 
         const action = {

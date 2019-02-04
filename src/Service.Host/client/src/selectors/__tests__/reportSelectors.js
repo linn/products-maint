@@ -1,17 +1,21 @@
-﻿import { getReportData, getReportOptions, getReportLoading, getReportState } from '../reportSelectors';
+﻿import {
+    getReportData,
+    getReportOptions,
+    getReportLoading,
+    getReportState
+} from '../reportSelectors';
 
 describe('when getting results', () => {
     test('should return results', () => {
-
         const state = {
             reportName: {
                 results: {
-                    data: { title : 't' },
+                    data: { title: 't' },
                     loading: false
                 },
                 options: {}
             }
-        }
+        };
 
         const expectedResult = { title: 't' };
 
@@ -21,16 +25,15 @@ describe('when getting results', () => {
 
 describe('when getting options', () => {
     test('should return options', () => {
-
         const state = {
             reportName: {
                 results: {
                     data: { title: 't' },
                     loading: false
                 },
-                options: { option1 : '1' }
+                options: { option1: '1' }
             }
-        }
+        };
 
         const expectedResult = { option1: '1' };
 
@@ -40,7 +43,6 @@ describe('when getting options', () => {
 
 describe('when getting loading', () => {
     test('should return loading', () => {
-
         const state = {
             reportName: {
                 results: {
@@ -49,7 +51,7 @@ describe('when getting loading', () => {
                 },
                 options: { option1: '1' }
             }
-        }
+        };
 
         expect(getReportLoading(state, 'reportName')).toEqual(true);
     });
@@ -57,7 +59,6 @@ describe('when getting loading', () => {
 
 describe('when getting state', () => {
     test('should return state', () => {
-
         const state = {
             reportName: {
                 results: {
@@ -66,7 +67,7 @@ describe('when getting state', () => {
                 },
                 options: { option1: '1' }
             }
-        }
+        };
 
         const expectedResult = {
             results: {

@@ -2,7 +2,7 @@
 import SernosConfig from '../../components/SernosConfig';
 import initialiseOnMount from '../common/initialiseOnMount';
 import sernosConfigActions from '../../actions/sernosConfigActions';
-import { getSingleErrorMessage } from '../../selectors/fetchErrorSelectors';
+import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import sernosConfigSelectors from '../../selectors/sernosConfigSelectors';
 
 const mapStateToProps = (state, { match }) => ({
@@ -23,4 +23,7 @@ const mapDispatchToProps = {
     resetSernosConfig: sernosConfigActions.reset
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(SernosConfig));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(initialiseOnMount(SernosConfig));

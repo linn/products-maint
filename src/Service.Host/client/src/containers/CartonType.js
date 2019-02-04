@@ -2,8 +2,12 @@
 import CartonType from '../components/CartonType';
 import initialiseOnMount from './common/initialiseOnMount';
 import cartonTypeActions from '../actions/cartonTypeActions';
-import { getSingleErrorMessage } from '../selectors/fetchErrorSelectors';
-import { getCartonType, getCartonLoading, getCartonEditStatus } from '../selectors/cartonTypeSelectors';
+import getSingleErrorMessage from '../selectors/fetchErrorSelectors';
+import {
+    getCartonType,
+    getCartonLoading,
+    getCartonEditStatus
+} from '../selectors/cartonTypeSelectors';
 
 const mapStateToProps = (state, { match }) => ({
     cartonType: getCartonType(state),
@@ -23,4 +27,7 @@ const mapDispatchToProps = {
     resetCartonType: cartonTypeActions.reset
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(CartonType));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(initialiseOnMount(CartonType));

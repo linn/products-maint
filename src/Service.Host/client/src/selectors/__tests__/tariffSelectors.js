@@ -2,14 +2,15 @@
 
 describe('when getting tariffs', () => {
     test('should return items', () => {
-
         const state = {
             searchTariffs: {
-                items: [{
-                    tariffCode: '1'
-                }]
+                items: [
+                    {
+                        tariffCode: '1'
+                    }
+                ]
             }
-        }
+        };
 
         const expectedResult = [{ tariffCode: '1' }];
 
@@ -19,13 +20,12 @@ describe('when getting tariffs', () => {
 
 describe('when getting loading', () => {
     test('should return loading', () => {
-
         const state = {
             searchTariffs: {
                 items: [],
                 loading: true
             }
-        }
+        };
 
         expect(getTariffsLoading(state)).toEqual(true);
     });

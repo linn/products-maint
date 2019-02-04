@@ -1,9 +1,8 @@
-﻿import searchTariffs from '../searchTariffs';
-import deepFreeze from 'deep-freeze';
+﻿import deepFreeze from 'deep-freeze';
+import searchTariffs from '../searchTariffs';
 import * as actionTypes from '../../actions';
 
 describe('search tariffs reducer', () => {
-
     test('when requesting search tariffs', () => {
         const state = {
             loading: false
@@ -30,12 +29,12 @@ describe('search tariffs reducer', () => {
 
         const action = {
             type: actionTypes.SET_TARIFF_SEARCH_TERM,
-            payload: "whiskey"
+            payload: 'whiskey'
         };
 
         const expected = {
             loading: false,
-            searchTerm: "whiskey"
+            searchTerm: 'whiskey'
         };
 
         deepFreeze(state);

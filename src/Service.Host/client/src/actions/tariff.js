@@ -1,6 +1,6 @@
-﻿import config from '../config';
+﻿import { CALL_API } from 'redux-api-middleware';
+import config from '../config';
 import * as actionTypes from '.';
-import { CALL_API } from 'redux-api-middleware';
 
 export const fetchTariff = (id) => ({
     [CALL_API]: {
@@ -20,12 +20,11 @@ export const fetchTariff = (id) => ({
             },
             {
                 type: actionTypes.FETCH_ERROR,
-                payload: (action, state, res) => res ? `Tariff - ${res.status} ${res.statusText}` : `Network request failed`,
+                payload: (action, state, res) => res ? `Tariff - ${res.status} ${res.statusText}` : `Network request failed`
             }
-        ],
+        ]
     }
 });
-
 
 export const addTariff = tariff => ({
     [CALL_API]: {

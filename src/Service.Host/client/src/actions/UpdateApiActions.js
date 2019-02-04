@@ -1,6 +1,6 @@
-﻿import config from '../config';
+﻿import { CALL_API } from 'redux-api-middleware';
+import config from '../config';
 import * as sharedActionTypes from './index';
-import { CALL_API } from 'redux-api-middleware';
 
 export default function UpdateApiActions(actionTypeRoot, uri, actionTypes) {
     this.fetch = id => ({
@@ -22,7 +22,8 @@ export default function UpdateApiActions(actionTypeRoot, uri, actionTypes) {
                 },
                 {
                     type: sharedActionTypes.FETCH_ERROR,
-                    payload: (action, state, res) => res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
+                    payload: (action, state, res) =>
+                        res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
                 }
             ]
         }
@@ -47,7 +48,8 @@ export default function UpdateApiActions(actionTypeRoot, uri, actionTypes) {
                 },
                 {
                     type: sharedActionTypes.FETCH_ERROR,
-                    payload: (action, state, res) => res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
+                    payload: (action, state, res) =>
+                        res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
                 }
             ]
         }
@@ -74,7 +76,16 @@ export default function UpdateApiActions(actionTypeRoot, uri, actionTypes) {
                 },
                 {
                     type: sharedActionTypes.FETCH_ERROR,
-                    payload: async (action, state, res) => res ? { error: { status: res.status, statusText: `Error - ${res.status} ${res.statusText}`, details: await res.json() } } : `Network request failed`
+                    payload: async (action, state, res) =>
+                        res
+                            ? {
+                                  error: {
+                                      status: res.status,
+                                      statusText: `Error - ${res.status} ${res.statusText}`,
+                                      details: await res.json()
+                                  }
+                              }
+                            : `Network request failed`
                 }
             ]
         }
@@ -101,7 +112,16 @@ export default function UpdateApiActions(actionTypeRoot, uri, actionTypes) {
                 },
                 {
                     type: sharedActionTypes.FETCH_ERROR,
-                    payload: async (action, state, res) => res ? { error: { status: res.status, statusText: `Error - ${res.status} ${res.statusText}`, details: await res.json() } } : `Network request failed`
+                    payload: async (action, state, res) =>
+                        res
+                            ? {
+                                  error: {
+                                      status: res.status,
+                                      statusText: `Error - ${res.status} ${res.statusText}`,
+                                      details: await res.json()
+                                  }
+                              }
+                            : `Network request failed`
                 }
             ]
         }

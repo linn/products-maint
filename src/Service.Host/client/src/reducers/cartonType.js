@@ -6,6 +6,6 @@ const defaultState = {
     loading: false,
     item: null,
     editStatus: 'view'
-}
+};
 
 export default itemStoreFactory(itemTypes.cartonType.actionType, actionTypes, defaultState);

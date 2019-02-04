@@ -16,16 +16,16 @@ const fetchError = (state = defaultState, action) => {
             return defaultState;
 
         case actionTypes.FETCH_ERROR:
-            return action.payload.error ?
-                {
-                    status: action.payload.error.status,
-                    statusText: action.payload.error.statusText,
-                    errors: action.payload.error.details.errors
-                } :
-                { statusText: action.payload }
+            return action.payload.error
+                ? {
+                      status: action.payload.error.status,
+                      statusText: action.payload.error.statusText,
+                      errors: action.payload.error.details.errors
+                  }
+                : { statusText: action.payload };
     }
 
     return defaultState;
-}
+};
 
 export default fetchError;

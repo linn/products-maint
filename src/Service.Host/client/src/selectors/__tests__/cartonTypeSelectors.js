@@ -2,7 +2,6 @@
 
 describe('when getting carton type', () => {
     test('should return carton', () => {
-
         const state = {
             cartonType: {
                 item: { name: 'name' }
@@ -17,7 +16,6 @@ describe('when getting carton type', () => {
 
 describe('when getting no carton type', () => {
     test('should return null', () => {
-
         const state = {
             cartonType: {
                 item: null
@@ -30,7 +28,6 @@ describe('when getting no carton type', () => {
 
 describe('when getting loading', () => {
     test('should return true', () => {
-
         const state = {
             cartonType: {
                 item: null,
@@ -44,7 +41,6 @@ describe('when getting loading', () => {
 
 describe('when getting edit status', () => {
     test('should return status', () => {
-
         const state = {
             cartonType: {
                 item: { name: 'name' },
@@ -61,7 +57,6 @@ describe('when getting edit status', () => {
 
 describe('when getting no edit status', () => {
     test('should return view', () => {
-
         const state = {
             cartonType: {
                 item: { name: 'name' },

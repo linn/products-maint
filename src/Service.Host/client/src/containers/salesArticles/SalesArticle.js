@@ -2,7 +2,7 @@
 import SalesArticle from '../../components/salesArticles/SalesArticle';
 import initialiseOnMount from '../common/initialiseOnMount';
 import salesArticleActions from '../../actions/salesArticle';
-import { getSingleErrorMessage } from '../../selectors/fetchErrorSelectors';
+import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import salesArticleSelectors from '../../selectors/salesArticleSelectors';
 
 const mapStateToProps = (state, { match }) => ({
@@ -23,4 +23,7 @@ const mapDispatchToProps = {
     resetSalesArticle: salesArticleActions.reset
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(SalesArticle));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(initialiseOnMount(SalesArticle));

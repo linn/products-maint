@@ -4,7 +4,7 @@
     }
 
     return searchTariffs.items;
-}
+};
 
 export const getTariffsLoading = ({ searchTariffs }) => {
     if (!searchTariffs) {
@@ -12,7 +12,7 @@ export const getTariffsLoading = ({ searchTariffs }) => {
     }
 
     return searchTariffs.loading;
-}
+};
 
 export const getTariff = ({ tariff }) => {
     if (!tariff) {
@@ -20,7 +20,7 @@ export const getTariff = ({ tariff }) => {
     }
 
     return tariff.item;
-}
+};
 
 export const getTariffLoading = ({ tariff }) => {
     if (!tariff) {
@@ -28,4 +28,4 @@ export const getTariffLoading = ({ tariff }) => {
     }
 
     return tariff.loading;
-}
+};

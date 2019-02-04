@@ -1,7 +1,7 @@
 ﻿import * as itemTypes from '../itemTypes';
 
 const makeActionTypes = (entityType, makeAll = true) => {
-    var types = {};
+    const types = {};
     types[`REQUEST_${entityType}`] = `REQUEST_${entityType}`;
     types[`RECEIVE_${entityType}`] = `RECEIVE_${entityType}`;
     types[`REQUEST_SEARCH_${entityType}`] = `REQUEST_SEARCH_${entityType}`;
@@ -15,7 +15,7 @@ const makeActionTypes = (entityType, makeAll = true) => {
         types[`RECEIVE_NEW_${entityType}`] = `RECEIVE_NEW_${entityType}`;
     }
     return types;
-}
+};
 
 export const FETCH_ERROR = 'FETCH_ERROR';
 

@@ -1,19 +1,8 @@
-﻿import config from '../config';
+﻿import { CALL_API } from 'redux-api-middleware';
+import config from '../config';
 import * as actionTypes from '.';
-import { CALL_API } from 'redux-api-middleware';
 
 let timeoutId;
-
-export const fetchTariffs = searchTerm => async dispatch => {
-    if (searchTerm) {
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-        }
-        timeoutId = setTimeout(async () => {
-            dispatch(performTariffSearch(searchTerm));
-        }, 500);
-    }
-};
 
 const performTariffSearch = searchTerm => ({
     [CALL_API]: {
@@ -33,8 +22,19 @@ const performTariffSearch = searchTerm => ({
             },
             {
                 type: actionTypes.FETCH_ERROR,
-                payload: (action, state, res) => res ? `Tariffs - ${res.status} ${res.statusText}` : `Network request failed`,
+                payload: (action, state, res) => res ? `Tariffs - ${res.status} ${res.statusText}` : `Network request failed`
             }
         ]
     }
 });
+
+export default searchTerm => async dispatch => {
+    if (searchTerm) {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(async () => {
+            dispatch(performTariffSearch(searchTerm));
+        }, 500);
+    }
+};

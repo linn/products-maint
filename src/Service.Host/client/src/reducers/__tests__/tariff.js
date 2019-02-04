@@ -1,5 +1,5 @@
-﻿import tariff from '../tariff';
-import deepFreeze from 'deep-freeze';
+﻿import deepFreeze from 'deep-freeze';
+import tariff from '../tariff';
 import * as actionTypes from '../../actions';
 
 describe('tariff reducer', () => {
