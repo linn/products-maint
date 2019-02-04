@@ -2,10 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Typography, TextField, Paper, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import ErrorCard from '../components/common/ErrorCard';
-import CircularLoading from '../components/common/CircularLoading';
-import CheckboxWithLabel from '../components/common/CheckboxWithLabel';
-import { getSelfHref } from '../helpers/utilities'
+import { ErrorCard, CheckboxWithLabel } from '@linn-it/linn-form-components-library';
+import CircularLoading from './common/CircularLoading';
+import { getSelfHref } from '../helpers/utilities';
 
 const styles = () => ({
     root: {

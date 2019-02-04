@@ -8,7 +8,7 @@ import sernosConfigSelectors from '../../selectors/sernosConfigSelectors';
 const mapStateToProps = (state, { match }) => ({
     sernosConfig: sernosConfigSelectors.getItem(state),
     sernosConfigId: match.params.sernosConfigId,
-    editStatus: sernosConfigSelectors.getEditStatus(state), 
+    editStatus: sernosConfigSelectors.getEditStatus(state),
     loading: sernosConfigSelectors.getLoading(state),
     errorMessage: getSingleErrorMessage(state)
 });

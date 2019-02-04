@@ -3,17 +3,18 @@ import { createShallow } from '@material-ui/core/test-utils';
 import ProductRanges from '../../reports/ProductRanges';
 
 describe('<ProductRanges />', () => {
-
+    let wrapper;
     const getReportTable = () => wrapper.find('WithStyles(ReportTable)');
     const getLoading = () => wrapper.find('Loading');
     const shallow = createShallow({ dive: true });
 
-    let reportData = { results: [] },
-        options = {  includePhasedOut: false },
-        wrapper;
-    
-        beforeEach(() => {
-        wrapper = shallow(<ProductRanges options={options} loading={false} reportData={reportData} />)
+    const reportData = { results: [] };
+    const options = { includePhasedOut: false };
+
+    beforeEach(() => {
+        wrapper = shallow(
+            <ProductRanges options={options} loading={false} reportData={reportData} />
+        );
     });
 
     test('Should render Table', () => {
@@ -23,13 +24,14 @@ describe('<ProductRanges />', () => {
 
     describe('loading', () => {
         beforeEach(() => {
-            wrapper = shallow(<ProductRanges options={options} loading={true} reportData={reportData}/>);
+            wrapper = shallow(
+                <ProductRanges options={options} loading={true} reportData={reportData} />
+            );
         });
 
         test('Should render Table and Loader when loading', () => {
             expect(getReportTable()).toHaveLength(1);
             expect(getLoading()).toHaveLength(1);
         });
-
     });
 });

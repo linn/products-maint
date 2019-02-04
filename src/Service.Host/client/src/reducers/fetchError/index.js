@@ -2,7 +2,7 @@
 
 const defaultState = null;
 
-const fetchError = (state = defaultState, action) => {
+const fetchError = (state, action) => {
     switch (action.type) {
         case actionTypes.REQUEST_ADD_CARTON_TYPE:
         case actionTypes.REQUEST_UPDATE_CARTON_TYPE:
@@ -23,9 +23,9 @@ const fetchError = (state = defaultState, action) => {
                       errors: action.payload.error.details.errors
                   }
                 : { statusText: action.payload };
+        default:
+            return defaultState;
     }
-
-    return defaultState;
 };
 
 export default fetchError;

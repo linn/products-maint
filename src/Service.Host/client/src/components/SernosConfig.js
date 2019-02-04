@@ -2,9 +2,9 @@
 import { Link } from 'react-router-dom';
 import { Typography, TextField, Paper, Button, MenuItem, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import ErrorCard from '../components/common/ErrorCard';
-import CircularLoading from '../components/common/CircularLoading';
-import { getSelfHref } from '../helpers/utilities'
+import { ErrorCard } from '@linn-it/linn-form-components-library';
+import CircularLoading from './common/CircularLoading';
+import { getSelfHref } from '../helpers/utilities';
 
 const styles = () => ({
     root: {

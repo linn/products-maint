@@ -3,6 +3,9 @@ import { createShallow } from '@material-ui/core/test-utils';
 import CartonType from '../CartonType';
 
 describe('<CartonType />', () => {
+    let wrapper;
+    let props;
+
     const getPaper = () => wrapper.find('WithStyles(Paper)');
     const getLoading = () => wrapper.find('WithStyles(CircularLoading)');
     const getTypography = () => wrapper.find('WithStyles(Typography)');
@@ -10,7 +13,6 @@ describe('<CartonType />', () => {
     const getButtons = () => wrapper.find('WithStyles(Button)');
 
     const shallow = createShallow({ dive: true });
-    let wrapper, props;
 
     beforeEach(() => {
         props = {
@@ -36,7 +38,6 @@ describe('<CartonType />', () => {
                 loading: false,
                 cartonType: {
                     name: 'Carton 1',
-                    numberOfSmallLabels: 0,
                     numberOfSmallLabels: 1,
                     description: 'Carton description',
                     width: 3,

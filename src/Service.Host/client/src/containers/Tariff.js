@@ -1,5 +1,5 @@
 ﻿import { connect } from 'react-redux';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
 import Tariff from '../components/Tariff';
 import { fetchTariff } from '../actions/tariff';
 import { getTariff, getTariffLoading } from '../selectors/tariffSelectors';

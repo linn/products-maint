@@ -10,6 +10,7 @@ export default () => next => action => {
         case actionTypes.sernosConfigActionTypes.RECEIVE_NEW_SERNOS_CONFIG:
             history.push(getSelfHref(action.payload.data));
             break;
+        default:
     }
 
     return result;

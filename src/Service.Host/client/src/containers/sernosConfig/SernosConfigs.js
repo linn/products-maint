@@ -5,7 +5,7 @@ import sernosConfigsActions from '../../actions/sernosConfigsActions';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import sernosConfigsSelectors from '../../selectors/sernosConfigsSelectors';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     sernosConfigs: sernosConfigsSelectors.getItems(state),
     loading: sernosConfigsSelectors.getLoading(state),
     errorMessage: getSingleErrorMessage(state)

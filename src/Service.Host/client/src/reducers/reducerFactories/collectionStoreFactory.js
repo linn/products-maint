@@ -46,6 +46,7 @@ export default function(
                     searchLoading: false,
                     searchItems: []
                 };
+            default:
         }
 
         return state;
