@@ -7,7 +7,8 @@ import {
     Title,
     ErrorCard,
     Loading,
-    SaveBackCancelButtons
+    SaveBackCancelButtons,
+    Dropdown
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 
@@ -31,25 +32,9 @@ class SalesArticle extends Component {
     componentWillReceiveProps(nextProps) {
         this.setState({
             editStatus: nextProps.editStatus,
-            salesArticle: this.setArticleFromProps(nextProps.salesArticle)
+            salesArticle: nextProps.salesArticle
         });
     }
-
-    setArticleFromProps = salesArticle => {
-        let percentageOfRootProductSales = '';
-        if (salesArticle) {
-            percentageOfRootProductSales =
-                salesArticle.percentageOfRootProductSales ||
-                salesArticle.percentageOfRootProductSales === 0
-                    ? salesArticle.percentageOfRootProductSales
-                    : '';
-        }
-
-        return {
-            ...salesArticle,
-            percentageOfRootProductSales
-        };
-    };
 
     handleSaveClick = () => {
         const { id, updateSalesArticle } = this.props;
@@ -61,7 +46,7 @@ class SalesArticle extends Component {
     handleResetClick = () => {
         const { salesArticle } = this.props;
 
-        this.setState({ salesArticle: this.setArticleFromProps(salesArticle) });
+        this.setState({ salesArticle });
         this.setState({ editStatus: 'view' });
     };
 
@@ -90,6 +75,7 @@ class SalesArticle extends Component {
     render() {
         const { loading, errorMessage, classes } = this.props;
         const { salesArticle } = this.state;
+        const forecastTypes = ['Y', 'N', ''];
 
         if (loading || !salesArticle) {
             return <Loading />;
@@ -106,14 +92,16 @@ class SalesArticle extends Component {
                             <ErrorCard errorMessage={errorMessage} />
                         </Grid>
                     )}
-                    <Grid item xs={5}>
+                    <Grid item xs={3}>
                         <InputField
                             label="Article Number"
                             disabled
+                            fullWidth
                             propertyName="id"
                             value={salesArticle.articleNumber}
                         />
                     </Grid>
+                    <Grid item xs={1} />
                     <Grid item xs={7}>
                         <InputField
                             propertyName="description"
@@ -123,36 +111,44 @@ class SalesArticle extends Component {
                             value={salesArticle.description}
                         />
                     </Grid>
-                    <Grid item xs={5}>
+                    <Grid item xs={3}>
                         <InputField
                             label="Forecast From"
                             type="date"
+                            fullWidth
                             propertyName="forecastFromDate"
                             value={moment(salesArticle.forecastFromDate).format('YYYY-MM-DD')}
                             onChange={this.handleFieldChange}
                         />
                     </Grid>
-                    <Grid item xs={7}>
+                    <Grid item xs={1} />
+                    <Grid item xs={3}>
                         <InputField
                             label="Forecast To"
                             type="date"
+                            fullWidth
                             propertyName="forecastToDate"
                             value={moment(salesArticle.forecastToDate).format('YYYY-MM-DD')}
                             onChange={this.handleFieldChange}
                         />
                     </Grid>
-                    <Grid item xs={5}>
-                        <InputField
+                    <Grid item xs={4} />
+                    <Grid item xs={3}>
+                        <Dropdown
                             label="Forecast Type"
                             propertyName="forecastType"
+                            items={forecastTypes}
+                            fullWidth
                             value={salesArticle.forecastType}
                             onChange={this.handleFieldChange}
                         />
                     </Grid>
-                    <Grid item xs={7}>
+                    <Grid item xs={1} />
+                    <Grid item xs={3}>
                         <InputField
                             label="% of Root Product Sales"
                             type="number"
+                            fullWidth
                             propertyName="percentageOfRootProductSales"
                             value={salesArticle.percentageOfRootProductSales}
                             onChange={this.handleFieldChange}
