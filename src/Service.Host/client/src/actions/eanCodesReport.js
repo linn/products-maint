@@ -16,7 +16,8 @@ export default (includePhasedOut, cartonisedOnly) => ({
             {
                 type: actionTypes.REQUEST_EAN_CODE_REPORT,
                 payload: {
-                    options: { includePhasedOut, cartonisedOnly }}
+                    options: { includePhasedOut, cartonisedOnly }
+                }
             },
             {
                 type: actionTypes.RECEIVE_EAN_CODE_REPORT,
@@ -24,7 +25,10 @@ export default (includePhasedOut, cartonisedOnly) => ({
             },
             {
                 type: actionTypes.FETCH_ERROR,
-                payload: (action, state, res) => res ? `Ean Codes Report - ${res.status} ${res.statusText}` : `Network request failed`
+                payload: (action, state, res) =>
+                    res
+                        ? `Ean Codes Report - ${res.status} ${res.statusText}`
+                        : `Network request failed`
             }
         ]
     }

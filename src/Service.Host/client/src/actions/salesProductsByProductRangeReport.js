@@ -25,7 +25,8 @@ export default (productRangeId, includePhasedOut) => ({
             },
             {
                 type: actionTypes.FETCH_ERROR,
-                payload: (action, state, res) => res ? `Report - ${res.status} ${res.statusText}` : `Network request failed`
+                payload: (action, state, res) =>
+                    res ? `Report - ${res.status} ${res.statusText}` : `Network request failed`
             }
         ]
     }
