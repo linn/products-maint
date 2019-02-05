@@ -3,12 +3,11 @@ import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import { Grid, Paper } from '@material-ui/core';
 import {
-    BackButton,
-    SaveCancelButtons,
     InputField,
     Title,
     ErrorCard,
-    Loading
+    Loading,
+    SaveBackCancelButtons
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 
@@ -110,7 +109,7 @@ class SalesArticle extends Component {
                     <Grid item xs={5}>
                         <InputField
                             label="Article Number"
-                            disabled={true}
+                            disabled
                             propertyName="id"
                             value={salesArticle.articleNumber}
                         />
@@ -119,8 +118,8 @@ class SalesArticle extends Component {
                         <InputField
                             propertyName="description"
                             label="Description"
-                            fullWidth={true}
-                            disabled={true}
+                            fullWidth
+                            disabled
                             value={salesArticle.description}
                         />
                     </Grid>
@@ -160,11 +159,11 @@ class SalesArticle extends Component {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <BackButton backClick={this.handleBackClick} />
-                        <SaveCancelButtons
-                            disabled={this.viewing()}
+                        <SaveBackCancelButtons
+                            saveDisabled={this.viewing()}
                             saveClick={this.handleSaveClick}
                             cancelClick={this.handleResetClick}
+                            backClick={this.handleBackClick}
                         />
                     </Grid>
                 </Grid>
