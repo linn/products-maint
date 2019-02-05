@@ -26,7 +26,7 @@ const CartonDetails = ({ reportData, loading, classes }) => (
                 </Link>
             </Grid>
             <Grid item xs={12}>
-                {loading ? <Loading /> : ''}
+                {loading && <Loading />}
                 <ReportTable
                     reportData={reportData}
                     showTotals={false}
