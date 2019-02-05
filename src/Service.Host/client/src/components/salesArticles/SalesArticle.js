@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import { Grid, Paper } from '@material-ui/core';
-import { InputField, Title, ErrorCard, Loading } from '@linn-it/linn-form-components-library';
+import {
+    InputField,
+    Title,
+    ErrorCard,
+    Loading,
+    SaveBackCancelButtons
+} from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
-import SaveBackCancelButtons from '../common/SaveBackCancelButtons';
 
 const styles = () => ({
     root: {

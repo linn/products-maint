@@ -12,7 +12,8 @@ const styles = () => ({
 });
 
 const ProductRanges = ({ reportData, loading, options, classes }) => {
-    const optionsTitle = !options.includePhasedOut || options.includePhasedOut === 'false' ? 'Live ' : '';
+    const optionsTitle =
+        !options.includePhasedOut || options.includePhasedOut === 'false' ? 'Live ' : '';
     return (
         <div className={classes.root}>
             <Grid container spacing={24} justify="center">
@@ -23,7 +24,8 @@ const ProductRanges = ({ reportData, loading, options, classes }) => {
                     {loading ? <Loading /> : ''}
                     <ReportTable
                         reportData={reportData}
-                        showTotals={false} placeholderRows={10} 
+                        showTotals={false}
+                        placeholderRows={10}
                         placeholderColumns={3}
                         showRowTitles={false}
                         showTitle={false}
