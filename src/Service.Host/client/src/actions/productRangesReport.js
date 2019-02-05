@@ -4,7 +4,9 @@ import * as actionTypes from './index';
 
 export default includePhasedOut => ({
     [CALL_API]: {
-        endpoint: `${config.appRoot}/products/reports/product-ranges?includePhasedOut=${includePhasedOut}`,
+        endpoint: `${
+            config.appRoot
+        }/products/reports/product-ranges?includePhasedOut=${includePhasedOut}`,
         method: 'GET',
         options: { requiresAuth: true },
         headers: {
@@ -23,7 +25,8 @@ export default includePhasedOut => ({
             },
             {
                 type: actionTypes.FETCH_ERROR,
-                payload: (action, state, res) => res ? `Report - ${res.status} ${res.statusText}` : `Network request failed`
+                payload: (action, state, res) =>
+                    res ? `Report - ${res.status} ${res.statusText}` : `Network request failed`
             }
         ]
     }

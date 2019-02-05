@@ -22,7 +22,8 @@ export default function FetchApiActions(actionTypeRoot, uri, actionTypes) {
                 },
                 {
                     type: sharedActionTypes.FETCH_ERROR,
-                    payload: (action, state, res) => res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
+                    payload: (action, state, res) =>
+                        res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
                 }
             ]
         }
@@ -47,7 +48,8 @@ export default function FetchApiActions(actionTypeRoot, uri, actionTypes) {
                 },
                 {
                     type: sharedActionTypes.FETCH_ERROR,
-                    payload: (action, state, res) => res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
+                    payload: (action, state, res) =>
+                        res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
                 }
             ]
         }

@@ -75,7 +75,11 @@ class SalesArticle extends Component {
     render() {
         const { loading, errorMessage, classes } = this.props;
         const { salesArticle } = this.state;
-        const forecastTypes = ['Y', 'N', ''];
+        const forecastTypes = [
+            { id: 'Y', displayText: 'Yes' },
+            { id: 'N', displayText: 'No' },
+            { id: '', displayText: '' }
+        ];
 
         if (loading || !salesArticle) {
             return <Loading />;
