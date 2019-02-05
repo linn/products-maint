@@ -2,26 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import { List, ListItem, Paper, Typography, Button } from '@material-ui/core';
-import { Title, Loading } from '@linn-it/linn-form-components-library';
+import { List, ListItem, Typography, Button } from '@material-ui/core';
+import { Title, Loading, Page } from '@linn-it/linn-form-components-library';
 
 const styles = () => ({
-    root: {
-        margin: '40px',
-        padding: '40px',
-        marginBottom: '80px'
-    },
     createButton: {
         float: 'right'
     }
 });
 
-const SaCoreTypes = ({ classes, saCoreTypes, loading }) => (
+const SaCoreTypes = ({ classes, saCoreTypes, loading, history }) => (
     <div>
         {loading ? (
             <Loading />
         ) : (
-            <Paper className={classes.root}>
+            <Page history={history}>
                 <Title text="Sales Article Core Types" />
                 <List>
                     {saCoreTypes.map(saCoreType => (
@@ -44,7 +39,7 @@ const SaCoreTypes = ({ classes, saCoreTypes, loading }) => (
                         </Button>
                     </Link>
                 </span>
-            </Paper>
+            </Page>
         )}
     </div>
 );

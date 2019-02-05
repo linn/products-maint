@@ -5,14 +5,13 @@ import { Grid } from '@material-ui/core';
 import {
     BackButton,
     SaveCancelButtons,
-    // InputField,
+    InputField,
+    Dropdown,
+    Page,
     Loading,
     Title,
     ErrorCard
 } from '@linn-it/linn-form-components-library';
-import Dropdown from './Dropdown';
-import InputField from './InputField';
-import Page from './Page';
 
 const styles = () => ({
     root: {

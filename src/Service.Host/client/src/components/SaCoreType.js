@@ -1,26 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import {
     BackButton,
     SaveCancelButtons,
     InputField,
     Loading,
     Title,
-    ErrorCard
+    ErrorCard,
+    Page
 } from '@linn-it/linn-form-components-library';
-
-const styles = () => ({
-    root: {
-        margin: 40,
-        padding: 40
-    },
-    grid: {
-        width: '100%',
-        margin: '0 auto'
-    }
-});
 
 class SaCoreType extends Component {
     constructor(props) {
@@ -90,14 +80,14 @@ class SaCoreType extends Component {
     }
 
     render() {
-        const { loading, classes, errorMessage } = this.props;
+        const { loading, errorMessage, history } = this.props;
         const { saCoreType } = this.state;
         if (loading || !saCoreType) {
             return <Loading />;
         }
 
         return (
-            <Paper className={classes.root}>
+            <Page history={history}>
                 <Grid container spacing={24}>
                     <Grid item xs={12}>
                         {this.creating() ? (
@@ -187,7 +177,7 @@ class SaCoreType extends Component {
                         />
                     </Grid>
                 </Grid>
-            </Paper>
+            </Page>
         );
     }
 }
@@ -202,7 +192,6 @@ SaCoreType.defaultProps = {
 };
 
 SaCoreType.propTypes = {
-    classes: PropTypes.shape({}).isRequired,
     saCoreType: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
@@ -213,4 +202,4 @@ SaCoreType.propTypes = {
     loading: PropTypes.bool
 };
 
-export default withStyles(styles)(SaCoreType);
+export default SaCoreType;
