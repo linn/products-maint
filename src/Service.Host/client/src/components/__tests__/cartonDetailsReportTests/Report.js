@@ -1,19 +1,20 @@
 ﻿import React from 'react';
-import CartonDetails from '../../reports/CartonDetails';
 import { createShallow } from '@material-ui/core/test-utils';
-import { Loading } from '../../common/Loading';
+import CartonDetails from '../../reports/CartonDetails';
 
 describe('<CartonDetails />', () => {
+    let wrapper;
     const getReportTable = () => wrapper.find('WithStyles(ReportTable)');
     const getLoading = () => wrapper.find('Loading');
     const shallow = createShallow({ dive: true });
 
-    let reportData = { results: [] },
-        config = { appRoot: '' },
-        wrapper;
+    const reportData = { results: [] };
+    const config = { appRoot: '' };
 
     beforeEach(() => {
-        wrapper = shallow(<CartonDetails loading={false} reportData={reportData} config={config} />);
+        wrapper = shallow(
+            <CartonDetails loading={false} reportData={reportData} config={config} />
+        );
     });
 
     test('Should render Table', () => {
@@ -22,7 +23,6 @@ describe('<CartonDetails />', () => {
     });
 
     describe('loading', () => {
-
         beforeEach(() => {
             wrapper = shallow(<CartonDetails loading={true} reportData={reportData} config={config} />);
         });

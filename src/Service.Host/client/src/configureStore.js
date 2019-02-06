@@ -7,12 +7,7 @@ import cartonTypes from './middleware/cartonTypes';
 
 const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose;
 
-const middleware = [
-    authorization,
-    api,
-    thunkMiddleware,
-    cartonTypes
-];
+const middleware = [authorization, api, thunkMiddleware, cartonTypes];
 
 const configureStore = initialState => {
     const enhancers = composeEnhancers(applyMiddleware(...middleware));

@@ -1,5 +1,5 @@
-﻿import itemStoreFactory from '../reducerFactories/itemStoreFactory';
-import deepFreeze from 'deep-freeze';
+﻿import deepFreeze from 'deep-freeze';
+import itemStoreFactory from '../reducerFactories/itemStoreFactory';
 
 describe('item store reducer factory', () => {
     const actionTypes = {
@@ -39,8 +39,8 @@ describe('item store reducer factory', () => {
 
     test('when resetting entity', () => {
         const state = {
-            loading: false, 
-            item: { name: 'name'}
+            loading: false,
+            item: { name: 'name' }
         };
 
         const action = {

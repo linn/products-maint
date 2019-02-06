@@ -1,10 +1,10 @@
+import { CALL_API } from 'redux-api-middleware';
 import config from '../config';
 import * as actionTypes from './index';
-import { CALL_API } from 'redux-api-middleware';
 
 export const fetchStockTriggerLevelParts = (locationId) => ({
     [CALL_API]: {
-        endpoint: `${config.appRoot}/products/reports/parts-at-location/` + locationId,
+        endpoint: `${config.appRoot}/products/reports/parts-at-location/${locationId}`,
         method: 'GET',
         options: { requiresAuth: true },
         headers: {

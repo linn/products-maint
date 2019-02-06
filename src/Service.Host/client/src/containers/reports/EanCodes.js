@@ -1,22 +1,24 @@
 ﻿import { connect } from 'react-redux';
+import queryString from 'query-string';
 import EanCodes from '../../components/reports/EanCodes';
 import initialiseOnMount from '../common/initialiseOnMount';
-import { fetchEanCodesReport } from '../../actions/eanCodesReport';
-import queryString from 'query-string';
+import fetchEanCodesReport from '../../actions/eanCodesReport';
 import config from '../../config';
 import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
 
 const reportName = 'eanCodesReport';
 const getOptions = ownProps => {
-    const query = ownProps.location.search ? queryString.parse(ownProps.location.search) : { includePhasedOut: false, cartonisedOnly: true };
+    const query = ownProps.location.search
+        ? queryString.parse(ownProps.location.search)
+        : { includePhasedOut: false, cartonisedOnly: true };
     return query;
-}
+};
 
 const mapStateToProps = (state, ownProps) => ({
     reportData: getReportData(state, reportName),
     loading: getReportLoading(state, reportName),
     options: getOptions(ownProps),
-    config 
+    config
 });
 
 const initialise = ({ options }) => dispatch => {
@@ -27,4 +29,7 @@ const mapDispatchToProps = {
     initialise
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(EanCodes));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(initialiseOnMount(EanCodes));

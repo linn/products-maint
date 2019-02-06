@@ -3,19 +3,20 @@ import { createShallow } from '@material-ui/core/test-utils';
 import EanCodes from '../../reports/EanCodes';
 
 describe('<EanCodes />', () => {
-
+    let wrapper;
     const getReportTable = () => wrapper.find('WithStyles(ReportTable)');
     const getExportButton = () => wrapper.find('WithStyles(ExportButton)');
     const getLoading = () => wrapper.find('Loading');
     const shallow = createShallow({ dive: true });
 
-    let reportData = { results: [] },
-        config = { appRoot: '' },
-        options = { cartonisedOnly: true, includePhasedOut: false },
-        wrapper;
-    
-        beforeEach(() => {
-        wrapper = shallow(<EanCodes options={options} loading={false} reportData={reportData} config={config} />)
+    const reportData = { results: [] };
+    const config = { appRoot: '' };
+    const options = { cartonisedOnly: true, includePhasedOut: false };
+
+    beforeEach(() => {
+        wrapper = shallow(
+            <EanCodes options={options} loading={false} reportData={reportData} config={config} />
+        );
     });
 
     test('Should render Table', () => {
@@ -25,7 +26,9 @@ describe('<EanCodes />', () => {
 
     test('Should render export button', () => {
         expect(getExportButton()).toHaveLength(1);
-        expect(getExportButton().props().href).toEqual('/products/reports/sales-article-ean-codes/export?includePhasedOut=false&cartonisedOnly=true');
+        expect(getExportButton().props().href).toEqual(
+            '/products/reports/sales-article-ean-codes/export?includePhasedOut=false&cartonisedOnly=true'
+        );
     });
 
     describe('loading', () => {
@@ -37,6 +40,5 @@ describe('<EanCodes />', () => {
             expect(getReportTable()).toHaveLength(1);
             expect(getLoading()).toHaveLength(1);
         });
-
     });
 });

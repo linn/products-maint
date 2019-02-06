@@ -1,5 +1,5 @@
-﻿export const getSingleErrorMessage = (state) => {
-    const fetchError = state.fetchError;
+﻿export default state => {
+    const { fetchError } = state;
     if (!fetchError) {
         return null;
     }
@@ -13,4 +13,4 @@
     }
 
     return null;
-}
+};

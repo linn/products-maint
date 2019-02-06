@@ -2,4 +2,8 @@
 import UpdateApiActions from './UpdateApiActions';
 import * as itemTypes from '../itemTypes';
 
-export default new UpdateApiActions(itemTypes.sernosConfig.actionType, itemTypes.sernosConfig.uri, actionTypes);
+export default new UpdateApiActions(
+    itemTypes.sernosConfig.actionType,
+    itemTypes.sernosConfig.uri,
+    actionTypes
+);

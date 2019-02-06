@@ -1,4 +1,4 @@
-﻿import { getSingleErrorMessage } from '../fetchErrorSelectors';
+﻿import getSingleErrorMessage from '../fetchErrorSelectors';
 
 describe('when getting single error message', () => {
     test('should return message', () => {
@@ -19,7 +19,6 @@ describe('when getting single error message', () => {
 
 describe('when getting cut down error message', () => {
     test('should return status message', () => {
-
         const state = {
             fetchError: {
                 statusText: 'Failure'

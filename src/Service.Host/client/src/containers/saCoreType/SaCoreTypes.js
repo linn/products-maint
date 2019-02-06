@@ -4,7 +4,7 @@ import initialiseOnMount from '../common/initialiseOnMount';
 import saCoreTypeActions from '../../actions/saCoreTypesActions';
 import saCoreTypesSelectors from '../../selectors/saCoreTypesSelector';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     saCoreTypes: saCoreTypesSelectors.getItems(state),
     loading: saCoreTypesSelectors.getLoading(state)
 });
@@ -17,7 +17,7 @@ const mapDispatchToProps = {
     initialise
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(SaCoreTypes));
-
-
-
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(initialiseOnMount(SaCoreTypes));

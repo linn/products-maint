@@ -2,12 +2,9 @@
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
-import { Loading } from './common/Loading';
+import { SaveCancelButtons, Loading } from '@linn-it/linn-form-components-library';
 import { getSelfHref } from '../helpers/utilities';
 import TextInput from './common/forms/TextInput';
-import SaveCancelButtons from './common/forms/SaveCancelButtons';
-
 
 const styles = theme => ({
     paper: {

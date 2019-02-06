@@ -1,9 +1,8 @@
-﻿import sernosConfig from '../sernosConfig';
-import deepFreeze from 'deep-freeze';
+﻿import deepFreeze from 'deep-freeze';
+import sernosConfig from '../sernosConfig';
 import { sernosConfigActionTypes as actionTypes } from '../../actions';
 
 describe('sernos config reducer', () => {
-
     test('when requesting sernos config', () => {
         const state = {
             loading: false
@@ -26,7 +25,7 @@ describe('sernos config reducer', () => {
 
     test('when resetting sernos config', () => {
         const state = {
-            loading: false, 
+            loading: false,
             item: { name: 'name'}
         };
 

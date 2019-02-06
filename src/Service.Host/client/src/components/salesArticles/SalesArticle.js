@@ -3,14 +3,14 @@ import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import { Grid, Paper } from '@material-ui/core';
 import {
-    BackButton,
-    SaveCancelButtons,
     InputField,
     Title,
-    ErrorCard
+    ErrorCard,
+    Loading,
+    SaveBackCancelButtons,
+    Dropdown
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
-import { Loading } from '../common/Loading';
 
 const styles = () => ({
     root: {
@@ -32,25 +32,9 @@ class SalesArticle extends Component {
     componentWillReceiveProps(nextProps) {
         this.setState({
             editStatus: nextProps.editStatus,
-            salesArticle: this.setArticleFromProps(nextProps.salesArticle)
+            salesArticle: nextProps.salesArticle
         });
     }
-
-    setArticleFromProps = salesArticle => {
-        let percentageOfRootProductSales = '';
-        if (salesArticle) {
-            percentageOfRootProductSales =
-                salesArticle.percentageOfRootProductSales ||
-                salesArticle.percentageOfRootProductSales === 0
-                    ? salesArticle.percentageOfRootProductSales
-                    : '';
-        }
-
-        return {
-            ...salesArticle,
-            percentageOfRootProductSales
-        };
-    };
 
     handleSaveClick = () => {
         const { id, updateSalesArticle } = this.props;
@@ -60,7 +44,9 @@ class SalesArticle extends Component {
     };
 
     handleResetClick = () => {
-        this.setState({ salesArticle: this.setArticleFromProps(this.props.salesArticle) });
+        const { salesArticle } = this.props;
+
+        this.setState({ salesArticle });
         this.setState({ editStatus: 'view' });
     };
 
@@ -70,7 +56,9 @@ class SalesArticle extends Component {
     };
 
     editing() {
-        return this.state.editStatus === 'edit';
+        const { editStatus } = this.state;
+
+        return editStatus === 'edit';
     }
 
     viewing() {
@@ -79,13 +67,19 @@ class SalesArticle extends Component {
     }
 
     handleFieldChange(propertyName, newValue) {
+        const { salesArticle } = this.state;
         this.setState({ editStatus: 'edit' });
-        this.setState({ salesArticle: { ...this.state.salesArticle, [propertyName]: newValue } });
+        this.setState({ salesArticle: { ...salesArticle, [propertyName]: newValue } });
     }
 
     render() {
         const { loading, errorMessage, classes } = this.props;
         const { salesArticle } = this.state;
+        const forecastTypes = [
+            { id: 'Y', displayText: 'Yes' },
+            { id: 'N', displayText: 'No' },
+            { id: '', displayText: '' }
+        ];
 
         if (loading || !salesArticle) {
             return <Loading />;
@@ -102,64 +96,74 @@ class SalesArticle extends Component {
                             <ErrorCard errorMessage={errorMessage} />
                         </Grid>
                     )}
-                    <Grid item xs={5}>
+                    <Grid item xs={3}>
                         <InputField
                             label="Article Number"
-                            disabled={true}
+                            disabled
+                            fullWidth
                             propertyName="id"
                             value={salesArticle.articleNumber}
                         />
                     </Grid>
+                    <Grid item xs={1} />
                     <Grid item xs={7}>
                         <InputField
                             propertyName="description"
                             label="Description"
-                            fullWidth={true}
-                            disabled={true}
+                            fullWidth
+                            disabled
                             value={salesArticle.description}
                         />
                     </Grid>
-                    <Grid item xs={5}>
+                    <Grid item xs={3}>
                         <InputField
                             label="Forecast From"
                             type="date"
+                            fullWidth
                             propertyName="forecastFromDate"
                             value={moment(salesArticle.forecastFromDate).format('YYYY-MM-DD')}
                             onChange={this.handleFieldChange}
                         />
                     </Grid>
-                    <Grid item xs={7}>
+                    <Grid item xs={1} />
+                    <Grid item xs={3}>
                         <InputField
                             label="Forecast To"
                             type="date"
+                            fullWidth
                             propertyName="forecastToDate"
                             value={moment(salesArticle.forecastToDate).format('YYYY-MM-DD')}
                             onChange={this.handleFieldChange}
                         />
                     </Grid>
-                    <Grid item xs={5}>
-                        <InputField
+                    <Grid item xs={4} />
+                    <Grid item xs={3}>
+                        <Dropdown
                             label="Forecast Type"
                             propertyName="forecastType"
+                            items={forecastTypes}
+                            fullWidth
                             value={salesArticle.forecastType}
                             onChange={this.handleFieldChange}
                         />
                     </Grid>
-                    <Grid item xs={7}>
+                    <Grid item xs={1} />
+                    <Grid item xs={3}>
                         <InputField
                             label="% of Root Product Sales"
                             type="number"
+                            fullWidth
                             propertyName="percentageOfRootProductSales"
                             value={salesArticle.percentageOfRootProductSales}
                             onChange={this.handleFieldChange}
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <BackButton backClick={this.handleBackClick} />
-                        <SaveCancelButtons
-                            disabled={this.viewing()}
+                        <SaveBackCancelButtons
+                            saveDisabled={this.viewing()}
                             saveClick={this.handleSaveClick}
                             cancelClick={this.handleResetClick}
+                            backClick={this.handleBackClick}
                         />
                     </Grid>
                 </Grid>

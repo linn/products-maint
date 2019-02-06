@@ -1,6 +1,6 @@
-﻿import config from '../config';
+﻿import { CALL_API } from 'redux-api-middleware';
+import config from '../config';
 import * as sharedActionTypes from './index';
-import { CALL_API } from 'redux-api-middleware';
 
 export default function FetchApiActions(actionTypeRoot, uri, actionTypes) {
     this.fetch = () => ({
@@ -22,13 +22,14 @@ export default function FetchApiActions(actionTypeRoot, uri, actionTypes) {
                 },
                 {
                     type: sharedActionTypes.FETCH_ERROR,
-                    payload: (action, state, res) => res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
+                    payload: (action, state, res) =>
+                        res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
                 }
             ]
         }
     });
 
-    this.search = (searchTerm) => ({
+    this.search = searchTerm => ({
         [CALL_API]: {
             endpoint: `${config.appRoot}${uri}?searchTerm=${searchTerm}`,
             method: 'GET',
@@ -47,7 +48,8 @@ export default function FetchApiActions(actionTypeRoot, uri, actionTypes) {
                 },
                 {
                     type: sharedActionTypes.FETCH_ERROR,
-                    payload: (action, state, res) => res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
+                    payload: (action, state, res) =>
+                        res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
                 }
             ]
         }
@@ -57,5 +59,4 @@ export default function FetchApiActions(actionTypeRoot, uri, actionTypes) {
         type: actionTypes[`CLEAR_SEARCH_${actionTypeRoot}`],
         payload: {}
     });
-
 }

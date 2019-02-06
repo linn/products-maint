@@ -2,7 +2,7 @@
 import { Button, Grid, Paper, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import { Loading } from './common/Loading';
+import { Loading } from '@linn-it/linn-form-components-library';
 import { getSelfHref } from '../helpers/utilities';
 
 const styles = theme => ({

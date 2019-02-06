@@ -2,10 +2,13 @@
 import { withRouter } from 'react-router';
 import { Breadcrumbs } from '@linn-it/linn-form-components-library';
 
-const mapStateToProps = state => ({
-});
+const mapStateToProps = () => ({});
 
-const mapDispatchToProps = {
-};
+const mapDispatchToProps = {};
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Breadcrumbs));
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(Breadcrumbs)
+);

@@ -2,12 +2,13 @@
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { List, ListItem, Paper, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const styles = () => ({
     root: {
         margin: '40px',
         padding: '40px'
-    },
+    }
 });
 
 const App = ({ classes }) => (
@@ -33,7 +34,7 @@ const App = ({ classes }) => (
                 <Typography color="primary">Product Ranges Report</Typography>
             </ListItem>
         </List>
-        <Typography variant="h6">Utlities</Typography>
+        <Typography variant="h6">Utilities</Typography>
         <List>
             <ListItem component={Link} to="/products/maint/tariffs" button>
                 <Typography color="primary">Tariffs</Typography>
@@ -47,5 +48,13 @@ const App = ({ classes }) => (
         </List>
     </Paper>
 );
+
+App.propTypes = {
+    classes: PropTypes.shape({})
+};
+
+App.defaultProps = {
+    classes: {}
+};
 
 export default withStyles(styles)(App);

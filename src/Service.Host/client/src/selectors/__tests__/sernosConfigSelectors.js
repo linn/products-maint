@@ -2,7 +2,6 @@
 
 describe('when getting', () => {
     test('should return sernos config', () => {
-
         const state = {
             sernosConfig: {
                 item: { name: 'name' }
@@ -17,7 +16,6 @@ describe('when getting', () => {
 
 describe('when getting nothing', () => {
     test('should return null', () => {
-
         const state = {
             sernosConfig: {
                 item: null
@@ -30,7 +28,6 @@ describe('when getting nothing', () => {
 
 describe('when getting loading', () => {
     test('should return true', () => {
-
         const state = {
             sernosConfig: {
                 item: null,
@@ -44,7 +41,6 @@ describe('when getting loading', () => {
 
 describe('when getting edit status', () => {
     test('should return status', () => {
-
         const state = {
             sernosConfig: {
                 item: { name: 'name' },
@@ -61,7 +57,6 @@ describe('when getting edit status', () => {
 
 describe('when getting no edit status', () => {
     test('should return view', () => {
-
         const state = {
             sernosConfig: {
                 item: { name: 'name' },

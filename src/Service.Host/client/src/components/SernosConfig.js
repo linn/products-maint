@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
@@ -11,6 +12,38 @@ import {
     Title,
     ErrorCard
 } from '@linn-it/linn-form-components-library';
+=======
+﻿import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
+import { Typography, TextField, Paper, Button, MenuItem, Grid } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { ErrorCard } from '@linn-it/linn-form-components-library';
+import CircularLoading from './common/CircularLoading';
+import { getSelfHref } from '../helpers/utilities';
+
+const styles = () => ({
+    root: {
+        margin: '40px',
+        padding: '40px'
+    },
+    label: {
+        fontWeight: 'bold'
+    },
+    fullWidth: {
+        width: '100%'
+    },
+    gridItem: {
+        paddingLeft: 12,
+        paddingRight: 12
+    },
+    loading: {
+        margin: 'auto'
+    },
+    pullRight: {
+        float: 'right'
+    }
+});
+>>>>>>> master
 
 class SernosConfig extends Component {
     constructor(props) {
