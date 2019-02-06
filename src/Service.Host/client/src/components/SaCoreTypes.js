@@ -1,57 +1,30 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import { List, ListItem, Typography, Button } from '@material-ui/core';
-import { Title, Loading, Page } from '@linn-it/linn-form-components-library';
+import { Page, Loading, EntityList, CreateButton } from '@linn-it/linn-form-components-library';
 
-const styles = () => ({
-    createButton: {
-        float: 'right'
-    }
-});
-
-const SaCoreTypes = ({ classes, saCoreTypes, loading, history }) => (
-    <div>
+const SaCoreTypes = ({ saCoreTypes, loading, history }) => (
+    <Page history={history}>
         {loading ? (
             <Loading />
         ) : (
-            <Page history={history}>
-                <Title text="Sales Article Core Types" />
-                <List>
-                    {saCoreTypes.map(saCoreType => (
-                        <ListItem
-                            key={saCoreType.coreType}
-                            component={Link}
-                            to={saCoreType.href}
-                            button
-                        >
-                            <Typography color="primary">
-                                {saCoreType.coreType} - {saCoreType.description}
-                            </Typography>
-                        </ListItem>
-                    ))}
-                </List>
-                <span className={classes.createButton}>
-                    <Link to="/products/maint/sa-core-types/create">
-                        <Button color="primary" variant="contained">
-                            Create
-                        </Button>
-                    </Link>
-                </span>
-            </Page>
+            <Fragment>
+                <CreateButton createUrl="/products/maint/sa-core-types/create" />
+                <EntityList
+                    title="SA Core Types"
+                    entityList={saCoreTypes}
+                    entityId="coreType"
+                    loading={loading}
+                    descriptionFieldName="description"
+                />
+            </Fragment>
         )}
-    </div>
+    </Page>
 );
 
-SaCoreTypes.defaultProps = {
-    saCoreTypes: {}
-};
-
 SaCoreTypes.propTypes = {
-    classes: PropTypes.shape({}).isRequired,
-    loading: PropTypes.bool.isRequired,
-    saCoreTypes: PropTypes.shape({})
+    saCoreTypes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+    history: PropTypes.shape.isRequired,
+    loading: PropTypes.bool.isRequired
 };
 
-export default withStyles(styles)(SaCoreTypes);
+export default SaCoreTypes;

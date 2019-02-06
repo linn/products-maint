@@ -1,6 +1,5 @@
 ﻿import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import {
     BackButton,
@@ -12,17 +11,6 @@ import {
     Title,
     ErrorCard
 } from '@linn-it/linn-form-components-library';
-
-const styles = () => ({
-    root: {
-        margin: 40,
-        padding: 40
-    },
-    grid: {
-        width: '100%',
-        margin: '0 auto'
-    }
-});
 
 class SernosConfig extends Component {
     constructor(props) {
@@ -216,4 +204,4 @@ SernosConfig.propTypes = {
     loading: PropTypes.bool
 };
 
-export default withStyles(styles)(SernosConfig);
+export default SernosConfig;
