@@ -1,14 +1,6 @@
 ﻿import React, { Fragment } from 'react';
-<<<<<<< HEAD
 import PropTypes from 'prop-types';
 import { Page, Loading, EntityList, CreateButton } from '@linn-it/linn-form-components-library';
-=======
-import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import { List, ListItem, Paper, Typography } from '@material-ui/core';
-import { ErrorCard } from '@linn-it/linn-form-components-library';
-import CircularLoading from './common/CircularLoading';
->>>>>>> master
 
 const SernosConfigs = ({ sernosConfigs, loading, history }) => (
     <Page history={history}>
