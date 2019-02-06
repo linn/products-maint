@@ -4,11 +4,11 @@
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Linnapps.Reports;
 
-    public class StockTriggerLevelReportService : IStockTriggerLevelsService
+    public class StockTriggerLevelsService : IStockTriggerLevelsService
     {
         private readonly IStockTriggerLevelReportService stockTriggerLevelsService;
 
-        public StockTriggerLevelReportService(Domain.Linnapps.Reports.IStockTriggerLevelReportService stockTriggerLevelsService)
+        public StockTriggerLevelsService(Domain.Linnapps.Reports.IStockTriggerLevelReportService stockTriggerLevelsService)
         {
             this.stockTriggerLevelsService = stockTriggerLevelsService;
         }

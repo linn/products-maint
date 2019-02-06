@@ -10,9 +10,9 @@
 
     public sealed class SaCoreTypesModule : NancyModule
     {
-        private readonly IFacadeService<SaCoreType, int, SaCoreTypeResource> saCoreTypeService;
+        private readonly IFacadeService<SaCoreType, int, SaCoreTypeResource, SaCoreTypeResource> saCoreTypeService;
 
-        public SaCoreTypesModule(IFacadeService<SaCoreType, int, SaCoreTypeResource> saCoreTypeService)
+        public SaCoreTypesModule(IFacadeService<SaCoreType, int, SaCoreTypeResource, SaCoreTypeResource> saCoreTypeService)
         {
             this.saCoreTypeService = saCoreTypeService;
             this.Get("/products/maint/sa-core-types", _ => this.GetSaCoreTypes());

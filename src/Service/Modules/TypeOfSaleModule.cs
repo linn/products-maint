@@ -10,9 +10,10 @@
 
     public sealed class TypeOfSaleModule : NancyModule
     {
-        private readonly IFacadeService<TypeOfSale, string, TypeOfSaleResource> typeOfSaleService;
+        private readonly IFacadeService<TypeOfSale, string, TypeOfSaleResource, TypeOfSaleResource> typeOfSaleService;
 
-        public TypeOfSaleModule(IFacadeService<TypeOfSale, string, TypeOfSaleResource> typeOfSaleService)
+        public TypeOfSaleModule(
+            IFacadeService<TypeOfSale, string, TypeOfSaleResource, TypeOfSaleResource> typeOfSaleService)
         {
             this.typeOfSaleService = typeOfSaleService;
             this.Get("/products/maint/types-of-sale/", _ => this.GetTypesOfSale());

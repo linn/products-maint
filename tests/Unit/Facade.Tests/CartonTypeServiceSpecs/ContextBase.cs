@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Facade.Tests.CartonTypeServiceSpecs
 {
-    using Linn.Products.Domain.Linnapps.Repositories;
+    using Linn.Common.Persistence;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Facade.Services;
 
     using NSubstitute;
@@ -11,13 +12,16 @@
     {
         protected CartonTypeService Sut { get; private set; }
 
-        protected ICartonTypeRepository CartonTypeRepository { get; private set; }
+        protected IRepository<CartonType, string> CartonTypeRepository { get; private set; }
+
+        protected ITransactionManager TransactionManager { get; private set; }
 
         [SetUp]
         public void SetUpContext()
         {
-            this.CartonTypeRepository = Substitute.For<ICartonTypeRepository>();
-            this.Sut = new CartonTypeService(this.CartonTypeRepository);
+            this.CartonTypeRepository = Substitute.For<IRepository<CartonType, string>>();
+            this.TransactionManager = Substitute.For<ITransactionManager>();
+            this.Sut = new CartonTypeService(this.CartonTypeRepository, this.TransactionManager);
         }
     }
 }

@@ -16,13 +16,18 @@
 
         public DbSet<SalesArticle> SalesArticles { get; set; }
 
+        public DbSet<TypeOfSale> TypesOfSale { get; set; }
+
+        public DbSet<CartonType> CartonTypes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             this.BuildSaCoreType(builder);
             this.BuildSernosConfig(builder);
             this.BuildTariffs(builder);
             this.BuildSalesArticles(builder);
-
+            this.BuildTypesOfSale(builder);
+            this.BuildCartonTypes(builder);
             base.OnModelCreating(builder);
         }
 
@@ -37,6 +42,30 @@
 
             optionsBuilder.UseOracle($"Data Source={dataSource};User Id={userId};Password={password};");
             base.OnConfiguring(optionsBuilder);
+        }
+
+        private void BuildCartonTypes(ModelBuilder builder)
+        {
+            builder.Entity<CartonType>().ToTable("CARTON_TYPES");
+            builder.Entity<CartonType>().HasKey(t => t.Name);
+            builder.Entity<CartonType>().Property(t => t.Name).HasColumnName("CARTON_TYPE").HasMaxLength(10);
+            builder.Entity<CartonType>().Property(t => t.Description).HasColumnName("DESCRIPTION").HasMaxLength(50);
+            builder.Entity<CartonType>().Property(t => t.Height).HasColumnName("HEIGHT");
+            builder.Entity<CartonType>().Property(t => t.Width).HasColumnName("WIDTH");
+            builder.Entity<CartonType>().Property(t => t.Depth).HasColumnName("DEPTH");
+            builder.Entity<CartonType>().Property(t => t.NumberOfSmallLabels).HasColumnName("NUM_SMALL_LABELS");
+            builder.Entity<CartonType>().Property(t => t.NumberOfLargeLabels).HasColumnName("NUM_LARGE_LABELS");
+        }
+
+        private void BuildTypesOfSale(ModelBuilder builder)
+        {
+            builder.Entity<TypeOfSale>().ToTable("TYPES_OF_SALE");
+            builder.Entity<TypeOfSale>().HasKey(t => t.Name);
+            builder.Entity<TypeOfSale>().Property(t => t.Name).HasColumnName("TYPE_OF_SALE");
+            builder.Entity<TypeOfSale>().Property(t => t.Description).HasColumnName("DESCRIPTION").HasMaxLength(50);
+            builder.Entity<TypeOfSale>().Property(t => t.Nominal).HasColumnName("NOMINAL").HasMaxLength(10);
+            builder.Entity<TypeOfSale>().Property(t => t.Department).HasColumnName("DEPARTMENT").HasMaxLength(10);
+            builder.Entity<TypeOfSale>().Property(t => t.RealSale).HasColumnName("REAL_SALE").HasMaxLength(1);
         }
 
         private void BuildSaCoreType(ModelBuilder builder)

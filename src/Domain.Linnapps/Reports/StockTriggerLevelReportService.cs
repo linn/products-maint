@@ -9,9 +9,9 @@
 
     public class StockTriggerLevelReportService : IStockTriggerLevelReportService
     {
-        private RemoteServices.IStockTriggerLevelReportService databaseService;
+        private RemoteServices.IStockTriggerLevelDataService databaseService;
 
-        public StockTriggerLevelReportService(RemoteServices.IStockTriggerLevelReportService service)
+        public StockTriggerLevelReportService(RemoteServices.IStockTriggerLevelDataService service)
         {
             this.databaseService = service;
         }

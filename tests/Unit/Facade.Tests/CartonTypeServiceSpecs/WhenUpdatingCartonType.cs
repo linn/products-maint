@@ -29,15 +29,15 @@
                                     Depth = 4m,
                                     Width = 4m,
                                 };
-            this.CartonTypeRepository.GetCarton(this.name)
+            this.CartonTypeRepository.FindById(this.name)
                 .Returns(new CartonType(this.name, 1, 1, 1));
-            this.result = this.Sut.UpdateCartonType(this.name, this.resource);
+            this.result = this.Sut.Update(this.name, this.resource);
         }
 
         [Test]
         public void ShouldGetCartonType()
         {
-            this.CartonTypeRepository.Received().GetCarton(this.name);
+            this.CartonTypeRepository.Received().FindById(this.name);
         }
 
         [Test]

@@ -22,7 +22,7 @@
         {
             this.requestResource = new CartonTypeResource { Name = "c1" };
             var cartonType = new CartonType("c1", 1, 2, 3);
-            this.CartonTypeService.AddCartonType(Arg.Any<CartonTypeResource>())
+            this.CartonTypeService.Add(Arg.Any<CartonTypeResource>())
                 .Returns(new CreatedResult<CartonType>(cartonType)
                              {
                                  Data = cartonType
@@ -47,7 +47,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.CartonTypeService.Received().AddCartonType(Arg.Is<CartonTypeResource>(r => r.Name == this.requestResource.Name));
+            this.CartonTypeService.Received().Add(Arg.Is<CartonTypeResource>(r => r.Name == this.requestResource.Name));
         }
 
         [Test]

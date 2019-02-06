@@ -15,8 +15,6 @@
     using Linn.Products.Proxy;
     using Linn.Products.Resources;
 
-    using IStockTriggerLevelReportService = Linn.Products.Domain.Linnapps.RemoteServices.IStockTriggerLevelReportService;
-
     public class ServiceModule : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -25,19 +23,19 @@
             builder.RegisterType<EanCodeReportService>().As<IEanCodeReportService>();
             builder.RegisterType<CartonDetailsReportService>().As<ICartonDetailsReportService>();
             builder.RegisterType<ProductReports>().As<IProductReports>();
-            builder.RegisterType<Domain.Linnapps.Reports.StockTriggerLevelReportService>().As<Domain.Linnapps.Reports.IStockTriggerLevelReportService>();
-           
+            builder.RegisterType<StockTriggerLevelReportService>().As<IStockTriggerLevelReportService>();
+
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
             builder.RegisterType<TariffService>().As<ITariffService>();
             builder.RegisterType<CartonReportsService>().As<ICartonReportsService>();
             builder.RegisterType<ProductsReportsService>().As<IProductsReportsService>();
-            builder.RegisterType<CartonTypeService>().As<ICartonTypeService>();
-            builder.RegisterType<SaCoreTypeService>().As<IFacadeService<SaCoreType, int, SaCoreTypeResource>>();
-            builder.RegisterType<SernosConfigService>().As<IFacadeService<SernosConfig, string, SernosConfigResource>>();
-            builder.RegisterType<TypeOfSaleService>().As<IFacadeService<TypeOfSale, string, TypeOfSaleResource>>();
-            builder.RegisterType<Facade.Services.StockTriggerLevelReportService>().As<Facade.Services.IStockTriggerLevelsService>();
-            builder.RegisterType<SalesArticleForecastService>().As<IFacadeService<SalesArticle, string, SalesArticleResource>>();
+            builder.RegisterType<CartonTypeService>().As<IFacadeService<CartonType, string, CartonTypeResource, CartonTypeUpdateResource>>();
+            builder.RegisterType<SaCoreTypeService>().As<IFacadeService<SaCoreType, int, SaCoreTypeResource, SaCoreTypeResource>>();
+            builder.RegisterType<SernosConfigService>().As<IFacadeService<SernosConfig, string, SernosConfigResource, SernosConfigResource>>();
+            builder.RegisterType<TypeOfSaleService>().As<IFacadeService<TypeOfSale, string, TypeOfSaleResource, TypeOfSaleResource>>();
+            builder.RegisterType<StockTriggerLevelsService>().As<IStockTriggerLevelsService>();
+            builder.RegisterType<SalesArticleForecastService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();
@@ -47,7 +45,7 @@
             builder.RegisterType<SalesProductProxy>().As<ISalesProductRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
 
             // Oracle proxies
-            builder.RegisterType<StockTriggerLevelReportProxy>().As<IStockTriggerLevelReportService>();
+            builder.RegisterType<StockTriggerLevelDataProxy>().As<IStockTriggerLevelDataService>();
         }
     }
 }
