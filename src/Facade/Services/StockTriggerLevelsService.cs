@@ -8,7 +8,7 @@
     {
         private readonly IStockTriggerLevelReportService stockTriggerLevelsService;
 
-        public StockTriggerLevelsService(Domain.Linnapps.Reports.IStockTriggerLevelReportService stockTriggerLevelsService)
+        public StockTriggerLevelsService(IStockTriggerLevelReportService stockTriggerLevelsService)
         {
             this.stockTriggerLevelsService = stockTriggerLevelsService;
         }
