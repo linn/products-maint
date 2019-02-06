@@ -8,6 +8,7 @@
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Facade.ResourceBuilders;
     using Linn.Products.Facade.Services;
+    using Linn.Products.Resources;
     using Linn.Products.Service.Modules;
     using Linn.Products.Service.ResponseProcessors;
     using Linn.Products.Service.Tests;
@@ -22,13 +23,13 @@
     {
         protected ICartonReportsService CartonReportsService { get; private set; }
 
-        protected ICartonTypeService CartonTypeService { get; private set; }
+        protected IFacadeService<CartonType, string, CartonTypeResource, CartonTypeUpdateResource> CartonTypeService { get; private set; }
 
         [SetUp]
         public void EstablishContext()
         {
             this.CartonReportsService = Substitute.For<ICartonReportsService>();
-            this.CartonTypeService = Substitute.For<ICartonTypeService>();
+            this.CartonTypeService = Substitute.For<IFacadeService<CartonType, string, CartonTypeResource, CartonTypeUpdateResource>>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>

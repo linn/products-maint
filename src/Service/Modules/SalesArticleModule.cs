@@ -14,12 +14,12 @@
 
     public sealed class SalesArticleModule : NancyModule
     {
-        private readonly IFacadeService<SalesArticle, string, SalesArticleResource> salesArticleForecastService;
+        private readonly IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> salesArticleForecastService;
 
         private readonly ISalesArticleService salesArticleProxyService;
 
         public SalesArticleModule(
-            IFacadeService<SalesArticle, string, SalesArticleResource> salesArticleForecastService,
+            IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> salesArticleForecastService,
             ISalesArticleService salesArticleProxyService)
         {
             this.salesArticleForecastService = salesArticleForecastService;

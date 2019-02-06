@@ -24,7 +24,7 @@
                                     Description = "Desc"
                                 };
 
-            this.result = this.Sut.AddCartonType(this.resource);
+            this.result = this.Sut.Add(this.resource);
         }
 
         [Test]

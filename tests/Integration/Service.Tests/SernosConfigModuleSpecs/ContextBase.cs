@@ -19,12 +19,12 @@
 
     public abstract class ContextBase : NancyContextBase
     {
-        protected IFacadeService<SernosConfig, string, SernosConfigResource> SernosConfigService { get; private set; }
+        protected IFacadeService<SernosConfig, string, SernosConfigResource, SernosConfigResource> SernosConfigService { get; private set; }
 
         [SetUp]
         public void EstablishContext()
         {
-            this.SernosConfigService = Substitute.For<IFacadeService<SernosConfig, string, SernosConfigResource>>();
+            this.SernosConfigService = Substitute.For<IFacadeService<SernosConfig, string, SernosConfigResource, SernosConfigResource>>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>

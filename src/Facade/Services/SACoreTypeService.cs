@@ -7,7 +7,7 @@
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
 
-    public class SaCoreTypeService : FacadeService<SaCoreType, int, SaCoreTypeResource>
+    public class SaCoreTypeService : FacadeService<SaCoreType, int, SaCoreTypeResource, SaCoreTypeResource>
     {
         public SaCoreTypeService(IRepository<SaCoreType, int> repository, ITransactionManager transactionManager)
             : base(repository, transactionManager)

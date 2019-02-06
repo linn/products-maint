@@ -20,7 +20,7 @@
             builder.RegisterType<TransactionManager>().As<ITransactionManager>();
 
             // linnapps repositories
-            builder.RegisterType<CartonTypeRepository>().As<ICartonTypeRepository>();
+            builder.RegisterType<CartonTypeRepository>().As<IRepository<CartonType, string>>();
             builder.RegisterType<SaCoreTypeRepository>().As<IRepository<SaCoreType, int>>();
             builder.RegisterType<SernosConfigRepository>().As<IRepository<SernosConfig, string>>();
             builder.RegisterType<TypeOfSaleRepository>().As<IRepository<TypeOfSale, string>>();

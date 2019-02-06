@@ -1,7 +1,6 @@
 ﻿
 namespace Linn.Products.Service.Tests.StockTriggerLevelReportModuleSpecs
 {
-    using System.Collections.Generic;
     using System.Linq;
 
     using FluentAssertions;

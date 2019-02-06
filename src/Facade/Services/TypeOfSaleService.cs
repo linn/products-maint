@@ -5,7 +5,7 @@
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
 
-    public class TypeOfSaleService : FacadeService<TypeOfSale, string, TypeOfSaleResource>
+    public class TypeOfSaleService : FacadeService<TypeOfSale, string, TypeOfSaleResource, TypeOfSaleResource>
     {
         public TypeOfSaleService(IRepository<TypeOfSale, string> repository, ITransactionManager transactionManager)
             : base(repository, transactionManager)
