@@ -24,8 +24,10 @@ export const RECEIVE_EAN_CODE_REPORT = 'RECEIVE_EAN_CODE_REPORT';
 export const REQUEST_STOCK_TRIGGER_LEVELS_REPORT = 'REQUEST_STOCK_TRIGGER_LEVELS_REPORT';
 export const RECEIVE_STOCK_TRIGGER_LEVELS_REPORT = 'RECEIVE_STOCK_TRIGGER_LEVELS_REPORT';
 
-export const REQUEST_STOCK_TRIGGER_LEVELS_REPORT_BY_PART = 'REQUEST_STOCK_TRIGGER_LEVELS_REPORT_BY_PART';
-export const RECEIVE_STOCK_TRIGGER_LEVELS_REPORT_BY_PART = 'RECEIVE_STOCK_TRIGGER_LEVELS_REPORT_BY_PART';
+export const REQUEST_STOCK_TRIGGER_LEVELS_REPORT_BY_PART =
+    'REQUEST_STOCK_TRIGGER_LEVELS_REPORT_BY_PART';
+export const RECEIVE_STOCK_TRIGGER_LEVELS_REPORT_BY_PART =
+    'RECEIVE_STOCK_TRIGGER_LEVELS_REPORT_BY_PART';
 
 export const REQUEST_TARIFF = 'REQUEST_TARIFF';
 export const RECEIVE_TARIFF = 'RECEIVE_TARIFF';
@@ -61,5 +63,9 @@ export const saCoreTypesActionTypes = makeActionTypes(itemTypes.saCoreTypes.acti
 
 export const salesArticleActionTypes = makeActionTypes(itemTypes.salesArticle.actionType);
 export const salesArticlesActionTypes = makeActionTypes(itemTypes.salesArticles.actionType, false);
+
+export const tariffActionTypes = makeActionTypes(itemTypes.tariff.actionType);
+export const tariffsActionTypes = makeActionTypes(itemTypes.tariffs.actionType, false);
+
 export const typeOfSaleActionTypes = makeActionTypes(itemTypes.typeOfSale.actionType);
 export const typesOfSaleActionTypes = makeActionTypes(itemTypes.typesOfSale.actionType, false);

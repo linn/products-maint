@@ -22,9 +22,13 @@ const SernosConfigs = ({ sernosConfigs, loading, history }) => (
 );
 
 SernosConfigs.propTypes = {
-    sernosConfigs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-    history: PropTypes.shape.isRequired,
+    sernosConfigs: PropTypes.arrayOf(PropTypes.shape({})),
+    history: PropTypes.shape({}).isRequired,
     loading: PropTypes.bool.isRequired
+};
+
+SernosConfigs.defaultProps = {
+    sernosConfigs: null
 };
 
 export default SernosConfigs;

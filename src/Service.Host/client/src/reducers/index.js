@@ -3,7 +3,7 @@ import { reducer as oidc } from 'redux-oidc';
 import eanCodesReport from './eanCodesReport';
 import cartonDetailsReport from './cartonDetailsReport';
 import tariff from './tariff';
-import searchTariffs from './searchTariffs';
+import tariffs from './tariffs';
 import productRangesReport from './productRangesReport';
 import stockTriggerLevelsReport from './stockTriggerLevelReports';
 import salesProductsByProductRangeReport from './salesProductsByProductRangeReport';
@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
     eanCodesReport,
     cartonDetailsReport,
     tariff,
-    searchTariffs,
+    tariffs,
     productRangesReport,
     salesProductsByProductRangeReport,
     cartonType,

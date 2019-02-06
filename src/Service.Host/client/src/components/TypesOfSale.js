@@ -1,42 +1,30 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import { List, ListItem, Paper, Typography } from '@material-ui/core';
-import { ErrorCard } from '@linn-it/linn-form-components-library';
-import CircularLoading from './common/CircularLoading';
+import PropTypes from 'prop-types';
+import { Loading, EntityList, CreateButton } from '@linn-it/linn-form-components-library';
+import Page from '../containers/Page';
 
-const styles = () => ({
-    root: {
-        margin: 40,
-        padding: 40
-    }
-});
-
-const TypesOfSale = ({ typesOfSale, loading, errorMessage, classes }) => (
-    <Paper className={classes.root}>
-        {loading || !typesOfSale
-            ? errorMessage
-                ? <ErrorCard errorMessage={errorMessage} />
-                : <CircularLoading />
-            : (
-                <Fragment>
-                    <Typography variant="h2" align="center" gutterBottom>
-                        Types of Sale
-                    </Typography>
-                    <List>
-                        {typesOfSale.map((ts) => (
-                            <ListItem key={ts.href} component={Link} to={ts.href} button>
-                                <Typography>{ts.name} - {ts.description}</Typography>
-                            </ListItem>
-                        ))}
-                        <ListItem component={Link} to="/products/maint/types-of-sale/create" button>
-                            <Typography color="primary">Create new Type of Sale</Typography>
-                        </ListItem>
-                    </List>                    
-                </Fragment>
-            )
-        }
-    </Paper>
+const TypesOfSale = ({ typesOfSale, loading }) => (
+    <Page>
+        {loading ? (
+            <Loading />
+        ) : (
+            <Fragment>
+                <CreateButton createUrl="/products/maint/types-of-sale/create" />
+                <EntityList
+                    title="Types of Sale"
+                    entityList={typesOfSale}
+                    entityId="name"
+                    loading={loading}
+                    descriptionFieldName="description"
+                />
+            </Fragment>
+        )}
+    </Page>
 );
 
-export default withStyles(styles)(TypesOfSale);
+TypesOfSale.propTypes = {
+    typesOfSale: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+    loading: PropTypes.bool.isRequired
+};
+
+export default TypesOfSale;

@@ -22,7 +22,6 @@ const styles = theme => ({
 });
 
 class Tariff extends Component {
-
     render() {
         const { tariff, loading, classes } = this.props;
 
@@ -43,37 +42,59 @@ class Tariff extends Component {
                 <Grid container style={{ marginTop: 40 }} spacing={24}>
                     <Grid item sm="12">
                         <Paper className={classes.paper}>
-                            <Typography variant='h4' gutterBottom>{tariff.tariffCode}</Typography>
+                            <Typography variant="h4" gutterBottom>
+                                {tariff.tariffCode}
+                            </Typography>
                             <div style={{ marginBottom: '10px' }}>
-                                <Typography style={{ fontWeight: 600, display: 'inline-block' }}>Description:</Typography> 
-                                <Typography style={{ display: 'inline-block' }}>{tariff.description}</Typography>
+                                <Typography style={{ fontWeight: 600, display: 'inline-block' }}>
+                                    Description:
+                                </Typography>
+                                <Typography style={{ display: 'inline-block' }}>
+                                    {tariff.description}
+                                </Typography>
                             </div>
                             <div style={{ marginBottom: '10px' }}>
-                                <Typography style={{ fontWeight: 600, display: 'inline-block' }}>US Tariff Code:</Typography> 
-                                <Typography style={{ display: 'inline-block' }}>{tariff.usTariffCode}</Typography>
+                                <Typography style={{ fontWeight: 600, display: 'inline-block' }}>
+                                    US Tariff Code:
+                                </Typography>
+                                <Typography style={{ display: 'inline-block' }}>
+                                    {tariff.usTariffCode}
+                                </Typography>
                             </div>
                             <div style={{ marginBottom: '10px' }}>
-                                <Typography style={{ fontWeight: 600, display: 'inline-block' }}>Date Invalid:</Typography> 
-                                <Typography style={{ display: 'inline-block' }}>{tariff.dateInvalid}</Typography>
+                                <Typography style={{ fontWeight: 600, display: 'inline-block' }}>
+                                    Date Invalid:
+                                </Typography>
+                                <Typography style={{ display: 'inline-block' }}>
+                                    {tariff.dateInvalid}
+                                </Typography>
                             </div>
                             <div style={{ marginBottom: '10px' }}>
-                                <Typography style={{ fontWeight: 600, display: 'inline-block' }}>Duty %:</Typography> 
-                                <Typography style={{ display: 'inline-block' }}>{tariff.duty}</Typography>
+                                <Typography style={{ fontWeight: 600, display: 'inline-block' }}>
+                                    Duty %:
+                                </Typography>
+                                <Typography style={{ display: 'inline-block' }}>
+                                    {tariff.duty}
+                                </Typography>
                             </div>
                             <span> </span>
                             <div className={classes.pullRight}>
-                                <Button id="back-button"
+                                <Button
+                                    id="back-button"
                                     component={Link}
-                                    to="/products/maint/tariffs">
+                                    to="/products/maint/tariffs"
+                                >
                                     Back
                                 </Button>
 
-                                <Button id="edit-button"
+                                <Button
+                                    id="edit-button"
                                     variant="outlined"
                                     component={Link}
                                     variant="contained"
                                     color="primary"
-                                    to={`${getSelfHref(tariff)}/edit`}>
+                                    to={`${getSelfHref(tariff)}/edit`}
+                                >
                                     Edit
                                 </Button>
                             </div>

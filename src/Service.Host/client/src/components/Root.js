@@ -10,8 +10,6 @@ import App from './App';
 import Callback from '../containers/Callback';
 import Tariff from '../containers/Tariff';
 import Tariffs from '../containers/Tariffs';
-import CreateTariff from '../containers/CreateTariff';
-import UpdateTariff from '../containers/UpdateTariff';
 import userManager from '../helpers/userManager';
 import EanCodesOptions from '../containers/reportOptions/EanCodesOptions';
 import EanCodes from '../containers/reports/EanCodes';
@@ -60,8 +58,6 @@ class Root extends Component {
                             <Route exact path="/products/maint/signin-oidc-client" component={Callback} />
 
                             <Switch>
-                                <Route exact path="/products/maint/tariffs/create" component={CreateTariff} />
-                                <Route exact path="/products/maint/tariffs/:id/edit" component={UpdateTariff} />
                                 <Route exact path="/products/maint/tariffs/:id" component={Tariff} />
                                 <Route exact path="/products/maint/tariffs" component={Tariffs} />
                             </Switch>

@@ -2,8 +2,7 @@
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import {
-    BackButton,
-    SaveCancelButtons,
+    SaveBackCancelButtons,
     InputField,
     Dropdown,
     Page,
@@ -35,7 +34,7 @@ class SernosConfig extends Component {
         this.setState({ editStatus: 'view' });
     };
 
-    handleResetClick = () => {
+    handleCancelClick = () => {
         const { sernosConfig } = this.props;
         this.setState({ sernosConfig });
         this.setState({ editStatus: 'view' });
@@ -48,7 +47,7 @@ class SernosConfig extends Component {
         this.setState({ editStatus: 'view' });
     };
 
-    handleCancelClick = () => {
+    handleBackClick = () => {
         this.setState({ editStatus: 'view' });
         const { history } = this.props;
         history.push('/products/maint/sernos-configs');
@@ -95,7 +94,7 @@ class SernosConfig extends Component {
                         {this.creating() ? (
                             <Title text="Add Serial Number Configuration" />
                         ) : (
-                            <Title text="Serial Number Configuration Details Details" />
+                            <Title text="Serial Number Configuration Details" />
                         )}
                     </Grid>
                     {errorMessage && (
@@ -168,14 +167,14 @@ class SernosConfig extends Component {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <BackButton backClick={this.handleCancelClick} />
-                        <SaveCancelButtons
-                            disabled={
+                        <SaveBackCancelButtons
+                            saveDisabled={
                                 !this.editing() ||
                                 (!sernosConfig.name || sernosConfig.name.length === 0)
                             }
                             saveClick={this.creating() ? this.handleAddClick : this.handleSaveClick}
-                            cancelClick={this.handleResetClick}
+                            cancelClick={this.handleCancelClick}
+                            backClick={this.handleBackClick}
                         />
                     </Grid>
                 </Grid>
@@ -189,11 +188,12 @@ SernosConfig.defaultProps = {
     updateSernosConfig: null,
     loading: null,
     errorMessage: '',
-    sernosConfigId: null
+    sernosConfigId: null,
+    classes: {}
 };
 
 SernosConfig.propTypes = {
-    classes: PropTypes.shape({}).isRequired,
+    classes: PropTypes.shape({}),
     sernosConfig: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,

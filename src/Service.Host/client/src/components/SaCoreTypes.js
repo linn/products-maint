@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Page, Loading, EntityList, CreateButton } from '@linn-it/linn-form-components-library';
+import { Loading, EntityList, CreateButton } from '@linn-it/linn-form-components-library';
+import Page from '../containers/Page';
 
-const SaCoreTypes = ({ saCoreTypes, loading, history }) => (
-    <Page history={history}>
+const SaCoreTypes = ({ saCoreTypes, loading }) => (
+    <Page>
         {loading ? (
             <Loading />
         ) : (
@@ -23,7 +24,6 @@ const SaCoreTypes = ({ saCoreTypes, loading, history }) => (
 
 SaCoreTypes.propTypes = {
     saCoreTypes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-    history: PropTypes.shape.isRequired,
     loading: PropTypes.bool.isRequired
 };
 

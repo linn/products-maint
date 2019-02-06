@@ -1,26 +1,19 @@
 ﻿import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import { Typeahead } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
+import Page from '../../containers/Page';
 
-const styles = theme => ({
-    paper: {
-        padding: theme.spacing.unit * 6
-    }
-});
-
-const SalesArticles = ({ items, classes, fetchItems, loading, clearSearch }) => {
+const SalesArticles = ({ items, fetchItems, loading, clearSearch }) => {
     const forecastItems = items.map(item => ({
         ...item,
         name: item.articleNumber
     }));
 
     return (
-        <Grid container spacing={24}>
-            <Grid item xs={12}>
-                <Paper className={classes.paper}>
+        <Page>
+            <Grid container spacing={24}>
+                <Grid item xs={12}>
                     <Typeahead
                         items={forecastItems}
                         fetchItems={fetchItems}
@@ -28,9 +21,9 @@ const SalesArticles = ({ items, classes, fetchItems, loading, clearSearch }) => 
                         loading={loading}
                         title="Search for Sales Article"
                     />
-                </Paper>
+                </Grid>
             </Grid>
-        </Grid>
+        </Page>
     );
 };
 
@@ -43,7 +36,6 @@ SalesArticles.propTypes = {
             href: PropTypes.string
         })
     ).isRequired,
-    classes: PropTypes.shape({}).isRequired,
     loading: PropTypes.bool,
     fetchItems: PropTypes.func.isRequired,
     clearSearch: PropTypes.func.isRequired
@@ -53,4 +45,4 @@ SalesArticles.defaultProps = {
     loading: false
 };
 
-export default withStyles(styles)(SalesArticles);
+export default SalesArticles;
