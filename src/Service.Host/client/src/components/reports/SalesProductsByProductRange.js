@@ -20,13 +20,13 @@ class SalesProductsByProductRange extends Component {
             <Page>
                 <Grid container spacing={24} justify="center">
                     <Grid item xs={12}>
-                        <Grid item xs={8}>
+                        <Grid item xs={10}>
                             <Title
                                 text={`${optionsTitle}ales products for product range
                                 ${options.productRangeName}`}
                             />
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={2}>
                             <BackButton backClick={this.handleBackClick} />
                         </Grid>
                     </Grid>
