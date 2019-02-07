@@ -6,7 +6,7 @@ describe('<EanCodesOptions />', () => {
     let wrapper;
     let history;
     const getButton = () => wrapper.find('WithStyles(Button)');
-    const shallow = createShallow({ dive: true });
+    const shallow = createShallow({ dive: false });
 
     beforeEach(() => {
         history = { push: jest.fn() };
@@ -14,7 +14,7 @@ describe('<EanCodesOptions />', () => {
     });
 
     test('Should redirect with state parameters when button clicked', () => {
-        wrapper.setState({ includePhasedOut: true, cartonisedOnly: true});
+        wrapper.setState({ includePhasedOut: true, cartonisedOnly: true });
         getButton().simulate('click');
         expect(history.push).toHaveBeenCalledWith({
             pathname: `/products/reports/sales-article-ean-codes/report`,

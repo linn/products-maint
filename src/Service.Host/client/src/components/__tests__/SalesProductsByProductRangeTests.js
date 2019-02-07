@@ -6,16 +6,18 @@ describe('<SalesProductsByProductRange />', () => {
     let wrapper;
     const getReportTable = () => wrapper.find('WithStyles(ReportTable)');
     const getLoading = () => wrapper.find('Loading');
-    const shallow = createShallow({ dive: true });
+    const shallow = createShallow({ dive: false });
 
     const reportData = { results: [] };
     const options = { includePhasedOut: false };
 
     beforeEach(() => {
-        wrapper = shallow(<SalesProductsByProductRange 
+        wrapper = shallow(
+            <SalesProductsByProductRange
                 options={options}
-                loading={false} 
+                loading={false}
                 reportData={reportData}
+                history={{}}
             />
         );
     });
@@ -27,10 +29,12 @@ describe('<SalesProductsByProductRange />', () => {
 
     describe('loading', () => {
         beforeEach(() => {
-            wrapper = shallow(<SalesProductsByProductRange 
+            wrapper = shallow(
+                <SalesProductsByProductRange
                     options={options}
-                    loading={true}
+                    loading
                     reportData={reportData}
+                    history={{}}
                 />
             );
         });

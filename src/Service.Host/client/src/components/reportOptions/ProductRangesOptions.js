@@ -23,7 +23,7 @@ class EanCodesOptions extends Component {
 
         history.push({
             pathname: `/products/reports/product-ranges/report`,
-            search: `?&cartonisedOnly=${includePhasedOut}`
+            search: `?includePhasedOut=${includePhasedOut}`
         });
     }
 

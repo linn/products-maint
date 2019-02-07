@@ -3,30 +3,25 @@ import { createShallow } from '@material-ui/core/test-utils';
 import TypeOfSale from '../TypeOfSale';
 
 describe('<TypeOfSale />', () => {
-    const getPaper = () => wrapper.find('WithStyles(Paper)');
-    const getLoading = () => wrapper.find('WithStyles(CircularLoading)');
+    let wrapper;
+    let props;
+    const getLoading = () => wrapper.find('Loading');
     const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');
-    const getTypography = () => wrapper.find('WithStyles(Typography)');
-    const getTextFields = () => wrapper.find('TextField');
-    const getCheckboxWithLabels = () => wrapper.find('WithStyles(CheckboxWithLabel)');
-    const getButtons = () => wrapper.find('WithStyles(Button)');
-    const shallow = createShallow({ dive: true });
-    let wrapper, props;
-
+    const getInputFields = () => wrapper.find('WithStyles(InputField)');
+    const getOnOffSwitch = () => wrapper.find('OnOffSwitch');
+    const getButtons = () => wrapper.find('WithStyles(SaveBackCancelButtons)');
+    const shallow = createShallow({ dive: false });
     beforeEach(() => {
         props = {
-            loading: true
-        }
+            loading: true,
+            history: {},
+            editStatus: 'view'
+        };
 
-        wrapper = shallow(<TypeOfSale {...props} />)
+        wrapper = shallow(<TypeOfSale {...props} />);
     });
 
     describe('when loading with no error message', () => {
-
-        it('should render paper container', () => {
-            expect(getPaper()).toHaveLength(1);
-        });
-
         it('should render loading spinner', () => {
             expect(getLoading()).toHaveLength(1);
         });
@@ -35,10 +30,6 @@ describe('<TypeOfSale />', () => {
     describe('when loading with error message', () => {
         beforeEach(() => {
             wrapper.setProps({ errorMessage: 'an error has occurred' });
-        });
-
-        it('should render paper container', () => {
-            expect(getPaper()).toHaveLength(1);
         });
 
         it('should render error message', () => {
@@ -61,24 +52,16 @@ describe('<TypeOfSale />', () => {
             });
         });
 
-        it('should render paper container', () => {
-            expect(getPaper()).toHaveLength(1);
-        });
-
-        it('should render title', () => {
-            expect(getTypography()).toHaveLength(1);
-        });
-
         it('should render text fields', () => {
-            expect(getTextFields()).toHaveLength(4);
+            expect(getInputFields()).toHaveLength(4);
         });
 
-        it('should render checkbox', () => {
-            expect(getCheckboxWithLabels()).toHaveLength(1);
+        it('should render switch', () => {
+            expect(getOnOffSwitch()).toHaveLength(1);
         });
 
         it('should render buttons', () => {
-            expect(getButtons()).toHaveLength(3);
+            expect(getButtons()).toHaveLength(1);
         });
     });
 });

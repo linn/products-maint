@@ -7,7 +7,7 @@ describe('<EanCodes />', () => {
     const getReportTable = () => wrapper.find('WithStyles(ReportTable)');
     const getExportButton = () => wrapper.find('WithStyles(ExportButton)');
     const getLoading = () => wrapper.find('Loading');
-    const shallow = createShallow({ dive: true });
+    const shallow = createShallow({ dive: false });
 
     const reportData = { results: [] };
     const config = { appRoot: '' };
@@ -33,7 +33,9 @@ describe('<EanCodes />', () => {
 
     describe('loading', () => {
         beforeEach(() => {
-            wrapper = shallow(<EanCodes options={options} loading={true} reportData={reportData} config={config} />);
+            wrapper = shallow(
+                <EanCodes options={options} loading reportData={reportData} config={config} />
+            );
         });
 
         test('Should render Table and Loader when loading', () => {

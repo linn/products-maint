@@ -1,29 +1,24 @@
 import React from 'react';
-import TypesOfSale from '../TypesOfSale';
 import { createShallow } from '@material-ui/core/test-utils';
+import TypesOfSale from '../TypesOfSale';
 
 describe('<TypesOfSale />', () => {
-    const getListItems = () => wrapper.find('WithStyles(ListItem)');
-    const getLoading = () => wrapper.find('WithStyles(CircularLoading)');
-    const getPaper = () => wrapper.find('WithStyles(Paper)');
-    const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');    
-    const shallow = createShallow({ dive: true });
-    let wrapper, props;
+    let wrapper;
+    let props;
+    const getEntityList = () => wrapper.find('EntityList');
+    const getLoading = () => wrapper.find('Loading');
+    const shallow = createShallow({ dive: false });
 
     beforeEach(() => {
         props = {
             loading: true,
-            typesOfSale: null
-        }
+            typesOfSale: []
+        };
 
         wrapper = shallow(<TypesOfSale {...props} />);
     });
 
     describe('when loading', () => {
-        it('should render paper container', () => {
-            expect(getPaper()).toHaveLength(1);
-        });
-
         it('should render loading spinner', () => {
             expect(getLoading()).toHaveLength(1);
         });
@@ -33,18 +28,9 @@ describe('<TypesOfSale />', () => {
         beforeEach(() => {
             wrapper.setProps({ errorMessage: 'an error has occurred' });
         });
-
-        it('should render paper container', () => {
-            expect(getPaper()).toHaveLength(1);
-        });
-
-        it('should render error message', () => {
-            expect(getErrorCard()).toHaveLength(1);
-            expect(getErrorCard().props().errorMessage).toEqual('an error has occurred');
-        });
     });
 
-    describe('when types of sale have loaded without error', () => {
+    describe('when types of sale', () => {
         beforeEach(() => {
             wrapper.setProps({
                 typesOfSale: [
@@ -64,8 +50,8 @@ describe('<TypesOfSale />', () => {
             });
         });
 
-        it('should render list items', () => {            
-            expect(getListItems()).toHaveLength(3);
+        it('should render list items', () => {
+            expect(getEntityList()).toHaveLength(1);
         });
     });
 });

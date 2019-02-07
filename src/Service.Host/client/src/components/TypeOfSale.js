@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import {
@@ -92,9 +92,6 @@ class TypeOfSale extends Component {
     render() {
         const { loading, errorMessage } = this.props;
         const { typeOfSale } = this.state;
-        if (loading || !typeOfSale) {
-            return <Loading />;
-        }
 
         return (
             <Page>
@@ -111,67 +108,75 @@ class TypeOfSale extends Component {
                             <ErrorCard errorMessage={errorMessage} />
                         </Grid>
                     )}
-                    <Grid item xs={4}>
-                        <InputField
-                            fullWidth
-                            disabled={!this.creating()}
-                            value={typeOfSale.name}
-                            label="Name"
-                            helperText={
-                                !this.creating()
-                                    ? 'This field cannot be changed'
-                                    : 'This field is required'
-                            }
-                            onChange={this.handleFieldChange}
-                            propertyName="name"
-                        />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <InputField
-                            value={typeOfSale.description}
-                            label="Description"
-                            fullWidth
-                            onChange={this.handleFieldChange}
-                            propertyName="description"
-                        />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <InputField
-                            value={typeOfSale.department}
-                            label="Department"
-                            fullWidth
-                            onChange={this.handleFieldChange}
-                            propertyName="department"
-                        />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <InputField
-                            value={typeOfSale.nominal}
-                            label="Nominal"
-                            fullWidth
-                            onChange={this.handleFieldChange}
-                            propertyName="nominal"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <OnOffSwitch
-                            label="Real Sale"
-                            value={typeOfSale.realSale === 'Y'}
-                            onChange={this.handleSwitchChange}
-                            propertyName="realSale"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <SaveBackCancelButtons
-                            saveDisabled={
-                                !this.editing() ||
-                                (!typeOfSale.name || typeOfSale.name.length === 0)
-                            }
-                            saveClick={this.creating() ? this.handleAddClick : this.handleSaveClick}
-                            cancelClick={this.handleCancelClick}
-                            backClick={this.handleBackClick}
-                        />
-                    </Grid>
+                    {loading ? (
+                        <Loading />
+                    ) : (
+                        <Fragment>
+                            <Grid item xs={4}>
+                                <InputField
+                                    fullWidth
+                                    disabled={!this.creating()}
+                                    value={typeOfSale.name}
+                                    label="Name"
+                                    helperText={
+                                        !this.creating()
+                                            ? 'This field cannot be changed'
+                                            : 'This field is required'
+                                    }
+                                    onChange={this.handleFieldChange}
+                                    propertyName="name"
+                                />
+                            </Grid>
+                            <Grid item xs={8}>
+                                <InputField
+                                    value={typeOfSale.description}
+                                    label="Description"
+                                    fullWidth
+                                    onChange={this.handleFieldChange}
+                                    propertyName="description"
+                                />
+                            </Grid>
+                            <Grid item xs={8}>
+                                <InputField
+                                    value={typeOfSale.department}
+                                    label="Department"
+                                    fullWidth
+                                    onChange={this.handleFieldChange}
+                                    propertyName="department"
+                                />
+                            </Grid>
+                            <Grid item xs={8}>
+                                <InputField
+                                    value={typeOfSale.nominal}
+                                    label="Nominal"
+                                    fullWidth
+                                    onChange={this.handleFieldChange}
+                                    propertyName="nominal"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <OnOffSwitch
+                                    label="Real Sale"
+                                    value={typeOfSale.realSale === 'Y'}
+                                    onChange={this.handleSwitchChange}
+                                    propertyName="realSale"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <SaveBackCancelButtons
+                                    saveDisabled={
+                                        !this.editing() ||
+                                        (!typeOfSale.name || typeOfSale.name.length === 0)
+                                    }
+                                    saveClick={
+                                        this.creating() ? this.handleAddClick : this.handleSaveClick
+                                    }
+                                    cancelClick={this.handleCancelClick}
+                                    backClick={this.handleBackClick}
+                                />
+                            </Grid>
+                        </Fragment>
+                    )}
                 </Grid>
             </Page>
         );

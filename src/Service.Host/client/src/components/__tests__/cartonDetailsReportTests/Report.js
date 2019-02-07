@@ -6,7 +6,7 @@ describe('<CartonDetails />', () => {
     let wrapper;
     const getReportTable = () => wrapper.find('WithStyles(ReportTable)');
     const getLoading = () => wrapper.find('Loading');
-    const shallow = createShallow({ dive: true });
+    const shallow = createShallow({ dive: false });
 
     const reportData = { results: [] };
     const config = { appRoot: '' };
@@ -24,7 +24,7 @@ describe('<CartonDetails />', () => {
 
     describe('loading', () => {
         beforeEach(() => {
-            wrapper = shallow(<CartonDetails loading={true} reportData={reportData} config={config} />);
+            wrapper = shallow(<CartonDetails loading reportData={reportData} config={config} />);
         });
 
         test('Should render Table and Loader when loading', () => {
