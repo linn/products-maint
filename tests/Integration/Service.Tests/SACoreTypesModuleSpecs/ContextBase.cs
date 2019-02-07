@@ -18,12 +18,12 @@
 
     public abstract class ContextBase : NancyContextBase
     {
-        protected IFacadeService<SaCoreType, int, SaCoreTypeResource> SaCoreTypeService { get; set; }
+        protected IFacadeService<SaCoreType, int, SaCoreTypeResource, SaCoreTypeResource> SaCoreTypeService { get; set; }
 
         [SetUp]
         public void EstablishContext()
         {
-            this.SaCoreTypeService = Substitute.For<IFacadeService<SaCoreType, int, SaCoreTypeResource>>();
+            this.SaCoreTypeService = Substitute.For<IFacadeService<SaCoreType, int, SaCoreTypeResource, SaCoreTypeResource>>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>

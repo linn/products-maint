@@ -1,73 +1,47 @@
 ﻿namespace Linn.Products.Facade.Services
 {
     using Linn.Common.Facade;
+    using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Exceptions;
-    using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Resources;
 
-    public class CartonTypeService : ICartonTypeService
+    public class CartonTypeService : FacadeService<CartonType, string, CartonTypeResource, CartonTypeUpdateResource>
     {
-        private readonly ICartonTypeRepository cartonTypeRepository;
+        private readonly IRepository<CartonType, string> cartonTypeRepository;
 
-        public CartonTypeService(ICartonTypeRepository cartonTypeRepository)
+        private readonly ITransactionManager transactionManager;
+
+        public CartonTypeService(
+            IRepository<CartonType, string> cartonTypeRepository,
+            ITransactionManager transactionManager)
+            : base(cartonTypeRepository, transactionManager)
         {
             this.cartonTypeRepository = cartonTypeRepository;
+            this.transactionManager = transactionManager;
         }
 
-        public IResult<CartonType> GetCartonType(string name)
+        protected override CartonType CreateFromResource(CartonTypeResource resource)
         {
-            var cartonType = this.cartonTypeRepository.GetCarton(name);
-            if (cartonType == null)
+            return new CartonType(resource.Name, resource.Width, resource.Height, resource.Depth)
             {
-                return new NotFoundResult<CartonType>();
-            }
-
-            return new SuccessResult<CartonType>(cartonType);
+                Description = resource.Description,
+                NumberOfLargeLabels = 1,
+                NumberOfSmallLabels = 0
+            };
         }
 
-        public IResult<CartonType> AddCartonType(CartonTypeResource resource)
+        protected override void UpdateFromResource(CartonType cartonType, CartonTypeUpdateResource resource)
         {
-            CartonType cartonType;
-
-            try
-            {
-                cartonType = new CartonType(resource.Name, resource.Width, resource.Height, resource.Depth)
-                                 {
-                                     Description = resource.Description,
-                                     NumberOfLargeLabels = 1,
-                                     NumberOfSmallLabels = 0
-                                 };
-            }
-            catch (IncompleteDataException exception)
-            {
-                return new BadRequestResult<CartonType>(exception.Message);
-            }
-
-            this.cartonTypeRepository.Add(cartonType);
-
-            return new CreatedResult<CartonType>(cartonType);
-        }
-
-        public IResult<CartonType> UpdateCartonType(string name, CartonTypeUpdateResource resource)
-        {
-            var cartonType = this.cartonTypeRepository.GetCarton(name);
-            if (cartonType == null)
-            {
-                return new NotFoundResult<CartonType>();
-            }
-
             if (resource.Width <= 0 || resource.Height <= 0 || resource.Depth <= 0)
             {
-                return new BadRequestResult<CartonType>("Valid dimensions must be supplied when updating carton type");
+                throw new IncompleteDataException("Valid dimensions must be supplied when updating carton type");
             }
 
             cartonType.Description = resource.Description;
             cartonType.Depth = resource.Depth;
             cartonType.Width = resource.Width;
             cartonType.Height = resource.Height;
-
-            return new SuccessResult<CartonType>(cartonType);
         }
     }
 }

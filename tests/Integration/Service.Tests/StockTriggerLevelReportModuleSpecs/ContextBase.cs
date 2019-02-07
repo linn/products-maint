@@ -1,12 +1,13 @@
 ﻿namespace Linn.Products.Service.Tests.StockTriggerLevelReportModuleSpecs
-{ 
+{
     using System.Collections.Generic;
     using System.Security.Claims;
 
     using Linn.Common.Facade;
     using Linn.Common.Reporting.Models;
     using Linn.Products.Facade.ResourceBuilders;
-    using Linn.Products.Service.Modules;
+    using Linn.Products.Facade.Services;
+    using Linn.Products.Service.Reports;
     using Linn.Products.Service.ResponseProcessors;
     using Linn.Products.Service.Tests;
 
@@ -18,12 +19,12 @@
 
     public abstract class ContextBase : NancyContextBase
     {
-        protected Facade.Services.IStockTriggerLevelsService StockTriggerLevelsService { get; private set; }
+        protected IStockTriggerLevelsService StockTriggerLevelsService { get; private set; }
 
         [SetUp]
         public void EstablishContext()
         {
-            this.StockTriggerLevelsService = Substitute.For<Facade.Services.IStockTriggerLevelsService>();
+            this.StockTriggerLevelsService = Substitute.For<IStockTriggerLevelsService>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>

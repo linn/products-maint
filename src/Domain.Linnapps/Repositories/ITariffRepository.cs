@@ -2,14 +2,11 @@
 {
     using System.Collections.Generic;
 
+    using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps.Products;
 
-    public interface ITariffRepository
+    public interface ITariffRepository : IRepository<Tariff, int>
     {
         IEnumerable<Tariff> SearchTariffs(string searchTerm);
-
-        Tariff FindById(int id);
-
-        void Add(Tariff tariff);
     }
 }

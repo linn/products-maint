@@ -1,4 +1,4 @@
-﻿import React, { Component } from 'react';
+import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router';
 import { OidcProvider } from 'redux-oidc';

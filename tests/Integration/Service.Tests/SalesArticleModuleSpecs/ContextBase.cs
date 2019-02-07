@@ -22,13 +22,13 @@
     {
         protected ISalesArticleService SalesArticleService { get; private set; }
 
-        protected IFacadeService<SalesArticle, string, SalesArticleResource> SalesArticleForecastService { get; private set; }
+        protected IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> SalesArticleForecastService { get; private set; }
 
         [SetUp]
         public void EstablishContext()
         {
             this.SalesArticleService = Substitute.For<ISalesArticleService>();
-            this.SalesArticleForecastService = Substitute.For<IFacadeService<SalesArticle, string, SalesArticleResource>>();
+            this.SalesArticleForecastService = Substitute.For<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>

@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.Modules
+﻿namespace Linn.Products.Service.Reports
 {
     using Linn.Products.Facade.Services;
     using Linn.Products.Service.Models;
@@ -9,7 +9,7 @@
     {
         private readonly IStockTriggerLevelsService stockTriggerLevelsService;
 
-        public StockTriggerLevelReportModule(Facade.Services.IStockTriggerLevelsService stockTriggerLevelsService)
+        public StockTriggerLevelReportModule(IStockTriggerLevelsService stockTriggerLevelsService)
         {
             this.stockTriggerLevelsService = stockTriggerLevelsService;
             this.Get("/products/reports/stock-trigger-levels/{locationId}/{partNumber*}", parameters => this.GetStockTriggerLevelsAtLocation(parameters.locationId, parameters.partNumber));

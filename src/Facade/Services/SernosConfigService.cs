@@ -5,7 +5,7 @@
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
 
-    public class SernosConfigService : FacadeService<SernosConfig, string, SernosConfigResource>
+    public class SernosConfigService : FacadeService<SernosConfig, string, SernosConfigResource, SernosConfigResource>
     {
         public SernosConfigService(IRepository<SernosConfig, string> repository, ITransactionManager transactionManager)
             : base(repository, transactionManager)
@@ -21,7 +21,6 @@
                              resource.NumberOfBoxes)
                              {
                                  Description = resource.Description
-
                              };
             config.SetStartOn(resource.StartOn);
 

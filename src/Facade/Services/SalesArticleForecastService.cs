@@ -7,7 +7,7 @@
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
 
-    public class SalesArticleForecastService : FacadeService<SalesArticle, string, SalesArticleResource>
+    public class SalesArticleForecastService : FacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>
     {
         public SalesArticleForecastService(
             IRepository<SalesArticle, string> repository,

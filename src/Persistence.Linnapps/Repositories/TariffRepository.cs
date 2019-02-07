@@ -1,7 +1,9 @@
 ﻿namespace Linn.Products.Persistence.Linnapps.Repositories
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
 
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.Repositories;
@@ -31,6 +33,11 @@
             return this.serviceDbContext.Tariffs.Where(t => t.Id == id).ToList().FirstOrDefault();
         }
 
+        public IQueryable<Tariff> FindAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Add(Tariff tariff)
         {
             var nextId = this.serviceDbContext.Tariffs.Max(t => t.Id) + 1;
@@ -38,6 +45,21 @@
             tariff.Id = nextId;
 
             this.serviceDbContext.Tariffs.Add(tariff);
+        }
+
+        public void Remove(Tariff entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Tariff FindBy(Expression<Func<Tariff, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<Tariff> FilterBy(Expression<Func<Tariff, bool>> expression)
+        {
+            throw new NotImplementedException();
         }
     }
 }

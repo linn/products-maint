@@ -18,12 +18,12 @@
 
     public abstract class ContextBase : NancyContextBase
     {
-        protected IFacadeService<TypeOfSale, string, TypeOfSaleResource> TypeOfSaleService { get; set; }
+        protected IFacadeService<TypeOfSale, string, TypeOfSaleResource, TypeOfSaleResource> TypeOfSaleService { get; set; }
 
         [SetUp]
         public void EstablishContext()
         {
-            this.TypeOfSaleService = Substitute.For<IFacadeService<TypeOfSale, string, TypeOfSaleResource>>();
+            this.TypeOfSaleService = Substitute.For<IFacadeService<TypeOfSale, string, TypeOfSaleResource, TypeOfSaleResource>>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>

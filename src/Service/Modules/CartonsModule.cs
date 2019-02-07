@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Service.Modules
 {
+    using Linn.Common.Facade;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
     using Linn.Products.Service.Models;
@@ -12,9 +14,11 @@
     {
         private readonly ICartonReportsService cartonReportsService;
 
-        private readonly ICartonTypeService cartonTypeService;
+        private readonly IFacadeService<CartonType, string, CartonTypeResource, CartonTypeUpdateResource> cartonTypeService;
 
-        public CartonsModule(ICartonReportsService cartonReportsService, ICartonTypeService cartonTypeService)
+        public CartonsModule(
+            ICartonReportsService cartonReportsService,
+            IFacadeService<CartonType, string, CartonTypeResource, CartonTypeUpdateResource> cartonTypeService)
         {
             this.cartonReportsService = cartonReportsService;
             this.cartonTypeService = cartonTypeService;
@@ -29,7 +33,7 @@
         {
             var resource = this.Bind<CartonTypeUpdateResource>();
 
-            var cartonResult = this.cartonTypeService.UpdateCartonType(name, resource);
+            var cartonResult = this.cartonTypeService.Update(name, resource);
             return this.Negotiate
                 .WithModel(cartonResult)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
@@ -40,7 +44,7 @@
         {
             var resource = this.Bind<CartonTypeResource>();
 
-            var cartonResult = this.cartonTypeService.AddCartonType(resource);
+            var cartonResult = this.cartonTypeService.Add(resource);
             return this.Negotiate
                 .WithModel(cartonResult)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
@@ -49,7 +53,7 @@
 
         private object GetCartonType(string name)
         {
-            var result = this.cartonTypeService.GetCartonType(name);
+            var result = this.cartonTypeService.GetById(name);
             return this.Negotiate
                 .WithModel(result)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)

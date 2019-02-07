@@ -19,15 +19,15 @@
         public void SetUp()
         {
             this.name = "cartonName";
-            this.CartonTypeRepository.GetCarton(this.name)
+            this.CartonTypeRepository.FindById(this.name)
                 .Returns((CartonType)null);
-            this.result = this.Sut.GetCartonType(this.name);
+            this.result = this.Sut.GetById(this.name);
         }
 
         [Test]
         public void ShouldGetCartonType()
         {
-            this.CartonTypeRepository.Received().GetCarton(this.name);
+            this.CartonTypeRepository.Received().FindById(this.name);
         }
 
         [Test]

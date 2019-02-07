@@ -6,7 +6,7 @@
     using Linn.Products.Domain.Linnapps.RemoteServices;
     using Oracle.ManagedDataAccess.Client;
 
-    public class StockTriggerLevelReportProxy : IStockTriggerLevelReportService 
+    public class StockTriggerLevelDataProxy : IStockTriggerLevelDataService
     {
         private readonly string host = ConfigurationManager.Configuration["DATABASE_HOST"];
         private readonly string userId = ConfigurationManager.Configuration["DATABASE_USER_ID"];

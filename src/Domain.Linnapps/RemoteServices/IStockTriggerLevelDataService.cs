@@ -2,7 +2,7 @@
 {
     using System.Data;
 
-    public interface IStockTriggerLevelReportService
+    public interface IStockTriggerLevelDataService
     {
         DataTable GetStockTriggerLevelsForPartAtLocation(int locationId, string partNumber);
 

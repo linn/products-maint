@@ -10,9 +10,9 @@
 
     public sealed class SernosConfigModule : NancyModule
     {
-        private readonly IFacadeService<SernosConfig, string, SernosConfigResource> sernosConfigService;
+        private readonly IFacadeService<SernosConfig, string, SernosConfigResource, SernosConfigResource> sernosConfigService;
 
-        public SernosConfigModule(IFacadeService<SernosConfig, string, SernosConfigResource> sernosConfigService)
+        public SernosConfigModule(IFacadeService<SernosConfig, string, SernosConfigResource, SernosConfigResource> sernosConfigService)
         {
             this.sernosConfigService = sernosConfigService;
             this.Get("/products/maint/sernos-configs/{name}", parameters => this.GetSernosConfigByName(parameters.name));
