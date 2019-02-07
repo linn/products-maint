@@ -23,17 +23,17 @@ class SalesArticle extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            salesArticle: props.salesArticle,
-            editStatus: props.editStatus || 'view'
+            salesArticle: props.salesArticle
         };
         this.handleFieldChange = this.handleFieldChange.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            editStatus: nextProps.editStatus,
-            salesArticle: nextProps.salesArticle
-        });
+    static getDerivedStateFromProps(props, state) {
+        if (!state.salesArticle && props.salesArticle) {
+            return { salesArticle: props.salesArticle };
+        }
+
+        return null;
     }
 
     handleSaveClick = () => {
@@ -44,10 +44,10 @@ class SalesArticle extends Component {
     };
 
     handleResetClick = () => {
-        const { salesArticle } = this.props;
+        const { salesArticle, setEditStatus } = this.props;
 
         this.setState({ salesArticle });
-        this.setState({ editStatus: 'view' });
+        setEditStatus('view');
     };
 
     handleBackClick = () => {
@@ -56,19 +56,21 @@ class SalesArticle extends Component {
     };
 
     editing() {
-        const { editStatus } = this.state;
+        const { editStatus } = this.props;
 
         return editStatus === 'edit';
     }
 
     viewing() {
-        const { editStatus } = this.state;
+        const { editStatus } = this.props;
         return editStatus === 'view';
     }
 
     handleFieldChange(propertyName, newValue) {
         const { salesArticle } = this.state;
-        this.setState({ editStatus: 'edit' });
+        const { setEditStatus } = this.props;
+
+        setEditStatus('edit');
         this.setState({ salesArticle: { ...salesArticle, [propertyName]: newValue } });
     }
 
@@ -187,6 +189,7 @@ SalesArticle.propTypes = {
     history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     errorMessage: PropTypes.string,
     updateSalesArticle: PropTypes.func.isRequired,
+    setEditStatus: PropTypes.func.isRequired,
     editStatus: PropTypes.string
 };
 

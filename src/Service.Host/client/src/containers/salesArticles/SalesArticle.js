@@ -20,7 +20,8 @@ const initialise = ({ id }) => dispatch => {
 const mapDispatchToProps = {
     initialise,
     updateSalesArticle: salesArticleActions.update,
-    resetSalesArticle: salesArticleActions.reset
+    resetSalesArticle: salesArticleActions.reset,
+    setEditStatus: salesArticleActions.setEditStatus
 };
 
 export default connect(

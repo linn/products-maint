@@ -131,4 +131,26 @@ export default function UpdateApiActions(actionTypeRoot, uri, actionTypes) {
         type: actionTypes[`RESET_${actionTypeRoot}`],
         payload: {}
     });
+
+    this.setEditStatus = editStatus => {
+        if (editStatus === 'create') {
+            return {
+                type: actionTypes[`REQUEST_CREATE_${actionTypeRoot}`],
+                payload: {}
+            };
+        }
+
+        if (editStatus === 'edit') {
+            return {
+                type: actionTypes[`REQUEST_UPDATE_${actionTypeRoot}`],
+                payload: {}
+            };
+        }
+
+        // view
+        return {
+            type: actionTypes[`RESET_${actionTypeRoot}`],
+            payload: {}
+        };
+    };
 }
