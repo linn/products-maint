@@ -11,6 +11,11 @@
                     loading: true,
                     editStatus: 'create'
                 };
+            case actionTypes[`REQUEST_CREATE_${itemRoot}`]:
+                return {
+                    ...state,
+                    editStatus: 'create'
+                };
             case actionTypes[`REQUEST_${itemRoot}`]:
                 return {
                     ...state,

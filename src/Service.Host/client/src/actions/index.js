@@ -10,6 +10,7 @@ const makeActionTypes = (entityType, makeAll = true) => {
 
     if (makeAll) {
         types[`REQUEST_ADD_${entityType}`] = `REQUEST_ADD_${entityType}`;
+        types[`REQUEST_CREATE_${entityType}`] = `REQUEST_CREATE_${entityType}`;
         types[`REQUEST_UPDATE_${entityType}`] = `REQUEST_UPDATE_${entityType}`;
         types[`RESET_${entityType}`] = `RESET_${entityType}`;
         types[`RECEIVE_NEW_${entityType}`] = `RECEIVE_NEW_${entityType}`;
