@@ -7,7 +7,7 @@ import tariffSelectors from '../selectors/tariffSelectors';
 
 const mapStateToProps = (state, { match }) => ({
     tariff: tariffSelectors.getItem(state),
-    id: match.params.tariffCode,
+    id: match.params.id,
     editStatus: tariffSelectors.getEditStatus(state),
     loading: tariffSelectors.getLoading(state),
     errorMessage: getSingleErrorMessage(state)
