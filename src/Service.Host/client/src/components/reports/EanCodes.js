@@ -1,36 +1,26 @@
 ﻿import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
-import { ReportTable, ExportButton, Loading } from '@linn-it/linn-form-components-library';
-import { withStyles } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
+import { ReportTable, ExportButton, Loading, Title } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
+import Page from '../../containers/Page';
 
-const styles = () => ({
-    root: {
-        paddingLeft: '20%',
-        paddingRight: '20%',
-        marginTop: 40
-    }
-});
-
-const EanCodes = ({ reportData, loading, options, config, classes }) => {
+const EanCodes = ({ reportData, loading, options, config }) => {
     const optionsTitle =
         options.cartonisedOnly && options.cartonisedOnly !== 'false'
             ? '(Cartonised products only)'
             : '';
-    const href = `${config.appRoot}/products/reports/sales-article-ean-codes/export?includePhasedOut=${options.includePhasedOut}&cartonisedOnly=${options.cartonisedOnly}`;
+    const href = `${
+        config.appRoot
+    }/products/reports/sales-article-ean-codes/export?includePhasedOut=${
+        options.includePhasedOut
+    }&cartonisedOnly=${options.cartonisedOnly}`;
 
     return (
-        <div className={classes.root}>
+        <Page>
             <Grid container spacing={24} justify="center">
                 <Grid item xs={12}>
-                    <Grid item xs={6}>
-                        <Typography variant="h4" gutterBottom>
-                            Sales Article Ean Codes {optionsTitle}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <ExportButton href={href} />
-                    </Grid>
+                    <Title text={` Sales Article Ean Codes ${optionsTitle}`} />
+                    <ExportButton href={href} />
                 </Grid>
                 <Grid item xs={12}>
                     {loading ? <Loading /> : ''}
@@ -43,13 +33,12 @@ const EanCodes = ({ reportData, loading, options, config, classes }) => {
                     />
                 </Grid>
             </Grid>
-        </div>
+        </Page>
     );
 };
 
 EanCodes.propTypes = {
     reportData: PropTypes.shape({}),
-    classes: PropTypes.shape({}),
     options: PropTypes.shape({}),
     config: PropTypes.shape({}),
     loading: PropTypes.bool
@@ -57,10 +46,9 @@ EanCodes.propTypes = {
 
 EanCodes.defaultProps = {
     reportData: null,
-    classes: {},
     options: {},
     config: {},
     loading: false
 };
 
-export default withStyles(styles)(EanCodes);
+export default EanCodes;

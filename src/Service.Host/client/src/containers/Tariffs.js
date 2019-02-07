@@ -1,17 +1,19 @@
 ﻿import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Tariffs from '../components/Tariffs';
-import fetchTariffs from '../actions/tariffs';
-import { getTariffs, getTariffsLoading } from '../selectors/tariffSelectors';
+import tariffsActions from '../actions/tariffs';
 import initialiseOnMount from './common/initialiseOnMount';
+import tariffsSelectors from '../selectors/tariffsSelectors';
 
 const mapStateToProps = state => ({
-    tariffs: getTariffs(state),
-    loading: getTariffsLoading(state)
+    tariffs: tariffsSelectors.getSearchItems(state),
+    loading: tariffsSelectors.getSearchLoading(state)
 });
 
 const mapDispatchToProps = {
-    fetchTariffs
+    fetchItems: tariffsActions.search,
+    clearSearch: tariffsActions.clearSearch,
+    classes: {}
 };
 
 export default connect(

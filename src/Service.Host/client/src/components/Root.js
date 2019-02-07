@@ -1,4 +1,4 @@
-﻿import React, { Component } from 'react';
+import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router';
 import { OidcProvider } from 'redux-oidc';
@@ -10,8 +10,6 @@ import App from './App';
 import Callback from '../containers/Callback';
 import Tariff from '../containers/Tariff';
 import Tariffs from '../containers/Tariffs';
-import CreateTariff from '../containers/CreateTariff';
-import UpdateTariff from '../containers/UpdateTariff';
 import userManager from '../helpers/userManager';
 import EanCodesOptions from '../containers/reportOptions/EanCodesOptions';
 import EanCodes from '../containers/reports/EanCodes';
@@ -43,72 +41,77 @@ class Root extends Component {
 
         return (
             <div>
-                <Navigation />
-                <div style={{ paddingTop: '40px' }}>
-                    <Provider store={store}>
-                        <OidcProvider store={store} userManager={userManager}>
-                            <Router history={history}>
-                                <div>
-                                    <CssBaseline />
-                                    <Route path="/" render={() => { document.title = 'Products'; return false; }} />
-                                    <Route exact path="/" render={() => <Redirect to="/products/maint" />} />
-                                    <Route exact path="/products/maint" component={App} />
-                                    <Route exact path="/products/maint/signin-oidc-client" component={Callback} />
-                                    <Switch>
-                                        <Route exact path="/products/maint/tariffs/create" component={CreateTariff} />
-                                        <Route exact path="/products/maint/tariffs/:id/edit" component={UpdateTariff} />
-                                        <Route exact path="/products/maint/tariffs/:id" component={Tariff} />
-                                        <Route exact path="/products/maint/tariffs" component={Tariffs} />
-                                    </Switch>
+            <Navigation />
+            <div style={{paddingTop: "40px"}}>
+            <Provider store={store}>
+                <OidcProvider store={store} userManager={userManager}>
+             
+               
+                    <Router history={history}>
+                        <div>
+                           
+                            <CssBaseline />
 
-                                    <Route exact path="/products/reports" component={App} />
-                                    <Route exact path="/products/reports/sales-article-ean-codes" component={EanCodesOptions} />
-                                    <Route exact path="/products/reports/sales-article-ean-codes/report" component={EanCodes} />
+                            <Route path="/" render={() => { document.title = 'Products'; return false; }} />
+                            <Route exact path="/" render={() => <Redirect to="/products/maint" />} />
+                            <Route exact path="/products/maint" component={App} />
+                            <Route exact path="/products/maint/signin-oidc-client" component={Callback} />
 
-                                    <Route exact path="/products/reports/carton-details" component={CartonDetailsOptions} />
-                                    <Route exact path="/products/reports/carton-details/report" component={CartonDetails} />
+                            <Switch>
+                                <Route exact path="/products/maint/tariffs/:id" component={Tariff} />
+                                <Route exact path="/products/maint/tariffs" component={Tariffs} />
+                            </Switch>
 
-                                    <Switch>
-                                        <Route exact path="/products/maint/sales-articles" component={SalesArticles} />
-                                        <Route exact path="/products/maint/sales-articles/:articleNumber" component={SalesArticle} />
-                                    </Switch>
-                                    <Switch>
-                                        <Route exact path="/products/maint/carton-types/create" component={CreateCartonType} />
-                                        <Route exact path="/products/maint/carton-types/:cartonTypeId" component={CartonType} />
-                                        <Route exact path="/products/maint/carton-types" component={CartonDetails} />
-                                    </Switch>
+                            <Route exact path="/products/reports" component={App} />
+                            <Route exact path="/products/reports/sales-article-ean-codes" component={EanCodesOptions} />
+                            <Route exact path="/products/reports/sales-article-ean-codes/report" component={EanCodes} />
 
-                                    <Switch>
-                                        <Route exact path="/products/maint/sernos-configs" component={SernosConfigs} />
-                                        <Route exact path="/products/maint/sernos-configs/create" component={CreateSernosConfig} />
-                                        <Route exact path="/products/maint/sernos-configs/:sernosConfigId" component={SernosConfig} />
-                                    </Switch>
+                            <Route exact path="/products/reports/carton-details" component={CartonDetailsOptions} />
+                            <Route exact path="/products/reports/carton-details/report" component={CartonDetails} />
 
-                                    <Switch>
-                                        <Route exact path="/products/maint/sa-core-types" component={SaCoreTypes} />
-                                        <Route exact path="/products/maint/sa-core-types/create" component={CreateSaCoreType} />
-                                        <Route exact path="/products/maint/sa-core-types/:coreType" component={SaCoreType} />
-                                    </Switch>
+                            <Switch>
+                                <Route exact path="/products/maint/sales-articles" component={SalesArticles} />
+                                <Route exact path="/products/maint/sales-articles/:articleNumber" component={SalesArticle} />
+                            </Switch>
 
-                                    <Switch>
-                                        <Route exact path="/products/maint/types-of-sale" component={TypesOfSale} />
-                                        <Route exact path="/products/maint/types-of-sale/create" component={CreateTypeOfSale} />
-                                        <Route exact path="/products/maint/types-of-sale/:typeOfSaleId" component={TypeOfSale} />
-                                    </Switch>
+                            <Switch>
+                                <Route exact path="/products/maint/carton-types/create" component={CreateCartonType} />
+                                <Route exact path="/products/maint/carton-types/:cartonTypeId" component={CartonType} />
+                                <Route exact path="/products/maint/carton-types" component={CartonDetails} />
+                            </Switch>
 
-                                    <Route exact path="/products/reports/product-ranges" component={ProductRangesOptions} />
-                                    <Route exact path="/products/reports/product-ranges/report" component={ProductRanges} />
-                                    <Route exact path="/products/reports/sales-products-by-product-range" component={SalesProductsByProductRange} />
+                            <Switch>
+                                <Route exact path="/products/maint/sernos-configs" component={SernosConfigs} />
+                                <Route exact path="/products/maint/sernos-configs/create" component={CreateSernosConfig} />
+                                <Route exact path="/products/maint/sernos-configs/:sernosConfigId" component={SernosConfig} />
+                            </Switch>
 
-                                    <Route exact path="/products/reports/parts-at-location/:locationId" component={StockTriggerLevelParts} />
-                                    <Route exact path="/products/reports/stock-trigger-levels/:locationId/:partNumber" component={StockTriggerLevelsByPart} />
-                                </div>
-                            </Router>
-                        </OidcProvider>
-                    </Provider>
-                </div>
-            </div>
+                            <Switch>
+                                <Route exact path="/products/maint/sa-core-types" component={SaCoreTypes} />
+                                <Route exact path="/products/maint/sa-core-types/create" component={CreateSaCoreType} />
+                                <Route exact path="/products/maint/sa-core-types/:coreType" component={SaCoreType} />
+                            </Switch>
+
+                            <Switch>
+                                <Route exact path="/products/maint/types-of-sale" component={TypesOfSale} />
+                                <Route exact path="/products/maint/types-of-sale/create" component={CreateTypeOfSale} />
+                                <Route exact path="/products/maint/types-of-sale/:typeOfSaleId" component={TypeOfSale} />
+                            </Switch>
+
+                            <Route exact path="/products/reports/product-ranges" component={ProductRangesOptions} />
+                            <Route exact path="/products/reports/product-ranges/report" component={ProductRanges} />
+                            <Route exact path="/products/reports/sales-products-by-product-range" component={SalesProductsByProductRange} />
+
+                            <Route exact path="/products/reports/parts-at-location/:locationId" component={StockTriggerLevelParts} />
+                            <Route exact path="/products/reports/stock-trigger-levels/:locationId/:partNumber" component={StockTriggerLevelsByPart} />
+                        </div>
+                    </Router>
+                
+                </OidcProvider>
+                
+            </Provider> </div> </div>
         );
+
     }
 }
 

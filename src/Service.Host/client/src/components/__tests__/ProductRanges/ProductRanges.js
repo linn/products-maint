@@ -6,14 +6,20 @@ describe('<ProductRanges />', () => {
     let wrapper;
     const getReportTable = () => wrapper.find('WithStyles(ReportTable)');
     const getLoading = () => wrapper.find('Loading');
-    const shallow = createShallow({ dive: true });
+    const shallow = createShallow({ dive: false });
 
     const reportData = { results: [] };
+    const config = { appRoot: '' };
     const options = { includePhasedOut: false };
 
     beforeEach(() => {
         wrapper = shallow(
-            <ProductRanges options={options} loading={false} reportData={reportData} />
+            <ProductRanges
+                options={options}
+                loading={false}
+                reportData={reportData}
+                config={config}
+            />
         );
     });
 
@@ -25,7 +31,7 @@ describe('<ProductRanges />', () => {
     describe('loading', () => {
         beforeEach(() => {
             wrapper = shallow(
-                <ProductRanges options={options} loading={true} reportData={reportData} />
+                <ProductRanges options={options} loading reportData={reportData} config={config} />
             );
         });
 

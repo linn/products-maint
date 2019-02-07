@@ -1,31 +1,4 @@
-﻿export const getTariffs = ({ searchTariffs }) => {
-    if (!searchTariffs) {
-        return null;
-    }
+import ItemSelectors from './ItemSelectors';
+import * as itemTypes from '../itemTypes';
 
-    return searchTariffs.items;
-};
-
-export const getTariffsLoading = ({ searchTariffs }) => {
-    if (!searchTariffs) {
-        return null;
-    }
-
-    return searchTariffs.loading;
-};
-
-export const getTariff = ({ tariff }) => {
-    if (!tariff) {
-        return null;
-    }
-
-    return tariff.item;
-};
-
-export const getTariffLoading = ({ tariff }) => {
-    if (!tariff) {
-        return null;
-    }
-
-    return tariff.loading;
-};
+export default new ItemSelectors(itemTypes.tariff.item, 'tariffCode');

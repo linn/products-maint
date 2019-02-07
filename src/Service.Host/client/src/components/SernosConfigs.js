@@ -1,42 +1,34 @@
 ﻿import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import { List, ListItem, Paper, Typography } from '@material-ui/core';
-import { ErrorCard } from '@linn-it/linn-form-components-library';
-import CircularLoading from './common/CircularLoading';
+import PropTypes from 'prop-types';
+import { Page, Loading, EntityList, CreateButton } from '@linn-it/linn-form-components-library';
 
-const styles = (theme) => ({
-    root: {
-        ...theme.typography,
-        margin: '40px',
-        padding: '40px'
-    }
-});
+const SernosConfigs = ({ sernosConfigs, loading, history }) => (
+    <Page history={history}>
+        {loading ? (
+            <Loading />
+        ) : (
+            <Fragment>
+                <CreateButton createUrl="/products/maint/sernos-configs/create" />
+                <EntityList
+                    title="Sernos Configs"
+                    entityList={sernosConfigs}
+                    entityId="name"
+                    loading={loading}
+                    descriptionFieldName="description"
+                />
+            </Fragment>
+        )}
+    </Page>
+);
 
-const SernosConfigs = ({ sernosConfigs, loading, errorMessage, classes }) => (
-    <Paper className={classes.root}>
-        {loading || !sernosConfigs
-            ? errorMessage
-                ? <ErrorCard errorMessage={errorMessage} />
-                : <CircularLoading />
-            : (
-                <Fragment>
-                    <Typography variant="h3" align="center" gutterBottom>
-                        Sernos Config
-                    </Typography>
-                    <List>
-                        {sernosConfigs.map((sc) => (
-                            <ListItem key={sc.href} component={Link} to={sc.href} button>{sc.name} - {sc.description}</ListItem>
-                        ))}
-                        <ListItem component={Link} to="/products/maint/sernos-configs/create" button>
-                            <Typography color="primary">Create new serial number config type</Typography>
-                        </ListItem>
-                    </List>
-                </Fragment>
-            )
-        }
-    </Paper>
-)
+SernosConfigs.propTypes = {
+    sernosConfigs: PropTypes.arrayOf(PropTypes.shape({})),
+    history: PropTypes.shape({}).isRequired,
+    loading: PropTypes.bool.isRequired
+};
 
-export default withStyles(styles)(SernosConfigs);
+SernosConfigs.defaultProps = {
+    sernosConfigs: null
+};
 
+export default SernosConfigs;

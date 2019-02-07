@@ -1,12 +1,12 @@
 ﻿import React from 'react';
-import { createShallow} from '@material-ui/core/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 import ProductRangesOptions from '../../reportOptions/ProductRangesOptions';
 
 describe('<ProductRangesOptions />', () => {
     let wrapper;
     let history;
     const getButton = () => wrapper.find('WithStyles(Button)');
-    const shallow = createShallow({ dive: true });
+    const shallow = createShallow({ dive: false });
 
     beforeEach(() => {
         history = { push: jest.fn() };

@@ -6,27 +6,23 @@ describe('<CartonType />', () => {
     let wrapper;
     let props;
 
-    const getPaper = () => wrapper.find('WithStyles(Paper)');
-    const getLoading = () => wrapper.find('WithStyles(CircularLoading)');
-    const getTypography = () => wrapper.find('WithStyles(Typography)');
-    const getTextFields = () => wrapper.find('TextField');
-    const getButtons = () => wrapper.find('WithStyles(Button)');
+    const getLoading = () => wrapper.find('Loading');
+    const getInputFields = () => wrapper.find('WithStyles(InputField)');
+    const getButtons = () => wrapper.find('WithStyles(SaveBackCancelButtons)');
 
-    const shallow = createShallow({ dive: true });
+    const shallow = createShallow({ dive: false });
 
     beforeEach(() => {
         props = {
-            loading: true
+            loading: true,
+            editStatus: 'view',
+            history: {}
         };
 
         wrapper = shallow(<CartonType {...props} />);
     });
 
     describe('when loading', () => {
-        it('should render paper container', () => {
-            expect(getPaper()).toHaveLength(1);
-        });
-
         it('should render loading spinner', () => {
             expect(getLoading()).toHaveLength(1);
         });
@@ -53,20 +49,12 @@ describe('<CartonType />', () => {
             });
         });
 
-        it('should render paper container', () => {
-            expect(getPaper()).toHaveLength(1);
-        });
-
-        it('should render title', () => {
-            expect(getTypography()).toHaveLength(1);
-        });
-
         it('should render text fields', () => {
-            expect(getTextFields()).toHaveLength(5);
+            expect(getInputFields()).toHaveLength(5);
         });
 
         it('should render buttons', () => {
-            expect(getButtons()).toHaveLength(3);
+            expect(getButtons()).toHaveLength(1);
         });
     });
 });

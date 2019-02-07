@@ -1,25 +1,29 @@
 ﻿import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import Tariff from '../components/Tariff';
-import { fetchTariff } from '../actions/tariff';
-import { getTariff, getTariffLoading } from '../selectors/tariffSelectors';
+import tariff from '../components/Tariff';
 import initialiseOnMount from './common/initialiseOnMount';
+import tariffActions from '../actions/tariff';
+import getSingleErrorMessage from '../selectors/fetchErrorSelectors';
+import tariffSelectors from '../selectors/tariffSelectors';
 
 const mapStateToProps = (state, { match }) => ({
+    tariff: tariffSelectors.getItem(state),
     id: match.params.id,
-    tariff: getTariff(state),
-    loading: getTariffLoading(state)
+    editStatus: tariffSelectors.getEditStatus(state),
+    loading: tariffSelectors.getLoading(state),
+    errorMessage: getSingleErrorMessage(state)
 });
 
 const initialise = ({ id }) => dispatch => {
-    dispatch(fetchTariff(id));
+    dispatch(tariffActions.fetch(id));
 };
 
 const mapDispatchToProps = {
-    initialise
+    initialise,
+    updateTariff: tariffActions.update,
+    resetTariff: tariffActions.reset
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter(initialiseOnMount(Tariff)));
+)(initialiseOnMount(tariff));

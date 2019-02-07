@@ -1,26 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import {
-    BackButton,
-    SaveCancelButtons,
+    SaveBackCancelButtons,
     InputField,
     Loading,
     Title,
     ErrorCard
 } from '@linn-it/linn-form-components-library';
-
-const styles = () => ({
-    root: {
-        margin: 40,
-        padding: 40
-    },
-    grid: {
-        width: '100%',
-        margin: '0 auto'
-    }
-});
+import Page from '../containers/Page';
 
 class SaCoreType extends Component {
     constructor(props) {
@@ -45,7 +33,7 @@ class SaCoreType extends Component {
         this.setState({ editStatus: 'view' });
     };
 
-    handleResetClick = () => {
+    handleCancelClick = () => {
         const { saCoreType } = this.props;
         this.setState({ saCoreType });
         this.setState({ editStatus: 'view' });
@@ -58,7 +46,7 @@ class SaCoreType extends Component {
         this.setState({ editStatus: 'view' });
     };
 
-    handleCancelClick = () => {
+    handleBackClick = () => {
         this.setState({ editStatus: 'view' });
         const { history } = this.props;
         history.push('/products/maint/sa-core-types');
@@ -75,7 +63,7 @@ class SaCoreType extends Component {
     }
 
     viewing() {
-        const { editStatus } = this.props;
+        const { editStatus } = this.state;
         return editStatus === 'view';
     }
 
@@ -90,14 +78,14 @@ class SaCoreType extends Component {
     }
 
     render() {
-        const { loading, classes, errorMessage } = this.props;
+        const { loading, errorMessage } = this.props;
         const { saCoreType } = this.state;
         if (loading || !saCoreType) {
             return <Loading />;
         }
 
         return (
-            <Paper className={classes.root}>
+            <Page>
                 <Grid container spacing={24}>
                     <Grid item xs={12}>
                         {this.creating() ? (
@@ -176,18 +164,18 @@ class SaCoreType extends Component {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <BackButton backClick={this.handleCancelClick} />
-                        <SaveCancelButtons
-                            disabled={
+                        <SaveBackCancelButtons
+                            saveDisabled={
                                 !this.editing() ||
                                 (!saCoreType.coreType || saCoreType.coreType.length === 0)
                             }
                             saveClick={this.creating() ? this.handleAddClick : this.handleSaveClick}
-                            cancelClick={this.handleResetClick}
+                            cancelClick={this.handleCancelClick}
+                            backClick={this.handleBackClick}
                         />
                     </Grid>
                 </Grid>
-            </Paper>
+            </Page>
         );
     }
 }
@@ -202,7 +190,6 @@ SaCoreType.defaultProps = {
 };
 
 SaCoreType.propTypes = {
-    classes: PropTypes.shape({}).isRequired,
     saCoreType: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
@@ -213,4 +200,4 @@ SaCoreType.propTypes = {
     loading: PropTypes.bool
 };
 
-export default withStyles(styles)(SaCoreType);
+export default SaCoreType;
