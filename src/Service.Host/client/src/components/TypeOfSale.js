@@ -92,7 +92,6 @@ class TypeOfSale extends Component {
     render() {
         const { loading, errorMessage } = this.props;
         const { typeOfSale } = this.state;
-
         return (
             <Page>
                 <Grid container spacing={24}>
@@ -108,8 +107,10 @@ class TypeOfSale extends Component {
                             <ErrorCard errorMessage={errorMessage} />
                         </Grid>
                     )}
-                    {loading ? (
-                        <Loading />
+                    {loading || !typeOfSale ? (
+                        <Grid item xs={12}>
+                            <Loading />
+                        </Grid>
                     ) : (
                         <Fragment>
                             <Grid item xs={4}>
