@@ -2,7 +2,7 @@
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import { SaveCancelButtons, Loading } from '@linn-it/linn-form-components-library';
+import { SaveBackCancelButtons, Loading } from '@linn-it/linn-form-components-library';
 import { getSelfHref } from '../helpers/utilities';
 import TextInput from './common/forms/TextInput';
 
@@ -14,7 +14,6 @@ const styles = theme => ({
 });
 
 class EditTariff extends Component {
-
     constructor(props) {
         super(props);
         this.state = { tariff: this.props.tariff, editStatus: this.props.editStatus || 'view' };
@@ -49,7 +48,7 @@ class EditTariff extends Component {
             history.push('/products/maint/tariffs');
         } else if (this.editing()) {
             history.push(getSelfHref(this.state.tariff));
-        } 
+        }
     }
 
     handleTariffFieldChange(propertyName, newValue) {
@@ -134,9 +133,9 @@ class EditTariff extends Component {
                                 />
                             </div>
 
-                            <SaveCancelButtons
+                            <SaveBackCancelButtons
                                 saveClick={this.handleSaveClick}
-                                cancelClick={this.handleCancelClick}        
+                                cancelClick={this.handleCancelClick}
                             />
                         </Paper>
                     </Grid>
