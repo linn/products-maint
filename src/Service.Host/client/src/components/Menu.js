@@ -54,7 +54,7 @@ const theme = createMuiTheme({
     }
 });
 
-const menu = require('./menu.json').sections; // should get this via GET request in real life
+const menu = require('./menu.json').sections; // should get this via GET request to /intranet/menu
 
 const PinnedSubheaderList = ({ classes, list }) => (
     <List className={classes.root} subheading={<li />}>
@@ -97,14 +97,13 @@ class MenuPage extends Component {
             lists.push(categoriesList);
         });
 
-        // lists is an array of arrays at this point, we want a single array
-        const singleArrayList = [];
+        const subHeaders = [];
         lists.forEach(list => {
             list.forEach(item => {
-                singleArrayList.push(item);
+                subHeaders.push(item);
             });
         });
-        return singleArrayList;
+        return subHeaders;
     }
 
     render() {
