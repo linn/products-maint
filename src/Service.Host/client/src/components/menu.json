@@ -654,11 +654,6 @@
                   "showInMenu": false
                 },
                 {
-                  "title": "Sales Article Forecast Details",
-                  "href": "/products/maint/sales-articles",
-                  "showInMenu": false
-                },
-                {
                   "title": "Sales Article Core Types Utility",
                   "href": "/products/maint/sa-core-types",
                   "showInMenu": false

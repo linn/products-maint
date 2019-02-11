@@ -66,11 +66,11 @@ const PinnedSubheaderList = ({ classes, list }) => (
                     </ListSubheader>
                     <div className={classes.innerList}>
                         {item.items.map(entry => (
-                            <Link to={entry.href} key={entry.title}>
+                            <a href={entry.href} key={entry.title}>
                                 <ListItem>
                                     <Typography color="primary"> {entry.title} </Typography>
                                 </ListItem>{' '}
-                            </Link>
+                            </a>
                         ))}
                     </div>
                 </ul>
