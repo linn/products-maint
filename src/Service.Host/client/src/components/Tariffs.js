@@ -7,7 +7,6 @@ import Page from '../containers/Page';
 const Tariffs = ({ tariffs, fetchItems, loading, clearSearch }) => {
     const results = tariffs.map(tariff => ({
         ...tariff,
-        id: tariff.id,
         name: tariff.tariffCode,
         description:
             tariff.description.length > 100

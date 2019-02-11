@@ -4,8 +4,6 @@ import configureStore from './configureStore';
 import Root from './components/Root';
 import { AppContainer } from 'react-hot-loader';
 import userManager from './helpers/userManager';
-import Navigation from './components/Navigation';
-
 
 import 'typeface-roboto';
 
@@ -15,17 +13,17 @@ const user = store.getState().oidc.user;
 
 const render = Component => {
     ReactDOM.render(
-       
         <AppContainer>
             <Component store={store} />
-        </AppContainer>
-        ,
+        </AppContainer>,
         document.getElementById('root')
     );
 };
 
 if ((!user || user.expired) && window.location.pathname !== '/products/maint/signin-oidc-client') {
-    userManager.signinRedirect({ data: { redirect: window.location.pathname + window.location.search } });
+    userManager.signinRedirect({
+        data: { redirect: window.location.pathname + window.location.search }
+    });
 } else {
     render(Root);
 
