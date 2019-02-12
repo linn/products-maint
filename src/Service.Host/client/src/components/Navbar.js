@@ -30,6 +30,7 @@ class Navbar extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             data: null
         };
@@ -60,6 +61,7 @@ class Navbar extends React.Component {
             link: item.links[0].href
         }));
         history.push(`/${menuItems[value].id}`);
+
         this.setState({
             value
         });
@@ -86,6 +88,7 @@ class Navbar extends React.Component {
                         indicatorColor="primary"
                         textColor="primary"
                     >
+
                         {data
                             ? data.sections.map(item => (
                                   <Tab
@@ -96,6 +99,7 @@ class Navbar extends React.Component {
                                   />
                               ))
                             : ''}
+
                     </Tabs>
                 </AppBar>
             </div>
