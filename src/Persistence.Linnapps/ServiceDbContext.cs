@@ -44,6 +44,7 @@
             var dataSource = $"(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT=1521))(CONNECT_DATA=(SERVICE_NAME={serviceId})(SERVER=dedicated)))";
 
             optionsBuilder.UseOracle($"Data Source={dataSource};User Id={userId};Password={password};");
+
             base.OnConfiguring(optionsBuilder);
         }
 
@@ -135,9 +136,8 @@
             builder.Entity<VatCode>().Property(t => t.Code).HasColumnName("VAT_CODE").HasMaxLength(1);
             builder.Entity<VatCode>().Property(t => t.Description).HasColumnName("DESCRIPTION").HasMaxLength(50);
             builder.Entity<VatCode>().Property(t => t.Rate).HasColumnName("RATE");
-// TODO insert this into db
-//            builder.Entity<VatCode>().Property(t => t.Reason).HasColumnName("REASON");
-            builder.Entity<VatCode>().Property(t => t.VatOnly).HasColumnName("VAT_ONLY");
+            builder.Entity<VatCode>().Property(t => t.Reason).HasColumnName("REASON");
+            builder.Entity<VatCode>().Property(t => t.VatOnly).HasColumnName("VAT_ONLY").HasMaxLength(1);
             builder.Entity<VatCode>().Property(t => t.VatReturnId).HasColumnName("VAT_RETURN_ID");
         }
     }
