@@ -6,7 +6,7 @@ const fetchMenu = () => ({
     [CALL_API]: {
         endpoint: `${config.appRoot}/intranet/menu`,
         method: 'GET',
-        options: { requiresAuth: false },
+        options: { requiresAuth: true },
         headers: {
             Accept: 'application/json'
         },
