@@ -20,6 +20,8 @@
 
         public DbSet<CartonType> CartonTypes { get; set; }
 
+        public DbSet<VatCode> VatCodes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             this.BuildSaCoreType(builder);
@@ -28,6 +30,7 @@
             this.BuildSalesArticles(builder);
             this.BuildTypesOfSale(builder);
             this.BuildCartonTypes(builder);
+            this.BuildVatCode(builder);
             base.OnModelCreating(builder);
         }
 
@@ -123,6 +126,19 @@
             builder.Entity<SalesArticle>().Property(t => t.PercentageOfRootProductSales).HasColumnName("PERCENTAGE_SALES");
             builder.Entity<SalesArticle>().Property(t => t.ArticleType).HasColumnName("ARTICLE_TYPE").HasMaxLength(1);
             builder.Entity<SalesArticle>().HasOne(t => t.SaCoreType);
+        }
+
+        private void BuildVatCode(ModelBuilder builder)
+        {
+            builder.Entity<VatCode>().ToTable("VATCODES");
+            builder.Entity<VatCode>().HasKey(t => t.Code);
+            builder.Entity<VatCode>().Property(t => t.Code).HasColumnName("VAT_CODE").HasMaxLength(1);
+            builder.Entity<VatCode>().Property(t => t.Description).HasColumnName("DESCRIPTION").HasMaxLength(50);
+            builder.Entity<VatCode>().Property(t => t.Rate).HasColumnName("RATE");
+// TODO insert this into db
+//            builder.Entity<VatCode>().Property(t => t.Reason).HasColumnName("REASON");
+            builder.Entity<VatCode>().Property(t => t.VatOnly).HasColumnName("VAT_ONLY");
+            builder.Entity<VatCode>().Property(t => t.VatReturnId).HasColumnName("VAT_RETURN_ID");
         }
     }
 }
