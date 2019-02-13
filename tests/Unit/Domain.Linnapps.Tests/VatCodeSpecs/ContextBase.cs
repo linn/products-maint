@@ -11,7 +11,7 @@
         [SetUp]
         public void SetUpContext()
         {
-            this.Sut = new VatCode("A", "STD UK VAT RATE.", 20, "");
+            this.Sut = new VatCode("A", "STD UK VAT RATE.", 20, null, "N", 1);
         }
     }
 }
