@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Divider from '@material-ui/core/Divider';
 import { List, ListItem, Typography } from '@material-ui/core';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { createMuiTheme, withStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
 import Page from '../containers/Page';
 
 const styles = theme => ({
@@ -54,73 +53,45 @@ const theme = createMuiTheme({
     }
 });
 
-const menu = require('./menu.json').sections; // should get this via GET request to /intranet/menu
-
-const PinnedSubheaderList = ({ classes, list }) => (
-    <List className={classes.root} subheading={<li />}>
-        {list.map(item => (
-            <li key={item.title} className={classes.listSection}>
-                <ul className={classes.ul}>
-                    <ListSubheader>
-                        {item.title} <Divider />
-                    </ListSubheader>
-                    <div className={classes.innerList}>
-                        {item.items.map(entry => (
-                            <a href={entry.href} key={entry.title}>
-                                <ListItem>
-                                    <Typography color="primary"> {entry.title} </Typography>
-                                </ListItem>{' '}
-                            </a>
-                        ))}
-                    </div>
-                </ul>
-            </li>
-        ))}
-    </List>
+const MenuPage = ({ classes, section }) => (
+    <Page>
+        <MuiThemeProvider theme={theme}>
+            <List className={classes.root} subheading={<li />}>
+                {section !== null
+                    ? section.map(item => (
+                          <li key={item.title} className={classes.listSection}>
+                              <ul className={classes.ul}>
+                                  <ListSubheader>
+                                      {item.title} <Divider />
+                                  </ListSubheader>
+                                  <div className={classes.innerList}>
+                                      {item.items.map(entry => (
+                                          <a href={entry.href} key={entry.title}>
+                                              <ListItem>
+                                                  <Typography color="primary">
+                                                      {entry.title}
+                                                  </Typography>
+                                              </ListItem>
+                                          </a>
+                                      ))}
+                                  </div>
+                              </ul>
+                          </li>
+                      ))
+                    : ''}
+            </List>
+        </MuiThemeProvider>
+    </Page>
 );
-
-class MenuPage extends Component {
-    getMenu() {
-        const { match } = this.props;
-        const id = match.params.sectionId;
-        const section = menu.filter(x => x.id === id);
-        const { columns } = section[0];
-        const categoriesListArray = [];
-
-        columns.forEach(column => {
-            categoriesListArray.push(column.categories);
-        });
-
-        const lists = [];
-
-        categoriesListArray.forEach(categoriesList => {
-            lists.push(categoriesList);
-        });
-
-        const subHeaders = [];
-        lists.forEach(list => {
-            list.forEach(item => {
-                subHeaders.push(item);
-            });
-        });
-        return subHeaders;
-    }
-
-    render() {
-        const { classes } = this.props;
-        return (
-            <Page>
-                <MuiThemeProvider theme={theme}>
-                    <PinnedSubheaderList list={this.getMenu()} classes={classes} />
-                </MuiThemeProvider>
-            </Page>
-        );
-    }
-}
 
 MenuPage.propTypes = {
     match: PropTypes.shape({}).isRequired,
-    classes: PropTypes.shape({}).isRequired
+    classes: PropTypes.shape({}).isRequired,
+    section: PropTypes.arrayOf(PropTypes.shape({}))
+};
+
+MenuPage.defaultProps = {
+    section: []
 };
 
 export default withStyles(styles)(MenuPage);
