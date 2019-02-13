@@ -36,7 +36,7 @@ class Navbar extends React.Component {
         };
     }
 
-    componentDidUpdate() {
+    componentDidMount() {
         fetch('http://app-sys.linn.co.uk/intranet/menu', {
             method: 'GET',
             credentials: 'include',
