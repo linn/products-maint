@@ -54,6 +54,9 @@ export const RECEIVE_CARTON_TYPE = 'RECEIVE_CARTON_TYPE';
 export const RECEIVE_NEW_CARTON_TYPE = 'RECEIVE_NEW_CARTON_TYPE';
 export const RESET_CARTON_TYPE = 'RESET_CARTON_TYPE';
 
+export const REQUEST_MENU = 'REQUEST_MENU';
+export const RECEIVE_MENU = 'RECEIVE_MENU';
+
 export const cartonTypeActionTypes = makeActionTypes(itemTypes.cartonType.actionType);
 
 export const sernosConfigActionTypes = makeActionTypes(itemTypes.sernosConfig.actionType);

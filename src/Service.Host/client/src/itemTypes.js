@@ -47,6 +47,7 @@ export const typeOfSale = new ItemType(
     'TYPE_OF_SALE',
     '/products/maint/types-of-sale'
 );
+
 export const typesOfSale = new ItemType(
     'typesOfSale',
     'TYPES_OF_SALE',

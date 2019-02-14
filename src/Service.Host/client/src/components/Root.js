@@ -6,7 +6,7 @@ import { Router } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import history from '../history';
 import Navigation from '../containers/Navigation';
-import MenuPage from './Menu';
+import MenuPage from '../containers/Menu';
 import App from './App';
 import Callback from '../containers/Callback';
 import Tariff from '../containers/Tariff';
