@@ -43,14 +43,17 @@ const App = ({ classes }) => (
         </List>
         <Typography variant="h6">Utilities</Typography>
         <List>
-            <ListItem component={Link} to="/products/maint/tariffs" button>
-                <Typography color="primary">Tariffs</Typography>
-            </ListItem>
             <ListItem component={Link} to="/products/maint/sa-core-types" button>
                 <Typography color="primary">Sales Article Core Types</Typography>
             </ListItem>
+            <ListItem component={Link} to="/products/maint/tariffs" button>
+                <Typography color="primary">Tariffs</Typography>
+            </ListItem>
             <ListItem component={Link} to="/products/maint/types-of-sale" button>
                 <Typography color="primary">Types of Sale</Typography>
+            </ListItem>
+            <ListItem component={Link} to="/products/maint/vat-codes" button>
+                <Typography color="primary">Vat Codes</Typography>
             </ListItem>
         </List>
     </Paper>
