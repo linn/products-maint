@@ -73,3 +73,6 @@ export const tariffsActionTypes = makeActionTypes(itemTypes.tariffs.actionType, 
 
 export const typeOfSaleActionTypes = makeActionTypes(itemTypes.typeOfSale.actionType);
 export const typesOfSaleActionTypes = makeActionTypes(itemTypes.typesOfSale.actionType, false);
+
+export const vatCodeActionTypes = makeActionTypes(itemTypes.vatCode.actionType);
+export const vatCodesActionTypes = makeActionTypes(itemTypes.vatCodes.actionType, false);
