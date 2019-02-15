@@ -55,6 +55,7 @@ function Navbar({ classes, menu, loading, history }) {
                 ) : (
                     <Fragment />
                 )}
+
             </AppBar>
         </div>
     );
