@@ -1,7 +1,5 @@
 import { connect } from 'react-redux';
 import Menu from '../components/Menu';
-import initialiseOnMount from './common/initialiseOnMount';
-import fetchMenu from '../actions/fetchMenuActions';
 import { getMenuSection, getMenuLoading } from '../selectors/menuSelectors';
 
 const getsectionId = ownProps => ownProps.match.params.sectionId;
@@ -11,15 +9,4 @@ const mapStateToProps = (state, ownProps) => ({
     loading: getMenuLoading(state)
 });
 
-const initialise = state => dispatch => {
-    dispatch(fetchMenu(state));
-};
-
-const mapDispatchToProps = {
-    initialise
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(Menu));
+export default connect(mapStateToProps)(Menu);
