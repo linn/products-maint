@@ -1,11 +1,10 @@
 ﻿import { vatCodesActionTypes as actionTypes } from '../actions';
-import itemStoreFactory from './reducerFactories/itemStoreFactory';
+import collectionStoreFactory from './reducerFactories/collectionStoreFactory';
 import * as itemTypes from '../itemTypes';
 
 const defaultState = {
     loading: false,
-    item: null,
-    editStatus: 'view'
+    items: []
 };
 
-export default itemStoreFactory(itemTypes.vatCodes.actionType, actionTypes, defaultState);
+export default collectionStoreFactory(itemTypes.vatCodes.actionType, actionTypes, defaultState);

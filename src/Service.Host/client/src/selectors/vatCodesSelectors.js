@@ -1,4 +1,4 @@
-﻿import ItemSelectors from './ItemSelectors';
+﻿import CollectionSelectors from './CollectionSelectors';
 import * as itemTypes from '../itemTypes';
 
-export default new ItemSelectors(itemTypes.vatCodes.item);
+export default new CollectionSelectors(itemTypes.vatCodes.item, 'code');
