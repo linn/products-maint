@@ -1,18 +1,18 @@
 ﻿import { connect } from 'react-redux';
-import SernosConfigs from '../../components/SernosConfigs';
+import VatCodes from '../../components/VatCodes';
 import initialiseOnMount from '../common/initialiseOnMount';
-import sernosConfigsActions from '../../actions/sernosConfigsActions';
+import vatCodesActions from '../../actions/vatCodesActions';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
-import sernosConfigsSelectors from '../../selectors/sernosConfigsSelectors';
+import vatCodesSelectors from '../../selectors/vatCodesSelectors';
 
 const mapStateToProps = state => ({
-    sernosConfigs: sernosConfigsSelectors.getItems(state),
-    loading: sernosConfigsSelectors.getLoading(state),
+    vatCodes: vatCodesSelectors.getItems(state),
+    loading: vatCodesSelectors.getLoading(state),
     errorMessage: getSingleErrorMessage(state)
 });
 
 const initialise = () => dispatch => {
-    dispatch(sernosConfigsActions.fetch());
+    dispatch(vatCodesActions.fetch());
 };
 
 const mapDispatchToProps = {
@@ -22,4 +22,4 @@ const mapDispatchToProps = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(initialiseOnMount(SernosConfigs));
+)(initialiseOnMount(VatCodes));

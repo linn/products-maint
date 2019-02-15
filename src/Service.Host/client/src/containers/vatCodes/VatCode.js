@@ -20,7 +20,8 @@ const initialise = ({ vatCodeId }) => dispatch => {
 const mapDispatchToProps = {
     initialise,
     updateVatCode: vatCodeActions.update,
-    resetVatCode: vatCodeActions.reset
+    resetVatCode: vatCodeActions.reset,
+    setEditStatus: vatCodeActions.setEditStatus
 };
 
 export default connect(

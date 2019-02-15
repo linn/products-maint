@@ -1,8 +1,8 @@
 ﻿import { vatCodeActionTypes as actionTypes } from './index';
-import FetchApiActions from './FetchApiActions';
+import UpdateApiActions from './UpdateApiActions';
 import * as itemTypes from '../itemTypes';
 
-export default new FetchApiActions(
+export default new UpdateApiActions(
     itemTypes.vatCode.actionType,
     itemTypes.vatCode.uri,
     actionTypes
