@@ -35,10 +35,6 @@ class SalesArticle extends Component {
             return { salesArticle: props.salesArticle };
         }
 
-        if (!state.saCoreType && props.saCoreType) {
-            return { saCoreType: props.saCoreType };
-        }
-
         return null;
     }
 
@@ -85,11 +81,9 @@ class SalesArticle extends Component {
         const { setEditStatus } = this.props;
 
         setEditStatus('edit');
-        const links = [...salesArticle.links];
-        const coreType = links.find(l => l.rel === rel);
-        if (coreType) {
-            coreType.href = newValue;
-        } else {
+        const links = salesArticle.links.filter(l => l.rel !== 'sa-core-type');
+
+        if (newValue) {
             links.push({ rel, href: newValue });
         }
 
@@ -114,7 +108,7 @@ class SalesArticle extends Component {
             saCoreTypeItems.push({ id: '', displayText: '' });
         } else {
             saCoreTypeItems = [
-                { id: salesArticleCoreTypeHref, displayText: salesArticleCoreTypeHref }
+                { id: salesArticleCoreTypeHref, displayText: salesArticleCoreTypeHref || 'Waiting' }
             ];
         }
 

@@ -7,7 +7,7 @@ const fetchSaCoreType = (data, dispatch) => {
     if (saCoreTypeHref) {
         dispatch(saCoreTypeActions.fetchByHref(saCoreTypeHref));
     }
-}
+};
 
 export default ({ dispatch }) => next => action => {
     const result = next(action);

@@ -14,7 +14,7 @@
 
     using NUnit.Framework;
 
-    public class WhenUpdating : ContextBase
+    public class WhenUpdatingCoreTypeToNull : ContextBase
     {
         private IResult<SalesArticle> result;
 
@@ -40,7 +40,7 @@
                                     Description = "new desc",
                                     ForecastType = "Y",
                                     ForecastToDate = 1.December(2020).ToString("o"),
-                                    Links = new LinkResource[] { new LinkResource("sa-core-type", "/sact/1") }
+                                    Links = new LinkResource[] { new LinkResource("sa-core-type", string.Empty) }
                                 };
             this.SalesArticleRepository.FindById("sa")
                 .Returns(this.salesArticle);
@@ -63,8 +63,7 @@
             dataResult.ArticleNumber.Should().Be("sa");
             dataResult.ForecastType.Should().Be("Y");
             dataResult.ForecastToDate.Should().Be(DateTime.Parse(this.resource.ForecastToDate));
-            dataResult.SaCoreType.CoreType.Should().Be(1);
-            dataResult.SaCoreType.Description.Should().Be("thing");
+            dataResult.SaCoreType.Should().BeNull();
         }
     }
 }

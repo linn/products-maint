@@ -36,16 +36,18 @@
         [ForeignKey("SA_CORE_TYPE")]
         public SaCoreType SaCoreType { get; set; }
 
-        public void UpdateForecastInformation(
+        public void Update(
             string forecastType,
             DateTime? forecastFromDate,
             DateTime? forecastToDate,
-            decimal? percentageOfRootProductSales)
+            decimal? percentageOfRootProductSales,
+            SaCoreType coreType)
         {
             this.ForecastType = forecastType;
             this.ForecastFromDate = forecastFromDate;
             this.ForecastToDate = forecastToDate;
             this.PercentageOfRootProductSales = percentageOfRootProductSales;
+            this.SaCoreType = coreType;
         }
     }
 }
