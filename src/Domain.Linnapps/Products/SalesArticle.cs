@@ -1,10 +1,13 @@
 ﻿namespace Linn.Products.Domain.Linnapps.Products
 {
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class SalesArticle
     {
         public string ArticleNumber { get; set; }
+
+        public string ArticleType { get; set; }
 
         public string TypeOfSale { get; set; }
 
@@ -29,6 +32,9 @@
         public DateTime? ForecastToDate { get; set; }
 
         public string ForecastType { get; set; }
+
+        [ForeignKey("SA_CORE_TYPE")]
+        public SaCoreType SaCoreType { get; set; }
 
         public void UpdateForecastInformation(
             string forecastType,
