@@ -17,9 +17,6 @@
 
         public DataTable GetStockTriggerLevelsForPartAtLocation(int locationId, string partNumber)
         {
-            var dataSource = $"(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT=1521))(CONNECT_DATA=(SERVICE_NAME={this.databaseName})(SERVER=dedicated)))";
-            var connection = new OracleConnection($"Data Source={dataSource};User Id={userId};Password={password};");
-
             var sql =
             $@"select sl.part_number,
             sl.pallet_number, sl.location_id, l.location_code,
@@ -39,7 +36,7 @@
             and wse2.location_id (+) = sl.location_id
             order by sl.part_number, sl.stock_rotation_date";
 
-            var cmd = new OracleCommand(sql, connection) { CommandType = CommandType.Text };
+            var cmd = new OracleCommand(sql, this.getConnection()) { CommandType = CommandType.Text };
             var dataAdapter = new OracleDataAdapter(cmd);
             var dataSet = new DataSet();
 
@@ -50,9 +47,6 @@
 
         public DataTable GetPartDataAtLocation(int locationId)
         {
-            var dataSource = $"(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT=1521))(CONNECT_DATA=(SERVICE_NAME={this.databaseName})(SERVER=dedicated)))";
-            var connection = new OracleConnection($"Data Source={dataSource};User Id={userId};Password={password};");
-
             var sql =
                $@"select stl.stl_id, stl.part_number, stl.trigger_level, stl.maximum_capacity,
             stl.location_id, stl.pallet_number,
@@ -65,7 +59,7 @@
             and nvl(st.qty, 0) <= stl.trigger_level
             order by stl.part_number";
 
-            var cmd = new OracleCommand(sql, connection) { CommandType = CommandType.Text };
+            var cmd = new OracleCommand(sql, this.getConnection()) { CommandType = CommandType.Text };
             var dataAdapter = new OracleDataAdapter(cmd);
             var dataSet = new DataSet();
 
@@ -76,9 +70,6 @@
 
         public int GetQtyAvailableAtEk2Location(string partNumber)
         {
-            var dataSource = $"(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT=1521))(CONNECT_DATA=(SERVICE_NAME={this.databaseName})(SERVER=dedicated)))";
-            var connection = new OracleConnection($"Data Source={dataSource};User Id={userId};Password={password};");
-
             var sql = $@"select sum(QTY_AVAILABLE) FROM (select sl.part_number,
             sl.pallet_number, sl.location_id, l.location_code,
             sl.qty qty_available, sl.qty_allocated, sl.stock_rotation_date,
@@ -98,7 +89,7 @@
             and wse2.location_id(+) = sl.location_id
             order by sl.part_number, sl.stock_rotation_date)";
 
-            var cmd = new OracleCommand(sql, connection) { CommandType = CommandType.Text };
+            var cmd = new OracleCommand(sql, this.getConnection()) { CommandType = CommandType.Text };
             var dataAdapter = new OracleDataAdapter(cmd);
             var dataSet = new DataSet();
 
@@ -107,6 +98,13 @@
             var result = dataSet.Tables[0];
             var response = result.Rows[0].ItemArray[0];
             return int.Parse(response.ToString());
+        }
+
+        private OracleConnection getConnection()
+        {
+            var dataSource = $"(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT=1521))(CONNECT_DATA=(SERVICE_NAME={this.databaseName})(SERVER=dedicated)))";
+            var connection = new OracleConnection($"Data Source={dataSource};User Id={userId};Password={password};");
+            return connection;
         }
     }
 }
