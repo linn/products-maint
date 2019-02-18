@@ -21,6 +21,9 @@ const App = ({ classes }) => (
             <ListItem component={Link} to="/products/maint/sales-articles" button>
                 <Typography color="primary">Sales Article Forecast Details</Typography>
             </ListItem>
+            <ListItem component={Link} to="/products/sa-hold-stories" button>
+                <Typography color="primary">Sales Article Hold Histories</Typography>
+            </ListItem>
         </List>
         <Typography variant="h6">Reports</Typography>
         <List>

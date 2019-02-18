@@ -1,5 +1,6 @@
 ﻿namespace Linn.Products.Domain.Linnapps.Reports
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -35,15 +36,15 @@
 
             results.SetColumnType(0, GridDisplayType.TextValue);
 
-            foreach (var story in stories.OrderBy(a => a.HoldStoryId))
+            foreach (var story in stories.OrderByDescending(a => a.DateStarted))
             {
                 var row = results.AddRow(story.HoldStoryId.ToString().Replace("/", "%2F"));
                 results.SetGridTextValue(row.RowIndex, 0, story.DateStarted.ToShortDateString());
-                results.SetGridTextValue(row.RowIndex, 1, story.DateFinished.ToString());
+                results.SetGridTextValue(row.RowIndex, 1, story.DateFinished != null ? ((DateTime)story.DateFinished).ToShortDateString() : story.DateFinished.ToString());
             }
 
             results.RowDrillDownTemplates.Add(new DrillDownModel("story", "/products/sa-hold-stories/" + "{rowId}"));
-
+           
             return results;
         }
     }

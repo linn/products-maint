@@ -18,7 +18,7 @@ const styles = () => ({
 });
 
 function SaHoldStory({ saHoldStory, loading, errorMessage, classes, history }) {
-    const slugify = articleNumber => articleNumber.replace('/', '%2F');
+    const slugify = articleNumber => articleNumber.replace(/\//g, '%2F');
     const handleBackClick = () => {
         history.push(
             `/products/reports/sa-hold-stories-for-sales-article/${slugify(
