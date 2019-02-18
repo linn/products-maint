@@ -62,7 +62,7 @@
 
         private object GetCartonDetails()
         {
-            // this.RequiresAuthentication();
+            this.RequiresAuthentication();
             var results = this.cartonReportsService.GetCartonDetails();
 
             return this.Negotiate

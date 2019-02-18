@@ -22,7 +22,7 @@
         public SaHoldStoriesProxy(IRestClient restClient, string rootUri)
         {
             this.restClient = restClient;
-            this.rootUri = "http://localhost:51798"; // rootUri
+            this.rootUri = rootUri;
             this.saHoldStoriesUri = new Uri($"{this.rootUri}/products/sa-hold-stories", UriKind.RelativeOrAbsolute);
         }
 

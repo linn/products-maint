@@ -7,7 +7,5 @@
     public interface ISaHoldStoriesReportService
     {
         ResultsModel GetSaHoldStoriesReportForSalesArticle(string articleNumber);
-
-        IEnumerable<string> GetArticleNumbersWithHoldStories();
     }
 }
