@@ -5,6 +5,7 @@
     using Linn.Products.Domain.Linnapps.Products;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     public class ServiceDbContext : DbContext
     {
@@ -20,6 +21,8 @@
 
         public DbSet<CartonType> CartonTypes { get; set; }
 
+        public DbSet<SaHoldStory> SaHoldStories { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             this.BuildSaCoreType(builder);
@@ -28,6 +31,7 @@
             this.BuildSalesArticles(builder);
             this.BuildTypesOfSale(builder);
             this.BuildCartonTypes(builder);
+            this.BuildSaHoldStories(builder);
             base.OnModelCreating(builder);
         }
 
@@ -121,6 +125,23 @@
             builder.Entity<SalesArticle>().Property(t => t.PhaseInDate).HasColumnName("PHASE_IN_DATE");
             builder.Entity<SalesArticle>().Property(t => t.PhaseOutDate).HasColumnName("PHASE_OUT_DATE");
             builder.Entity<SalesArticle>().Property(t => t.PercentageOfRootProductSales).HasColumnName("PERCENTAGE_SALES");
+        }
+
+        private void BuildSaHoldStories(ModelBuilder builder)
+        {
+            EntityTypeBuilder<SaHoldStory> e = builder.Entity<SaHoldStory>();
+            e.ToTable("SA_HOLD_STORIES");
+            e.HasKey(t => t.HoldStoryId);
+            e.Property(t => t.HoldStoryId).HasColumnName("HOLD_STORY_ID");
+            e.Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER");
+            e.Property(t => t.PutOnHoldByEmployeeNumber).HasColumnName("EMPLOYEE_NUMBER");
+            e.Property(t => t.TakenOffHoldByEmployeeNumber).HasColumnName("EMPLOYEE_NUMBER_TAKEN_OFF_HOLD");
+            e.Property(t => t.DateStarted).HasColumnName("DATE_STARTED");
+            e.Property(t => t.DateFinished).HasColumnName("DATE_FINISHED");
+            e.Property(t => t.ReasonStarted).HasColumnName("REASON_STARTED");
+            e.Property(t => t.ReasonFinished).HasColumnName("REASON_FINISHED");
+            e.Property(t => t.RootProduct).HasColumnName("ROOT_PRODUCT");
+            e.Property(t => t.AnticipatedEndDate).HasColumnName("ANTICIPATED_END_DATE");
         }
     }
 }

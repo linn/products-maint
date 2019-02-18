@@ -26,6 +26,7 @@
             builder.RegisterType<TypeOfSaleRepository>().As<IRepository<TypeOfSale, string>>();
             builder.RegisterType<SalesArticleRepository>().As<IRepository<SalesArticle, string>>();
             builder.RegisterType<TariffRepository>().As<ITariffRepository>();
+            builder.RegisterType<SaHoldStoryRepository>().As<IRepository<SaHoldStory, int>>();
         }
     }
 }
