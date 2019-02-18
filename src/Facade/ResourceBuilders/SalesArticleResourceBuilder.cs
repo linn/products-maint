@@ -47,6 +47,11 @@
                                  Rel = "self",
                                  Href = this.GetLocation(salesArticle)
                              };
+            yield return new LinkResource
+                             {
+                                Rel = "holdStories",
+                                Href = $"/products/reports/sa-hold-stories-for-sales-article/{Uri.EscapeDataString(salesArticle.ArticleNumber)}"
+                             };
         }
     }
 }

@@ -53,3 +53,9 @@ export const typesOfSale = new ItemType(
     'TYPES_OF_SALE',
     '/products/maint/types-of-sale'
 );
+
+export const saHoldStory = new ItemType(
+    'saHoldStory',
+    'SA_HOLD_STORY',
+    '/products/sa-hold-stories'
+);

@@ -37,12 +37,12 @@
 
             foreach (var story in stories.OrderBy(a => a.HoldStoryId))
             {
-                var row = results.AddRow(story.HoldStoryId.ToString());
+                var row = results.AddRow(story.HoldStoryId.ToString().Replace("/", "%2F"));
                 results.SetGridTextValue(row.RowIndex, 0, story.DateStarted.ToShortDateString());
                 results.SetGridTextValue(row.RowIndex, 1, story.DateFinished.ToString());
             }
 
-            results.RowDrillDownTemplates.Add(new DrillDownModel("story", "/products/sa-hold-stories/{saHoldStoryId}"));
+            results.RowDrillDownTemplates.Add(new DrillDownModel("story", "/products/sa-hold-stories/" + "{rowId}"));
 
             return results;
         }

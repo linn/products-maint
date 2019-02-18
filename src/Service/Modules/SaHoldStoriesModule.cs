@@ -23,7 +23,7 @@
             this.saHoldStoriesReportService = reportService;
             this.Get("/products/sa-hold-stories", parameters => this.GetSaHoldStories());
             this.Get("/products/sa-hold-stories/{holdStoryId}", parameters => this.GetSaHoldStory(parameters.holdStoryId));
-            this.Get("/products/reports/sa-hold-stories-for-sales-article/{articleNumber}", parameters => this.GetSaHoldStoriesForArticleNumber(parameters.articleNumber));
+            this.Get("/products/reports/sa-hold-stories-for-sales-article/{articleNumber*}", parameters => this.GetSaHoldStoriesForArticleNumber(parameters.articleNumber));
         }
 
         private object GetSaHoldStories()
