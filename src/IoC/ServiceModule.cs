@@ -9,7 +9,6 @@
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
     using Linn.Products.Domain.Linnapps.Reports;
-    using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
     using Linn.Products.Facade.Services;
