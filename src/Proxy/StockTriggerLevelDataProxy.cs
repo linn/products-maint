@@ -1,5 +1,6 @@
 ﻿namespace Linn.Products.Proxy
 {
+    using System;
     using System.Data;
 
     using Linn.Common.Configuration;
@@ -71,6 +72,41 @@
             dataAdapter.Fill(dataSet);
 
             return dataSet.Tables[0];
+        }
+
+        public int GetQtyAvailableAtEk2Location(string partNumber)
+        {
+            var dataSource = $"(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT=1521))(CONNECT_DATA=(SERVICE_NAME={this.databaseName})(SERVER=dedicated)))";
+            var connection = new OracleConnection($"Data Source={dataSource};User Id={userId};Password={password};");
+
+            var sql = $@"select sum(QTY_AVAILABLE) FROM (select sl.part_number,
+            sl.pallet_number, sl.location_id, l.location_code,
+            sl.qty qty_available, sl.qty_allocated, sl.stock_rotation_date,
+            nvl(wse2.work_station_code, wse1.work_station_code) work_station_code
+                from stock_locators sl, storage_locations l,
+            work_station_elements wse1, work_station_elements wse2
+                where sl.location_id = l.location_id(+)
+            and sl.part_number = '{partNumber}'
+            and not(nvl(sl.location_id, -1) = nvl(18104, -1)
+            and sl.pallet_number is null)
+            and sl.current_stock = 'Y'
+            and sl.qty > 0
+            and l.location_code LIKE '%E-K2%'
+            and sl.state = 'STORES'
+            and nvl(wse2.work_station_code, wse1.work_station_code) is null
+            and wse1.pallet_number(+) = sl.pallet_number
+            and wse2.location_id(+) = sl.location_id
+            order by sl.part_number, sl.stock_rotation_date)";
+
+            var cmd = new OracleCommand(sql, connection) { CommandType = CommandType.Text };
+            var dataAdapter = new OracleDataAdapter(cmd);
+            var dataSet = new DataSet();
+
+            dataAdapter.Fill(dataSet);
+
+            var result = dataSet.Tables[0];
+            var response = result.Rows[0].ItemArray[0];
+            return int.Parse(response.ToString());
         }
     }
 }
