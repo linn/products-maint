@@ -1,32 +1,23 @@
 ﻿namespace Linn.Products.Domain.Linnapps.Reports
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
 
+    using Linn.Common.Persistence;
     using Linn.Common.Reporting.Models;
-    using Linn.Products.Domain.Linnapps.Repositories;
 
     public class SaHoldStoriesReportService : ISaHoldStoriesReportService
     {
-        private readonly ISaHoldStoryRepository saHoldStoryRepository;
+        private readonly IRepository<SaHoldStory, int> saHoldStoryRepository;
 
-        public SaHoldStoriesReportService(ISaHoldStoryRepository repo)
+        public SaHoldStoriesReportService(IRepository<SaHoldStory, int> repo)
         {
             this.saHoldStoryRepository = repo;
         }
 
-        public IEnumerable<string> GetArticleNumbersWithHoldStories()
-        {
-            var stories = this.saHoldStoryRepository.GetSaHoldStories().GroupBy(s => s.ArticleNumber)
-                .Select(grp => grp.First());
-
-            return stories.Select(s => new string(s.ArticleNumber));
-        }
-
         public ResultsModel GetSaHoldStoriesReportForSalesArticle(string articleNumber)
         {
-            var stories = this.saHoldStoryRepository.GetSaHoldStories().Where(s => s.ArticleNumber == articleNumber);
+            var stories = this.saHoldStoryRepository.FindAll().Where(s => s.ArticleNumber == articleNumber);
 
             var results = new ResultsModel(new[] { "Date Started", "Date Finished"})
                               {

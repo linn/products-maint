@@ -49,7 +49,6 @@
             builder.RegisterType<RestClient>().As<IRestClient>();
             builder.RegisterType<SalesArticleProxy>().As<ISalesArticleService>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
             builder.RegisterType<CartonProxy>().As<ICartonRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
-            builder.RegisterType<SaHoldStoriesProxy>().As<ISaHoldStoryRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
             builder.RegisterType<ProductRangeProxy>().As<IProductRangeRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
             builder.RegisterType<SalesProductProxy>().As<ISalesProductRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
 
