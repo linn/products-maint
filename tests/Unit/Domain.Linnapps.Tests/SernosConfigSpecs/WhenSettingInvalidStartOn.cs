@@ -1,4 +1,4 @@
-﻿namespace Domain.Linnapps.Tests.SernosConfigSpecs
+﻿namespace Linn.Products.Domain.Linnapps.Tests.SernosConfigSpecs
 {
     using System;
 

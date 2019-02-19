@@ -43,12 +43,12 @@
 
         public SalesArticle FindBy(Expression<Func<SalesArticle, bool>> expression)
         {
-            throw new NotImplementedException();
+            return this.serviceDbContext.SalesArticles.Where(expression).ToList().FirstOrDefault();
         }
 
         public IQueryable<SalesArticle> FilterBy(Expression<Func<SalesArticle, bool>> expression)
         {
-            throw new NotImplementedException();
+            return this.serviceDbContext.SalesArticles.Where(expression).Include(a => a.SaCoreType);
         }
     }
 }

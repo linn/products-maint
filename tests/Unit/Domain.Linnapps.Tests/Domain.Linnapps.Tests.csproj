@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <AssemblyName>Linn.Products.Domain.Linnapps.Tests</AssemblyName>
+
+    <RootNamespace>Linn.Products.Domain.Linnapps.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
