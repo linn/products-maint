@@ -121,6 +121,8 @@
             builder.Entity<SalesArticle>().Property(t => t.PhaseInDate).HasColumnName("PHASE_IN_DATE");
             builder.Entity<SalesArticle>().Property(t => t.PhaseOutDate).HasColumnName("PHASE_OUT_DATE");
             builder.Entity<SalesArticle>().Property(t => t.PercentageOfRootProductSales).HasColumnName("PERCENTAGE_SALES");
+            builder.Entity<SalesArticle>().Property(t => t.ArticleType).HasColumnName("ARTICLE_TYPE").HasMaxLength(1);
+            builder.Entity<SalesArticle>().HasOne(t => t.SaCoreType);
         }
     }
 }

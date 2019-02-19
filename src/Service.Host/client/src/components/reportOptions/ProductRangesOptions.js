@@ -9,7 +9,7 @@ class EanCodesOptions extends Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
-            includePhasedOut: props.prevOptions ? props.prevOptions.includePhasedOut : false,
+            includePhasedOut: props.prevOptions ? props.prevOptions.includePhasedOut : false
         };
     }
 

@@ -35,7 +35,7 @@
             builder.RegisterType<SernosConfigService>().As<IFacadeService<SernosConfig, string, SernosConfigResource, SernosConfigResource>>();
             builder.RegisterType<TypeOfSaleService>().As<IFacadeService<TypeOfSale, string, TypeOfSaleResource, TypeOfSaleResource>>();
             builder.RegisterType<StockTriggerLevelsService>().As<IStockTriggerLevelsService>();
-            builder.RegisterType<SalesArticleForecastService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
+            builder.RegisterType<SalesArticleService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();
