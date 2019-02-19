@@ -18,6 +18,7 @@ import typeOfSale from './typeOfSale';
 import salesArticle from './salesArticle';
 import salesArticles from './salesArticles';
 import menu from './menu';
+import reportData from './reportData';
 
 const rootReducer = combineReducers({
     oidc,
@@ -38,7 +39,8 @@ const rootReducer = combineReducers({
     typesOfSale,
     typeOfSale,
     stockTriggerLevelsReport,
-    menu
+    menu,
+    reportData
 });
 
 export default rootReducer;
