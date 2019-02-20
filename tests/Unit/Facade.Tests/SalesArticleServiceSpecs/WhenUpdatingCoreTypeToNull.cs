@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Facade.Tests.SalesArticleForecastServiceSpecs
+﻿namespace Linn.Products.Facade.Tests.SalesArticleServiceSpecs
 {
     using System;
 
