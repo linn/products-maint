@@ -4,14 +4,14 @@ import { ReportTable, Loading, Title, ExportButton } from '@linn-it/linn-form-co
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
 
-const SalesArticleCoreTypes = ({ reportData, loading, options, config }) => {
+const SalesArticleCoreTypes = ({ reportData, loading, config }) => {
     const href = `${config.appRoot}/products/reports/sales-article-core-types/export`;
 
     return (
         <Page>
             <Grid container spacing={24} justify="center">
                 <Grid item xs={8}>
-                    <Title text='Sales Article Core Types' />
+                    <Title text="Sales Article Core Types" />
                 </Grid>
                 <Grid item xs={4}>
                     <ExportButton href={href} />
@@ -33,14 +33,12 @@ const SalesArticleCoreTypes = ({ reportData, loading, options, config }) => {
 
 SalesArticleCoreTypes.propTypes = {
     reportData: PropTypes.shape({}),
-    options: PropTypes.shape({}),
     config: PropTypes.shape({}),
     loading: PropTypes.bool
 };
 
 SalesArticleCoreTypes.defaultProps = {
     reportData: null,
-    options: {},
     config: {},
     loading: false
 };
