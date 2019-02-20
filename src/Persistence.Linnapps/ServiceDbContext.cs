@@ -140,5 +140,17 @@
             builder.Entity<VatCode>().Property(t => t.VatOnly).HasColumnName("VAT_ONLY").HasMaxLength(1);
             builder.Entity<VatCode>().Property(t => t.VatReturnId).HasColumnName("VAT_RETURN_ID");
         }
+
+        private void BuildVatCode(ModelBuilder builder)
+        {
+            builder.Entity<VatCode>().ToTable("VATCODES");
+            builder.Entity<VatCode>().HasKey(t => t.Code);
+            builder.Entity<VatCode>().Property(t => t.Code).HasColumnName("VAT_CODE").HasMaxLength(1);
+            builder.Entity<VatCode>().Property(t => t.Description).HasColumnName("DESCRIPTION").HasMaxLength(50);
+            builder.Entity<VatCode>().Property(t => t.Rate).HasColumnName("RATE");
+            builder.Entity<VatCode>().Property(t => t.Reason).HasColumnName("REASON");
+            builder.Entity<VatCode>().Property(t => t.VatOnly).HasColumnName("VAT_ONLY").HasMaxLength(1);
+            builder.Entity<VatCode>().Property(t => t.VatReturnId).HasColumnName("VAT_RETURN_ID");
+        }
     }
 }
