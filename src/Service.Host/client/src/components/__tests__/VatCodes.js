@@ -2,7 +2,7 @@ import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
 import VatCodes from '../VatCodes';
 
-describe('<TypesOfSale />', () => {
+describe('<VatCodes />', () => {
     let wrapper;
     let props;
     const getEntityList = () => wrapper.find('EntityList');
@@ -19,7 +19,7 @@ describe('<TypesOfSale />', () => {
     });
 
     describe('when loading', () => {
-        it('should render loading spinner', () => {
+        it('should render loading', () => {
             expect(getLoading()).toHaveLength(1);
         });
     });
