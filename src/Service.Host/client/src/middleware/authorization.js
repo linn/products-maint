@@ -5,7 +5,7 @@ export default ({ getState }) => next => action => {
     if (action[CALL_API]) {
         if (action[CALL_API].options && action[CALL_API].options.requiresAuth) {
             action[CALL_API].headers = {
-                Authorization: 'Bearer ' + getAccessToken(getState()),
+                Authorization: `Bearer ${getAccessToken(getState())}`,
                 ...action[CALL_API].headers
             };
         }

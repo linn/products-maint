@@ -1,15 +1,15 @@
 ﻿import React from 'react';
 import ReactDOM from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
 import configureStore from './configureStore';
 import Root from './components/Root';
-import { AppContainer } from 'react-hot-loader';
 import userManager from './helpers/userManager';
 
 import 'typeface-roboto';
 
 const initialState = {};
 const store = configureStore(initialState);
-const user = store.getState().oidc.user;
+const { user } = store.getState().oidc;
 
 const render = Component => {
     ReactDOM.render(

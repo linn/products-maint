@@ -11,11 +11,9 @@ const styles = {
         position: 'absolute',
         top: 0
     },
-
     tab: {
         minWidth: 20
     },
-
     tabLabel: {
         fontSize: '12px'
     }
@@ -55,7 +53,6 @@ function Navbar({ classes, menu, loading, history }) {
                 ) : (
                     <Fragment />
                 )}
-
             </AppBar>
         </div>
     );

@@ -4,6 +4,7 @@ import { Route, Redirect, Switch } from 'react-router';
 import { OidcProvider } from 'redux-oidc';
 import { Router } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import PropTypes from 'prop-types';
 import history from '../history';
 import Navigation from '../containers/Navigation';
 import MenuPage from '../containers/Menu';
@@ -35,6 +36,8 @@ import CreateTypeOfSale from '../containers/typesOfSale/CreateTypeOfSale';
 import 'typeface-roboto';
 import SalesArticles from '../containers/salesArticles/SalesArticles';
 import SalesArticle from '../containers/salesArticles/SalesArticle';
+import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesOptions';
+import SalesArticleCoreTypes from '../containers/reports/SalesArticleCoreTypes';
 
 const Root = ({ store }) => (
     <div>
@@ -95,6 +98,17 @@ const Root = ({ store }) => (
                                 exact
                                 path="/products/reports/carton-details/report"
                                 component={CartonDetails}
+                            />
+
+                            <Route
+                                exact
+                                path="/products/reports/sales-article-core-types"
+                                component={SalesArticleCoreTypesOptions}
+                            />
+                            <Route
+                                exact
+                                path="/products/reports/sales-article-core-types/report"
+                                component={SalesArticleCoreTypes}
                             />
 
                             <Switch>
@@ -216,5 +230,9 @@ const Root = ({ store }) => (
         </div>{' '}
     </div>
 );
+
+Root.propTypes = {
+    store: PropTypes.shape({}).isRequired
+};
 
 export default Root;

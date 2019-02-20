@@ -33,6 +33,13 @@ const App = ({ classes }) => (
             <ListItem component={Link} to="/products/reports/product-ranges" button>
                 <Typography color="primary">Product Ranges Report</Typography>
             </ListItem>
+            <ListItem
+                component={Link}
+                to="/products/reports/sales-article-core-types/report"
+                button
+            >
+                <Typography color="primary">Sales Article Core Types Report</Typography>
+            </ListItem>
         </List>
         <Typography variant="h6">Utilities</Typography>
         <List>

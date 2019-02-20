@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import {
     InputField,
     Title,
@@ -12,6 +12,7 @@ import {
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import { getSelfHref, getHref } from '../../helpers/utilities';
+import Page from '../../containers/Page';
 
 const styles = () => ({
     root: {
@@ -123,7 +124,7 @@ class SalesArticle extends Component {
         }
 
         return (
-            <Paper className={classes.root}>
+            <Page>
                 <Grid container spacing={24}>
                     <Grid item xs={12}>
                         <Title text="Sales Article Details" />
@@ -217,7 +218,7 @@ class SalesArticle extends Component {
                         />
                     </Grid>
                 </Grid>
-            </Paper>
+            </Page>
         );
     }
 }
