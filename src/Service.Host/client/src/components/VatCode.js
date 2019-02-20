@@ -15,27 +15,27 @@ function VatCode({
     editStatus,
     history,
     loading,
-    vatCode,
     vatCodeId,
     addVatCode,
     setEditStatus,
-    updateVatCode
+    updateVatCode,
+    ...props
 }) {
-    const [vatCodeLocal, setVatCodeLocal] = useState({});
+    const [vatCode, setVatCode] = useState({});
     const [prevVatCode, setPrevVatCode] = useState(null);
 
     function handleSaveClick() {
-        updateVatCode(vatCodeId, vatCodeLocal);
+        updateVatCode(vatCodeId, vatCode);
         setEditStatus('view');
     }
 
     function handleCancelClick() {
-        setVatCodeLocal(vatCodeLocal);
+        setVatCode(vatCode);
         setEditStatus('view');
     }
 
     function handleAddClick() {
-        addVatCode(vatCodeLocal);
+        addVatCode(vatCode);
         setEditStatus('view');
     }
 
@@ -51,21 +51,37 @@ function VatCode({
         return editStatus === 'edit';
     }
 
+    function codeValid() {
+        return !vatCode.code || vatCode.code.length === 0;
+    }
+
+    function descriptionValid() {
+        return !vatCode.description;
+    }
+
+    function rateValid() {
+        return typeof vatCode.rate !== 'number';
+    }
+
+    function inputValid() {
+        return codeValid() || descriptionValid() || rateValid();
+    }
+
     function handleFieldChange(propertyName, newValue) {
         setEditStatus('edit');
-        setVatCodeLocal({ ...vatCodeLocal, [propertyName]: newValue });
+        setVatCode({ ...vatCode, [propertyName]: newValue });
     }
 
     function updateVatCodeFromProps() {
-        if (vatCode !== prevVatCode) {
-            setVatCodeLocal(vatCode);
-            setPrevVatCode(vatCode);
+        if (props.vatCode !== prevVatCode) {
+            setVatCode(props.vatCode);
+            setPrevVatCode(props.vatCode);
         }
     }
 
     return (
         <Page>
-            {updateVatCodeFromProps()}
+            {!creating() && updateVatCodeFromProps()}
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     {creating() ? (
@@ -79,7 +95,7 @@ function VatCode({
                         <ErrorCard errorMessage={errorMessage} />
                     </Grid>
                 )}
-                {loading || !vatCodeLocal ? (
+                {loading || !vatCode ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
@@ -89,31 +105,37 @@ function VatCode({
                             <InputField
                                 fullWidth
                                 disabled={!creating()}
-                                value={vatCodeLocal.code}
+                                value={vatCode.code}
                                 label="VAT Code"
+                                maxLength={1}
                                 helperText={
                                     !creating()
                                         ? 'This field cannot be changed'
-                                        : 'This field is required'
+                                        : codeValid() && 'This field is required'
                                 }
+                                error={codeValid()}
                                 onChange={handleFieldChange}
                                 propertyName="code"
                             />
                         </Grid>
                         <Grid item xs={8}>
                             <InputField
-                                value={vatCodeLocal.description}
+                                value={vatCode.description}
                                 label="Description"
                                 fullWidth
+                                helperText={descriptionValid() && 'This field is required'}
+                                error={descriptionValid()}
                                 onChange={handleFieldChange}
                                 propertyName="description"
                             />
                         </Grid>
                         <Grid item xs={8}>
                             <InputField
-                                value={vatCodeLocal.rate}
+                                value={vatCode.rate}
+                                error={rateValid()}
                                 label="Rate"
                                 fullWidth
+                                helperText={rateValid() && 'This field is required'}
                                 onChange={handleFieldChange}
                                 propertyName="rate"
                                 type="number"
@@ -121,7 +143,7 @@ function VatCode({
                         </Grid>
                         <Grid item xs={8}>
                             <InputField
-                                value={vatCodeLocal.reason}
+                                value={vatCode.reason}
                                 label="Reason"
                                 fullWidth
                                 onChange={handleFieldChange}
@@ -130,10 +152,7 @@ function VatCode({
                         </Grid>
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
-                                saveDisabled={
-                                    !editing() ||
-                                    (!vatCodeLocal.code || vatCodeLocal.code.length === 0)
-                                }
+                                saveDisabled={editing() || inputValid()}
                                 saveClick={creating() ? handleAddClick : handleSaveClick}
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}

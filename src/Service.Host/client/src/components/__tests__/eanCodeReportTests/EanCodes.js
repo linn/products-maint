@@ -5,7 +5,7 @@ import EanCodes from '../../reports/EanCodes';
 describe('<EanCodes />', () => {
     let wrapper;
     const getReportTable = () => wrapper.find('WithStyles(ReportTable)');
-    const getExportButton = () => wrapper.find('WithStyles(ExportButton)');
+    const getExportButton = () => wrapper.find('ExportButton');
     const getLoading = () => wrapper.find('Loading');
     const shallow = createShallow({ dive: false });
 

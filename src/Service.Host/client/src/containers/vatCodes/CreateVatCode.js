@@ -11,7 +11,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     addVatCode: vatCodeActions.add,
-    resetVatCode: vatCodeActions.reset
+    resetVatCode: vatCodeActions.reset,
+    setEditStatus: vatCodeActions.setEditStatus
 };
 
 export default connect(
