@@ -51,20 +51,20 @@ function VatCode({
         return editStatus === 'edit';
     }
 
-    function codeValid() {
+    function codeInvalid() {
         return !vatCode.code || vatCode.code.length === 0;
     }
 
-    function descriptionValid() {
+    function descriptionInvalid() {
         return !vatCode.description;
     }
 
-    function rateValid() {
+    function rateInvalid() {
         return typeof vatCode.rate !== 'number';
     }
 
-    function inputValid() {
-        return codeValid() || descriptionValid() || rateValid();
+    function inputInvalid() {
+        return codeInvalid() || descriptionInvalid() || rateInvalid();
     }
 
     function handleFieldChange(propertyName, newValue) {
@@ -111,9 +111,9 @@ function VatCode({
                                 helperText={
                                     !creating()
                                         ? 'This field cannot be changed'
-                                        : codeValid() && 'This field is required'
+                                        : codeInvalid() && 'This field is required'
                                 }
-                                error={codeValid()}
+                                error={codeInvalid()}
                                 onChange={handleFieldChange}
                                 propertyName="code"
                             />
@@ -123,8 +123,8 @@ function VatCode({
                                 value={vatCode.description}
                                 label="Description"
                                 fullWidth
-                                helperText={descriptionValid() && 'This field is required'}
-                                error={descriptionValid()}
+                                helperText={descriptionInvalid() && 'This field is required'}
+                                error={descriptionInvalid()}
                                 onChange={handleFieldChange}
                                 propertyName="description"
                             />
@@ -132,10 +132,10 @@ function VatCode({
                         <Grid item xs={8}>
                             <InputField
                                 value={vatCode.rate}
-                                error={rateValid()}
+                                error={rateInvalid()}
                                 label="Rate"
                                 fullWidth
-                                helperText={rateValid() && 'This field is required'}
+                                helperText={rateInvalid() && 'This field is required'}
                                 onChange={handleFieldChange}
                                 propertyName="rate"
                                 type="number"
@@ -152,7 +152,7 @@ function VatCode({
                         </Grid>
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
-                                saveDisabled={editing() || inputValid()}
+                                saveDisabled={editing() || inputInvalid()}
                                 saveClick={creating() ? handleAddClick : handleSaveClick}
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}
