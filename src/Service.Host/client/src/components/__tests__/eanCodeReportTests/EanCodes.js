@@ -1,6 +1,5 @@
 ﻿import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
-import { ExportButton } from '@linn-it/linn-form-components-library';
 import EanCodes from '../../reports/EanCodes';
 
 describe('<EanCodes />', () => {
