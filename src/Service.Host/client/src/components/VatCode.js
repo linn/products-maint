@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import {
@@ -10,163 +10,140 @@ import {
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 
-class VatCode extends Component {
-    constructor(props) {
-        super(props);
-        this.handleFieldChange = this.handleFieldChange.bind(this);
-        this.state = {
-            vatCode: null
-        };
+function VatCode({
+    errorMessage,
+    editStatus,
+    history,
+    loading,
+    vatCode,
+    vatCodeId,
+    addVatCode,
+    setEditStatus,
+    updateVatCode
+}) {
+    const [vatCodeLocal, setVatCodeLocal] = useState({});
+    const [prevVatCode, setPrevVatCode] = useState(null);
+
+    function handleSaveClick() {
+        updateVatCode(vatCodeId, vatCodeLocal);
+        setEditStatus('view');
     }
 
-    static getDerivedStateFromProps(props, state) {
-        if (!state.vatCode && props.vatCode) {
-            return { vatCode: props.vatCode };
-        }
-        return null;
+    function handleCancelClick() {
+        setVatCodeLocal(vatCodeLocal);
+        setEditStatus('view');
     }
 
-    handleSaveClick = () => {
-        const { vatCodeId, updateVatCode, setEditStatus } = this.props;
-        const { vatCode } = this.state;
-
-        updateVatCode(vatCodeId, vatCode);
+    function handleAddClick() {
+        addVatCode(vatCodeLocal);
         setEditStatus('view');
-        // this.setState({ editStatus: 'view' });
-    };
+    }
 
-    handleCancelClick = () => {
-        const { vatCode, setEditStatus } = this.props;
-        this.setState({ vatCode });
-        setEditStatus('view');
-        // this.setState({ editStatus: 'view' });
-    };
-
-    handleAddClick = () => {
-        const { addVatCode, setEditStatus } = this.props;
-        const { vatCode } = this.state;
-        addVatCode(vatCode);
-        setEditStatus('view');
-        // this.setState({ editStatus: 'view' });
-    };
-
-    handleBackClick = () => {
-        // this.setState({ editStatus: 'view' });
-        const { history } = this.props;
+    function handleBackClick() {
         history.push('/products/maint/vat-codes');
-    };
+    }
 
-    creating() {
-        const { editStatus } = this.props;
+    function creating() {
         return editStatus === 'create';
     }
 
-    editing() {
-        const { editStatus } = this.props;
+    function editing() {
         return editStatus === 'edit';
     }
 
-    viewing() {
-        const { editStatus } = this.props;
-        return editStatus === 'view';
-    }
-
-    handleFieldChange(propertyName, newValue) {
-        const { vatCode } = this.state;
-        const { setEditStatus } = this.props;
-
+    function handleFieldChange(propertyName, newValue) {
         setEditStatus('edit');
-        this.setState({ vatCode: { ...vatCode, [propertyName]: newValue } });
+        setVatCodeLocal({ ...vatCodeLocal, [propertyName]: newValue });
     }
 
-    render() {
-        const { loading, errorMessage } = this.props;
-        const { vatCode } = this.state;
+    function updateVatCodeFromProps() {
+        if (vatCode !== prevVatCode) {
+            setVatCodeLocal(vatCode);
+            setPrevVatCode(vatCode);
+        }
+    }
 
-        return (
-            <Page>
-                <Grid container spacing={24}>
-                    <Grid item xs={12}>
-                        {this.creating() ? (
-                            <Title text="Create Vat Code" />
-                        ) : (
-                            <Title text="Vat Code Details" />
-                        )}
-                    </Grid>
-                    {errorMessage && (
-                        <Grid item xs={12}>
-                            <ErrorCard errorMessage={errorMessage} />
-                        </Grid>
-                    )}
-                    {loading || !vatCode ? (
-                        <Grid item xs={12}>
-                            <Loading />
-                        </Grid>
+    return (
+        <Page>
+            {updateVatCodeFromProps()}
+            <Grid container spacing={24}>
+                <Grid item xs={12}>
+                    {creating() ? (
+                        <Title text="Create Vat Code" />
                     ) : (
-                        // TODO are these grid item xs needed or should all be fragments?
-                        <Fragment>
-                            <Grid item xs={8}>
-                                <InputField
-                                    fullWidth
-                                    disabled={!this.creating()}
-                                    value={vatCode.code}
-                                    label="VAT Code"
-                                    helperText={
-                                        !this.creating()
-                                            ? 'This field cannot be changed'
-                                            : 'This field is required'
-                                    }
-                                    onChange={this.handleFieldChange}
-                                    propertyName="code"
-                                />
-                            </Grid>
-                            <Grid item xs={8}>
-                                <InputField
-                                    value={vatCode.description}
-                                    label="Description"
-                                    fullWidth
-                                    onChange={this.handleFieldChange}
-                                    propertyName="description"
-                                />
-                            </Grid>
-                            <Grid item xs={8}>
-                                <InputField
-                                    value={vatCode.rate}
-                                    label="Rate"
-                                    fullWidth
-                                    onChange={this.handleFieldChange}
-                                    propertyName="rate"
-                                    type="number"
-                                />
-                            </Grid>
-                            <Grid item xs={8}>
-                                <InputField
-                                    value={vatCode.reason}
-                                    label="Reason"
-                                    fullWidth
-                                    onChange={this.handleFieldChange}
-                                    propertyName="reason"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <SaveBackCancelButtons
-                                    saveDisabled={
-                                        !this.editing() ||
-                                        (!vatCode.code || vatCode.code.length === 0)
-                                    }
-                                    saveClick={
-                                        this.creating() ? this.handleAddClick : this.handleSaveClick
-                                    }
-                                    cancelClick={this.handleCancelClick}
-                                    backClick={this.handleBackClick}
-                                />
-                            </Grid>
-                        </Fragment>
+                        <Title text="Vat Code Details" />
                     )}
                 </Grid>
-            </Page>
-        );
-    }
+                {errorMessage && (
+                    <Grid item xs={12}>
+                        <ErrorCard errorMessage={errorMessage} />
+                    </Grid>
+                )}
+                {loading || !vatCodeLocal ? (
+                    <Grid item xs={12}>
+                        <Loading />
+                    </Grid>
+                ) : (
+                    <Fragment>
+                        <Grid item xs={8}>
+                            <InputField
+                                fullWidth
+                                disabled={!creating()}
+                                value={vatCodeLocal.code}
+                                label="VAT Code"
+                                helperText={
+                                    !creating()
+                                        ? 'This field cannot be changed'
+                                        : 'This field is required'
+                                }
+                                onChange={handleFieldChange}
+                                propertyName="code"
+                            />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <InputField
+                                value={vatCodeLocal.description}
+                                label="Description"
+                                fullWidth
+                                onChange={handleFieldChange}
+                                propertyName="description"
+                            />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <InputField
+                                value={vatCodeLocal.rate}
+                                label="Rate"
+                                fullWidth
+                                onChange={handleFieldChange}
+                                propertyName="rate"
+                                type="number"
+                            />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <InputField
+                                value={vatCodeLocal.reason}
+                                label="Reason"
+                                fullWidth
+                                onChange={handleFieldChange}
+                                propertyName="reason"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <SaveBackCancelButtons
+                                saveDisabled={
+                                    !editing() ||
+                                    (!vatCodeLocal.code || vatCodeLocal.code.length === 0)
+                                }
+                                saveClick={creating() ? handleAddClick : handleSaveClick}
+                                cancelClick={handleCancelClick}
+                                backClick={handleBackClick}
+                            />
+                        </Grid>
+                    </Fragment>
+                )}
+            </Grid>
+        </Page>
+    );
 }
 
 VatCode.propTypes = {
