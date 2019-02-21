@@ -9,7 +9,7 @@
     }
 
     if (fetchError.statusText) {
-        return fetchError.statusText;
+        return fetchError.statusText.message || fetchError.statusText;
     }
 
     return null;

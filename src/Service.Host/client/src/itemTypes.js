@@ -53,3 +53,14 @@ export const typesOfSale = new ItemType(
     'TYPES_OF_SALE',
     '/products/maint/types-of-sale'
 );
+
+export const productRange = new ItemType(
+    'productRange',
+    'PRODUCT_RANGE',
+    '/products/maint/product-ranges'
+);
+export const productRanges = new ItemType(
+    'productRanges',
+    'PRODUCT_RANGES',
+    '/products/maint/product-ranges'
+);
