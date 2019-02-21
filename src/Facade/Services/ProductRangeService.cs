@@ -18,13 +18,16 @@
 
         protected override ProductRange CreateFromResource(ProductRangeResource resource)
         {
-            return new ProductRange
+            var range = new ProductRange
                        {
-                           Id = resource.Id,
                            RangeName = resource.RangeName,
                            RangeDescription = resource.RangeDescription,
                            DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? (DateTime?)null : DateTime.Parse(resource.DateInvalid)
                        };
+
+            range.ValidateProductRange();
+
+            return range;
         }
 
         protected override void UpdateFromResource(ProductRange productRange, ProductRangeUpdateResource updateResource)
@@ -34,6 +37,8 @@
             productRange.DateInvalid = string.IsNullOrEmpty(updateResource.DateInvalid)
                                            ? (DateTime?)null
                                            : DateTime.Parse(updateResource.DateInvalid);
+
+            productRange.ValidateProductRange();
         }
     }
 }

@@ -29,7 +29,7 @@
         }
 
         [Test]
-        public void ShouldGetRange()
+        public void ShouldAddRange()
         {
             this.ProductRangeRepository
                 .Received().Add(Arg.Is<ProductRange>(r => r.RangeName == this.resource.RangeName));

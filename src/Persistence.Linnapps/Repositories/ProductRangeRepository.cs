@@ -7,6 +7,8 @@
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps.Products;
 
+    using Microsoft.EntityFrameworkCore;
+
     public class ProductRangeRepository : IRepository<ProductRange, int>
     {
         private readonly ServiceDbContext serviceDbContext;
@@ -30,6 +32,9 @@
 
         public void Add(ProductRange entity)
         {
+            var nextId = this.serviceDbContext.ProductRanges.Max(t => t.Id) + 1;
+            entity.Id = nextId;
+
             this.serviceDbContext.ProductRanges.Add(entity);
         }
 

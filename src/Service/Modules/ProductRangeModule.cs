@@ -18,8 +18,22 @@
             this.productRangeService = productRangeService;
 
             this.Get("/products/maint/product-ranges", _ => this.GetProductRanges());
+            this.Post("/products/maint/product-ranges", _ => this.AddProductRange());
             this.Get("/products/maint/product-ranges/{id}", parameters => this.GetProductRange(parameters.id));
             this.Put("/products/maint/product-ranges/{id}", parameters => this.UpdateProductRange(parameters.id));
+        }
+
+        private object AddProductRange()
+        {
+            this.RequiresAuthentication();
+            var resource = this.Bind<ProductRangeResource>();
+
+            var result = this.productRangeService.Add(resource);
+
+            return this.Negotiate
+                .WithModel(result)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object GetProductRange(int id)
