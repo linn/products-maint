@@ -124,6 +124,7 @@ class ProductRange extends Component {
                         <InputField
                             propertyName="rangeName"
                             label="Name"
+                            maxLength={30}
                             fullWidth
                             value={productRange.rangeName}
                             onChange={this.handleFieldChange}
@@ -133,6 +134,7 @@ class ProductRange extends Component {
                         <InputField
                             label="Description"
                             fullWidth
+                            maxLength={150}
                             propertyName="rangeDescription"
                             value={productRange.rangeDescription}
                             onChange={this.handleFieldChange}
