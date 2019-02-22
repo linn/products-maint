@@ -63,7 +63,14 @@ function VatCode({
         return typeof vatCode.rate !== 'number';
     }
 
+    function reasonInvalid() {
+        return !vatCode.reason && editing();
+    }
+
     function inputInvalid() {
+        if (!creating()) {
+            return codeInvalid() || descriptionInvalid() || rateInvalid() || reasonInvalid();
+        }
         return codeInvalid() || descriptionInvalid() || rateInvalid();
     }
 
@@ -75,7 +82,7 @@ function VatCode({
     function updateVatCodeFromProps() {
         if (!creating()) {
             if (item !== prevVatCode) {
-                setVatCode(item);
+                setVatCode({ ...item, reason: '' });
                 setPrevVatCode(item);
             }
         }
@@ -144,16 +151,20 @@ function VatCode({
                                 type="number"
                             />
                         </Grid>
-                        <Grid item xs={8}>
-                            <InputField
-                                value={vatCode.reason}
-                                label="Reason"
-                                maxLength={50}
-                                fullWidth
-                                onChange={handleFieldChange}
-                                propertyName="reason"
-                            />
-                        </Grid>
+                        {!creating() && (
+                            <Grid item xs={8}>
+                                <InputField
+                                    value={vatCode.reason}
+                                    error={reasonInvalid()}
+                                    label="Reason"
+                                    maxLength={50}
+                                    fullWidth
+                                    helperText={reasonInvalid() ? 'This field is required' : ''}
+                                    onChange={handleFieldChange}
+                                    propertyName="reason"
+                                />
+                            </Grid>
+                        )}
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
                                 saveDisabled={!editing() || inputInvalid()}
