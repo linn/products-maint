@@ -92,7 +92,7 @@ class SalesArticle extends Component {
     }
 
     render() {
-        const { loading, errorMessage, classes, saCoreTypes } = this.props;
+        const { loading, errorMessage, saCoreTypes } = this.props;
         const { salesArticle } = this.state;
         const salesArticleCoreTypeHref = getHref(salesArticle, 'sa-core-type')
             ? getHref(salesArticle, 'sa-core-type')

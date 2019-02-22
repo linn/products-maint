@@ -80,3 +80,6 @@ export const typesOfSaleActionTypes = makeActionTypes(itemTypes.typesOfSale.acti
 
 export const vatCodeActionTypes = makeActionTypes(itemTypes.vatCode.actionType);
 export const vatCodesActionTypes = makeActionTypes(itemTypes.vatCodes.actionType, false);
+
+export const productRangeActionTypes = makeActionTypes(itemTypes.productRange.actionType);
+export const productRangesActionTypes = makeActionTypes(itemTypes.productRanges.actionType, false);

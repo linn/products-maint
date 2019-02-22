@@ -38,6 +38,7 @@
             builder.RegisterType<StockTriggerLevelsService>().As<IStockTriggerLevelsService>();
             builder.RegisterType<SalesArticleService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
             builder.RegisterType<VatCodeService>().As<IFacadeService<VatCode, string, VatCodeResource, VatCodeResource>>();
+            builder.RegisterType<ProductRangeService>().As<IFacadeService<ProductRange, int, ProductRangeResource, ProductRangeUpdateResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();

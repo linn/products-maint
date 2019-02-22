@@ -28,6 +28,8 @@
             builder.RegisterType<TypesOfSaleResourceBuilder>().As<IResourceBuilder<IEnumerable<TypeOfSale>>>();
             builder.RegisterType<VatCodeResourceBuilder>().As<IResourceBuilder<VatCode>>();
             builder.RegisterType<VatCodesResourceBuilder>().As<IResourceBuilder<IEnumerable<VatCode>>>();
+            builder.RegisterType<ProductRangeResourceBuilder>().As<IResourceBuilder<ProductRange>>();
+            builder.RegisterType<ProductRangesResourceBuilder>().As<IResourceBuilder<IEnumerable<ProductRange>>>();
         }
     }
 }

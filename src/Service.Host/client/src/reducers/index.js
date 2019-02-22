@@ -21,6 +21,8 @@ import menu from './menu';
 import reportData from './reportData';
 import vatCode from './vatCode';
 import vatCodes from './vatCodes';
+import productRange from './productRange';
+import productRanges from './productRanges';
 
 const rootReducer = combineReducers({
     oidc,
@@ -45,6 +47,8 @@ const rootReducer = combineReducers({
     reportData,
     vatCode,
     vatCodes
+    productRange,
+    productRanges
 });
 
 export default rootReducer;

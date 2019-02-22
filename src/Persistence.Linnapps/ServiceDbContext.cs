@@ -21,6 +21,8 @@
         public DbSet<CartonType> CartonTypes { get; set; }
 
         public DbSet<VatCode> VatCodes { get; set; }
+        
+        public DbSet<ProductRange> ProductRanges { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -31,6 +33,7 @@
             this.BuildTypesOfSale(builder);
             this.BuildCartonTypes(builder);
             this.BuildVatCode(builder);
+            this.BuildProductRanges(builder);
             base.OnModelCreating(builder);
         }
 
@@ -46,6 +49,16 @@
             optionsBuilder.UseOracle($"Data Source={dataSource};User Id={userId};Password={password};");
 
             base.OnConfiguring(optionsBuilder);
+        }
+
+        private void BuildProductRanges(ModelBuilder builder)
+        {
+            builder.Entity<ProductRange>().ToTable("PRODUCT_RANGES");
+            builder.Entity<ProductRange>().HasKey(r => r.Id);
+            builder.Entity<ProductRange>().Property(r => r.Id).HasColumnName("BRIDGE_ID");
+            builder.Entity<ProductRange>().Property(r => r.RangeName).HasColumnName("RANGE_NAME").HasMaxLength(30);
+            builder.Entity<ProductRange>().Property(r => r.RangeDescription).HasColumnName("RANGE_DESCRIPTION").HasMaxLength(150);
+            builder.Entity<ProductRange>().Property(r => r.DateInvalid).HasColumnName("DATE_INVALID");
         }
 
         private void BuildCartonTypes(ModelBuilder builder)
