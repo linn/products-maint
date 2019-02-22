@@ -33,6 +33,9 @@ import CreateSaCoreType from '../containers/saCoreType/CreateSaCoreType';
 import TypesOfSale from '../containers/typesOfSale/TypesOfSale';
 import TypeOfSale from '../containers/typesOfSale/TypeOfSale';
 import CreateTypeOfSale from '../containers/typesOfSale/CreateTypeOfSale';
+import VatCodes from '../containers/vatCodes/VatCodes';
+import VatCode from '../containers/vatCodes/VatCode';
+import CreateVatCode from '../containers/vatCodes/CreateVatCode';
 import 'typeface-roboto';
 import SalesArticles from '../containers/salesArticles/SalesArticles';
 import SalesArticle from '../containers/salesArticles/SalesArticle';
@@ -214,6 +217,24 @@ const Root = ({ store }) => (
                                     exact
                                     path="/products/maint/types-of-sale/:typeOfSaleId"
                                     component={TypeOfSale}
+                                />
+                            </Switch>
+
+                            <Switch>
+                                <Route
+                                    exact
+                                    path="/products/maint/vat-codes"
+                                    component={VatCodes}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/vat-codes/create"
+                                    component={CreateVatCode}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/vat-codes/:vatCodeId"
+                                    component={VatCode}
                                 />
                             </Switch>
 

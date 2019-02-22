@@ -54,6 +54,10 @@ export const typesOfSale = new ItemType(
     '/products/maint/types-of-sale'
 );
 
+export const vatCode = new ItemType('vatCode', 'VAT_CODE', '/products/maint/vat-codes');
+
+export const vatCodes = new ItemType('vatCodes', 'VAT_CODES', '/products/maint/vat-codes');
+
 export const productRange = new ItemType(
     'productRange',
     'PRODUCT_RANGE',
