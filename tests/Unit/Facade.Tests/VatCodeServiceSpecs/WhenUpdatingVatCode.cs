@@ -25,7 +25,7 @@
 
             this.resource = new VatCodeResource { Code = "A", Description = "STD UK VAT RATE.", Rate = 20 };
 
-            this.VatCodeRepository.FindById(this.code).Returns(new VatCode("A", "desc", 3, null, "N", 1));
+            this.VatCodeRepository.FindById(this.code).Returns(new VatCode("A", "desc", 3, null, 1, "N"));
 
             this.result = this.Sut.Update(this.code, this.resource);
         }

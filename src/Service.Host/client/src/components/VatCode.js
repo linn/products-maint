@@ -15,27 +15,27 @@ function VatCode({
     editStatus,
     history,
     loading,
-    vatCodeId,
-    addVatCode,
+    itemId,
+    item,
+    addItem,
     setEditStatus,
-    updateVatCode,
-    ...props
+    updateItem
 }) {
     const [vatCode, setVatCode] = useState({});
-    const [prevVatCode, setPrevVatCode] = useState(null);
+    const [prevVatCode, setPrevVatCode] = useState({});
 
     function handleSaveClick() {
-        updateVatCode(vatCodeId, vatCode);
+        updateItem(itemId, vatCode);
         setEditStatus('view');
     }
 
     function handleCancelClick() {
-        setVatCode(vatCode);
+        setVatCode(prevVatCode);
         setEditStatus('view');
     }
 
     function handleAddClick() {
-        addVatCode(vatCode);
+        addItem(vatCode);
         setEditStatus('view');
     }
 
@@ -52,7 +52,7 @@ function VatCode({
     }
 
     function codeInvalid() {
-        return !vatCode.code || vatCode.code.length === 0;
+        return !vatCode.code;
     }
 
     function descriptionInvalid() {
@@ -73,15 +73,17 @@ function VatCode({
     }
 
     function updateVatCodeFromProps() {
-        if (props.vatCode !== prevVatCode) {
-            setVatCode(props.vatCode);
-            setPrevVatCode(props.vatCode);
+        if (!creating()) {
+            if (item !== prevVatCode) {
+                setVatCode(item);
+                setPrevVatCode(item);
+            }
         }
     }
 
     return (
         <Page>
-            {!creating() && updateVatCodeFromProps()}
+            {updateVatCodeFromProps()}
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     {creating() ? (
@@ -111,7 +113,7 @@ function VatCode({
                                 helperText={
                                     !creating()
                                         ? 'This field cannot be changed'
-                                        : codeInvalid() && 'This field is required'
+                                        : `${codeInvalid() ? 'This field is required' : ''}`
                                 }
                                 error={codeInvalid()}
                                 onChange={handleFieldChange}
@@ -122,8 +124,9 @@ function VatCode({
                             <InputField
                                 value={vatCode.description}
                                 label="Description"
+                                maxLength={50}
                                 fullWidth
-                                helperText={descriptionInvalid() && 'This field is required'}
+                                helperText={descriptionInvalid() ? 'This field is required' : ''}
                                 error={descriptionInvalid()}
                                 onChange={handleFieldChange}
                                 propertyName="description"
@@ -135,7 +138,7 @@ function VatCode({
                                 error={rateInvalid()}
                                 label="Rate"
                                 fullWidth
-                                helperText={rateInvalid() && 'This field is required'}
+                                helperText={rateInvalid() ? 'This field is required' : ''}
                                 onChange={handleFieldChange}
                                 propertyName="rate"
                                 type="number"
@@ -145,6 +148,7 @@ function VatCode({
                             <InputField
                                 value={vatCode.reason}
                                 label="Reason"
+                                maxLength={50}
                                 fullWidth
                                 onChange={handleFieldChange}
                                 propertyName="reason"
@@ -152,7 +156,7 @@ function VatCode({
                         </Grid>
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
-                                saveDisabled={editing() || inputInvalid()}
+                                saveDisabled={!editing() || inputInvalid()}
                                 saveClick={creating() ? handleAddClick : handleSaveClick}
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}
@@ -166,7 +170,7 @@ function VatCode({
 }
 
 VatCode.propTypes = {
-    vatCode: PropTypes.shape({
+    item: PropTypes.shape({
         vatCode: PropTypes.string,
         description: PropTypes.string,
         rate: PropTypes.number,
@@ -175,20 +179,20 @@ VatCode.propTypes = {
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
-    vatCodeId: PropTypes.string,
-    updateVatCode: PropTypes.func,
-    addVatCode: PropTypes.func,
+    itemId: PropTypes.string,
+    updateItem: PropTypes.func,
+    addItem: PropTypes.func,
     loading: PropTypes.bool,
     setEditStatus: PropTypes.func.isRequired
 };
 
 VatCode.defaultProps = {
-    vatCode: {},
-    addVatCode: null,
-    updateVatCode: null,
+    item: {},
+    addItem: null,
+    updateItem: null,
     loading: null,
     errorMessage: '',
-    vatCodeId: null
+    itemId: null
 };
 
 export default VatCode;

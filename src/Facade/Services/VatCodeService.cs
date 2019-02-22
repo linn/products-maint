@@ -19,8 +19,8 @@
                 resource.Description,
                 resource.Rate,
                 resource.Reason,
-                resource.VatOnly,
-                resource.VatReturnId);
+                resource.VatReturnId,
+                resource.VatOnly);
 
             return vatCode;
         }
@@ -28,11 +28,12 @@
         protected override void UpdateFromResource(VatCode vatCode, VatCodeResource updateResource)
         {
             vatCode.Update(
+                updateResource.Code,
                 updateResource.Description,
                 updateResource.Rate,
                 updateResource.Reason,
-                updateResource.VatOnly,
-                updateResource.VatReturnId);
+                updateResource.VatReturnId,
+                updateResource.VatOnly);
         }
     }
 }

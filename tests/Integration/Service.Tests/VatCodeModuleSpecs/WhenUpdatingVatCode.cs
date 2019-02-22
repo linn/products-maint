@@ -22,7 +22,7 @@
         public void SetUp()
         {
             this.requestResource = new VatCodeResource { Description = "new description", Rate = 55 };
-            var vatCode = new VatCode("A", "STD UK VAT RATE.", 20, null, "N", 1) { Description = "new description" };
+            var vatCode = new VatCode("A", "STD UK VAT RATE.", 20, null, 1, "N") { Description = "new description" };
             this.VatCodeService.Update("A", Arg.Any<VatCodeResource>())
                 .Returns(new SuccessResult<VatCode>(vatCode)
                              {

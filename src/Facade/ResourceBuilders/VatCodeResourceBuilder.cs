@@ -18,6 +18,8 @@
                            Description = vatCode.Description,
                            Rate = vatCode.Rate,
                            Reason = vatCode.Reason,
+                           VatOnly = vatCode.VatOnly,
+                           VatReturnId = vatCode.VatReturnId,
                            Links = this.BuildLinks(vatCode).ToArray()
                        };
         }

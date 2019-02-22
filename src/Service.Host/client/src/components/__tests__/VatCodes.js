@@ -24,13 +24,7 @@ describe('<VatCodes />', () => {
         });
     });
 
-    describe('when there is an error message', () => {
-        beforeEach(() => {
-            wrapper.setProps({ errorMessage: 'an error has occurred' });
-        });
-    });
-
-    describe('when types of sale', () => {
+    describe('when vat codes have loaded', () => {
         beforeEach(() => {
             wrapper.setProps({
                 vatCodes: [
@@ -50,7 +44,7 @@ describe('<VatCodes />', () => {
             });
         });
 
-        it('should render list items', () => {
+        it('should render entity list', () => {
             expect(getEntityList()).toHaveLength(1);
         });
     });

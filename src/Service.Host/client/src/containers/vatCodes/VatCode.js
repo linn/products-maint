@@ -6,21 +6,22 @@ import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import vatCodeSelectors from '../../selectors/vatCodeSelectors';
 
 const mapStateToProps = (state, { match }) => ({
-    vatCode: vatCodeSelectors.getItem(state),
-    vatCodeId: match.params.vatCodeId,
+    item: vatCodeSelectors.getItem(state),
+    itemId: match.params.vatCodeId,
     editStatus: vatCodeSelectors.getEditStatus(state),
     loading: vatCodeSelectors.getLoading(state),
     errorMessage: getSingleErrorMessage(state)
 });
 
-const initialise = ({ vatCodeId }) => dispatch => {
-    dispatch(vatCodeActions.fetch(vatCodeId));
+const initialise = ({ itemId }) => dispatch => {
+    dispatch(vatCodeActions.fetch(itemId));
 };
 
 const mapDispatchToProps = {
     initialise,
-    updateVatCode: vatCodeActions.update,
-    resetVatCode: vatCodeActions.reset,
+    addItem: vatCodeActions.add,
+    updateItem: vatCodeActions.update,
+    resetItem: vatCodeActions.reset,
     setEditStatus: vatCodeActions.setEditStatus
 };
 

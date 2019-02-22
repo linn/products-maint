@@ -8,7 +8,7 @@
 
         public string Description { get; set; }
 
-        public double Rate { get; set; }
+        public decimal Rate { get; set; }
 
         public string Reason { get; set; }
 

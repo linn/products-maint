@@ -19,7 +19,7 @@
         [SetUp]
         public void SetUp()
         {
-            var vatCode = new VatCode("A", "STD UK VAT RATE.", 20, null, "N", 1);
+            var vatCode = new VatCode("A", "STD UK VAT RATE.", 20, null, 1, "N");
             this.VatCodeService.GetById("A").Returns(new SuccessResult<VatCode>(vatCode) { Data = vatCode });
 
             this.Response = this.Browser.Get(

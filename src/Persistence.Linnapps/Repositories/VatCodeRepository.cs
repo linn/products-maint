@@ -29,7 +29,6 @@
         public void Add(VatCode vatCode)
         {
             this.serviceDbContext.VatCodes.Add(vatCode);
-            this.serviceDbContext.SaveChanges();
         }
 
         public void Remove(VatCode entity)

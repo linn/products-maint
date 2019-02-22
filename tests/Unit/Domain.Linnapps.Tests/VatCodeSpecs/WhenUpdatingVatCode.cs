@@ -9,7 +9,7 @@
         [SetUp]
         public void SetUp()
         {
-            this.Sut.Update("UK VAT ZERO RATE", 0, "REASON", "Y", 5);
+            this.Sut.Update("A", "UK VAT ZERO RATE", 0, "REASON", 5, "Y");
         }
 
         [Test]
