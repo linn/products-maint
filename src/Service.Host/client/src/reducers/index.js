@@ -46,7 +46,7 @@ const rootReducer = combineReducers({
     menu,
     reportData,
     vatCode,
-    vatCodes
+    vatCodes,
     productRange,
     productRanges
 });
