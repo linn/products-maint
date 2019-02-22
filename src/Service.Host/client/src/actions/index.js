@@ -66,6 +66,12 @@ export const cartonTypeActionTypes = makeActionTypes(itemTypes.cartonType.action
 export const sernosConfigActionTypes = makeActionTypes(itemTypes.sernosConfig.actionType);
 export const sernosConfigsActionTypes = makeActionTypes(itemTypes.sernosConfigs.actionType, false);
 
+export const sernosSequenceActionTypes = makeActionTypes(itemTypes.sernosSequence.actionType);
+export const sernosSequencesActionTypes = makeActionTypes(
+    itemTypes.sernosSequences.actionType,
+    false
+);
+
 export const saCoreTypeActionTypes = makeActionTypes(itemTypes.saCoreType.actionType);
 export const saCoreTypesActionTypes = makeActionTypes(itemTypes.saCoreTypes.actionType, false);
 

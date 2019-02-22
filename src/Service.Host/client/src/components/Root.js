@@ -38,6 +38,8 @@ import SalesArticles from '../containers/salesArticles/SalesArticles';
 import SalesArticle from '../containers/salesArticles/SalesArticle';
 import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesOptions';
 import SalesArticleCoreTypes from '../containers/reports/SalesArticleCoreTypes';
+import SernosSequences from '../containers/sernosSequences/SernosSequences';
+import SernosSequence from '../containers/sernosSequences/SernosSequence';
 
 const Root = ({ store }) => (
     <div>
@@ -157,6 +159,24 @@ const Root = ({ store }) => (
                                     exact
                                     path="/products/maint/sernos-configs/:sernosConfigId"
                                     component={SernosConfig}
+                                />
+                            </Switch>
+
+                            <Switch>
+                                <Route
+                                    exact
+                                    path="/products/maint/sernos-sequences"
+                                    component={SernosSequences}
+                                />
+                                {/* <Route
+                                    exact
+                                    path="/products/maint/sernos-configs/create"
+                                    component={CreateSernosConfig}
+                                /> */}
+                                <Route
+                                    exact
+                                    path="/products/maint/sernos-sequences/:sequenceName"
+                                    component={SernosSequence}
                                 />
                             </Switch>
 
