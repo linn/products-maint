@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain.Linnapps\Domain.Linnapps.csproj" />
+    <ProjectReference Include="..\Proxy\Proxy.csproj" />
   </ItemGroup>
 
 </Project>
