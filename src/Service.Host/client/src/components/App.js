@@ -21,6 +21,9 @@ const App = ({ classes }) => (
             <ListItem component={Link} to="/products/maint/sales-articles" button>
                 <Typography color="primary">Sales Article Details</Typography>
             </ListItem>
+            <ListItem component={Link} to="/products/maint/product-ranges" button>
+                <Typography color="primary">Product Ranges</Typography>
+            </ListItem>
         </List>
         <Typography variant="h6">Reports</Typography>
         <List>
@@ -43,17 +46,19 @@ const App = ({ classes }) => (
         </List>
         <Typography variant="h6">Utilities</Typography>
         <List>
-            <ListItem component={Link} to="/products/maint/tariffs" button>
-                <Typography color="primary">Tariffs</Typography>
-            </ListItem>
             <ListItem component={Link} to="/products/maint/sa-core-types" button>
                 <Typography color="primary">Sales Article Core Types</Typography>
             </ListItem>
             <ListItem component={Link} to="/products/maint/sernos-sequences" button>
                 <Typography color="primary">Sernos Sequences</Typography>
+            <ListItem component={Link} to="/products/maint/tariffs" button>
+                <Typography color="primary">Tariffs</Typography>
             </ListItem>
             <ListItem component={Link} to="/products/maint/types-of-sale" button>
                 <Typography color="primary">Types of Sale</Typography>
+            </ListItem>
+            <ListItem component={Link} to="/products/maint/vat-codes" button>
+                <Typography color="primary">Vat Codes</Typography>
             </ListItem>
         </List>
     </Paper>

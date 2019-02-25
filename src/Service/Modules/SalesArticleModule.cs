@@ -14,15 +14,15 @@
 
     public sealed class SalesArticleModule : NancyModule
     {
-        private readonly IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> salesArticleForecastService;
+        private readonly IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> salesArticleService;
 
         private readonly ISalesArticleService salesArticleProxyService;
 
         public SalesArticleModule(
-            IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> salesArticleForecastService,
+            IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> salesArticleService,
             ISalesArticleService salesArticleProxyService)
         {
-            this.salesArticleForecastService = salesArticleForecastService;
+            this.salesArticleService = salesArticleService;
             this.salesArticleProxyService = salesArticleProxyService;
 
             this.Get("/products/maint/sales-articles", _ => this.GetSalesArticles());
@@ -33,7 +33,7 @@
         private object GetSalesArticle(string id)
         {
             return this.Negotiate
-                .WithModel(this.salesArticleForecastService.GetById(id))
+                .WithModel(this.salesArticleService.GetById(id))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
@@ -43,7 +43,7 @@
             this.RequiresAuthentication();
             var resource = this.Bind<SalesArticleResource>();
 
-            var result = this.salesArticleForecastService.Update(id, resource);
+            var result = this.salesArticleService.Update(id, resource);
 
             return this.Negotiate
                 .WithModel(result)
@@ -58,7 +58,7 @@
             if (!string.IsNullOrEmpty(resource.ArticleNumber))
             {
                 return this.Negotiate
-                    .WithModel(this.salesArticleForecastService.GetById(resource.ArticleNumber))
+                    .WithModel(this.salesArticleService.GetById(resource.ArticleNumber))
                     .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                     .WithView("Index");
             }

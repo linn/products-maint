@@ -97,7 +97,7 @@
 
             var result = dataSet.Tables[0];
             var response = result.Rows[0].ItemArray[0];
-            return int.Parse(response.ToString());
+            return int.TryParse(response?.ToString(), out var returnValue) ? returnValue : 0;
         }
 
         private OracleConnection getConnection()

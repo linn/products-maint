@@ -18,7 +18,7 @@ import EanCodes from '../containers/reports/EanCodes';
 import CartonDetailsOptions from './reportOptions/CartonDetailsOptions';
 import CartonDetails from '../containers/reports/CartonDetails';
 import ProductRangesOptions from '../containers/reportOptions/ProductRangesOptions';
-import ProductRanges from '../containers/reports/ProductRanges';
+import ProductRangesReport from '../containers/reports/ProductRanges';
 import StockTriggerLevelParts from '../containers/reports/StockTriggerLevelParts';
 import StockTriggerLevelsByPart from '../containers/reports/StockTriggerLevelsByPart';
 import SalesProductsByProductRange from '../containers/reports/SalesProductsByProductRange';
@@ -33,6 +33,9 @@ import CreateSaCoreType from '../containers/saCoreType/CreateSaCoreType';
 import TypesOfSale from '../containers/typesOfSale/TypesOfSale';
 import TypeOfSale from '../containers/typesOfSale/TypeOfSale';
 import CreateTypeOfSale from '../containers/typesOfSale/CreateTypeOfSale';
+import VatCodes from '../containers/vatCodes/VatCodes';
+import VatCode from '../containers/vatCodes/VatCode';
+import CreateVatCode from '../containers/vatCodes/CreateVatCode';
 import 'typeface-roboto';
 import SalesArticles from '../containers/salesArticles/SalesArticles';
 import SalesArticle from '../containers/salesArticles/SalesArticle';
@@ -40,6 +43,9 @@ import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesO
 import SalesArticleCoreTypes from '../containers/reports/SalesArticleCoreTypes';
 import SernosSequences from '../containers/sernosSequences/SernosSequences';
 import SernosSequence from '../containers/sernosSequences/SernosSequence';
+import ProductRanges from '../containers/productRanges/ProductRanges';
+import ProductRange from '../containers/productRanges/ProductRange';
+import CreateProductRange from '../containers/productRanges/CreateProductRange';
 
 const Root = ({ store }) => (
     <div>
@@ -123,6 +129,24 @@ const Root = ({ store }) => (
                                     exact
                                     path="/products/maint/sales-articles/:articleNumber"
                                     component={SalesArticle}
+                                />
+                            </Switch>
+
+                            <Switch>
+                                <Route
+                                    exact
+                                    path="/products/maint/product-ranges/create"
+                                    component={CreateProductRange}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/product-ranges"
+                                    component={ProductRanges}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/product-ranges/:id"
+                                    component={ProductRange}
                                 />
                             </Switch>
 
@@ -216,6 +240,24 @@ const Root = ({ store }) => (
                                 />
                             </Switch>
 
+                            <Switch>
+                                <Route
+                                    exact
+                                    path="/products/maint/vat-codes"
+                                    component={VatCodes}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/vat-codes/create"
+                                    component={CreateVatCode}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/vat-codes/:vatCodeId"
+                                    component={VatCode}
+                                />
+                            </Switch>
+
                             <Route
                                 exact
                                 path="/products/reports/product-ranges"
@@ -224,7 +266,7 @@ const Root = ({ store }) => (
                             <Route
                                 exact
                                 path="/products/reports/product-ranges/report"
-                                component={ProductRanges}
+                                component={ProductRangesReport}
                             />
                             <Route
                                 exact
