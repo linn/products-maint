@@ -12,6 +12,7 @@
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
     using Linn.Products.Facade.Services;
+    using Linn.Products.Persistence.Linnapps;
     using Linn.Products.Proxy;
     using Linn.Products.Resources;
 
@@ -49,6 +50,7 @@
 
             // Oracle proxies
             builder.RegisterType<StockTriggerLevelDataProxy>().As<IStockTriggerLevelDataService>();
+            builder.RegisterType<DatabaseProxy>().As<IDatabaseService>();
         }
     }
 }

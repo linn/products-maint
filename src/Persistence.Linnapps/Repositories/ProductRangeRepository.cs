@@ -6,16 +6,18 @@
 
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps.Products;
-
-    using Microsoft.EntityFrameworkCore;
+    using Linn.Products.Proxy;
 
     public class ProductRangeRepository : IRepository<ProductRange, int>
     {
         private readonly ServiceDbContext serviceDbContext;
 
-        public ProductRangeRepository(ServiceDbContext serviceDbContext)
+        private readonly IDatabaseService linnappsDatabaseService;
+
+        public ProductRangeRepository(ServiceDbContext serviceDbContext, IDatabaseService linnappsDatabaseService)
         {
             this.serviceDbContext = serviceDbContext;
+            this.linnappsDatabaseService = linnappsDatabaseService;
         }
 
         public ProductRange FindById(int key)
@@ -32,9 +34,7 @@
 
         public void Add(ProductRange entity)
         {
-            var nextId = this.serviceDbContext.ProductRanges.Max(t => t.Id) + 1;
-            entity.Id = nextId;
-
+            entity.Id = this.linnappsDatabaseService.GetIdSequence("product_range_bseq");
             this.serviceDbContext.ProductRanges.Add(entity);
         }
 
