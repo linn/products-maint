@@ -31,5 +31,7 @@
         public string ForecastToDate { get; set; }
 
         public string ForecastType { get; set; }
+
+        public string ArticleType { get; set; }
     }
 }

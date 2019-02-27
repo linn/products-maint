@@ -10,9 +10,14 @@
     {
         private readonly IEanCodeReportService eanCodeReportService;
 
-        public SalesArticleReportService(IEanCodeReportService eanCodeReportService)
+        private readonly ISalesArticleReports salesArticleReports;
+
+        public SalesArticleReportService(
+            IEanCodeReportService eanCodeReportService,
+            ISalesArticleReports salesArticleReports)
         {
             this.eanCodeReportService = eanCodeReportService;
+            this.salesArticleReports = salesArticleReports;
         }
 
         public IResult<ResultsModel> GetEanCodeResults(bool includePhasedOut = false, bool cartonisedOnly = false)
@@ -26,6 +31,19 @@
             bool cartonisedOnly = false)
         {
             var results = this.eanCodeReportService.GetEanCodeReport(includePhasedOut, cartonisedOnly)
+                .ConvertToCsvList();
+            return new SuccessResult<IEnumerable<IEnumerable<string>>>(results);
+        }
+
+        public IResult<ResultsModel> GetSalesArticleCoreTypes()
+        {
+            var results = this.salesArticleReports.SalesArticleCoreTypeReport();
+            return new SuccessResult<ResultsModel>(results);
+        }
+
+        public IResult<IEnumerable<IEnumerable<string>>> GetSalesArticleCoreTypesCsv()
+        {
+            var results = this.salesArticleReports.SalesArticleCoreTypeReport()
                 .ConvertToCsvList();
             return new SuccessResult<IEnumerable<IEnumerable<string>>>(results);
         }

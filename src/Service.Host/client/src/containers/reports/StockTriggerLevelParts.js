@@ -6,9 +6,7 @@ import config from '../../config';
 import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
 
 const reportName = 'stockTriggerLevelsReport';
-const getLocationId = ownProps => {
-    return ownProps.match.params.locationId;
-};
+const getLocationId = ownProps => ownProps.match.params.locationId;
 
 const mapStateToProps = (state, ownProps) => ({
     reportData: getReportData(state, reportName),

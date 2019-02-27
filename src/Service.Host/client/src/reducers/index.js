@@ -20,6 +20,11 @@ import salesArticle from './salesArticle';
 import salesArticles from './salesArticles';
 import saHoldStory from './saHoldStory';
 import menu from './menu';
+import reportData from './reportData';
+import vatCode from './vatCode';
+import vatCodes from './vatCodes';
+import productRange from './productRange';
+import productRanges from './productRanges';
 
 const rootReducer = combineReducers({
     oidc,
@@ -41,8 +46,13 @@ const rootReducer = combineReducers({
     typeOfSale,
     stockTriggerLevelsReport,
     saHoldStoriesReport,
+    saHoldStory,
     menu,
-    saHoldStory
+    reportData,
+    vatCode,
+    vatCodes,
+    productRange,
+    productRanges
 });
 
 export default rootReducer;

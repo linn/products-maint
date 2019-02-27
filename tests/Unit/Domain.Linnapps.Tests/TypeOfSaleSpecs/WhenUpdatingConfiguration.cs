@@ -1,4 +1,4 @@
-﻿namespace Domain.Linnapps.Tests.TypeOfSaleSpecs
+﻿namespace Linn.Products.Domain.Linnapps.Tests.TypeOfSaleSpecs
 {
     using FluentAssertions;
 

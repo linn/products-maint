@@ -1,8 +1,9 @@
-﻿namespace Linn.Products.Facade.Tests.SalesArticleForecastServiceSpecs
+﻿namespace Linn.Products.Domain.Linnapps.Tests.SalesArticleReportsSpecs
 {
     using Linn.Common.Persistence;
+    using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Linnapps.Products;
-    using Linn.Products.Facade.Services;
+    using Linn.Products.Domain.Linnapps.Reports;
 
     using NSubstitute;
 
@@ -10,18 +11,18 @@
 
     public abstract class ContextBase
     {
-        protected SalesArticleForecastService Sut { get; private set; }
+        protected SalesArticleReports Sut { get; private set; }
 
         protected IRepository<SalesArticle, string> SalesArticleRepository { get; private set; }
 
-        protected ITransactionManager TransactionManager { get; private set; }
+        protected ResultsModel Results { get; set; }
 
         [SetUp]
         public void SetUpContext()
         {
             this.SalesArticleRepository = Substitute.For<IRepository<SalesArticle, string>>();
-            this.TransactionManager = Substitute.For<ITransactionManager>();
-            this.Sut = new SalesArticleForecastService(this.SalesArticleRepository, this.TransactionManager);
+
+            this.Sut = new SalesArticleReports(this.SalesArticleRepository);
         }
     }
 }

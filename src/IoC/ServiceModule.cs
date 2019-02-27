@@ -25,8 +25,9 @@
             builder.RegisterType<CartonDetailsReportService>().As<ICartonDetailsReportService>();
             builder.RegisterType<ProductReports>().As<IProductReports>();
             builder.RegisterType<StockTriggerLevelReportService>().As<IStockTriggerLevelReportService>();
-            builder.RegisterType<Domain.Linnapps.Reports.SaHoldStoryService>()
+            builder.RegisterType<SaHoldStoryService>()
                 .As<ISaHoldStoryReportService>();
+            builder.RegisterType<SalesArticleReports>().As<ISalesArticleReports>();
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
@@ -39,8 +40,12 @@
             builder.RegisterType<SernosConfigService>().As<IFacadeService<SernosConfig, string, SernosConfigResource, SernosConfigResource>>();
             builder.RegisterType<TypeOfSaleService>().As<IFacadeService<TypeOfSale, string, TypeOfSaleResource, TypeOfSaleResource>>();
             builder.RegisterType<StockTriggerLevelsService>().As<IStockTriggerLevelsService>();
-            builder.RegisterType<SalesArticleForecastService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
             builder.RegisterType<SaHoldStoryFacadeService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
+
+            builder.RegisterType<SaHoldStoryService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
+            builder.RegisterType<SalesArticleService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
+            builder.RegisterType<VatCodeService>().As<IFacadeService<VatCode, string, VatCodeResource, VatCodeResource>>();
+            builder.RegisterType<ProductRangeService>().As<IFacadeService<ProductRange, int, ProductRangeResource, ProductRangeUpdateResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();
@@ -51,6 +56,7 @@
 
             // Oracle proxies
             builder.RegisterType<StockTriggerLevelDataProxy>().As<IStockTriggerLevelDataService>();
+            builder.RegisterType<DatabaseProxy>().As<IDatabaseService>();
         }
     }
 }

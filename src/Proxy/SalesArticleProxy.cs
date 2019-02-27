@@ -27,7 +27,9 @@
 
         public IEnumerable<SalesArticle> Search(string searchTerm)
         {
-            var uri = new Uri($"{this.rootUri}/linnapps-api/sales-articles/search?searchTerm={searchTerm}", UriKind.RelativeOrAbsolute);
+            var uri = new Uri(
+                $"{this.rootUri}/linnapps-api/sales-articles/search?searchTerm={searchTerm}",
+                UriKind.RelativeOrAbsolute);
             var response = this.restClient.Get(
                 CancellationToken.None,
                 uri,

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Domain.Linnapps.Tests.SaCoreTypeSpecs
+﻿namespace Linn.Products.Domain.Linnapps.Tests.SaCoreTypeSpecs
 {
     using Linn.Products.Domain.Linnapps;
 

@@ -24,6 +24,7 @@ class SaCoreType extends Component {
         if (!state.saCoreType && props.saCoreType) {
             return { saCoreType: props.saCoreType };
         }
+
         return null;
     }
 

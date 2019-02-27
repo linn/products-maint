@@ -1,4 +1,4 @@
-﻿namespace Domain.Linnapps.Tests.SalesArticleSpecs
+﻿namespace Linn.Products.Domain.Linnapps.Tests.SalesArticleSpecs
 {
     using Linn.Products.Domain.Linnapps.Products;
 

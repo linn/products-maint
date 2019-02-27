@@ -11,5 +11,9 @@
         IResult<IEnumerable<IEnumerable<string>>> GetEanCodeCsvResults(
             bool includePhasedOut = false,
             bool cartonisedOnly = false);
+
+        IResult<ResultsModel> GetSalesArticleCoreTypes();
+
+        IResult<IEnumerable<IEnumerable<string>>> GetSalesArticleCoreTypesCsv();
     }
 }

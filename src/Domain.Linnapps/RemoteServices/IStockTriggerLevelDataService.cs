@@ -7,5 +7,7 @@
         DataTable GetStockTriggerLevelsForPartAtLocation(int locationId, string partNumber);
 
         DataTable GetPartDataAtLocation(int locationId);
+
+        int GetQtyAvailableAtEk2Location(string partNumber);
     }
 }

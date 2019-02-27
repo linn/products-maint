@@ -49,7 +49,7 @@
         public ResultsModel GetPartDataAtLocation(int locationId)
         {
             var table = this.databaseService.GetPartDataAtLocation(locationId);
-            var results = new ResultsModel(new[] { "Trigger Level", "Max Capacity", "Qty At Location" })
+            var results = new ResultsModel(new[] { "Trigger Level", "Max Capacity", "Qty At Location", "Total Qty At EK-2 Locations"})
                               {
                                   ReportTitle = new NameModel($"Stock Trigger Levels")
                               };
@@ -57,13 +57,16 @@
             results.SetColumnType(0, GridDisplayType.TextValue);
             results.SetColumnType(1, GridDisplayType.Value);
             results.SetColumnType(2, GridDisplayType.Value);
+            results.SetColumnType(3, GridDisplayType.Value);
 
             foreach (DataRow tableRow in table.Rows)
             {
+                var eK2Total = this.databaseService.GetQtyAvailableAtEk2Location((string)tableRow[1]);
                 var row = results.AddRow(tableRow[1].ToString().Replace("/", "%2F"), tableRow[1].ToString()); 
                 results.SetGridValue(row.RowIndex, 0, NullOrNumber(tableRow[2]));
                 results.SetGridValue(row.RowIndex, 1, NullOrNumber(tableRow[3]));
                 results.SetGridValue(row.RowIndex, 2, NullOrNumber(tableRow[6]));
+                results.SetGridValue(row.RowIndex, 3, NullOrNumber(eK2Total));
             }
 
             results.RowDrillDownTemplates.Add(new DrillDownModel("name", $"/products/reports/stock-trigger-levels/{locationId}/" + "{rowId}"));

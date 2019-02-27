@@ -19,7 +19,10 @@ const App = ({ classes }) => (
                 <Typography color="primary">Sernos Config Types</Typography>
             </ListItem>
             <ListItem component={Link} to="/products/maint/sales-articles" button>
-                <Typography color="primary">Sales Article Forecast Details</Typography>
+                <Typography color="primary">Sales Article Details</Typography>
+            </ListItem>
+            <ListItem component={Link} to="/products/maint/product-ranges" button>
+                <Typography color="primary">Product Ranges</Typography>
             </ListItem>
             <ListItem component={Link} to="/products/sa-hold-stories" button>
                 <Typography color="primary">Sales Article Hold Histories</Typography>
@@ -36,17 +39,27 @@ const App = ({ classes }) => (
             <ListItem component={Link} to="/products/reports/product-ranges" button>
                 <Typography color="primary">Product Ranges Report</Typography>
             </ListItem>
+            <ListItem
+                component={Link}
+                to="/products/reports/sales-article-core-types/report"
+                button
+            >
+                <Typography color="primary">Sales Article Core Types Report</Typography>
+            </ListItem>
         </List>
         <Typography variant="h6">Utilities</Typography>
         <List>
-            <ListItem component={Link} to="/products/maint/tariffs" button>
-                <Typography color="primary">Tariffs</Typography>
-            </ListItem>
             <ListItem component={Link} to="/products/maint/sa-core-types" button>
                 <Typography color="primary">Sales Article Core Types</Typography>
             </ListItem>
+            <ListItem component={Link} to="/products/maint/tariffs" button>
+                <Typography color="primary">Tariffs</Typography>
+            </ListItem>
             <ListItem component={Link} to="/products/maint/types-of-sale" button>
                 <Typography color="primary">Types of Sale</Typography>
+            </ListItem>
+            <ListItem component={Link} to="/products/maint/vat-codes" button>
+                <Typography color="primary">Vat Codes</Typography>
             </ListItem>
         </List>
     </Paper>

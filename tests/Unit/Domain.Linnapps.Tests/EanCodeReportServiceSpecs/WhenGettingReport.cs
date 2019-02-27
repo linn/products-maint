@@ -1,4 +1,4 @@
-﻿namespace Domain.Linnapps.Tests.EanCodeReportServiceSpecs
+﻿namespace Linn.Products.Domain.Linnapps.Tests.EanCodeReportServiceSpecs
 {
     using System.Collections.Generic;
     using System.Linq;

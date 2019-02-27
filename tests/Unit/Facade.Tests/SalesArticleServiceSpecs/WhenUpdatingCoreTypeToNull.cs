@@ -1,10 +1,12 @@
-﻿namespace Linn.Products.Facade.Tests.SalesArticleForecastServiceSpecs
+﻿namespace Linn.Products.Facade.Tests.SalesArticleServiceSpecs
 {
     using System;
 
     using FluentAssertions;
 
     using Linn.Common.Facade;
+    using Linn.Common.Resources;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
 
@@ -12,13 +14,15 @@
 
     using NUnit.Framework;
 
-    public class WhenUpdating : ContextBase
+    public class WhenUpdatingCoreTypeToNull : ContextBase
     {
         private IResult<SalesArticle> result;
 
         private SalesArticleResource resource;
 
         private SalesArticle salesArticle;
+
+        private SaCoreType coreType;
 
         [SetUp]
         public void SetUp()
@@ -29,15 +33,19 @@
                                         ForecastType = "N",
                                         ForecastToDate = 1.December(2019)
                                     };
+            this.coreType = new SaCoreType(1, "thing");
             this.resource = new SalesArticleResource
                                 {
                                     ArticleNumber = "sa",
                                     Description = "new desc",
                                     ForecastType = "Y",
-                                    ForecastToDate = 1.December(2020).ToString("o")
+                                    ForecastToDate = 1.December(2020).ToString("o"),
+                                    Links = new LinkResource[] { new LinkResource("sa-core-type", string.Empty) }
                                 };
             this.SalesArticleRepository.FindById("sa")
                 .Returns(this.salesArticle);
+            this.SaCoreTypeRepository.FindById(1)
+                .Returns(this.coreType);
             this.result = this.Sut.Update("sa", this.resource);
         }
 
@@ -55,6 +63,7 @@
             dataResult.ArticleNumber.Should().Be("sa");
             dataResult.ForecastType.Should().Be("Y");
             dataResult.ForecastToDate.Should().Be(DateTime.Parse(this.resource.ForecastToDate));
+            dataResult.SaCoreType.Should().BeNull();
         }
     }
 }
