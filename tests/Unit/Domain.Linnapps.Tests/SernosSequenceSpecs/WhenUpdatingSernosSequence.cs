@@ -10,7 +10,7 @@
         [SetUp]
         public void SetUp()
         {
-            this.Sut.Update("CD MECHANISM", 501, 20.February(2019));
+            this.Sut.Update("KRYSTAL", "CD MECHANISM", 501, 20.February(2019));
         }
 
         [Test]

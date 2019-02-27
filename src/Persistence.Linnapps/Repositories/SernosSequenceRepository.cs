@@ -29,7 +29,6 @@
         public void Add(SernosSequence sernosSequence)
         {
             this.serviceDbContext.SernosSequences.Add(sernosSequence);
-            this.serviceDbContext.SaveChanges();
         }
 
         public void Remove(SernosSequence entity)

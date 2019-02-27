@@ -51,6 +51,7 @@ const App = ({ classes }) => (
             </ListItem>
             <ListItem component={Link} to="/products/maint/sernos-sequences" button>
                 <Typography color="primary">Sernos Sequences</Typography>
+            </ListItem>
             <ListItem component={Link} to="/products/maint/tariffs" button>
                 <Typography color="primary">Tariffs</Typography>
             </ListItem>

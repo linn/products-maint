@@ -6,20 +6,22 @@ import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import sernosSequenceSelectors from '../../selectors/sernosSequenceSelectors';
 
 const mapStateToProps = (state, { match }) => ({
-    sernosSequence: sernosSequenceSelectors.getItem(state),
-    sequenceName: match.params.sequenceName,
-    editStatus: sernosSequenceSelectors.getLoading(state),
+    item: sernosSequenceSelectors.getItem(state),
+    itemId: match.params.sequenceName,
+    editStatus: sernosSequenceSelectors.getEditStatus(state),
+    loading: sernosSequenceSelectors.getLoading(state),
     errorMessage: getSingleErrorMessage(state)
 });
 
-const initialise = ({ sequenceName }) => dispatch => {
-    dispatch(sernosSequenceActions.fetch(sequenceName));
+const initialise = ({ itemId }) => dispatch => {
+    dispatch(sernosSequenceActions.fetch(itemId));
 };
 
 const mapDispatchToProps = {
     initialise,
-    updateSernosSequence: sernosSequenceActions.update,
-    resetSernosSequence: sernosSequenceActions.reset,
+    addItem: sernosSequenceActions.add,
+    updateItem: sernosSequenceActions.update,
+    resetItem: sernosSequenceActions.reset,
     setEditStatus: sernosSequenceActions.setEditStatus
 };
 

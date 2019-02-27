@@ -43,6 +43,7 @@ import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesO
 import SalesArticleCoreTypes from '../containers/reports/SalesArticleCoreTypes';
 import SernosSequences from '../containers/sernosSequences/SernosSequences';
 import SernosSequence from '../containers/sernosSequences/SernosSequence';
+import CreateSernosSequence from '../containers/sernosSequences/CreateSernosSequence';
 import ProductRanges from '../containers/productRanges/ProductRanges';
 import ProductRange from '../containers/productRanges/ProductRange';
 import CreateProductRange from '../containers/productRanges/CreateProductRange';
@@ -192,11 +193,11 @@ const Root = ({ store }) => (
                                     path="/products/maint/sernos-sequences"
                                     component={SernosSequences}
                                 />
-                                {/* <Route
+                                <Route
                                     exact
-                                    path="/products/maint/sernos-configs/create"
-                                    component={CreateSernosConfig}
-                                /> */}
+                                    path="/products/maint/sernos-sequences/create"
+                                    component={CreateSernosSequence}
+                                />
                                 <Route
                                     exact
                                     path="/products/maint/sernos-sequences/:sequenceName"

@@ -28,6 +28,7 @@
         protected override void UpdateFromResource(SernosSequence sernosSequence, SernosSequenceResource updateResource)
         {
             sernosSequence.Update(
+                updateResource.SequenceName,
                 updateResource.Description,
                 updateResource.NextSerialNumber,
                 string.IsNullOrEmpty(updateResource.DateClosed) ? (DateTime?)null : DateTime.Parse(updateResource.DateClosed));
