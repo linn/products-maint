@@ -20,8 +20,12 @@ const makeActionTypes = (entityType, makeAll = true) => {
 
 export const FETCH_ERROR = 'FETCH_ERROR';
 
+export const REQUEST_REPORT = 'REQUEST_REPORT';
+export const RECEIVE_REPORT = 'RECEIVE_REPORT';
 export const REQUEST_EAN_CODE_REPORT = 'REQUEST_EAN_CODE_REPORT';
 export const RECEIVE_EAN_CODE_REPORT = 'RECEIVE_EAN_CODE_REPORT';
+export const REQUEST_SALES_ARTICLE_CORE_TYPES_REPORT = 'REQUEST_SALES_ARTICLE_CORE_TYPES_REPORT';
+export const RECEIVE_SALES_ARTICLE_CORE_TYPES_REPORT = 'RECEIVE_SALES_ARTICLE_CORE_TYPES_REPORT';
 export const REQUEST_STOCK_TRIGGER_LEVELS_REPORT = 'REQUEST_STOCK_TRIGGER_LEVELS_REPORT';
 export const RECEIVE_STOCK_TRIGGER_LEVELS_REPORT = 'RECEIVE_STOCK_TRIGGER_LEVELS_REPORT';
 
@@ -78,3 +82,9 @@ export const typeOfSaleActionTypes = makeActionTypes(itemTypes.typeOfSale.action
 export const typesOfSaleActionTypes = makeActionTypes(itemTypes.typesOfSale.actionType, false);
 
 export const saHoldStoryActionTypes = makeActionTypes(itemTypes.saHoldStory.actionType, false);
+
+export const vatCodeActionTypes = makeActionTypes(itemTypes.vatCode.actionType);
+export const vatCodesActionTypes = makeActionTypes(itemTypes.vatCodes.actionType, false);
+
+export const productRangeActionTypes = makeActionTypes(itemTypes.productRange.actionType);
+export const productRangesActionTypes = makeActionTypes(itemTypes.productRanges.actionType, false);

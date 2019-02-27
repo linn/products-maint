@@ -18,6 +18,8 @@
 
             this.Get("/products/reports/sales-article-ean-codes", _ => this.GetSalesArticlesByEanCode());
             this.Get("/products/reports/sales-article-ean-codes/export", _ => this.GetSalesArticlesByEanCodeExport());
+            this.Get("/products/reports/sales-article-core-types", _ => this.GetSalesArticlesCoreTypeReport());
+            this.Get("/products/reports/sales-article-core-types/export", _ => this.GetSalesArticlesCoreTypeReportExport());
         }
 
         private object GetSalesArticlesByEanCode()
@@ -41,6 +43,27 @@
             var results = this.salesArticleReportService.GetEanCodeCsvResults(
                 resource.IncludePhasedOut,
                 resource.CartonisedOnly);
+
+            return this.Negotiate
+                .WithModel(results)
+                .WithAllowedMediaRange("text/csv")
+                .WithView("Index");
+        }
+
+        private object GetSalesArticlesCoreTypeReport()
+        {
+            var results = this.salesArticleReportService.GetSalesArticleCoreTypes();
+
+            return this.Negotiate
+                .WithModel(results)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
+        }
+
+        private object GetSalesArticlesCoreTypeReportExport()
+        {
+            this.RequiresAuthentication();
+            var results = this.salesArticleReportService.GetSalesArticleCoreTypesCsv();
 
             return this.Negotiate
                 .WithModel(results)

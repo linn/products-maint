@@ -18,8 +18,10 @@ const EanCodes = ({ reportData, loading, options, config }) => {
     return (
         <Page>
             <Grid container spacing={24} justify="center">
-                <Grid item xs={12}>
+                <Grid item xs={9}>
                     <Title text={` Sales Article Ean Codes ${optionsTitle}`} />
+                </Grid>
+                <Grid item xs={3}>
                     <ExportButton href={href} />
                 </Grid>
                 <Grid item xs={12}>

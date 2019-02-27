@@ -59,3 +59,18 @@ export const saHoldStory = new ItemType(
     'SA_HOLD_STORY',
     '/products/sa-hold-stories'
 );
+
+export const vatCode = new ItemType('vatCode', 'VAT_CODE', '/products/maint/vat-codes');
+
+export const vatCodes = new ItemType('vatCodes', 'VAT_CODES', '/products/maint/vat-codes');
+
+export const productRange = new ItemType(
+    'productRange',
+    'PRODUCT_RANGE',
+    '/products/maint/product-ranges'
+);
+export const productRanges = new ItemType(
+    'productRanges',
+    'PRODUCT_RANGES',
+    '/products/maint/product-ranges'
+);

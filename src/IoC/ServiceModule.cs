@@ -12,6 +12,7 @@
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
     using Linn.Products.Facade.Services;
+    using Linn.Products.Persistence.Linnapps;
     using Linn.Products.Proxy;
     using Linn.Products.Resources;
 
@@ -29,6 +30,7 @@
             builder.RegisterType<StockTriggerLevelReportService>().As<IStockTriggerLevelReportService>();
             builder.RegisterType<Domain.Linnapps.Reports.SaHoldStoriesReportService>()
                 .As<ISaHoldStoriesReportService>();
+            builder.RegisterType<SalesArticleReports>().As<ISalesArticleReports>();
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
@@ -43,6 +45,9 @@
             builder.RegisterType<StockTriggerLevelsService>().As<IStockTriggerLevelsService>();
             builder.RegisterType<SalesArticleForecastService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
             builder.RegisterType<SaHoldStoryService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
+            builder.RegisterType<SalesArticleService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
+            builder.RegisterType<VatCodeService>().As<IFacadeService<VatCode, string, VatCodeResource, VatCodeResource>>();
+            builder.RegisterType<ProductRangeService>().As<IFacadeService<ProductRange, int, ProductRangeResource, ProductRangeUpdateResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();
@@ -53,6 +58,7 @@
 
             // Oracle proxies
             builder.RegisterType<StockTriggerLevelDataProxy>().As<IStockTriggerLevelDataService>();
+            builder.RegisterType<DatabaseProxy>().As<IDatabaseService>();
         }
     }
 }

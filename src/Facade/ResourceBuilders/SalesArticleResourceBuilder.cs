@@ -17,6 +17,7 @@
                        {
                            Id = salesArticle.ArticleNumber,
                            ArticleNumber = salesArticle.ArticleNumber,
+                           ArticleType = salesArticle.ArticleType,
                            Description  = salesArticle.InvoiceDescription,
                            CartonType = salesArticle.CartonType,
                            ForecastType = salesArticle.ForecastType,
@@ -47,11 +48,21 @@
                                  Rel = "self",
                                  Href = this.GetLocation(salesArticle)
                              };
+
             yield return new LinkResource
                              {
                                 Rel = "holdStories",
                                 Href = $"/products/reports/sa-hold-stories-for-sales-article/{Uri.EscapeDataString(salesArticle.ArticleNumber)}"
                              };
+
+            if (salesArticle.SaCoreType != null)
+            {
+                yield return new LinkResource
+                             {
+                                 Rel = "sa-core-type",
+                                 Href = $"/products/maint/sa-core-types/{salesArticle.SaCoreType.CoreType}"
+                             };
+            }
         }
     }
 }

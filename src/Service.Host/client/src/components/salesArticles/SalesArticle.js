@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import {
     InputField,
     Title,
@@ -11,6 +11,8 @@ import {
     Dropdown
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
+import { getSelfHref, getHref } from '../../helpers/utilities';
+import Page from '../../containers/Page';
 
 const styles = () => ({
     root: {
@@ -26,6 +28,7 @@ class SalesArticle extends Component {
             salesArticle: props.salesArticle
         };
         this.handleFieldChange = this.handleFieldChange.bind(this);
+        this.handleLinkRelChange = this.handleLinkRelChange.bind(this);
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -74,9 +77,42 @@ class SalesArticle extends Component {
         this.setState({ salesArticle: { ...salesArticle, [propertyName]: newValue } });
     }
 
-    render() {
-        const { loading, errorMessage, classes } = this.props;
+    handleLinkRelChange(rel, newValue) {
         const { salesArticle } = this.state;
+        const { setEditStatus } = this.props;
+
+        setEditStatus('edit');
+        const links = salesArticle.links.filter(l => l.rel !== 'sa-core-type');
+
+        if (newValue) {
+            links.push({ rel, href: newValue });
+        }
+
+        this.setState({ salesArticle: { ...salesArticle, links } });
+    }
+
+    render() {
+        const { loading, errorMessage, saCoreTypes } = this.props;
+        const { salesArticle } = this.state;
+        const salesArticleCoreTypeHref = getHref(salesArticle, 'sa-core-type')
+            ? getHref(salesArticle, 'sa-core-type')
+            : '';
+
+        let saCoreTypeItems;
+        if (saCoreTypes.length > 0) {
+            saCoreTypeItems = saCoreTypes
+                .filter(sa => !sa.dateInvalid)
+                .map(sa => ({
+                    id: getSelfHref(sa),
+                    displayText: sa.description
+                }));
+            saCoreTypeItems.push({ id: '', displayText: '' });
+        } else {
+            saCoreTypeItems = [
+                { id: salesArticleCoreTypeHref, displayText: salesArticleCoreTypeHref || 'Waiting' }
+            ];
+        }
+
         const forecastTypes = [
             { id: 'Y', displayText: 'Yes' },
             { id: 'N', displayText: 'No' },
@@ -88,7 +124,7 @@ class SalesArticle extends Component {
         }
 
         return (
-            <Paper className={classes.root}>
+            <Page>
                 <Grid container spacing={24}>
                     <Grid item xs={12}>
                         <Title text="Sales Article Details" />
@@ -160,6 +196,19 @@ class SalesArticle extends Component {
                             onChange={this.handleFieldChange}
                         />
                     </Grid>
+                    <Grid item xs={4} />
+                    <Grid item xs={3}>
+                        <Dropdown
+                            label="Core Type"
+                            propertyName="sa-core-type"
+                            items={saCoreTypeItems}
+                            fullWidth
+                            value={salesArticleCoreTypeHref}
+                            onChange={this.handleLinkRelChange}
+                        />
+                    </Grid>
+                    <Grid item xs={1} />
+                    <Grid item xs={3} />
                     <Grid item xs={12}>
                         <SaveBackCancelButtons
                             saveDisabled={this.viewing()}
@@ -169,13 +218,14 @@ class SalesArticle extends Component {
                         />
                     </Grid>
                 </Grid>
-            </Paper>
+            </Page>
         );
     }
 }
 
 SalesArticle.propTypes = {
     id: PropTypes.string.isRequired,
+    saCoreTypes: PropTypes.arrayOf(PropTypes.shape({})),
     salesArticle: PropTypes.shape({
         id: PropTypes.string,
         description: PropTypes.string,
@@ -198,7 +248,8 @@ SalesArticle.defaultProps = {
     classes: {},
     errorMessage: '',
     editStatus: 'view',
-    salesArticle: null
+    salesArticle: null,
+    saCoreTypes: []
 };
 
 export default withStyles(styles)(SalesArticle);

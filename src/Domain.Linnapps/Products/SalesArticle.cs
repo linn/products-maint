@@ -1,10 +1,13 @@
 ﻿namespace Linn.Products.Domain.Linnapps.Products
 {
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class SalesArticle
     {
         public string ArticleNumber { get; set; }
+
+        public string ArticleType { get; set; }
 
         public string TypeOfSale { get; set; }
 
@@ -30,16 +33,21 @@
 
         public string ForecastType { get; set; }
 
-        public void UpdateForecastInformation(
+        [ForeignKey("SA_CORE_TYPE")]
+        public SaCoreType SaCoreType { get; set; }
+
+        public void Update(
             string forecastType,
             DateTime? forecastFromDate,
             DateTime? forecastToDate,
-            decimal? percentageOfRootProductSales)
+            decimal? percentageOfRootProductSales,
+            SaCoreType coreType)
         {
             this.ForecastType = forecastType;
             this.ForecastFromDate = forecastFromDate;
             this.ForecastToDate = forecastToDate;
             this.PercentageOfRootProductSales = percentageOfRootProductSales;
+            this.SaCoreType = coreType;
         }
     }
 }

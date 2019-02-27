@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,14 +9,11 @@ const styles = {
     root: {
         width: '100%',
         position: 'absolute',
-        top: 0,
-        zIndex: 1500
+        top: 0
     },
-
     tab: {
         minWidth: 20
     },
-
     tabLabel: {
         fontSize: '12px'
     }
@@ -35,25 +32,27 @@ function Navbar({ classes, menu, loading, history }) {
     return (
         <div className={classes.root}>
             <AppBar position="static" color="default">
-                <Tabs
-                    value={selected}
-                    onChange={handleChange}
-                    scrollable
-                    scrollButtons="auto"
-                    indicatorColor="primary"
-                    textColor="primary"
-                >
-                    {menu && !loading
-                        ? menu.map(item => (
-                              <Tab
-                                  key={item.id}
-                                  classes={{ root: classes.tab }}
-                                  label={<span className={classes.tabLabel}>{item.title}</span>}
-                                  selected={false}
-                              />
-                          ))
-                        : ''}
-                </Tabs>
+                {menu && !loading ? (
+                    <Tabs
+                        value={selected}
+                        onChange={handleChange}
+                        scrollable
+                        scrollButtons="auto"
+                        indicatorColor="primary"
+                        textColor="primary"
+                    >
+                        {menu.map(item => (
+                            <Tab
+                                key={item.id}
+                                classes={{ root: classes.tab }}
+                                label={<span className={classes.tabLabel}>{item.title}</span>}
+                                selected={false}
+                            />
+                        ))}
+                    </Tabs>
+                ) : (
+                    <Fragment />
+                )}
             </AppBar>
         </div>
     );
