@@ -13,7 +13,15 @@ function SernosSequences({ sernosSequences, loading }) {
                     <CreateButton createUrl="/products/maint/sernos-sequences/create" />
                     <EntityList
                         title="Sernos Sequences"
-                        entityList={sernosSequences}
+                        entityList={sernosSequences.sort((a, b) => {
+                            if (a.sequenceName < b.sequenceName) {
+                                return -1;
+                            }
+                            if (a.sequenceName > b.sequenceName) {
+                                return 1;
+                            }
+                            return 0;
+                        })}
                         entityId="sequenceName"
                         loading={loading}
                         descriptionFieldName="description"
