@@ -28,6 +28,7 @@
             builder.RegisterType<SernosSequenceRepository>().As<IRepository<SernosSequence, string>>();
             builder.RegisterType<VatCodeRepository>().As<IRepository<VatCode, string>>();
             builder.RegisterType<TariffRepository>().As<ITariffRepository>();
+            builder.RegisterType<SaHoldStoryRepository>().As<IRepository<SaHoldStory, int>>();
             builder.RegisterType<ProductRangeRepository>().As<IRepository<ProductRange, int>>();
         }
     }

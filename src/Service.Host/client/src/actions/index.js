@@ -51,6 +51,9 @@ export const RECEIVE_PRODUCT_RANGES_REPORT = 'RECEIVE_PRODUCT_RANGES_REPORT';
 export const REQUEST_SALES_PRODUCTS_BY_RANGE_REPORT = 'REQUEST_SALES_PRODUCTS_BY_RANGE_REPORT';
 export const RECEIVE_SALES_PRODUCTS_BY_RANGE_REPORT = 'RECEIVE_SALES_PRODUCTS_BY_RANGE_REPORT';
 
+export const REQUEST_SA_HOLD_STORIES_REPORT = 'REQUEST_SA_HOLD_STORIES_REPORT';
+export const RECEIVE_SA_HOLD_STORIES_REPORT = 'RECEIVE_SA_HOLD_STORIES_REPORT';
+
 export const REQUEST_ADD_CARTON_TYPE = 'REQUEST_ADD_CARTON_TYPE';
 export const REQUEST_UPDATE_CARTON_TYPE = 'REQUEST_UPDATE_CARTON_TYPE';
 export const REQUEST_CARTON_TYPE = 'REQUEST_CARTON_TYPE';
@@ -83,6 +86,8 @@ export const tariffsActionTypes = makeActionTypes(itemTypes.tariffs.actionType, 
 
 export const typeOfSaleActionTypes = makeActionTypes(itemTypes.typeOfSale.actionType);
 export const typesOfSaleActionTypes = makeActionTypes(itemTypes.typesOfSale.actionType, false);
+
+export const saHoldStoryActionTypes = makeActionTypes(itemTypes.saHoldStory.actionType, false);
 
 export const vatCodeActionTypes = makeActionTypes(itemTypes.vatCode.actionType);
 export const vatCodesActionTypes = makeActionTypes(itemTypes.vatCodes.actionType, false);

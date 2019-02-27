@@ -39,6 +39,9 @@ import CreateVatCode from '../containers/vatCodes/CreateVatCode';
 import 'typeface-roboto';
 import SalesArticles from '../containers/salesArticles/SalesArticles';
 import SalesArticle from '../containers/salesArticles/SalesArticle';
+import SaHoldStoriesSearch from '../containers/SaHoldStories/Search';
+import HoldStoriesBySalesArticle from '../containers/SaHoldStories/HoldStoriesBySalesArticle';
+import SaHoldStory from '../containers/SaHoldStories/SaHoldStory';
 import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesOptions';
 import SalesArticleCoreTypes from '../containers/reports/SalesArticleCoreTypes';
 import SernosSequences from '../containers/sernosSequences/SernosSequences';
@@ -284,6 +287,21 @@ const Root = ({ store }) => (
                                 exact
                                 path="/products/reports/stock-trigger-levels/:locationId/:partNumber"
                                 component={StockTriggerLevelsByPart}
+                            />
+                            <Route
+                                exact
+                                path="/products/reports/sa-hold-stories"
+                                component={SaHoldStoriesSearch}
+                            />
+                            <Route
+                                exact
+                                path="/products/reports/sa-hold-stories-for-sales-article/:articleNumber"
+                                component={HoldStoriesBySalesArticle}
+                            />
+                            <Route
+                                exact
+                                path="/products/reports/sa-hold-stories/:holdStoryId"
+                                component={SaHoldStory}
                             />
                             <Route exact path="/:sectionId" component={MenuPage} />
                         </div>

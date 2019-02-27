@@ -65,6 +65,12 @@ export const typesOfSale = new ItemType(
     '/products/maint/types-of-sale'
 );
 
+export const saHoldStory = new ItemType(
+    'saHoldStory',
+    'SA_HOLD_STORY',
+    '/products/reports/sa-hold-stories'
+);
+
 export const vatCode = new ItemType('vatCode', 'VAT_CODE', '/products/maint/vat-codes');
 
 export const vatCodes = new ItemType('vatCodes', 'VAT_CODES', '/products/maint/vat-codes');
