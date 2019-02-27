@@ -82,7 +82,6 @@ function SernosSequence({
     return (
         <Page>
             {!creating() && updateSernosSequenceFromProps()}
-            {console.log(editStatus)}
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     {creating() ? (

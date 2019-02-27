@@ -24,13 +24,6 @@ describe('<SernosSequences />', () => {
         });
     });
 
-    // TODO add these into these components and tests
-    // describe('when there is an error message', () => {
-    //     beforeEach(() => {
-    //         wrapper.setProps({ errorMessage: 'an error has occurred', loading: false });
-    //     });
-    // });
-
     describe('when sernos sequences are present', () => {
         beforeEach(() => {
             wrapper.setProps({
