@@ -27,7 +27,7 @@
 
         public string GetLocation(SaHoldStory model)
         {
-            return $"/products/maint/sa-hold-stories/{model.HoldStoryId}";
+            return $"/products/reports/sa-hold-stories/{model.HoldStoryId}";
         }
     }
 }

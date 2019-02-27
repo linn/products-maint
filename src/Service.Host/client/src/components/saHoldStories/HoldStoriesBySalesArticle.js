@@ -34,7 +34,7 @@ function Report({ reportData, loading }) {
 function HoldStoriesBySalesArticle({ reportData, loading, history, match }) {
     const titleify = articleNumber => articleNumber.replace(/%2F/g, '/');
     const handleBackClick = () => {
-        history.push('/products/sa-hold-stories');
+        history.push('/products/reports/sa-hold-stories');
     };
 
     return (
