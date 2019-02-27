@@ -15,7 +15,7 @@
     {
         private readonly IRestClient restClient;
 
-        private readonly string rootUri = "http://localhost:51798"; // rootUri
+        private readonly string rootUri;
 
         public CartonProxy(IRestClient restClient, string rootUri)
         {

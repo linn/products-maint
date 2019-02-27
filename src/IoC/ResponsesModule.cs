@@ -28,7 +28,6 @@
             builder.RegisterType<TypesOfSaleResourceBuilder>().As<IResourceBuilder<IEnumerable<TypeOfSale>>>();
             builder.RegisterType<SaHoldStoryResourceBuilder>().As<IResourceBuilder<SaHoldStory>>();
             builder.RegisterType<SaHoldStoriesResourceBuilder>().As<IResourceBuilder<IEnumerable<SaHoldStory>>>();
-
         }
     }
 }

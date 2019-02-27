@@ -4,7 +4,7 @@
 
     using Linn.Common.Reporting.Models;
 
-    public interface ISaHoldStoriesReportService
+    public interface ISaHoldStoryReportService
     {
         ResultsModel GetSaHoldStoriesReportForSalesArticle(string articleNumber);
     }

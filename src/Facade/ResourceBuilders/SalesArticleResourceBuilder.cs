@@ -49,7 +49,7 @@
                              };
             yield return new LinkResource
                              {
-                                Rel = "holdStories",
+                                Rel = "hold-stories",
                                 Href = $"/products/reports/sa-hold-stories-for-sales-article/{Uri.EscapeDataString(salesArticle.ArticleNumber)}"
                              };
         }

@@ -6,11 +6,11 @@
     using Linn.Common.Persistence;
     using Linn.Common.Reporting.Models;
 
-    public class SaHoldStoriesReportService : ISaHoldStoriesReportService
+    public class SaHoldStoryService : ISaHoldStoryReportService
     {
         private readonly IRepository<SaHoldStory, int> saHoldStoryRepository;
 
-        public SaHoldStoriesReportService(IRepository<SaHoldStory, int> repo)
+        public SaHoldStoryService(IRepository<SaHoldStory, int> repo)
         {
             this.saHoldStoryRepository = repo;
         }
@@ -34,7 +34,7 @@
                 results.SetGridTextValue(row.RowIndex, 1, story.DateFinished != null ? ((DateTime)story.DateFinished).ToShortDateString() : story.DateFinished.ToString());
             }
 
-            results.RowDrillDownTemplates.Add(new DrillDownModel("story", "/products/sa-hold-stories/" + "{rowId}"));
+            results.RowDrillDownTemplates.Add(new DrillDownModel("story", "/products/sa-hold-stories/{rowId}"));
            
             return results;
         }

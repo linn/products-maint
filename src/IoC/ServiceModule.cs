@@ -11,12 +11,10 @@
     using Linn.Products.Domain.Linnapps.Reports;
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
+    using Linn.Products.Facade;
     using Linn.Products.Facade.Services;
     using Linn.Products.Proxy;
     using Linn.Products.Resources;
-
-    using ISaHoldStoriesReportService = Linn.Products.Domain.Linnapps.Reports.ISaHoldStoriesReportService;
-    using SaHoldStoriesReportService = Linn.Products.Facade.SaHoldStoriesReportService;
 
     public class ServiceModule : Module
     {
@@ -27,14 +25,14 @@
             builder.RegisterType<CartonDetailsReportService>().As<ICartonDetailsReportService>();
             builder.RegisterType<ProductReports>().As<IProductReports>();
             builder.RegisterType<StockTriggerLevelReportService>().As<IStockTriggerLevelReportService>();
-            builder.RegisterType<Domain.Linnapps.Reports.SaHoldStoriesReportService>()
-                .As<ISaHoldStoriesReportService>();
+            builder.RegisterType<Domain.Linnapps.Reports.SaHoldStoryService>()
+                .As<ISaHoldStoryReportService>();
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
             builder.RegisterType<TariffService>().As<ITariffService>();
             builder.RegisterType<CartonReportsService>().As<ICartonReportsService>();
-            builder.RegisterType<SaHoldStoriesReportService>().As<Facade.Services.ISaHoldStoriesReportService>();
+            builder.RegisterType<SaHoldStoryReportService>().As<Facade.Services.ISaHoldStoriesReportService>();
             builder.RegisterType<ProductsReportsService>().As<IProductsReportsService>();
             builder.RegisterType<CartonTypeService>().As<IFacadeService<CartonType, string, CartonTypeResource, CartonTypeUpdateResource>>();
             builder.RegisterType<SaCoreTypeService>().As<IFacadeService<SaCoreType, int, SaCoreTypeResource, SaCoreTypeResource>>();
@@ -42,7 +40,7 @@
             builder.RegisterType<TypeOfSaleService>().As<IFacadeService<TypeOfSale, string, TypeOfSaleResource, TypeOfSaleResource>>();
             builder.RegisterType<StockTriggerLevelsService>().As<IStockTriggerLevelsService>();
             builder.RegisterType<SalesArticleForecastService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
-            builder.RegisterType<SaHoldStoryService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
+            builder.RegisterType<SaHoldStoryFacadeService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();

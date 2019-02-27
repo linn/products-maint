@@ -12,8 +12,8 @@
                        {
                            HoldStoryId = saHoldStory.HoldStoryId,
                            ArticleNumber = saHoldStory.ArticleNumber,
-                           DateStarted = saHoldStory.DateStarted,
-                           DateFinished = saHoldStory.DateFinished,
+                           DateStarted = saHoldStory.DateStarted.ToString("o"),
+                           DateFinished = saHoldStory.DateFinished?.ToString("o"),
                            PutOnHoldByEmployeeNumber = saHoldStory.PutOnHoldByEmployeeNumber,
                            TakenOffHoldByEmployeeNumber = saHoldStory.TakenOffHoldByEmployeeNumber,
                            ReasonStarted = saHoldStory.ReasonStarted,

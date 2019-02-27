@@ -12,9 +12,9 @@ namespace Linn.Products.Resources
 
         public string ArticleNumber { get; set; }
 
-        public DateTime DateStarted { get; set; }
+        public string DateStarted { get; set; }
 
-        public DateTime? DateFinished { get; set; }
+        public string DateFinished { get; set; }
 
         public int PutOnHoldByEmployeeNumber { get; set; }
 
