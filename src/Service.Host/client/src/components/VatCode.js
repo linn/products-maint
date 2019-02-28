@@ -51,6 +51,10 @@ function VatCode({
         return editStatus === 'edit';
     }
 
+    function viewing() {
+        return editStatus === 'view';
+    }
+
     function codeInvalid() {
         return !vatCode.code;
     }
@@ -77,6 +81,10 @@ function VatCode({
     function handleFieldChange(propertyName, newValue) {
         setEditStatus('edit');
         setVatCode({ ...vatCode, [propertyName]: newValue });
+    }
+
+    function vatCodeMatchesItem() {
+        return JSON.stringify(vatCode) === JSON.stringify(item);
     }
 
     function updateVatCodeFromProps() {
@@ -167,7 +175,11 @@ function VatCode({
                         )}
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
-                                saveDisabled={!editing() || inputInvalid()}
+                                saveDisabled={
+                                    viewing() ||
+                                    inputInvalid() ||
+                                    (editing() && vatCodeMatchesItem())
+                                }
                                 saveClick={creating() ? handleAddClick : handleSaveClick}
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}

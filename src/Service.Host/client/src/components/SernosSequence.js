@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { Grid } from '@material-ui/core';
 import {
     SaveBackCancelButtons,
@@ -51,6 +52,10 @@ function SernosSequence({
         return editStatus === 'edit';
     }
 
+    function viewing() {
+        return editStatus === 'view';
+    }
+
     function sequenceNameInvalid() {
         return !sernosSequence.sequenceName;
     }
@@ -77,6 +82,10 @@ function SernosSequence({
             setSernosSequence(item);
             setPrevSernosSequence(item);
         }
+    }
+
+    function sernosSequenceMatchesItem() {
+        return JSON.stringify(sernosSequence) === JSON.stringify(item);
     }
 
     return (
@@ -146,7 +155,7 @@ function SernosSequence({
                         </Grid>
                         <Grid item xs={8}>
                             <InputField
-                                value={sernosSequence.dateClosed}
+                                value={moment(sernosSequence.dateClosed).format('YYYY-MM-DD')}
                                 label="Date Closed"
                                 fullWidth
                                 onChange={handleFieldChange}
@@ -156,7 +165,11 @@ function SernosSequence({
                         </Grid>
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
-                                saveDisabled={!editing() || inputInvalid()}
+                                saveDisabled={
+                                    viewing() ||
+                                    inputInvalid() ||
+                                    (editing() && sernosSequenceMatchesItem())
+                                }
                                 saveClick={creating() ? handleAddClick : handleSaveClick}
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}
@@ -173,7 +186,7 @@ SernosSequence.propTypes = {
     item: PropTypes.shape({
         sernosSequence: PropTypes.string,
         description: PropTypes.string,
-        nextSerialNuber: PropTypes.number,
+        nextSerialNumber: PropTypes.number,
         dateClosed: PropTypes.string
     }),
     history: PropTypes.shape({}).isRequired,
