@@ -13,6 +13,8 @@
 
         public DbSet<SernosConfig> SernosConfigs { get; set; }
 
+        public DbSet<SernosSequence> SernosSequences { get; set; }
+
         public DbSet<Tariff> Tariffs { get; set; }
 
         public DbSet<SalesArticle> SalesArticles { get; set; }
@@ -31,6 +33,7 @@
         {
             this.BuildSaCoreType(builder);
             this.BuildSernosConfig(builder);
+            this.BuildSernosSequence(builder);
             this.BuildTariffs(builder);
             this.BuildSalesArticles(builder);
             this.BuildTypesOfSale(builder);
@@ -111,6 +114,16 @@
             builder.Entity<SernosConfig>().Property(t => t.NumberOfSernos).HasColumnName("NUM_OF_SERNOS");
             builder.Entity<SernosConfig>().Property(t => t.NumberOfBoxes).HasColumnName("NUM_OF_BOXES");
             builder.Entity<SernosConfig>().Property(t => t.StartOn).HasColumnName("START_ON");
+        }
+
+        private void BuildSernosSequence(ModelBuilder builder)
+        {
+            builder.Entity<SernosSequence>().ToTable("SERNOS_SEQUENCES");
+            builder.Entity<SernosSequence>().HasKey(t => t.SequenceName);
+            builder.Entity<SernosSequence>().Property(t => t.SequenceName).HasColumnName("SEQUENCE_NAME").HasMaxLength(10);
+            builder.Entity<SernosSequence>().Property(t => t.Description).HasColumnName("DESCRIPTION").HasMaxLength(50);
+            builder.Entity<SernosSequence>().Property(t => t.NextSerialNumber).HasColumnName("NEXT_SERIAL_NUMBER");
+            builder.Entity<SernosSequence>().Property(t => t.DateClosed).HasColumnName("DATE_CLOSED");
         }
 
         private void BuildTariffs(ModelBuilder builder)

@@ -11,6 +11,8 @@ import saHoldStoriesReport from './saHoldStoriesReport';
 import cartonType from './cartonType';
 import sernosConfig from './sernosConfig';
 import sernosConfigs from './sernosConfigs';
+import sernosSequence from './sernosSequence';
+import sernosSequences from './sernosSequences';
 import fetchError from './fetchError';
 import saCoreTypes from './saCoreTypes';
 import saCoreType from './saCoreType';
@@ -37,6 +39,8 @@ const rootReducer = combineReducers({
     cartonType,
     sernosConfig,
     sernosConfigs,
+    sernosSequence,
+    sernosSequences,
     saCoreTypes,
     saCoreType,
     fetchError,

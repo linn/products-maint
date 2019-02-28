@@ -1,6 +1,6 @@
-﻿import { connect } from 'react-redux';
-import vatCodeActions from '../../actions/vatCodeActions';
-import VatCode from '../../components/VatCode';
+import { connect } from 'react-redux';
+import sernosSequenceActions from '../../actions/sernosSequenceActions';
+import SernosSequence from '../../components/SernosSequence';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 
 const mapStateToProps = state => ({
@@ -10,11 +10,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    addItem: vatCodeActions.add,
-    setEditStatus: vatCodeActions.setEditStatus
+    addItem: sernosSequenceActions.add,
+    setEditStatus: sernosSequenceActions.setEditStatus
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(VatCode);
+)(SernosSequence);
