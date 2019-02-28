@@ -1,5 +1,4 @@
-﻿
-namespace Linn.Products.Service.Tests.ProductsOnHoldReportModuleSpecs
+﻿namespace Linn.Products.Service.Tests.ProductsOnHoldReportModuleSpecs
 {
     using System.Linq;
 
