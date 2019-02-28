@@ -6,18 +6,13 @@
     {
         public TypeOfSale(string name, string description, string nominal, string department, string realSale)
         {
-            this.CheckConfigurationIsValid(name, description, nominal, department, realSale);
+            this.ValidateTypeOfSale(name, description, nominal, department, realSale);
 
             this.Name = name;
             this.Description = description;
             this.Nominal = nominal;
             this.Department = department;
             this.RealSale = realSale;
-        }
-
-        private TypeOfSale()
-        {
-            // ef
         }
 
         public string Name { get; set; }
@@ -32,7 +27,7 @@
 
         public void Update(string description, string nominal, string department, string realSale)
         {
-            this.CheckConfigurationIsValid(this.Name, description, nominal, department, realSale);
+            this.ValidateTypeOfSale(this.Name, description, nominal, department, realSale);
 
             this.Description = description;
             this.Nominal = nominal;
@@ -40,7 +35,7 @@
             this.RealSale = realSale;
         }
 
-        private void CheckConfigurationIsValid(
+        private void ValidateTypeOfSale(
             string name,
             string description,
             string nominal,
