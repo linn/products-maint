@@ -7,6 +7,7 @@
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.Repositories;
+    using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Persistence.Linnapps;
     using Linn.Products.Persistence.Linnapps.Repositories;
 
@@ -30,6 +31,7 @@
             builder.RegisterType<TariffRepository>().As<ITariffRepository>();
             builder.RegisterType<SaHoldStoryRepository>().As<IRepository<SaHoldStory, int>>();
             builder.RegisterType<ProductRangeRepository>().As<IRepository<ProductRange, int>>();
+            builder.RegisterType<SalesPackageRepository>().As<IRepository<SalesPackage, int>>();
         }
     }
 }
