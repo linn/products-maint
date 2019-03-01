@@ -20,8 +20,8 @@ class SaCoreType extends Component {
         };
     }
 
-    static getDerivedStateFromProps(props) {
-        if (props.saCoreType) {
+    static getDerivedStateFromProps(props, state) {
+        if (!state.saCoreType || state.saCoreType.coreType !== props.saCoreType.coreType) {
             return { saCoreType: props.saCoreType };
         }
         return null;
