@@ -2,18 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Net;
     using System.Threading;
 
     using Linn.Common.Proxy;
     using Linn.Common.Serialization.Json;
-    using Linn.Products.Domain;
-    using Linn.Products.Domain.Repositories;
+    using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Proxy.Exceptions;
-    using Linn.Products.Resources.External;
 
-    public class EmployeeProxy
+    using Newtonsoft.Json.Linq;
+
+    public class EmployeeProxy : IEmployeeRepository
     {
         private readonly IRestClient restClient;
 
@@ -25,9 +25,9 @@
             this.rootUri = rootUri;
         }
 
-        public string GetEmployeeName(int id)
+        public IEnumerable<Employee> GetEmployees()
         {
-            var uri = new Uri($"{this.rootUri}/employees" + id, UriKind.RelativeOrAbsolute);
+            var uri = new Uri($"{this.rootUri}/employees", UriKind.RelativeOrAbsolute);
             var response = this.restClient.Get(
                 CancellationToken.None,
                 uri,
@@ -36,11 +36,13 @@
 
             if (response.StatusCode != HttpStatusCode.OK)
             {
-                throw new ProxyException($"Error trying to get Employee");
+                throw new ProxyException($"Error trying to get Employees");
             }
 
             var json = new JsonSerializer();
-            return response.ToString();
+            var result = json.Deserialize<dynamic>(response.Value);
+            var array = (JArray)result.items;
+            return array.ToObject<IEnumerable<Employee>>();
         }
     }
 }
