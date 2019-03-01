@@ -269,7 +269,7 @@ const Root = ({ store }) => (
                             />
                             <Route
                                 exact
-                                path="/products/sa-hold-stories"
+                                path="/products/reports/sa-hold-stories"
                                 component={SaHoldStoriesSearch}
                             />
                             <Route
@@ -279,7 +279,7 @@ const Root = ({ store }) => (
                             />
                             <Route
                                 exact
-                                path="/products/sa-hold-stories/:holdStoryId"
+                                path="/products/reports/sa-hold-stories/:holdStoryId"
                                 component={SaHoldStory}
                             />
                             <Route exact path="/:sectionId" component={MenuPage} />

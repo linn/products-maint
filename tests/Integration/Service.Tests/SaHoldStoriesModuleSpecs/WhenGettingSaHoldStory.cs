@@ -40,7 +40,7 @@
                              });
 
             this.Response = this.Browser.Get(
-                "/products/sa-hold-stories/1",
+                "/products/reports/sa-hold-stories/1",
                 with =>
                 {
                     with.Header("Accept", "application/json");
