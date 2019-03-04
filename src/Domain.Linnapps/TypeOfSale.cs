@@ -25,9 +25,9 @@
 
         public string RealSale { get; set; }
 
-        public void Update(string description, string nominal, string department, string realSale)
+        public void Update(string name, string description, string nominal, string department, string realSale)
         {
-            this.ValidateTypeOfSale(this.Name, description, nominal, department, realSale);
+            this.ValidateTypeOfSale(name, description, nominal, department, realSale);
 
             this.Description = description;
             this.Nominal = nominal;
@@ -45,6 +45,31 @@
             if (string.IsNullOrWhiteSpace(name))
             {
                 throw new DomainException("You must supply a name");
+            }
+
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                throw new DomainException("You must supply a description");
+            }
+
+            if (string.IsNullOrWhiteSpace(nominal))
+            {
+                throw new DomainException("You must supply a nominal");
+            }
+
+            if (string.IsNullOrWhiteSpace(department))
+            {
+                throw new DomainException("You must supply a department");
+            }
+
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                throw new DomainException("You must supply a description");
+            }
+
+            if (string.IsNullOrWhiteSpace(realSale))
+            {
+                throw new DomainException("You must supply a real sale");
             }
         }
     }

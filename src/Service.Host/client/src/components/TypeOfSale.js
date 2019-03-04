@@ -11,6 +11,44 @@ import {
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 
+function TypeOfSale({
+    editStatus,
+    errorMessage,
+    history,
+    itemId,
+    item,
+    loading,
+    addItem,
+    updateItem,
+    setEditStatus
+}) {
+    const [typeOfSale, setTypeOfSale] = useState({});
+    const [prevTypeOfSale, setPrevTypeOfSale] = useState({});
+
+    function handleSaveClick() {
+        updateItem(itemId, typeOfSale);
+        setEditStatus('view');
+    }
+
+    function handleCancelClick() {
+        setTypeOfSale(item);
+        setEditStatus('view');
+    }
+
+    function handleAddClick() {
+        addItem(typeOfSale);
+        setEditStatus('view');
+    }
+
+    // TODO order the types!
+    // finish refactoring this
+    function handleBackClick() {
+        history.push('/products/maint/types-of-sale');
+    }
+
+    function creating() {}
+}
+
 class TypeOfSale extends Component {
     constructor(props) {
         super(props);

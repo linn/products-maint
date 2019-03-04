@@ -4,12 +4,12 @@
 
     using NUnit.Framework;
 
-    public class WhenUpdatingConfiguration : ContextBase
+    public class WhenUpdatingTypeOfSale : ContextBase
     {
         [SetUp]
         public void SetUp()
         {
-            this.Sut.Update("NEW DESCRIPTION", "NOM", "DEPT", "N");
+            this.Sut.Update("DL", "NEW DESCRIPTION", "NOM", "DEPT", "N");
         }
 
         [Test]
