@@ -16,7 +16,6 @@ const initialise = () => dispatch => {
 
 const mapDispatchToProps = {
     initialise,
-    item: {},
     addItem: sernosSequenceActions.add,
     setEditStatus: sernosSequenceActions.setEditStatus
 };

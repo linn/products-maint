@@ -16,7 +16,6 @@ const initialise = () => dispatch => {
 
 const mapDispatchToProps = {
     initialise,
-    item: {},
     addItem: vatCodeActions.add,
     setEditStatus: vatCodeActions.setEditStatus
 };
