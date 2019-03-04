@@ -24,25 +24,6 @@ function VatCode({
     const [vatCode, setVatCode] = useState({});
     const [prevVatCode, setPrevVatCode] = useState({});
 
-    function handleSaveClick() {
-        updateItem(itemId, vatCode);
-        setEditStatus('view');
-    }
-
-    function handleCancelClick() {
-        setVatCode(prevVatCode);
-        setEditStatus('view');
-    }
-
-    function handleAddClick() {
-        addItem(vatCode);
-        setEditStatus('view');
-    }
-
-    function handleBackClick() {
-        history.push('/products/maint/vat-codes');
-    }
-
     function creating() {
         return editStatus === 'create';
     }
@@ -78,13 +59,28 @@ function VatCode({
         return codeInvalid() || descriptionInvalid() || rateInvalid();
     }
 
+    function handleSaveClick() {
+        if (editing()) {
+            updateItem(itemId, vatCode);
+            setEditStatus('view');
+        } else if (creating()) {
+            addItem(vatCode);
+            setEditStatus('view');
+        }
+    }
+
+    function handleCancelClick() {
+        setVatCode(prevVatCode);
+        setEditStatus('view');
+    }
+
+    function handleBackClick() {
+        history.push('/products/maint/vat-codes');
+    }
+
     function handleFieldChange(propertyName, newValue) {
         setEditStatus('edit');
         setVatCode({ ...vatCode, [propertyName]: newValue });
-    }
-
-    function vatCodeMatchesItem() {
-        return JSON.stringify(vatCode) === JSON.stringify(item);
     }
 
     function updateVatCodeFromProps() {
@@ -175,12 +171,8 @@ function VatCode({
                         )}
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
-                                saveDisabled={
-                                    viewing() ||
-                                    inputInvalid() ||
-                                    (editing() && vatCodeMatchesItem())
-                                }
-                                saveClick={creating() ? handleAddClick : handleSaveClick}
+                                saveDisabled={viewing() || inputInvalid()}
+                                saveClick={handleSaveClick}
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}
                             />

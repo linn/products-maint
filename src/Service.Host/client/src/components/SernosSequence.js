@@ -25,25 +25,6 @@ function SernosSequence({
     const [sernosSequence, setSernosSequence] = useState({});
     const [prevSernosSequence, setPrevSernosSequence] = useState({});
 
-    function handleSaveClick() {
-        updateItem(itemId, sernosSequence);
-        setEditStatus('view');
-    }
-
-    function handleCancelClick() {
-        setSernosSequence(item);
-        setEditStatus('view');
-    }
-
-    function handleAddClick() {
-        addItem(sernosSequence);
-        setEditStatus('view');
-    }
-
-    function handleBackClick() {
-        history.push('/products/maint/sernos-sequences');
-    }
-
     function creating() {
         return editStatus === 'create';
     }
@@ -72,8 +53,29 @@ function SernosSequence({
         return sequenceNameInvalid() || descriptionInvalid() || nextSerialNumberInvalid();
     }
 
+    function handleSaveClick() {
+        if (editing()) {
+            updateItem(itemId, sernosSequence);
+            setEditStatus('view');
+        } else if (creating()) {
+            addItem(sernosSequence);
+            setEditStatus('view');
+        }
+    }
+
+    function handleCancelClick() {
+        setSernosSequence(item);
+        setEditStatus('view');
+    }
+
+    function handleBackClick() {
+        history.push('/products/maint/sernos-sequences');
+    }
+
     function handleFieldChange(propertyName, newValue) {
-        setEditStatus('edit');
+        if (viewing()) {
+            setEditStatus('edit');
+        }
         setSernosSequence({ ...sernosSequence, [propertyName]: newValue });
     }
 
@@ -82,10 +84,6 @@ function SernosSequence({
             setSernosSequence(item);
             setPrevSernosSequence(item);
         }
-    }
-
-    function sernosSequenceMatchesItem() {
-        return JSON.stringify(sernosSequence) === JSON.stringify(item);
     }
 
     return (
@@ -155,7 +153,11 @@ function SernosSequence({
                         </Grid>
                         <Grid item xs={8}>
                             <InputField
-                                value={moment(sernosSequence.dateClosed).format('YYYY-MM-DD')}
+                                value={
+                                    sernosSequence.dateClosed
+                                        ? moment(sernosSequence.dateClosed).format('YYYY-MM-DD')
+                                        : ''
+                                }
                                 label="Date Closed"
                                 fullWidth
                                 onChange={handleFieldChange}
@@ -165,12 +167,8 @@ function SernosSequence({
                         </Grid>
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
-                                saveDisabled={
-                                    viewing() ||
-                                    inputInvalid() ||
-                                    (editing() && sernosSequenceMatchesItem())
-                                }
-                                saveClick={creating() ? handleAddClick : handleSaveClick}
+                                saveDisabled={viewing() || inputInvalid()}
+                                saveClick={handleSaveClick}
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}
                             />
