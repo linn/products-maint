@@ -24,31 +24,16 @@ function VatCode({
     const [vatCode, setVatCode] = useState({});
     const [prevVatCode, setPrevVatCode] = useState({});
 
-    function handleSaveClick() {
-        updateItem(itemId, vatCode);
-        setEditStatus('view');
-    }
-
-    function handleCancelClick() {
-        setVatCode(prevVatCode);
-        setEditStatus('view');
-    }
-
-    function handleAddClick() {
-        addItem(vatCode);
-        setEditStatus('view');
-    }
-
-    function handleBackClick() {
-        history.push('/products/maint/vat-codes');
-    }
-
     function creating() {
         return editStatus === 'create';
     }
 
     function editing() {
         return editStatus === 'edit';
+    }
+
+    function viewing() {
+        return editStatus === 'view';
     }
 
     function codeInvalid() {
@@ -72,6 +57,25 @@ function VatCode({
             return codeInvalid() || descriptionInvalid() || rateInvalid() || reasonInvalid();
         }
         return codeInvalid() || descriptionInvalid() || rateInvalid();
+    }
+
+    function handleSaveClick() {
+        if (editing()) {
+            updateItem(itemId, vatCode);
+            setEditStatus('view');
+        } else if (creating()) {
+            addItem(vatCode);
+            setEditStatus('view');
+        }
+    }
+
+    function handleCancelClick() {
+        setVatCode(prevVatCode);
+        setEditStatus('view');
+    }
+
+    function handleBackClick() {
+        history.push('/products/maint/vat-codes');
     }
 
     function handleFieldChange(propertyName, newValue) {
@@ -167,8 +171,8 @@ function VatCode({
                         )}
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
-                                saveDisabled={!editing() || inputInvalid()}
-                                saveClick={creating() ? handleAddClick : handleSaveClick}
+                                saveDisabled={viewing() || inputInvalid()}
+                                saveClick={handleSaveClick}
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}
                             />
