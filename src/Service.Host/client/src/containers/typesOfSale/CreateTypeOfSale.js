@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import initialiseOnMount from '../common/initialiseOnMount';
 import typeOfSaleActions from '../../actions/typeOfSaleActions';
 import TypeOfSale from '../../components/TypeOfSale';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
@@ -9,12 +10,17 @@ const mapStateToProps = state => ({
     errorMessage: getSingleErrorMessage(state)
 });
 
+const initialise = () => dispatch => {
+    dispatch(typeOfSaleActions.setEditStatus('create'));
+};
+
 const mapDispatchToProps = {
+    initialise,
     addTypeOfSale: typeOfSaleActions.add,
-    resetTypeOfSale: typeOfSaleActions.reset
+    setEditStatus: typeOfSaleActions.setEditStatus
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(TypeOfSale);
+)(initialiseOnMount(TypeOfSale));

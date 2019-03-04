@@ -5,7 +5,7 @@ import SernosSequence from '../../components/SernosSequence';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 
 const mapStateToProps = state => ({
-    vatCode: {},
+    sernosSequence: {},
     editStatus: 'create',
     errorMessage: getSingleErrorMessage(state)
 });

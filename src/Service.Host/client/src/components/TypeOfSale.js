@@ -25,68 +25,55 @@ function TypeOfSale({
     const [typeOfSale, setTypeOfSale] = useState({});
     const [prevTypeOfSale, setPrevTypeOfSale] = useState({});
 
-    function handleSaveClick() {
-        updateItem(itemId, typeOfSale);
-        setEditStatus('view');
-    }
+    const creating = () => editStatus === 'create';
+    const editing = () => editStatus === 'edit';
+    const viewing = () => editStatus === 'view';
 
-    function handleCancelClick() {
+    const nameInvalid = () => !typeOfSale.name;
+    const descriptionInvalid = () => !typeOfSale.description;
+    const nominalInvalid = () => !typeOfSale.nominal;
+    const departmentInvalid = () => !typeOfSale.department;
+
+    const inputInvalid = () =>
+        nameInvalid() || descriptionInvalid() || nominalInvalid() || departmentInvalid();
+
+    const handleSaveClick = () => {
+        setEditStatus('view');
+        if (editing()) {
+            updateItem(itemId, typeOfSale);
+        } else if (creating()) {
+            addItem(typeOfSale);
+        }
+    };
+
+    const handleCancelClick = () => {
         setTypeOfSale(item);
         setEditStatus('view');
-    }
+    };
 
-    function handleAddClick() {
-        addItem(typeOfSale);
-        setEditStatus('view');
-    }
-
-    // TODO order the types!
-    // finish refactoring this
-    function handleBackClick() {
+    const handleBackClick = () => {
         history.push('/products/maint/types-of-sale');
-    }
+    };
 
-    function creating() {
-        return editStatus === 'create';
-    }
-
-    function editing() {
-        return editStatus === 'edit';
-    }
-
-    // TODO validators
-
-    function handleFieldChange(propertyName, newValue) {
+    const handleFieldChange = (propertyName, newValue) => {
         setEditStatus('edit');
-        if (propertyName === 'vatOnly') {
+        if (propertyName === 'realSale') {
             setTypeOfSale({ ...typeOfSale, [propertyName]: newValue ? 'Y' : 'N' });
+        } else {
+            setTypeOfSale({ ...typeOfSale, [propertyName]: newValue });
         }
-        setTypeOfSale({ ...typeOfSale, [propertyName]: newValue });
-    }
+    };
 
-    // function handleSwitchChange(propertyName, val) {
-    //     setEditStatus('edit');
-    // }
-    // handleSwitchChange(propertyName, val) {
-    //     this.setState(prevState => ({
-    //         typeOfSale: {
-    //             ...prevState.typeOfSale,
-    //             [propertyName]: val ? 'Y' : 'N'
-    //         },
-    //         editStatus: 'edit'
-    //     }));
-    // }
-
-    function updateVatCodeFromProps() {
+    const updateTypeOfSaleFromProps = () => {
         if (item !== prevTypeOfSale) {
             setTypeOfSale(item);
             setPrevTypeOfSale(item);
         }
-    }
+    };
 
     return (
         <Page>
-            {updateVatCodeFromProps()}
+            {updateTypeOfSaleFromProps()}
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     {creating() ? (
@@ -115,8 +102,9 @@ function TypeOfSale({
                                 helperText={
                                     !creating()
                                         ? 'This field cannot be changed'
-                                        : 'This field is required'
+                                        : `${nameInvalid() ? 'This field is required' : ''}`
                                 }
+                                error={nameInvalid()}
                                 onChange={handleFieldChange}
                                 propertyName="name"
                             />
@@ -126,6 +114,8 @@ function TypeOfSale({
                                 value={typeOfSale.description}
                                 label="Description"
                                 fullWidth
+                                helperText={descriptionInvalid() ? 'This field is required' : ''}
+                                error={descriptionInvalid()}
                                 onChange={handleFieldChange}
                                 propertyName="description"
                             />
@@ -135,6 +125,8 @@ function TypeOfSale({
                                 value={typeOfSale.department}
                                 label="Department"
                                 fullWidth
+                                helperText={departmentInvalid() ? 'This field is required' : ''}
+                                error={departmentInvalid()}
                                 onChange={handleFieldChange}
                                 propertyName="department"
                             />
@@ -144,6 +136,8 @@ function TypeOfSale({
                                 value={typeOfSale.nominal}
                                 label="Nominal"
                                 fullWidth
+                                helperText={nominalInvalid() ? 'This field is required' : ''}
+                                error={nominalInvalid()}
                                 onChange={handleFieldChange}
                                 propertyName="nominal"
                             />
@@ -158,10 +152,8 @@ function TypeOfSale({
                         </Grid>
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
-                                saveDisabled={
-                                    !editing() || (!typeOfSale.name || typeOfSale.name.length === 0)
-                                }
-                                saveClick={creating() ? handleAddClick : handleSaveClick}
+                                saveDisabled={viewing() || inputInvalid()}
+                                saveClick={handleSaveClick}
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}
                             />
@@ -173,197 +165,31 @@ function TypeOfSale({
     );
 }
 
-// class TypeOfSale extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.handleFieldChange = this.handleFieldChange.bind(this);
-//         this.handleSwitchChange = this.handleSwitchChange.bind(this);
-//         this.state = {
-//             editStatus: 'view',
-//             typeOfSale: null
-//         };
-//     }
-
-//     static getDerivedStateFromProps(props, state) {
-//         if (!state.typeOfSale && props.typeOfSale) {
-//             return { typeOfSale: props.typeOfSale };
-//         }
-//         return null;
-//     }
-
-//     handleSaveClick = () => {
-//         const { typeOfSaleId, updateTypeOfSale } = this.props;
-//         updateTypeOfSale(typeOfSaleId, { ...this.state }.typeOfSale);
-//         this.setState({ editStatus: 'view' });
-//     };
-
-//     handleCancelClick = () => {
-//         const { typeOfSale } = this.props;
-//         this.setState({ typeOfSale });
-//         this.setState({ editStatus: 'view' });
-//     };
-
-//     handleAddClick = () => {
-//         const { addTypeOfSale } = this.props;
-//         const { typeOfSale } = this.state;
-//         addTypeOfSale(typeOfSale);
-//         this.setState({ editStatus: 'view' });
-//     };
-
-//     handleBackClick = () => {
-//         this.setState({ editStatus: 'view' });
-//         const { history } = this.props;
-//         history.push('/products/maint/types-of-sale');
-//     };
-
-//     creating() {
-//         const { editStatus } = this.props;
-//         return editStatus === 'create';
-//     }
-
-//     editing() {
-//         const { editStatus } = this.state;
-//         return editStatus === 'edit';
-//     }
-
-//     viewing() {
-//         const { editStatus } = this.state;
-//         return editStatus === 'view';
-//     }
-
-//     handleFieldChange(propertyName, val) {
-//         this.setState(prevState => ({
-//             typeOfSale: {
-//                 ...prevState.typeOfSale,
-//                 [propertyName]: val
-//             },
-//             editStatus: 'edit'
-//         }));
-//     }
-
-//     handleSwitchChange(propertyName, val) {
-//         this.setState(prevState => ({
-//             typeOfSale: {
-//                 ...prevState.typeOfSale,
-//                 [propertyName]: val ? 'Y' : 'N'
-//             },
-//             editStatus: 'edit'
-//         }));
-//     }
-
-//     render() {
-//         const { loading, errorMessage } = this.props;
-//         const { typeOfSale } = this.state;
-//         return (
-//             <Page>
-//                 <Grid container spacing={24}>
-//                     <Grid item xs={12}>
-//                         {this.creating() ? (
-//                             <Title text="Create Type of Sale" />
-//                         ) : (
-//                             <Title text="Type of Sale Details" />
-//                         )}
-//                     </Grid>
-//                     {errorMessage && (
-//                         <Grid item xs={12}>
-//                             <ErrorCard errorMessage={errorMessage} />
-//                         </Grid>
-//                     )}
-//                     {loading || !typeOfSale ? (
-//                         <Grid item xs={12}>
-//                             <Loading />
-//                         </Grid>
-//                     ) : (
-//                         <Fragment>
-//                             <Grid item xs={4}>
-//                                 <InputField
-//                                     fullWidth
-//                                     disabled={!this.creating()}
-//                                     value={typeOfSale.name}
-//                                     label="Name"
-//                                     helperText={
-//                                         !this.creating()
-//                                             ? 'This field cannot be changed'
-//                                             : 'This field is required'
-//                                     }
-//                                     onChange={this.handleFieldChange}
-//                                     propertyName="name"
-//                                 />
-//                             </Grid>
-//                             <Grid item xs={8}>
-//                                 <InputField
-//                                     value={typeOfSale.description}
-//                                     label="Description"
-//                                     fullWidth
-//                                     onChange={this.handleFieldChange}
-//                                     propertyName="description"
-//                                 />
-//                             </Grid>
-//                             <Grid item xs={8}>
-//                                 <InputField
-//                                     value={typeOfSale.department}
-//                                     label="Department"
-//                                     fullWidth
-//                                     onChange={this.handleFieldChange}
-//                                     propertyName="department"
-//                                 />
-//                             </Grid>
-//                             <Grid item xs={8}>
-//                                 <InputField
-//                                     value={typeOfSale.nominal}
-//                                     label="Nominal"
-//                                     fullWidth
-//                                     onChange={this.handleFieldChange}
-//                                     propertyName="nominal"
-//                                 />
-//                             </Grid>
-//                             <Grid item xs={12}>
-//                                 <OnOffSwitch
-//                                     label="Real Sale"
-//                                     value={typeOfSale.realSale === 'Y'}
-//                                     onChange={this.handleSwitchChange}
-//                                     propertyName="realSale"
-//                                 />
-//                             </Grid>
-//                             <Grid item xs={12}>
-//                                 <SaveBackCancelButtons
-//                                     saveDisabled={
-//                                         !this.editing() ||
-//                                         (!typeOfSale.name || typeOfSale.name.length === 0)
-//                                     }
-//                                     saveClick={
-//                                         this.creating() ? this.handleAddClick : this.handleSaveClick
-//                                     }
-//                                     cancelClick={this.handleCancelClick}
-//                                     backClick={this.handleBackClick}
-//                                 />
-//                             </Grid>
-//                         </Fragment>
-//                     )}
-//                 </Grid>
-//             </Page>
-//         );
-//     }
-// }
-
-TypeOfSale.defaultProps = {
-    typeOfSale: {},
-    addTypeOfSale: null,
-    updateTypeOfSale: null,
-    loading: null,
-    errorMessage: '',
-    typeOfSaleId: null
-};
-
 TypeOfSale.propTypes = {
-    typeOfSale: PropTypes.shape({}),
+    item: PropTypes.shape({
+        typeOfSale: PropTypes.string,
+        description: PropTypes.string,
+        department: PropTypes.string,
+        nominal: PropTypes.string,
+        realSale: PropTypes.string
+    }),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
-    typeOfSaleId: PropTypes.string,
-    updateTypeOfSale: PropTypes.func,
-    addTypeOfSale: PropTypes.func,
-    loading: PropTypes.bool
+    itemId: PropTypes.string,
+    updateItem: PropTypes.func,
+    addItem: PropTypes.func,
+    loading: PropTypes.bool,
+    setEditStatus: PropTypes.func.isRequired
+};
+
+TypeOfSale.defaultProps = {
+    item: {},
+    addItem: null,
+    updateItem: null,
+    loading: null,
+    errorMessage: '',
+    itemId: null
 };
 
 export default TypeOfSale;
