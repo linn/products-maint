@@ -17,7 +17,8 @@ const initialise = () => dispatch => {
 const mapDispatchToProps = {
     initialise,
     addTypeOfSale: typeOfSaleActions.add,
-    setEditStatus: typeOfSaleActions.setEditStatus
+    setEditStatus: typeOfSaleActions.setEditStatus,
+    setSnackbarVisible: typeOfSaleActions.setSnackbarVisible
 };
 
 export default connect(

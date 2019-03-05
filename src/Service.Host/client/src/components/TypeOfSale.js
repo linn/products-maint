@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Grid } from '@material-ui/core';
+import { Grid, Snackbar, Button, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import {
     OnOffSwitch,
     SaveBackCancelButtons,
@@ -18,9 +19,11 @@ function TypeOfSale({
     itemId,
     item,
     loading,
+    snackbarVisible,
     addItem,
     updateItem,
-    setEditStatus
+    setEditStatus,
+    setSnackbarVisible
 }) {
     const [typeOfSale, setTypeOfSale] = useState({});
     const [prevTypeOfSale, setPrevTypeOfSale] = useState({});
@@ -93,6 +96,27 @@ function TypeOfSale({
                     </Grid>
                 ) : (
                     <Fragment>
+                        <Snackbar
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left'
+                            }}
+                            open={snackbarVisible}
+                            autoHideDuration={3000}
+                            onClose={() => setSnackbarVisible(false)}
+                            message="Item Saved"
+                            action={[
+                                <IconButton
+                                    key="close"
+                                    aria-label="Close"
+                                    color="inherit"
+                                    onClick={() => setSnackbarVisible(false)}
+                                >
+                                    <CloseIcon />
+                                </IconButton>
+                            ]}
+                        />
+                        <Button onClick={() => setSnackbarVisible(true)}>Open Snackbar</Button>
                         <Grid item xs={4}>
                             <InputField
                                 fullWidth
@@ -177,14 +201,17 @@ TypeOfSale.propTypes = {
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,
+    snackbarVisible: PropTypes.bool,
     updateItem: PropTypes.func,
     addItem: PropTypes.func,
     loading: PropTypes.bool,
-    setEditStatus: PropTypes.func.isRequired
+    setEditStatus: PropTypes.func.isRequired,
+    setSnackbarVisible: PropTypes.func.isRequired
 };
 
 TypeOfSale.defaultProps = {
     item: {},
+    snackbarVisible: false,
     addItem: null,
     updateItem: null,
     loading: null,

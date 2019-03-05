@@ -25,4 +25,13 @@
 
         return storeItem.editStatus ? storeItem.editStatus : 'view';
     };
+
+    this.getSnackbarVisible = state => {
+        const storeItem = state[item];
+        if (!storeItem) {
+            return null;
+        }
+
+        return storeItem.snackbarVisible;
+    };
 }
