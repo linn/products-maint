@@ -25,35 +25,18 @@ function SernosSequence({
     const [sernosSequence, setSernosSequence] = useState({});
     const [prevSernosSequence, setPrevSernosSequence] = useState({});
 
-    function creating() {
-        return editStatus === 'create';
-    }
+    const creating = () => editStatus === 'create';
+    const editing = () => editStatus === 'edit';
+    const viewing = () => editStatus === 'view';
 
-    function editing() {
-        return editStatus === 'edit';
-    }
+    const sequenceNameInvalid = () => !sernosSequence.sequenceName;
+    const descriptionInvalid = () => !sernosSequence.description;
+    const nextSerialNumberInvalid = () => !sernosSequence.nextSerialNumber;
 
-    function viewing() {
-        return editStatus === 'view';
-    }
+    const inputInvalid = () =>
+        sequenceNameInvalid() || descriptionInvalid() || nextSerialNumberInvalid();
 
-    function sequenceNameInvalid() {
-        return !sernosSequence.sequenceName;
-    }
-
-    function descriptionInvalid() {
-        return !sernosSequence.description;
-    }
-
-    function nextSerialNumberInvalid() {
-        return typeof sernosSequence.nextSerialNumber !== 'number';
-    }
-
-    function inputInvalid() {
-        return sequenceNameInvalid() || descriptionInvalid() || nextSerialNumberInvalid();
-    }
-
-    function handleSaveClick() {
+    const handleSaveClick = () => {
         if (editing()) {
             updateItem(itemId, sernosSequence);
             setEditStatus('view');
@@ -61,30 +44,30 @@ function SernosSequence({
             addItem(sernosSequence);
             setEditStatus('view');
         }
-    }
+    };
 
-    function handleCancelClick() {
+    const handleCancelClick = () => {
         setSernosSequence(item);
         setEditStatus('view');
-    }
+    };
 
-    function handleBackClick() {
+    const handleBackClick = () => {
         history.push('/products/maint/sernos-sequences');
-    }
+    };
 
-    function handleFieldChange(propertyName, newValue) {
+    const handleFieldChange = (propertyName, newValue) => {
         if (viewing()) {
             setEditStatus('edit');
         }
         setSernosSequence({ ...sernosSequence, [propertyName]: newValue });
-    }
+    };
 
-    function updateSernosSequenceFromProps() {
+    const updateSernosSequenceFromProps = () => {
         if (item !== prevSernosSequence) {
             setSernosSequence(item);
             setPrevSernosSequence(item);
         }
-    }
+    };
 
     return (
         <Page>

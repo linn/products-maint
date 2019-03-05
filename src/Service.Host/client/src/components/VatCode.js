@@ -24,42 +24,21 @@ function VatCode({
     const [vatCode, setVatCode] = useState({});
     const [prevVatCode, setPrevVatCode] = useState({});
 
-    function creating() {
-        return editStatus === 'create';
-    }
+    const creating = () => editStatus === 'create';
+    const editing = () => editStatus === 'edit';
+    const viewing = () => editStatus === 'view';
 
-    function editing() {
-        return editStatus === 'edit';
-    }
+    const codeInvalid = () => !vatCode.code;
+    const descriptionInvalid = () => !vatCode.description;
+    const rateInvalid = () => typeof vatCode.rate !== 'number';
+    const reasonInvalid = () => !vatCode.reason && editing();
 
-    function viewing() {
-        return editStatus === 'view';
-    }
+    const inputInvalid = () =>
+        !creating()
+            ? codeInvalid() || descriptionInvalid() || rateInvalid() || reasonInvalid()
+            : codeInvalid() || descriptionInvalid() || rateInvalid();
 
-    function codeInvalid() {
-        return !vatCode.code;
-    }
-
-    function descriptionInvalid() {
-        return !vatCode.description;
-    }
-
-    function rateInvalid() {
-        return typeof vatCode.rate !== 'number';
-    }
-
-    function reasonInvalid() {
-        return !vatCode.reason && editing();
-    }
-
-    function inputInvalid() {
-        if (!creating()) {
-            return codeInvalid() || descriptionInvalid() || rateInvalid() || reasonInvalid();
-        }
-        return codeInvalid() || descriptionInvalid() || rateInvalid();
-    }
-
-    function handleSaveClick() {
+    const handleSaveClick = () => {
         if (editing()) {
             updateItem(itemId, vatCode);
             setEditStatus('view');
@@ -67,30 +46,30 @@ function VatCode({
             addItem(vatCode);
             setEditStatus('view');
         }
-    }
+    };
 
-    function handleCancelClick() {
+    const handleCancelClick = () => {
         setVatCode(prevVatCode);
         setEditStatus('view');
-    }
+    };
 
-    function handleBackClick() {
+    const handleBackClick = () => {
         history.push('/products/maint/vat-codes');
-    }
+    };
 
-    function handleFieldChange(propertyName, newValue) {
+    const handleFieldChange = (propertyName, newValue) => {
         setEditStatus('edit');
         setVatCode({ ...vatCode, [propertyName]: newValue });
-    }
+    };
 
-    function updateVatCodeFromProps() {
+    const updateVatCodeFromProps = () => {
         if (!creating()) {
             if (item !== prevVatCode) {
                 setVatCode({ ...item, reason: '' });
                 setPrevVatCode(item);
             }
         }
-    }
+    };
 
     return (
         <Page>
