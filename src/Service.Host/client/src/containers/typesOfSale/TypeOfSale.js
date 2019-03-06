@@ -6,21 +6,23 @@ import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import typeOfSaleSelectors from '../../selectors/typeOfSaleSelectors';
 
 const mapStateToProps = (state, { match }) => ({
-    typeOfSale: typeOfSaleSelectors.getItem(state),
-    typeOfSaleId: match.params.typeOfSaleId,
+    item: typeOfSaleSelectors.getItem(state),
+    itemId: match.params.typeOfSaleId,
     editStatus: typeOfSaleSelectors.getEditStatus(state),
     loading: typeOfSaleSelectors.getLoading(state),
     errorMessage: getSingleErrorMessage(state)
 });
 
-const initialise = ({ typeOfSaleId }) => dispatch => {
-    dispatch(typeOfSaleActions.fetch(typeOfSaleId));
+const initialise = ({ itemId }) => dispatch => {
+    dispatch(typeOfSaleActions.fetch(itemId));
 };
 
 const mapDispatchToProps = {
     initialise,
-    updateTypeOfSale: typeOfSaleActions.update,
-    resetTypeOfSale: typeOfSaleActions.reset
+    updateItem: typeOfSaleActions.update,
+    // TODO think this can be deleted
+    resetItem: typeOfSaleActions.reset,
+    setEditStatus: typeOfSaleActions.setEditStatus
 };
 
 export default connect(

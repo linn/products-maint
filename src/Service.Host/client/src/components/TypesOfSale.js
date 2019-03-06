@@ -3,6 +3,20 @@ import PropTypes from 'prop-types';
 import { Loading, EntityList, CreateButton } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 
+const sortTypesOfSale = typesOfSale => {
+    typesOfSale.sort((a, b) => {
+        if (a.name < b.name) {
+            return -1;
+        }
+        if (a.name > b.name) {
+            return 1;
+        }
+        return 0;
+    });
+
+    return typesOfSale;
+};
+
 const TypesOfSale = ({ typesOfSale, loading }) => (
     <Page>
         {loading ? (
@@ -12,7 +26,7 @@ const TypesOfSale = ({ typesOfSale, loading }) => (
                 <CreateButton createUrl="/products/maint/types-of-sale/create" />
                 <EntityList
                     title="Types of Sale"
-                    entityList={typesOfSale}
+                    entityList={sortTypesOfSale(typesOfSale)}
                     entityId="name"
                     loading={loading}
                     descriptionFieldName="description"

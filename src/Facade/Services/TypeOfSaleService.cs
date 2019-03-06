@@ -14,18 +14,19 @@
 
         protected override TypeOfSale CreateFromResource(TypeOfSaleResource resource)
         {
-            var config = new TypeOfSale(
+            var typeOfSale = new TypeOfSale(
                 resource.Name,
                 resource.Description,
                 resource.Nominal,
                 resource.Department,
                 resource.RealSale);
-            return config;
+            return typeOfSale;
         }
 
         protected override void UpdateFromResource(TypeOfSale typeOfSale, TypeOfSaleResource updateResource)
         {
             typeOfSale.Update(
+                updateResource.Name,
                 updateResource.Description,
                 updateResource.Nominal,
                 updateResource.Department,
