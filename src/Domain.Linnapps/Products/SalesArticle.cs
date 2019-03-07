@@ -1,6 +1,8 @@
 ﻿namespace Linn.Products.Domain.Linnapps.Products
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
 
     public class SalesArticle
@@ -40,6 +42,8 @@
 
         [ForeignKey("SA_CORE_TYPE")]
         public SaCoreType SaCoreType { get; set; }
+
+        public ICollection<SaHoldStory> HoldStories { get; set; }
 
         public void Update(
             string forecastType,

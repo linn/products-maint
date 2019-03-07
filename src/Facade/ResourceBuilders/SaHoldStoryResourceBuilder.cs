@@ -15,7 +15,7 @@
                            DateStarted = saHoldStory.DateStarted.ToString("o"),
                            DateFinished = saHoldStory.DateFinished?.ToString("o"),
                            PutOnHoldByEmployee = saHoldStory.PutOnHoldByEmployee.FullName,
-                           TakenOffHoldByEmployeeNumber = saHoldStory.TakenOffHoldByEmployeeNumber,
+                           TakenOffHoldByEmployee = saHoldStory.TakenOffHoldByEmployee.FullName,
                            ReasonStarted = saHoldStory.ReasonStarted,
                            ReasonFinished = saHoldStory.ReasonFinished,
                            AnticipatedEndDate = saHoldStory.AnticipatedEndDate,  

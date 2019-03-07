@@ -23,13 +23,16 @@
             return this.serviceDbContext.SaHoldStories
                 .Where(s => s.HoldStoryId == key)
                 .Include(e => e.PutOnHoldByEmployee)
+                .Include(e => e.TakenOffHoldByEmployee)
                 .Include(e => e.SalesArticle)
                 .ToList().First();
         }
 
         public IQueryable<SaHoldStory> FindAll()
         {
-            return this.serviceDbContext.SaHoldStories;
+            return this.serviceDbContext.SaHoldStories
+                .Include(e => e.SalesArticle)
+                .Include(e => e.PutOnHoldByEmployee);
         }
 
         public void Add(SaHoldStory entity)

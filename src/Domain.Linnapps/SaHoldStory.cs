@@ -13,8 +13,9 @@
         }
         public int HoldStoryId { get; set; }
 
-        [ForeignKey("ARTICLE_NUMBER")]
         public SalesArticle SalesArticle { get; set; }
+
+        public string ArticleNumber { get; set; }
 
         public DateTime DateStarted { get; set; }
 
@@ -23,7 +24,8 @@
         [ForeignKey("EMPLOYEE_NUMBER")]
         public Employee PutOnHoldByEmployee { get; set; }
 
-        public int? TakenOffHoldByEmployeeNumber { get; set; }
+        [ForeignKey("EMPLOYEE_NUMBER_TAKEN_OFF_HOLD")]
+        public Employee TakenOffHoldByEmployee { get; set; }
 
         public string ReasonStarted { get; set; }
 

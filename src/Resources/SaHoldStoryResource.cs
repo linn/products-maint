@@ -18,7 +18,7 @@ namespace Linn.Products.Resources
 
         public string PutOnHoldByEmployee { get; set; }
 
-        public int? TakenOffHoldByEmployeeNumber { get; set; }
+        public string TakenOffHoldByEmployee { get; set; }
 
         public string ReasonStarted { get; set; }
 

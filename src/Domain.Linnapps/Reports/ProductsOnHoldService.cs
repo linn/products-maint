@@ -11,39 +11,15 @@
     public class ProductsOnHoldService : IProductsOnHoldService
     {
         private readonly IRepository<SaHoldStory, int> saHoldStoryRepository;
-        private readonly IRepository<SalesArticle, string> salesArticleRepository;
-        private readonly IEmployeeRepository employeeRepository;
 
-        public ProductsOnHoldService(
-            IRepository<SaHoldStory, int> saHoldStoryRepository,
-            IRepository<SalesArticle, string> salesArticleRepository,
-            IEmployeeRepository employeeRepository)
+        public ProductsOnHoldService(IRepository<SaHoldStory, int> saHoldStoryRepository)
         {
-            this.saHoldStoryRepository = saHoldStoryRepository;
-            this.salesArticleRepository = salesArticleRepository;
-            this.employeeRepository = employeeRepository;
+            this.saHoldStoryRepository = saHoldStoryRepository; 
         }
 
         public ResultsModel GetProductsOnHold()
         {
-            var stories = this.saHoldStoryRepository.FindAll();
-            var salesArticles = this.salesArticleRepository.FindAll();
-            var employees = this.employeeRepository.GetEmployees();
-            var productsOnHold = this.saHoldStoryRepository.FindAll().Where(s => s.DateFinished == null);
-            // var productsOnHold = from story in stories
-            //                      join article in salesArticles on story.SalesArticle.ArticleNumber equals article.ArticleNumber
-            //                      join employee in employees on story.PutOnHoldByEmployee.Id equals employee.Id
-            //                      where (story.DateFinished == null)
-            //                      select new
-            //                                 {
-            //                                     ArticleNumber = article.ArticleNumber,
-            //                                     InvoiceDescription = article.InvoiceDescription,
-            //                                     PutOnHoldBy = employee.FullName,
-            //                                     DateStarted = story.DateStarted,
-            //                                     AnticipatedEndDate = story.AnticipatedEndDate,
-            //                                     ReasonStarted = story.ReasonStarted
-            //                                 };
-
+            var productsOnHold = this.saHoldStoryRepository.FindAll().Where(s => s.DateFinished == null);  
             var results = new ResultsModel(new[] { "Article Number", "Invoice Description", "Put On Hold By", "Date Started", "Anticipated End Date", "Reason Started"})
                               {
                                   RowHeader = "Name",
@@ -59,7 +35,7 @@
 
             foreach (var productOnHold in productsOnHold)
             {
-                var row = results.AddRow(productOnHold.SalesArticle.ArticleNumber);
+                var row = results.AddRow(productOnHold.ArticleNumber);
                 results.SetGridTextValue(row.RowIndex, 0, productOnHold.SalesArticle.ArticleNumber);
                 results.SetGridTextValue(row.RowIndex, 1, productOnHold.SalesArticle.InvoiceDescription);
                 results.SetGridTextValue(row.RowIndex, 2, productOnHold.PutOnHoldByEmployee.FullName);

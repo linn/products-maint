@@ -95,7 +95,7 @@ function SaHoldStory({ saHoldStory, loading, errorMessage, classes, history }) {
                         </Grid>
                         <Grid item xs={6}>
                             <InputField
-                                value={saHoldStory.putOnHoldByEmployeeNumber}
+                                value={saHoldStory.putOnHoldByEmployee}
                                 disabled
                                 label="Put on Hold By Employee"
                                 fullWidth
@@ -104,7 +104,7 @@ function SaHoldStory({ saHoldStory, loading, errorMessage, classes, history }) {
                         </Grid>
                         <Grid item xs={6}>
                             <InputField
-                                value={saHoldStory.takenOffHoldByEmployeeNumber}
+                                value={saHoldStory.takenOffHoldByEmployee}
                                 disabled
                                 label="Taken Off Hold By Employee"
                                 fullWidth
