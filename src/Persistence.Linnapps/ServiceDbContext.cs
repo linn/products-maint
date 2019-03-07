@@ -3,6 +3,7 @@
     using Linn.Common.Configuration;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Domain.Linnapps.SalesPackages;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -26,8 +27,10 @@
         public DbSet<SaHoldStory> SaHoldStories { get; set; }
 
         public DbSet<VatCode> VatCodes { get; set; }
-        
+
         public DbSet<ProductRange> ProductRanges { get; set; }
+
+        public DbSet<SalesPackage> SalesPackages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -41,6 +44,7 @@
             this.BuildSaHoldStories(builder);
             this.BuildVatCode(builder);
             this.BuildProductRanges(builder);
+            this.BuildSalesPackages(builder);
             base.OnModelCreating(builder);
         }
 
@@ -66,6 +70,44 @@
             builder.Entity<ProductRange>().Property(r => r.RangeName).HasColumnName("RANGE_NAME").HasMaxLength(30);
             builder.Entity<ProductRange>().Property(r => r.RangeDescription).HasColumnName("RANGE_DESCRIPTION").HasMaxLength(150);
             builder.Entity<ProductRange>().Property(r => r.DateInvalid).HasColumnName("DATE_INVALID");
+        }
+
+        private void BuildSalesPackages(ModelBuilder builder)
+        {
+            builder.Entity<SalesPackage>().ToTable("SALES_PACKAGES");
+            builder.Entity<SalesPackage>().HasKey(s => s.Id);
+            builder.Entity<SalesPackage>().Property(s => s.Id).HasColumnName("BRIDGE_ID");
+            builder.Entity<SalesPackage>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID").HasMaxLength(10);
+            builder.Entity<SalesPackage>().Property(s => s.Description).HasColumnName("DESCRIPTION").HasMaxLength(50);
+            builder.Entity<SalesPackage>().HasMany(s => s.Elements);
+
+
+            builder.Entity<SalesPackageElement>().ToTable("SALES_PACKAGE_ELEMENTS");
+            builder.Entity<SalesPackageElement>().HasKey(s => new { s.SalesPackageId, s.ElementType });
+            builder.Entity<SalesPackageElement>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID").HasMaxLength(10);
+            builder.Entity<SalesPackageElement>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE").HasMaxLength(10);
+            builder.Entity<SalesPackageElement>().Property(s => s.Sequence).HasColumnName("SPE_SEQUENCE");
+            builder.Entity<SalesPackageElement>().Property(s => s.Quantity).HasColumnName("QUANTITY");
+            builder.Entity<SalesPackageElement>().HasMany(s => s.Packages);
+
+            builder.Entity<SalesPackageElementType>().ToTable("SALES_PACKAGE_EL_TYPES");
+            builder.Entity<SalesPackageElementType>().HasKey(s => s.ElementType);
+            builder.Entity<SalesPackageElementType>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE").HasMaxLength(10);
+            builder.Entity<SalesPackageElementType>().Property(s => s.Description).HasColumnName("PACKAGE_ELEMENT_TYPE_DESCRIPTI").HasMaxLength(50);
+
+            builder.Entity<SalesPackageElementJoin>().ToTable("SALES_PACKAGE_ELEMENT_JOINS");
+            builder.Entity<SalesPackageElementJoin>().HasKey(s => s.Id);
+            builder.Entity<SalesPackageElementJoin>().Property(s => s.Id).HasColumnName("ID");
+            builder.Entity<SalesPackageElementJoin>().Property(s => s.BridgeId).HasColumnName("BRIDGE_ID");
+            builder.Entity<SalesPackageElementJoin>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID").HasMaxLength(10);
+            builder.Entity<SalesPackageElementJoin>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE").HasMaxLength(10);
+            builder.Entity<SalesPackageElementJoin>().HasOne(j => j.SalesPackage)
+                .WithMany(r => r.Elements)
+                .HasForeignKey(j => j.BridgeId);
+
+            builder.Entity<SalesPackageElementJoin>().HasOne(j => j.SalesPackageElement)
+                .WithMany(d => d.Packages)
+                .HasForeignKey(j => new { j.SalesPackageId, j.ElementType });
         }
 
         private void BuildCartonTypes(ModelBuilder builder)

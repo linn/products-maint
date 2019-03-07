@@ -1,0 +1,36 @@
+﻿create or replace trigger spe_trigger_1 
+before insert or update on sales_package_elements 
+for each row 
+declare
+  cursor c is 
+    select package_element_type 
+    from sales_package_el_types
+    where package_element_type = :new.package_element_type;
+  v_c c%rowtype;
+begin
+  open c;
+  fetch c into v_c;
+  close c;
+  if v_c.package_element_type is null then 
+    insert into sales_package_el_types
+    (
+      package_element_type,
+      package_element_type_descripti
+    )
+    values
+    (
+      :new.package_element_type, -- package_element_type
+      :new.package_element_type -- package_element_type_descripti
+    );
+  end if;
+end;
+/
+
+create sequence SPEJ_SEQ nocache;
+
+create table dev.sales_package_element_joins 
+(	id number not null, 
+  bridge_id number not null, 
+  sales_package_id varchar2(10 byte) not null, 
+  package_element_type varchar2(10 byte) not null
+);

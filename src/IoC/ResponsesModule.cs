@@ -7,6 +7,7 @@
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Facade.ResourceBuilders;
 
     public class ResponsesModule : Module
@@ -35,6 +36,8 @@
             builder.RegisterType<VatCodesResourceBuilder>().As<IResourceBuilder<IEnumerable<VatCode>>>();
             builder.RegisterType<ProductRangeResourceBuilder>().As<IResourceBuilder<ProductRange>>();
             builder.RegisterType<ProductRangesResourceBuilder>().As<IResourceBuilder<IEnumerable<ProductRange>>>();
+            builder.RegisterType<SalesPackageResourceBuilder>().As<IResourceBuilder<SalesPackage>>();
+            builder.RegisterType<SalesPackagesResourceBuilder>().As<IResourceBuilder<IEnumerable<SalesPackage>>>();
         }
     }
 }
