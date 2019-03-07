@@ -9,6 +9,7 @@
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
     using Linn.Products.Domain.Linnapps.Reports;
+    using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
     using Linn.Products.Facade;
@@ -25,15 +26,14 @@
             builder.RegisterType<CartonDetailsReportService>().As<ICartonDetailsReportService>();
             builder.RegisterType<ProductReports>().As<IProductReports>();
             builder.RegisterType<StockTriggerLevelReportService>().As<IStockTriggerLevelReportService>();
-            builder.RegisterType<SaHoldStoryService>()
-                .As<ISaHoldStoryReportService>();
+            builder.RegisterType<SaHoldStoryService>().As<ISaHoldStoryReportService>();
             builder.RegisterType<SalesArticleReports>().As<ISalesArticleReports>();
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
             builder.RegisterType<TariffService>().As<ITariffService>();
             builder.RegisterType<CartonReportsService>().As<ICartonReportsService>();
-            builder.RegisterType<SaHoldStoryReportService>().As<Facade.Services.ISaHoldStoriesReportService>();
+            builder.RegisterType<SaHoldStoryReportService>().As<ISaHoldStoriesReportService>();
             builder.RegisterType<ProductsReportsService>().As<IProductsReportsService>();
             builder.RegisterType<CartonTypeService>().As<IFacadeService<CartonType, string, CartonTypeResource, CartonTypeUpdateResource>>();
             builder.RegisterType<SaCoreTypeService>().As<IFacadeService<SaCoreType, int, SaCoreTypeResource, SaCoreTypeResource>>();
@@ -47,6 +47,7 @@
             builder.RegisterType<SalesArticleService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
             builder.RegisterType<VatCodeService>().As<IFacadeService<VatCode, string, VatCodeResource, VatCodeResource>>();
             builder.RegisterType<ProductRangeService>().As<IFacadeService<ProductRange, int, ProductRangeResource, ProductRangeUpdateResource>>();
+            builder.RegisterType<SalesPackageService>().As<IFacadeService<SalesPackage, int, SalesPackageResource, SalesPackageResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();

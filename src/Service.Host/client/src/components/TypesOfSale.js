@@ -4,6 +4,20 @@ import { Loading, EntityList, CreateButton } from '@linn-it/linn-form-components
 import Page from '../containers/Page';
 import { sortEntityList } from '../helpers/utilities';
 
+const sortTypesOfSale = typesOfSale => {
+    typesOfSale.sort((a, b) => {
+        if (a.name < b.name) {
+            return -1;
+        }
+        if (a.name > b.name) {
+            return 1;
+        }
+        return 0;
+    });
+
+    return typesOfSale;
+};
+
 const TypesOfSale = ({ typesOfSale, loading }) => (
     <Page>
         {loading ? (
