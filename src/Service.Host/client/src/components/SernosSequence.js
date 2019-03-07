@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Grid } from '@material-ui/core';
@@ -7,7 +7,8 @@ import {
     InputField,
     Loading,
     Title,
-    ErrorCard
+    ErrorCard,
+    SnackbarMessage
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 
@@ -18,9 +19,11 @@ function SernosSequence({
     itemId,
     item,
     loading,
+    snackbarVisible,
     addItem,
     updateItem,
-    setEditStatus
+    setEditStatus,
+    setSnackbarVisible
 }) {
     const [sernosSequence, setSernosSequence] = useState({});
     const [prevSernosSequence, setPrevSernosSequence] = useState({});
@@ -28,6 +31,13 @@ function SernosSequence({
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
+
+    useEffect(() => {
+        if (item !== prevSernosSequence) {
+            setSernosSequence(item);
+            setPrevSernosSequence(item);
+        }
+    });
 
     const sequenceNameInvalid = () => !sernosSequence.sequenceName;
     const descriptionInvalid = () => !sernosSequence.description;
@@ -62,16 +72,8 @@ function SernosSequence({
         setSernosSequence({ ...sernosSequence, [propertyName]: newValue });
     };
 
-    const updateSernosSequenceFromProps = () => {
-        if (item !== prevSernosSequence) {
-            setSernosSequence(item);
-            setPrevSernosSequence(item);
-        }
-    };
-
     return (
         <Page>
-            {!creating() && updateSernosSequenceFromProps()}
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     {creating() ? (
@@ -91,6 +93,11 @@ function SernosSequence({
                     </Grid>
                 ) : (
                     <Fragment>
+                        <SnackbarMessage
+                            visible={snackbarVisible}
+                            onClose={() => setSnackbarVisible(false)}
+                            message="Save Successful"
+                        />
                         <Grid item xs={8}>
                             <InputField
                                 fullWidth
@@ -174,14 +181,17 @@ SernosSequence.propTypes = {
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,
+    snackbarVisible: PropTypes.bool,
     updateItem: PropTypes.func,
     addItem: PropTypes.func,
     loading: PropTypes.bool,
-    setEditStatus: PropTypes.func.isRequired
+    setEditStatus: PropTypes.func.isRequired,
+    setSnackbarVisible: PropTypes.func.isRequired
 };
 
 SernosSequence.defaultProps = {
     item: {},
+    snackbarVisible: false,
     addItem: null,
     updateItem: null,
     loading: null,

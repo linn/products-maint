@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import {
@@ -6,7 +6,8 @@ import {
     InputField,
     Loading,
     Title,
-    ErrorCard
+    ErrorCard,
+    SnackbarMessage
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 
@@ -17,9 +18,11 @@ function VatCode({
     loading,
     itemId,
     item,
+    snackbarVisible,
     addItem,
     setEditStatus,
-    updateItem
+    updateItem,
+    setSnackbarVisible
 }) {
     const [vatCode, setVatCode] = useState({});
     const [prevVatCode, setPrevVatCode] = useState({});
@@ -27,6 +30,18 @@ function VatCode({
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
+
+    useEffect(() => {
+        if (creating() && vatCode.vatOnly == null) {
+            setVatCode({
+                ...item,
+                vatOnly: 'N'
+            });
+        } else if (item !== prevVatCode) {
+            setVatCode({ ...item, reason: '' });
+            setPrevVatCode(item);
+        }
+    });
 
     const codeInvalid = () => !vatCode.code;
     const descriptionInvalid = () => !vatCode.description;
@@ -62,18 +77,8 @@ function VatCode({
         setVatCode({ ...vatCode, [propertyName]: newValue });
     };
 
-    const updateVatCodeFromProps = () => {
-        if (!creating()) {
-            if (item !== prevVatCode) {
-                setVatCode({ ...item, reason: '' });
-                setPrevVatCode(item);
-            }
-        }
-    };
-
     return (
         <Page>
-            {updateVatCodeFromProps()}
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     {creating() ? (
@@ -93,6 +98,11 @@ function VatCode({
                     </Grid>
                 ) : (
                     <Fragment>
+                        <SnackbarMessage
+                            visible={snackbarVisible}
+                            onClose={() => setSnackbarVisible(false)}
+                            message="Save Successful"
+                        />
                         <Grid item xs={8}>
                             <InputField
                                 fullWidth
@@ -174,15 +184,18 @@ VatCode.propTypes = {
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,
+    snackbarVisible: PropTypes.bool,
     updateItem: PropTypes.func,
     addItem: PropTypes.func,
     loading: PropTypes.bool,
-    setEditStatus: PropTypes.func.isRequired
+    setEditStatus: PropTypes.func.isRequired,
+    setSnackbarVisible: PropTypes.func.isRequired
 };
 
 VatCode.defaultProps = {
     item: {},
     addItem: null,
+    snackbarVisible: false,
     updateItem: null,
     loading: null,
     errorMessage: '',

@@ -14,8 +14,8 @@
             case actionTypes[`REQUEST_CREATE_${itemRoot}`]:
                 return {
                     ...state,
-                    loading: true,
-                    item: action.payload,
+                    loading: false,
+                    item: {},
                     editStatus: 'create'
                 };
             case actionTypes[`REQUEST_${itemRoot}`]:

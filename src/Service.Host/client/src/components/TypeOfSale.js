@@ -1,14 +1,14 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Snackbar, Button, IconButton } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import { Grid } from '@material-ui/core';
 import {
     OnOffSwitch,
     SaveBackCancelButtons,
     InputField,
     Loading,
     Title,
-    ErrorCard
+    ErrorCard,
+    SnackbarMessage
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 
@@ -27,6 +27,13 @@ function TypeOfSale({
 }) {
     const [typeOfSale, setTypeOfSale] = useState({});
     const [prevTypeOfSale, setPrevTypeOfSale] = useState({});
+
+    useEffect(() => {
+        if (item !== prevTypeOfSale) {
+            setTypeOfSale(item);
+            setPrevTypeOfSale(item);
+        }
+    });
 
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
@@ -67,16 +74,8 @@ function TypeOfSale({
         }
     };
 
-    const updateTypeOfSaleFromProps = () => {
-        if (item !== prevTypeOfSale) {
-            setTypeOfSale(item);
-            setPrevTypeOfSale(item);
-        }
-    };
-
     return (
         <Page>
-            {updateTypeOfSaleFromProps()}
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     {creating() ? (
@@ -96,33 +95,18 @@ function TypeOfSale({
                     </Grid>
                 ) : (
                     <Fragment>
-                        <Snackbar
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left'
-                            }}
-                            open={snackbarVisible}
-                            autoHideDuration={3000}
+                        <SnackbarMessage
+                            visible={snackbarVisible}
                             onClose={() => setSnackbarVisible(false)}
-                            message="Item Saved"
-                            action={[
-                                <IconButton
-                                    key="close"
-                                    aria-label="Close"
-                                    color="inherit"
-                                    onClick={() => setSnackbarVisible(false)}
-                                >
-                                    <CloseIcon />
-                                </IconButton>
-                            ]}
+                            message="Save Successful"
                         />
-                        <Button onClick={() => setSnackbarVisible(true)}>Open Snackbar</Button>
-                        <Grid item xs={4}>
+                        <Grid item xs={8}>
                             <InputField
                                 fullWidth
                                 disabled={!creating()}
                                 value={typeOfSale.name}
                                 label="Name"
+                                maxLength={10}
                                 helperText={
                                     !creating()
                                         ? 'This field cannot be changed'
@@ -138,6 +122,7 @@ function TypeOfSale({
                                 value={typeOfSale.description}
                                 label="Description"
                                 fullWidth
+                                maxLength={50}
                                 helperText={descriptionInvalid() ? 'This field is required' : ''}
                                 error={descriptionInvalid()}
                                 onChange={handleFieldChange}
@@ -149,6 +134,7 @@ function TypeOfSale({
                                 value={typeOfSale.department}
                                 label="Department"
                                 fullWidth
+                                maxLength={10}
                                 helperText={departmentInvalid() ? 'This field is required' : ''}
                                 error={departmentInvalid()}
                                 onChange={handleFieldChange}
@@ -160,6 +146,7 @@ function TypeOfSale({
                                 value={typeOfSale.nominal}
                                 label="Nominal"
                                 fullWidth
+                                maxLength={10}
                                 helperText={nominalInvalid() ? 'This field is required' : ''}
                                 error={nominalInvalid()}
                                 onChange={handleFieldChange}

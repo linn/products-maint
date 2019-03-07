@@ -163,6 +163,11 @@ export default function UpdateApiActions(actionTypeRoot, uri, actionTypes) {
         payload: editStatus
     });
 
+    this.create = () => ({
+        type: actionTypes[`REQUEST_CREATE_${actionTypeRoot}`],
+        payload: {}
+    });
+
     this.setSnackbarVisible = visible => {
         if (visible === true) {
             return {

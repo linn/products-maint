@@ -10,6 +10,7 @@ const mapStateToProps = (state, { match }) => ({
     itemId: match.params.vatCodeId,
     editStatus: vatCodeSelectors.getEditStatus(state),
     loading: vatCodeSelectors.getLoading(state),
+    snackbarVisible: vatCodeSelectors.getSnackbarVisible(state),
     errorMessage: getSingleErrorMessage(state)
 });
 
@@ -19,10 +20,9 @@ const initialise = ({ itemId }) => dispatch => {
 
 const mapDispatchToProps = {
     initialise,
-    addItem: vatCodeActions.add,
     updateItem: vatCodeActions.update,
-    resetItem: vatCodeActions.reset,
-    setEditStatus: vatCodeActions.setEditStatus
+    setEditStatus: vatCodeActions.setEditStatus,
+    setSnackbarVisible: vatCodeActions.setSnackbarVisible
 };
 
 export default connect(
