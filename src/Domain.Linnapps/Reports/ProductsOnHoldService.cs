@@ -35,7 +35,7 @@
 
             foreach (var productOnHold in productsOnHold)
             {
-                var row = results.AddRow(productOnHold.ArticleNumber);
+                var row = results.AddRow(productOnHold.ArticleNumber.Replace("/", "%2F"), productOnHold.ArticleNumber);
                 results.SetGridTextValue(row.RowIndex, 0, productOnHold.SalesArticle.ArticleNumber);
                 results.SetGridTextValue(row.RowIndex, 1, productOnHold.SalesArticle.InvoiceDescription);
                 results.SetGridTextValue(row.RowIndex, 2, productOnHold.PutOnHoldByEmployee.FullName);
@@ -43,6 +43,9 @@
                 results.SetGridTextValue(row.RowIndex, 4, productOnHold.AnticipatedEndDate != null ? ((DateTime) productOnHold.AnticipatedEndDate).ToShortDateString() : null);
                 results.SetGridTextValue(row.RowIndex, 5, productOnHold.ReasonStarted);
             }
+
+            results.RowDrillDownTemplates.Add(new DrillDownModel("stories", "/products/reports/sa-hold-stories-for-sales-article/{rowId}"));
+
 
             return results;
         }

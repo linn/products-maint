@@ -20,7 +20,7 @@ function Report({ reportData, loading }) {
                 <ReportTable
                     reportData={reportData}
                     showTotals={false}
-                    showRowTitles={false}
+                    showRowTitles={true}
                     title={reportData ? reportData.title.displayString : null}
                     showTitle={false}
                 />
