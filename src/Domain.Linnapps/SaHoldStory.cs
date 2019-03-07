@@ -1,18 +1,27 @@
 ﻿namespace Linn.Products.Domain.Linnapps
 {
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    using Linn.Products.Domain.Linnapps.Products;
 
     public class SaHoldStory
     {
+        public SaHoldStory()
+        {
+            //ef
+        }
         public int HoldStoryId { get; set; }
 
-        public string ArticleNumber { get; set; }
+        [ForeignKey("ARTICLE_NUMBER")]
+        public SalesArticle SalesArticle { get; set; }
 
         public DateTime DateStarted { get; set; }
 
         public DateTime? DateFinished { get; set; }
 
-        public int PutOnHoldByEmployeeNumber { get; set; }
+        [ForeignKey("EMPLOYEE_NUMBER")]
+        public Employee PutOnHoldByEmployee { get; set; }
 
         public int? TakenOffHoldByEmployeeNumber { get; set; }
 

@@ -29,19 +29,20 @@
             var stories = this.saHoldStoryRepository.FindAll();
             var salesArticles = this.salesArticleRepository.FindAll();
             var employees = this.employeeRepository.GetEmployees();
-            var productsOnHold = from story in stories
-                                 join article in salesArticles on story.ArticleNumber equals article.ArticleNumber
-                                 join employee in employees on story.PutOnHoldByEmployeeNumber equals employee.Id
-                                 where (story.DateFinished == null)
-                                 select new
-                                            {
-                                                ArticleNumber = article.ArticleNumber,
-                                                InvoiceDescription = article.InvoiceDescription,
-                                                PutOnHoldBy = employee.FullName,
-                                                DateStarted = story.DateStarted,
-                                                AnticipatedEndDate = story.AnticipatedEndDate,
-                                                ReasonStarted = story.ReasonStarted
-                                            };
+            var productsOnHold = this.saHoldStoryRepository.FindAll().Where(s => s.DateFinished == null);
+            // var productsOnHold = from story in stories
+            //                      join article in salesArticles on story.SalesArticle.ArticleNumber equals article.ArticleNumber
+            //                      join employee in employees on story.PutOnHoldByEmployee.Id equals employee.Id
+            //                      where (story.DateFinished == null)
+            //                      select new
+            //                                 {
+            //                                     ArticleNumber = article.ArticleNumber,
+            //                                     InvoiceDescription = article.InvoiceDescription,
+            //                                     PutOnHoldBy = employee.FullName,
+            //                                     DateStarted = story.DateStarted,
+            //                                     AnticipatedEndDate = story.AnticipatedEndDate,
+            //                                     ReasonStarted = story.ReasonStarted
+            //                                 };
 
             var results = new ResultsModel(new[] { "Article Number", "Invoice Description", "Put On Hold By", "Date Started", "Anticipated End Date", "Reason Started"})
                               {
@@ -58,10 +59,10 @@
 
             foreach (var productOnHold in productsOnHold)
             {
-                var row = results.AddRow(productOnHold.ArticleNumber);
-                results.SetGridTextValue(row.RowIndex, 0, productOnHold.ArticleNumber);
-                results.SetGridTextValue(row.RowIndex, 1, productOnHold.InvoiceDescription);
-                results.SetGridTextValue(row.RowIndex, 2, productOnHold.PutOnHoldBy.ToString());
+                var row = results.AddRow(productOnHold.SalesArticle.ArticleNumber);
+                results.SetGridTextValue(row.RowIndex, 0, productOnHold.SalesArticle.ArticleNumber);
+                results.SetGridTextValue(row.RowIndex, 1, productOnHold.SalesArticle.InvoiceDescription);
+                results.SetGridTextValue(row.RowIndex, 2, productOnHold.PutOnHoldByEmployee.FullName);
                 results.SetGridTextValue(row.RowIndex, 3, productOnHold.DateStarted.ToShortDateString());
                 results.SetGridTextValue(row.RowIndex, 4, productOnHold.AnticipatedEndDate != null ? ((DateTime) productOnHold.AnticipatedEndDate).ToShortDateString() : null);
                 results.SetGridTextValue(row.RowIndex, 5, productOnHold.ReasonStarted);

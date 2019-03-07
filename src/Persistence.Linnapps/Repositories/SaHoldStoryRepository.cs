@@ -7,6 +7,8 @@
     using Linn.Common.Persistence;
     using Linn.Products.Persistence.Linnapps;
 
+    using Microsoft.EntityFrameworkCore;
+
     public class SaHoldStoryRepository : IRepository<SaHoldStory, int>
     {
         private readonly ServiceDbContext serviceDbContext;
@@ -18,7 +20,11 @@
 
         public SaHoldStory FindById(int key)
         {
-            return this.serviceDbContext.SaHoldStories.Where(s => s.HoldStoryId == key).ToList().First();
+            return this.serviceDbContext.SaHoldStories
+                .Where(s => s.HoldStoryId == key)
+                .Include(e => e.PutOnHoldByEmployee)
+                .Include(e => e.SalesArticle)
+                .ToList().First();
         }
 
         public IQueryable<SaHoldStory> FindAll()

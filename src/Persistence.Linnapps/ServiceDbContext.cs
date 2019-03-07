@@ -143,7 +143,7 @@
             builder.Entity<SalesArticle>().Property(t => t.PhaseOutDate).HasColumnName("PHASE_OUT_DATE");
             builder.Entity<SalesArticle>().Property(t => t.PercentageOfRootProductSales).HasColumnName("PERCENTAGE_SALES");
             builder.Entity<SalesArticle>().Property(t => t.ArticleType).HasColumnName("ARTICLE_TYPE").HasMaxLength(1);
-            builder.Entity<SalesArticle>().HasOne(t => t.SaCoreType);
+            builder.Entity<SalesArticle>().HasOne(t => t.SaCoreType); 
         }
 
         private void BuildVatCode(ModelBuilder builder)
@@ -164,8 +164,6 @@
             e.ToTable("SA_HOLD_STORIES");
             e.HasKey(t => t.HoldStoryId);
             e.Property(t => t.HoldStoryId).HasColumnName("HOLD_STORY_ID");
-            e.Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER");
-            e.Property(t => t.PutOnHoldByEmployeeNumber).HasColumnName("EMPLOYEE_NUMBER");
             e.Property(t => t.TakenOffHoldByEmployeeNumber).HasColumnName("EMPLOYEE_NUMBER_TAKEN_OFF_HOLD");
             e.Property(t => t.DateStarted).HasColumnName("DATE_STARTED");
             e.Property(t => t.DateFinished).HasColumnName("DATE_FINISHED");
@@ -173,6 +171,8 @@
             e.Property(t => t.ReasonFinished).HasColumnName("REASON_FINISHED");
             e.Property(t => t.RootProduct).HasColumnName("ROOT_PRODUCT");
             e.Property(t => t.AnticipatedEndDate).HasColumnName("ANTICIPATED_END_DATE");
+            e.HasOne(t => t.PutOnHoldByEmployee);
+            e.HasOne(t => t.SalesArticle).WithMany().HasForeignKey(d => d.SalesArticle);
         }
     }
 }

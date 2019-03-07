@@ -5,6 +5,11 @@
 
     public class SalesArticle
     {
+        public SalesArticle()
+        {
+            //ef
+        }
+
         public string ArticleNumber { get; set; }
 
         public string ArticleType { get; set; }
