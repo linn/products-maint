@@ -46,6 +46,9 @@ const App = ({ classes }) => (
             >
                 <Typography color="primary">Sales Article Core Types Report</Typography>
             </ListItem>
+            <ListItem component={Link} to="/products/reports/products-on-hold" button>
+                <Typography color="primary">Products On Hold</Typography>
+            </ListItem>
         </List>
         <Typography variant="h6">Utilities</Typography>
         <List>
