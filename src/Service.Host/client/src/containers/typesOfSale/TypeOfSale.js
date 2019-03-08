@@ -10,6 +10,7 @@ const mapStateToProps = (state, { match }) => ({
     itemId: match.params.typeOfSaleId,
     editStatus: typeOfSaleSelectors.getEditStatus(state),
     loading: typeOfSaleSelectors.getLoading(state),
+    snackbarVisible: typeOfSaleSelectors.getSnackbarVisible(state),
     errorMessage: getSingleErrorMessage(state)
 });
 
@@ -20,9 +21,8 @@ const initialise = ({ itemId }) => dispatch => {
 const mapDispatchToProps = {
     initialise,
     updateItem: typeOfSaleActions.update,
-    // TODO think this can be deleted
-    resetItem: typeOfSaleActions.reset,
-    setEditStatus: typeOfSaleActions.setEditStatus
+    setEditStatus: typeOfSaleActions.setEditStatus,
+    setSnackbarVisible: typeOfSaleActions.setSnackbarVisible
 };
 
 export default connect(

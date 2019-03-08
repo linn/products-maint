@@ -22,7 +22,7 @@
         [SetUp]
         public void SetUp()
         {
-            var vatCode1 = new VatCode("A", "STD UK VAT RATE.", 20, null, 1);
+            var vatCode1 = new VatCode("A", "STD UK VAT RATE.", 20, null, 1, "N");
             var vatCode2 = new VatCode("B", "UK VAT ZERO RATE", 0, "REASON", 5, "Y");
 
             this.VatCodeService.GetAll().Returns(

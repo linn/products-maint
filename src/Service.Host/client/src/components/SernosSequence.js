@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Grid } from '@material-ui/core';
@@ -7,7 +7,8 @@ import {
     InputField,
     Loading,
     Title,
-    ErrorCard
+    ErrorCard,
+    SnackbarMessage
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 
@@ -18,42 +19,34 @@ function SernosSequence({
     itemId,
     item,
     loading,
+    snackbarVisible,
     addItem,
     updateItem,
-    setEditStatus
+    setEditStatus,
+    setSnackbarVisible
 }) {
     const [sernosSequence, setSernosSequence] = useState({});
     const [prevSernosSequence, setPrevSernosSequence] = useState({});
 
-    function creating() {
-        return editStatus === 'create';
-    }
+    const creating = () => editStatus === 'create';
+    const editing = () => editStatus === 'edit';
+    const viewing = () => editStatus === 'view';
 
-    function editing() {
-        return editStatus === 'edit';
-    }
+    useEffect(() => {
+        if (item !== prevSernosSequence) {
+            setSernosSequence(item);
+            setPrevSernosSequence(item);
+        }
+    });
 
-    function viewing() {
-        return editStatus === 'view';
-    }
+    const sequenceNameInvalid = () => !sernosSequence.sequenceName;
+    const descriptionInvalid = () => !sernosSequence.description;
+    const nextSerialNumberInvalid = () => !sernosSequence.nextSerialNumber;
 
-    function sequenceNameInvalid() {
-        return !sernosSequence.sequenceName;
-    }
+    const inputInvalid = () =>
+        sequenceNameInvalid() || descriptionInvalid() || nextSerialNumberInvalid();
 
-    function descriptionInvalid() {
-        return !sernosSequence.description;
-    }
-
-    function nextSerialNumberInvalid() {
-        return typeof sernosSequence.nextSerialNumber !== 'number';
-    }
-
-    function inputInvalid() {
-        return sequenceNameInvalid() || descriptionInvalid() || nextSerialNumberInvalid();
-    }
-
-    function handleSaveClick() {
+    const handleSaveClick = () => {
         if (editing()) {
             updateItem(itemId, sernosSequence);
             setEditStatus('view');
@@ -61,34 +54,26 @@ function SernosSequence({
             addItem(sernosSequence);
             setEditStatus('view');
         }
-    }
+    };
 
-    function handleCancelClick() {
+    const handleCancelClick = () => {
         setSernosSequence(item);
         setEditStatus('view');
-    }
+    };
 
-    function handleBackClick() {
+    const handleBackClick = () => {
         history.push('/products/maint/sernos-sequences');
-    }
+    };
 
-    function handleFieldChange(propertyName, newValue) {
+    const handleFieldChange = (propertyName, newValue) => {
         if (viewing()) {
             setEditStatus('edit');
         }
         setSernosSequence({ ...sernosSequence, [propertyName]: newValue });
-    }
-
-    function updateSernosSequenceFromProps() {
-        if (item !== prevSernosSequence) {
-            setSernosSequence(item);
-            setPrevSernosSequence(item);
-        }
-    }
+    };
 
     return (
         <Page>
-            {!creating() && updateSernosSequenceFromProps()}
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     {creating() ? (
@@ -108,6 +93,11 @@ function SernosSequence({
                     </Grid>
                 ) : (
                     <Fragment>
+                        <SnackbarMessage
+                            visible={snackbarVisible}
+                            onClose={() => setSnackbarVisible(false)}
+                            message="Save Successful"
+                        />
                         <Grid item xs={8}>
                             <InputField
                                 fullWidth
@@ -191,14 +181,17 @@ SernosSequence.propTypes = {
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,
+    snackbarVisible: PropTypes.bool,
     updateItem: PropTypes.func,
     addItem: PropTypes.func,
     loading: PropTypes.bool,
-    setEditStatus: PropTypes.func.isRequired
+    setEditStatus: PropTypes.func.isRequired,
+    setSnackbarVisible: PropTypes.func.isRequired
 };
 
 SernosSequence.defaultProps = {
     item: {},
+    snackbarVisible: false,
     addItem: null,
     updateItem: null,
     loading: null,

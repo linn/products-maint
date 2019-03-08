@@ -10,6 +10,7 @@ const mapStateToProps = (state, { match }) => ({
     itemId: match.params.sequenceName,
     editStatus: sernosSequenceSelectors.getEditStatus(state),
     loading: sernosSequenceSelectors.getLoading(state),
+    snackbarVisible: sernosSequenceSelectors.getSnackbarVisible(state),
     errorMessage: getSingleErrorMessage(state)
 });
 
@@ -19,10 +20,9 @@ const initialise = ({ itemId }) => dispatch => {
 
 const mapDispatchToProps = {
     initialise,
-    addItem: sernosSequenceActions.add,
     updateItem: sernosSequenceActions.update,
-    resetItem: sernosSequenceActions.reset,
-    setEditStatus: sernosSequenceActions.setEditStatus
+    setEditStatus: sernosSequenceActions.setEditStatus,
+    setSnackbarVisible: sernosSequenceActions.setSnackbarVisible
 };
 
 export default connect(

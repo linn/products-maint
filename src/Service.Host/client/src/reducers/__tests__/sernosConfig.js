@@ -26,7 +26,7 @@ describe('sernos config reducer', () => {
     test('when resetting sernos config', () => {
         const state = {
             loading: false,
-            item: { name: 'name'}
+            item: { name: 'name' }
         };
 
         const action = {
@@ -56,8 +56,7 @@ describe('sernos config reducer', () => {
         };
 
         const expected = {
-            loading: false,
-            editStatus: 'edit'
+            loading: true
         };
 
         deepFreeze(state);
@@ -121,7 +120,8 @@ describe('sernos config reducer', () => {
         const expected = {
             loading: false,
             item: { name: '1' },
-            editStatus: 'view'
+            editStatus: 'view',
+            snackbarVisible: true
         };
 
         deepFreeze(state);

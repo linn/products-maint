@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import {
@@ -6,7 +6,8 @@ import {
     InputField,
     Loading,
     Title,
-    ErrorCard
+    ErrorCard,
+    SnackbarMessage
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 
@@ -17,49 +18,42 @@ function VatCode({
     loading,
     itemId,
     item,
+    snackbarVisible,
     addItem,
     setEditStatus,
-    updateItem
+    updateItem,
+    setSnackbarVisible
 }) {
     const [vatCode, setVatCode] = useState({});
     const [prevVatCode, setPrevVatCode] = useState({});
 
-    function creating() {
-        return editStatus === 'create';
-    }
+    const creating = () => editStatus === 'create';
+    const editing = () => editStatus === 'edit';
+    const viewing = () => editStatus === 'view';
 
-    function editing() {
-        return editStatus === 'edit';
-    }
-
-    function viewing() {
-        return editStatus === 'view';
-    }
-
-    function codeInvalid() {
-        return !vatCode.code;
-    }
-
-    function descriptionInvalid() {
-        return !vatCode.description;
-    }
-
-    function rateInvalid() {
-        return typeof vatCode.rate !== 'number';
-    }
-
-    function reasonInvalid() {
-        return !vatCode.reason && editing();
-    }
-
-    function inputInvalid() {
-        if (!creating()) {
-            return codeInvalid() || descriptionInvalid() || rateInvalid() || reasonInvalid();
+    useEffect(() => {
+        if (creating() && vatCode.vatOnly == null) {
+            setVatCode({
+                ...item,
+                vatOnly: 'N'
+            });
+        } else if (item !== prevVatCode) {
+            setVatCode({ ...item, reason: '' });
+            setPrevVatCode(item);
         }
-        return codeInvalid() || descriptionInvalid() || rateInvalid();
-    }
+    });
 
-    function handleSaveClick() {
+    const codeInvalid = () => !vatCode.code;
+    const descriptionInvalid = () => !vatCode.description;
+    const rateInvalid = () => typeof vatCode.rate !== 'number';
+    const reasonInvalid = () => !vatCode.reason && editing();
+
+    const inputInvalid = () =>
+        !creating()
+            ? codeInvalid() || descriptionInvalid() || rateInvalid() || reasonInvalid()
+            : codeInvalid() || descriptionInvalid() || rateInvalid();
+
+    const handleSaveClick = () => {
         if (editing()) {
             updateItem(itemId, vatCode);
             setEditStatus('view');
@@ -67,34 +61,24 @@ function VatCode({
             addItem(vatCode);
             setEditStatus('view');
         }
-    }
+    };
 
-    function handleCancelClick() {
+    const handleCancelClick = () => {
         setVatCode(prevVatCode);
         setEditStatus('view');
-    }
+    };
 
-    function handleBackClick() {
+    const handleBackClick = () => {
         history.push('/products/maint/vat-codes');
-    }
+    };
 
-    function handleFieldChange(propertyName, newValue) {
+    const handleFieldChange = (propertyName, newValue) => {
         setEditStatus('edit');
         setVatCode({ ...vatCode, [propertyName]: newValue });
-    }
-
-    function updateVatCodeFromProps() {
-        if (!creating()) {
-            if (item !== prevVatCode) {
-                setVatCode({ ...item, reason: '' });
-                setPrevVatCode(item);
-            }
-        }
-    }
+    };
 
     return (
         <Page>
-            {updateVatCodeFromProps()}
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     {creating() ? (
@@ -114,6 +98,11 @@ function VatCode({
                     </Grid>
                 ) : (
                     <Fragment>
+                        <SnackbarMessage
+                            visible={snackbarVisible}
+                            onClose={() => setSnackbarVisible(false)}
+                            message="Save Successful"
+                        />
                         <Grid item xs={8}>
                             <InputField
                                 fullWidth
@@ -195,15 +184,18 @@ VatCode.propTypes = {
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,
+    snackbarVisible: PropTypes.bool,
     updateItem: PropTypes.func,
     addItem: PropTypes.func,
     loading: PropTypes.bool,
-    setEditStatus: PropTypes.func.isRequired
+    setEditStatus: PropTypes.func.isRequired,
+    setSnackbarVisible: PropTypes.func.isRequired
 };
 
 VatCode.defaultProps = {
     item: {},
     addItem: null,
+    snackbarVisible: false,
     updateItem: null,
     loading: null,
     errorMessage: '',
