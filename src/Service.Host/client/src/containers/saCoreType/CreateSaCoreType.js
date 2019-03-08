@@ -4,7 +4,7 @@ import SaCoreType from '../../components/SaCoreType';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 
 const mapStateToProps = state => ({
-    saCoreType: {},
+    initialSaCoreType: {},
     editStatus: 'create',
     errorMessage: getSingleErrorMessage(state)
 });
