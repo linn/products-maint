@@ -17,21 +17,21 @@ function SaCoreType({
     initialSaCoreType,
     saCoreTypeId,
     addSaCoreType,
-    setEditStatus
+    setEditStatus, 
+    history
     //....
 }) {
     const [saCoreType, setSaCoreType] = useState({});
+    const [prevSaCoreType, setPrevSaCoreType] = useState({});
 
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
 
     useEffect(() => {
-        if (creating()) {
-            setSaCoreType({
-            });
-        } else if (saCoreType !== initialSaCoreType) {
-            setSaCoreType({initialSaCoreType});
+         if (initialSaCoreType !== prevSaCoreType) {
+            setSaCoreType(initialSaCoreType);
+            setPrevSaCoreType(initialSaCoreType);
         }
     });
 
@@ -46,12 +46,12 @@ function SaCoreType({
     };
 
     const handleCancelClick = () => {
-        setVatCode(initialSaCoreType);
+        setSaCoreType(initialSaCoreType);
         setEditStatus('view');
     };
 
     const handleBackClick = () => {
-        history.pushState('products/maint/sa-core-types')
+        history.push('/products/maint/sa-core-types');
     };
 
     const handleFieldChange = (propertyName, newValue) => {
@@ -61,101 +61,108 @@ function SaCoreType({
 
     return (
         <Page>
-        <Grid container spacing={24}>
-            <Grid item xs={12}>
-                {creating() ? (
-                    <Title text="Add Sales Article Core Type" />
+            <Grid container spacing={24}>
+                <Grid item xs={12}>
+                    {creating() ? (
+                        <Title text="Add Sales Article Core Type" />
+                    ) : (
+                        <Title text="Sales Article Core Type Details" />
+                    )}
+                </Grid>
+                {errorMessage && (
+                    <Grid item xs={12}>
+                        <ErrorCard errorMessage={errorMessage} />
+                    </Grid>
+                )}
+                {loading || !saCoreType ? (
+                    <Grid item xs={12}>
+                        <Loading />
+                    </Grid>
                 ) : (
-                    <Title text="Sales Article Core Type Details" />
+                    <Fragment>
+                        <Grid item xs={4}>
+                            <InputField
+                                fullWidth
+                                disabled={!creating()}
+                                value={saCoreType.coreType}
+                                label="Core Type"
+                                helperText={
+                                    !creating()
+                                        ? 'This field cannot be changed'
+                                        : 'This field is required'
+                                }
+                                onChange={handleFieldChange}
+                                propertyName="coreType"
+                            />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <InputField
+                                value={saCoreType.description}
+                                label="Description"
+                                fullWidth
+                                onChange={handleFieldChange}
+                                propertyName="description"
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <InputField
+                                fullWidth
+                                type="number"
+                                value={saCoreType.lookAheadDays}
+                                label="Look Ahead Days"
+                                onChange={handleFieldChange}
+                                propertyName="lookAheadDays"
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <InputField
+                                fullWidth
+                                type="number"
+                                value={saCoreType.triggerLevel}
+                                label="Trigger level"
+                                onChange={handleFieldChange}
+                                propertyName="triggerLevel"
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <InputField
+                                fullWidth
+                                type="number"
+                                value={saCoreType.sortOrder}
+                                label="Sort Order"
+                                onChange={handleFieldChange}
+                                propertyName="sortOrder"
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <InputField
+                                fullWidth
+                                type="date"
+                                value={saCoreType.dateInvalid}
+                                label="Date Invalid"
+                                onChange={handleFieldChange}
+                                propertyName="dateInvalid"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <SaveBackCancelButtons
+                                saveDisabled={
+                                    viewing()
+                                }
+                                saveClick={handleSaveClick}
+                                cancelClick={handleCancelClick}
+                                backClick={handleBackClick}
+                            />
+                        </Grid>{' '}
+                    </Fragment>
                 )}
             </Grid>
-            {errorMessage && (
-                <Grid item xs={12}>
-                    <ErrorCard errorMessage={errorMessage} />
-                </Grid>
-            )}
-            <Grid item xs={4}>
-                <InputField
-                    fullWidth
-                    disabled={!creating()}
-                    value={saCoreType.coreType}
-                    label="Core Type"
-                    helperText={
-                        !creating()
-                            ? 'This field cannot be changed'
-                            : 'This field is required'
-                    }
-                    onChange={handleFieldChange}
-                    propertyName="coreType"
-                />
-            </Grid>
-            <Grid item xs={8}>
-                <InputField
-                    value={saCoreType.description}
-                    label="Description"
-                    fullWidth
-                    onChange={handleFieldChange}
-                    propertyName="description"
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <InputField
-                    fullWidth
-                    type="number"
-                    value={saCoreType.lookAheadDays}
-                    label="Look Ahead Days"
-                    onChange={handleFieldChange}
-                    propertyName="lookAheadDays"
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <InputField
-                    fullWidth
-                    type="number"
-                    value={saCoreType.triggerLevel}
-                    label="Trigger level"
-                    onChange={handleFieldChange}
-                    propertyName="triggerLevel"
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <InputField
-                    fullWidth
-                    type="number"
-                    value={saCoreType.sortOrder}
-                    label="Sort Order"
-                    onChange={handleFieldChange}
-                    propertyName="sortOrder"
-                />
-            </Grid>
-            <Grid item xs={3}>
-                <InputField
-                    fullWidth
-                    type="date"
-                    value={saCoreType.dateInvalid}
-                    label="Date Invalid"
-                    onChange={handleFieldChange}
-                    propertyName="dateInvalid"
-                />
-            </Grid>
-            <Grid item xs={12}>
-                <SaveBackCancelButtons
-                    saveDisabled={
-                        !editing() ||
-                        (!saCoreType.coreType || saCoreType.coreType.length === 0)
-                    }
-                    saveClick={handleSaveClick}
-                    cancelClick={handleCancelClick}
-                    backClick={handleBackClick}
-                />
-            </Grid>
-        </Grid>
-    </Page>
+        </Page>
     );
 }
 
 SaCoreType.defaultProps = {
-    saCoreType: {},
+    initialSaCoreType: {},
     addSaCoreType: null,
     updateSaCoreType: null,
     loading: null,
@@ -164,13 +171,14 @@ SaCoreType.defaultProps = {
 };
 
 SaCoreType.propTypes = {
-    saCoreType: PropTypes.shape({}),
+    initialSaCoreType: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
     saCoreTypeId: PropTypes.string,
     updateSaCoreType: PropTypes.func,
     addSaCoreType: PropTypes.func,
+    setEditStatus: PropTypes.func,
     loading: PropTypes.bool
 };
 
