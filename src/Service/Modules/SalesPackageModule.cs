@@ -20,6 +20,20 @@
             this.Get("/products/maint/sales-packages", _ => this.GetSalesPackages());
             this.Get("/products/maint/sales-packages/{id}", parameters => this.GetSalesPackage(parameters.id));
             this.Put("/products/maint/sales-packages/{id}", parameters => this.UpdateSalesPackage(parameters.id));
+            this.Post("/products/maint/sales-packages", _ => this.AddSalesPackage());
+        }
+
+        private object AddSalesPackage()
+        {
+            this.RequiresAuthentication();
+            var resource = this.Bind<SalesPackageResource>();
+
+            var result = this.salesPackageService.Add(resource);
+
+            return this.Negotiate
+                .WithModel(result)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object UpdateSalesPackage(int id)

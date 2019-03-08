@@ -1,6 +1,5 @@
 ﻿namespace Linn.Products.Facade.Services
 {
-    using System;
     using System.Linq;
 
     using Linn.Common.Facade;
@@ -24,7 +23,32 @@
 
         protected override SalesPackage CreateFromResource(SalesPackageResource resource)
         {
-            throw new NotImplementedException();
+            var salesPackage = new SalesPackage
+                                   {
+                                       Description = resource.Description,
+                                       SalesPackageId = resource.SalesPackageId
+                                   };
+            foreach (var salesPackageElementResource in resource.Elements)
+            {
+                var newElement = new SalesPackageElement
+                                     {
+                                         ElementType = salesPackageElementResource.ElementType,
+                                         Quantity = salesPackageElementResource.Quantity,
+                                         SalesPackageId = salesPackage.SalesPackageId,
+                                         Sequence = salesPackageElementResource.Sequence
+                                     };
+                salesPackage.Elements.Add(new SalesPackageElementJoin
+                                              {
+                                                  BridgeId = salesPackage.Id,
+                                                  Id = this.linnappsDatabaseService.GetIdSequence("SPEJ_SEQ"),
+                                                  SalesPackageId = salesPackage.SalesPackageId,
+                                                  ElementType = salesPackageElementResource.ElementType,
+                                                  SalesPackage = salesPackage,
+                                                  SalesPackageElement = newElement
+                                              });
+            }
+
+            return salesPackage;
         }
 
         protected override void UpdateFromResource(SalesPackage salesPackage, SalesPackageResource resource)

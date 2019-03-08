@@ -6,6 +6,7 @@
 
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps.SalesPackages;
+    using Linn.Products.Proxy;
 
     using Microsoft.EntityFrameworkCore;
 
@@ -13,9 +14,12 @@
     {
         private readonly ServiceDbContext serviceDbContext;
 
-        public SalesPackageRepository(ServiceDbContext serviceDbContext)
+        private readonly IDatabaseService databaseService;
+
+        public SalesPackageRepository(ServiceDbContext serviceDbContext, IDatabaseService databaseService)
         {
             this.serviceDbContext = serviceDbContext;
+            this.databaseService = databaseService;
         }
 
         public SalesPackage FindById(int key)
@@ -36,6 +40,7 @@
 
         public void Add(SalesPackage entity)
         {
+            entity.Id = this.databaseService.GetIdSequence("SALES_PACKAGE_SEQ");
             this.serviceDbContext.SalesPackages.Add(entity);
         }
 
