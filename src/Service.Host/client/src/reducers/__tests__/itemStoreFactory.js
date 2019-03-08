@@ -70,8 +70,7 @@ describe('item store reducer factory', () => {
         };
 
         const expected = {
-            loading: false,
-            editStatus: 'edit'
+            loading: true
         };
 
         deepFreeze(state);
@@ -135,7 +134,8 @@ describe('item store reducer factory', () => {
         const expected = {
             loading: false,
             item: { name: '1' },
-            editStatus: 'view'
+            editStatus: 'view',
+            snackbarVisible: true
         };
 
         deepFreeze(state);

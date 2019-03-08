@@ -4,7 +4,7 @@
 
     public class VatCode
     {
-        public VatCode(string code, string description, decimal rate, string reason, int? vatReturnId, string vatOnly = "N")
+        public VatCode(string code, string description, decimal rate, string reason, int? vatReturnId, string vatOnly)
         {
             this.ValidateVatCode(code, description);
 
@@ -28,7 +28,7 @@
 
         public int? VatReturnId { get; set; }
 
-        public void Update(string code, string description, decimal rate, string reason, int? vatReturnId, string vatOnly = "N")
+        public void Update(string code, string description, decimal rate, string reason, int? vatReturnId, string vatOnly)
         {
             this.ValidateVatCode(code, description);
 

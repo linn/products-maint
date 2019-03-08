@@ -133,7 +133,7 @@ export default function UpdateApiActions(actionTypeRoot, uri, actionTypes) {
                     payload: {}
                 },
                 {
-                    type: actionTypes[`RECEIVE_${actionTypeRoot}`],
+                    type: actionTypes[`RECEIVE_UPDATED_${actionTypeRoot}`],
                     payload: async (action, state, res) => ({ data: await res.json() })
                 },
                 {
@@ -158,24 +158,25 @@ export default function UpdateApiActions(actionTypeRoot, uri, actionTypes) {
         payload: {}
     });
 
-    this.setEditStatus = editStatus => {
-        if (editStatus === 'create') {
+    this.setEditStatus = editStatus => ({
+        type: actionTypes[`SET_${actionTypeRoot}_EDIT_STATUS`],
+        payload: editStatus
+    });
+
+    this.create = () => ({
+        type: actionTypes[`REQUEST_CREATE_${actionTypeRoot}`],
+        payload: {}
+    });
+
+    this.setSnackbarVisible = visible => {
+        if (visible === true) {
             return {
-                type: actionTypes[`REQUEST_CREATE_${actionTypeRoot}`],
+                type: actionTypes[`SHOW_${actionTypeRoot}_SNACKBAR`],
                 payload: {}
             };
         }
-
-        if (editStatus === 'edit') {
-            return {
-                type: actionTypes[`REQUEST_UPDATE_${actionTypeRoot}`],
-                payload: {}
-            };
-        }
-
-        // view
         return {
-            type: actionTypes[`RESET_${actionTypeRoot}`],
+            type: actionTypes[`HIDE_${actionTypeRoot}_SNACKBAR`],
             payload: {}
         };
     };

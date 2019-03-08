@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Loading, EntityList, CreateButton } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
+import { sortEntityList } from '../helpers/utilities';
 
 function VatCodes({ vatCodes, loading }) {
     return (
@@ -13,7 +14,7 @@ function VatCodes({ vatCodes, loading }) {
                     <CreateButton createUrl="/products/maint/vat-codes/create" />
                     <EntityList
                         title="Vat Codes"
-                        entityList={vatCodes}
+                        entityList={sortEntityList(vatCodes, 'code')}
                         entityId="code"
                         loading={loading}
                         descriptionFieldName="description"

@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Loading, EntityList, CreateButton } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
+import { sortEntityList } from '../helpers/utilities';
 
 function SernosSequences({ sernosSequences, loading }) {
     return (
@@ -13,15 +14,7 @@ function SernosSequences({ sernosSequences, loading }) {
                     <CreateButton createUrl="/products/maint/sernos-sequences/create" />
                     <EntityList
                         title="Sernos Sequences"
-                        entityList={sernosSequences.sort((a, b) => {
-                            if (a.sequenceName < b.sequenceName) {
-                                return -1;
-                            }
-                            if (a.sequenceName > b.sequenceName) {
-                                return 1;
-                            }
-                            return 0;
-                        })}
+                        entityList={sortEntityList(sernosSequences, 'sequenceName')}
                         entityId="sequenceName"
                         loading={loading}
                         descriptionFieldName="description"
