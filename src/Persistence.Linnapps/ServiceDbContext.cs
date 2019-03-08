@@ -6,8 +6,6 @@
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Microsoft.Extensions.Logging;
-    using Microsoft.Extensions.Logging.Debug;
 
     public class ServiceDbContext : DbContext
     {
@@ -30,11 +28,6 @@
         public DbSet<ProductRange> ProductRanges { get; set; }
 
         public DbSet<Employee> Employees { get; set; }
-
-        public static readonly Microsoft.Extensions.Logging.LoggerFactory _myLoggerFactory =
-            new LoggerFactory(new[] {
-                                            new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider()
-                                        });
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -62,9 +55,6 @@
                 $"(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT=1521))(CONNECT_DATA=(SERVICE_NAME={serviceId})(SERVER=dedicated)))";
 
             optionsBuilder.UseOracle($"Data Source={dataSource};User Id={userId};Password={password};");
-            optionsBuilder.UseLoggerFactory(_myLoggerFactory);
-
-
 
             base.OnConfiguring(optionsBuilder);
         }
