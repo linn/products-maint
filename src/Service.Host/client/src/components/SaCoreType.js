@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import {
@@ -6,182 +6,171 @@ import {
     InputField,
     Loading,
     Title,
-    ErrorCard
+    ErrorCard,
+    SnackbarMessage
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 
-class SaCoreType extends Component {
-    constructor(props) {
-        super(props);
-        this.handleFieldChange = this.handleFieldChange.bind(this);
-        this.state = {
-            editStatus: 'view',
-            saCoreType: null
-        };
-    }
+function SaCoreType({
+    loading,
+    errorMessage,
+    editStatus,
+    item,
+    saCoreTypeId,
+    updateSaCoreType,
+    addSaCoreType,
+    setEditStatus,
+    snackbarVisible,
+    setSnackbarVisible,
+    history
+}) {
+    const [saCoreType, setSaCoreType] = useState({});
+    const [prevSaCoreType, setPrevSaCoreType] = useState({});
 
-    static getDerivedStateFromProps(props, state) {
-        if (!state.saCoreType || state.saCoreType.coreType !== props.saCoreType.coreType) {
-            return { saCoreType: props.saCoreType };
+    const creating = () => editStatus === 'create';
+    const editing = () => editStatus === 'edit';
+    const viewing = () => editStatus === 'view';
+
+    useEffect(() => {
+        if (!creating() && item !== prevSaCoreType) {
+            setSaCoreType(item);
+            setPrevSaCoreType(item);
         }
-        return null;
-    }
+    });
 
-    handleSaveClick = () => {
-        const { saCoreTypeId, updateSaCoreType } = this.props;
-        updateSaCoreType(saCoreTypeId, { ...this.state }.saCoreType);
-        this.setState({ editStatus: 'view' });
+    const inputInvalid = () => !saCoreType.coreType;
+
+    const handleSaveClick = () => {
+        if (editing()) {
+            updateSaCoreType(saCoreTypeId, saCoreType);
+            setEditStatus('view');
+        } else if (creating()) {
+            addSaCoreType(saCoreType);
+            history.push(`/products/maint/sa-core-types/${saCoreType.coreType}`);
+        }
     };
 
-    handleCancelClick = () => {
-        const { saCoreType } = this.props;
-        this.setState({ saCoreType });
-        this.setState({ editStatus: 'view' });
+    const handleCancelClick = () => {
+        setSaCoreType(item);
+        setEditStatus('view');
     };
 
-    handleAddClick = () => {
-        const { addSaCoreType } = this.props;
-        const { saCoreType } = this.state;
-        addSaCoreType(saCoreType);
-        this.setState({ editStatus: 'view' });
-    };
-
-    handleBackClick = () => {
-        this.setState({ editStatus: 'view' });
-        const { history } = this.props;
+    const handleBackClick = () => {
         history.push('/products/maint/sa-core-types');
     };
 
-    creating() {
-        const { editStatus } = this.props;
-        return editStatus === 'create';
-    }
+    const handleFieldChange = (propertyName, newValue) => {
+        setEditStatus('edit');
+        setSaCoreType({ ...saCoreType, [propertyName]: newValue });
+    };
 
-    editing() {
-        const { editStatus } = this.state;
-        return editStatus === 'edit';
-    }
-
-    viewing() {
-        const { editStatus } = this.state;
-        return editStatus === 'view';
-    }
-
-    handleFieldChange(propertyName, val) {
-        this.setState(prevState => ({
-            saCoreType: {
-                ...prevState.saCoreType,
-                [propertyName]: val
-            },
-            editStatus: 'edit'
-        }));
-    }
-
-    render() {
-        const { loading, errorMessage } = this.props;
-        const { saCoreType } = this.state;
-        if (loading || !saCoreType) {
-            return <Loading />;
-        }
-
-        return (
-            <Page>
-                <Grid container spacing={24}>
-                    <Grid item xs={12}>
-                        {this.creating() ? (
-                            <Title text="Add Sales Article Core Type" />
-                        ) : (
-                            <Title text="Sales Article Core Type Details" />
-                        )}
-                    </Grid>
-                    {errorMessage && (
-                        <Grid item xs={12}>
-                            <ErrorCard errorMessage={errorMessage} />
-                        </Grid>
+    return (
+        <Page>
+            <Grid container spacing={24}>
+                <Grid item xs={12}>
+                    {creating() ? (
+                        <Title text="Add Sales Article Core Type" />
+                    ) : (
+                        <Title text="Sales Article Core Type Details" />
                     )}
-                    <Grid item xs={4}>
-                        <InputField
-                            fullWidth
-                            disabled={!this.creating()}
-                            value={saCoreType.coreType}
-                            label="Core Type"
-                            helperText={
-                                !this.creating()
-                                    ? 'This field cannot be changed'
-                                    : 'This field is required'
-                            }
-                            onChange={this.handleFieldChange}
-                            propertyName="coreType"
-                        />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <InputField
-                            value={saCoreType.description}
-                            label="Description"
-                            fullWidth
-                            onChange={this.handleFieldChange}
-                            propertyName="description"
-                        />
-                    </Grid>
-                    <Grid item xs={3}>
-                        <InputField
-                            fullWidth
-                            type="number"
-                            value={saCoreType.lookAheadDays}
-                            label="Look Ahead Days"
-                            onChange={this.handleFieldChange}
-                            propertyName="lookAheadDays"
-                        />
-                    </Grid>
-                    <Grid item xs={3}>
-                        <InputField
-                            fullWidth
-                            type="number"
-                            value={saCoreType.triggerLevel}
-                            label="Trigger level"
-                            onChange={this.handleFieldChange}
-                            propertyName="triggerLevel"
-                        />
-                    </Grid>
-                    <Grid item xs={3}>
-                        <InputField
-                            fullWidth
-                            type="number"
-                            value={saCoreType.sortOrder}
-                            label="Sort Order"
-                            onChange={this.handleFieldChange}
-                            propertyName="sortOrder"
-                        />
-                    </Grid>
-                    <Grid item xs={3}>
-                        <InputField
-                            fullWidth
-                            type="date"
-                            value={saCoreType.dateInvalid}
-                            label="Date Invalid"
-                            onChange={this.handleFieldChange}
-                            propertyName="dateInvalid"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <SaveBackCancelButtons
-                            saveDisabled={
-                                !this.editing() ||
-                                (!saCoreType.coreType || saCoreType.coreType.length === 0)
-                            }
-                            saveClick={this.creating() ? this.handleAddClick : this.handleSaveClick}
-                            cancelClick={this.handleCancelClick}
-                            backClick={this.handleBackClick}
-                        />
-                    </Grid>
                 </Grid>
-            </Page>
-        );
-    }
+                {errorMessage && (
+                    <Grid item xs={12}>
+                        <ErrorCard errorMessage={errorMessage} />
+                    </Grid>
+                )}
+                {loading || !saCoreType ? (
+                    <Grid item xs={12}>
+                        <Loading />
+                    </Grid>
+                ) : (
+                    <Fragment>
+                        <SnackbarMessage
+                            visible={snackbarVisible}
+                            onClose={() => setSnackbarVisible(false)}
+                            message="Save Successful"
+                        />
+                        <Grid item xs={4}>
+                            <InputField
+                                fullWidth
+                                disabled={!creating()}
+                                value={saCoreType.coreType}
+                                label="Core Type"
+                                helperText={
+                                    !creating()
+                                        ? 'This field cannot be changed'
+                                        : 'This field is required'
+                                }
+                                onChange={handleFieldChange}
+                                propertyName="coreType"
+                            />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <InputField
+                                value={saCoreType.description}
+                                label="Description"
+                                fullWidth
+                                onChange={handleFieldChange}
+                                propertyName="description"
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <InputField
+                                fullWidth
+                                type="number"
+                                value={saCoreType.lookAheadDays}
+                                label="Look Ahead Days"
+                                onChange={handleFieldChange}
+                                propertyName="lookAheadDays"
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <InputField
+                                fullWidth
+                                type="number"
+                                value={saCoreType.triggerLevel}
+                                label="Trigger level"
+                                onChange={handleFieldChange}
+                                propertyName="triggerLevel"
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <InputField
+                                fullWidth
+                                type="number"
+                                value={saCoreType.sortOrder}
+                                label="Sort Order"
+                                onChange={handleFieldChange}
+                                propertyName="sortOrder"
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <InputField
+                                fullWidth
+                                type="date"
+                                value={saCoreType.dateInvalid}
+                                label="Date Invalid"
+                                onChange={handleFieldChange}
+                                propertyName="dateInvalid"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <SaveBackCancelButtons
+                                saveDisabled={viewing() || inputInvalid()}
+                                saveClick={handleSaveClick}
+                                cancelClick={handleCancelClick}
+                                backClick={handleBackClick}
+                            />
+                        </Grid>{' '}
+                    </Fragment>
+                )}
+            </Grid>
+        </Page>
+    );
 }
 
 SaCoreType.defaultProps = {
-    saCoreType: {},
+    item: {},
     addSaCoreType: null,
     updateSaCoreType: null,
     loading: null,
@@ -190,13 +179,14 @@ SaCoreType.defaultProps = {
 };
 
 SaCoreType.propTypes = {
-    saCoreType: PropTypes.shape({}),
+    item: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
     saCoreTypeId: PropTypes.string,
     updateSaCoreType: PropTypes.func,
     addSaCoreType: PropTypes.func,
+    setEditStatus: PropTypes.func,
     loading: PropTypes.bool
 };
 

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import SaCoreTypes from '../../components/SaCoreTypes';
 import initialiseOnMount from '../common/initialiseOnMount';
-import saCoreTypeActions from '../../actions/saCoreTypesActions';
+import saCoreTypesActions from '../../actions/saCoreTypesActions';
 import saCoreTypesSelectors from '../../selectors/saCoreTypesSelector';
 
 const mapStateToProps = state => ({
@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 });
 
 const initialise = () => dispatch => {
-    dispatch(saCoreTypeActions.fetch());
+    dispatch(saCoreTypesActions.fetch());
 };
 
 const mapDispatchToProps = {

@@ -6,10 +6,11 @@ import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import saCoreTypeSelectors from '../../selectors/saCoreTypeSelectors';
 
 const mapStateToProps = (state, { match }) => ({
-    saCoreType: saCoreTypeSelectors.getItem(state),
+    item: saCoreTypeSelectors.getItem(state),
     saCoreTypeId: match.params.coreType,
     editStatus: saCoreTypeSelectors.getEditStatus(state),
     loading: saCoreTypeSelectors.getLoading(state),
+    snackbarVisible: saCoreTypeSelectors.getSnackbarVisible(state),
     errorMessage: getSingleErrorMessage(state)
 });
 
@@ -20,7 +21,9 @@ const initialise = ({ saCoreTypeId }) => dispatch => {
 const mapDispatchToProps = {
     initialise,
     updateSaCoreType: saCoreTypeActions.update,
-    resetSaCoreType: saCoreTypeActions.reset
+    setEditStatus: saCoreTypeActions.setEditStatus,
+    resetSaCoreType: saCoreTypeActions.reset,
+    setSnackbarVisible: saCoreTypeActions.setSnackbarVisible
 };
 
 export default connect(
