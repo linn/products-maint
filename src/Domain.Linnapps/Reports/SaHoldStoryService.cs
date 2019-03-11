@@ -34,7 +34,7 @@
                 results.SetGridTextValue(row.RowIndex, 1, story.DateFinished != null ? ((DateTime)story.DateFinished).ToShortDateString() : story.DateFinished.ToString());
             }
 
-            results.RowDrillDownTemplates.Add(new DrillDownModel("story", "/products/reports/sa-hold-stories/{rowId}"));
+            results.RowDrillDownTemplates.Add(new DrillDownModel("story", "/products/reports/sa-hold-stories-for-sales-article/{rowId}"));
            
             return results;
         }

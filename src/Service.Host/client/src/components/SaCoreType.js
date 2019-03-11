@@ -103,6 +103,7 @@ function SaCoreType({
                                 }
                                 onChange={handleFieldChange}
                                 propertyName="coreType"
+                                error={inputInvalid()}
                             />
                         </Grid>
                         <Grid item xs={8}>
@@ -161,7 +162,7 @@ function SaCoreType({
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}
                             />
-                        </Grid>{' '}
+                        </Grid>
                     </Fragment>
                 )}
             </Grid>
@@ -175,7 +176,8 @@ SaCoreType.defaultProps = {
     updateSaCoreType: null,
     loading: null,
     errorMessage: '',
-    saCoreTypeId: null
+    saCoreTypeId: null,
+    snackbarVisible: false
 };
 
 SaCoreType.propTypes = {
@@ -186,8 +188,10 @@ SaCoreType.propTypes = {
     saCoreTypeId: PropTypes.string,
     updateSaCoreType: PropTypes.func,
     addSaCoreType: PropTypes.func,
-    setEditStatus: PropTypes.func,
-    loading: PropTypes.bool
+    setEditStatus: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
+    snackbarVisible: PropTypes.bool,
+    setSnackbarVisible: PropTypes.func.isRequired
 };
 
 export default SaCoreType;
