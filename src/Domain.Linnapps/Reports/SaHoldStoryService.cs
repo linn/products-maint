@@ -17,7 +17,7 @@
 
         public ResultsModel GetSaHoldStoriesReportForSalesArticle(string articleNumber)
         {
-            var stories = this.saHoldStoryRepository.FindAll().Where(s => s.ArticleNumber == articleNumber);
+            var stories = this.saHoldStoryRepository.FindAll().Where(s => s.SalesArticle.ArticleNumber == articleNumber);
 
             var results = new ResultsModel(new[] { "Date Started", "Date Finished"})
                               {

@@ -30,6 +30,8 @@
 
         public DbSet<ProductRange> ProductRanges { get; set; }
 
+        public DbSet<Employee> Employees { get; set; }
+        
         public DbSet<SalesPackage> SalesPackages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -44,6 +46,7 @@
             this.BuildSaHoldStories(builder);
             this.BuildVatCode(builder);
             this.BuildProductRanges(builder);
+            this.BuildEmployees(builder);
             this.BuildSalesPackages(builder);
             base.OnModelCreating(builder);
         }
@@ -55,7 +58,8 @@
             var password = ConfigurationManager.Configuration["DATABASE_PASSWORD"];
             var serviceId = ConfigurationManager.Configuration["DATABASE_NAME"];
 
-            var dataSource = $"(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT=1521))(CONNECT_DATA=(SERVICE_NAME={serviceId})(SERVER=dedicated)))";
+            var dataSource =
+                $"(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT=1521))(CONNECT_DATA=(SERVICE_NAME={serviceId})(SERVER=dedicated)))";
 
             optionsBuilder.UseOracle($"Data Source={dataSource};User Id={userId};Password={password};");
 
@@ -68,7 +72,8 @@
             builder.Entity<ProductRange>().HasKey(r => r.Id);
             builder.Entity<ProductRange>().Property(r => r.Id).HasColumnName("BRIDGE_ID");
             builder.Entity<ProductRange>().Property(r => r.RangeName).HasColumnName("RANGE_NAME").HasMaxLength(30);
-            builder.Entity<ProductRange>().Property(r => r.RangeDescription).HasColumnName("RANGE_DESCRIPTION").HasMaxLength(150);
+            builder.Entity<ProductRange>().Property(r => r.RangeDescription).HasColumnName("RANGE_DESCRIPTION")
+                .HasMaxLength(150);
             builder.Entity<ProductRange>().Property(r => r.DateInvalid).HasColumnName("DATE_INVALID");
         }
 
@@ -184,21 +189,27 @@
         {
             builder.Entity<SalesArticle>().ToTable("SALES_ARTICLES");
             builder.Entity<SalesArticle>().HasKey(t => t.ArticleNumber);
-            builder.Entity<SalesArticle>().Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER").HasMaxLength(14);
-            builder.Entity<SalesArticle>().Property(t => t.InvoiceDescription).HasColumnName("INVOICE_DESCRIPTION").HasMaxLength(100);
+            builder.Entity<SalesArticle>().Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER")
+                .HasMaxLength(14);
+            builder.Entity<SalesArticle>().Property(t => t.InvoiceDescription).HasColumnName("INVOICE_DESCRIPTION")
+                .HasMaxLength(100);
             builder.Entity<SalesArticle>().Property(t => t.CartonType).HasColumnName("CARTON_TYPE").HasMaxLength(10);
             builder.Entity<SalesArticle>().Property(t => t.EanCode).HasColumnName("EAN_CODE").HasMaxLength(13);
-            builder.Entity<SalesArticle>().Property(t => t.PackingDescription).HasColumnName("PACKING_DESCRIPTION").HasMaxLength(50);
-            builder.Entity<SalesArticle>().Property(t => t.SaDiscountFamily).HasColumnName("SA_DISCOUNT_FAMILY").HasMaxLength(10);
+            builder.Entity<SalesArticle>().Property(t => t.PackingDescription).HasColumnName("PACKING_DESCRIPTION")
+                .HasMaxLength(50);
+            builder.Entity<SalesArticle>().Property(t => t.SaDiscountFamily).HasColumnName("SA_DISCOUNT_FAMILY")
+                .HasMaxLength(10);
             builder.Entity<SalesArticle>().Property(t => t.TypeOfSale).HasColumnName("TYPE_OF_SALE").HasMaxLength(10);
             builder.Entity<SalesArticle>().Property(t => t.ForecastType).HasColumnName("FORECAST_TYPE").HasMaxLength(4);
             builder.Entity<SalesArticle>().Property(t => t.ForecastFromDate).HasColumnName("FORECAST_FROM_DATE");
             builder.Entity<SalesArticle>().Property(t => t.ForecastToDate).HasColumnName("FORECAST_TO_DATE");
             builder.Entity<SalesArticle>().Property(t => t.PhaseInDate).HasColumnName("PHASE_IN_DATE");
             builder.Entity<SalesArticle>().Property(t => t.PhaseOutDate).HasColumnName("PHASE_OUT_DATE");
-            builder.Entity<SalesArticle>().Property(t => t.PercentageOfRootProductSales).HasColumnName("PERCENTAGE_SALES");
+            builder.Entity<SalesArticle>().Property(t => t.PercentageOfRootProductSales)
+                .HasColumnName("PERCENTAGE_SALES");
             builder.Entity<SalesArticle>().Property(t => t.ArticleType).HasColumnName("ARTICLE_TYPE").HasMaxLength(1);
             builder.Entity<SalesArticle>().HasOne(t => t.SaCoreType);
+            builder.Entity<SalesArticle>().HasMany(t => t.HoldStories).WithOne(e => e.SalesArticle);
         }
 
         private void BuildVatCode(ModelBuilder builder)
@@ -219,15 +230,26 @@
             e.ToTable("SA_HOLD_STORIES");
             e.HasKey(t => t.HoldStoryId);
             e.Property(t => t.HoldStoryId).HasColumnName("HOLD_STORY_ID");
-            e.Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER");
-            e.Property(t => t.PutOnHoldByEmployeeNumber).HasColumnName("EMPLOYEE_NUMBER");
-            e.Property(t => t.TakenOffHoldByEmployeeNumber).HasColumnName("EMPLOYEE_NUMBER_TAKEN_OFF_HOLD");
             e.Property(t => t.DateStarted).HasColumnName("DATE_STARTED");
             e.Property(t => t.DateFinished).HasColumnName("DATE_FINISHED");
             e.Property(t => t.ReasonStarted).HasColumnName("REASON_STARTED");
             e.Property(t => t.ReasonFinished).HasColumnName("REASON_FINISHED");
             e.Property(t => t.RootProduct).HasColumnName("ROOT_PRODUCT");
             e.Property(t => t.AnticipatedEndDate).HasColumnName("ANTICIPATED_END_DATE");
+            e.Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER");
+            e.HasOne(t => t.PutOnHoldByEmployee);
+            e.HasOne(t => t.TakenOffHoldByEmployee);
+            e.HasOne<SalesArticle>(s => s.SalesArticle).WithMany(g => g.HoldStories)
+                .HasForeignKey(s => s.ArticleNumber);
+        }
+
+        private void BuildEmployees(ModelBuilder builder)
+        {
+            EntityTypeBuilder<Employee> e = builder.Entity<Employee>();
+            e.ToTable("AUTH_USER_NAME_VIEW");
+            e.HasKey(t => t.Id);
+            e.Property(t => t.Id).HasColumnName("USER_NUMBER");
+            e.Property(t => t.FullName).HasColumnName("USER_NAME");
         }
     }
 }

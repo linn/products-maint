@@ -27,6 +27,7 @@ import vatCode from './vatCode';
 import vatCodes from './vatCodes';
 import productRange from './productRange';
 import productRanges from './productRanges';
+import productsOnHoldReport from './productsOnHoldReport';
 
 const rootReducer = combineReducers({
     oidc,
@@ -56,7 +57,8 @@ const rootReducer = combineReducers({
     vatCode,
     vatCodes,
     productRange,
-    productRanges
+    productRanges,
+    productsOnHoldReport
 });
 
 export default rootReducer;

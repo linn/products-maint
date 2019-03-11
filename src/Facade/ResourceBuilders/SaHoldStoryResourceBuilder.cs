@@ -11,11 +11,11 @@
             return new SaHoldStoryResource
                        {
                            HoldStoryId = saHoldStory.HoldStoryId,
-                           ArticleNumber = saHoldStory.ArticleNumber,
+                           ArticleNumber = saHoldStory.SalesArticle.ArticleNumber,
                            DateStarted = saHoldStory.DateStarted.ToString("o"),
                            DateFinished = saHoldStory.DateFinished?.ToString("o"),
-                           PutOnHoldByEmployeeNumber = saHoldStory.PutOnHoldByEmployeeNumber,
-                           TakenOffHoldByEmployeeNumber = saHoldStory.TakenOffHoldByEmployeeNumber,
+                           PutOnHoldByEmployee = saHoldStory.PutOnHoldByEmployee.FullName,
+                           TakenOffHoldByEmployee = saHoldStory.TakenOffHoldByEmployee == null ? null : saHoldStory.TakenOffHoldByEmployee.FullName,
                            ReasonStarted = saHoldStory.ReasonStarted,
                            ReasonFinished = saHoldStory.ReasonFinished,
                            AnticipatedEndDate = saHoldStory.AnticipatedEndDate,  

@@ -50,6 +50,7 @@ import CreateSernosSequence from '../containers/sernosSequences/CreateSernosSequ
 import ProductRanges from '../containers/productRanges/ProductRanges';
 import ProductRange from '../containers/productRanges/ProductRange';
 import CreateProductRange from '../containers/productRanges/CreateProductRange';
+import ProductsOnHold from '../containers/reports/ProductsOnHold';
 
 const Root = ({ store }) => (
     <div>
@@ -302,6 +303,11 @@ const Root = ({ store }) => (
                                 exact
                                 path="/products/reports/sa-hold-stories/:holdStoryId"
                                 component={SaHoldStory}
+                            />
+                            <Route
+                                exact
+                                path="/products/reports/products-on-hold"
+                                component={ProductsOnHold}
                             />
                             <Route exact path="/:sectionId" component={MenuPage} />
                         </div>

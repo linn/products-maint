@@ -8,6 +8,7 @@
 
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
 
     using Nancy;
@@ -26,8 +27,16 @@
             {
                 HoldStoryId = 1,
                 ArticleNumber = "AR 1",
+                SalesArticle = new SalesArticle
+                                   {
+                                       ArticleNumber = "AR 1"
+                                   },
                 DateStarted = DateTime.Today,
-                PutOnHoldByEmployeeNumber = 1,
+                PutOnHoldByEmployee = new Employee
+                                          {
+                                              Id = 1234,
+                                              FullName = "Mr Employee"
+                                          },
                 ReasonStarted = "Reason 1",
                 ReasonFinished = "reason2",
                 RootProduct = "prod"

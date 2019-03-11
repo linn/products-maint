@@ -9,6 +9,7 @@
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
     using Linn.Products.Domain.Linnapps.Reports;
+    using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
@@ -28,6 +29,7 @@
             builder.RegisterType<StockTriggerLevelReportService>().As<IStockTriggerLevelReportService>();
             builder.RegisterType<SaHoldStoryService>().As<ISaHoldStoryReportService>();
             builder.RegisterType<SalesArticleReports>().As<ISalesArticleReports>();
+            builder.RegisterType<ProductsOnHoldService>().As<IProductsOnHoldService>();
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
@@ -42,6 +44,7 @@
             builder.RegisterType<TypeOfSaleService>().As<IFacadeService<TypeOfSale, string, TypeOfSaleResource, TypeOfSaleResource>>();
             builder.RegisterType<StockTriggerLevelsService>().As<IStockTriggerLevelsService>();
             builder.RegisterType<SaHoldStoryFacadeService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
+            builder.RegisterType<ProductsOnHoldReportService>().As<IProductsOnHoldReportService>();
 
             builder.RegisterType<SaHoldStoryFacadeService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
             builder.RegisterType<SalesArticleService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
