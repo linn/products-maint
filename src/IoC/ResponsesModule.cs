@@ -7,6 +7,7 @@
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Facade.ResourceBuilders;
 
     public class ResponsesModule : Module
@@ -20,6 +21,8 @@
             builder.RegisterType<CartonTypeResourceBuilder>().As<IResourceBuilder<CartonType>>();
             builder.RegisterType<SernosConfigResourceBuilder>().As<IResourceBuilder<SernosConfig>>();
             builder.RegisterType<SernosConfigsResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosConfig>>>();
+            builder.RegisterType<SernosSequenceResourceBuilder>().As<IResourceBuilder<SernosSequence>>();
+            builder.RegisterType<SernosSequencesResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosSequence>>>();
             builder.RegisterType<SaCoreTypeResourceBuilder>().As<IResourceBuilder<SaCoreType>>();
             builder.RegisterType<SaCoreTypesResourceBuilder>().As<IResourceBuilder<IEnumerable<SaCoreType>>>();
             builder.RegisterType<SalesArticleResourceBuilder>().As<IResourceBuilder<SalesArticle>>();
@@ -33,6 +36,8 @@
             builder.RegisterType<VatCodesResourceBuilder>().As<IResourceBuilder<IEnumerable<VatCode>>>();
             builder.RegisterType<ProductRangeResourceBuilder>().As<IResourceBuilder<ProductRange>>();
             builder.RegisterType<ProductRangesResourceBuilder>().As<IResourceBuilder<IEnumerable<ProductRange>>>();
+            builder.RegisterType<SalesPackageResourceBuilder>().As<IResourceBuilder<SalesPackage>>();
+            builder.RegisterType<SalesPackagesResourceBuilder>().As<IResourceBuilder<IEnumerable<SalesPackage>>>();
         }
     }
 }

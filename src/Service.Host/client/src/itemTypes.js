@@ -17,6 +17,17 @@ export const sernosConfigs = new ItemType(
     '/products/maint/sernos-configs'
 );
 
+export const sernosSequence = new ItemType(
+    'sernosSequence',
+    'SERNOS_SEQUENCE',
+    '/products/maint/sernos-sequences'
+);
+export const sernosSequences = new ItemType(
+    'sernosSequences',
+    'SERNOS_SEQUENCES',
+    '/products/maint/sernos-sequences'
+);
+
 export const saCoreType = new ItemType(
     'saCoreType',
     'SA_CORE_TYPE',

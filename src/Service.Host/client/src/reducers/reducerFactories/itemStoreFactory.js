@@ -1,7 +1,7 @@
 ﻿export default function(
     itemRoot,
     actionTypes,
-    defaultState = { loading: false, item: null, editStatus: 'view' }
+    defaultState = { loading: false, item: null, editStatus: 'view', snackbarVisible: false }
 ) {
     return (state = defaultState, action) => {
         switch (action.type) {
@@ -14,6 +14,8 @@
             case actionTypes[`REQUEST_CREATE_${itemRoot}`]:
                 return {
                     ...state,
+                    loading: false,
+                    item: {},
                     editStatus: 'create'
                 };
             case actionTypes[`REQUEST_${itemRoot}`]:
@@ -26,7 +28,13 @@
             case actionTypes[`REQUEST_UPDATE_${itemRoot}`]:
                 return {
                     ...state,
-                    editStatus: 'edit'
+                    loading: true
+                };
+
+            case actionTypes[`SET_${itemRoot}_EDIT_STATUS`]:
+                return {
+                    ...state,
+                    editStatus: action.payload
                 };
 
             case actionTypes[`RESET_${itemRoot}`]:
@@ -36,13 +44,43 @@
                 };
 
             case actionTypes[`RECEIVE_${itemRoot}`]:
-            case actionTypes[`RECEIVE_NEW_${itemRoot}`]:
                 return {
                     ...state,
                     loading: false,
                     item: action.payload.data,
                     editStatus: 'view'
                 };
+
+            case actionTypes[`RECEIVE_UPDATED_${itemRoot}`]:
+                return {
+                    ...state,
+                    loading: false,
+                    item: action.payload.data,
+                    editStatus: 'view',
+                    snackbarVisible: true
+                };
+
+            case actionTypes[`RECEIVE_NEW_${itemRoot}`]:
+                return {
+                    ...state,
+                    loading: false,
+                    item: action.payload.data,
+                    editStatus: 'view',
+                    snackbarVisible: true
+                };
+
+            case actionTypes[`SHOW_${itemRoot}_SNACKBAR`]:
+                return {
+                    ...state,
+                    snackbarVisible: true
+                };
+
+            case actionTypes[`HIDE_${itemRoot}_SNACKBAR`]:
+                return {
+                    ...state,
+                    snackbarVisible: false
+                };
+
             default:
         }
 

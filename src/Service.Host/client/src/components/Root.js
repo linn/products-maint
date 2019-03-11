@@ -44,6 +44,9 @@ import HoldStoriesBySalesArticle from '../containers/SaHoldStories/HoldStoriesBy
 import SaHoldStory from '../containers/SaHoldStories/SaHoldStory';
 import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesOptions';
 import SalesArticleCoreTypes from '../containers/reports/SalesArticleCoreTypes';
+import SernosSequences from '../containers/sernosSequences/SernosSequences';
+import SernosSequence from '../containers/sernosSequences/SernosSequence';
+import CreateSernosSequence from '../containers/sernosSequences/CreateSernosSequence';
 import ProductRanges from '../containers/productRanges/ProductRanges';
 import ProductRange from '../containers/productRanges/ProductRange';
 import CreateProductRange from '../containers/productRanges/CreateProductRange';
@@ -185,6 +188,24 @@ const Root = ({ store }) => (
                                     exact
                                     path="/products/maint/sernos-configs/:sernosConfigId"
                                     component={SernosConfig}
+                                />
+                            </Switch>
+
+                            <Switch>
+                                <Route
+                                    exact
+                                    path="/products/maint/sernos-sequences"
+                                    component={SernosSequences}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/sernos-sequences/create"
+                                    component={CreateSernosSequence}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/sernos-sequences/:sequenceName"
+                                    component={SernosSequence}
                                 />
                             </Switch>
 

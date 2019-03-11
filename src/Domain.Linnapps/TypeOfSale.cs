@@ -6,18 +6,13 @@
     {
         public TypeOfSale(string name, string description, string nominal, string department, string realSale)
         {
-            this.CheckConfigurationIsValid(name, description, nominal, department, realSale);
+            this.ValidateTypeOfSale(name, description, nominal, department, realSale);
 
             this.Name = name;
             this.Description = description;
             this.Nominal = nominal;
             this.Department = department;
             this.RealSale = realSale;
-        }
-
-        private TypeOfSale()
-        {
-            // ef
         }
 
         public string Name { get; set; }
@@ -30,9 +25,9 @@
 
         public string RealSale { get; set; }
 
-        public void Update(string description, string nominal, string department, string realSale)
+        public void Update(string name, string description, string nominal, string department, string realSale)
         {
-            this.CheckConfigurationIsValid(this.Name, description, nominal, department, realSale);
+            this.ValidateTypeOfSale(name, description, nominal, department, realSale);
 
             this.Description = description;
             this.Nominal = nominal;
@@ -40,7 +35,7 @@
             this.RealSale = realSale;
         }
 
-        private void CheckConfigurationIsValid(
+        private void ValidateTypeOfSale(
             string name,
             string description,
             string nominal,
@@ -50,6 +45,31 @@
             if (string.IsNullOrWhiteSpace(name))
             {
                 throw new DomainException("You must supply a name");
+            }
+
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                throw new DomainException("You must supply a description");
+            }
+
+            if (string.IsNullOrWhiteSpace(nominal))
+            {
+                throw new DomainException("You must supply a nominal");
+            }
+
+            if (string.IsNullOrWhiteSpace(department))
+            {
+                throw new DomainException("You must supply a department");
+            }
+
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                throw new DomainException("You must supply a description");
+            }
+
+            if (string.IsNullOrWhiteSpace(realSale))
+            {
+                throw new DomainException("You must supply a real sale");
             }
         }
     }

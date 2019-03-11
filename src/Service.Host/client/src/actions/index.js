@@ -12,8 +12,12 @@ const makeActionTypes = (entityType, makeAll = true) => {
         types[`REQUEST_ADD_${entityType}`] = `REQUEST_ADD_${entityType}`;
         types[`REQUEST_CREATE_${entityType}`] = `REQUEST_CREATE_${entityType}`;
         types[`REQUEST_UPDATE_${entityType}`] = `REQUEST_UPDATE_${entityType}`;
+        types[`RECEIVE_UPDATED_${entityType}`] = `RECEIVE_UPDATED_${entityType}`;
         types[`RESET_${entityType}`] = `RESET_${entityType}`;
         types[`RECEIVE_NEW_${entityType}`] = `RECEIVE_NEW_${entityType}`;
+        types[`SET_${entityType}_EDIT_STATUS`] = `SET_${entityType}_EDIT_STATUS`;
+        types[`SHOW_${entityType}_SNACKBAR`] = `SHOW_${entityType}_SNACKBAR`;
+        types[`HIDE_${entityType}_SNACKBAR`] = `HIDE_${entityType}_SNACKBAR`;
     }
     return types;
 };
@@ -71,6 +75,12 @@ export const cartonTypeActionTypes = makeActionTypes(itemTypes.cartonType.action
 
 export const sernosConfigActionTypes = makeActionTypes(itemTypes.sernosConfig.actionType);
 export const sernosConfigsActionTypes = makeActionTypes(itemTypes.sernosConfigs.actionType, false);
+
+export const sernosSequenceActionTypes = makeActionTypes(itemTypes.sernosSequence.actionType);
+export const sernosSequencesActionTypes = makeActionTypes(
+    itemTypes.sernosSequences.actionType,
+    false
+);
 
 export const saCoreTypeActionTypes = makeActionTypes(itemTypes.saCoreType.actionType);
 export const saCoreTypesActionTypes = makeActionTypes(itemTypes.saCoreTypes.actionType, false);

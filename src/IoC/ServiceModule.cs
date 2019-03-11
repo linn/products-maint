@@ -10,6 +10,7 @@
     using Linn.Products.Domain.Linnapps.RemoteServices;
     using Linn.Products.Domain.Linnapps.Reports;
     using Linn.Products.Domain.Linnapps.Repositories;
+    using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
     using Linn.Products.Facade;
@@ -26,8 +27,7 @@
             builder.RegisterType<CartonDetailsReportService>().As<ICartonDetailsReportService>();
             builder.RegisterType<ProductReports>().As<IProductReports>();
             builder.RegisterType<StockTriggerLevelReportService>().As<IStockTriggerLevelReportService>();
-            builder.RegisterType<SaHoldStoryService>()
-                .As<ISaHoldStoryReportService>();
+            builder.RegisterType<SaHoldStoryService>().As<ISaHoldStoryReportService>();
             builder.RegisterType<SalesArticleReports>().As<ISalesArticleReports>();
             builder.RegisterType<ProductsOnHoldService>().As<IProductsOnHoldService>();
 
@@ -35,11 +35,12 @@
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
             builder.RegisterType<TariffService>().As<ITariffService>();
             builder.RegisterType<CartonReportsService>().As<ICartonReportsService>();
-            builder.RegisterType<SaHoldStoryReportService>().As<Facade.Services.ISaHoldStoriesReportService>();
+            builder.RegisterType<SaHoldStoryReportService>().As<ISaHoldStoriesReportService>();
             builder.RegisterType<ProductsReportsService>().As<IProductsReportsService>();
             builder.RegisterType<CartonTypeService>().As<IFacadeService<CartonType, string, CartonTypeResource, CartonTypeUpdateResource>>();
             builder.RegisterType<SaCoreTypeService>().As<IFacadeService<SaCoreType, int, SaCoreTypeResource, SaCoreTypeResource>>();
             builder.RegisterType<SernosConfigService>().As<IFacadeService<SernosConfig, string, SernosConfigResource, SernosConfigResource>>();
+            builder.RegisterType<SernosSequenceService>().As<IFacadeService<SernosSequence, string, SernosSequenceResource, SernosSequenceResource>>();
             builder.RegisterType<TypeOfSaleService>().As<IFacadeService<TypeOfSale, string, TypeOfSaleResource, TypeOfSaleResource>>();
             builder.RegisterType<StockTriggerLevelsService>().As<IStockTriggerLevelsService>();
             builder.RegisterType<SaHoldStoryFacadeService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
@@ -49,6 +50,7 @@
             builder.RegisterType<SalesArticleService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
             builder.RegisterType<VatCodeService>().As<IFacadeService<VatCode, string, VatCodeResource, VatCodeResource>>();
             builder.RegisterType<ProductRangeService>().As<IFacadeService<ProductRange, int, ProductRangeResource, ProductRangeUpdateResource>>();
+            builder.RegisterType<SalesPackageService>().As<IFacadeService<SalesPackage, int, SalesPackageResource, SalesPackageResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();

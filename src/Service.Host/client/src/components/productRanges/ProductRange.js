@@ -54,10 +54,11 @@ class ProductRange extends Component {
         const { productRange, setEditStatus, history } = this.props;
 
         this.setState({ productRange });
-        setEditStatus('view');
         if (this.creating()) {
             history.push('/products/maint/product-ranges');
         }
+
+        setEditStatus('view');
     };
 
     handleBackClick = () => {
@@ -180,7 +181,7 @@ ProductRange.propTypes = {
     updateProductRange: PropTypes.func,
     addProductRange: PropTypes.func,
     setEditStatus: PropTypes.func.isRequired,
-    editStatus: PropTypes.string
+    editStatus: PropTypes.string.isRequired
 };
 
 ProductRange.defaultProps = {
@@ -188,7 +189,6 @@ ProductRange.defaultProps = {
     loading: false,
     classes: {},
     errorMessage: '',
-    editStatus: 'view',
     productRange: null,
     addProductRange: null,
     updateProductRange: null
