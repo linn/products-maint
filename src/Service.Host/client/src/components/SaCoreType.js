@@ -6,7 +6,8 @@ import {
     InputField,
     Loading,
     Title,
-    ErrorCard
+    ErrorCard,
+    SnackbarMessage
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 
@@ -16,10 +17,12 @@ function SaCoreType({
     editStatus,
     initialSaCoreType,
     saCoreTypeId,
+    updateSaCoreType,
     addSaCoreType,
-    setEditStatus, 
+    setEditStatus,
+    snackbarVisible,
+    setSnackbarVisible,
     history
-    //....
 }) {
     const [saCoreType, setSaCoreType] = useState({});
     const [prevSaCoreType, setPrevSaCoreType] = useState({});
@@ -29,11 +32,13 @@ function SaCoreType({
     const viewing = () => editStatus === 'view';
 
     useEffect(() => {
-         if (initialSaCoreType !== prevSaCoreType) {
+        if (!creating() && initialSaCoreType !== prevSaCoreType) {
             setSaCoreType(initialSaCoreType);
             setPrevSaCoreType(initialSaCoreType);
         }
     });
+
+    const inputInvalid = () => !saCoreType.coreType;
 
     const handleSaveClick = () => {
         if (editing()) {
@@ -41,7 +46,7 @@ function SaCoreType({
             setEditStatus('view');
         } else if (creating()) {
             addSaCoreType(saCoreType);
-            setEditStatus('view');
+            history.push(`/products/maint/sa-core-types/${saCoreType.coreType}`);
         }
     };
 
@@ -80,6 +85,11 @@ function SaCoreType({
                     </Grid>
                 ) : (
                     <Fragment>
+                        <SnackbarMessage
+                            visible={snackbarVisible}
+                            onClose={() => setSnackbarVisible(false)}
+                            message="Save Successful"
+                        />
                         <Grid item xs={4}>
                             <InputField
                                 fullWidth
@@ -146,9 +156,7 @@ function SaCoreType({
                         </Grid>
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
-                                saveDisabled={
-                                    viewing()
-                                }
+                                saveDisabled={viewing() || inputInvalid()}
                                 saveClick={handleSaveClick}
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}

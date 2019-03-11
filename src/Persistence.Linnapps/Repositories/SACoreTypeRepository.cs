@@ -18,7 +18,7 @@
 
         public SaCoreType FindById(int key)
         {
-            return this.serviceDbContext.SaCoreTypes.Where(b => b.CoreType == key).ToList().First();
+            return this.serviceDbContext.SaCoreTypes.Where(b => b.CoreType == key).ToList().FirstOrDefault();
         }
 
         public IQueryable<SaCoreType> FindAll()

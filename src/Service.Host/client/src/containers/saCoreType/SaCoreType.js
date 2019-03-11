@@ -10,6 +10,7 @@ const mapStateToProps = (state, { match }) => ({
     saCoreTypeId: match.params.coreType,
     editStatus: saCoreTypeSelectors.getEditStatus(state),
     loading: saCoreTypeSelectors.getLoading(state),
+    snackbarVisible: saCoreTypeSelectors.getSnackbarVisible(state),
     errorMessage: getSingleErrorMessage(state)
 });
 
@@ -21,7 +22,8 @@ const mapDispatchToProps = {
     initialise,
     updateSaCoreType: saCoreTypeActions.update,
     setEditStatus: saCoreTypeActions.setEditStatus,
-    resetSaCoreType: saCoreTypeActions.reset
+    resetSaCoreType: saCoreTypeActions.reset,
+    setSnackbarVisible: saCoreTypeActions.setSnackbarVisible
 };
 
 export default connect(
