@@ -5,12 +5,11 @@ import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import saCoreTypeSelectors from '../../selectors/saCoreTypeSelectors';
 
 const mapStateToProps = state => ({
-    initialSaCoreType: {},
+    item: {},
     editStatus: 'create',
     errorMessage: getSingleErrorMessage(state),
     loading: saCoreTypeSelectors.getLoading(state),
     snackbarVisible: saCoreTypeSelectors.getSnackbarVisible(state)
-
 });
 
 const initialise = () => dispatch => {

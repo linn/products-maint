@@ -1,19 +1,14 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Loading, EntityList, CreateButton, SnackbarMessage } from '@linn-it/linn-form-components-library';
+import { Loading, EntityList, CreateButton } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 
-const SaCoreTypes = ({ saCoreTypes, loading, snackbarVisible, setSnackbarVisible }) => (
+const SaCoreTypes = ({ saCoreTypes, loading }) => (
     <Page>
         {loading ? (
             <Loading />
         ) : (
             <Fragment>
-                 <SnackbarMessage
-                            visible={snackbarVisible}
-                            onClose={() => setSnackbarVisible(false)}
-                            message="Save Successful"
-                        />
                 <CreateButton createUrl="/products/maint/sa-core-types/create" />
                 <EntityList
                     title="SA Core Types"

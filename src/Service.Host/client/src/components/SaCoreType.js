@@ -15,7 +15,7 @@ function SaCoreType({
     loading,
     errorMessage,
     editStatus,
-    initialSaCoreType,
+    item,
     saCoreTypeId,
     updateSaCoreType,
     addSaCoreType,
@@ -32,9 +32,9 @@ function SaCoreType({
     const viewing = () => editStatus === 'view';
 
     useEffect(() => {
-        if (!creating() && initialSaCoreType !== prevSaCoreType) {
-            setSaCoreType(initialSaCoreType);
-            setPrevSaCoreType(initialSaCoreType);
+        if (!creating() && item !== prevSaCoreType) {
+            setSaCoreType(item);
+            setPrevSaCoreType(item);
         }
     });
 
@@ -51,7 +51,7 @@ function SaCoreType({
     };
 
     const handleCancelClick = () => {
-        setSaCoreType(initialSaCoreType);
+        setSaCoreType(item);
         setEditStatus('view');
     };
 
@@ -170,7 +170,7 @@ function SaCoreType({
 }
 
 SaCoreType.defaultProps = {
-    initialSaCoreType: {},
+    item: {},
     addSaCoreType: null,
     updateSaCoreType: null,
     loading: null,
@@ -179,7 +179,7 @@ SaCoreType.defaultProps = {
 };
 
 SaCoreType.propTypes = {
-    initialSaCoreType: PropTypes.shape({}),
+    item: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,

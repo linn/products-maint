@@ -6,7 +6,7 @@ import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import saCoreTypeSelectors from '../../selectors/saCoreTypeSelectors';
 
 const mapStateToProps = (state, { match }) => ({
-    initialSaCoreType: saCoreTypeSelectors.getItem(state),
+    item: saCoreTypeSelectors.getItem(state),
     saCoreTypeId: match.params.coreType,
     editStatus: saCoreTypeSelectors.getEditStatus(state),
     loading: saCoreTypeSelectors.getLoading(state),
