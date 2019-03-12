@@ -12,6 +12,7 @@ import {
 import Page from '../containers/Page';
 
 function CartonType({
+    initialise,
     loading,
     errorMessage,
     editStatus,
@@ -37,6 +38,10 @@ function CartonType({
             setPrevCartonType(item);
         }
     });
+
+    useEffect(() => {
+        initialise({ cartonTypeId });
+    }, [cartonTypeId]);
 
     const nameInvalid = () => !cartonType.name;
     const dimensionInvalid = dimension => !dimension;
@@ -195,6 +200,7 @@ CartonType.defaultProps = {
 };
 
 CartonType.propTypes = {
+    initialise: PropTypes.func.isRequired,
     item: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,

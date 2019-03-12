@@ -1,6 +1,5 @@
 ﻿import { connect } from 'react-redux';
 import CartonType from '../../components/CartonType';
-import initialiseOnMount from '../common/initialiseOnMount';
 import cartonTypeActions from '../../actions/cartonTypeActions';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import cartonTypeSelectors from '../../selectors/cartonTypeSelectors';
@@ -29,4 +28,4 @@ const mapDispatchToProps = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(initialiseOnMount(CartonType));
+)(CartonType);
