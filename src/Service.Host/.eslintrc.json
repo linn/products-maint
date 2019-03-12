@@ -1,14 +1,16 @@
 {
-  "extends": [ "airbnb", "prettier/react", "plugin:jest/recommended", "prettier" ],
-  "plugins": [ "prettier", "jest" ],
-  "parser": "babel-eslint",
-  "env": {
-    "browser": true
-  },
-  "rules": {
-    "prettier/prettier": [ "error" ],
-    "linebreak-style": [ "error", "windows" ],
-    "react/jsx-filename-extension": 0,
-    "spaced-comment": "off"
-  }
+    "extends": ["airbnb", "prettier/react", "plugin:jest/recommended", "prettier"],
+    "plugins": ["prettier", "jest", "react-hooks"],
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true
+    },
+    "rules": {
+        "prettier/prettier": ["error"],
+        "linebreak-style": ["error", "windows"],
+        "react/jsx-filename-extension": 0,
+        "spaced-comment": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "error"
+    }
 }
