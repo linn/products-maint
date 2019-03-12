@@ -40,8 +40,14 @@ function CartonType({
     });
 
     useEffect(() => {
-        initialise({ cartonTypeId });
+        if (!creating()) {
+            initialise({ cartonTypeId });
+        }
     }, [cartonTypeId]);
+
+    // useEffect(() => {
+    //     alert('I was called');
+    // }, [addCartonType]);
 
     const nameInvalid = () => !cartonType.name;
     const dimensionInvalid = dimension => !dimension;
@@ -58,7 +64,9 @@ function CartonType({
             setEditStatus('view');
         } else if (creating()) {
             addCartonType(cartonType);
-            history.push(`/products/maint/carton-types/${cartonType.name}`);
+            if (!errorMessage) {
+                history.push(`/products/maint/carton-types/${cartonType.name}`);
+            }
         }
     };
 
@@ -85,7 +93,7 @@ function CartonType({
                         <Title text="Carton Type Details" />
                     )}
                 </Grid>
-                {loading || !cartonType ? (
+                {(loading || !cartonType) && !creating() ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
@@ -191,6 +199,7 @@ function CartonType({
 
 CartonType.defaultProps = {
     item: {},
+    initialise: null,
     loading: null,
     errorMessage: '',
     cartonTypeId: null,
@@ -200,7 +209,7 @@ CartonType.defaultProps = {
 };
 
 CartonType.propTypes = {
-    initialise: PropTypes.func.isRequired,
+    initialise: PropTypes.func,
     item: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,

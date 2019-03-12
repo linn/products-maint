@@ -12,6 +12,7 @@ import {
 import Page from '../containers/Page';
 
 function SaCoreType({
+    initialise,
     loading,
     errorMessage,
     editStatus,
@@ -31,6 +32,25 @@ function SaCoreType({
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
 
+    const add = async () => {
+        await addSaCoreType(saCoreType);
+        if (!errorMessage) {
+            history.push(`/products/maint/sa-core-types/${saCoreType.coreType}`);
+        }
+    };
+
+    useEffect(() => {
+        if (!creating()) {
+            initialise({ saCoreTypeId });
+        }
+    }, [saCoreTypeId]);
+
+    useEffect(() => {
+        if (creating() && errorMessage) {
+            history.push(`/products/maint/sa-core-types/create`);
+        }
+    }, [errorMessage, editStatus]);
+
     useEffect(() => {
         if (!creating() && item !== prevSaCoreType) {
             setSaCoreType(item);
@@ -45,8 +65,7 @@ function SaCoreType({
             updateSaCoreType(saCoreTypeId, saCoreType);
             setEditStatus('view');
         } else if (creating()) {
-            addSaCoreType(saCoreType);
-            history.push(`/products/maint/sa-core-types/${saCoreType.coreType}`);
+            add();
         }
     };
 
@@ -74,17 +93,17 @@ function SaCoreType({
                         <Title text="Sales Article Core Type Details" />
                     )}
                 </Grid>
-                {errorMessage && (
-                    <Grid item xs={12}>
-                        <ErrorCard errorMessage={errorMessage} />
-                    </Grid>
-                )}
-                {loading || !saCoreType ? (
+                {(loading || !saCoreType) && !creating() ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
                 ) : (
                     <Fragment>
+                        {errorMessage && (
+                            <Grid item xs={12}>
+                                <ErrorCard errorMessage={errorMessage} />
+                            </Grid>
+                        )}
                         <SnackbarMessage
                             visible={snackbarVisible}
                             onClose={() => setSnackbarVisible(false)}
@@ -177,10 +196,12 @@ SaCoreType.defaultProps = {
     loading: null,
     errorMessage: '',
     saCoreTypeId: null,
-    snackbarVisible: false
+    snackbarVisible: false,
+    initialise: null
 };
 
 SaCoreType.propTypes = {
+    initialise: PropTypes.func,
     item: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
