@@ -5,7 +5,7 @@ import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import cartonTypeSelectors from '../../selectors/cartonTypeSelectors';
 
 const mapStateToProps = state => ({
-    item: { height: 0, width: 0, depth: 0 },
+    item: {},
     editStatus: 'create',
     errorMessage: getSingleErrorMessage(state),
     loading: cartonTypeSelectors.getLoading(state),

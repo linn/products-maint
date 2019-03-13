@@ -33,11 +33,16 @@ function CartonType({
     const viewing = () => editStatus === 'view';
 
     useEffect(() => {
-        if (!creating() && item !== prevCartonType) {
-            setCartonType(item);
-            setPrevCartonType(item);
+        if (!creating()) {
+            initialise({ cartonTypeId });
         }
-    });
+    }, [cartonTypeId]);
+
+    useEffect(() => {
+        if (creating() && errorMessage) {
+            history.push(`/products/maint/carton-types/create`);
+        }
+    }, [errorMessage, editStatus]);
 
     useEffect(() => {
         if (!creating()) {
@@ -45,15 +50,20 @@ function CartonType({
         }
     }, [cartonTypeId]);
 
-    // useEffect(() => {
-    //     alert('I was called');
-    // }, [addCartonType]);
+    useEffect(() => {
+        if (!creating() && item !== prevCartonType) {
+            setCartonType(item);
+            setPrevCartonType(item);
+        }
+    });
 
     const nameInvalid = () => !cartonType.name;
+    const descriptionInvalid = () => !cartonType.description;
     const dimensionInvalid = dimension => !dimension;
 
     const inputInvalid = () =>
         nameInvalid() ||
+        descriptionInvalid() ||
         dimensionInvalid(cartonType.height) ||
         dimensionInvalid(cartonType.width) ||
         dimensionInvalid(cartonType.depth);
@@ -93,7 +103,7 @@ function CartonType({
                         <Title text="Carton Type Details" />
                     )}
                 </Grid>
-                {(loading || !cartonType) && !creating() ? (
+                {loading || (!cartonType && !creating()) ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
@@ -132,6 +142,10 @@ function CartonType({
                                 fullWidth
                                 onChange={handleFieldChange}
                                 propertyName="description"
+                                error={descriptionInvalid()}
+                                helperText={
+                                    descriptionInvalid() ? 'Description cannot be empty' : ''
+                                }
                             />
                         </Grid>
                         <Grid item xs={4}>

@@ -32,13 +32,6 @@ function SaCoreType({
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
 
-    const add = async () => {
-        await addSaCoreType(saCoreType);
-        if (!errorMessage) {
-            history.push(`/products/maint/sa-core-types/${saCoreType.coreType}`);
-        }
-    };
-
     useEffect(() => {
         if (!creating()) {
             initialise({ saCoreTypeId });
@@ -65,7 +58,8 @@ function SaCoreType({
             updateSaCoreType(saCoreTypeId, saCoreType);
             setEditStatus('view');
         } else if (creating()) {
-            add();
+            addSaCoreType(saCoreType);
+            history.push(`/products/maint/sa-core-types/${saCoreType.coreType}`);
         }
     };
 
@@ -93,7 +87,7 @@ function SaCoreType({
                         <Title text="Sales Article Core Type Details" />
                     )}
                 </Grid>
-                {(loading || !saCoreType) && !creating() ? (
+                {loading || (!saCoreType && !creating()) ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
