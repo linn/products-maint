@@ -12,6 +12,7 @@ import {
 import Page from '../containers/Page';
 
 function SaCoreType({
+    initialise,
     loading,
     errorMessage,
     editStatus,
@@ -30,6 +31,18 @@ function SaCoreType({
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
+
+    useEffect(() => {
+        if (!creating()) {
+            initialise({ saCoreTypeId });
+        }
+    }, [saCoreTypeId]);
+
+    useEffect(() => {
+        if (creating() && errorMessage) {
+            history.push(`/products/maint/sa-core-types/create`);
+        }
+    }, [errorMessage, editStatus]);
 
     useEffect(() => {
         if (!creating() && item !== prevSaCoreType) {
@@ -74,17 +87,17 @@ function SaCoreType({
                         <Title text="Sales Article Core Type Details" />
                     )}
                 </Grid>
-                {errorMessage && (
-                    <Grid item xs={12}>
-                        <ErrorCard errorMessage={errorMessage} />
-                    </Grid>
-                )}
-                {loading || !saCoreType ? (
+                {loading || (!saCoreType && !creating()) ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
                 ) : (
                     <Fragment>
+                        {errorMessage && (
+                            <Grid item xs={12}>
+                                <ErrorCard errorMessage={errorMessage} />
+                            </Grid>
+                        )}
                         <SnackbarMessage
                             visible={snackbarVisible}
                             onClose={() => setSnackbarVisible(false)}
@@ -103,6 +116,7 @@ function SaCoreType({
                                 }
                                 onChange={handleFieldChange}
                                 propertyName="coreType"
+                                error={inputInvalid()}
                             />
                         </Grid>
                         <Grid item xs={8}>
@@ -161,7 +175,7 @@ function SaCoreType({
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}
                             />
-                        </Grid>{' '}
+                        </Grid>
                     </Fragment>
                 )}
             </Grid>
@@ -175,10 +189,13 @@ SaCoreType.defaultProps = {
     updateSaCoreType: null,
     loading: null,
     errorMessage: '',
-    saCoreTypeId: null
+    saCoreTypeId: null,
+    snackbarVisible: false,
+    initialise: null
 };
 
 SaCoreType.propTypes = {
+    initialise: PropTypes.func,
     item: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
@@ -186,8 +203,10 @@ SaCoreType.propTypes = {
     saCoreTypeId: PropTypes.string,
     updateSaCoreType: PropTypes.func,
     addSaCoreType: PropTypes.func,
-    setEditStatus: PropTypes.func,
-    loading: PropTypes.bool
+    setEditStatus: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
+    snackbarVisible: PropTypes.bool,
+    setSnackbarVisible: PropTypes.func.isRequired
 };
 
 export default SaCoreType;

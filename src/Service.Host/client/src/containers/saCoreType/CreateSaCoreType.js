@@ -12,11 +12,6 @@ const mapStateToProps = state => ({
     snackbarVisible: saCoreTypeSelectors.getSnackbarVisible(state)
 });
 
-const initialise = () => dispatch => {
-    dispatch(saCoreTypeActions.setEditStatus('create'));
-    dispatch(saCoreTypeActions.create());
-};
-
 const mapDispatchToProps = {
     addSaCoreType: saCoreTypeActions.add,
     resetSaCoreType: saCoreTypeActions.reset,
