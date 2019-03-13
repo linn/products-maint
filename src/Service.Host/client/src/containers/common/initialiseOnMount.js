@@ -1,17 +1,15 @@
-﻿import React, { Component } from 'react';
+﻿import React, { useEffect } from 'react';
 
 const initialiseOnMount = ComposedComponent =>
-    class extends Component {
-        componentDidMount() {
-            const { initialise } = this.props;
+    function HOC(props) {
+        const { initialise, itemId } = props;
+        useEffect(() => {
             if (initialise) {
-                initialise(this.props);
+                initialise({ itemId });
             }
-        }
+        }, [initialise, itemId]);
 
-        render() {
-            return <ComposedComponent {...this.props} />;
-        }
+        return <ComposedComponent {...props} />;
     };
 
 export default initialiseOnMount;
