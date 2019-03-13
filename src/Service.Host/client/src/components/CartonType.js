@@ -152,13 +152,13 @@ function CartonType({
                             <InputField
                                 fullWidth
                                 type="number"
-                                value={cartonType.width}
-                                label="Width"
+                                value={cartonType.height}
+                                label="Height"
                                 onChange={handleFieldChange}
-                                propertyName="width"
-                                error={dimensionInvalid(cartonType.width)}
+                                propertyName="height"
+                                error={dimensionInvalid(cartonType.height)}
                                 helperText={
-                                    dimensionInvalid(cartonType.width)
+                                    dimensionInvalid(cartonType.height)
                                         ? 'Dimension cannot be 0'
                                         : ''
                                 }
@@ -168,13 +168,13 @@ function CartonType({
                             <InputField
                                 fullWidth
                                 type="number"
-                                value={cartonType.height}
-                                label="Height"
+                                value={cartonType.width}
+                                label="Width"
                                 onChange={handleFieldChange}
-                                propertyName="height"
-                                error={dimensionInvalid(cartonType.height)}
+                                propertyName="width"
+                                error={dimensionInvalid(cartonType.width)}
                                 helperText={
-                                    dimensionInvalid(cartonType.height)
+                                    dimensionInvalid(cartonType.width)
                                         ? 'Dimension cannot be 0'
                                         : ''
                                 }
