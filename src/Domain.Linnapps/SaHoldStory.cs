@@ -7,10 +7,6 @@
 
     public class SaHoldStory
     {
-        public SaHoldStory()
-        {
-            //ef
-        }
         public int HoldStoryId { get; set; }
 
         public SalesArticle SalesArticle { get; set; }

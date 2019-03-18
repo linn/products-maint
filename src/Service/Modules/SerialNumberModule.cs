@@ -7,21 +7,20 @@
 
     using Nancy;
 
-    public class SerialNumberModule : NancyModule
+    public sealed class SerialNumberModule : NancyModule
     {
         private readonly IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource> sernosService;
 
         public SerialNumberModule(IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource> sernosService)
         {
             this.sernosService = sernosService;
-            // TODO update to parameters
-            this.Get("/products/maint/serial-numbers/{sernosNumber}", parameters => this.GetSernos(parameters.sernosNumber));            
+            this.Get("/products/maint/serial-numbers/{id}", parameters => this.GetSernos(parameters.id));
         }
 
-        private object GetSernos(int sernosNumber)
+        private object GetSernos(int id)
         {
             // TODO actually getting this by tref now - need a list from sernos number
-            var result = this.sernosService.GetById(sernosNumber);
+            var result = this.sernosService.GetById(id);
             return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }

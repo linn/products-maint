@@ -18,14 +18,14 @@
                            SernosNoteId = sernosNote.SernosNoteId,
                            SernosNotes = sernosNote.SernosNotes,
                            SernosNumber = sernosNote.SernosNumber,
-//                           SernosTref = sernosNote.SernosTref,
+//                           SernosTRef = sernosNote.SernosTRef,
                            Links = this.BuildLinks(sernosNote).ToArray()
                        };
         }
 
         public string GetLocation(SernosNote sernosNote)
         {
-            //            return $"/products/maint/{sernosNote.SernosTref}/notes/{sernosNote.SernosNoteId}";
+            //            return $"/products/maint/{sernosNote.SernosTRef}/notes/{sernosNote.SernosNoteId}";
             return $"/products/maint/1/notes/{sernosNote.SernosNoteId}";
         }
 

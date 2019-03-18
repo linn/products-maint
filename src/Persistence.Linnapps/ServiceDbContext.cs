@@ -11,10 +11,8 @@
 
     public class ServiceDbContext : DbContext
     {
-        public static readonly Microsoft.Extensions.Logging.LoggerFactory _myLoggerFactory =
-            new LoggerFactory(new[] {
-                                        new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider()
-                                    });
+        public static readonly LoggerFactory MyLoggerFactory =
+            new LoggerFactory(new[] { new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider() });
 
         public DbSet<SaCoreType> SaCoreTypes { get; set; }
 
@@ -37,7 +35,7 @@
         public DbSet<ProductRange> ProductRanges { get; set; }
 
         public DbSet<Employee> Employees { get; set; }
-        
+
         public DbSet<SalesPackage> SalesPackages { get; set; }
 
         public DbSet<SernosNote> SernosNotes { get; set; }
@@ -74,7 +72,7 @@
                 $"(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT=1521))(CONNECT_DATA=(SERVICE_NAME={serviceId})(SERVER=dedicated)))";
 
             optionsBuilder.UseOracle($"Data Source={dataSource};User Id={userId};Password={password};");
-            optionsBuilder.UseLoggerFactory(_myLoggerFactory);
+            optionsBuilder.UseLoggerFactory(MyLoggerFactory);
             optionsBuilder.EnableSensitiveDataLogging(true);
 
             base.OnConfiguring(optionsBuilder);
@@ -89,7 +87,7 @@
             builder.Entity<SernosNote>().Property(r => r.SernosNotes).HasColumnName("SERNOS_NOTES").HasMaxLength(2000);
             builder.Entity<SernosNote>().Property(r => r.SernosGroup).HasColumnName("SERNOS_GROUP").HasMaxLength(10);
             builder.Entity<SernosNote>().Property(r => r.SernosNumber).HasColumnName("SERNOS_NUMBER");
-//            builder.Entity<SernosNote>().Property(r => r.SernosTref).HasColumnName("SERNOS_TREF");
+//            builder.Entity<SernosNote>().Property(r => r.SernosTRef).HasColumnName("SERNOS_TREF");
             builder.Entity<SernosNote>().Property(r => r.TransCode).HasColumnName("TRANS_CODE");
             builder.Entity<SernosNote>().HasOne(t => t.SerialNumber);
         }
@@ -97,8 +95,8 @@
         private void BuildSerialNumbers(ModelBuilder builder)
         {
             builder.Entity<SerialNumber>().ToTable("SERNOS");
-            builder.Entity<SerialNumber>().HasKey(s => s.SernosTref);
-            builder.Entity<SerialNumber>().Property(s => s.SernosTref).HasColumnName("SERNOS_TREF");
+            builder.Entity<SerialNumber>().HasKey(s => s.SernosTRef);
+            builder.Entity<SerialNumber>().Property(s => s.SernosTRef).HasColumnName("SERNOS_TREF");
             builder.Entity<SerialNumber>().Property(s => s.SernosGroup).HasColumnName("SERNOS_GROUP").HasMaxLength(10);
             builder.Entity<SerialNumber>().Property(s => s.SernosNumber).HasColumnName("SERNOS_NUMBER");
             builder.Entity<SerialNumber>().Property(s => s.SernosDate).HasColumnName("SERNOS_DATE");
@@ -109,16 +107,12 @@
             builder.Entity<SerialNumber>().Property(s => s.OutletNumber).HasColumnName("OUTLET_NUMBER");
             builder.Entity<SerialNumber>().Property(s => s.PrevSernosNumber).HasColumnName("PREV_SERNOS_NUMBER");
             builder.Entity<SerialNumber>().Property(s => s.OutletNumber).HasColumnName("OUTLET_NUMBER");
-            
             builder.Entity<SerialNumber>().Property(s => s.AccountId).HasColumnName("ACCOUNT_ID");
             builder.Entity<SerialNumber>().Property(s => s.CreatedBy).HasColumnName("CREATED_BY");
             builder.Entity<SerialNumber>().Property(s => s.TransCode).HasColumnName("TRANS_CODE");
-
-            // builder.Entity<SerialNumber>().HasOne(s => s.SalesArticle);
-            // builder.Entity<SerialNumber>().HasOne(s => s.SalesArticle).WithMany(g => g.SerialNumbers);
-
-            builder.Entity<SerialNumber>().Property(s => s.ArticleNumber).HasColumnName("ARTICLE_NUMBER");
-            builder.Entity<SerialNumber>().HasOne(s => s.SalesArticle).WithMany(g => g.SerialNumbers)
+            builder.Entity<SerialNumber>().Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER");
+            builder.Entity<SerialNumber>().HasOne<SalesArticle>(s => s.SalesArticle)
+                .WithMany(g => g.SerialNumbers)
                 .HasForeignKey(s => s.ArticleNumber);
         }
 
@@ -141,7 +135,6 @@
             builder.Entity<SalesPackage>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID").HasMaxLength(10);
             builder.Entity<SalesPackage>().Property(s => s.Description).HasColumnName("DESCRIPTION").HasMaxLength(50);
             builder.Entity<SalesPackage>().HasMany(s => s.Elements);
-
 
             builder.Entity<SalesPackageElement>().ToTable("SALES_PACKAGE_ELEMENTS");
             builder.Entity<SalesPackageElement>().HasKey(s => new { s.SalesPackageId, s.ElementType });

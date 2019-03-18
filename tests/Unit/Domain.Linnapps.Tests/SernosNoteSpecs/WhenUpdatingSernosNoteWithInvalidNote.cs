@@ -15,7 +15,7 @@
         [SetUp]
         public void SetUp()
         {
-            this.action = () => this.Sut.Update(string.Empty, "new sernos group", 2, 2, "new trans code");
+            this.action = () => this.Sut.Update(string.Empty,"new sernos group", 2, 2, "new trans code");
         }
 
         [Test]

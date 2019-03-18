@@ -59,7 +59,7 @@ namespace Linn.Products.Facade.Tests.SernosNoteServiceSpecs
             dataResult.SernosNoteId.Should().Be(1);
             dataResult.SernosNotes.Should().Be("new notes");
             dataResult.SernosNumber.Should().Be(1);
-//            dataResult.SernosTref.Should().Be(1);
+//            dataResult.SernosTRef.Should().Be(1);
             dataResult.TransCode.Should().Be("code");
         }
     }

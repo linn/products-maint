@@ -8,20 +8,27 @@
 
     public class SerialNumber
     {
-        public SerialNumber(int sernosTref, string sernosGroup, string transCode)
+        public SerialNumber(int sernosNumber, string sernosGroup, string transCode)
         {
-            this.ValidateSerialNumber(sernosGroup, transCode);
+            this.ValidateSerialNumber(sernosNumber, sernosGroup, transCode);
 
-            this.SernosTref = sernosTref;
+            this.SernosNumber = sernosNumber;
             this.SernosGroup = sernosGroup;
             this.TransCode = transCode;
         }
+
+        public int SernosTRef { get; set; }
+
+        public string SernosGroup { get; private set; }
+
+        public int SernosNumber { get; set; }
+
+        public string TransCode { get; private set; }
 
         public int? AccountId { get; set; }
 
         public string ArticleNumber { get; set; }
 
-//        [ForeignKey("ARTICLE_NUMBER")]
         public SalesArticle SalesArticle { get; set; }
 
         public int CreatedBy { get; set; }
@@ -40,16 +47,13 @@
 
         public DateTime? SernosDate { get; set; }
 
-        public string SernosGroup { get; private set; }
-
-        public int? SernosNumber { get; set; }
-
-        public int SernosTref { get; private set; }
-
-        public string TransCode { get; private set; }
-
-        private void ValidateSerialNumber(string sernosGroup, string transCode)
+        private void ValidateSerialNumber(int serialNumber, string sernosGroup, string transCode)
         {
+            if (serialNumber == 0)
+            {
+                throw new DomainException("You must supply a serial number");
+            }
+
             if (string.IsNullOrEmpty(sernosGroup))
             {
                 throw new DomainException("You must supply a sernos group");

@@ -15,7 +15,7 @@
             return new SerialNumberResource
                        {
                            AccountId = serialNumber.AccountId,
-//                           ArticleNumber = serialNumber.ArticleNumber,
+                           ArticleNumber = serialNumber.ArticleNumber,
                            CreatedBy = serialNumber.CreatedBy,
                            DatePostedToVax = serialNumber.DatePostedToVax?.ToString("o"),
                            DocumentLine = serialNumber.DocumentLine,
@@ -25,7 +25,7 @@
                            PrevSernosNumber = serialNumber.PrevSernosNumber,
                            SernosDate = serialNumber.SernosDate?.ToString("o"),
                            SernosNumber = serialNumber.SernosNumber,
-                           SernosTref = serialNumber.SernosTref,
+                           SernosTref = serialNumber.SernosTRef,
                            TransCode = serialNumber.TransCode,
                            Links = this.BuildLinks(serialNumber).ToArray()
                        };
@@ -33,7 +33,7 @@
 
         public string GetLocation(SerialNumber serialNumber)
         {
-            return $"/products/maint/serial-numbers?trans-code={serialNumber.TransCode}";
+            return $"/products/maint/serial-numbers/{serialNumber.SernosTRef}";
         }
 
         object IResourceBuilder<SerialNumber>.Build(SerialNumber serialNumber) => this.Build(serialNumber);

@@ -21,7 +21,7 @@
                                  {
                                      SernosGroup = resource.SernosGroup,
                                      SernosNumber = resource.SernosNumber,
-//                                     SernosTref = resource.SernosTref,
+//                                     SernosTRef = resource.SernosTRef,
                                      TransCode = resource.TransCode
                                  };
 

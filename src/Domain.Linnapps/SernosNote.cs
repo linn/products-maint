@@ -23,7 +23,7 @@
         public int? SernosNumber { get; set; }
 
         // TODO do i take this out?
-//        public int? SernosTref { get; set; }
+//        public int? SernosTRef { get; set; }
 
         public string TransCode { get; set; }
 
@@ -37,7 +37,7 @@
             this.SernosNotes = sernosNotes;
             this.SernosGroup = sernosGroup;
             this.SernosNumber = sernosNumber;
-//            this.SernosTref = sernosTref;
+//            this.SernosTRef = sernosTref;
             this.TransCode = transCode;
         }
 

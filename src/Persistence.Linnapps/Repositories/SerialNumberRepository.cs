@@ -21,10 +21,10 @@
         public SerialNumber FindById(int key)
         {
             return this.serviceDbContext.SerialNumbers
-                .Where(a => a.SernosTref == key)
+                .Where(a => a.SernosTRef == key)
                 .Include(a => a.SalesArticle)
                 .ToList()
-                .First();
+                .FirstOrDefault();
         }
 
         public IQueryable<SerialNumber> FindAll()
