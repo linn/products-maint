@@ -1,10 +1,6 @@
 ﻿import ItemType from './ItemType';
 
-export const cartonType = new ItemType(
-    'cartonType',
-    'CARTON_TYPE',
-    '/products/maint/carton-types/'
-);
+export const cartonType = new ItemType('cartonType', 'CARTON_TYPE', '/products/maint/carton-types');
 
 export const sernosConfig = new ItemType(
     'sernosConfig',
@@ -84,4 +80,28 @@ export const productRanges = new ItemType(
     'productRanges',
     'PRODUCT_RANGES',
     '/products/maint/product-ranges'
+);
+
+export const serialNumber = new ItemType(
+    'serialNumber',
+    'SERIAL_NUMBER',
+    '/products/maint/serial-numbers'
+);
+
+export const serialNumbers = new ItemType(
+    'serialNumbers',
+    'SERIAL_NUMBERS',
+    '/products/maint/serial-numbers'
+);
+
+export const sernosNote = new ItemType(
+    'sernosNote',
+    'SERNOS_NOTE',
+    '/products/maint/serial-numbers'
+);
+
+export const sernosNotes = new ItemType(
+    'sernosNotes',
+    'SERNOS_NOTES',
+    '/products/maint/serial-numbers'
 );

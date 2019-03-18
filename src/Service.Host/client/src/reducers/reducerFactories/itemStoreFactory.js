@@ -31,6 +31,12 @@
                     loading: true
                 };
 
+            case actionTypes.FETCH_ERROR:
+                return {
+                    ...state,
+                    loading: false
+                };
+
             case actionTypes[`SET_${itemRoot}_EDIT_STATUS`]:
                 return {
                     ...state,

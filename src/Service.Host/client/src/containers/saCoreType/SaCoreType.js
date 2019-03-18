@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import SaCoreType from '../../components/SaCoreType';
-import initialiseOnMount from '../common/initialiseOnMount';
 import saCoreTypeActions from '../../actions/saCoreTypeActions';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import saCoreTypeSelectors from '../../selectors/saCoreTypeSelectors';
@@ -29,4 +28,4 @@ const mapDispatchToProps = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(initialiseOnMount(SaCoreType));
+)(SaCoreType);

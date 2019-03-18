@@ -18,6 +18,7 @@ const makeActionTypes = (entityType, makeAll = true) => {
         types[`SET_${entityType}_EDIT_STATUS`] = `SET_${entityType}_EDIT_STATUS`;
         types[`SHOW_${entityType}_SNACKBAR`] = `SHOW_${entityType}_SNACKBAR`;
         types[`HIDE_${entityType}_SNACKBAR`] = `HIDE_${entityType}_SNACKBAR`;
+        types.FETCH_ERROR = 'FETCH_ERROR';
     }
     return types;
 };
@@ -101,3 +102,9 @@ export const vatCodesActionTypes = makeActionTypes(itemTypes.vatCodes.actionType
 
 export const productRangeActionTypes = makeActionTypes(itemTypes.productRange.actionType);
 export const productRangesActionTypes = makeActionTypes(itemTypes.productRanges.actionType, false);
+
+export const serialNumberActionTypes = makeActionTypes(itemTypes.serialNumber.actionType);
+export const serialNumbersActionTypes = makeActionTypes(itemTypes.serialNumbers.actionType, false);
+
+export const sernosNoteActionTypes = makeActionTypes(itemTypes.sernosNote.actionType);
+export const sernosNotesActionTypes = makeActionTypes(itemTypes.sernosNotes.actionType, false);

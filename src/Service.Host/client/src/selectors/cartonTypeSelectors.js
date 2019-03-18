@@ -1,26 +1,4 @@
-﻿export const getCartonType = state => {
-    const { cartonType } = state;
-    if (!cartonType) {
-        return null;
-    }
+﻿import ItemSelectors from './ItemSelectors';
+import * as itemTypes from '../itemTypes';
 
-    return cartonType.item ? cartonType.item : null;
-};
-
-export const getCartonLoading = state => {
-    const { cartonType } = state;
-    if (!cartonType) {
-        return null;
-    }
-
-    return cartonType.loading;
-};
-
-export const getCartonEditStatus = state => {
-    const { cartonType } = state;
-    if (!cartonType) {
-        return null;
-    }
-
-    return cartonType.editStatus ? cartonType.editStatus : 'view';
-};
+export default new ItemSelectors(itemTypes.cartonType.item);
