@@ -1,4 +1,4 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import {
@@ -6,188 +6,235 @@ import {
     InputField,
     Loading,
     Title,
-    ErrorCard
+    ErrorCard,
+    SnackbarMessage
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 
-class CartonType extends Component {
-    constructor(props) {
-        super(props);
-        this.handleFieldChange = this.handleFieldChange.bind(this);
-        this.state = {
-            editStatus: 'view',
-            cartonType: null
-        };
-    }
+function CartonType({
+    initialise,
+    loading,
+    errorMessage,
+    editStatus,
+    item,
+    cartonTypeId,
+    updateCartonType,
+    addCartonType,
+    setEditStatus,
+    snackbarVisible,
+    setSnackbarVisible,
+    history
+}) {
+    const [cartonType, setCartonType] = useState({});
+    const [prevCartonType, setPrevCartonType] = useState({});
 
-    static getDerivedStateFromProps(props, state) {
-        if (!state.cartonType && props.cartonType) {
-            return { cartonType: props.cartonType };
+    const creating = () => editStatus === 'create';
+    const editing = () => editStatus === 'edit';
+    const viewing = () => editStatus === 'view';
+
+    useEffect(() => {
+        if (!creating()) {
+            initialise({ cartonTypeId });
         }
-        return null;
-    }
+    }, [cartonTypeId]);
 
-    handleSaveClick = () => {
-        const { cartonTypeId, updateCartonType } = this.props;
-        updateCartonType(cartonTypeId, { ...this.state }.cartonType);
-        this.setState({ editStatus: 'view' });
+    useEffect(() => {
+        if (creating() && errorMessage) {
+            history.push(`/products/maint/carton-types/create`);
+        }
+    }, [errorMessage, editStatus]);
+
+    useEffect(() => {
+        if (!creating()) {
+            initialise({ cartonTypeId });
+        }
+    }, [cartonTypeId]);
+
+    useEffect(() => {
+        if (!creating() && item !== prevCartonType) {
+            setCartonType(item);
+            setPrevCartonType(item);
+        }
+    });
+
+    const nameInvalid = () => !cartonType.name;
+    const descriptionInvalid = () => !cartonType.description;
+    const dimensionInvalid = dimension => !dimension;
+
+    const inputInvalid = () =>
+        nameInvalid() ||
+        descriptionInvalid() ||
+        dimensionInvalid(cartonType.height) ||
+        dimensionInvalid(cartonType.width) ||
+        dimensionInvalid(cartonType.depth);
+
+    const handleSaveClick = () => {
+        if (editing()) {
+            updateCartonType(cartonTypeId, cartonType);
+            setEditStatus('view');
+        } else if (creating()) {
+            addCartonType(cartonType);
+            if (!errorMessage) {
+                history.push(`/products/maint/carton-types/${cartonType.name}`);
+            }
+        }
     };
 
-    handleCancelClick = () => {
-        const { cartonType } = this.props;
-        this.setState({ cartonType });
-        this.setState({ editStatus: 'view' });
+    const handleCancelClick = () => {
+        setCartonType(item);
+        setEditStatus('view');
     };
 
-    handleAddClick = () => {
-        const { addCartonType } = this.props;
-        const { cartonType } = this.state;
-        addCartonType(cartonType);
-        this.setState({ editStatus: 'view' });
-    };
-
-    handleBackClick = () => {
-        this.setState({ editStatus: 'view' });
-        const { history } = this.props;
+    const handleBackClick = () => {
         history.push('/products/reports/carton-details/report');
     };
 
-    creating() {
-        const { editStatus } = this.props;
-        return editStatus === 'create';
-    }
-
-    editing() {
-        const { editStatus } = this.state;
-        return editStatus === 'edit';
-    }
-
-    viewing() {
-        const { editStatus } = this.state;
-        return editStatus === 'view';
-    }
-
-    handleFieldChange(propertyName, val) {
-        this.setState(prevState => ({
-            cartonType: {
-                ...prevState.cartonType,
-                [propertyName]: val
-            },
-            editStatus: 'edit'
-        }));
-    }
-
-    render() {
-        const { loading, errorMessage } = this.props;
-        const { cartonType } = this.state;
-        if (loading || !cartonType) {
-            return <Loading />;
-        }
-
-        return (
-            <Page>
-                <Grid container spacing={24}>
-                    <Grid item xs={12}>
-                        {this.creating() ? (
-                            <Title text="Create Carton Type" />
-                        ) : (
-                            <Title text="Carton Type Details" />
-                        )}
-                    </Grid>
-                    {errorMessage && (
-                        <Grid item xs={12}>
-                            <ErrorCard errorMessage={errorMessage} />
-                        </Grid>
+    const handleFieldChange = (propertyName, newValue) => {
+        setEditStatus('edit');
+        setCartonType({ ...cartonType, [propertyName]: newValue });
+    };
+    return (
+        <Page>
+            <Grid container spacing={24}>
+                <Grid item xs={12}>
+                    {creating() ? (
+                        <Title text="Create Carton Type" />
+                    ) : (
+                        <Title text="Carton Type Details" />
                     )}
-                    <Grid item xs={4}>
-                        <InputField
-                            fullWidth
-                            disabled={!this.creating()}
-                            value={cartonType.name}
-                            label="Name"
-                            helperText={
-                                !this.creating()
-                                    ? 'This field cannot be changed'
-                                    : 'This field is required'
-                            }
-                            onChange={this.handleFieldChange}
-                            propertyName="name"
-                        />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <InputField
-                            value={cartonType.description}
-                            label="Description"
-                            fullWidth
-                            onChange={this.handleFieldChange}
-                            propertyName="description"
-                        />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <InputField
-                            fullWidth
-                            type="number"
-                            value={cartonType.width}
-                            label="Width"
-                            onChange={this.handleFieldChange}
-                            propertyName="width"
-                        />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <InputField
-                            fullWidth
-                            type="number"
-                            value={cartonType.height}
-                            label="Height"
-                            onChange={this.handleFieldChange}
-                            propertyName="height"
-                        />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <InputField
-                            fullWidth
-                            type="number"
-                            value={cartonType.depth}
-                            label="Depth"
-                            onChange={this.handleFieldChange}
-                            propertyName="depth"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <SaveBackCancelButtons
-                            saveDisabled={
-                                !this.editing() ||
-                                (!cartonType.name || cartonType.name.length === 0)
-                            }
-                            saveClick={this.creating() ? this.handleAddClick : this.handleSaveClick}
-                            cancelClick={this.handleCancelClick}
-                            backClick={this.handleBackClick}
-                        />
-                    </Grid>
                 </Grid>
-            </Page>
-        );
-    }
+                {loading || (!cartonType && !creating()) ? (
+                    <Grid item xs={12}>
+                        <Loading />
+                    </Grid>
+                ) : (
+                    <Fragment>
+                        {errorMessage && (
+                            <Grid item xs={12}>
+                                <ErrorCard errorMessage={errorMessage} />
+                            </Grid>
+                        )}
+                        <SnackbarMessage
+                            visible={snackbarVisible}
+                            onClose={() => setSnackbarVisible(false)}
+                            message="Save Successful"
+                        />
+                        <Grid item xs={4}>
+                            <InputField
+                                fullWidth
+                                disabled={!creating()}
+                                value={cartonType.name}
+                                label="Name"
+                                helperText={
+                                    !creating()
+                                        ? 'This field cannot be changed'
+                                        : 'This field is required'
+                                }
+                                onChange={handleFieldChange}
+                                propertyName="name"
+                                error={nameInvalid()}
+                            />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <InputField
+                                value={cartonType.description}
+                                label="Description"
+                                fullWidth
+                                onChange={handleFieldChange}
+                                propertyName="description"
+                                error={descriptionInvalid()}
+                                helperText={
+                                    descriptionInvalid() ? 'Description cannot be empty' : ''
+                                }
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <InputField
+                                fullWidth
+                                type="number"
+                                value={cartonType.height}
+                                label="Height"
+                                onChange={handleFieldChange}
+                                propertyName="height"
+                                error={dimensionInvalid(cartonType.height)}
+                                helperText={
+                                    dimensionInvalid(cartonType.height)
+                                        ? 'Dimension cannot be 0'
+                                        : ''
+                                }
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <InputField
+                                fullWidth
+                                type="number"
+                                value={cartonType.width}
+                                label="Width"
+                                onChange={handleFieldChange}
+                                propertyName="width"
+                                error={dimensionInvalid(cartonType.width)}
+                                helperText={
+                                    dimensionInvalid(cartonType.width)
+                                        ? 'Dimension cannot be 0'
+                                        : ''
+                                }
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <InputField
+                                fullWidth
+                                type="number"
+                                value={cartonType.depth}
+                                label="Depth"
+                                onChange={handleFieldChange}
+                                propertyName="depth"
+                                error={dimensionInvalid(cartonType.depth)}
+                                helperText={
+                                    dimensionInvalid(cartonType.depth)
+                                        ? 'Dimension cannot be 0'
+                                        : ''
+                                }
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <SaveBackCancelButtons
+                                saveDisabled={viewing() || inputInvalid()}
+                                saveClick={handleSaveClick}
+                                cancelClick={handleCancelClick}
+                                backClick={handleBackClick}
+                            />
+                        </Grid>
+                    </Fragment>
+                )}
+            </Grid>
+        </Page>
+    );
 }
 
 CartonType.defaultProps = {
-    cartonType: {},
-    addCartonType: null,
-    updateCartonType: null,
+    item: {},
+    initialise: null,
     loading: null,
     errorMessage: '',
-    cartonTypeId: null
+    cartonTypeId: null,
+    updateCartonType: null,
+    snackbarVisible: false,
+    addCartonType: null
 };
 
 CartonType.propTypes = {
-    cartonType: PropTypes.shape({}),
+    initialise: PropTypes.func,
+    item: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
     cartonTypeId: PropTypes.string,
     updateCartonType: PropTypes.func,
     addCartonType: PropTypes.func,
-    loading: PropTypes.bool
+    setEditStatus: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
+    snackbarVisible: PropTypes.bool,
+    setSnackbarVisible: PropTypes.func.isRequired
 };
 
 export default CartonType;

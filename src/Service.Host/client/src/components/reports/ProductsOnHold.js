@@ -20,7 +20,7 @@ function Report({ reportData, loading }) {
                 <ReportTable
                     reportData={reportData}
                     showTotals={false}
-                    showRowTitles={true}
+                    showRowTitles
                     title={reportData ? reportData.title.displayString : null}
                     showTitle={false}
                 />
@@ -62,12 +62,13 @@ ProductsOnHold.propTypes = {
 };
 
 Report.propTypes = {
-    reportData: PropTypes.shape({}).isRequired,
+    reportData: PropTypes.shape({}),
     loading: PropTypes.bool
 };
 
 Report.defaultProps = {
-    loading: false
+    loading: false,
+    reportData: {}
 };
 
 ProductsOnHold.defaultProps = {

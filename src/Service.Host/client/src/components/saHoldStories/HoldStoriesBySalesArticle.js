@@ -68,12 +68,13 @@ HoldStoriesBySalesArticle.propTypes = {
 };
 
 Report.propTypes = {
-    reportData: PropTypes.shape({}).isRequired,
+    reportData: PropTypes.shape({}),
     loading: PropTypes.bool
 };
 
 Report.defaultProps = {
-    loading: false
+    loading: false,
+    reportData: null
 };
 
 HoldStoriesBySalesArticle.defaultProps = {

@@ -22,8 +22,8 @@ import ProductRangesReport from '../containers/reports/ProductRanges';
 import StockTriggerLevelParts from '../containers/reports/StockTriggerLevelParts';
 import StockTriggerLevelsByPart from '../containers/reports/StockTriggerLevelsByPart';
 import SalesProductsByProductRange from '../containers/reports/SalesProductsByProductRange';
-import CreateCartonType from '../containers/CreateCartonType';
-import CartonType from '../containers/CartonType';
+import CreateCartonType from '../containers/CartonType/CreateCartonType';
+import CartonType from '../containers/CartonType/CartonType';
 import SernosConfig from '../containers/sernosConfig/SernosConfig';
 import SernosConfigs from '../containers/sernosConfig/SernosConfigs';
 import CreateSernosConfig from '../containers/sernosConfig/CreateSernosConfig';
@@ -298,6 +298,11 @@ const Root = ({ store }) => (
                                 exact
                                 path="/products/reports/sa-hold-stories-for-sales-article/:articleNumber"
                                 component={HoldStoriesBySalesArticle}
+                            />
+                            <Route
+                                exact
+                                path="/products/reports/sa-hold-stories-for-sales-article"
+                                render={() => <Redirect to="/products/reports/sa-hold-stories" />}
                             />
                             <Route
                                 exact

@@ -1,10 +1,6 @@
 ﻿import ItemType from './ItemType';
 
-export const cartonType = new ItemType(
-    'cartonType',
-    'CARTON_TYPE',
-    '/products/maint/carton-types/'
-);
+export const cartonType = new ItemType('cartonType', 'CARTON_TYPE', '/products/maint/carton-types');
 
 export const sernosConfig = new ItemType(
     'sernosConfig',

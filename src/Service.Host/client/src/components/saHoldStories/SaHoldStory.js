@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import {
     InputField,
     Title,
@@ -9,25 +8,19 @@ import {
     BackButton
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
+import Page from '../../containers/Page';
 
-const styles = () => ({
-    root: {
-        margin: '40px',
-        padding: '40px'
-    }
-});
-
-function SaHoldStory({ saHoldStory, loading, errorMessage, classes, history }) {
+function SaHoldStory({ saHoldStory, loading, errorMessage, history }) {
     const slugify = articleNumber => articleNumber.replace(/\//g, '%2F');
     const handleBackClick = () => {
         history.push(
             `/products/reports/sa-hold-stories-for-sales-article/${slugify(
                 saHoldStory.articleNumber
             )}`
-        ); //TODO
+        );
     };
     return (
-        <Paper className={classes.root}>
+        <Page>
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     <Title text="Hold Story Details" />
@@ -117,7 +110,7 @@ function SaHoldStory({ saHoldStory, loading, errorMessage, classes, history }) {
                     </Fragment>
                 )}
             </Grid>
-        </Paper>
+        </Page>
     );
 }
 
@@ -144,4 +137,4 @@ SaHoldStory.defaultProps = {
     saHoldStory: null
 };
 
-export default withStyles(styles)(SaHoldStory);
+export default SaHoldStory;
