@@ -39,6 +39,7 @@ class SalesProductsByProductRange extends Component {
                             placeholderColumns={3}
                             showRowTitles={false}
                             showTitle={false}
+                            hasExternalLinks
                         />
                     </Grid>
                 </Grid>
