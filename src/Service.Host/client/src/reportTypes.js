@@ -6,4 +6,8 @@ export const salesArticleCoreTypes = new ItemType(
     '/products/reports/sales-article-core-types'
 );
 
-export const cartonDetailsReport = new ItemType('cartonDetailsReport', 'CARTON_DETAILS', '');
+export const cartonDetailsReport = new ItemType(
+    'cartonDetailsReport',
+    'CARTON_DETAILS',
+    '/products/reports/carton-details'
+);
