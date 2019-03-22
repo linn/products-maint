@@ -1,29 +1,9 @@
-﻿import { CALL_API } from 'redux-api-middleware';
-import config from '../config';
-import * as actionTypes from './index';
+﻿import { cartonDetailsReportActionTypes as actionTypes } from './index';
+import ReportActions from './ReportActions';
+import * as reportTypes from '../reportTypes';
 
-export default () => ({
-    [CALL_API]: {
-        endpoint: `${config.appRoot}/products/reports/carton-details`,
-        method: 'GET',
-        options: { requiresAuth: true },
-        headers: {
-            Accept: 'application/json'
-        },
-        types: [
-            {
-                type: actionTypes.REQUEST_CARTON_DETAILS_REPORT,
-                payload: {}
-            },
-            {
-                type: actionTypes.RECEIVE_CARTON_DETAILS_REPORT,
-                payload: async (action, state, res) => ({ data: await res.json() })
-            },
-            {
-                type: actionTypes.FETCH_ERROR,
-                payload: (action, state, res) =>
-                    res ? `Report - ${res.status} ${res.statusText}` : `Network request failed`
-            }
-        ]
-    }
-});
+export default new ReportActions(
+    reportTypes.cartonDetailsReport.actionType,
+    reportTypes.cartonDetailsReport.uri,
+    actionTypes
+);

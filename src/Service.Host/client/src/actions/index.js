@@ -40,7 +40,12 @@ export const RECEIVE_REPORT = 'RECEIVE_REPORT';
 export const REQUEST_EAN_CODE_REPORT = 'REQUEST_EAN_CODE_REPORT';
 export const RECEIVE_EAN_CODE_REPORT = 'RECEIVE_EAN_CODE_REPORT';
 
-export const saCoreTypeReportActionTypes = makeReportActionTypes(reportTypes.salesArticleCoreTypes.actionType);
+export const saCoreTypeReportActionTypes = makeReportActionTypes(
+    reportTypes.salesArticleCoreTypes.actionType
+);
+export const cartonDetailsReportActionTypes = makeReportActionTypes(
+    reportTypes.cartonDetailsReport.actionType
+);
 
 export const REQUEST_STOCK_TRIGGER_LEVELS_REPORT = 'REQUEST_STOCK_TRIGGER_LEVELS_REPORT';
 export const RECEIVE_STOCK_TRIGGER_LEVELS_REPORT = 'RECEIVE_STOCK_TRIGGER_LEVELS_REPORT';
@@ -58,9 +63,6 @@ export const RECEIVE_SEARCH_TARIFFS = 'RECEIVE_SEARCH_TARIFFS';
 export const REQUEST_ADD_TARIFF = 'REQUEST_ADD_TARIFF';
 export const RECEIVE_NEW_TARIFF = 'RECEIVE_NEW_TARIFF';
 export const REQUEST_UPDATE_TARIFF = 'REQUEST_UPDATE_TARIFF';
-
-export const REQUEST_CARTON_DETAILS_REPORT = 'REQUEST_CARTON_DETAILS_REPORT';
-export const RECEIVE_CARTON_DETAILS_REPORT = 'RECEIVE_CARTON_DETAILS_REPORT';
 
 export const REQUEST_PRODUCT_RANGES_REPORT = 'REQUEST_PRODUCT_RANGES_REPORT';
 export const RECEIVE_PRODUCT_RANGES_REPORT = 'RECEIVE_PRODUCT_RANGES_REPORT';

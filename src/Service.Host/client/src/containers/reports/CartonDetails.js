@@ -1,11 +1,12 @@
 ﻿import { connect } from 'react-redux';
 import CartonDetails from '../../components/reports/CartonDetails';
 import initialiseOnMount from '../common/initialiseOnMount';
-import fetchCartonDetailsReport from '../../actions/cartonDetailsReport';
+import actions from '../../actions/cartonDetailsReport';
 import config from '../../config';
 import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
+import * as reportTypes from '../../reportTypes';
 
-const reportName = 'cartonDetailsReport';
+const reportName = reportTypes.cartonDetailsReport.item;
 
 const mapStateToProps = state => ({
     reportData: getReportData(state, reportName),
@@ -14,7 +15,7 @@ const mapStateToProps = state => ({
 });
 
 const initialise = () => dispatch => {
-    dispatch(fetchCartonDetailsReport());
+    dispatch(actions.fetchReport());
 };
 
 const mapDispatchToProps = {
