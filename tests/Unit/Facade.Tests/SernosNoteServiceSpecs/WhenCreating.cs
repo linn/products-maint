@@ -12,32 +12,30 @@
 
     public class WhenCreating : ContextBase
     {
-        private SernosNoteResource resource;
+        private SernosNoteCreateResource resource;
 
         private IResult<SernosNote> result;
 
         [SetUp]
         public void SetUp()
         {
-            this.resource = new SernosNoteResource
+            this.resource = new SernosNoteCreateResource
                                 {
                                     SernosGroup = "group",
-                                    SernosNoteId = 1,
                                     SernosNotes = "notes",
                                     SernosNumber = 1,
-                                    SernosTref = 1,
+                                    SernosTRef = 1,
                                     TransCode = "code"
                                 };
 
             this.result = this.Sut.Add(this.resource);
         }
-
-        // TODO fix this!
+        
         [Test]
         public void ShouldAddSernosNote()
         {
             this.SernosNoteRepository.Received()
-                .Add(Arg.Is<SernosNote>(n => n.SernosNoteId == this.resource.SernosNoteId));
+                .Add(Arg.Is<SernosNote>(n => n.SernosNotes == this.resource.SernosNotes));
         }
 
         [Test]
@@ -46,10 +44,8 @@
             this.result.Should().BeOfType<CreatedResult<SernosNote>>();
             var dataResult = ((CreatedResult<SernosNote>)this.result).Data;
             dataResult.SernosGroup.Should().Be("group");
-            dataResult.SernosNoteId.Should().Be(1);
             dataResult.SernosNotes.Should().Be("notes");
             dataResult.SernosNumber.Should().Be(1);
-//            dataResult.SernosTRef.Should().Be(1);
             dataResult.TransCode.Should().Be("code");
         }
     }

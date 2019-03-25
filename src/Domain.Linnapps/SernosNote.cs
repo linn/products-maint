@@ -1,7 +1,5 @@
 ﻿namespace Linn.Products.Domain.Linnapps
 {
-    using System.ComponentModel.DataAnnotations.Schema;
-
     using Linn.Common.Domain.Exceptions;
 
     public class SernosNote
@@ -22,22 +20,18 @@
 
         public int? SernosNumber { get; set; }
 
-        // TODO do i take this out?
-//        public int? SernosTRef { get; set; }
+        public int? SernosTRef { get; set; }
 
         public string TransCode { get; set; }
 
-        [ForeignKey("SERNOS_TREF")]
-        public SerialNumber SerialNumber { get; set; }
-
-        public void Update(string sernosNotes, string sernosGroup, int? sernosNumber, int? sernosTref, string transCode)
+        public void Update(string sernosNotes, string sernosGroup, int? sernosNumber, int? sernosTRef, string transCode)
         {
             this.ValidateSernosNote(sernosNotes);
 
             this.SernosNotes = sernosNotes;
             this.SernosGroup = sernosGroup;
             this.SernosNumber = sernosNumber;
-//            this.SernosTRef = sernosTref;
+            this.SernosTRef = sernosTRef;
             this.TransCode = transCode;
         }
 

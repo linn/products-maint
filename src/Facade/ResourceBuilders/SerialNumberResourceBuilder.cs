@@ -10,7 +10,7 @@
 
     public class SerialNumberResourceBuilder : IResourceBuilder<SerialNumber>
     {
-        public object Build(SerialNumber serialNumber)
+        public SerialNumberResource Build(SerialNumber serialNumber)
         {
             return new SerialNumberResource
                        {
@@ -33,7 +33,7 @@
 
         public string GetLocation(SerialNumber serialNumber)
         {
-            return $"/products/maint/serial-numbers/{serialNumber.SernosTRef}";
+            return $"/products/maint/serial-numbers/{serialNumber.SernosNumber}/tref/{serialNumber.SernosTRef}";
         }
 
         object IResourceBuilder<SerialNumber>.Build(SerialNumber serialNumber) => this.Build(serialNumber);

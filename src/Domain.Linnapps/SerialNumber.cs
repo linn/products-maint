@@ -1,20 +1,21 @@
 ﻿namespace Linn.Products.Domain.Linnapps
 {
     using System;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     using Linn.Common.Domain.Exceptions;
     using Linn.Products.Domain.Linnapps.Products;
 
     public class SerialNumber
     {
-        public SerialNumber(int sernosNumber, string sernosGroup, string transCode)
+        public SerialNumber(int sernosTRef, string sernosGroup, string transCode, string articleNumber, int createdBy)
         {
-            this.ValidateSerialNumber(sernosNumber, sernosGroup, transCode);
+            this.ValidateSerialNumber(sernosGroup, transCode, articleNumber);
 
-            this.SernosNumber = sernosNumber;
+            this.SernosTRef = sernosTRef;
             this.SernosGroup = sernosGroup;
             this.TransCode = transCode;
+            this.ArticleNumber = articleNumber;
+            this.CreatedBy = createdBy;
         }
 
         public int SernosTRef { get; set; }
@@ -30,7 +31,7 @@
         public string ArticleNumber { get; set; }
 
         public SalesArticle SalesArticle { get; set; }
-
+        
         public int CreatedBy { get; set; }
 
         public DateTime? DatePostedToVax { get; set; }
@@ -47,13 +48,8 @@
 
         public DateTime? SernosDate { get; set; }
 
-        private void ValidateSerialNumber(int serialNumber, string sernosGroup, string transCode)
+        private void ValidateSerialNumber(string sernosGroup, string transCode, string articleNumber)
         {
-            if (serialNumber == 0)
-            {
-                throw new DomainException("You must supply a serial number");
-            }
-
             if (string.IsNullOrEmpty(sernosGroup))
             {
                 throw new DomainException("You must supply a sernos group");
@@ -62,6 +58,11 @@
             if (string.IsNullOrEmpty(transCode))
             {
                 throw new DomainException("You must supply a trans code");
+            }
+
+            if (string.IsNullOrEmpty(articleNumber))
+            {
+                throw new DomainException("You must supply an artile number");
             }
         }
     }

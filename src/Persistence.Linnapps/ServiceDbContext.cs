@@ -78,44 +78,6 @@
             base.OnConfiguring(optionsBuilder);
         }
 
-        // TODO come back to this and sernos...
-        private void BuildSernosNotes(ModelBuilder builder)
-        {
-            builder.Entity<SernosNote>().ToTable("SERNOS_NOTES");
-            builder.Entity<SernosNote>().HasKey(r => r.SernosNoteId);
-            builder.Entity<SernosNote>().Property(r => r.SernosNoteId).HasColumnName("SERNOS_NOTE_ID");
-            builder.Entity<SernosNote>().Property(r => r.SernosNotes).HasColumnName("SERNOS_NOTES").HasMaxLength(2000);
-            builder.Entity<SernosNote>().Property(r => r.SernosGroup).HasColumnName("SERNOS_GROUP").HasMaxLength(10);
-            builder.Entity<SernosNote>().Property(r => r.SernosNumber).HasColumnName("SERNOS_NUMBER");
-//            builder.Entity<SernosNote>().Property(r => r.SernosTRef).HasColumnName("SERNOS_TREF");
-            builder.Entity<SernosNote>().Property(r => r.TransCode).HasColumnName("TRANS_CODE");
-            builder.Entity<SernosNote>().HasOne(t => t.SerialNumber);
-        }
-
-        private void BuildSerialNumbers(ModelBuilder builder)
-        {
-            builder.Entity<SerialNumber>().ToTable("SERNOS");
-            builder.Entity<SerialNumber>().HasKey(s => s.SernosTRef);
-            builder.Entity<SerialNumber>().Property(s => s.SernosTRef).HasColumnName("SERNOS_TREF");
-            builder.Entity<SerialNumber>().Property(s => s.SernosGroup).HasColumnName("SERNOS_GROUP").HasMaxLength(10);
-            builder.Entity<SerialNumber>().Property(s => s.SernosNumber).HasColumnName("SERNOS_NUMBER");
-            builder.Entity<SerialNumber>().Property(s => s.SernosDate).HasColumnName("SERNOS_DATE");
-            builder.Entity<SerialNumber>().Property(s => s.DocumentType).HasColumnName("DOCUMENT_TYPE").HasMaxLength(2);
-            builder.Entity<SerialNumber>().Property(s => s.DocumentNumber).HasColumnName("DOCUMENT_NUMBER");
-            builder.Entity<SerialNumber>().Property(s => s.DocumentLine).HasColumnName("DOCUMENT_LINE");
-            builder.Entity<SerialNumber>().Property(s => s.DatePostedToVax).HasColumnName("DATE_POSTED_TO_VAX");
-            builder.Entity<SerialNumber>().Property(s => s.OutletNumber).HasColumnName("OUTLET_NUMBER");
-            builder.Entity<SerialNumber>().Property(s => s.PrevSernosNumber).HasColumnName("PREV_SERNOS_NUMBER");
-            builder.Entity<SerialNumber>().Property(s => s.OutletNumber).HasColumnName("OUTLET_NUMBER");
-            builder.Entity<SerialNumber>().Property(s => s.AccountId).HasColumnName("ACCOUNT_ID");
-            builder.Entity<SerialNumber>().Property(s => s.CreatedBy).HasColumnName("CREATED_BY");
-            builder.Entity<SerialNumber>().Property(s => s.TransCode).HasColumnName("TRANS_CODE");
-            builder.Entity<SerialNumber>().Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER");
-            builder.Entity<SerialNumber>().HasOne<SalesArticle>(s => s.SalesArticle)
-                .WithMany(g => g.SerialNumbers)
-                .HasForeignKey(s => s.ArticleNumber);
-        }
-
         private void BuildProductRanges(ModelBuilder builder)
         {
             builder.Entity<ProductRange>().ToTable("PRODUCT_RANGES");
@@ -198,6 +160,42 @@
             builder.Entity<SaCoreType>().Property(t => t.DateInvalid).HasColumnName("DATE_INVALID");
             builder.Entity<SaCoreType>().Property(t => t.LookAheadDays).HasColumnName("LOOKAHEAD_DAYS");
             builder.Entity<SaCoreType>().Property(t => t.SortOrder).HasColumnName("SORT_ORDER");
+        }
+
+        private void BuildSerialNumbers(ModelBuilder builder)
+        {
+            builder.Entity<SerialNumber>().ToTable("SERNOS");
+            builder.Entity<SerialNumber>().HasKey(s => s.SernosTRef);
+            builder.Entity<SerialNumber>().Property(s => s.SernosTRef).HasColumnName("SERNOS_TREF");
+            builder.Entity<SerialNumber>().Property(s => s.SernosGroup).HasColumnName("SERNOS_GROUP").HasMaxLength(10);
+            builder.Entity<SerialNumber>().Property(s => s.SernosNumber).HasColumnName("SERNOS_NUMBER");
+            builder.Entity<SerialNumber>().Property(s => s.SernosDate).HasColumnName("SERNOS_DATE");
+            builder.Entity<SerialNumber>().Property(s => s.DocumentType).HasColumnName("DOCUMENT_TYPE").HasMaxLength(2);
+            builder.Entity<SerialNumber>().Property(s => s.DocumentNumber).HasColumnName("DOCUMENT_NUMBER");
+            builder.Entity<SerialNumber>().Property(s => s.DocumentLine).HasColumnName("DOCUMENT_LINE");
+            builder.Entity<SerialNumber>().Property(s => s.DatePostedToVax).HasColumnName("DATE_POSTED_TO_VAX");
+            builder.Entity<SerialNumber>().Property(s => s.OutletNumber).HasColumnName("OUTLET_NUMBER");
+            builder.Entity<SerialNumber>().Property(s => s.PrevSernosNumber).HasColumnName("PREV_SERNOS_NUMBER");
+            builder.Entity<SerialNumber>().Property(s => s.OutletNumber).HasColumnName("OUTLET_NUMBER");
+            builder.Entity<SerialNumber>().Property(s => s.AccountId).HasColumnName("ACCOUNT_ID");
+            builder.Entity<SerialNumber>().Property(s => s.CreatedBy).HasColumnName("CREATED_BY");
+            builder.Entity<SerialNumber>().Property(s => s.TransCode).HasColumnName("TRANS_CODE");
+            builder.Entity<SerialNumber>().Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER");
+            builder.Entity<SerialNumber>().HasOne(s => s.SalesArticle)
+                .WithMany(g => g.SerialNumbers)
+                .HasForeignKey(s => s.ArticleNumber);
+        }
+
+        private void BuildSernosNotes(ModelBuilder builder)
+        {
+            builder.Entity<SernosNote>().ToTable("SERNOS_NOTES");
+            builder.Entity<SernosNote>().HasKey(r => r.SernosNoteId);
+            builder.Entity<SernosNote>().Property(r => r.SernosNoteId).HasColumnName("SERNOS_NOTE_ID");
+            builder.Entity<SernosNote>().Property(r => r.SernosNotes).HasColumnName("SERNOS_NOTES").HasMaxLength(2000);
+            builder.Entity<SernosNote>().Property(r => r.SernosGroup).HasColumnName("SERNOS_GROUP").HasMaxLength(10);
+            builder.Entity<SernosNote>().Property(r => r.SernosNumber).HasColumnName("SERNOS_NUMBER");
+            builder.Entity<SernosNote>().Property(r => r.SernosTRef).HasColumnName("SERNOS_TREF");
+            builder.Entity<SernosNote>().Property(r => r.TransCode).HasColumnName("TRANS_CODE");
         }
 
         private void BuildSernosConfig(ModelBuilder builder)

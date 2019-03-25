@@ -22,7 +22,6 @@
         {
             return this.serviceDbContext.SerialNumbers
                 .Where(a => a.SernosTRef == key)
-                .Include(a => a.SalesArticle)
                 .ToList()
                 .FirstOrDefault();
         }
@@ -49,10 +48,6 @@
 
         public IQueryable<SerialNumber> FilterBy(Expression<Func<SerialNumber, bool>> expression)
         {
-            // TODO get a resource builder for multiple sernos
-            // copy the filterby over there ->
-            // get these back then figure out from dbcontext how to get the note with it
-            // think that'll be a join?
             return this.serviceDbContext.SerialNumbers.Where(expression);
         }
     }

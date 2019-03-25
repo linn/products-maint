@@ -8,8 +8,6 @@
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Proxy;
 
-    using Microsoft.EntityFrameworkCore;
-
     public class SernosNoteRepository : IRepository<SernosNote, int>
     {
         private readonly IDatabaseService linnappsDatabaseService;
@@ -26,9 +24,8 @@
         {
             return this.serviceDbContext.SernosNotes
                 .Where(n => n.SernosNoteId == key)
-                .Include(s => s.SerialNumber)
-//                .ThenInclude(n => n.SalesArticle)
-                .ToList().First();
+                .ToList()
+                .FirstOrDefault();
         }
 
         public IQueryable<SernosNote> FindAll()
@@ -44,12 +41,12 @@
 
         public IQueryable<SernosNote> FilterBy(Expression<Func<SernosNote, bool>> expression)
         {
-            throw new NotImplementedException();
+            return this.serviceDbContext.SernosNotes.Where(expression);
         }
 
         public SernosNote FindBy(Expression<Func<SernosNote, bool>> expression)
         {
-            throw new NotImplementedException();
+            return this.serviceDbContext.SernosNotes.Where(expression).ToList().FirstOrDefault();
         }
 
         public void Remove(SernosNote entity)

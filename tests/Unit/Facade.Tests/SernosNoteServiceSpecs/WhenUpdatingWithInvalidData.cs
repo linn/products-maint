@@ -10,7 +10,7 @@
 
     using NUnit.Framework;
 
-    public class WhenUpdating : ContextBase
+    public class WhenUpdatingWithInvalidData : ContextBase
     {
         private IResult<SernosNote> result;
 
@@ -30,7 +30,6 @@
                                 {
                                     SernosGroup = "group",
                                     SernosNoteId = 1,
-                                    SernosNotes = "new notes",
                                     SernosNumber = 1,
                                     SernosTRef = 1,
                                     TransCode = "code"
@@ -49,14 +48,7 @@
         [Test]
         public void ShouldReturnSuccess()
         {
-            this.result.Should().BeOfType<SuccessResult<SernosNote>>();
-            var dataResult = ((SuccessResult<SernosNote>)this.result).Data;
-            dataResult.SernosGroup.Should().Be("group");
-            dataResult.SernosNoteId.Should().Be(1);
-            dataResult.SernosNotes.Should().Be("new notes");
-            dataResult.SernosNumber.Should().Be(1);
-            dataResult.SernosTRef.Should().Be(1);
-            dataResult.TransCode.Should().Be("code");
+            this.result.Should().BeOfType<BadRequestResult<SernosNote>>();
         }
     }
 }

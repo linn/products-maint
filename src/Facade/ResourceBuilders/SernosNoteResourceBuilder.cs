@@ -18,22 +18,25 @@
                            SernosNoteId = sernosNote.SernosNoteId,
                            SernosNotes = sernosNote.SernosNotes,
                            SernosNumber = sernosNote.SernosNumber,
-//                           SernosTRef = sernosNote.SernosTRef,
+                           TransCode = sernosNote.TransCode,
                            Links = this.BuildLinks(sernosNote).ToArray()
                        };
         }
 
         public string GetLocation(SernosNote sernosNote)
         {
-            //            return $"/products/maint/{sernosNote.SernosTRef}/notes/{sernosNote.SernosNoteId}";
-            return $"/products/maint/1/notes/{sernosNote.SernosNoteId}";
+            return $"/products/maint/serial-numbers/notes/{sernosNote.SernosNoteId}";
         }
 
         object IResourceBuilder<SernosNote>.Build(SernosNote sernosNote) => this.Build(sernosNote);
-
+        
         private IEnumerable<LinkResource> BuildLinks(SernosNote sernosNote)
         {
-            yield return new LinkResource { Rel = "self", Href = this.GetLocation(sernosNote) };
+            yield return new LinkResource
+                             {
+                                 Rel = "self",
+                                 Href = this.GetLocation(sernosNote)
+                             };
         }
     }
 }

@@ -14,9 +14,7 @@
 
         public IEnumerable<SerialNumberResource> Build(IEnumerable<SerialNumber> serialNumber)
         {
-            //            return serialNumber.Select(s => this.serialNumberResourceBuilder.Build(s));
-            //            return serialNumber.Select(s => this.serialNumberResourceBuilder.Build(s));
-            throw new NotImplementedException();
+            return serialNumber.Select(s => this.serialNumberResourceBuilder.Build(s));
         }
 
         object IResourceBuilder<IEnumerable<SerialNumber>>.Build(IEnumerable<SerialNumber> serialNumber) => this.Build(serialNumber);

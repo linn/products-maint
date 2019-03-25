@@ -2,11 +2,9 @@
 {
     using Linn.Common.Resources;
 
-    public class SernosNoteResource : HypermediaResource
+    public class SernosNoteCreateResource : HypermediaResource
     {
         public string SernosGroup { get; set; }
-
-        public int SernosNoteId { get; set; }
 
         public string SernosNotes { get; set; }
 

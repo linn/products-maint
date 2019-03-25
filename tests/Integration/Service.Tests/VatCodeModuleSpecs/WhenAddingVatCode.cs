@@ -48,7 +48,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.VatCodeService.Received().Add(Arg.Is<VatCodeResource>(r => r.Code== this.requestResource.Code));
+            this.VatCodeService.Received().Add(Arg.Is<VatCodeResource>(r => r.Code == this.requestResource.Code));
         }
 
         [Test]
