@@ -1,4 +1,4 @@
-﻿import * as actionTypes from '../../actions';
+﻿import { productRangesReportActionTypes as actionTypes } from '../../actions';
 
 const defaultState = { includePhasedOut: false };
 

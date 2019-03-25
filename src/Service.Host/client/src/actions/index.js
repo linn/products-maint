@@ -45,6 +45,12 @@ export const cartonDetailsReportActionTypes = makeReportActionTypes(
     reportTypes.cartonDetailsReport.actionType
 );
 export const eanCodesReportTypes = makeReportActionTypes(reportTypes.eanCodesReport.actionType);
+export const productRangesReportActionTypes = makeReportActionTypes(
+    reportTypes.productRangesReport.actionType
+);
+export const salesProductsByProductRangeReportActionTypes = makeReportActionTypes(
+    reportTypes.salesProductsByProductRangeReport.actionType
+);
 
 export const REQUEST_STOCK_TRIGGER_LEVELS_REPORT = 'REQUEST_STOCK_TRIGGER_LEVELS_REPORT';
 export const RECEIVE_STOCK_TRIGGER_LEVELS_REPORT = 'RECEIVE_STOCK_TRIGGER_LEVELS_REPORT';
@@ -63,8 +69,6 @@ export const REQUEST_ADD_TARIFF = 'REQUEST_ADD_TARIFF';
 export const RECEIVE_NEW_TARIFF = 'RECEIVE_NEW_TARIFF';
 export const REQUEST_UPDATE_TARIFF = 'REQUEST_UPDATE_TARIFF';
 
-export const REQUEST_PRODUCT_RANGES_REPORT = 'REQUEST_PRODUCT_RANGES_REPORT';
-export const RECEIVE_PRODUCT_RANGES_REPORT = 'RECEIVE_PRODUCT_RANGES_REPORT';
 export const REQUEST_SALES_PRODUCTS_BY_RANGE_REPORT = 'REQUEST_SALES_PRODUCTS_BY_RANGE_REPORT';
 export const RECEIVE_SALES_PRODUCTS_BY_RANGE_REPORT = 'RECEIVE_SALES_PRODUCTS_BY_RANGE_REPORT';
 

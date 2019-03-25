@@ -1,6 +1,6 @@
 ﻿import deepFreeze from 'deep-freeze';
 import productRangesReport from '../productRangesReport';
-import * as actionTypes from '../../actions';
+import { productRangesReportActionTypes as actionTypes } from '../../actions';
 
 describe('Product Ranges Report reducer', () => {
     test('when requesting report', () => {

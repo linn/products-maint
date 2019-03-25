@@ -2,11 +2,13 @@
 import queryString from 'query-string';
 import SalesProductsByProductRange from '../../components/reports/SalesProductsByProductRange';
 import initialiseOnMount from '../common/initialiseOnMount';
-import fetchSalesProductsByProductRangeReport from '../../actions/salesProductsByProductRangeReport';
+import actions from '../../actions/salesProductsByProductRangeReport';
 import config from '../../config';
 import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
+import * as reportTypes from '../../reportTypes';
 
-const reportName = 'salesProductsByProductRangeReport';
+const reportName = reportTypes.salesProductsByProductRangeReport.item;
+
 const getOptions = ownProps => {
     const query = ownProps.location.search
         ? queryString.parse(ownProps.location.search)
@@ -22,9 +24,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const initialise = ({ options }) => dispatch => {
-    dispatch(
-        fetchSalesProductsByProductRangeReport(options.productRangeId, options.includePhasedOut)
-    );
+    dispatch(actions.fetchReport(options));
 };
 
 const mapDispatchToProps = {

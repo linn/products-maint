@@ -15,5 +15,17 @@ export const cartonDetailsReport = new ItemType(
 export const eanCodesReport = new ItemType(
     'eanCodesReport',
     'EAN_CODE',
-    `/products/reports/sales-article-ean-codes`
+    '/products/reports/sales-article-ean-codes'
+);
+
+export const productRangesReport = new ItemType(
+    'productRangesReport',
+    'PRODUCT_RANGES',
+    '/products/reports/product-ranges'
+);
+
+export const salesProductsByProductRangeReport = new ItemType(
+    'salesProductsByProductRangeReport',
+    'SALES_PRODUCTS_BY_RANGE',
+    '/products/reports/sales-products-by-product-range'
 );
