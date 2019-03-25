@@ -2,11 +2,13 @@
 import queryString from 'query-string';
 import ProductRanges from '../../components/reports/ProductRanges';
 import initialiseOnMount from '../common/initialiseOnMount';
-import fetchProductRangesReport from '../../actions/productRangesReport';
+import actions from '../../actions/productRangesReport';
 import config from '../../config';
 import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
+import * as reportTypes from '../../reportTypes';
 
-const reportName = 'productRangesReport';
+const reportName = reportTypes.productRangesReport.item;
+
 const getOptions = ownProps => {
     const query = ownProps.location.search
         ? queryString.parse(ownProps.location.search)
@@ -22,7 +24,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const initialise = ({ options }) => dispatch => {
-    dispatch(fetchProductRangesReport(options.includePhasedOut));
+    dispatch(actions.fetchReport(options));
 };
 
 const mapDispatchToProps = {

@@ -1,18 +1,14 @@
-﻿export default function reportResults(
-    requestActionType,
-    receiveActionType,
-    defaultState = { loading: false, data: null }
-) {
-    return function results(state = defaultState, action) {
+﻿export default function(itemRoot, actionTypes, defaultState = { loading: false, data: null }) {
+    return (state = defaultState, action) => {
         switch (action.type) {
-            case requestActionType:
+            case actionTypes[`REQUEST_${itemRoot}_REPORT`]:
                 return {
                     ...state,
                     loading: true,
                     data: null
                 };
 
-            case receiveActionType:
+            case actionTypes[`RECEIVE_${itemRoot}_REPORT`]:
                 return {
                     ...state,
                     loading: false,

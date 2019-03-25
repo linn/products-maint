@@ -1,6 +1,6 @@
 ﻿import deepFreeze from 'deep-freeze';
 import eanCodesReport from '../eanCodesReport';
-import * as actionTypes from '../../actions';
+import { eanCodesReportTypes as actionTypes } from '../../actions';
 
 describe('ean Codes Report reducer', () => {
     test('when requesting report', () => {

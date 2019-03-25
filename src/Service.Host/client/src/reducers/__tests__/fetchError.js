@@ -1,6 +1,7 @@
 ﻿import deepFreeze from 'deep-freeze';
 import fetchError from '../fetchError';
 import * as actionTypes from '../../actions';
+import cartonTypeActions from '../../actions/cartonTypeActions';
 
 describe('fetch error reducer', () => {
     test('when full error received', () => {
@@ -34,7 +35,7 @@ describe('fetch error reducer', () => {
         };
 
         const action = {
-            type: actionTypes.REQUEST_ADD_CARTON_TYPE,
+            type: cartonTypeActions.REQUEST_ADD_CARTON_TYPE,
             payload: {}
         };
 
@@ -53,7 +54,7 @@ describe('fetch error reducer', () => {
         };
 
         const action = {
-            type: actionTypes.REQUEST_UPDATE_CARTON_TYPE,
+            type: cartonTypeActions.REQUEST_UPDATE_CARTON_TYPE,
             payload: {}
         };
 
@@ -72,7 +73,7 @@ describe('fetch error reducer', () => {
         };
 
         const action = {
-            type: actionTypes.REQUEST_CARTON_TYPE,
+            type: cartonTypeActions.REQUEST_CARTON_TYPE,
             payload: {}
         };
 
