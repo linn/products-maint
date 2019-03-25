@@ -1,11 +1,14 @@
 ﻿import { CALL_API } from 'redux-api-middleware';
+import queryString from 'query-string';
 import config from '../config';
 import * as sharedActionTypes from './index';
 
 export default function ReportActions(actionTypeRoot, uri, actionTypes) {
-    this.fetchReport = () => ({
+    this.fetchReport = options => ({
         [CALL_API]: {
-            endpoint: `${config.appRoot}${uri}`,
+            endpoint: options
+                ? `${config.appRoot}${uri}?${queryString.stringify(options)}`
+                : `${config.appRoot}${uri}`,
             method: 'GET',
             options: { requiresAuth: true },
             headers: {
@@ -14,7 +17,7 @@ export default function ReportActions(actionTypeRoot, uri, actionTypes) {
             types: [
                 {
                     type: actionTypes[`REQUEST_${actionTypeRoot}_REPORT`],
-                    payload: {}
+                    payload: { options }
                 },
                 {
                     type: actionTypes[`RECEIVE_${actionTypeRoot}_REPORT`],

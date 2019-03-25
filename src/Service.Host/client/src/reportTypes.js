@@ -11,3 +11,9 @@ export const cartonDetailsReport = new ItemType(
     'CARTON_DETAILS',
     '/products/reports/carton-details'
 );
+
+export const eanCodesReport = new ItemType(
+    'eanCodesReport',
+    'EAN_CODE',
+    `/products/reports/sales-article-ean-codes`
+);

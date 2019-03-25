@@ -25,7 +25,7 @@ const makeActionTypes = (entityType, makeAll = true) => {
     return types;
 };
 
-const makeReportActionTypes = (entityType) => {
+const makeReportActionTypes = entityType => {
     const types = {};
     types[`REQUEST_${entityType}_REPORT`] = `REQUEST_${entityType}_REPORT`;
     types[`RECEIVE_${entityType}_REPORT`] = `RECEIVE_${entityType}_REPORT`;
@@ -37,8 +37,6 @@ export const FETCH_ERROR = 'FETCH_ERROR';
 
 export const REQUEST_REPORT = 'REQUEST_REPORT';
 export const RECEIVE_REPORT = 'RECEIVE_REPORT';
-export const REQUEST_EAN_CODE_REPORT = 'REQUEST_EAN_CODE_REPORT';
-export const RECEIVE_EAN_CODE_REPORT = 'RECEIVE_EAN_CODE_REPORT';
 
 export const saCoreTypeReportActionTypes = makeReportActionTypes(
     reportTypes.salesArticleCoreTypes.actionType
@@ -46,6 +44,7 @@ export const saCoreTypeReportActionTypes = makeReportActionTypes(
 export const cartonDetailsReportActionTypes = makeReportActionTypes(
     reportTypes.cartonDetailsReport.actionType
 );
+export const eanCodesReportTypes = makeReportActionTypes(reportTypes.eanCodesReport.actionType);
 
 export const REQUEST_STOCK_TRIGGER_LEVELS_REPORT = 'REQUEST_STOCK_TRIGGER_LEVELS_REPORT';
 export const RECEIVE_STOCK_TRIGGER_LEVELS_REPORT = 'RECEIVE_STOCK_TRIGGER_LEVELS_REPORT';
