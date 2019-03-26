@@ -1,77 +1,37 @@
-﻿namespace Linn.Products.Facade.Services
+﻿using System;
+using Linn.Common.Facade;
+using Linn.Common.Persistence;
+using Linn.Products.Domain.Linnapps.Products;
+using Linn.Products.Resources;
+
+namespace Linn.Products.Facade.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using Linn.Common.Facade;
-    using Linn.Common.Persistence;
-    using Linn.Products.Domain.Linnapps.Products;
-    using Linn.Products.Domain.Linnapps.Repositories;
-    using Linn.Products.Resources;
-
-    public class TariffService : ITariffService
+    public class TariffService : FacadeService<Tariff, int, TariffResource, TariffResource>
     {
-        private readonly ITariffRepository tariffRepository;
-        private readonly ITransactionManager transactionManager;
-
-        public TariffService(ITariffRepository tariffRepository, ITransactionManager transactionManager)
+        public TariffService(IRepository<Tariff, int> repository, ITransactionManager transactionManager) : base(repository, transactionManager)
         {
-            this.tariffRepository = tariffRepository;
-            this.transactionManager = transactionManager;
         }
 
-        public IResult<IEnumerable<Tariff>> GetTariffs(string searchTerm)
-        {
-            var tariffs = this.tariffRepository.SearchTariffs(searchTerm);
-            return new SuccessResult<IEnumerable<Tariff>>(tariffs);
-        }
-
-        public IResult<Tariff> GetTariff(int id)
-        {
-            var tariff = this.tariffRepository.FindById(id);
-
-            if (tariff == null)
-            {
-                return new NotFoundResult<Tariff>($"no tariff with id {id}");
-            }
-
-            return new SuccessResult<Tariff>(tariff);
-        }
-
-        public IResult<Tariff> AddTariff(TariffResource resource)
+        protected override Tariff CreateFromResource(TariffResource resource)
         {
             var tariff = new Tariff
-                             {
-                                 Description = resource.Description,
-                                 TariffCode = resource.TariffCode,
-                                 USTariffCode = resource.USTariffCode,
-                                 DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? (DateTime?)null : DateTime.Parse(resource.DateInvalid),
-                                 Duty = resource.Duty
-                             };
+            {
+                TariffCode = resource.TariffCode,
+                Description = resource.Description,
+                USTariffCode = resource.USTariffCode,
+                DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? (DateTime?) null : DateTime.Parse(resource.DateInvalid),
+                Duty = resource.Duty
+            };
 
-            this.tariffRepository.Add(tariff);
-            this.transactionManager.Commit();
-
-            return new CreatedResult<Tariff>(tariff);
+            return tariff;
         }
 
-        public IResult<Tariff> UpdateTariff(int id, TariffResource resource)
+        protected override void UpdateFromResource(Tariff entity, TariffResource updateResource)
         {
-            var tariff = this.tariffRepository.FindById(id);
-
-            if (tariff == null)
-            {
-                return new NotFoundResult<Tariff>($"No tariff with id {id}");
-            }
-
-            tariff.TariffCode = resource.TariffCode;
-            tariff.USTariffCode = resource.USTariffCode;
-            tariff.Description = resource.Description;
-            tariff.DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? (DateTime?)null : DateTime.Parse(resource.DateInvalid);
-            tariff.Duty = resource.Duty;
-
-            this.transactionManager.Commit();
-
-            return new SuccessResult<Tariff>(tariff);
+            entity.Description = updateResource.Description;
+            entity.DateInvalid = string.IsNullOrEmpty(updateResource.DateInvalid) ? (DateTime?) null : DateTime.Parse(updateResource.DateInvalid);
+            entity.Duty = updateResource.Duty;
+            entity.USTariffCode = updateResource.USTariffCode;
         }
     }
 }

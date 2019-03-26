@@ -33,7 +33,7 @@
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
-            builder.RegisterType<TariffService>().As<ITariffService>();
+            builder.RegisterType<TariffService>().As<IFacadeService<Tariff, int, TariffResource, TariffResource>>();
             builder.RegisterType<CartonReportsService>().As<ICartonReportsService>();
             builder.RegisterType<SaHoldStoryReportService>().As<ISaHoldStoriesReportService>();
             builder.RegisterType<ProductsReportsService>().As<IProductsReportsService>();
