@@ -1,4 +1,7 @@
-﻿namespace Linn.Products.Service.Modules
+﻿using Linn.Common.Facade;
+using Linn.Products.Domain.Linnapps.Products;
+
+namespace Linn.Products.Service.Modules
 {
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
@@ -8,9 +11,9 @@
 
     public sealed class TariffModule : NancyModule
     {
-        private readonly ITariffService tariffService;
+        private readonly IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService;
 
-        public TariffModule(ITariffService tariffService)
+        public TariffModule(IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService)
         {
             this.tariffService = tariffService;
             this.Get("/products/maint/tariffs", _ => this.GetTariffs());
@@ -22,7 +25,7 @@
         private object GetTariffs()
         {
             var resource = this.Bind<TariffQueryResource>();
-            var tariffs = this.tariffService.GetTariffs(resource.SearchTerm);
+            var tariffs = this.tariffService.GetAll();
 
             return this.Negotiate.WithModel(tariffs)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
@@ -31,7 +34,7 @@
 
         private object GetTariff(int id)
         {
-            var tariff = this.tariffService.GetTariff(id);
+            var tariff = this.tariffService.GetById(id);
             return this.Negotiate.WithModel(tariff)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
@@ -40,7 +43,7 @@
         private object UpdateTariff(int id)
         {
             var resource = this.Bind<TariffResource>();
-            var tariff = this.tariffService.UpdateTariff(id, resource);
+            var tariff = this.tariffService.Update(id, resource);
             return this.Negotiate.WithModel(tariff);
         }
 
@@ -48,7 +51,7 @@
         {
             var resource = this.Bind<TariffResource>();
 
-            var result = this.tariffService.AddTariff(resource);
+            var result = this.tariffService.Add(resource);
 
             return this.Negotiate.WithModel(result);
         }
