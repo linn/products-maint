@@ -38,17 +38,11 @@ function CartonType({
         }
     }, [cartonTypeId]);
 
-    useEffect(() => {
-        if (creating() && errorMessage) {
-            history.push(`/products/maint/carton-types/create`);
-        }
-    }, [errorMessage, editStatus]);
-
-    useEffect(() => {
-        if (!creating()) {
-            initialise({ cartonTypeId });
-        }
-    }, [cartonTypeId]);
+    // useEffect(() => {
+    //     if (creating() && errorMessage) {
+    //         history.push(`/products/maint/carton-types/create`);
+    //     }
+    // }, [errorMessage, editStatus]); dubious
 
     useEffect(() => {
         if (!creating() && item !== prevCartonType) {
@@ -132,7 +126,6 @@ function CartonType({
                                 }
                                 onChange={handleFieldChange}
                                 propertyName="name"
-                                maxLength={10}
                                 error={nameInvalid()}
                             />
                         </Grid>
@@ -142,7 +135,6 @@ function CartonType({
                                 label="Description"
                                 fullWidth
                                 onChange={handleFieldChange}
-                                maxLength={50}
                                 propertyName="description"
                                 error={descriptionInvalid()}
                                 helperText={

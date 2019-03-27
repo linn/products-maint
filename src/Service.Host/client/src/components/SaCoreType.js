@@ -12,12 +12,11 @@ import {
 import Page from '../containers/Page';
 
 function SaCoreType({
-    initialise,
     loading,
     errorMessage,
     editStatus,
     item,
-    saCoreTypeId,
+    itemId,
     updateSaCoreType,
     addSaCoreType,
     setEditStatus,
@@ -33,18 +32,6 @@ function SaCoreType({
     const viewing = () => editStatus === 'view';
 
     useEffect(() => {
-        if (!creating()) {
-            initialise({ saCoreTypeId });
-        }
-    }, [saCoreTypeId]);
-
-    useEffect(() => {
-        if (creating() && errorMessage) {
-            history.push(`/products/maint/sa-core-types/create`);
-        }
-    }, [errorMessage, editStatus]);
-
-    useEffect(() => {
         if (!creating() && item !== prevSaCoreType) {
             setSaCoreType(item);
             setPrevSaCoreType(item);
@@ -55,11 +42,10 @@ function SaCoreType({
 
     const handleSaveClick = () => {
         if (editing()) {
-            updateSaCoreType(saCoreTypeId, saCoreType);
+            updateSaCoreType(itemId, saCoreType);
             setEditStatus('view');
         } else if (creating()) {
             addSaCoreType(saCoreType);
-            history.push(`/products/maint/sa-core-types/${saCoreType.coreType}`);
         }
     };
 
@@ -73,7 +59,9 @@ function SaCoreType({
     };
 
     const handleFieldChange = (propertyName, newValue) => {
-        setEditStatus('edit');
+        if (editStatus === 'view') {
+            setEditStatus('edit');
+        }
         setSaCoreType({ ...saCoreType, [propertyName]: newValue });
     };
 
@@ -189,18 +177,16 @@ SaCoreType.defaultProps = {
     updateSaCoreType: null,
     loading: null,
     errorMessage: '',
-    saCoreTypeId: null,
-    snackbarVisible: false,
-    initialise: null
+    itemId: null,
+    snackbarVisible: false
 };
 
 SaCoreType.propTypes = {
-    initialise: PropTypes.func,
     item: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
-    saCoreTypeId: PropTypes.string,
+    itemId: PropTypes.string,
     updateSaCoreType: PropTypes.func,
     addSaCoreType: PropTypes.func,
     setEditStatus: PropTypes.func.isRequired,
