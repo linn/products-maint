@@ -10,7 +10,6 @@ import {
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 
-
 function Tariff({
     updateTariff,
     setEditStatus,
@@ -37,7 +36,9 @@ function Tariff({
         }
     });
 
-    const inputInvalid = () => !tariff.tariffCode && !tariff.description;
+    const inputInvalid = () => {
+        return !tariff.tariffCode || !tariff.description;
+    }
 
     const handleSaveClick = () => {
         if (editing()) {
@@ -47,10 +48,6 @@ function Tariff({
             addTariff(tariff);
         }
     };
-
-    const required = (field) => {
-        return !field;
-    }
 
     const handleCancelClick = () => {
         setTariff(item);
@@ -72,7 +69,7 @@ function Tariff({
                 <Grid item xs={12}>
                     {creating() ? (
                         <Title text="Add Tariff" />
-                    ) :   <Title text="Tariff Details" />
+                    ) : <Title text="Tariff Details" />
                     }
                 </Grid>
                 {loading || (!tariff && !creating()) ? (
@@ -80,88 +77,88 @@ function Tariff({
                         <Loading />
                     </Grid>
                 ) : (
-                    <Fragment>
-                        {errorMessage && (
-                            <Grid item xs={12}>
-                                <ErrorCard errorMessage={errorMessage} />
-                            </Grid>
-                        )}
-                        <SnackbarMessage
-                            visible={snackbarVisible}
-                            onClose={() => setSnackbarVisible(false)}
-                            message="Save Successful"
-                        />
-                        <Grid item xs={4}>
-                            <InputField
-                                fullWidth
-                                disabled={!creating()}
-                                value={tariff.tariffCode}
-                                label="Tariff Code"
-                                helperText={
-                                    !creating()
-                                        ? 'This field cannot be changed'
-                                        : 'This field is required'
-                                }
-                                maxLength={14}
-                                onChange={handleFieldChange}
-                                propertyName="tariffCode"
-                                error={required(tariff.tariffCode)}
+                        <Fragment>
+                            {errorMessage && (
+                                <Grid item xs={12}>
+                                    <ErrorCard errorMessage={errorMessage} />
+                                </Grid>
+                            )}
+                            <SnackbarMessage
+                                visible={snackbarVisible}
+                                onClose={() => setSnackbarVisible(false)}
+                                message="Save Successful"
+                            />
+                            <Grid item xs={4}>
+                                <InputField
+                                    fullWidth
+                                    disabled={!creating()}
+                                    value={tariff.tariffCode}
+                                    label="Tariff Code"
+                                    helperText={
+                                        !creating()
+                                            ? 'This field cannot be changed'
+                                            : 'This field is required'
+                                    }
+                                    maxLength={14}
+                                    onChange={handleFieldChange}
+                                    propertyName="tariffCode"
+                                    error={!tariff.tariffCode}
                                 />
-                        </Grid>
-                        <Grid item xs={8}>
-                            <InputField
-                                value={tariff.description}
-                                label="Description"
-                                fullWidth
-                                onChange={handleFieldChange}
-                                propertyName="description"
-                                maxLength={2000}
-                                error={required(tariff.description)}
-                            />
-                        </Grid>
-                        <Grid item xs={3}>
-                            <InputField
-                                fullWidth
-                                value={tariff.usTariffCode}
-                                label="US Tariff Code"
-                                onChange={handleFieldChange}
-                                propertyName="usTariffCode"
-                                maxLength={14}
-                            />
-                        </Grid>
-                        <Grid item xs={3}>
-                            <InputField
-                                fullWidth
-                                type="number"
-                                value={tariff.duty}
-                                label="Duty"
-                                addornment="%"
-                                onChange={handleFieldChange}
-                                propertyName="duty"
-                            />
-                        </Grid>
-                        <Grid item xs={3}>
-                            <InputField
-                                fullWidth
-                                type="date"
-                                value={tariff.dateInvalid}
-                                label="Date Invalid"
-                                onChange={handleFieldChange}
-                                propertyName="dateInvalid"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <SaveBackCancelButtons
-                                saveDisabled={viewing() || inputInvalid()}
-                                saveClick={handleSaveClick}
-                                cancelClick={handleCancelClick}
-                                backClick={handleBackClick}
-                            />
-                        </Grid>
-                    </Fragment>
-                )}
+                            </Grid>
+                            <Grid item xs={8}>
+                                <InputField
+                                    value={tariff.description}
+                                    label="Description"
+                                    fullWidth
+                                    onChange={handleFieldChange}
+                                    propertyName="description"
+                                    maxLength={2000}
+                                    error={!tariff.description}
+                                />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <InputField
+                                    fullWidth
+                                    value={tariff.usTariffCode}
+                                    label="US Tariff Code"
+                                    onChange={handleFieldChange}
+                                    propertyName="usTariffCode"
+                                    maxLength={14}
+                                />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <InputField
+                                    fullWidth
+                                    type="number"
+                                    value={tariff.duty}
+                                    label="Duty"
+                                    adornment="%"
+                                    onChange={handleFieldChange}
+                                    propertyName="duty"
+                                />
+                            </Grid>
+                            <Grid item xs={3}>
+                                <InputField
+                                    fullWidth
+                                    type="date"
+                                    value={tariff.dateInvalid}
+                                    label="Date Invalid"
+                                    onChange={handleFieldChange}
+                                    propertyName="dateInvalid"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <SaveBackCancelButtons
+                                    saveDisabled={viewing() || inputInvalid()}
+                                    saveClick={handleSaveClick}
+                                    cancelClick={handleCancelClick}
+                                    backClick={handleBackClick}
+                                />
+                            </Grid>
+                        </Fragment>
+                    )}
             </Grid>
-        </Page>    )
+        </Page>)
 }
 
 export default Tariff;

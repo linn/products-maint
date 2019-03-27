@@ -1,6 +1,6 @@
 import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
-import VatCode from '../VatCode';
+import VatCode from '../../VatCode';
 
 describe('<VatCode />', () => {
     let wrapper;

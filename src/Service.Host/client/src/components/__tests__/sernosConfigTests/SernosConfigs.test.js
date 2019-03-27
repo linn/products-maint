@@ -1,12 +1,15 @@
 ﻿import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
-import ProductRanges from '../productRanges/ProductRanges';
+import SernosConfigs from '../../SernosConfigs';
 
-describe('<ProductRanges />', () => {
+describe('<SernosConfigs />', () => {
     let wrapper;
     let props;
     const mockHistory = {
-        push: jest.fn()
+        push: jest.fn(),
+        location: {
+            pathname: '/a/test/path'
+        }
     };
     const getEntityList = () => wrapper.find('EntityList');
     const getLoading = () => wrapper.find('Loading');
@@ -16,16 +19,21 @@ describe('<ProductRanges />', () => {
         beforeEach(() => {
             props = {
                 loading: false,
-                items: [
+                sernosConfigs: [
                     {
-                        rangeName: 'name',
-                        rangeDescription: 'desc',
-                        href: '/1'
+                        name: 'P1',
+                        description: 'Serial Numbered In Pairs, One Box',
+                        href: '/products/main/sernos-configs/1'
+                    },
+                    {
+                        name: 'P2',
+                        description: 'Serial Numbered In Pairs, Two Boxes',
+                        href: '/products/main/sernos-configs/1'
                     }
                 ],
                 history: mockHistory
             };
-            wrapper = shallow(<ProductRanges {...props} />);
+            wrapper = shallow(<SernosConfigs {...props} />);
         });
 
         it('should render EntityList', () => {
@@ -37,13 +45,14 @@ describe('<ProductRanges />', () => {
         beforeEach(() => {
             props = {
                 loading: true,
-                items: null,
+                sernosConfigs: null,
                 history: mockHistory
             };
-            wrapper = shallow(<ProductRanges {...props} />);
+            wrapper = shallow(<SernosConfigs {...props} />);
         });
 
-        it('should render Loading', () => {
+        it('should render Loading spinner', () => {
+            wrapper = shallow(<SernosConfigs {...props} />);
             expect(getLoading()).toHaveLength(1);
         });
     });

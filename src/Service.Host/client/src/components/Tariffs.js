@@ -26,12 +26,10 @@ const Tariffs = ({ tariffs, fetchItems, loading, clearSearch }) => {
                         title="Search by tariff code or description"
                     />
                 </Grid>
-                <Grid item xs={2}>            
+                <Grid item xs={2}>
                     <CreateButton createUrl="/products/maint/tariffs/create" />
                 </Grid>
             </Grid>
-
-
         </Page>
     );
 };

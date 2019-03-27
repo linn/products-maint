@@ -1,52 +1,58 @@
 import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
-import ProductRange from '../productRanges/ProductRange';
+import SernosConfig from '../../SernosConfig';
 
-describe('<ProductRange />', () => {
+describe('<SernosConfig />', () => {
     let wrapper;
     let props;
     const getInputFields = () => wrapper.find('WithStyles(InputField)');
+    const getDropdowns = () => wrapper.find('Dropdown');
     const getLoading = () => wrapper.find('Loading');
     const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');
-    const shallow = createShallow({ dive: true });
+    const shallow = createShallow({ dive: false });
 
     describe('when loaded', () => {
         beforeEach(() => {
             props = {
-                id: 1,
                 loading: false,
-                productRange: {
-                    id: 1,
-                    rangeName: 'name',
-                    rangeDescription: 'desc'
+                sernosConfig: {
+                    name: 'P1',
+                    description: 'Serial Numbered In Pairs, One Box',
+                    serialNumbered: 'Y',
+                    numberOfSernos: 1,
+                    numberOfBoxes: 1,
+                    startOn: 'Odd'
                 },
                 history: {
                     push: () => {},
+                    location: {
+                        pathname: '/a/test/path'
+                    }
                 },
-                editStatus: 'view',
-                setEditStatus: () => {}
+                editStatus: 'view'
             };
-            wrapper = shallow(<ProductRange {...props} />);
+            wrapper = shallow(<SernosConfig {...props} />);
         });
 
         it('should render Input Fields', () => {
             expect(getInputFields()).toHaveLength(4);
+            expect(getDropdowns()).toHaveLength(2);
         });
     });
 
     describe('when loading', () => {
         beforeEach(() => {
-            wrapper = shallow(<ProductRange {...props} loading />);
+            wrapper = shallow(<SernosConfig {...props} loading />);
         });
 
-        it('should render loading', () => {
+        it('should render loading Spinner', () => {
             expect(getLoading()).toHaveLength(1);
         });
     });
 
     describe('when error', () => {
         beforeEach(() => {
-            wrapper = shallow(<ProductRange {...props} errorMessage="error" />);
+            wrapper = shallow(<SernosConfig {...props} errorMessage="error" />);
         });
 
         it('should render ErrorCard', () => {

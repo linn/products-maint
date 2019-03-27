@@ -1,6 +1,6 @@
 import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
-import TypesOfSale from '../TypesOfSale';
+import TypesOfSale from '../../TypesOfSale';
 
 describe('<TypesOfSale />', () => {
     let wrapper;
