@@ -12,12 +12,11 @@ import {
 import Page from '../containers/Page';
 
 function CartonType({
-    initialise,
     loading,
     errorMessage,
     editStatus,
     item,
-    cartonTypeId,
+    itemId,
     updateCartonType,
     addCartonType,
     setEditStatus,
@@ -31,18 +30,6 @@ function CartonType({
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
-
-    useEffect(() => {
-        if (!creating()) {
-            initialise({ cartonTypeId });
-        }
-    }, [cartonTypeId]);
-
-    // useEffect(() => {
-    //     if (creating() && errorMessage) {
-    //         history.push(`/products/maint/carton-types/create`);
-    //     }
-    // }, [errorMessage, editStatus]); dubious
 
     useEffect(() => {
         if (!creating() && item !== prevCartonType) {
@@ -64,13 +51,10 @@ function CartonType({
 
     const handleSaveClick = () => {
         if (editing()) {
-            updateCartonType(cartonTypeId, cartonType);
+            updateCartonType(itemId, cartonType);
             setEditStatus('view');
         } else if (creating()) {
             addCartonType(cartonType);
-            if (!errorMessage) {
-                history.push(`/products/maint/carton-types/${cartonType.name}`);
-            }
         }
     };
 
@@ -207,22 +191,20 @@ function CartonType({
 
 CartonType.defaultProps = {
     item: {},
-    initialise: null,
     loading: null,
     errorMessage: '',
-    cartonTypeId: null,
+    itemId: null,
     updateCartonType: null,
     snackbarVisible: false,
     addCartonType: null
 };
 
 CartonType.propTypes = {
-    initialise: PropTypes.func,
     item: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
-    cartonTypeId: PropTypes.string,
+    itemId: PropTypes.string,
     updateCartonType: PropTypes.func,
     addCartonType: PropTypes.func,
     setEditStatus: PropTypes.func.isRequired,
