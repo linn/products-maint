@@ -3,6 +3,9 @@ using Linn.Products.Domain.Linnapps.Products;
 
 namespace Linn.Products.Service.Modules
 {
+    using System.Collections.Generic;
+
+    using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
     using Linn.Products.Service.Models;
@@ -13,9 +16,14 @@ namespace Linn.Products.Service.Modules
     {
         private readonly IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService;
 
-        public TariffModule(IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService)
+        private readonly ITariffRepository tariffRepository;
+
+        public TariffModule(IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService, 
+                            ITariffRepository tariffRepository)
         {
             this.tariffService = tariffService;
+            this.tariffRepository = tariffRepository;
+
             this.Get("/products/maint/tariffs", _ => this.GetTariffs());
             this.Get("/products/maint/tariffs/{id:int}", parameters => this.GetTariff(parameters.id));
             this.Put("/products/maint/tariffs/{id:int}", parameters => this.UpdateTariff(parameters.id));
@@ -25,7 +33,15 @@ namespace Linn.Products.Service.Modules
         private object GetTariffs()
         {
             var resource = this.Bind<TariffQueryResource>();
-            var tariffs = this.tariffService.GetAll();
+            IResult<IEnumerable<Tariff>> tariffs;
+            if (string.IsNullOrEmpty(resource.SearchTerm))
+            {
+                tariffs = this.tariffService.GetAll();
+            }
+            else
+            {
+                tariffs = new SuccessResult<IEnumerable<Tariff>>(this.tariffRepository.SearchTariffs(resource.SearchTerm));
+            }
 
             return this.Negotiate.WithModel(tariffs)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)

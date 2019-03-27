@@ -19,7 +19,7 @@ namespace Linn.Products.Facade.Services
                 TariffCode = resource.TariffCode,
                 Description = resource.Description,
                 USTariffCode = resource.USTariffCode,
-                DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? (DateTime?) null : DateTime.Parse(resource.DateInvalid),
+                DateInvalid = string.IsNullOrEmpty(resource.DateInvalid) ? (DateTime?)null : DateTime.Parse(resource.DateInvalid),
                 Duty = resource.Duty
             };
 
@@ -29,7 +29,7 @@ namespace Linn.Products.Facade.Services
         protected override void UpdateFromResource(Tariff entity, TariffResource updateResource)
         {
             entity.Description = updateResource.Description;
-            entity.DateInvalid = string.IsNullOrEmpty(updateResource.DateInvalid) ? (DateTime?) null : DateTime.Parse(updateResource.DateInvalid);
+            entity.DateInvalid = string.IsNullOrEmpty(updateResource.DateInvalid) ? (DateTime?)null : DateTime.Parse(updateResource.DateInvalid);
             entity.Duty = updateResource.Duty;
             entity.USTariffCode = updateResource.USTariffCode;
         }
