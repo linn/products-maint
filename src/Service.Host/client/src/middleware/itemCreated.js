@@ -9,6 +9,7 @@ export default () => next => action => {
         case actionTypes.cartonTypeActionTypes.RECEIVE_NEW_CARTON_TYPE:
         case actionTypes.sernosConfigActionTypes.RECEIVE_NEW_SERNOS_CONFIG:
         case actionTypes.productRangeActionTypes.RECEIVE_NEW_PRODUCT_RANGE:
+        case actionTypes.tariffActionTypes.RECEIVE_NEW_TARIFF:
             history.push(getSelfHref(action.payload.data));
             break;
         default:

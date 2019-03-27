@@ -1,140 +1,167 @@
-﻿import React, { Component, Fragment } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { Grid, Paper } from '@material-ui/core';
+import React, { Fragment, useState, useEffect } from 'react';
+import { Grid } from '@material-ui/core';
 import {
+    SaveBackCancelButtons,
     InputField,
+    Loading,
     Title,
     ErrorCard,
-    Loading,
-    BackButton
+    SnackbarMessage
 } from '@linn-it/linn-form-components-library';
-import PropTypes from 'prop-types';
+import Page from '../containers/Page';
 
-const styles = () => ({
-    root: {
-        margin: '40px',
-        padding: '40px'
-    }
-});
 
-class Tariff extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            tariff: null
-        };
-    }
+function Tariff({
+    updateTariff,
+    setEditStatus,
+    addTariff,
+    item,
+    history,
+    itemId,
+    snackbarVisible,
+    setSnackbarVisible,
+    editStatus,
+    loading,
+    errorMessage }) {
+    const [tariff, setTariff] = useState({});
+    const [prevTariff, setPrevTariff] = useState({});
 
-    static getDerivedStateFromProps(props, state) {
-        if (!state.tariff && props.tariff) {
-            return { tariff: props.tariff };
+    const creating = () => editStatus === 'create';
+    const editing = () => editStatus === 'edit';
+    const viewing = () => editStatus === 'view';
+
+    useEffect(() => {
+        if (!creating() && item !== prevTariff) {
+            setTariff(item);
+            setPrevTariff(item);
         }
-        return null;
+    });
+
+    const inputInvalid = () => !tariff.tariffCode && !tariff.description;
+
+    const handleSaveClick = () => {
+        if (editing()) {
+            updateTariff(itemId, tariff);
+            setEditStatus('view');
+        } else if (creating()) {
+            addTariff(tariff);
+        }
+    };
+
+    const required = (field) => {
+        return !field;
     }
 
-    handleBackClick = () => {
-        const { history } = this.props;
+    const handleCancelClick = () => {
+        setTariff(item);
+        setEditStatus('view');
+    };
+
+    const handleBackClick = () => {
         history.push('/products/maint/tariffs');
     };
 
-    render() {
-        const { loading, errorMessage, classes } = this.props;
-        const { tariff } = this.state;
+    const handleFieldChange = (propertyName, newValue) => {
+        setEditStatus('edit');
+        setTariff({ ...tariff, [propertyName]: newValue });
+    };
 
-        return (
-            <Paper className={classes.root}>
-                <Grid container spacing={24}>
-                    <Grid item xs={12}>
-                        <Title text="Tariff Details" />
-                    </Grid>
-                    {errorMessage && (
-                        <Grid item xs={12}>
-                            <ErrorCard errorMessage={errorMessage} />
-                        </Grid>
-                    )}
-                    {loading || !tariff ? (
-                        <Grid item xs={12}>
-                            <Loading />
-                        </Grid>
-                    ) : (
-                        <Fragment>
-                            <Grid item xs={4}>
-                                <InputField
-                                    label="Tariff Code"
-                                    disabled
-                                    fullWidth
-                                    propertyName="tariffCode"
-                                    value={tariff.tariffCode}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <InputField
-                                    label="Description"
-                                    disabled
-                                    rows={10}
-                                    fullWidth
-                                    propertyName="description"
-                                    value={tariff.description}
-                                />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <InputField
-                                    label="US Tariff Code"
-                                    disabled
-                                    fullWidth
-                                    propertyName="usTariffCode"
-                                    value={tariff.usTariffCode}
-                                />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <InputField
-                                    label="Date Invalid"
-                                    type="date"
-                                    disabled
-                                    fullWidth
-                                    propertyName="dateInvalid"
-                                    value={tariff.dateInvalid}
-                                />
-                            </Grid>
-                            <Grid item xs={4}>
-                                <InputField
-                                    label="duty"
-                                    adornment="%"
-                                    disabled
-                                    fullWidth
-                                    propertyName="duty"
-                                    value={tariff.duty}
-                                />
-                            </Grid>
-                            <BackButton backClick={this.handleBackClick} />
-                        </Fragment>
-                    )}
+    return (
+        <Page>
+            <Grid container spacing={24}>
+                <Grid item xs={12}>
+                    {creating() ? (
+                        <Title text="Add Tariff" />
+                    ) :   <Title text="Tariff Details" />
+                    }
                 </Grid>
-            </Paper>
-        );
-    }
+                {loading || (!tariff && !creating()) ? (
+                    <Grid item xs={12}>
+                        <Loading />
+                    </Grid>
+                ) : (
+                    <Fragment>
+                        {errorMessage && (
+                            <Grid item xs={12}>
+                                <ErrorCard errorMessage={errorMessage} />
+                            </Grid>
+                        )}
+                        <SnackbarMessage
+                            visible={snackbarVisible}
+                            onClose={() => setSnackbarVisible(false)}
+                            message="Save Successful"
+                        />
+                        <Grid item xs={4}>
+                            <InputField
+                                fullWidth
+                                disabled={!creating()}
+                                value={tariff.tariffCode}
+                                label="Tariff Code"
+                                helperText={
+                                    !creating()
+                                        ? 'This field cannot be changed'
+                                        : 'This field is required'
+                                }
+                                maxLength={14}
+                                onChange={handleFieldChange}
+                                propertyName="tariffCode"
+                                error={required(tariff.tariffCode)}
+                                />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <InputField
+                                value={tariff.description}
+                                label="Description"
+                                fullWidth
+                                onChange={handleFieldChange}
+                                propertyName="description"
+                                maxLength={2000}
+                                error={required(tariff.description)}
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <InputField
+                                fullWidth
+                                value={tariff.usTariffCode}
+                                label="US Tariff Code"
+                                onChange={handleFieldChange}
+                                propertyName="usTariffCode"
+                                maxLength={14}
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <InputField
+                                fullWidth
+                                type="number"
+                                value={tariff.duty}
+                                label="Duty"
+                                addornment="%"
+                                onChange={handleFieldChange}
+                                propertyName="duty"
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <InputField
+                                fullWidth
+                                type="date"
+                                value={tariff.dateInvalid}
+                                label="Date Invalid"
+                                onChange={handleFieldChange}
+                                propertyName="dateInvalid"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <SaveBackCancelButtons
+                                saveDisabled={viewing() || inputInvalid()}
+                                saveClick={handleSaveClick}
+                                cancelClick={handleCancelClick}
+                                backClick={handleBackClick}
+                            />
+                        </Grid>
+                    </Fragment>
+                )}
+            </Grid>
+        </Page>    )
 }
 
-Tariff.propTypes = {
-    tariff: PropTypes.shape({
-        id: PropTypes.string,
-        description: PropTypes.string,
-        forecastFromDate: PropTypes.string,
-        forecastToDate: PropTypes.string,
-        forecastType: PropTypes.string,
-        percentageOfRootProductSales: PropTypes.number
-    }),
-    classes: PropTypes.shape({}),
-    loading: PropTypes.bool,
-    history: PropTypes.shape({ push: PropTypes.func }).isRequired,
-    errorMessage: PropTypes.string
-};
-
-Tariff.defaultProps = {
-    loading: false,
-    classes: {},
-    errorMessage: '',
-    tariff: null
-};
-
-export default withStyles(styles)(Tariff);
+export default Tariff;
