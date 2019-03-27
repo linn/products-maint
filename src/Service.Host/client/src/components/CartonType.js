@@ -113,6 +113,7 @@ function CartonType({
                                 }
                                 onChange={handleFieldChange}
                                 propertyName="name"
+                                maxLength={10}
                                 error={nameInvalid()}
                             />
                         </Grid>
@@ -123,6 +124,7 @@ function CartonType({
                                 fullWidth
                                 onChange={handleFieldChange}
                                 propertyName="description"
+                                maxLength={50}
                                 error={descriptionInvalid()}
                                 helperText={
                                     descriptionInvalid() ? 'Description cannot be empty' : ''
