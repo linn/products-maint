@@ -68,9 +68,12 @@ function CartonType({
     };
 
     const handleFieldChange = (propertyName, newValue) => {
-        setEditStatus('edit');
+        if (editStatus === 'view') {
+            setEditStatus('edit');
+        }
         setCartonType({ ...cartonType, [propertyName]: newValue });
     };
+
     return (
         <Page>
             <Grid container spacing={24}>
