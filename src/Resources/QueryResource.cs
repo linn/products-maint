@@ -1,6 +1,6 @@
 ﻿namespace Linn.Products.Resources
 {
-    public class TariffQueryResource
+    public class QueryResource
     {
         public string SearchTerm { get; set; }
     }

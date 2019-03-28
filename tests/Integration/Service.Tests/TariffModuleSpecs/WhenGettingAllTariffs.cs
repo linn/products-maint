@@ -2,7 +2,6 @@
 using System.Linq;
 using FluentAssertions;
 using Linn.Common.Facade;
-using Linn.Products.Domain.Linnapps;
 using Linn.Products.Domain.Linnapps.Products;
 using Linn.Products.Resources;
 using Nancy;
@@ -17,18 +16,21 @@ namespace Linn.Products.Service.Tests.TariffModuleSpecs
         [SetUp]
         public void SetUp()
         {
-            var tarrif1 = new Tariff
+            var tariff1 = new Tariff
             {
                 TariffCode = "test",
                 Description = "test-case"
             };
-            var tarrif2 = new Tariff
+            var tariff2 = new Tariff
             {
                 TariffCode = "test-1",
                 Description = "test-case-1"
             };
             this.TariffService.GetAll()
-                .Returns(new SuccessResult<IEnumerable<Tariff>>(new List<Tariff> { tarrif1, tarrif2}));
+                .Returns(new SuccessResult<IEnumerable<Tariff>>(new List<Tariff> { tariff1, tariff2 }));
+
+            this.TariffRepository.SearchTariffs("test-1")
+                .Returns(new List<Tariff> { tariff2 });
 
             this.Response = this.Browser.Get(
                 "/products/maint/tariffs",
@@ -54,6 +56,17 @@ namespace Linn.Products.Service.Tests.TariffModuleSpecs
             resources.Should().HaveCount(2);
             resources.Should().Contain(a => a.TariffCode == "test" && a.Description == "test-case");
             resources.Should().Contain(a => a.TariffCode == "test-1" && a.Description == "test-case-1");
+        }
+
+        [Test]
+        public void ShouldReturnResourceFilteredBySearchTerm()
+        {
+            this.Response = this.Browser.Get(
+                "/products/maint/tariffs",
+                with => { with.HttpRequest(); with.Header("Accept", "application/json"); with.Query("searchTerm", "test-1"); }).Result;
+
+            var resources = this.Response.Body.DeserializeJson<IEnumerable<TariffResource>>().ToList();
+            resources.Should().HaveCount(1);
         }
     }
 }

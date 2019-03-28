@@ -18,8 +18,9 @@ namespace Linn.Products.Service.Modules
 
         private readonly ITariffRepository tariffRepository;
 
-        public TariffModule(IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService, 
-                            ITariffRepository tariffRepository)
+        public TariffModule(
+            IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService, 
+            ITariffRepository tariffRepository)
         {
             this.tariffService = tariffService;
             this.tariffRepository = tariffRepository;
@@ -32,7 +33,7 @@ namespace Linn.Products.Service.Modules
 
         private object GetTariffs()
         {
-            var resource = this.Bind<TariffQueryResource>();
+            var resource = this.Bind<QueryResource>();
             IResult<IEnumerable<Tariff>> tariffs;
             if (string.IsNullOrEmpty(resource.SearchTerm))
             {

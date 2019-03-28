@@ -12,19 +12,24 @@ using NUnit.Framework;
 
 namespace Linn.Products.Service.Tests.TariffModuleSpecs
 {
+    using Linn.Products.Domain.Linnapps.Repositories;
+
     public abstract class ContextBase : NancyContextBase
     {
         protected IFacadeService<Tariff, int, TariffResource, TariffResource> TariffService { get; private set; }
+
+        protected ITariffRepository TariffRepository { get; private set; }
 
         [SetUp]
         public void EstablishContext()
         {
             this.TariffService = Substitute.For<IFacadeService<Tariff, int, TariffResource, TariffResource>>();
-
+            this.TariffRepository = Substitute.For<ITariffRepository>();
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
                 {
                     with.Dependency(this.TariffService);
+                    with.Dependency(this.TariffRepository);
                     with.Dependency<IResourceBuilder<Tariff>>(new TariffResourceBuilder());
                     with.Dependency<IResourceBuilder<IEnumerable<Tariff>>>(new TariffsResourceBuilder());
                     with.Module<TariffModule>();
