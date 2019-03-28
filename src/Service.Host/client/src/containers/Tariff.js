@@ -21,7 +21,6 @@ const initialise = ({ itemId }) => dispatch => {
 const mapDispatchToProps = {
     initialise,
     updateTariff: tariffActions.update,
-    resetTariff: tariffActions.reset,
     addTariff: tariffActions.add,
     setEditStatus: tariffActions.setEditStatus,
     setSnackbarVisible: tariffActions.setSnackbarVisible

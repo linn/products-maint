@@ -1,5 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import Page from '../containers/Page';
 import {
     SaveBackCancelButtons,
     InputField,
@@ -8,7 +10,6 @@ import {
     ErrorCard,
     SnackbarMessage
 } from '@linn-it/linn-form-components-library';
-import Page from '../containers/Page';
 
 function Tariff({
     updateTariff,
@@ -160,5 +161,29 @@ function Tariff({
             </Grid>
         </Page>)
 }
+
+Tariff.defaultProps = {
+    item: {},
+    addTariff: null,
+    updateTariff: null,
+    loading: null,
+    errorMessage: '',
+    itemId: null,
+    snackbarVisible: false,
+    initialise: null
+};
+
+Tariff.propTypes = {
+    initialise: PropTypes.func,
+    item: PropTypes.shape({}),
+    editStatus: PropTypes.string.isRequired,
+    errorMessage: PropTypes.string,
+    itemId: PropTypes.string,
+    updateTariff: PropTypes.func,
+    addTariff: PropTypes.func,
+    loading: PropTypes.bool,
+    snackbarVisible: PropTypes.bool,
+    setSnackbarVisible: PropTypes.func.isRequired
+};
 
 export default Tariff;

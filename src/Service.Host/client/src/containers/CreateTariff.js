@@ -16,7 +16,6 @@ const mapDispatchToProps = {
     addTariff: tariffActions.add,
     setSnackBarVisible: tariffActions.setSnackbarVisible,
     setEditStatus: tariffActions.setEditStatus
-
 };
 
 export default connect(
