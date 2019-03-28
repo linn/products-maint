@@ -1,11 +1,11 @@
-﻿using System;
-using Linn.Common.Facade;
-using Linn.Common.Persistence;
-using Linn.Products.Domain.Linnapps.Products;
-using Linn.Products.Resources;
-
-namespace Linn.Products.Facade.Services
+﻿namespace Linn.Products.Facade.Services
 {
+    using System;
+    using Linn.Common.Facade;
+    using Linn.Common.Persistence;
+    using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Resources;
+
     public class TariffService : FacadeService<Tariff, int, TariffResource, TariffResource>
     {
         public TariffService(IRepository<Tariff, int> repository, ITransactionManager transactionManager) : base(repository, transactionManager)
