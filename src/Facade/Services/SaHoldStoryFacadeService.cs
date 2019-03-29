@@ -1,9 +1,11 @@
 ﻿namespace Linn.Products.Facade.Services
 {
+    using System;
+    using System.Linq.Expressions;
+
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Resources;
 
     public class SaHoldStoryFacadeService : FacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>
@@ -21,6 +23,11 @@
         protected override void UpdateFromResource(SaHoldStory entity, SaHoldStoryResource updateResource)
         {
             throw new System.NotImplementedException();
+        }
+
+        protected override Expression<Func<SaHoldStory, bool>> SearchExpression(string searchTerm)
+        {
+            throw new NotImplementedException();
         }
     }
 }

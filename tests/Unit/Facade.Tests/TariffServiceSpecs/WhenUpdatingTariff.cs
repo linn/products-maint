@@ -19,7 +19,7 @@
 
         private int id;
 
-        private Tariff existing; 
+        private Tariff existing;
         [SetUp]
         public void SetUp()
         {
@@ -47,7 +47,7 @@
         }
 
         [Test]
-        public void ShouldGetSernosConfig()
+        public void ShouldGetTariffs()
         {
             this.TariffRepository.Received().FindById(this.id);
         }

@@ -1,5 +1,8 @@
 ﻿namespace Linn.Products.Facade.Services
 {
+    using System;
+    using System.Linq.Expressions;
+
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
@@ -34,6 +37,11 @@
                 updateResource.Reason,
                 updateResource.VatReturnId,
                 updateResource.VatOnly);
+        }
+
+        protected override Expression<Func<VatCode, bool>> SearchExpression(string searchTerm)
+        {
+            throw new NotImplementedException();
         }
     }
 }

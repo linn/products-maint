@@ -1,16 +1,18 @@
-﻿using FluentAssertions;
-using Linn.Common.Facade;
-using Linn.Common.Resources;
-using Linn.Products.Domain.Linnapps;
-using Linn.Products.Domain.Linnapps.Products;
-using Linn.Products.Resources;
-using Nancy;
-using Nancy.Testing;
-using NSubstitute;
-using NUnit.Framework;
-
-namespace Linn.Products.Service.Tests.TariffModuleSpecs
+﻿namespace Linn.Products.Service.Tests.TariffModuleSpecs
 {
+    using FluentAssertions;
+
+    using Linn.Common.Facade;
+    using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Resources;
+
+    using Nancy;
+    using Nancy.Testing;
+
+    using NSubstitute;
+
+    using NUnit.Framework;
+
     public class WhenAddingTariff : ContextBase
     {
         private TariffResource requestResource;
@@ -23,10 +25,11 @@ namespace Linn.Products.Service.Tests.TariffModuleSpecs
                 TariffCode = "test",
                 Description = "test-case"
             };
-            var tariff = new Tariff {
-                TariffCode = "test",
-                Description = "test-case"
-            };
+            var tariff = new Tariff
+                             {
+                                 TariffCode = "test",
+                                 Description = "test-case"
+                             };
             this.TariffService.Add(Arg.Any<TariffResource>())
                 .Returns(new CreatedResult<Tariff>(tariff));
 

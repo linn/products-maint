@@ -1,6 +1,8 @@
 ﻿namespace Linn.Products.Facade.Services
 {
+    using System;
     using System.Linq;
+    using System.Linq.Expressions;
 
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
@@ -90,6 +92,11 @@
             {
                 salesPackage.Elements.Remove(salesPackageElementJoin);
             }
+        }
+
+        protected override Expression<Func<SalesPackage, bool>> SearchExpression(string searchTerm)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,15 +1,18 @@
-﻿using FluentAssertions;
-using Linn.Common.Facade;
-using Linn.Products.Domain.Linnapps;
-using Linn.Products.Domain.Linnapps.Products;
-using Linn.Products.Resources;
-using Nancy;
-using Nancy.Testing;
-using NSubstitute;
-using NUnit.Framework;
-
-namespace Linn.Products.Service.Tests.TariffModuleSpecs
+﻿namespace Linn.Products.Service.Tests.TariffModuleSpecs
 {
+    using FluentAssertions;
+
+    using Linn.Common.Facade;
+    using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Resources;
+
+    using Nancy;
+    using Nancy.Testing;
+
+    using NSubstitute;
+
+    using NUnit.Framework;
+
     public class WhenUpdatingTariff : ContextBase
     {
         private TariffResource requestResource;

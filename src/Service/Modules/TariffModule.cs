@@ -1,29 +1,24 @@
-﻿using Linn.Common.Facade;
-using Linn.Products.Domain.Linnapps.Products;
-
-namespace Linn.Products.Service.Modules
+﻿namespace Linn.Products.Service.Modules
 {
     using System.Collections.Generic;
 
-    using Linn.Products.Domain.Linnapps.Repositories;
-    using Linn.Products.Facade.Services;
+    using Linn.Common.Facade;
+    using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
+    using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
+
     using Nancy;
     using Nancy.ModelBinding;
+    using Nancy.Security;
 
     public sealed class TariffModule : NancyModule
     {
         private readonly IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService;
 
-        private readonly ITariffRepository tariffRepository;
-
-        public TariffModule(
-            IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService, 
-            ITariffRepository tariffRepository)
+        public TariffModule(IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService)
         {
             this.tariffService = tariffService;
-            this.tariffRepository = tariffRepository;
 
             this.Get("/products/maint/tariffs", _ => this.GetTariffs());
             this.Get("/products/maint/tariffs/{id:int}", parameters => this.GetTariff(parameters.id));
@@ -34,15 +29,9 @@ namespace Linn.Products.Service.Modules
         private object GetTariffs()
         {
             var resource = this.Bind<QueryResource>();
-            IResult<IEnumerable<Tariff>> tariffs;
-            if (string.IsNullOrEmpty(resource.SearchTerm))
-            {
-                tariffs = this.tariffService.GetAll();
-            }
-            else
-            {
-                tariffs = new SuccessResult<IEnumerable<Tariff>>(this.tariffRepository.SearchTariffs(resource.SearchTerm));
-            }
+            var tariffs = string.IsNullOrEmpty(resource.SearchTerm)
+                              ? this.tariffService.GetAll()
+                              : this.tariffService.Search(resource.SearchTerm);
 
             return this.Negotiate.WithModel(tariffs)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
@@ -59,6 +48,9 @@ namespace Linn.Products.Service.Modules
 
         private object UpdateTariff(int id)
         {
+            this.RequiresAuthentication();
+            var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
+
             var resource = this.Bind<TariffResource>();
             var tariff = this.tariffService.Update(id, resource);
             return this.Negotiate.WithModel(tariff);
