@@ -15,5 +15,9 @@
         public DateTime? DateInvalid { get; set; }
 
         public decimal? Duty { get; set; }
+
+        public int? EnteredBy { get; set; }
+
+        public int? ChangedBy { get; set; }
     }
 }

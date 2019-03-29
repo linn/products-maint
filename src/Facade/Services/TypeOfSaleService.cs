@@ -1,5 +1,8 @@
 ﻿namespace Linn.Products.Facade.Services
 {
+    using System;
+    using System.Linq.Expressions;
+
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
@@ -31,6 +34,11 @@
                 updateResource.Nominal,
                 updateResource.Department,
                 updateResource.RealSale);
+        }
+
+        protected override Expression<Func<TypeOfSale, bool>> SearchExpression(string searchTerm)
+        {
+            throw new NotImplementedException();
         }
     }
 }

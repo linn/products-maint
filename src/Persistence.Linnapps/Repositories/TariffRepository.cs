@@ -1,31 +1,19 @@
 ﻿namespace Linn.Products.Persistence.Linnapps.Repositories
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
 
+    using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps.Products;
-    using Linn.Products.Domain.Linnapps.Repositories;
 
-    public class TariffRepository : ITariffRepository
+    public class TariffRepository : IRepository<Tariff, int>
     {
         private readonly ServiceDbContext serviceDbContext;
 
         public TariffRepository(ServiceDbContext serviceDbContext)
         {
             this.serviceDbContext = serviceDbContext;
-        }
-
-        public IEnumerable<Tariff> SearchTariffs(string searchTerm)
-        {
-            if (string.IsNullOrEmpty(searchTerm))
-            {
-                return this.serviceDbContext.Tariffs;
-            }
-
-            return this.serviceDbContext.Tariffs.Where(t =>
-                t.TariffCode.Contains(searchTerm) || t.Description.ToLower().Contains(searchTerm.ToLower()));
         }
 
         public Tariff FindById(int id)
@@ -59,7 +47,7 @@
 
         public IQueryable<Tariff> FilterBy(Expression<Func<Tariff, bool>> expression)
         {
-            throw new NotImplementedException();
+            return this.serviceDbContext.Tariffs.Where(expression);
         }
     }
 }

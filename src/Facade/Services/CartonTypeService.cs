@@ -1,5 +1,8 @@
 ﻿namespace Linn.Products.Facade.Services
 {
+    using System;
+    using System.Linq.Expressions;
+
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
@@ -42,6 +45,11 @@
             cartonType.Depth = resource.Depth;
             cartonType.Width = resource.Width;
             cartonType.Height = resource.Height;
+        }
+
+        protected override Expression<Func<CartonType, bool>> SearchExpression(string searchTerm)
+        {
+            throw new NotImplementedException();
         }
     }
 }

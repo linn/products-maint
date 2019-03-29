@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Linq.Expressions;
 
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
@@ -40,6 +41,11 @@
                 string.IsNullOrEmpty(updateResource.ForecastToDate) ? (DateTime?)null : DateTime.Parse(updateResource.ForecastToDate),
                 updateResource.PercentageOfRootProductSales,
                 coreType);
+        }
+
+        protected override Expression<Func<SalesArticle, bool>> SearchExpression(string searchTerm)
+        {
+            throw new NotImplementedException();
         }
     }
 }

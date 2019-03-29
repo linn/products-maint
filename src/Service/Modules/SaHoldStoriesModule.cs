@@ -1,7 +1,5 @@
 ﻿namespace Linn.Products.Service.Modules
 {
-    using System.Runtime.CompilerServices;
-
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Facade.Services;
@@ -10,13 +8,13 @@
 
     using Nancy;
 
-    public class SaHoldStoriesModule : NancyModule
+    public sealed class SaHoldStoriesModule : NancyModule
     {
         private readonly ISaHoldStoriesReportService saHoldStoriesReportService;
-        private readonly IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>
-            saHoldStoryService;
+        private readonly IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource> saHoldStoryService;
 
-        public SaHoldStoriesModule(ISaHoldStoriesReportService reportService,
+        public SaHoldStoriesModule(
+            ISaHoldStoriesReportService reportService,
             IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource> saHoldStoryService)
         {
             this.saHoldStoryService = saHoldStoryService;

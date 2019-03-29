@@ -93,7 +93,6 @@ const Root = ({ store }) => (
                                     component={Tariff}
                                 />
                                 <Route exact path="/products/maint/tariffs" component={Tariffs} />
-
                             </Switch>
 
                             <Route exact path="/products/reports" component={App} />

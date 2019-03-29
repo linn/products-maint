@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Facade.Services
 {
     using System;
+    using System.Linq.Expressions;
 
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
@@ -32,6 +33,11 @@
                 updateResource.Description,
                 updateResource.NextSerialNumber,
                 string.IsNullOrEmpty(updateResource.DateClosed) ? (DateTime?)null : DateTime.Parse(updateResource.DateClosed));
+        }
+
+        protected override Expression<Func<SernosSequence, bool>> SearchExpression(string searchTerm)
+        {
+            throw new NotImplementedException();
         }
     }
 }
