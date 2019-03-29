@@ -22,7 +22,7 @@
 
         public SernosNote FindById(int key)
         {
-            return this.serviceDbContext.SernosNotes
+            return this.serviceDbContext.SernosNotes    
                 .Where(n => n.SernosNoteId == key)
                 .ToList()
                 .FirstOrDefault();

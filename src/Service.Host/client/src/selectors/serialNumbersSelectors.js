@@ -1,4 +1,4 @@
-﻿import ItemSelectors from './ItemSelectors';
+﻿import CollectionSelectors from './CollectionSelectors';
 import * as itemTypes from '../itemTypes';
 
-export default new ItemSelectors(itemTypes.serialNumbers.item);
+export default new CollectionSelectors(itemTypes.serialNumbers.item);

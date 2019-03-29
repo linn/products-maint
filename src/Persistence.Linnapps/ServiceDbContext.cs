@@ -181,9 +181,6 @@
             builder.Entity<SerialNumber>().Property(s => s.CreatedBy).HasColumnName("CREATED_BY");
             builder.Entity<SerialNumber>().Property(s => s.TransCode).HasColumnName("TRANS_CODE");
             builder.Entity<SerialNumber>().Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER");
-            builder.Entity<SerialNumber>().HasOne(s => s.SalesArticle)
-                .WithMany(g => g.SerialNumbers)
-                .HasForeignKey(s => s.ArticleNumber);
         }
 
         private void BuildSernosNotes(ModelBuilder builder)
@@ -257,7 +254,6 @@
             builder.Entity<SalesArticle>().Property(t => t.ArticleType).HasColumnName("ARTICLE_TYPE").HasMaxLength(1);
             builder.Entity<SalesArticle>().HasOne(t => t.SaCoreType);
             builder.Entity<SalesArticle>().HasMany(t => t.HoldStories).WithOne(e => e.SalesArticle);
-            builder.Entity<SalesArticle>().HasMany(t => t.SerialNumbers).WithOne(e => e.SalesArticle);
         }
 
         private void BuildVatCode(ModelBuilder builder)

@@ -38,8 +38,12 @@
                         }));
 
             this.Response = this.Browser.Get(
-                "products/maint/serial-numbers/222",
-                with => { with.Header("Accept", "application/json"); }).Result;
+                "products/maint/serial-numbers",
+                with =>
+                    {
+                        with.Header("Accept", "application/json");
+                        with.Query("sernosNumber", "222");
+                    }).Result;
         }
 
         [Test]

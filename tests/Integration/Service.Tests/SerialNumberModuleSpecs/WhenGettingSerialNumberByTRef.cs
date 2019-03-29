@@ -27,7 +27,7 @@
                 .Returns(new SuccessResult<SerialNumber>(serialNumber) { Data = serialNumber });
 
             this.Response = this.Browser.Get(
-                "/products/maint/serial-numbers/222/tref/123",
+                "/products/maint/serial-numbers/123",
                 with => { with.Header("Accept", "application/json"); }).Result;
         }
 

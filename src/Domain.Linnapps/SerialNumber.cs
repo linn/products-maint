@@ -29,8 +29,6 @@
         public int? AccountId { get; set; }
 
         public string ArticleNumber { get; set; }
-
-        public SalesArticle SalesArticle { get; set; }
         
         public int CreatedBy { get; set; }
 

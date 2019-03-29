@@ -21,6 +21,7 @@
             case actionTypes[`REQUEST_${itemRoot}`]:
                 return {
                     ...state,
+                    item: {},
                     loading: true,
                     editStatus: 'view'
                 };
