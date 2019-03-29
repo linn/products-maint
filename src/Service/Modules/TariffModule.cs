@@ -1,8 +1,7 @@
 ﻿namespace Linn.Products.Service.Modules
 {
-    using System.Collections.Generic;
-
     using Linn.Common.Facade;
+    using Linn.Common.Resources;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
     using Linn.Products.Service.Extensions;
@@ -52,13 +51,17 @@
             var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
 
             var resource = this.Bind<TariffResource>();
+            resource.Links = new[] { new LinkResource("changed-by", employeeUri) };
             var tariff = this.tariffService.Update(id, resource);
             return this.Negotiate.WithModel(tariff);
         }
 
         private object AddTariff()
         {
+            this.RequiresAuthentication();
+            var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
             var resource = this.Bind<TariffResource>();
+            resource.Links = new[] { new LinkResource("entered-by", employeeUri) };
 
             var result = this.tariffService.Add(resource);
 

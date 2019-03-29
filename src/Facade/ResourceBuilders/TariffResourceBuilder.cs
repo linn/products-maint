@@ -29,6 +29,16 @@
         private IEnumerable<LinkResource> BuildLinks(Tariff tariff)
         {
             yield return new LinkResource("self", this.GetLocation(tariff));
+
+            if (tariff.EnteredBy.HasValue)
+            {
+                yield return new LinkResource("entered-by", $"/employees/{tariff.EnteredBy}");
+            }
+
+            if (tariff.ChangedBy.HasValue)
+            {
+                yield return new LinkResource("changed-by", $"/employees/{tariff.ChangedBy}");
+            }
         }
     }
 }

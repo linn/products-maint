@@ -31,7 +31,7 @@
         public DbSet<ProductRange> ProductRanges { get; set; }
 
         public DbSet<Employee> Employees { get; set; }
-        
+
         public DbSet<SalesPackage> SalesPackages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -183,6 +183,8 @@
             builder.Entity<Tariff>().Property(t => t.DateInvalid).HasColumnName("DATE_INVALID");
             builder.Entity<Tariff>().Property(t => t.Duty).HasColumnName("DUTY");
             builder.Entity<Tariff>().Property(t => t.USTariffCode).HasColumnName("US_TARIFF_CODE").HasMaxLength(14);
+            builder.Entity<Tariff>().Property(t => t.EnteredBy).HasColumnName("ENTERED_BY");
+            builder.Entity<Tariff>().Property(t => t.ChangedBy).HasColumnName("CHANGED_BY");
         }
 
         private void BuildSalesArticles(ModelBuilder builder)

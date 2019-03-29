@@ -4,6 +4,7 @@
 
     using FluentAssertions;
     using Linn.Common.Facade;
+    using Linn.Common.Resources;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
 
@@ -39,7 +40,8 @@
                                     TariffCode = "test",
                                     Description = "new desc",
                                     DateInvalid = 1.August(2018).ToString("o"),
-                                    USTariffCode = "test"
+                                    USTariffCode = "test",
+                                    Links = new[] { new LinkResource("changed-by", "/employees/123") }
                                 };
             this.TariffRepository.FindById(this.id)
                 .Returns(this.existing);
@@ -62,6 +64,7 @@
             dataResult.TariffCode.Should().Be(this.existing.TariffCode);
             dataResult.USTariffCode.Should().Be(this.resource.USTariffCode);
             dataResult.DateInvalid.Should().Be(DateTime.Parse(this.resource.DateInvalid));
+            dataResult.ChangedBy.Should().Be(123);
         }
     }
 }
