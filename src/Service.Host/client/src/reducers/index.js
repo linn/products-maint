@@ -28,6 +28,8 @@ import productRange from './productRange';
 import productRanges from './productRanges';
 import productsOnHoldReport from './productsOnHoldReport';
 import salesArticleCoreTypes from './salesArticleCoreTypes/index';
+import salesPackage from './salesPackage';
+import salesPackages from './salesPackages';
 
 const rootReducer = combineReducers({
     oidc,
@@ -58,7 +60,9 @@ const rootReducer = combineReducers({
     vatCodes,
     productRange,
     productRanges,
-    productsOnHoldReport
+    productsOnHoldReport,
+    salesPackage,
+    salesPackages
 });
 
 export default rootReducer;

@@ -4,7 +4,7 @@ import Tariff from '../components/Tariff';
 import getSingleErrorMessage from '../selectors/fetchErrorSelectors';
 import tariffSelectors from '../selectors/tariffSelectors';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     item: {},
     editStatus: 'create',
     loading: tariffSelectors.getLoading(state),

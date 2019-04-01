@@ -52,6 +52,9 @@ import ProductRanges from '../containers/productRanges/ProductRanges';
 import ProductRange from '../containers/productRanges/ProductRange';
 import CreateProductRange from '../containers/productRanges/CreateProductRange';
 import ProductsOnHold from '../containers/reports/ProductsOnHold';
+import SalesPackages from '../containers/salesPackages/SalesPackages';
+import SalesPackage from '../containers/salesPackages/SalesPackage';
+import CreateSalesPackage from '../containers/salesPackages/CreateSalesPackage';
 
 const Root = ({ store }) => (
     <div>
@@ -86,7 +89,8 @@ const Root = ({ store }) => (
                                 <Route
                                     exact
                                     path="/products/maint/tariffs/create"
-                                    component={CreateTariff} />
+                                    component={CreateTariff}
+                                />
                                 <Route
                                     exact
                                     path="/products/maint/tariffs/:id"
@@ -157,6 +161,24 @@ const Root = ({ store }) => (
                                     exact
                                     path="/products/maint/product-ranges/:id"
                                     component={ProductRange}
+                                />
+                            </Switch>
+
+                            <Switch>
+                                <Route
+                                    exact
+                                    path="/products/maint/sales-packages/create"
+                                    component={CreateSalesPackage}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/sales-packages"
+                                    component={SalesPackages}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/sales-packages/:id"
+                                    component={SalesPackage}
                                 />
                             </Switch>
 
