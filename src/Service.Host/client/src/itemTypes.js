@@ -7,6 +7,7 @@ export const sernosConfig = new ItemType(
     'SERNOS_CONFIG',
     '/products/maint/sernos-configs'
 );
+
 export const sernosConfigs = new ItemType(
     'sernosConfigs',
     'SERNOS_CONFIGS',
