@@ -15,9 +15,9 @@
         public SernosSequenceModule(IFacadeService<SernosSequence, string, SernosSequenceResource, SernosSequenceResource> sernosSequenceService)
         {
             this.sernosSequenceService = sernosSequenceService;
-            this.Get("/products/maint/sernos-sequences/{sequenceName}", parameters => this.GetSernosSequenceBySequenceName(parameters.sequenceName));
+            this.Get("/products/maint/sernos-sequences/{sequenceName*}", parameters => this.GetSernosSequenceBySequenceName(parameters.sequenceName));
             this.Get("/products/maint/sernos-sequences/", _ => this.GetSernosSequences());
-            this.Put("/products/maint/sernos-sequences/{sequenceName}", parameters => this.UpdateSernosSequence(parameters.sequenceName));
+            this.Put("/products/maint/sernos-sequences/{sequenceName*}", parameters => this.UpdateSernosSequence(parameters.sequenceName));
             this.Post("/products/maint/sernos-sequences", _ => this.AddSernosSequence());
         }
 

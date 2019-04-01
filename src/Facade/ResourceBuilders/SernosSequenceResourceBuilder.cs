@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
 
     using Linn.Common.Facade;
     using Linn.Common.Resources;
@@ -24,7 +25,7 @@
 
         public string GetLocation(SernosSequence sernosSequence)
         {
-            return $"/products/maint/sernos-sequences/{sernosSequence.SequenceName}";
+            return $"/products/maint/sernos-sequences/{WebUtility.UrlEncode(sernosSequence.SequenceName)}";
         }
 
         object IResourceBuilder<SernosSequence>.Build(SernosSequence sernosSequence) => this.Build(sernosSequence);
