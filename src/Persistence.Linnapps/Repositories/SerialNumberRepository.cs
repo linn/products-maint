@@ -21,7 +21,8 @@
         public SerialNumber FindById(int key)
         {
             return this.serviceDbContext.SerialNumbers
-                .Where(a => a.SernosTRef == key)                
+                .Where(a => a.SernosTRef == key)
+                .Include(ser => ser.SernosNote)
                 .ToList()
                 .FirstOrDefault();
         }
