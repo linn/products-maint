@@ -4,7 +4,6 @@
 
     public class SernosNote
     {
-        // TODO check that the ID is being set from oracle correctly
         public SernosNote(string sernosNotes)
         {
             this.ValidateSernosNote(sernosNotes);
@@ -23,6 +22,8 @@
         public int? SernosTRef { get; set; }
 
         public string TransCode { get; set; }
+
+        public SerialNumber SerialNumber { get; set; }
 
         public void Update(string sernosNotes, string sernosGroup, int? sernosNumber, int? sernosTRef, string transCode)
         {

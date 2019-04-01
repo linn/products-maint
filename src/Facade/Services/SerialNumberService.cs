@@ -11,7 +11,7 @@
     {
         private readonly IRepository<SerialNumber, int> repository;
         private readonly ITransactionManager transactionManager;        
-
+        
         public SerialNumberService(IRepository<SerialNumber, int> repository, ITransactionManager transactionManager)
         {
             this.repository = repository;

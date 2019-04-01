@@ -35,7 +35,7 @@
 
         public void Add(SernosNote entity)
         {
-            entity.SernosNoteId = this.linnappsDatabaseService.GetIdSequence("TODO find sequence name");
+            entity.SernosNoteId = this.linnappsDatabaseService.GetIdSequence("SERNOS_NOTES_SEQ");
             this.serviceDbContext.SernosNotes.Add(entity);
         }
 

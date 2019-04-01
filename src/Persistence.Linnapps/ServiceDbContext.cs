@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Persistence.Linnapps
 {
+    using System;
+
     using Linn.Common.Configuration;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
@@ -166,6 +168,7 @@
         {
             builder.Entity<SerialNumber>().ToTable("SERNOS");
             builder.Entity<SerialNumber>().HasKey(s => s.SernosTRef);
+            builder.Entity<SerialNumber>().HasAlternateKey(r => new { r.SernosGroup, r.SernosNumber, r.TransCode });
             builder.Entity<SerialNumber>().Property(s => s.SernosTRef).HasColumnName("SERNOS_TREF");
             builder.Entity<SerialNumber>().Property(s => s.SernosGroup).HasColumnName("SERNOS_GROUP").HasMaxLength(10);
             builder.Entity<SerialNumber>().Property(s => s.SernosNumber).HasColumnName("SERNOS_NUMBER");
@@ -181,12 +184,15 @@
             builder.Entity<SerialNumber>().Property(s => s.CreatedBy).HasColumnName("CREATED_BY");
             builder.Entity<SerialNumber>().Property(s => s.TransCode).HasColumnName("TRANS_CODE");
             builder.Entity<SerialNumber>().Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER");
+            builder.Entity<SerialNumber>().HasOne(s => s.SernosNote).WithOne(n => n.SerialNumber)
+                .HasForeignKey<SerialNumber>(r => new { r.SernosGroup, r.SernosNumber, r.TransCode });
         }
 
         private void BuildSernosNotes(ModelBuilder builder)
         {
             builder.Entity<SernosNote>().ToTable("SERNOS_NOTES");
             builder.Entity<SernosNote>().HasKey(r => r.SernosNoteId);
+            builder.Entity<SernosNote>().HasAlternateKey(r => new { r.SernosGroup, r.SernosNumber, r.TransCode });
             builder.Entity<SernosNote>().Property(r => r.SernosNoteId).HasColumnName("SERNOS_NOTE_ID");
             builder.Entity<SernosNote>().Property(r => r.SernosNotes).HasColumnName("SERNOS_NOTES").HasMaxLength(2000);
             builder.Entity<SernosNote>().Property(r => r.SernosGroup).HasColumnName("SERNOS_GROUP").HasMaxLength(10);

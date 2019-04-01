@@ -49,6 +49,15 @@
                                  Rel = "sales-article",
                                  Href = $"/products/maint/sales-articles/{Uri.EscapeDataString(serialNumber.ArticleNumber)}"
                              };
+
+            if (serialNumber.SernosNote != null)
+            {
+                yield return new LinkResource
+                                 {
+                                     Rel = "sernos-note",
+                                     Href = $"/products/maint/serial-numbers/notes/{serialNumber.SernosNote.SernosNoteId}"
+                                 };
+            }
         }
     }
 }

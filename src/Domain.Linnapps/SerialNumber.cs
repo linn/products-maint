@@ -46,6 +46,8 @@
 
         public DateTime? SernosDate { get; set; }
 
+        public SernosNote SernosNote { get; set; }
+
         private void ValidateSerialNumber(string sernosGroup, string transCode, string articleNumber)
         {
             if (string.IsNullOrEmpty(sernosGroup))
