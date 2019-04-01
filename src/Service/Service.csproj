@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.2.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.2.0" />
     <PackageReference Include="Linn.Common.Configuration" Version="2.0.0" />
     <PackageReference Include="Linn.Common.Facade" Version="3.0.0" />
     <PackageReference Include="Linn.Common.Nancy.Facade" Version="2.0.2" />

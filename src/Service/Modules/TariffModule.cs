@@ -5,6 +5,7 @@
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
     using Linn.Products.Service.Extensions;
+    using Linn.Products.Resources.Validators;
     using Linn.Products.Service.Models;
 
     using Nancy;
@@ -32,16 +33,14 @@
                               ? this.tariffService.GetAll()
                               : this.tariffService.Search(resource.SearchTerm);
 
-            return this.Negotiate.WithModel(tariffs)
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+            return this.Negotiate.WithModel(tariffs).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
 
         private object GetTariff(int id)
         {
             var tariff = this.tariffService.GetById(id);
-            return this.Negotiate.WithModel(tariff)
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+            return this.Negotiate.WithModel(tariff).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
 
@@ -62,10 +61,12 @@
             var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
             var resource = this.Bind<TariffResource>();
             resource.Links = new[] { new LinkResource("entered-by", employeeUri) };
-
-            var result = this.tariffService.Add(resource);
-
-            return this.Negotiate.WithModel(result);
+            var validator = new TariffValidator();
+            var results = validator.Validate(resource);
+            return validator.Validate(resource).IsValid
+                       ? this.Negotiate.WithModel(this.tariffService.Add(resource))
+                       : this.Negotiate.WithStatusCode(HttpStatusCode.BadRequest)
+                           .WithReasonPhrase(results.Errors.ToString());
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Resources
 {
     using Common.Resources;
+    using FluentValidation;
 
     public class TariffResource : HypermediaResource
     {
