@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Resources
 {
     using Linn.Common.Resources;
+    using Linn.Products.Domain.Linnapps;
 
     public class SerialNumberResource : HypermediaResource
     {
@@ -29,6 +30,8 @@
         public int? SernosNumber { get; set; }
 
         public int SernosTref { get; set; }
+
+        public SernosNote SernosNote { get; set; }
 
         public string TransCode { get; set; }
     }

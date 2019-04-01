@@ -27,6 +27,7 @@
                            SernosDate = serialNumber.SernosDate?.ToString("o"),
                            SernosGroup = serialNumber.SernosGroup,
                            SernosNumber = serialNumber.SernosNumber,
+                           SernosNote = serialNumber.SernosNote,
                            SernosTref = serialNumber.SernosTRef,
                            TransCode = serialNumber.TransCode,
                            Links = this.BuildLinks(serialNumber).ToArray()
