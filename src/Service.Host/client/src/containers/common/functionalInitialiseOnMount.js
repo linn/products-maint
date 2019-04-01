@@ -6,6 +6,8 @@ const initialiseOnMount = ComposedComponent =>
         useEffect(() => {
             if (initialise && itemId) {
                 initialise({ itemId });
+            } else if (initialise) {
+                initialise();
             }
         }, [initialise, itemId]);
 
