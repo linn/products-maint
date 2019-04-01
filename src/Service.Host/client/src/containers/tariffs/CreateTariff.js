@@ -1,8 +1,8 @@
 ﻿import { connect } from 'react-redux';
-import tariffActions from '../actions/tariff';
-import Tariff from '../components/Tariff';
-import getSingleErrorMessage from '../selectors/fetchErrorSelectors';
-import tariffSelectors from '../selectors/tariffSelectors';
+import tariffActions from '../../actions/tariff';
+import Tariff from '../../components/Tariff';
+import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
+import tariffSelectors from '../../selectors/tariffSelectors';
 
 const mapStateToProps = state => ({
     item: {},

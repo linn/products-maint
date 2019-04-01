@@ -10,9 +10,9 @@ import Navigation from '../containers/Navigation';
 import MenuPage from '../containers/Menu';
 import App from './App';
 import Callback from '../containers/Callback';
-import Tariff from '../containers/Tariff';
-import Tariffs from '../containers/Tariffs';
-import CreateTariff from '../containers/CreateTariff';
+import Tariff from '../containers/tariffs/Tariff';
+import Tariffs from '../containers/tariffs/Tariffs';
+import CreateTariff from '../containers/tariffs/CreateTariff';
 import userManager from '../helpers/userManager';
 import EanCodesOptions from '../containers/reportOptions/EanCodesOptions';
 import EanCodes from '../containers/reports/EanCodes';
@@ -54,7 +54,6 @@ import CreateProductRange from '../containers/productRanges/CreateProductRange';
 import ProductsOnHold from '../containers/reports/ProductsOnHold';
 import SalesPackages from '../containers/salesPackages/SalesPackages';
 import SalesPackage from '../containers/salesPackages/SalesPackage';
-import CreateSalesPackage from '../containers/salesPackages/CreateSalesPackage';
 
 const Root = ({ store }) => (
     <div>
