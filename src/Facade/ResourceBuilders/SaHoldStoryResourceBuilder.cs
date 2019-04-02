@@ -18,7 +18,7 @@
                            TakenOffHoldByEmployee = saHoldStory.TakenOffHoldByEmployee == null ? null : saHoldStory.TakenOffHoldByEmployee.FullName,
                            ReasonStarted = saHoldStory.ReasonStarted,
                            ReasonFinished = saHoldStory.ReasonFinished,
-                           AnticipatedEndDate = saHoldStory.AnticipatedEndDate,  
+                           AnticipatedEndDate = saHoldStory.AnticipatedEndDate?.ToString("o"),  
                            RootProduct = saHoldStory.RootProduct
                        };
         }

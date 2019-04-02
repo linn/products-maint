@@ -24,7 +24,7 @@ namespace Linn.Products.Resources
 
         public string ReasonFinished { get; set; }
 
-        public DateTime? AnticipatedEndDate { get; set; }
+        public string AnticipatedEndDate { get; set; }
 
         public string RootProduct { get; set; }
     }
