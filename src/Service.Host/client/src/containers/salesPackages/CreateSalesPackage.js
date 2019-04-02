@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import SalesPackage from './SalesPackage';
-import SalesPackage from '../../actions/salesPackages';
+import salesPackageActions from '../../actions/salesPackages';
 import salesPackagesSelectors from '../../selectors/salesPackagesSelectors';
 
 const mapStateToProps = state => ({
@@ -14,8 +14,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     add: salesPackageActions.add,
-    setSnackBarVisible: salesPackage.setSnackbarVisible,
-    setEditStatus: salesPackage.setEditStatus
+    setSnackBarVisible: salesPackageActions.setSnackbarVisible,
+    setEditStatus: salesPackageActions.setEditStatus
 };
 
 export default connect(

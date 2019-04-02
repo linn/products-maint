@@ -54,6 +54,7 @@ import CreateProductRange from '../containers/productRanges/CreateProductRange';
 import ProductsOnHold from '../containers/reports/ProductsOnHold';
 import SalesPackages from '../containers/salesPackages/SalesPackages';
 import SalesPackage from '../containers/salesPackages/SalesPackage';
+import CreateSalesPackage from '../containers/salesPackages/CreateSalesPackage';
 
 const Root = ({ store }) => (
     <div>
