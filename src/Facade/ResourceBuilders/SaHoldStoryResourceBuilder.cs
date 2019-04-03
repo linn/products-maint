@@ -19,8 +19,8 @@
                            ReasonStarted = saHoldStory.ReasonStarted,
                            ReasonFinished = saHoldStory.ReasonFinished,
                            AnticipatedEndDate = saHoldStory.AnticipatedEndDate?.ToString("o"),  
-                           RootProduct = saHoldStory.RootProduct
-                       };
+                           RootProduct = saHoldStory.SalesArticle.RootProduct
+            };
         }
 
         object IResourceBuilder<SaHoldStory>.Build(SaHoldStory saHoldStory) => this.Build(saHoldStory);

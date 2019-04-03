@@ -37,7 +37,8 @@
 
         public void Add(SaHoldStory entity)
         {
-            throw new NotImplementedException();
+            this.serviceDbContext.SaHoldStories.Add(entity);
+            this.serviceDbContext.SaveChanges();
         }
 
         public void Remove(SaHoldStory entity)
