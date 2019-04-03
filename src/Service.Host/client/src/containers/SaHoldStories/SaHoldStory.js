@@ -1,19 +1,20 @@
 import { connect } from 'react-redux';
 import SaHoldStory from '../../components/saHoldStories/SaHoldStory';
-import initialiseOnMount from '../common/initialiseOnMount';
+import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import saHoldStorySelectors from '../../selectors/saHoldStorySelectors';
 import saHoldStoryActions from '../../actions/saHoldStoryActions';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 
 const mapStateToProps = (state, { match }) => ({
-    saHoldStory: saHoldStorySelectors.getItem(state),
-    id: match.params.holdStoryId,
+    item: saHoldStorySelectors.getItem(state),
+    editStatus: 'view',
+    itemId: match.params.holdStoryId || null,
     loading: saHoldStorySelectors.getLoading(state),
     errorMessage: getSingleErrorMessage(state)
 });
 
-const initialise = ({ id }) => dispatch => {
-    dispatch(saHoldStoryActions.fetch(id));
+const initialise = ({ itemId }) => dispatch => {
+    dispatch(saHoldStoryActions.fetch(itemId));
 };
 
 const mapDispatchToProps = {

@@ -41,6 +41,7 @@ import 'typeface-roboto';
 import SalesArticles from '../containers/salesArticles/SalesArticles';
 import SalesArticle from '../containers/salesArticles/SalesArticle';
 import SaHoldStoriesSearch from '../containers/SaHoldStories/Search';
+import SaHoldStoriesCreateSearch from '../containers/SaHoldStories/CreateSearch';
 import HoldStoriesBySalesArticle from '../containers/SaHoldStories/HoldStoriesBySalesArticle';
 import SaHoldStory from '../containers/SaHoldStories/SaHoldStory';
 import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesOptions';
@@ -51,6 +52,7 @@ import CreateSernosSequence from '../containers/sernosSequences/CreateSernosSequ
 import ProductRanges from '../containers/productRanges/ProductRanges';
 import ProductRange from '../containers/productRanges/ProductRange';
 import CreateProductRange from '../containers/productRanges/CreateProductRange';
+import CreateSaHoldStory from '../containers/saHoldStories/CreateSaHoldStory'
 import ProductsOnHold from '../containers/reports/ProductsOnHold';
 
 const Root = ({ store }) => (
@@ -318,6 +320,16 @@ const Root = ({ store }) => (
                                 exact
                                 path="/products/reports/products-on-hold"
                                 component={ProductsOnHold}
+                            />
+                            <Route
+                                exact
+                                path="/products/reports/put-product-on-hold"
+                                component={SaHoldStoriesCreateSearch}
+                            />
+                            <Route
+                                exact
+                                path="/products/reports/put-product-on-hold/:articleNumber"
+                                component={CreateSaHoldStory}
                             />
                             <Route exact path="/:sectionId" component={MenuPage} />
                         </div>
