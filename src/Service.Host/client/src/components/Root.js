@@ -170,15 +170,16 @@ const Root = ({ store }) => (
                                     path="/products/maint/sales-packages/create"
                                     component={CreateSalesPackage}
                                 />
-                                <Route
-                                    exact
-                                    path="/products/maint/sales-packages"
-                                    component={SalesPackages}
-                                />
+
                                 <Route
                                     exact
                                     path="/products/maint/sales-packages/:id"
                                     component={SalesPackage}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/sales-packages"
+                                    component={SalesPackages}
                                 />
                             </Switch>
 
