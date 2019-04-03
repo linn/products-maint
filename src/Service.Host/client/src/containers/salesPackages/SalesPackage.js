@@ -15,8 +15,8 @@ const mapStateToProps = (state, { match }) => ({
     classes: {}
 });
 
-const initialise = () => dispatch => {
-    dispatch(salesPackagesActions.fetch());
+const initialise = ({ itemId }) => dispatch => {
+    dispatch(salesPackagesActions.fetch(itemId));
 };
 
 const mapDispatchToProps = {

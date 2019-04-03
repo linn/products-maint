@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Grid } from '@material-ui/core';
+import { Grid, Table, TableBody, TableHead, TableRow, TableCell } from '@material-ui/core';
 import {
     SaveBackCancelButtons,
     InputField,
@@ -30,7 +30,9 @@ function SalesPackage({
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
-
+    const cursor = {
+        cursor: 'pointer'
+    };
     useEffect(() => {
         if (!creating() && item !== prevSalesPackage) {
             setSalesPackage(item);
@@ -61,6 +63,16 @@ function SalesPackage({
     const handleFieldChange = (propertyName, newValue) => {
         setEditStatus('edit');
         setSalesPackage({ ...salesPackage, [propertyName]: newValue });
+    };
+
+    const handleElementChange = (propertyName, newValue) => {
+        setEditStatus('edit');
+        const splitIndex = propertyName.indexOf(',');
+        const index = propertyName.slice(0, splitIndex);
+        const prop = propertyName.slice(splitIndex + 1);
+        const { elements } = salesPackage;
+        elements[index][prop] = newValue;
+        setSalesPackage({ ...salesPackage, elements });
     };
 
     return (
@@ -120,7 +132,47 @@ function SalesPackage({
                             />
                         </Grid>
                         <Grid item xs={4} />
-
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Type</TableCell>
+                                    <TableCell align="right">Sequence</TableCell>
+                                    <TableCell align="right">Quantity</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {item.elements &&
+                                    item.elements.map((row, index) => (
+                                        <TableRow style={cursor} hover key={row.elementType}>
+                                            <TableCell>
+                                                <InputField
+                                                    disabled
+                                                    value={row.elementType}
+                                                    label="Type"
+                                                    propertyName="type"
+                                                    maxLength={10}
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <InputField
+                                                    value={row.sequence}
+                                                    label="Sequence"
+                                                    onChange={handleElementChange}
+                                                    propertyName={`${index},sequence`}
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <InputField
+                                                    value={row.quantity}
+                                                    label="Quantity"
+                                                    onChange={handleElementChange}
+                                                    propertyName={`${index},quantity`}
+                                                />
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                            </TableBody>
+                        </Table>
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
                                 saveDisabled={viewing() || inputInvalid()}

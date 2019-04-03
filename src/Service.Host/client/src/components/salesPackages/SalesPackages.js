@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Loading, CreateButton } from '@linn-it/linn-form-components-library';
-import { Table, TableHead, TableRow, TableCell } from '@material-ui/core';
+import { Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import Page from '../../containers/Page';
@@ -16,6 +16,11 @@ function SalesPackages({ items, loading }) {
         cursor: 'pointer'
     };
 
+    const identifySelfLink = row => {
+        const selfLink = row.links.find(link => link.rel === 'self');
+        return selfLink.href;
+    };
+
     return (
         <Page>
             {loading ? (
@@ -28,9 +33,10 @@ function SalesPackages({ items, loading }) {
                             <TableRow>
                                 <TableCell>Sales Package Id</TableCell>
                                 <TableCell align="right">Description</TableCell>
-                                <TableCell align="right">Bridge Id</TableCell>
                                 <TableCell align="right">Actions</TableCell>
                             </TableRow>
+                        </TableHead>
+                        <TableBody>
                             {items.map(row => (
                                 <Fragment key={row.salesPackageId}>
                                     <TableRow
@@ -42,13 +48,10 @@ function SalesPackages({ items, loading }) {
                                             {row.salesPackageId}
                                         </TableCell>
                                         <TableCell align="right">{row.description}</TableCell>
-                                        <TableCell align="right">{row.id}</TableCell>
                                         <TableCell align="right">
                                             <Link
                                                 key={row.salesPackageId}
-                                                to={
-                                                    row.links.find(link => link.rel === 'self').href
-                                                }
+                                                to={identifySelfLink(row)}
                                             >
                                                 <EditIcon />
                                             </Link>
@@ -57,13 +60,14 @@ function SalesPackages({ items, loading }) {
                                     {rowOpen === row.salesPackageId &&
                                         row.elements.map(element => (
                                             <tr key={element.elementType}>
-                                                Type: {element.elementType} Sequence:{' '}
-                                                {element.sequence} Quantity: {element.quantity}
+                                                <TableCell>Type: {element.elementType}</TableCell>
+                                                <TableCell>Sequence: {element.sequence}</TableCell>
+                                                <TableCell>Quantity: {element.quantity}</TableCell>
                                             </tr>
                                         ))}
                                 </Fragment>
                             ))}
-                        </TableHead>
+                        </TableBody>
                     </Table>
                 </Fragment>
             )}
