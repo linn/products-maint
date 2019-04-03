@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
-import SalesPackage from './SalesPackage';
+import SalesPackage from '../../components/salesPackages/SalesPackage';
 import salesPackageActions from '../../actions/salesPackages';
-import salesPackagesSelectors from '../../selectors/salesPackagesSelectors';
+import salesPackageSelectors from '../../selectors/salesPackageSelectors';
 
 const mapStateToProps = state => ({
     item: {},
     editStatus: 'create',
-    loading: salesPackagesSelectors.getLoading(state),
+    loading: salesPackageSelectors.getLoading(state),
     errorMessage: getSingleErrorMessage(state),
-    snackbarVisible: salesPackagesSelectors.getSnackbarVisible(state)
+    snackbarVisible: salesPackageSelectors.getSnackbarVisible(state)
 });
 
 const mapDispatchToProps = {
