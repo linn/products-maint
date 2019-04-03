@@ -250,7 +250,6 @@ function SalesPackage({
 SalesPackage.defaultProps = {
     item: {},
     add: null,
-    setEditStatus: null,
     update: null,
     loading: null,
     errorMessage: '',
@@ -262,7 +261,7 @@ SalesPackage.defaultProps = {
 SalesPackage.propTypes = {
     item: PropTypes.shape({}),
     editStatus: PropTypes.string.isRequired,
-    setEditStatus: PropTypes.func,
+    setEditStatus: PropTypes.func.isRequired,
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,
     update: PropTypes.func,
