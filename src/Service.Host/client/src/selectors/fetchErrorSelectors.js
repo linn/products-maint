@@ -5,7 +5,7 @@
     }
 
     if (fetchError.errors) {
-        return fetchError.errors[0];
+        return fetchError.errors[0].errorMessage;
     }
 
     if (fetchError.statusText) {

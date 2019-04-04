@@ -65,8 +65,7 @@
             var results = validator.Validate(resource);
             return validator.Validate(resource).IsValid
                        ? this.Negotiate.WithModel(this.tariffService.Add(resource))
-                       : this.Negotiate.WithStatusCode(HttpStatusCode.BadRequest)
-                           .WithReasonPhrase(results.Errors.ToString());
+                       : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
         }
     }
 }
