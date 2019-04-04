@@ -3,21 +3,34 @@
     if (!fetchError) {
         return null;
     }
+    const hasErrorsProperty = Object.prototype.hasOwnProperty.call(fetchError, 'errors');
 
-    if (fetchError.errors.length > 1) {
+    let hasErrorMessageProperty;
+
+    if (hasErrorsProperty) {
+        hasErrorMessageProperty = Object.prototype.hasOwnProperty.call(
+            fetchError.errors[0],
+            'errorMessage'
+        );
+    }
+
+    if (hasErrorMessageProperty && fetchError.errors.length > 1) {
         return fetchError.errors.map(error => error.errorMessage).join(', ');
     }
 
-    if (fetchError.errors[0].errorMessage) {
+    if (hasErrorMessageProperty && fetchError.errors[0].errorMessage) {
         return fetchError.errors[0].errorMessage;
     }
 
-    if (fetchError.errors) {
+    if (hasErrorsProperty) {
         return fetchError.errors[0];
     }
 
-    if (fetchError.statusText) {
-        return fetchError.statusText.message || fetchError.statusText;
+    if (!hasErrorsProperty) {
+        if (fetchError.statusText) {
+            return fetchError.statusText.message || fetchError.statusText;
+        }
+        return null;
     }
 
     return null;

@@ -1,8 +1,51 @@
 ﻿import getSingleErrorMessage from '../fetchErrorSelectors';
 
+describe('when getting several error messages', () => {
+    test('should return message', () => {
+        const state = {
+            fetchError: {
+                status: 400,
+                statusText: 'Bad',
+                errors: [
+                    {
+                        errorMessage: 'The property should have such and such',
+                        propertyName: 'name'
+                    },
+                    { errorMessage: 'The property should have such and such', propertyName: 'name' }
+                ]
+            }
+        };
+
+        const expectedResult =
+            'The property should have such and such, The property should have such and such';
+
+        expect(getSingleErrorMessage(state)).toEqual(expectedResult);
+    });
+});
+
+describe('when getting a single validation error messages', () => {
+    test('should return message', () => {
+        const state = {
+            fetchError: {
+                status: 400,
+                statusText: 'Bad',
+                errors: [
+                    {
+                        errorMessage: 'The property should have such and such',
+                        propertyName: 'name'
+                    }
+                ]
+            }
+        };
+
+        const expectedResult = 'The property should have such and such';
+
+        expect(getSingleErrorMessage(state)).toEqual(expectedResult);
+    });
+});
+
 describe('when getting single error message', () => {
     test('should return message', () => {
-
         const state = {
             fetchError: {
                 status: 400,
