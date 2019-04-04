@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { Grid } from '@material-ui/core';
 import {
     SaveBackCancelButtons,
@@ -25,13 +26,19 @@ function SaHoldStory({
     history,
     match
 }) {
-    const titleify = articleNumber => articleNumber.replace(/%2F/g, '/');
+    const deslugify = articleNumber => articleNumber.replace(/%2F/g, '/');
+    const slugify = articleNumber => articleNumber.replace(/[/]/g, '%2F');
 
     const creating = () => editStatus === 'create';
     const viewing = () => editStatus === 'view';
 
     const [saHoldStory, setSaHoldStory] = useState(
-        !creating() ? {} : { salesArticle: titleify(match.params.articleNumber) }
+        !creating()
+            ? {}
+            : {
+                  salesArticle: deslugify(match.params.articleNumber),
+                  dateStarted: moment().toISOString()
+              }
     );
     const [prevSaHoldStory, setPrevSaHoldStory] = useState({});
 
@@ -53,7 +60,13 @@ function SaHoldStory({
     };
 
     const handleBackClick = () => {
-        history.push('/products/reports/put-product-on-hold');
+        history.push(
+            creating()
+                ? '/products/reports/put-product-on-hold'
+                : `/products/reports/sa-hold-stories-for-sales-article/${slugify(
+                      item.salesArticle
+                  )}`
+        );
     };
 
     const handleFieldChange = (propertyName, newValue) => {
@@ -68,7 +81,7 @@ function SaHoldStory({
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     {creating() ? (
-                        <Title text={`Put ${titleify(match.params.articleNumber)} on Hold?`} />
+                        <Title text={`Put ${deslugify(match.params.articleNumber)} on Hold?`} />
                     ) : (
                         <Title text="Hold Story Details" />
                     )}
@@ -100,6 +113,21 @@ function SaHoldStory({
                                 onChange={handleFieldChange}
                             />
                         </Grid>
+                        {creating() ? (
+                            <Grid item xs={6}>
+                                <InputField
+                                    fullWidth
+                                    disabled={!creating()}
+                                    type="date"
+                                    value={saHoldStory.anticipatedEndDate}
+                                    label="Anticipated End Date"
+                                    propertyName="anticipatedEndDate"
+                                    onChange={handleFieldChange}
+                                />{' '}
+                            </Grid>
+                        ) : (
+                            <Fragment />
+                        )}
                         {viewing() ? (
                             <Grid item xs={6}>
                                 <InputField

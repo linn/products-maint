@@ -10,7 +10,8 @@ const mapStateToProps = (state, { match }) => ({
     editStatus: 'view',
     itemId: match.params.holdStoryId || null,
     loading: saHoldStorySelectors.getLoading(state),
-    errorMessage: getSingleErrorMessage(state)
+    errorMessage: getSingleErrorMessage(state),
+    snackbarVisible: saHoldStorySelectors.getSnackbarVisible(state)
 });
 
 const initialise = ({ itemId }) => dispatch => {
@@ -18,7 +19,9 @@ const initialise = ({ itemId }) => dispatch => {
 };
 
 const mapDispatchToProps = {
-    initialise
+    initialise,
+    setSnackbarVisible: saHoldStoryActions.setSnackbarVisible
+
 };
 
 export default connect(
