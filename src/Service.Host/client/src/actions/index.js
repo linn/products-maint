@@ -52,15 +52,6 @@ export const salesProductsByProductRangeReportActionTypes = makeReportActionType
 export const REQUEST_STOCK_TRIGGER_LEVELS_REPORT = 'REQUEST_STOCK_TRIGGER_LEVELS_REPORT';
 export const RECEIVE_STOCK_TRIGGER_LEVELS_REPORT = 'RECEIVE_STOCK_TRIGGER_LEVELS_REPORT';
 
-export const REQUEST_TARIFF = 'REQUEST_TARIFF';
-export const RECEIVE_TARIFF = 'RECEIVE_TARIFF';
-
-export const REQUEST_SEARCH_TARIFFS = 'REQUEST_SEARCH_TARIFFS';
-export const RECEIVE_SEARCH_TARIFFS = 'RECEIVE_SEARCH_TARIFFS';
-export const REQUEST_ADD_TARIFF = 'REQUEST_ADD_TARIFF';
-export const RECEIVE_NEW_TARIFF = 'RECEIVE_NEW_TARIFF';
-export const REQUEST_UPDATE_TARIFF = 'REQUEST_UPDATE_TARIFF';
-
 export const REQUEST_SA_HOLD_STORIES_REPORT = 'REQUEST_SA_HOLD_STORIES_REPORT';
 export const RECEIVE_SA_HOLD_STORIES_REPORT = 'RECEIVE_SA_HOLD_STORIES_REPORT';
 
@@ -100,3 +91,6 @@ export const vatCodesActionTypes = makeActionTypes(itemTypes.vatCodes.actionType
 
 export const productRangeActionTypes = makeActionTypes(itemTypes.productRange.actionType);
 export const productRangesActionTypes = makeActionTypes(itemTypes.productRanges.actionType, false);
+
+export const salesPackageActionTypes = makeActionTypes(itemTypes.salesPackage.actionType);
+export const salesPackagesActionTypes = makeActionTypes(itemTypes.salesPackages.actionType, false);

@@ -25,6 +25,7 @@
                 TariffCode = "test",
                 Description = "test-case"
             };
+
             var tariff = new Tariff
             {
                 TariffCode = "test",

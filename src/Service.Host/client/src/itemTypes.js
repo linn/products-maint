@@ -82,3 +82,14 @@ export const productRanges = new ItemType(
     'PRODUCT_RANGES',
     '/products/maint/product-ranges'
 );
+
+export const salesPackage = new ItemType(
+    'salesPackage',
+    'SALES_PACKAGE',
+    '/products/maint/sales-packages'
+);
+export const salesPackages = new ItemType(
+    'salesPackages',
+    'SALES_PACKAGES',
+    '/products/maint/sales-packages'
+);

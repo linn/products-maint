@@ -24,6 +24,9 @@ const App = ({ classes }) => (
             <ListItem component={Link} to="/products/maint/product-ranges" button>
                 <Typography color="primary">Product Ranges</Typography>
             </ListItem>
+            <ListItem component={Link} to="/products/maint/sales-packages" button>
+                <Typography color="primary">Sales Packages</Typography>
+            </ListItem>
             <ListItem component={Link} to="/products/reports/sa-hold-stories" button>
                 <Typography color="primary">Sales Article Hold Histories</Typography>
             </ListItem>
