@@ -67,6 +67,8 @@ function SalesPackage({
 
     const handleCancelClick = () => {
         setSalesPackage(item);
+        setNewElement({});
+        setShowAddRow(false);
         setEditStatus('view');
     };
 
@@ -104,7 +106,7 @@ function SalesPackage({
                         <Title text="Sales Package Details" />
                     )}
                 </Grid>
-                {loading || (!item && !creating()) ? (
+                {loading || (!salesPackage && !creating()) ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
@@ -160,8 +162,8 @@ function SalesPackage({
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {item.elements &&
-                                        item.elements.map((row, index) => (
+                                    {salesPackage.elements &&
+                                        salesPackage.elements.map((row, index) => (
                                             <TableRow style={cursor} key={row.elementType}>
                                                 <TableCell>
                                                     <InputField

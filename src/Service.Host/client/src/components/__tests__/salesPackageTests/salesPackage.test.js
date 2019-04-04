@@ -25,7 +25,7 @@ describe('<SalesPackage />', () => {
         });
 
         it('should render Input Fields', () => {
-            expect(getInputFields()).toHaveLength(5);
+            expect(getInputFields()).toHaveLength(2);
         });
     });
 

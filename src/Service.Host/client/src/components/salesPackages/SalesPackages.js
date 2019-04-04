@@ -4,6 +4,7 @@ import { Loading, CreateButton } from '@linn-it/linn-form-components-library';
 import { Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
+import { getSelfHref } from '../../helpers/utilities';
 import Page from '../../containers/Page';
 
 function SalesPackages({ items, loading }) {
@@ -16,10 +17,7 @@ function SalesPackages({ items, loading }) {
         cursor: 'pointer'
     };
 
-    const identifySelfLink = row => {
-        const selfLink = row.links.find(link => link.rel === 'self');
-        return selfLink.href;
-    };
+    const identifySelfLink = row => getSelfHref(row);
 
     return (
         <Page>

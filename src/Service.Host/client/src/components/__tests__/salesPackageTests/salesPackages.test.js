@@ -3,15 +3,11 @@ import { createShallow } from '@material-ui/core/test-utils';
 import SalesPackages from '../../salesPackages/SalesPackages';
 
 describe('<SalesPackages />', () => {
-    let wrapper;
-    let props;
-    const getTable = () => wrapper.find('WithStyles(Table)');
-    const getRows = () => wrapper.find('WithStyles(TableRow)');
     const shallow = createShallow({ dive: false });
-
+    let wrapper;
     describe('when sales packages have loaded', () => {
         beforeEach(() => {
-            props = {
+            const props = {
                 loading: false,
                 items: [
                     {
@@ -33,14 +29,28 @@ describe('<SalesPackages />', () => {
                         elements: [{ elementType: 'Type', sequence: 1, quantity: 2 }]
                     }
                 ]
-            }
+            };
             wrapper = shallow(<SalesPackages {...props} />);
         });
         it('should render a table', () => {
-            expect(getTable()).toHaveLength(1);
+            expect(wrapper.find('WithStyles(Table)')).toHaveLength(1);
         });
         it('should render a table with four rows including the header', () => {
-            expect(getRows()).toHaveLength(4);
+            expect(wrapper.find('WithStyles(TableRow)')).toHaveLength(4);
+        });
+    });
+
+    describe('when sales packages have not loaded', () => {
+        beforeEach(() => {
+            const props = {
+                loading: true,
+                items: []
+            };
+            wrapper = shallow(<SalesPackages {...props} />);
+        });
+
+        it('should render the loading dialog', () => {
+            expect(wrapper.find('Loading')).toHaveLength(1);
         });
     });
 });
