@@ -55,6 +55,12 @@
                                 Href = $"/products/reports/sa-hold-stories-for-sales-article/{Uri.EscapeDataString(salesArticle.ArticleNumber)}"
                              };
 
+            yield return new LinkResource
+                             {
+                                 Rel = "put-on-hold",
+                                 Href = $"/products/reports/put-product-on-hold/{Uri.EscapeDataString(salesArticle.ArticleNumber)}"
+                             };
+
             if (salesArticle.SaCoreType != null)
             {
                 yield return new LinkResource

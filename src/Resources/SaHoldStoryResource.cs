@@ -10,7 +10,7 @@ namespace Linn.Products.Resources
     {
         public int HoldStoryId { get; set; }
 
-        public string ArticleNumber { get; set; }
+        public string SalesArticle { get; set; }
 
         public string DateStarted { get; set; }
 

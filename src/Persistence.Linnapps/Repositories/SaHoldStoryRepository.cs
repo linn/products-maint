@@ -6,6 +6,7 @@
 
     using Linn.Common.Persistence;
     using Linn.Products.Persistence.Linnapps;
+    using Linn.Products.Proxy;
 
     using Microsoft.EntityFrameworkCore;
 
@@ -13,9 +14,12 @@
     {
         private readonly ServiceDbContext serviceDbContext;
 
-        public SaHoldStoryRepository(ServiceDbContext serviceDbContext)
+        private readonly IDatabaseService linnappsDatabaseService;
+
+        public SaHoldStoryRepository(ServiceDbContext serviceDbContext, IDatabaseService linnappsDatabaseService)
         {
             this.serviceDbContext = serviceDbContext;
+            this.linnappsDatabaseService = linnappsDatabaseService;
         }
 
         public SaHoldStory FindById(int key)
@@ -37,6 +41,7 @@
 
         public void Add(SaHoldStory entity)
         {
+            entity.HoldStoryId = this.linnappsDatabaseService.GetIdSequence("sahs_seq");
             this.serviceDbContext.SaHoldStories.Add(entity);
             this.serviceDbContext.SaveChanges();
         }

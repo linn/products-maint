@@ -38,9 +38,8 @@
                 id);
             var holdStory = new SaHoldStory
                                 {
-                                    HoldStoryId = resource.HoldStoryId,
-                                    ArticleNumber = resource.ArticleNumber,
-                                    SalesArticle = this.salesArticleRepository.FindById(resource.ArticleNumber),
+                                    ArticleNumber = resource.SalesArticle,
+                                    SalesArticle = this.salesArticleRepository.FindById(resource.SalesArticle),
                                     DateStarted = DateTime.Parse(resource.DateStarted),
                                     PutOnHoldByEmployee = this.employeeRepository.FindById((int)resource.Links.FirstOrDefault(a => a.Rel == "put-on-hold-by")?.Href.ParseId()),
                                     ReasonStarted = resource.ReasonStarted,
