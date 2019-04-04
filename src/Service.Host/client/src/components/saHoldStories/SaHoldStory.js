@@ -40,14 +40,14 @@ function SaHoldStory({
     );
     const [prevSaHoldStory, setPrevSaHoldStory] = useState({});
 
+    const inputInvalid = () => !saHoldStory.reasonStarted || !saHoldStory.dateStarted;
+
     useEffect(() => {
         if (!creating() && item !== prevSaHoldStory) {
             setSaHoldStory(item);
             setPrevSaHoldStory(item);
         }
     });
-
-    const inputInvalid = () => !saHoldStory.reasonStarted;
 
     const handleSaveClick = () => {
         addSaHoldStory(saHoldStory);
