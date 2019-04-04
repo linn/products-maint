@@ -33,9 +33,6 @@
 
         protected override SaHoldStory CreateFromResource(SaHoldStoryResource resource)
         {
-            var id = (int)resource.Links.FirstOrDefault(a => a.Rel == "put-on-hold-by")?.Href.ParseId();
-            var test = this.employeeRepository.FindById(
-                id);
             var holdStory = new SaHoldStory
                                 {
                                     ArticleNumber = resource.SalesArticle,
@@ -46,8 +43,9 @@
                                     RootProduct = resource.RootProduct,
                                     DateFinished = null,
                                     ReasonFinished = null,
-                                    AnticipatedEndDate = null
-                                };
+                                    AnticipatedEndDate = string.IsNullOrEmpty(resource.AnticipatedEndDate) ? (DateTime?)null : DateTime.Parse(resource.AnticipatedEndDate),
+
+            };
             return holdStory;
         }
 
