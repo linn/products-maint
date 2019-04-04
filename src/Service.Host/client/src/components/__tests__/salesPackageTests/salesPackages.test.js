@@ -28,7 +28,9 @@ describe('<SalesPackages />', () => {
                         links: [{ rel: 'self', href: 'localhost/part/part' }],
                         elements: [{ elementType: 'Type', sequence: 1, quantity: 2 }]
                     }
-                ]
+                ],
+                page: 0,
+                rowsPerPage: 5
             };
             wrapper = shallow(<SalesPackages {...props} />);
         });
@@ -36,7 +38,7 @@ describe('<SalesPackages />', () => {
             expect(wrapper.find('WithStyles(Table)')).toHaveLength(1);
         });
         it('should render a table with four rows including the header', () => {
-            expect(wrapper.find('WithStyles(TableRow)')).toHaveLength(4);
+            expect(wrapper.find('WithStyles(TableRow)')).toHaveLength(5);
         });
     });
 
