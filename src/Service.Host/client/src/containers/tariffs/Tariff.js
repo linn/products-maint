@@ -1,5 +1,5 @@
 ﻿import { connect } from 'react-redux';
-import Tariff from '../../components/Tariff';
+import Tariff from '../../components/tariffs/Tariff';
 import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import tariffActions from '../../actions/tariff';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';

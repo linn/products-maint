@@ -1,207 +1,231 @@
-﻿﻿import React, { Component } from 'react';
+﻿﻿import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import {
     SaveBackCancelButtons,
     InputField,
     Dropdown,
-    Page,
     Loading,
     Title,
-    ErrorCard
+    ErrorCard,
+    SnackbarMessage
 } from '@linn-it/linn-form-components-library';
+import Page from '../containers/Page';
 
-class SernosConfig extends Component {
-    constructor(props) {
-        super(props);
-        this.handleFieldChange = this.handleFieldChange.bind(this);
-        this.state = {
-            editStatus: 'view',
-            sernosConfig: null
-        };
-    }
+function SernosConfig({
+    loading,
+    errorMessage,
+    editStatus,
+    item,
+    itemId,
+    updateSernosConfig,
+    addSernosConfig,
+    setEditStatus,
+    snackbarVisible,
+    setSnackbarVisible,
+    history
+}) {
+    const [sernosConfig, setSernosConfig] = useState({});
+    const [prevSernosConfig, setPrevSernosConfig] = useState({});
 
-    static getDerivedStateFromProps(props, state) {
-        if (!state.sernosConfig && props.sernosConfig) {
-            return { sernosConfig: props.sernosConfig };
+    const creating = () => editStatus === 'create';
+    const editing = () => editStatus === 'edit';
+    const viewing = () => editStatus === 'view';
+
+    useEffect(() => {
+        if (item !== prevSernosConfig) {
+            setSernosConfig(item);
+            setPrevSernosConfig(item);
         }
-        return null;
-    }
+    });
 
-    handleSaveClick = () => {
-        const { sernosConfigId, updateSernosConfig } = this.props;
-        updateSernosConfig(sernosConfigId, { ...this.state }.sernosConfig);
-        this.setState({ editStatus: 'view' });
+    const nameInvalid = () => !sernosConfig.name;
+    const descriptionInvalid = () => !sernosConfig.description;
+    const numberOfSerialNumbersInvalid = () =>
+        sernosConfig.serialNumbered === 'Y' && !sernosConfig.numberOfSernos;
+
+    const numberOfBoxesInvalid = () =>
+        sernosConfig.serialNumbered === 'Y' && sernosConfig.numberOfBoxes === null;
+
+    const handleSaveClick = () => {
+        if (editing()) {
+            updateSernosConfig(itemId, sernosConfig);
+            setEditStatus('view');
+        } else if (creating()) {
+            addSernosConfig(sernosConfig);
+        }
     };
 
-    handleCancelClick = () => {
-        const { sernosConfig } = this.props;
-        this.setState({ sernosConfig });
-        this.setState({ editStatus: 'view' });
+    const handleCancelClick = () => {
+        setSernosConfig(item);
+        setEditStatus('view');
     };
 
-    handleAddClick = () => {
-        const { addSernosConfig } = this.props;
-        const { sernosConfig } = this.state;
-        addSernosConfig(sernosConfig);
-        this.setState({ editStatus: 'view' });
-    };
-
-    handleBackClick = () => {
-        this.setState({ editStatus: 'view' });
-        const { history } = this.props;
+    const handleBackClick = () => {
         history.push('/products/maint/sernos-configs');
     };
 
-    creating() {
-        const { editStatus } = this.props;
-        return editStatus === 'create';
-    }
-
-    editing() {
-        const { editStatus } = this.state;
-        return editStatus === 'edit';
-    }
-
-    viewing() {
-        const { editStatus } = this.props;
-        return editStatus === 'view';
-    }
-
-    handleFieldChange(propertyName, val) {
-        this.setState(prevState => ({
-            sernosConfig: {
-                ...prevState.sernosConfig,
-                [propertyName]: val
-            },
-            editStatus: 'edit'
-        }));
-    }
-
-    render() {
-        const { loading, errorMessage, history } = this.props;
-        const { sernosConfig } = this.state;
-        const startOnOptions = ['', 'Any', 'Odd', 'Even'];
-        const serialNumberedOptions = ['Y', 'N'];
-        if (loading || !sernosConfig) {
-            return <Loading />;
+    const handleFieldChange = (propertyName, newValue) => {
+        if (editStatus === 'view') {
+            setEditStatus('edit');
         }
+        if (propertyName === 'serialNumbered') {
+            setSernosConfig({
+                ...sernosConfig,
+                [propertyName]: newValue,
+                numberOfSernos: newValue === 'N' ? 0 : sernosConfig.numberOfSernos || 0,
+                numberOfBoxes: newValue === 'N' ? 0 : sernosConfig.numberOfBoxes || 0
+            });
+        } else {
+            setSernosConfig({ ...sernosConfig, [propertyName]: newValue });
+        }
+    };
 
-        return (
-            <Page history={history}>
-                <Grid container spacing={24} justify="center">
-                    <Grid item xs={12}>
-                        {this.creating() ? (
-                            <Title text="Add Serial Number Configuration" />
-                        ) : (
-                            <Title text="Serial Number Configuration Details" />
-                        )}
-                    </Grid>
-                    {errorMessage && (
-                        <Grid item xs={12}>
-                            <ErrorCard errorMessage={errorMessage} />
-                        </Grid>
+    const startOnOptions = ['', 'Any', 'Odd', 'Even'];
+    const serialNumberedOptions = ['Y', 'N'];
+
+    return (
+        <Page>
+            <Grid container spacing={24}>
+                <Grid item xs={12}>
+                    {creating() ? (
+                        <Title text="Add Sernos Config" />
+                    ) : (
+                        <Title text="Sernos Config Details" />
                     )}
-                    <Grid item xs={6}>
-                        <InputField
-                            fullWidth
-                            disabled={!this.creating()}
-                            value={sernosConfig.name}
-                            label="Name"
-                            helperText={
-                                !this.creating()
-                                    ? 'This field cannot be changed'
-                                    : 'This field is required'
-                            }
-                            onChange={this.handleFieldChange}
-                            propertyName="name"
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <InputField
-                            value={sernosConfig.description}
-                            label="Description"
-                            fullWidth
-                            onChange={this.handleFieldChange}
-                            propertyName="description"
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Dropdown
-                            value={sernosConfig.serialNumbered}
-                            label="Serial Numbered"
-                            fullWidth
-                            items={serialNumberedOptions}
-                            onChange={this.handleFieldChange}
-                            propertyName="serialNumbered"
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <InputField
-                            fullWidth
-                            type="number"
-                            value={sernosConfig.numberOfSernos}
-                            label="Number of Serial Nos"
-                            onChange={this.handleFieldChange}
-                            propertyName="numberOfSernos"
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <InputField
-                            fullWidth
-                            type="number"
-                            value={sernosConfig.numberOfBoxes}
-                            label="Number of Serial Boxes"
-                            onChange={this.handleFieldChange}
-                            propertyName="numberOfBoxes"
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Dropdown
-                            value={sernosConfig.startOn}
-                            label="Start On"
-                            fullWidth
-                            items={startOnOptions}
-                            onChange={this.handleFieldChange}
-                            propertyName="startOn"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <SaveBackCancelButtons
-                            saveDisabled={
-                                !this.editing() ||
-                                (!sernosConfig.name || sernosConfig.name.length === 0)
-                            }
-                            saveClick={this.creating() ? this.handleAddClick : this.handleSaveClick}
-                            cancelClick={this.handleCancelClick}
-                            backClick={this.handleBackClick}
-                        />
-                    </Grid>
                 </Grid>
-            </Page>
-        );
-    }
+                {loading || (!sernosConfig && !creating()) ? (
+                    <Grid item xs={12}>
+                        <Loading />
+                    </Grid>
+                ) : (
+                    <Fragment>
+                        {errorMessage && (
+                            <Grid item xs={12}>
+                                <ErrorCard errorMessage={errorMessage} />
+                            </Grid>
+                        )}
+                        <SnackbarMessage
+                            visible={snackbarVisible}
+                            onClose={() => setSnackbarVisible(false)}
+                            message="Save Successful"
+                        />
+                        <Grid item xs={6}>
+                            <InputField
+                                fullWidth
+                                disabled={!creating()}
+                                value={sernosConfig.name}
+                                label="Name"
+                                helperText={
+                                    !creating()
+                                        ? 'This field cannot be changed'
+                                        : 'This field is required'
+                                }
+                                onChange={handleFieldChange}
+                                propertyName="name"
+                                error={nameInvalid()}
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <InputField
+                                value={sernosConfig.description}
+                                label="Description"
+                                fullWidth
+                                onChange={handleFieldChange}
+                                propertyName="description"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Dropdown
+                                value={sernosConfig.serialNumbered || 'N'}
+                                label="Serial Numbered"
+                                fullWidth
+                                items={serialNumberedOptions}
+                                onChange={handleFieldChange}
+                                propertyName="serialNumbered"
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <InputField
+                                fullWidth
+                                type="number"
+                                value={sernosConfig.numberOfSernos}
+                                label="Number of Serial Nos"
+                                onChange={handleFieldChange}
+                                propertyName="numberOfSernos"
+                                disabled={sernosConfig.serialNumbered === 'N'}
+                                error={numberOfSerialNumbersInvalid()}
+                                helperText={
+                                    numberOfSerialNumbersInvalid() ? 'Must be at least 1.' : ''
+                                }
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <InputField
+                                fullWidth
+                                type="number"
+                                disabled={sernosConfig.serialNumbered === 'N'}
+                                value={sernosConfig.numberOfBoxes}
+                                label="Number of Serial Boxes"
+                                onChange={handleFieldChange}
+                                propertyName="numberOfBoxes"
+                                error={numberOfBoxesInvalid()}
+                                helperText={numberOfBoxesInvalid() ? 'Field Cannot Be Blank' : ''}
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Dropdown
+                                value={sernosConfig.startOn}
+                                label="Start On"
+                                fullWidth
+                                items={startOnOptions}
+                                onChange={handleFieldChange}
+                                propertyName="startOn"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <SaveBackCancelButtons
+                                saveDisabled={
+                                    viewing() ||
+                                    nameInvalid() ||
+                                    descriptionInvalid() ||
+                                    numberOfSerialNumbersInvalid() ||
+                                    numberOfBoxesInvalid()
+                                }
+                                saveClick={handleSaveClick}
+                                cancelClick={handleCancelClick}
+                                backClick={handleBackClick}
+                            />
+                        </Grid>
+                    </Fragment>
+                )}
+            </Grid>
+        </Page>
+    );
 }
+
 SernosConfig.defaultProps = {
-    sernosConfig: {},
+    item: {},
     addSernosConfig: null,
     updateSernosConfig: null,
     loading: null,
     errorMessage: '',
-    sernosConfigId: null,
-    classes: {}
+    itemId: null,
+    snackbarVisible: false
 };
 
 SernosConfig.propTypes = {
-    classes: PropTypes.shape({}),
-    sernosConfig: PropTypes.shape({}),
+    item: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
-    sernosConfigId: PropTypes.string,
+    itemId: PropTypes.string,
     updateSernosConfig: PropTypes.func,
     addSernosConfig: PropTypes.func,
-    loading: PropTypes.bool
+    setEditStatus: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
+    snackbarVisible: PropTypes.bool,
+    setSnackbarVisible: PropTypes.func.isRequired
 };
 
 export default SernosConfig;

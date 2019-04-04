@@ -1,6 +1,6 @@
 ﻿import { connect } from 'react-redux';
 import tariffActions from '../../actions/tariff';
-import Tariff from '../../components/Tariff';
+import Tariff from '../../components/tariffs/Tariff';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import tariffSelectors from '../../selectors/tariffSelectors';
 

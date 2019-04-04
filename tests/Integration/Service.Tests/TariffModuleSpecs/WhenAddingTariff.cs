@@ -25,7 +25,12 @@
                 TariffCode = "test",
                 Description = "test-case"
             };
-            var tariff = new Tariff { TariffCode = "test", Description = "test-case" };
+
+            var tariff = new Tariff
+            {
+                TariffCode = "test",
+                Description = "test-case"
+            };
             this.TariffService.Add(Arg.Any<TariffResource>())
                 .Returns(new CreatedResult<Tariff>(tariff));
 

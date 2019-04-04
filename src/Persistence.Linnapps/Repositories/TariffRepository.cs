@@ -23,7 +23,7 @@
 
         public IQueryable<Tariff> FindAll()
         {
-            throw new NotImplementedException();
+            return this.serviceDbContext.Tariffs;
         }
 
         public void Add(Tariff tariff)

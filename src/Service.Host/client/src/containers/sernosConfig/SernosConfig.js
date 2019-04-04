@@ -1,26 +1,29 @@
 ﻿import { connect } from 'react-redux';
 import SernosConfig from '../../components/SernosConfig';
-import initialiseOnMount from '../common/initialiseOnMount';
+import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import sernosConfigActions from '../../actions/sernosConfigActions';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import sernosConfigSelectors from '../../selectors/sernosConfigSelectors';
 
 const mapStateToProps = (state, { match }) => ({
-    sernosConfig: sernosConfigSelectors.getItem(state),
-    sernosConfigId: match.params.sernosConfigId,
+    item: sernosConfigSelectors.getItem(state),
+    itemId: match.params.sernosConfigId,
     editStatus: sernosConfigSelectors.getEditStatus(state),
     loading: sernosConfigSelectors.getLoading(state),
+    snackbarVisible: sernosConfigSelectors.getSnackbarVisible(state),
     errorMessage: getSingleErrorMessage(state)
 });
 
-const initialise = ({ sernosConfigId }) => dispatch => {
-    dispatch(sernosConfigActions.fetch(sernosConfigId));
+const initialise = ({ itemId }) => dispatch => {
+    dispatch(sernosConfigActions.fetch(itemId));
 };
 
 const mapDispatchToProps = {
     initialise,
     updateSernosConfig: sernosConfigActions.update,
-    resetSernosConfig: sernosConfigActions.reset
+    setEditStatus: sernosConfigActions.setEditStatus,
+    resetSernosConfig: sernosConfigActions.reset,
+    setSnackbarVisible: sernosConfigActions.setSnackbarVisible
 };
 
 export default connect(

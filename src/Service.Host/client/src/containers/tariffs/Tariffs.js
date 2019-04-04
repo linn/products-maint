@@ -1,6 +1,6 @@
 ﻿import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import Tariffs from '../../components/Tariffs';
+import Tariffs from '../../components/tariffs/Tariffs';
 import tariffsActions from '../../actions/tariffs';
 import initialiseOnMount from '../common/initialiseOnMount';
 import tariffsSelectors from '../../selectors/tariffsSelectors';
