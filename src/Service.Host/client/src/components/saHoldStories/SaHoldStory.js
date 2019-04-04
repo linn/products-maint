@@ -17,8 +17,6 @@ function SaHoldStory({
     errorMessage,
     editStatus,
     item,
-    itemId,
-    updateSaHoldStory,
     addSaHoldStory,
     setEditStatus,
     snackbarVisible,
@@ -203,26 +201,33 @@ function SaHoldStory({
 }
 
 SaHoldStory.propTypes = {
-    saHoldStory: PropTypes.shape({
-        holdStoryId: PropTypes.number,
+    item: PropTypes.shape({
+        item: PropTypes.shape({}),
         dateStarted: PropTypes.string,
         dateEnded: PropTypes.string,
         reasonStarted: PropTypes.string,
         reasonEnded: PropTypes.string,
         putOnHoldByEmployeeNumber: PropTypes.number,
-        TakenOffByEmployeeNumber: PropTypes.number
+        TakenOffByEmployeeNumber: PropTypes.number,
     }),
-    classes: PropTypes.shape({}),
     loading: PropTypes.bool,
+    errorMessage: PropTypes.string,
+    match: PropTypes.shape({}),
     history: PropTypes.shape({ push: PropTypes.func }).isRequired,
-    errorMessage: PropTypes.string
+    editStatus: PropTypes.string.isRequired,
+    addSaHoldStory: PropTypes.func,
+    setEditStatus: PropTypes.func.isRequired,
+    snackbarVisible: PropTypes.bool,
+    setSnackbarVisible: PropTypes.func.isRequired
 };
 
 SaHoldStory.defaultProps = {
     loading: false,
-    classes: {},
     errorMessage: '',
-    saHoldStory: null
+    item: {},
+    addSaHoldStory: null,
+    snackbarVisible: false,
+    match: {}
 };
 
 export default SaHoldStory;
