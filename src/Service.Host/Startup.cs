@@ -33,7 +33,6 @@ namespace Linn.Products.Service.Host
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             var keysBucketName = ConfigurationManager.Configuration["KEYS_BUCKET_NAME"];
             var kmsKeyAlias = ConfigurationManager.Configuration["KMS_KEY_ALIAS"];

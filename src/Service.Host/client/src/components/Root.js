@@ -10,9 +10,9 @@ import Navigation from '../containers/Navigation';
 import MenuPage from '../containers/Menu';
 import App from './App';
 import Callback from '../containers/Callback';
-import Tariff from '../containers/Tariff';
-import Tariffs from '../containers/Tariffs';
-import CreateTariff from '../containers/CreateTariff';
+import Tariff from '../containers/tariffs/Tariff';
+import Tariffs from '../containers/tariffs/Tariffs';
+import CreateTariff from '../containers/tariffs/CreateTariff';
 import userManager from '../helpers/userManager';
 import EanCodesOptions from '../containers/reportOptions/EanCodesOptions';
 import EanCodes from '../containers/reports/EanCodes';
@@ -86,7 +86,8 @@ const Root = ({ store }) => (
                                 <Route
                                     exact
                                     path="/products/maint/tariffs/create"
-                                    component={CreateTariff} />
+                                    component={CreateTariff}
+                                />
                                 <Route
                                     exact
                                     path="/products/maint/tariffs/:id"

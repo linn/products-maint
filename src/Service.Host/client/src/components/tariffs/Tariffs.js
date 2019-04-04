@@ -2,7 +2,7 @@
 import Grid from '@material-ui/core/Grid';
 import { Typeahead, CreateButton } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
-import Page from '../containers/Page';
+import Page from '../../containers/Page';
 
 const Tariffs = ({ tariffs, fetchItems, loading, clearSearch }) => {
     const results = tariffs.map(tariff => ({
