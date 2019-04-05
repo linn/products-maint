@@ -324,12 +324,12 @@ const Root = ({ store }) => (
                             />
                             <Route
                                 exact
-                                path="/products/reports/put-product-on-hold"
+                                path="/products/maint/put-product-on-hold"
                                 component={SaHoldStoriesCreateSearch}
                             />
                             <Route
                                 exact
-                                path="/products/reports/put-product-on-hold/:articleNumber"
+                                path="/products/maint/put-product-on-hold/:articleNumber"
                                 component={CreateSaHoldStory}
                             />
                             <Route exact path="/:sectionId" component={MenuPage} />
