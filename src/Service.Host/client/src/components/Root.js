@@ -40,10 +40,10 @@ import CreateVatCode from '../containers/vatCodes/CreateVatCode';
 import 'typeface-roboto';
 import SalesArticles from '../containers/salesArticles/SalesArticles';
 import SalesArticle from '../containers/salesArticles/SalesArticle';
-import SaHoldStoriesSearch from '../containers/SaHoldStories/Search';
-import SaHoldStoriesCreateSearch from '../containers/SaHoldStories/CreateSearch';
-import HoldStoriesBySalesArticle from '../containers/SaHoldStories/HoldStoriesBySalesArticle';
-import SaHoldStory from '../containers/SaHoldStories/SaHoldStory';
+import SaHoldStoriesSearch from '../containers/saHoldStories/Search';
+import SaHoldStoriesCreateSearch from '../containers/saHoldStories/CreateSearch';
+import HoldStoriesBySalesArticle from '../containers/saHoldStories/HoldStoriesBySalesArticle';
+import SaHoldStory from '../containers/saHoldStories/SaHoldStory';
 import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesOptions';
 import SalesArticleCoreTypes from '../containers/reports/SalesArticleCoreTypes';
 import SernosSequences from '../containers/sernosSequences/SernosSequences';
@@ -52,7 +52,7 @@ import CreateSernosSequence from '../containers/sernosSequences/CreateSernosSequ
 import ProductRanges from '../containers/productRanges/ProductRanges';
 import ProductRange from '../containers/productRanges/ProductRange';
 import CreateProductRange from '../containers/productRanges/CreateProductRange';
-import CreateSaHoldStory from '../containers/saHoldStories/CreateSaHoldStory'
+import CreateSaHoldStory from '../containers/saHoldStories/CreateSaHoldStory';
 import ProductsOnHold from '../containers/reports/ProductsOnHold';
 
 const Root = ({ store }) => (
