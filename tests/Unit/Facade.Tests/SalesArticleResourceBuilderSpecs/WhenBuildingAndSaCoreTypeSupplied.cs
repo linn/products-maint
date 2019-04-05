@@ -20,7 +20,7 @@
         }
 
         [Test]
-        public void shouldBuildResourceWithoutLinkToCoreType()
+        public void ShouldBuildResourceWithLinkToCoreType()
         {
             var resource = this.Sut.Build(this.salesArticle);
             resource.Links.Any(l => l.Rel == "sa-core-type").Should().BeTrue();

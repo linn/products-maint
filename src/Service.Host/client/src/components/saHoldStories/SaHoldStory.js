@@ -81,7 +81,7 @@ function SaHoldStory({
                     {creating() ? (
                         <Title text={`Put ${deslugify(match.params.articleNumber)} on Hold?`} />
                     ) : (
-                        <Title text="Hold Story Details" />
+                        <Title text={`${item.salesArticle} Hold Story Details`} />
                     )}
                 </Grid>
                 {loading || (!saHoldStory && !creating()) ? (
@@ -100,28 +100,17 @@ function SaHoldStory({
                             onClose={() => setSnackbarVisible(false)}
                             message="Save Successful"
                         />
-                        <Grid item xs={6}>
-                            <InputField
-                                fullWidth
-                                disabled={!creating()}
-                                type="date"
-                                value={saHoldStory.dateStarted}
-                                label="Date Started"
-                                propertyName="dateStarted"
-                                onChange={handleFieldChange}
-                            />
-                        </Grid>
-                        {creating() ? (
+                        {!creating() ? (
                             <Grid item xs={6}>
                                 <InputField
                                     fullWidth
                                     disabled={!creating()}
                                     type="date"
-                                    value={saHoldStory.anticipatedEndDate}
-                                    label="Anticipated End Date"
-                                    propertyName="anticipatedEndDate"
+                                    value={saHoldStory.dateStarted}
+                                    label="Date Started"
+                                    propertyName="dateStarted"
                                     onChange={handleFieldChange}
-                                />{' '}
+                                />
                             </Grid>
                         ) : (
                             <Fragment />
@@ -149,8 +138,27 @@ function SaHoldStory({
                                 rows={4}
                                 label="Reason Put on Hold"
                                 fullWidth
+                                error={!saHoldStory.reasonStarted}
+                                helperText={
+                                    !saHoldStory.reasonStarted ? 'You must provide a reason' : ''
+                                }
                             />
                         </Grid>
+                        {creating() ? (
+                            <Grid item xs={6}>
+                                <InputField
+                                    fullWidth
+                                    disabled={!creating()}
+                                    type="date"
+                                    value={saHoldStory.anticipatedEndDate}
+                                    label="Anticipated End Date"
+                                    propertyName="anticipatedEndDate"
+                                    onChange={handleFieldChange}
+                                />{' '}
+                            </Grid>
+                        ) : (
+                            <Fragment />
+                        )}
                         {viewing() ? (
                             <Fragment>
                                 <Grid item xs={6}>
@@ -208,7 +216,7 @@ SaHoldStory.propTypes = {
         reasonStarted: PropTypes.string,
         reasonEnded: PropTypes.string,
         putOnHoldByEmployeeNumber: PropTypes.number,
-        TakenOffByEmployeeNumber: PropTypes.number,
+        TakenOffByEmployeeNumber: PropTypes.number
     }),
     loading: PropTypes.bool,
     errorMessage: PropTypes.string,
