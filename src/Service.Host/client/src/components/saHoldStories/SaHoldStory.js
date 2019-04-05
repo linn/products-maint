@@ -40,14 +40,14 @@ function SaHoldStory({
     );
     const [prevSaHoldStory, setPrevSaHoldStory] = useState({});
 
-    const inputInvalid = () => !saHoldStory.reasonStarted || !saHoldStory.dateStarted;
-
     useEffect(() => {
         if (!creating() && item !== prevSaHoldStory) {
             setSaHoldStory(item);
             setPrevSaHoldStory(item);
         }
     });
+
+    const inputInvalid = () => !saHoldStory.reasonStarted;
 
     const handleSaveClick = () => {
         addSaHoldStory(saHoldStory);
@@ -60,7 +60,7 @@ function SaHoldStory({
     const handleBackClick = () => {
         history.push(
             creating()
-                ? '/products/reports/put-product-on-hold'
+                ? `/products/maint/sales-articles/${match.params.articleNumber}`
                 : `/products/reports/sa-hold-stories-for-sales-article/${slugify(
                       item.salesArticle
                   )}`

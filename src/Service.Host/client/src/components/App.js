@@ -67,9 +67,6 @@ const App = ({ classes }) => (
             <ListItem component={Link} to="/products/maint/vat-codes" button>
                 <Typography color="primary">Vat Codes</Typography>
             </ListItem>
-            <ListItem component={Link} to="/products/reports/put-product-on-hold" button>
-                <Typography color="primary">Put a Product On Hold</Typography>
-            </ListItem>
         </List>
     </Paper>
 );

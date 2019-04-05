@@ -3,6 +3,7 @@
     using FluentAssertions;
 
     using Linn.Common.Facade;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
 
@@ -20,7 +21,7 @@
         [SetUp]
         public void SetUp()
         {
-            this.salesArticle = new SalesArticle { ArticleNumber = "sa" };
+            this.salesArticle = new SalesArticle { ArticleNumber = "sa", HoldStories = { new SaHoldStory { DateFinished = null } } };
             this.SalesArticleForecastService.GetById("sa").Returns(new SuccessResult<SalesArticle>(this.salesArticle));
 
             this.Response = this.Browser.Get(

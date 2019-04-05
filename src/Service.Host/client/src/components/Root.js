@@ -88,7 +88,8 @@ const Root = ({ store }) => (
                                 <Route
                                     exact
                                     path="/products/maint/tariffs/create"
-                                    component={CreateTariff} />
+                                    component={CreateTariff}
+                                />
                                 <Route
                                     exact
                                     path="/products/maint/tariffs/:id"

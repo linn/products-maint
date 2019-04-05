@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography, Button } from '@material-ui/core';
 import {
     InputField,
     Title,
@@ -18,6 +19,13 @@ const styles = () => ({
     root: {
         margin: '40px',
         padding: '40px'
+    },
+    card: {},
+    link: {
+        textAlign: 'left'
+    },
+    title: {
+        textAlign: 'right'
     }
 });
 
@@ -92,7 +100,7 @@ class SalesArticle extends Component {
     }
 
     render() {
-        const { loading, errorMessage, saCoreTypes } = this.props;
+        const { loading, errorMessage, saCoreTypes, classes } = this.props;
         const { salesArticle } = this.state;
         const salesArticleCoreTypeHref = getHref(salesArticle, 'sa-core-type')
             ? getHref(salesArticle, 'sa-core-type')
@@ -126,33 +134,40 @@ class SalesArticle extends Component {
         return (
             <Page>
                 <Grid container spacing={24}>
-                    <Grid item xs={12}>
-                        <Title text="Sales Article Details" />
+                    <Grid item xs={3}>
+                        <Title text={salesArticle.articleNumber} />
                     </Grid>
+                    <Grid item xs={3}>
+                        <Typography className={classes.title} color="textSecondary" gutterBottom>
+                            {salesArticle.onHold ? (
+                                <Fragment>
+                                    {' '}
+                                    <span> ON HOLD </span> <Button>REMOVE HOLD</Button>{' '}
+                                </Fragment>
+                            ) : (
+                                <Button component={Link} to={salesArticle.links[2].href}>
+                                    PUT ON HOLD
+                                </Button>
+                            )}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={6} />
                     {errorMessage && (
                         <Grid item xs={12}>
                             <ErrorCard errorMessage={errorMessage} />
                         </Grid>
                     )}
-                    <Grid item xs={3}>
-                        <InputField
-                            label="Article Number"
-                            disabled
-                            fullWidth
-                            propertyName="id"
-                            value={salesArticle.articleNumber}
-                        />
-                    </Grid>
-                    <Grid item xs={1} />
-                    <Grid item xs={7}>
+                    <Grid item xs={6}>
                         <InputField
                             propertyName="description"
                             label="Description"
+                            rows={3}
                             fullWidth
                             disabled
                             value={salesArticle.description}
                         />
                     </Grid>
+                    <Grid item xs={6} />
                     <Grid item xs={3}>
                         <InputField
                             label="Forecast From"
@@ -163,7 +178,6 @@ class SalesArticle extends Component {
                             onChange={this.handleFieldChange}
                         />
                     </Grid>
-                    <Grid item xs={1} />
                     <Grid item xs={3}>
                         <InputField
                             label="Forecast To"
@@ -185,7 +199,6 @@ class SalesArticle extends Component {
                             onChange={this.handleFieldChange}
                         />
                     </Grid>
-                    <Grid item xs={1} />
                     <Grid item xs={3}>
                         <InputField
                             label="% of Root Product Sales"
@@ -208,7 +221,6 @@ class SalesArticle extends Component {
                         />
                     </Grid>
                     <Grid item xs={1} />
-                    <Grid item xs={3} />
                     <Grid item xs={12}>
                         <SaveBackCancelButtons
                             saveDisabled={this.viewing()}
