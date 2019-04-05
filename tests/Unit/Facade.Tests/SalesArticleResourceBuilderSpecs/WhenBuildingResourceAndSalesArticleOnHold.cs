@@ -6,12 +6,15 @@
 
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Resources;
 
     using NUnit.Framework;
 
     public class WhenBuildingResourceAndSalesArticleOnHold : ContextBase
     {
         private SalesArticle salesArticle;
+
+        private SalesArticleResource resource;
 
         [SetUp]
         public void SetUp()
@@ -21,13 +24,14 @@
                                         ArticleNumber = "sa",
                                         HoldStories = new List<SaHoldStory> { new SaHoldStory { DateFinished = null } }
                                     };
+
+            this.resource = this.Sut.Build(this.salesArticle);
         }
 
         [Test]
         public void ShouldBuildResourceWithOnHoldTrue()
-        {
-            var resource = this.Sut.Build(this.salesArticle);
-            resource.OnHold.Should().BeTrue();
+        { 
+            this.resource.OnHold.Should().BeTrue();
         }
     }
 }

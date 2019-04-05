@@ -5,6 +5,7 @@
     using FluentAssertions;
 
     using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Resources;
 
     using NUnit.Framework;
 
@@ -12,17 +13,19 @@
     {
         private SalesArticle salesArticle;
 
+        private SalesArticleResource resource;
+             
         [SetUp]
         public void SetUp()
         {
             this.salesArticle = new SalesArticle { ArticleNumber = "sa", SaCoreType = null };
+            this.resource = this.Sut.Build(this.salesArticle);
         }
 
         [Test]
-        public void shouldBuildResource()
+        public void ShouldBuildResourceWithOnHoldFalse()
         {
-            var resource = this.Sut.Build(this.salesArticle);
-            resource.OnHold.Should().BeFalse();
+            this.resource.OnHold.Should().BeFalse();
         }
     }
 }
