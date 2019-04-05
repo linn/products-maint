@@ -23,24 +23,26 @@
         [SetUp]
         public void SetUp()
         {
-            this.requestResource = new SaHoldStoryResource {
-                                                               SalesArticle = "KLIMAX/NTK",
-                                                               HoldStoryId = 1,
-                                                               DateStarted = new DateTime().ToShortDateString(),
-                                                               PutOnHoldByEmployee = "Employee",
-                                                               ReasonStarted = "reason"
+            this.requestResource = new SaHoldStoryResource
+                                       {
+                                           SalesArticle = "KLIMAX/NTK",
+                                           HoldStoryId = 1,
+                                           DateStarted = new DateTime().ToShortDateString(),
+                                           PutOnHoldByEmployee = "Employee",
+                                           ReasonStarted = "reason"
+                                       };
+            var holdStory = new SaHoldStory
+                                {
+                                    HoldStoryId = 1,
+                                    DateStarted = new DateTime(),
+                                    PutOnHoldByEmployee = new Employee { Id = 1, FullName = "Employee" },
+                                    ArticleNumber = "KLIMAX/NTK",
+                                    SalesArticle = new SalesArticle { ArticleNumber = "KLIMAX/NTK" },
+                                    ReasonStarted = "reason"
+                                };
 
-                                                            };
-            var holdStory = new SaHoldStory {
-                                                HoldStoryId = 1,
-                                                DateStarted = new DateTime(),
-                                                PutOnHoldByEmployee = new Employee {Id = 1, FullName = "Employee"},
-                                                ArticleNumber = "KLIMAX/NTK",
-                                                SalesArticle = new SalesArticle { ArticleNumber = "KLIMAX/NTK" },
-                                                ReasonStarted = "reason"
-                                             };
-
-            this.SaHoldStoryService.Add(Arg.Any<SaHoldStoryResource>()).Returns(new SuccessResult<SaHoldStory>(holdStory));
+            this.SaHoldStoryService.Add(Arg.Any<SaHoldStoryResource>())
+                .Returns(new SuccessResult<SaHoldStory>(holdStory));
 
             this.Response = this.Browser.Post(
                 "/products/reports/sa-hold-stories",
@@ -73,4 +75,3 @@
         }
     }
 }
-

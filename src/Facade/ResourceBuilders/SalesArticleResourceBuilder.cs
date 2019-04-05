@@ -44,20 +44,7 @@
 
         private bool IsOnHold(SalesArticle salesArticle)
         {
-           if (salesArticle.HoldStories == null)
-            {;
-                return false;
-            }
-            var holdStories = salesArticle.HoldStories;
-            foreach (var story in holdStories)
-            {
-                if (story.DateFinished == null)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return salesArticle.HoldStories?.Any(story => story.DateFinished == null) ?? false;
         }
 
         private IEnumerable<LinkResource> BuildLinks(SalesArticle salesArticle)

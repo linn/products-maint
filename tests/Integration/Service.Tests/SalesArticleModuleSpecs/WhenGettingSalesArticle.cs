@@ -21,7 +21,7 @@
         [SetUp]
         public void SetUp()
         {
-            this.salesArticle = new SalesArticle { ArticleNumber = "sa", HoldStories = { new SaHoldStory { DateFinished = null } } };
+            this.salesArticle = new SalesArticle { ArticleNumber = "sa" };
             this.SalesArticleForecastService.GetById("sa").Returns(new SuccessResult<SalesArticle>(this.salesArticle));
 
             this.Response = this.Browser.Get(
