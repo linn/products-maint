@@ -5,7 +5,9 @@ import * as itemTypes from '../itemTypes';
 const defaultState = {
     loading: false,
     items: [],
-    searchItems: []
+    searchItems: [],
+    rowsPerPage: 5,
+    page: 0
 };
 
 export default collectionStoreFactory(

@@ -6,6 +6,8 @@ import salesPackagesSelectors from '../../selectors/salesPackagesSelectors';
 
 const mapStateToProps = state => ({
     items: salesPackagesSelectors.getItems(state),
+    rowsPerPage: salesPackagesSelectors.getRowsPerPage(state),
+    page: salesPackagesSelectors.getPage(state),
     loading: salesPackagesSelectors.getLoading(state),
     classes: {}
 });
