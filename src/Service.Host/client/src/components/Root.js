@@ -354,6 +354,11 @@ const Root = ({ store }) => (
                                 path="/products/maint/put-product-on-hold/:articleNumber"
                                 component={CreateSaHoldStory}
                             />
+                            <Route
+                                exact
+                                path="/products/maint/close-hold-story/:holdStoryId"
+                                component={SaHoldStory}
+                            />
                             <Route exact path="/:sectionId" component={MenuPage} />
                         </div>
                     </Router>

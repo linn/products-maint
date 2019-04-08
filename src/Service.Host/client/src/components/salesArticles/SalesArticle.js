@@ -128,7 +128,9 @@ function SalesArticle({
                                 {salesArticle.onHold ? (
                                     <Fragment>
                                         <span> ON HOLD </span>
-                                        <Button>REMOVE HOLD</Button>
+                                        <Button component={Link} to={salesArticle.links[3].href}>
+                                            REMOVE HOLD
+                                        </Button>
                                     </Fragment>
                                 ) : (
                                     <Button component={Link} to={salesArticle.links[2].href}>

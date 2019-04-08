@@ -72,7 +72,7 @@
                 yield return new LinkResource
                                  {
                                      Rel = "put-off-hold",
-                                     Href = $"/products/maint/product-off-hold/{openStoryId}"
+                                     Href = $"/products/maint/close-hold-story/{openStoryId}"
                                  };
             }
            
