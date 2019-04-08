@@ -148,7 +148,6 @@ function SalesArticle({
                             />
                         </Grid>
                         <Grid item xs={3}>
-
                             <InputField
                                 label="Forecast From"
                                 type="date"
