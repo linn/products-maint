@@ -77,13 +77,6 @@ function SaHoldStory({
     return (
         <Page>
             <Grid container spacing={24}>
-                <Grid item xs={12}>
-                    {creating() ? (
-                        <Title text={`Put ${deslugify(match.params.articleNumber)} on Hold?`} />
-                    ) : (
-                        <Title text={`${item.salesArticle} Hold Story Details`} />
-                    )}
-                </Grid>
                 {loading || (!saHoldStory && !creating()) ? (
                     <Grid item xs={12}>
                         <Loading />
@@ -95,6 +88,15 @@ function SaHoldStory({
                                 <ErrorCard errorMessage={errorMessage} />
                             </Grid>
                         )}
+                        <Grid item xs={12}>
+                            {creating() ? (
+                                <Title
+                                    text={`Put ${deslugify(match.params.articleNumber)} on Hold?`}
+                                />
+                            ) : (
+                                <Title text={`${saHoldStory.salesArticle} Hold Story Details`} />
+                            )}
+                        </Grid>
                         <SnackbarMessage
                             visible={snackbarVisible}
                             onClose={() => setSnackbarVisible(false)}
