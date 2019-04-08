@@ -20,8 +20,8 @@ const initialise = ({ itemId }) => dispatch => {
 
 const mapDispatchToProps = {
     initialise,
-    setSnackbarVisible: saHoldStoryActions.setSnackbarVisible
-
+    setSnackbarVisible: saHoldStoryActions.setSnackbarVisible,
+    setEditStatus: saHoldStoryActions.setEditStatus
 };
 
 export default connect(
