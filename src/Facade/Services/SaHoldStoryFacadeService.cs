@@ -48,7 +48,7 @@
 
         protected override void UpdateFromResource(SaHoldStory entity, SaHoldStoryResource updateResource)
         {
-            throw new System.NotImplementedException();
+            entity.Update(DateTime.Parse(updateResource.DateFinished));
         }
 
         protected override Expression<Func<SaHoldStory, bool>> SearchExpression(string searchTerm)
