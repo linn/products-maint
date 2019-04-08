@@ -11,6 +11,7 @@
         {
             //ef
         }
+
         public int HoldStoryId { get; set; }
 
         public SalesArticle SalesArticle { get; set; }

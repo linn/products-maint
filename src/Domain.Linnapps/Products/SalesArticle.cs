@@ -40,6 +40,8 @@
 
         public string ForecastType { get; set; }
 
+        public string RootProduct { get; set; }
+
         [ForeignKey("SA_CORE_TYPE")]
         public SaCoreType SaCoreType { get; set; }
 

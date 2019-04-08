@@ -32,6 +32,7 @@
             builder.RegisterType<SaHoldStoryRepository>().As<IRepository<SaHoldStory, int>>();
             builder.RegisterType<ProductRangeRepository>().As<IRepository<ProductRange, int>>();
             builder.RegisterType<SalesPackageRepository>().As<IRepository<SalesPackage, int>>();
+            builder.RegisterType<EmployeeRepository>().As<IRepository<Employee, int>>();
         }
     }
 }

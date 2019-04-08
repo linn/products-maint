@@ -210,6 +210,7 @@
             builder.Entity<SalesArticle>().Property(t => t.PercentageOfRootProductSales)
                 .HasColumnName("PERCENTAGE_SALES");
             builder.Entity<SalesArticle>().Property(t => t.ArticleType).HasColumnName("ARTICLE_TYPE").HasMaxLength(1);
+            builder.Entity<SalesArticle>().Property(t => t.RootProduct).HasColumnName("ROOT_PRODUCT");
             builder.Entity<SalesArticle>().HasOne(t => t.SaCoreType);
             builder.Entity<SalesArticle>().HasMany(t => t.HoldStories).WithOne(e => e.SalesArticle);
         }

@@ -30,7 +30,8 @@
                            PhaseOutDate = salesArticle.PhaseOutDate?.ToString("o"),
                            TypeOfSale = salesArticle.TypeOfSale,
                            PackingDescription = salesArticle.PackingDescription,
-                           Links = this.BuildLinks(salesArticle).ToArray()
+                           Links = this.BuildLinks(salesArticle).ToArray(),
+                           OnHold = this.IsOnHold(salesArticle)
                        };
         }
 
@@ -39,6 +40,11 @@
         public string GetLocation(SalesArticle salesArticle)
         {
             return $"/products/maint/sales-articles/{Uri.EscapeDataString(salesArticle.ArticleNumber)}";
+        }
+
+        private bool IsOnHold(SalesArticle salesArticle)
+        {
+            return salesArticle.HoldStories?.Any(story => story.DateFinished == null) ?? false;
         }
 
         private IEnumerable<LinkResource> BuildLinks(SalesArticle salesArticle)
@@ -53,6 +59,12 @@
                              {
                                 Rel = "hold-stories",
                                 Href = $"/products/reports/sa-hold-stories-for-sales-article/{Uri.EscapeDataString(salesArticle.ArticleNumber)}"
+                             };
+
+            yield return new LinkResource
+                             {
+                                 Rel = "put-on-hold",
+                                 Href = $"/products/maint/put-product-on-hold/{Uri.EscapeDataString(salesArticle.ArticleNumber)}"
                              };
 
             if (salesArticle.SaCoreType != null)

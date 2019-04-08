@@ -10,7 +10,7 @@ namespace Linn.Products.Resources
     {
         public int HoldStoryId { get; set; }
 
-        public string ArticleNumber { get; set; }
+        public string SalesArticle { get; set; }
 
         public string DateStarted { get; set; }
 
@@ -24,7 +24,7 @@ namespace Linn.Products.Resources
 
         public string ReasonFinished { get; set; }
 
-        public DateTime? AnticipatedEndDate { get; set; }
+        public string AnticipatedEndDate { get; set; }
 
         public string RootProduct { get; set; }
     }

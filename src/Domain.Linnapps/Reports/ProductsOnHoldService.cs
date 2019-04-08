@@ -44,7 +44,7 @@
                 results.SetGridTextValue(row.RowIndex, 5, productOnHold.ReasonStarted);
             }
 
-            results.RowDrillDownTemplates.Add(new DrillDownModel("stories", "/products/reports/sa-hold-stories-for-sales-article/{rowId}"));
+            results.RowDrillDownTemplates.Add(new DrillDownModel("stories", "/products/maint/sales-articles/{rowId}"));
 
 
             return results;
