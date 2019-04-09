@@ -6,14 +6,12 @@ import salesPackagesSelectors from '../../selectors/salesPackagesSelectors';
 
 const mapStateToProps = state => ({
     items: salesPackagesSelectors.getItems(state),
-    rowsPerPage: salesPackagesSelectors.getRowsPerPage(state),
-    page: salesPackagesSelectors.getPage(state),
     loading: salesPackagesSelectors.getLoading(state),
     classes: {}
 });
 
-const initialise = () => dispatch => {
-    dispatch(salesPackagesActions.fetch());
+const initialise = ({ page, rowsPerPage }) => dispatch => {
+    dispatch(salesPackagesActions.fetch(page, rowsPerPage));
 };
 
 const mapDispatchToProps = {

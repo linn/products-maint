@@ -13,7 +13,8 @@
     {
         private readonly IFacadeService<SalesPackage, int, SalesPackageResource, SalesPackageResource> salesPackageService;
 
-        public SalesPackageModule(IFacadeService<SalesPackage, int, SalesPackageResource, SalesPackageResource> salesPackageService)
+        public SalesPackageModule(
+            IFacadeService<SalesPackage, int, SalesPackageResource, SalesPackageResource> salesPackageService)
         {
             this.salesPackageService = salesPackageService;
 
@@ -30,9 +31,7 @@
 
             var result = this.salesPackageService.Add(resource);
 
-            return this.Negotiate
-                .WithModel(result)
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
 
@@ -43,26 +42,26 @@
 
             var result = this.salesPackageService.Update(id, resource);
 
-            return this.Negotiate
-                .WithModel(result)
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
 
         private object GetSalesPackages()
         {
-            return this.Negotiate
-                .WithModel(this.salesPackageService.GetAll())
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                .WithView("Index");
+            return this.Negotiate.WithModel(this.salesPackageService.GetAll())
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
+        }
+
+        private object GetSalesPackages(int pageNumber, int pageSize)
+        {
+            return this.Negotiate.WithModel(this.salesPackageService.GetAll(pageNumber, pageSize))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
         }
 
         private object GetSalesPackage(int id)
         {
             var result = this.salesPackageService.GetById(id);
-            return this.Negotiate
-                .WithModel(result)
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
     }

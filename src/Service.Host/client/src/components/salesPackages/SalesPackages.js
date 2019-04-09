@@ -30,10 +30,10 @@ const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: tru
     TablePaginationActions
 );
 
-function SalesPackages({ items, loading, rowsPerPage, page }) {
+function SalesPackages({ items, loading, initialise }) {
     const [rowOpen, setRowOpen] = useState();
-    const [localPage, setPage] = useState(page);
-    const [localRowsPerPage, setRowsPerpage] = useState(rowsPerPage);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerpage] = useState(5);
 
     const handleRowOnClick = salesPackageId =>
         rowOpen === salesPackageId ? setRowOpen(null) : setRowOpen(salesPackageId);
@@ -45,12 +45,14 @@ function SalesPackages({ items, loading, rowsPerPage, page }) {
     const identifySelfLink = row => getSelfHref(row);
 
     const handleChangePage = (event, pge) => {
-        setPage({ pge });
+        setPage(pge);
+        initialise({ page, rowsPerPage });
     };
 
     const handleChangeRowsPerPage = event => {
         setPage(0);
-        setRowsPerpage({ rowsPerPage: event.target.value });
+        setRowsPerpage(event.target.value);
+        initialise({ page, rowsPerPage });
     };
 
     return (
@@ -114,8 +116,8 @@ function SalesPackages({ items, loading, rowsPerPage, page }) {
                                     rowsPerPageOptions={[5, 10, 25]}
                                     colSpan={3}
                                     count={items.length}
-                                    rowsPerPage={localRowsPerPage}
-                                    page={localPage}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
                                     SelectProps={{
                                         native: true
                                     }}
@@ -135,8 +137,7 @@ function SalesPackages({ items, loading, rowsPerPage, page }) {
 SalesPackages.propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     loading: PropTypes.bool.isRequired,
-    rowsPerPage: PropTypes.number.isRequired,
-    page: PropTypes.number.isRequired
+    initialise: PropTypes.func.isRequired
 };
 
 export default SalesPackages;

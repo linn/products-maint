@@ -17,24 +17,6 @@
         return storeItems.searchItems ? storeItems.searchItems : [];
     };
 
-    this.getPage = state => {
-        const storeItems = state[itemType];
-        if (!storeItems) {
-            return null;
-        }
-
-        return storeItems.page;
-    };
-
-    this.getRowsPerPage = state => {
-        const storeItems = state[itemType];
-        if (!storeItems) {
-            return null;
-        }
-
-        return storeItems.rowsPerPage;
-    };
-
     this.getItem = (state, id) => {
         const storeItems = this.getItems(state);
         return storeItems.find(a => a[idField] === id);
