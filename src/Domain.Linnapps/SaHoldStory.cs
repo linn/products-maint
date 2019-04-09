@@ -36,9 +36,11 @@
 
         public string RootProduct { get; set; }
 
-        public void Update(DateTime dateFinished)
+        public void Update(DateTime dateFinished, string reasonFinished, Employee takenOffHoldByEmployee)
         {
             this.DateFinished = dateFinished;
+            this.ReasonFinished = reasonFinished;
+            this.TakenOffHoldByEmployee = takenOffHoldByEmployee;
         }
     }
 }

@@ -49,7 +49,8 @@
 
         private IEnumerable<LinkResource> BuildLinks(SalesArticle salesArticle)
         {
-            var openStoryId = salesArticle.HoldStories?.FirstOrDefault(s => s.DateFinished == null).HoldStoryId;
+            var openStory = salesArticle.HoldStories?.FirstOrDefault(s => s.DateFinished == null);
+       
             yield return new LinkResource
                              {
                                  Rel = "self",
@@ -67,12 +68,12 @@
                                  Rel = "put-on-hold",
                                  Href = $"/products/maint/put-product-on-hold/{Uri.EscapeDataString(salesArticle.ArticleNumber)}"
                              };
-            if (openStoryId != null)
+            if (openStory != null)
             {
                 yield return new LinkResource
                                  {
                                      Rel = "put-off-hold",
-                                     Href = $"/products/maint/close-hold-story/{openStoryId}"
+                                     Href = $"/products/maint/close-hold-story/{openStory.HoldStoryId}"
                                  };
             }
            

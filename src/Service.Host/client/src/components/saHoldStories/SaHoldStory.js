@@ -17,54 +17,60 @@ function SaHoldStory({
     errorMessage,
     editStatus,
     item,
+    itemId,
     addSaHoldStory,
     setEditStatus,
     snackbarVisible,
     setSnackbarVisible,
     history,
-    match
+    match,
+    updateSaHoldStory
 }) {
     const deslugify = articleNumber => articleNumber.replace(/%2F/g, '/');
     const slugify = articleNumber => articleNumber.replace(/[/]/g, '%2F');
 
     const creating = () => editStatus === 'create';
     const viewing = () => editStatus === 'view';
+    const editing = () => editStatus === 'edit';
 
-    const [saHoldStory, setSaHoldStory] = useState(
-        !creating()
-            ? {}
-            : {
-                  salesArticle: deslugify(match.params.articleNumber),
-                  dateStarted: moment().toISOString()
-              }
-    );
+    const initialState = () => {
+        if (creating()) {
+            return {
+                salesArticle: deslugify(match.params.articleNumber),
+                dateStarted: moment().toISOString()
+            };
+        }
+        return {};
+    };
+
+    const [saHoldStory, setSaHoldStory] = useState(initialState);
     const [prevSaHoldStory, setPrevSaHoldStory] = useState({});
 
     useEffect(() => {
         if (!creating() && item !== prevSaHoldStory) {
-            setSaHoldStory(item);
+            setSaHoldStory(editing() ? { ...item, dateFinished: moment().toISOString() } : item);
             setPrevSaHoldStory(item);
         }
     });
 
-    const inputInvalid = () => !saHoldStory.reasonStarted;
+    const createInputInvalid = () => !saHoldStory.reasonStarted;
+    const editInputInvalid = () => !saHoldStory.reasonFinished;
 
     const handleSaveClick = () => {
-        addSaHoldStory(saHoldStory);
+        if (creating()) {
+            addSaHoldStory(saHoldStory);
+        } else if (editing()) {
+            updateSaHoldStory(itemId, saHoldStory);
+            history.push(`/products/reports/sa-hold-stories/${itemId}`);
+        }
     };
 
     const handleCancelClick = () => {
-        history.push('/products/reports/put-product-on-hold');
+        history.push('/products/maint/put-product-on-hold');
     };
 
     const handleBackClick = () => {
-        history.push(
-            creating()
-                ? `/products/maint/sales-articles/${match.params.articleNumber}`
-                : `/products/reports/sa-hold-stories-for-sales-article/${slugify(
-                      item.salesArticle
-                  )}`
-        );
+        history.push(`/products/maint/sales-articles/${slugify(saHoldStory.salesArticle)}`);
     };
 
     const handleFieldChange = (propertyName, newValue) => {
@@ -72,6 +78,16 @@ function SaHoldStory({
             setEditStatus('edit');
         }
         setSaHoldStory({ ...saHoldStory, [propertyName]: newValue });
+    };
+
+    const titleText = () => {
+        if (creating()) {
+            return `Put ${saHoldStory.salesArticle} on Hold?`;
+        }
+        if (editing()) {
+            return `Take ${saHoldStory.salesArticle} off Hold?`;
+        }
+        return `${saHoldStory.salesArticle} Hold Story Details`;
     };
 
     return (
@@ -89,20 +105,14 @@ function SaHoldStory({
                             </Grid>
                         )}
                         <Grid item xs={12}>
-                            {creating() ? (
-                                <Title
-                                    text={`Put ${deslugify(match.params.articleNumber)} on Hold?`}
-                                />
-                            ) : (
-                                <Title text={`${saHoldStory.salesArticle} Hold Story Details`} />
-                            )}
+                            <Title text={titleText(match.params.articleNumber)} />
                         </Grid>
                         <SnackbarMessage
                             visible={snackbarVisible}
                             onClose={() => setSnackbarVisible(false)}
                             message="Save Successful"
                         />
-                        {!creating() ? (
+                        {viewing() ? (
                             <Grid item xs={6}>
                                 <InputField
                                     fullWidth
@@ -131,21 +141,27 @@ function SaHoldStory({
                         ) : (
                             <Fragment />
                         )}
-                        <Grid item xs={6}>
-                            <InputField
-                                value={saHoldStory.reasonStarted}
-                                disabled={!creating()}
-                                onChange={handleFieldChange}
-                                propertyName="reasonStarted"
-                                rows={4}
-                                label="Reason Put on Hold"
-                                fullWidth
-                                error={!saHoldStory.reasonStarted}
-                                helperText={
-                                    !saHoldStory.reasonStarted ? 'You must provide a reason' : ''
-                                }
-                            />
-                        </Grid>
+                        {viewing() || creating() ? (
+                            <Grid item xs={6}>
+                                <InputField
+                                    value={saHoldStory.reasonStarted}
+                                    disabled={!creating()}
+                                    onChange={handleFieldChange}
+                                    propertyName="reasonStarted"
+                                    rows={4}
+                                    label="Reason Put on Hold"
+                                    fullWidth
+                                    error={!saHoldStory.reasonStarted}
+                                    helperText={
+                                        !saHoldStory.reasonStarted
+                                            ? 'You must provide a reason'
+                                            : ''
+                                    }
+                                />
+                            </Grid>
+                        ) : (
+                            <Fragment />
+                        )}
                         {creating() ? (
                             <Grid item xs={6}>
                                 <InputField
@@ -161,18 +177,23 @@ function SaHoldStory({
                         ) : (
                             <Fragment />
                         )}
+                        {viewing() || editing() ? (
+                            <Grid item xs={6}>
+                                <InputField
+                                    value={saHoldStory.reasonFinished}
+                                    disabled={!editing()}
+                                    label="Reason Taken Off Hold"
+                                    onChange={handleFieldChange}
+                                    rows={4}
+                                    fullWidth
+                                    propertyName="reasonFinished"
+                                />
+                            </Grid>
+                        ) : (
+                            <Fragment />
+                        )}
                         {viewing() ? (
                             <Fragment>
-                                <Grid item xs={6}>
-                                    <InputField
-                                        value={saHoldStory.reasonFinished}
-                                        disabled
-                                        label="Reason Taken Off Hold"
-                                        rows={4}
-                                        fullWidth
-                                        propertyName="reasonFinished"
-                                    />
-                                </Grid>
                                 <Grid item xs={6}>
                                     <InputField
                                         value={saHoldStory.putOnHoldByEmployee}
@@ -197,7 +218,11 @@ function SaHoldStory({
                         )}
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
-                                saveDisabled={viewing() || inputInvalid()}
+                                saveDisabled={
+                                    viewing() ||
+                                    (creating() && createInputInvalid()) ||
+                                    (editing() && editInputInvalid())
+                                }
                                 saveClick={handleSaveClick}
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}
@@ -226,9 +251,11 @@ SaHoldStory.propTypes = {
     history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     editStatus: PropTypes.string.isRequired,
     addSaHoldStory: PropTypes.func,
+    updateSaHoldStory: PropTypes.func,
     setEditStatus: PropTypes.func.isRequired,
     snackbarVisible: PropTypes.bool,
-    setSnackbarVisible: PropTypes.func.isRequired
+    setSnackbarVisible: PropTypes.func.isRequired,
+    itemId: PropTypes.string
 };
 
 SaHoldStory.defaultProps = {
@@ -237,7 +264,9 @@ SaHoldStory.defaultProps = {
     item: {},
     addSaHoldStory: null,
     snackbarVisible: false,
-    match: {}
+    updateSaHoldStory: null,
+    match: {},
+    itemId: null
 };
 
 export default SaHoldStory;

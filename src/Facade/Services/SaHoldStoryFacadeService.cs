@@ -41,14 +41,17 @@
                                     DateFinished = null,
                                     ReasonFinished = null,
                                     AnticipatedEndDate = string.IsNullOrEmpty(resource.AnticipatedEndDate) ? (DateTime?)null : DateTime.Parse(resource.AnticipatedEndDate),
-
             };
             return holdStory;
         }
 
         protected override void UpdateFromResource(SaHoldStory entity, SaHoldStoryResource updateResource)
         {
-            entity.Update(DateTime.Parse(updateResource.DateFinished));
+            var employeeUri = updateResource.Links.FirstOrDefault(l => l.Rel == "taken-off-hold-by")?.Href;
+            entity.Update(
+                DateTime.Parse(updateResource.DateFinished), 
+                updateResource.ReasonFinished, 
+                this.employeeRepository.FindById((int)employeeUri.ParseId()));
         }
 
         protected override Expression<Func<SaHoldStory, bool>> SearchExpression(string searchTerm)

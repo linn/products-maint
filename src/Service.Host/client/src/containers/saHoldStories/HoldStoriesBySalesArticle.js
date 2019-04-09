@@ -6,12 +6,11 @@ import config from '../../config';
 import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
 
 const reportName = 'saHoldStoriesReport';
-const getArticleNumber = ownProps => ownProps.match.params.articleNumber;
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, { match }) => ({
     reportData: getReportData(state, reportName),
     loading: getReportLoading(state, reportName),
-    articleNumber: getArticleNumber(ownProps),
+    articleNumber: match.params.articleNumber,
     config
 });
 

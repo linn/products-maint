@@ -27,7 +27,7 @@
                 .Returns(new SuccessResult<SaCoreType>(saCoreType)
                              {
                                  Data = new SaCoreType(1, "new description")
-        });
+                             });
 
             this.Response = this.Browser.Put(
                 "/products/maint/sa-core-types/1",
