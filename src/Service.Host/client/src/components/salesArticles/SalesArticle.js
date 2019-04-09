@@ -269,7 +269,7 @@ SalesArticle.defaultProps = {
     loading: null,
     errorMessage: '',
     itemId: null,
-    snackbarVisible: false,
+    snackbarVisible: false
 };
 
 SalesArticle.propTypes = {

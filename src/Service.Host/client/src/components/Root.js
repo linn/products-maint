@@ -42,7 +42,6 @@ import SalesArticles from '../containers/salesArticles/SalesArticles';
 import SalesArticle from '../containers/salesArticles/SalesArticle';
 import SaHoldStoriesSearch from '../containers/saHoldStories/Search';
 import SaHoldStoriesCreateSearch from '../containers/saHoldStories/CreateSearch';
-import HoldStoriesBySalesArticle from '../containers/saHoldStories/HoldStoriesBySalesArticle';
 import SaHoldStory from '../containers/saHoldStories/SaHoldStory';
 import CloseSaHoldStory from '../containers/saHoldStories/CloseSaHoldStory';
 import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesOptions';
