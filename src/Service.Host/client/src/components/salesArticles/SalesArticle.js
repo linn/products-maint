@@ -130,7 +130,7 @@ function SalesArticle({
                                 onChange={handleTabChange}
                                 indicatorColor="primary"
                                 textColor="primary"
-                                variant="fullWidth"
+                                variant="scrollable"
                                 style={{ paddingBottom: '40px' }}
                             >
                                 <Tab label="View Or Edit Details" />

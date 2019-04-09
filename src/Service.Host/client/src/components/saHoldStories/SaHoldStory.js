@@ -187,6 +187,12 @@ function SaHoldStory({
                                     rows={4}
                                     fullWidth
                                     propertyName="reasonFinished"
+                                    error={editing() && !saHoldStory.reasonFinished}
+                                    helperText={
+                                        !saHoldStory.reasonFinished
+                                            ? 'You must provide a reason'
+                                            : ''
+                                    }
                                 />
                             </Grid>
                         ) : (
@@ -239,9 +245,9 @@ SaHoldStory.propTypes = {
     item: PropTypes.shape({
         item: PropTypes.shape({}),
         dateStarted: PropTypes.string,
-        dateEnded: PropTypes.string,
+        dateFinished: PropTypes.string,
         reasonStarted: PropTypes.string,
-        reasonEnded: PropTypes.string,
+        reasonFinished: PropTypes.string,
         putOnHoldByEmployeeNumber: PropTypes.number,
         TakenOffByEmployeeNumber: PropTypes.number
     }),
