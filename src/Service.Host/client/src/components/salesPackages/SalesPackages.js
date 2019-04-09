@@ -113,7 +113,7 @@ function SalesPackages({ items, loading, initialise }) {
                         <TableFooter>
                             <TableRow>
                                 <TablePagination
-                                    rowsPerPageOptions={[5, 10, 25]}
+                                    rowsPerPageOptions={[5, 10]}
                                     colSpan={3}
                                     count={items.length}
                                     rowsPerPage={rowsPerPage}

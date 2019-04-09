@@ -10,6 +10,8 @@
     using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Facade.ResourceBuilders;
 
+    using PagedList.Core;
+
     public class ResponsesModule : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -38,6 +40,8 @@
             builder.RegisterType<ProductRangesResourceBuilder>().As<IResourceBuilder<IEnumerable<ProductRange>>>();
             builder.RegisterType<SalesPackageResourceBuilder>().As<IResourceBuilder<SalesPackage>>();
             builder.RegisterType<SalesPackagesResourceBuilder>().As<IResourceBuilder<IEnumerable<SalesPackage>>>();
+            builder.RegisterType<SalesPackagesPaginatedResourceBuilder>()
+                .As<IResourceBuilder<IPagedList<SalesPackage>>>();
         }
     }
 }

@@ -10,8 +10,8 @@ const mapStateToProps = state => ({
     classes: {}
 });
 
-const initialise = ({ page, rowsPerPage }) => dispatch => {
-    dispatch(salesPackagesActions.fetch(page, rowsPerPage));
+const initialise = ({ page = 0, rowsPerPage = 5 }) => dispatch => {
+    dispatch(salesPackagesActions.fetch(page + 1, rowsPerPage));
 };
 
 const mapDispatchToProps = {

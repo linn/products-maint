@@ -20,6 +20,7 @@
 
             this.Get("/products/maint/sales-packages", _ => this.GetSalesPackages());
             this.Get("/products/maint/sales-packages/{id}", parameters => this.GetSalesPackage(parameters.id));
+            this.Get("/products/maint/sales-packages/{pageNumber}/{pageSize}", parameters => this.GetSalesPackages(parameters.pageNumber, parameters.pageSize));
             this.Put("/products/maint/sales-packages/{id}", parameters => this.UpdateSalesPackage(parameters.id));
             this.Post("/products/maint/sales-packages", _ => this.AddSalesPackage());
         }

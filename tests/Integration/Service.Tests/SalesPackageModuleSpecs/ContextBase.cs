@@ -16,6 +16,8 @@
 
     using NUnit.Framework;
 
+    using PagedList.Core;
+
     public abstract class ContextBase : NancyContextBase
     {
         protected IFacadeService<SalesPackage, int, SalesPackageResource, SalesPackageResource> SalesPackageService { get; set; }
@@ -31,9 +33,12 @@
                         with.Dependency(this.SalesPackageService);
                         with.Dependency<IResourceBuilder<SalesPackage>>(new SalesPackageResourceBuilder());
                         with.Dependency<IResourceBuilder<IEnumerable<SalesPackage>>>(new SalesPackagesResourceBuilder());
+                        with.Dependency<IResourceBuilder<IPagedList<SalesPackage>>>(
+                            new SalesPackagesPaginatedResourceBuilder());
                         with.Module<SalesPackageModule>();
                         with.ResponseProcessor<SalesPackageResponseProcessor>();
                         with.ResponseProcessor<SalesPackagesResponseProcessor>();
+                        with.ResponseProcessor<SalesPackagesPaginatedResponseProcessor>();
                         with.RequestStartup(
                             (container, pipelines, context) =>
                                 {
