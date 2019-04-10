@@ -5,7 +5,8 @@ import reducer from './reducers';
 import authorization from './middleware/authorization';
 import itemCreated from './middleware/itemCreated';
 
-const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose;
+// eslint-disable-next-line no-underscore-dangle
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const middleware = [authorization, api, thunkMiddleware, itemCreated];
 

@@ -1,14 +1,39 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { Loading, CreateButton } from '@linn-it/linn-form-components-library';
-import { Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core';
+import {
+    Table,
+    TableHead,
+    TableBody,
+    TablePagination,
+    TableFooter,
+    TableRow,
+    TableCell
+} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
+
+import TablePaginationActions from '../common/TablePaginationActions';
 import { getSelfHref } from '../../helpers/utilities';
 import Page from '../../containers/Page';
 
-function SalesPackages({ items, loading }) {
+const actionsStyles = theme => ({
+    root: {
+        flexShrink: 0,
+        color: theme.palette.text.secondary,
+        marginLeft: theme.spacing.unit * 2.5
+    }
+});
+
+const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: true })(
+    TablePaginationActions
+);
+
+function SalesPackages({ page, loading, pageLoad }) {
     const [rowOpen, setRowOpen] = useState();
+    const [localPage, setLocalPage] = useState(0);
+    const [rowsPerPage, setRowsPerpage] = useState(5);
 
     const handleRowOnClick = salesPackageId =>
         rowOpen === salesPackageId ? setRowOpen(null) : setRowOpen(salesPackageId);
@@ -18,6 +43,17 @@ function SalesPackages({ items, loading }) {
     };
 
     const identifySelfLink = row => getSelfHref(row);
+
+    const handleChangePage = (event, pge) => {
+        setLocalPage(pge);
+        pageLoad(pge + 1, rowsPerPage); // page number must be incremented because the starting index on the server is 1
+    };
+
+    const handleChangeRowsPerPage = event => {
+        setLocalPage(0);
+        setRowsPerpage(event.target.value);
+        pageLoad(localPage + 1, event.target.value);
+    };
 
     return (
         <Page>
@@ -30,42 +66,67 @@ function SalesPackages({ items, loading }) {
                         <TableHead>
                             <TableRow>
                                 <TableCell>Sales Package Id</TableCell>
-                                <TableCell align="right">Description</TableCell>
-                                <TableCell align="right">Actions</TableCell>
+                                <TableCell>Description</TableCell>
+                                <TableCell>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {items.map(row => (
-                                <Fragment key={row.salesPackageId}>
-                                    <TableRow
-                                        style={cursor}
-                                        hover
-                                        onClick={() => handleRowOnClick(row.salesPackageId)}
-                                    >
-                                        <TableCell component="th" scope="row">
-                                            {row.salesPackageId}
-                                        </TableCell>
-                                        <TableCell align="right">{row.description}</TableCell>
-                                        <TableCell align="right">
-                                            <Link
-                                                key={row.salesPackageId}
-                                                to={identifySelfLink(row)}
-                                            >
-                                                <EditIcon />
-                                            </Link>
-                                        </TableCell>
-                                    </TableRow>
-                                    {rowOpen === row.salesPackageId &&
-                                        row.elements.map(element => (
-                                            <tr key={element.elementType}>
-                                                <TableCell>Type: {element.elementType}</TableCell>
-                                                <TableCell>Sequence: {element.sequence}</TableCell>
-                                                <TableCell>Quantity: {element.quantity}</TableCell>
-                                            </tr>
-                                        ))}
-                                </Fragment>
-                            ))}
+                            {page.elements &&
+                                page.elements.map(row => (
+                                    <Fragment key={row.salesPackageId}>
+                                        <TableRow
+                                            style={cursor}
+                                            hover
+                                            onClick={() => handleRowOnClick(row.salesPackageId)}
+                                        >
+                                            <TableCell component="th" scope="row">
+                                                {row.salesPackageId}
+                                            </TableCell>
+                                            <TableCell>{row.description}</TableCell>
+                                            <TableCell>
+                                                <Link
+                                                    key={row.salesPackageId}
+                                                    to={identifySelfLink(row)}
+                                                >
+                                                    <EditIcon />
+                                                </Link>
+                                            </TableCell>
+                                        </TableRow>
+                                        {rowOpen === row.salesPackageId &&
+                                            row.elements.map(element => (
+                                                <tr key={element.elementType}>
+                                                    <TableCell>
+                                                        Type: {element.elementType}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Sequence: {element.sequence}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Quantity: {element.quantity}
+                                                    </TableCell>
+                                                </tr>
+                                            ))}
+                                    </Fragment>
+                                ))}
                         </TableBody>
+                        <TableFooter>
+                            {page.totalItemCount && (
+                                <TableRow>
+                                    <TablePagination
+                                        rowsPerPageOptions={[5, 10, 25, 50]}
+                                        count={page.totalItemCount}
+                                        rowsPerPage={rowsPerPage}
+                                        page={localPage}
+                                        SelectProps={{
+                                            native: true
+                                        }}
+                                        onChangePage={handleChangePage}
+                                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                                        ActionsComponent={TablePaginationActionsWrapped}
+                                    />
+                                </TableRow>
+                            )}
+                        </TableFooter>
                     </Table>
                 </Fragment>
             )}
@@ -74,8 +135,9 @@ function SalesPackages({ items, loading }) {
 }
 
 SalesPackages.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-    loading: PropTypes.bool.isRequired
+    page: PropTypes.PropTypes.shape({}).isRequired,
+    loading: PropTypes.bool.isRequired,
+    pageLoad: PropTypes.func.isRequired
 };
 
 export default SalesPackages;

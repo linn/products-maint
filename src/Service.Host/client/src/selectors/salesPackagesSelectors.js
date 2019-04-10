@@ -1,4 +1,4 @@
-import CollectionSelectors from './CollectionSelectors';
+import PaginationSelectors from './PaginationSelectors';
 import * as itemTypes from '../itemTypes';
 
-export default new CollectionSelectors(itemTypes.salesPackages.item);
+export default new PaginationSelectors(itemTypes.salesPackages.item);

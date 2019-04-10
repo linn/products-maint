@@ -1,14 +1,13 @@
 import { salesPackagesActionTypes as actionTypes } from '../actions';
-import collectionStoreFactory from './reducerFactories/collectionStoreFactory';
+import paginationStoreFactory from './reducerFactories/paginationStoreFactory';
 import * as itemTypes from '../itemTypes';
 
 const defaultState = {
     loading: false,
-    items: [],
-    searchItems: []
+    page: { elements: [], pageNumber: 1, pageSize: 5 }
 };
 
-export default collectionStoreFactory(
+export default paginationStoreFactory(
     itemTypes.salesPackages.actionType,
     actionTypes,
     defaultState
