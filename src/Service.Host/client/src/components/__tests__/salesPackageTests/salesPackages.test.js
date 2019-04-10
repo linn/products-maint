@@ -9,28 +9,31 @@ describe('<SalesPackages />', () => {
         beforeEach(() => {
             const props = {
                 loading: false,
-                items: [
-                    {
-                        salesPackageId: 'AudioQoui1',
-                        description: 'Description of the sound',
-                        links: [{ rel: 'self', href: 'localhost/part/part' }],
-                        elements: [{ elementType: 'Type', sequence: 1, quantity: 2 }]
-                    },
-                    {
-                        salesPackageId: 'AudioQoui2',
-                        description: 'Description of the sound',
-                        links: [{ rel: 'self', href: 'localhost/part/part' }],
-                        elements: [{ elementType: 'Type', sequence: 1, quantity: 2 }]
-                    },
-                    {
-                        salesPackageId: 'AudioQoui3',
-                        description: 'Description of the sound',
-                        links: [{ rel: 'self', href: 'localhost/part/part' }],
-                        elements: [{ elementType: 'Type', sequence: 1, quantity: 2 }]
-                    }
-                ],
-                page: 0,
-                rowsPerPage: 5
+                page: {
+                    elements: [
+                        {
+                            salesPackageId: 'AudioQoui1',
+                            description: 'Description of the sound',
+                            links: [{ rel: 'self', href: 'localhost/part/part' }],
+                            elements: [{ elementType: 'Type', sequence: 1, quantity: 2 }]
+                        },
+                        {
+                            salesPackageId: 'AudioQoui2',
+                            description: 'Description of the sound',
+                            links: [{ rel: 'self', href: 'localhost/part/part' }],
+                            elements: [{ elementType: 'Type', sequence: 1, quantity: 2 }]
+                        },
+                        {
+                            salesPackageId: 'AudioQoui3',
+                            description: 'Description of the sound',
+                            links: [{ rel: 'self', href: 'localhost/part/part' }],
+                            elements: [{ elementType: 'Type', sequence: 1, quantity: 2 }]
+                        }
+                    ],
+                    pageNumber: 0,
+                    pageSize: 5,
+                    totalItemCount: 3
+                }
             };
             wrapper = shallow(<SalesPackages {...props} />);
         });
@@ -46,7 +49,7 @@ describe('<SalesPackages />', () => {
         beforeEach(() => {
             const props = {
                 loading: true,
-                items: []
+                page: { elements: [] }
             };
             wrapper = shallow(<SalesPackages {...props} />);
         });

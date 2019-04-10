@@ -31,7 +31,7 @@ export default function FetchApiActions(actionTypeRoot, uri, actionTypes) {
         }
     });
 
-    this.fetch = (pageNumber, rowsPerPage) => ({
+    this.fetch = (pageNumber = 1, rowsPerPage = 5) => ({
         [CALL_API]: {
             endpoint: `${config.appRoot}${uri}/${pageNumber}/${rowsPerPage}`,
             method: 'GET',

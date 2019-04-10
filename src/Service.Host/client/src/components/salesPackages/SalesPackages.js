@@ -30,9 +30,9 @@ const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: tru
     TablePaginationActions
 );
 
-function SalesPackages({ items, loading, initialise }) {
+function SalesPackages({ page, loading, pageLoad }) {
     const [rowOpen, setRowOpen] = useState();
-    const [page, setPage] = useState(0);
+    const [localPage, setLocalPage] = useState(0);
     const [rowsPerPage, setRowsPerpage] = useState(5);
 
     const handleRowOnClick = salesPackageId =>
@@ -45,14 +45,14 @@ function SalesPackages({ items, loading, initialise }) {
     const identifySelfLink = row => getSelfHref(row);
 
     const handleChangePage = (event, pge) => {
-        setPage(pge);
-        initialise({ page, rowsPerPage });
+        setLocalPage(pge);
+        pageLoad(pge + 1, rowsPerPage); // page number must be incremented because the starting index on the server is 1
     };
 
     const handleChangeRowsPerPage = event => {
-        setPage(0);
+        setLocalPage(0);
         setRowsPerpage(event.target.value);
-        initialise({ page, rowsPerPage });
+        pageLoad(localPage + 1, event.target.value);
     };
 
     return (
@@ -66,13 +66,13 @@ function SalesPackages({ items, loading, initialise }) {
                         <TableHead>
                             <TableRow>
                                 <TableCell>Sales Package Id</TableCell>
-                                <TableCell align="right">Description</TableCell>
-                                <TableCell align="right">Actions</TableCell>
+                                <TableCell>Description</TableCell>
+                                <TableCell>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {items
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            {page.elements &&
+                                page.elements.map((row, index) => (
                                 .map(row => (
                                     <Fragment key={row.salesPackageId}>
                                         <TableRow
@@ -83,8 +83,8 @@ function SalesPackages({ items, loading, initialise }) {
                                             <TableCell component="th" scope="row">
                                                 {row.salesPackageId}
                                             </TableCell>
-                                            <TableCell align="right">{row.description}</TableCell>
-                                            <TableCell align="right">
+                                            <TableCell>{row.description}</TableCell>
+                                            <TableCell>
                                                 <Link
                                                     key={row.salesPackageId}
                                                     to={identifySelfLink(row)}
@@ -111,21 +111,22 @@ function SalesPackages({ items, loading, initialise }) {
                                 ))}
                         </TableBody>
                         <TableFooter>
-                            <TableRow>
-                                <TablePagination
-                                    rowsPerPageOptions={[5, 10]}
-                                    colSpan={3}
-                                    count={items.length}
-                                    rowsPerPage={rowsPerPage}
-                                    page={page}
-                                    SelectProps={{
-                                        native: true
-                                    }}
-                                    onChangePage={handleChangePage}
-                                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                                    ActionsComponent={TablePaginationActionsWrapped}
-                                />
-                            </TableRow>
+                            {page.totalItemCount && (
+                                <TableRow>
+                                    <TablePagination
+                                        rowsPerPageOptions={[5, 10, 25, 50]}
+                                        count={page.totalItemCount}
+                                        rowsPerPage={rowsPerPage}
+                                        page={localPage}
+                                        SelectProps={{
+                                            native: true
+                                        }}
+                                        onChangePage={handleChangePage}
+                                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                                        ActionsComponent={TablePaginationActionsWrapped}
+                                    />
+                                </TableRow>
+                            )}
                         </TableFooter>
                     </Table>
                 </Fragment>
@@ -135,9 +136,9 @@ function SalesPackages({ items, loading, initialise }) {
 }
 
 SalesPackages.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+    page: PropTypes.PropTypes.shape({}).isRequired,
     loading: PropTypes.bool.isRequired,
-    initialise: PropTypes.func.isRequired
+    pageLoad: PropTypes.func.isRequired
 };
 
 export default SalesPackages;

@@ -62,7 +62,7 @@ namespace Linn.Products.Service.Tests.SalesPackageModuleSpecs
         public void ShouldReturnResource()
         {
             var resources = this.Response.Body.DeserializeJson<SalesPackagesPaginatedResource>();
-            resources.SalesPackageResources.Should().HaveCount(5);
+            resources.Elements.Should().HaveCount(5);
         }
     }
 }

@@ -2,7 +2,6 @@
 namespace Linn.Products.Facade.ResourceBuilders
 {
     using System;
-    using System.Collections;
     using System.Linq;
 
     using Linn.Common.Facade;
@@ -17,9 +16,9 @@ namespace Linn.Products.Facade.ResourceBuilders
 
         public SalesPackagesPaginatedResource Build(IPagedList<SalesPackage> salesPackages)
         {
-            return new SalesPackagesPaginatedResource()
+            return new SalesPackagesPaginatedResource
                        {
-                           SalesPackageResources =
+                           Elements =
                                salesPackages.Select(a => this.salesPackageResourceBuilder.Build(a)).AsQueryable(),
                            PageCount = salesPackages.PageCount,
                            PageSize = salesPackages.PageSize,

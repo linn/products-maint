@@ -5,17 +5,22 @@ import initialiseOnMount from '../common/initialiseOnMount';
 import salesPackagesSelectors from '../../selectors/salesPackagesSelectors';
 
 const mapStateToProps = state => ({
-    items: salesPackagesSelectors.getItems(state),
+    page: salesPackagesSelectors.getPage(state),
     loading: salesPackagesSelectors.getLoading(state),
     classes: {}
 });
 
-const initialise = ({ page = 0, rowsPerPage = 5 }) => dispatch => {
-    dispatch(salesPackagesActions.fetch(page + 1, rowsPerPage));
+const pageLoad = (pageNumber = 1, rowsPerPage = 5) => dispatch => {
+    dispatch(salesPackagesActions.fetch(pageNumber, rowsPerPage));
+};
+
+const initialise = ({ pageNumber, pageSize }) => dispatch => {
+    dispatch(salesPackagesActions.fetch(pageNumber, pageSize));
 };
 
 const mapDispatchToProps = {
-    initialise
+    initialise,
+    pageLoad
 };
 
 export default connect(

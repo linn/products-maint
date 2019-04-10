@@ -1,13 +1,11 @@
 ﻿
 namespace Linn.Products.Resources
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
 
     public class SalesPackagesPaginatedResource
     {
-        public IEnumerable<SalesPackageResource> SalesPackageResources { get; set; }
+        public IEnumerable<SalesPackageResource> Elements { get; set; }
 
         public int PageCount { get; set; }
 
