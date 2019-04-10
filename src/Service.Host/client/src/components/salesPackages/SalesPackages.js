@@ -72,8 +72,11 @@ function SalesPackages({ page, loading, pageLoad }) {
                         </TableHead>
                         <TableBody>
                             {page.elements &&
-                                page.elements.map(row => (
-                                    <Fragment key={row.salesPackageId}>
+                                page.elements.map((row, index) => (
+                                    // there are duplicates in the live database so this is a workaround
+                                    // we should not use the index as a key as it will impact on performance when sorting
+                                    // eslint-disable-next-line react/no-array-index-key
+                                    <Fragment key={row.salesPackageId + index}>
                                         <TableRow
                                             style={cursor}
                                             hover
