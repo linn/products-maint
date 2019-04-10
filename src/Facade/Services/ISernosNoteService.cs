@@ -12,6 +12,8 @@
 
         IResult<SernosNote> GetSernosNote(string sernosGroup, int? sernosNumber, string transCode);
 
+        IResult<IEnumerable<SernosNote>> GetSernosNotesBySerialNumber(int sernosNumber);
+
         IResult<SernosNote> Add(SernosNoteCreateResource resource);
 
         IResult<SernosNote> Update(int sernosNoteId, SernosNoteResource resource);

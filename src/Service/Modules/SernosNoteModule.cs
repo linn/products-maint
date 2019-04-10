@@ -7,14 +7,14 @@
     using Nancy;
     using Nancy.ModelBinding;
 
-    public class SernosNoteModule : NancyModule
+    public sealed class SernosNoteModule : NancyModule
     {
         private readonly ISernosNoteService sernosNoteService;
-        
+
         public SernosNoteModule(ISernosNoteService sernosNoteService)
         {
             this.sernosNoteService = sernosNoteService;
-            this.Get("/products/maint/serial-numbers/notes", _ => this.GetSernosNote());
+            this.Get("/products/maint/serial-numbers/notes", _ => this.GetSernosNotes());
             this.Get("/products/maint/serial-numbers/notes/{id}", parameters => this.GetSernosNoteById(parameters.id));
             this.Post("/products/maint/serial-numbers/notes", _ => this.AddSernosNote());
             this.Put("/products/maint/serial-numbers/notes/{id}", parameters => this.UpdateSernosNote(parameters.id));
@@ -23,23 +23,30 @@
         private object GetSernosNoteById(int id)
         {
             var result = this.sernosNoteService.GetSernosNoteById(id);
-            return this.Negotiate
-                .WithModel(result)
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
 
-        private object GetSernosNote()
+        private object GetSernosNotes()
         {
+            // TODO should this be tref?
+            // Should i just get by sernos number as that's all I'm using?
             var resource = this.Bind<SernosNoteQueryResource>();
+
+            if (resource.SernosGroup == null && resource.TransCode == null)
+            {
+                var results = this.sernosNoteService.GetSernosNotesBySerialNumber(resource.SernosNumber);
+
+                return this.Negotiate.WithModel(results).WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                    .WithView("Index");
+            }
+
             var result = this.sernosNoteService.GetSernosNote(
                 resource.SernosGroup,
                 resource.SernosNumber,
                 resource.TransCode);
 
-            return this.Negotiate
-                .WithModel(result)
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
 
@@ -48,20 +55,16 @@
             var resource = this.Bind<SernosNoteCreateResource>();
 
             var result = this.sernosNoteService.Add(resource);
-            return this.Negotiate
-                .WithModel(result)
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
-        
+
         private object UpdateSernosNote(int id)
         {
             var resource = this.Bind<SernosNoteResource>();
 
             var result = this.sernosNoteService.Update(id, resource);
-            return this.Negotiate
-                .WithModel(result)
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
     }

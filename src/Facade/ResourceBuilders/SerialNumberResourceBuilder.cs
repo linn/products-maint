@@ -27,8 +27,7 @@
                            SernosDate = serialNumber.SernosDate?.ToString("o"),
                            SernosGroup = serialNumber.SernosGroup,
                            SernosNumber = serialNumber.SernosNumber,
-                           SernosNote = serialNumber.SernosNote,
-                           SernosTref = serialNumber.SernosTRef,
+                           SernosTRef = serialNumber.SernosTRef,
                            TransCode = serialNumber.TransCode,
                            Links = this.BuildLinks(serialNumber).ToArray()
                        };
@@ -50,15 +49,6 @@
                                  Rel = "sales-article",
                                  Href = $"/products/maint/sales-articles/{Uri.EscapeDataString(serialNumber.ArticleNumber)}"
                              };
-
-            if (serialNumber.SernosNote != null)
-            {
-                yield return new LinkResource
-                                 {
-                                     Rel = "sernos-note",
-                                     Href = $"/products/maint/serial-numbers/notes/{serialNumber.SernosNote.SernosNoteId}"
-                                 };
-            }
         }
     }
 }

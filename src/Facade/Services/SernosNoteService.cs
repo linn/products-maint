@@ -50,6 +50,18 @@
             return new SuccessResult<SernosNote>(sernosNote);
         }
 
+        public IResult<IEnumerable<SernosNote>> GetSernosNotesBySerialNumber(int sernosNumber)
+        {
+            var sernosNotes = this.repository.FilterBy(s => s.SernosNumber == sernosNumber);
+
+            if (sernosNotes == null)
+            {
+                return new NotFoundResult<IEnumerable<SernosNote>>();
+            }
+
+            return new SuccessResult<IEnumerable<SernosNote>>(sernosNotes);
+        }
+
         public IResult<SernosNote> Add(SernosNoteCreateResource resource)
         {
             try

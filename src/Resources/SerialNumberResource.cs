@@ -29,7 +29,7 @@
 
         public int? SernosNumber { get; set; }
 
-        public int SernosTref { get; set; }
+        public int SernosTRef { get; set; }
 
         public SernosNote SernosNote { get; set; }
 

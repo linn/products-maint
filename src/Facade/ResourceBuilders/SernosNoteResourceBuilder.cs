@@ -18,6 +18,7 @@
                            SernosNoteId = sernosNote.SernosNoteId,
                            SernosNotes = sernosNote.SernosNotes,
                            SernosNumber = sernosNote.SernosNumber,
+                           SernosTRef = sernosNote.SernosTRef,
                            TransCode = sernosNote.TransCode,
                            Links = this.BuildLinks(sernosNote).ToArray()
                        };

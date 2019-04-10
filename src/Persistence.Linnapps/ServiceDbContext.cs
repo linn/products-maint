@@ -181,18 +181,12 @@
             builder.Entity<SerialNumber>().Property(s => s.CreatedBy).HasColumnName("CREATED_BY");
             builder.Entity<SerialNumber>().Property(s => s.TransCode).HasColumnName("TRANS_CODE");
             builder.Entity<SerialNumber>().Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER");
-            builder.Entity<SernosNote>().HasOne(sernosNote => sernosNote.SerialNumber)
-                .WithOne(serialNumber => serialNumber.SernosNote)
-                .HasForeignKey<SerialNumber>(
-                    sernosNote => new { sernosNote.SernosGroup, sernosNote.SernosTRef, sernosNote.SernosNumber })
-                .HasPrincipalKey<SernosNote>(
-                    serialNumber => new { serialNumber.SernosGroup, serialNumber.SernosTRef, serialNumber.SernosNumber });
         }
 
         private void BuildSernosNotes(ModelBuilder builder)
         {
             builder.Entity<SernosNote>().ToTable("SERNOS_NOTES");
-            builder.Entity<SernosNote>().HasKey(r => new { r.SernosGroup, r.SernosTRef, r.SernosNumber});
+            builder.Entity<SernosNote>().HasKey(r => new { r.SernosGroup, r.SernosTRef, r.SernosNumber });
             builder.Entity<SernosNote>().Property(r => r.SernosNoteId).HasColumnName("SERNOS_NOTE_ID");
             builder.Entity<SernosNote>().Property(r => r.SernosNotes).HasColumnName("SERNOS_NOTES").HasMaxLength(2000);
             builder.Entity<SernosNote>().Property(r => r.SernosGroup).HasColumnName("SERNOS_GROUP").HasMaxLength(10);

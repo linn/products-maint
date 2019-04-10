@@ -97,11 +97,11 @@ export const serialNumbers = new ItemType(
 export const sernosNote = new ItemType(
     'sernosNote',
     'SERNOS_NOTE',
-    '/products/maint/serial-numbers'
+    '/products/maint/serial-numbers/notes'
 );
 
 export const sernosNotes = new ItemType(
     'sernosNotes',
     'SERNOS_NOTES',
-    '/products/maint/serial-numbers'
+    '/products/maint/serial-numbers/notes'
 );

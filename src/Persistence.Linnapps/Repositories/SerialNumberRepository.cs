@@ -22,7 +22,6 @@
         {
             return this.serviceDbContext.SerialNumbers
                 .Where(a => a.SernosTRef == key)
-                .Include(ser => ser.SernosNote)
                 .ToList()
                 .FirstOrDefault();
         }

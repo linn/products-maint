@@ -15,7 +15,7 @@
     "collectCoverageFrom": [
       "client/src/**/*.{js}"
     ],
-    "collectCoverage": true,
+    "collectCoverage": false,
     "setupFiles": [
       "raf/polyfill",
       "./react-animation-test-shim.js",

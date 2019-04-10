@@ -63,8 +63,8 @@
         {
             var resources = this.Response.Body.DeserializeJson<IEnumerable<SerialNumberResource>>().ToList();
             resources.Should().HaveCount(2);
-            resources.Should().Contain(s => s.SernosTref == 123);
-            resources.Should().Contain(s => s.SernosTref == 555);
+            resources.Should().Contain(s => s.SernosTRef == 123);
+            resources.Should().Contain(s => s.SernosTRef == 555);
         }
     }
 }

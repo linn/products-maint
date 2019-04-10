@@ -48,7 +48,7 @@
         {
             var resource = this.Response.Body.DeserializeJson<SerialNumberResource>();
             resource.SernosNumber.Should().Be(222);
-            resource.SernosTref.Should().Be(123);
+            resource.SernosTRef.Should().Be(123);
         }
     }
 }

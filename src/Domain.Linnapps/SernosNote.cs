@@ -23,8 +23,6 @@
 
         public string TransCode { get; set; }
 
-        public SerialNumber SerialNumber { get; set; }
-
         public void Update(string sernosNotes, string sernosGroup, int? sernosNumber, int? sernosTRef, string transCode)
         {
             this.ValidateSernosNote(sernosNotes);
