@@ -29,24 +29,11 @@
 
         private object GetSernosNotes()
         {
-            // TODO should this be tref?
-            // Should i just get by sernos number as that's all I'm using?
             var resource = this.Bind<SernosNoteQueryResource>();
 
-            if (resource.SernosGroup == null && resource.TransCode == null)
-            {
-                var results = this.sernosNoteService.GetSernosNotesBySerialNumber(resource.SernosNumber);
+            var results = this.sernosNoteService.GetSernosNotesBySerialNumber(resource.SernosNumber);
 
-                return this.Negotiate.WithModel(results).WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                    .WithView("Index");
-            }
-
-            var result = this.sernosNoteService.GetSernosNote(
-                resource.SernosGroup,
-                resource.SernosNumber,
-                resource.TransCode);
-
-            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
+            return this.Negotiate.WithModel(results).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
 
