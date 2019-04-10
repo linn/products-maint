@@ -72,8 +72,7 @@ function SalesPackages({ page, loading, pageLoad }) {
                         </TableHead>
                         <TableBody>
                             {page.elements &&
-                                page.elements.map((row, index) => (
-                                .map(row => (
+                                page.elements.map(row => (
                                     <Fragment key={row.salesPackageId}>
                                         <TableRow
                                             style={cursor}
