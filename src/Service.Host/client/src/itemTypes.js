@@ -7,6 +7,7 @@ export const sernosConfig = new ItemType(
     'SERNOS_CONFIG',
     '/products/maint/sernos-configs'
 );
+
 export const sernosConfigs = new ItemType(
     'sernosConfigs',
     'SERNOS_CONFIGS',
@@ -104,4 +105,15 @@ export const sernosNotes = new ItemType(
     'sernosNotes',
     'SERNOS_NOTES',
     '/products/maint/serial-numbers/notes'
+);
+
+export const salesPackage = new ItemType(
+    'salesPackage',
+    'SALES_PACKAGE',
+    '/products/maint/sales-packages'
+);
+export const salesPackages = new ItemType(
+    'salesPackages',
+    'SALES_PACKAGES',
+    '/products/maint/sales-packages'
 );

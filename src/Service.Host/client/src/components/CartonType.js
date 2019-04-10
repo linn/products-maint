@@ -12,12 +12,11 @@ import {
 import Page from '../containers/Page';
 
 function CartonType({
-    initialise,
     loading,
     errorMessage,
     editStatus,
     item,
-    cartonTypeId,
+    itemId,
     updateCartonType,
     addCartonType,
     setEditStatus,
@@ -31,24 +30,6 @@ function CartonType({
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
-
-    useEffect(() => {
-        if (!creating()) {
-            initialise({ cartonTypeId });
-        }
-    }, [cartonTypeId]);
-
-    useEffect(() => {
-        if (creating() && errorMessage) {
-            history.push(`/products/maint/carton-types/create`);
-        }
-    }, [errorMessage, editStatus]);
-
-    useEffect(() => {
-        if (!creating()) {
-            initialise({ cartonTypeId });
-        }
-    }, [cartonTypeId]);
 
     useEffect(() => {
         if (!creating() && item !== prevCartonType) {
@@ -70,13 +51,10 @@ function CartonType({
 
     const handleSaveClick = () => {
         if (editing()) {
-            updateCartonType(cartonTypeId, cartonType);
+            updateCartonType(itemId, cartonType);
             setEditStatus('view');
         } else if (creating()) {
             addCartonType(cartonType);
-            if (!errorMessage) {
-                history.push(`/products/maint/carton-types/${cartonType.name}`);
-            }
         }
     };
 
@@ -90,9 +68,12 @@ function CartonType({
     };
 
     const handleFieldChange = (propertyName, newValue) => {
-        setEditStatus('edit');
+        if (editStatus === 'view') {
+            setEditStatus('edit');
+        }
         setCartonType({ ...cartonType, [propertyName]: newValue });
     };
+
     return (
         <Page>
             <Grid container spacing={24}>
@@ -132,6 +113,7 @@ function CartonType({
                                 }
                                 onChange={handleFieldChange}
                                 propertyName="name"
+                                maxLength={10}
                                 error={nameInvalid()}
                             />
                         </Grid>
@@ -142,6 +124,7 @@ function CartonType({
                                 fullWidth
                                 onChange={handleFieldChange}
                                 propertyName="description"
+                                maxLength={50}
                                 error={descriptionInvalid()}
                                 helperText={
                                     descriptionInvalid() ? 'Description cannot be empty' : ''
@@ -213,22 +196,20 @@ function CartonType({
 
 CartonType.defaultProps = {
     item: {},
-    initialise: null,
     loading: null,
     errorMessage: '',
-    cartonTypeId: null,
+    itemId: null,
     updateCartonType: null,
     snackbarVisible: false,
     addCartonType: null
 };
 
 CartonType.propTypes = {
-    initialise: PropTypes.func,
     item: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
-    cartonTypeId: PropTypes.string,
+    itemId: PropTypes.string,
     updateCartonType: PropTypes.func,
     addCartonType: PropTypes.func,
     setEditStatus: PropTypes.func.isRequired,

@@ -10,8 +10,9 @@ import Navigation from '../containers/Navigation';
 import MenuPage from '../containers/Menu';
 import App from './App';
 import Callback from '../containers/Callback';
-import Tariff from '../containers/Tariff';
-import Tariffs from '../containers/Tariffs';
+import Tariff from '../containers/tariffs/Tariff';
+import Tariffs from '../containers/tariffs/Tariffs';
+import CreateTariff from '../containers/tariffs/CreateTariff';
 import userManager from '../helpers/userManager';
 import EanCodesOptions from '../containers/reportOptions/EanCodesOptions';
 import EanCodes from '../containers/reports/EanCodes';
@@ -39,9 +40,10 @@ import CreateVatCode from '../containers/vatCodes/CreateVatCode';
 import 'typeface-roboto';
 import SalesArticles from '../containers/salesArticles/SalesArticles';
 import SalesArticle from '../containers/salesArticles/SalesArticle';
-import SaHoldStoriesSearch from '../containers/SaHoldStories/Search';
-import HoldStoriesBySalesArticle from '../containers/SaHoldStories/HoldStoriesBySalesArticle';
-import SaHoldStory from '../containers/SaHoldStories/SaHoldStory';
+import SaHoldStoriesSearch from '../containers/saHoldStories/Search';
+import SaHoldStoriesCreateSearch from '../containers/saHoldStories/CreateSearch';
+import HoldStoriesBySalesArticle from '../containers/saHoldStories/HoldStoriesBySalesArticle';
+import SaHoldStory from '../containers/saHoldStories/SaHoldStory';
 import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesOptions';
 import SalesArticleCoreTypes from '../containers/reports/SalesArticleCoreTypes';
 import SerialNumbers from '../containers/serialNumbers/SerialNumbers';
@@ -52,7 +54,11 @@ import CreateSernosSequence from '../containers/sernosSequences/CreateSernosSequ
 import ProductRanges from '../containers/productRanges/ProductRanges';
 import ProductRange from '../containers/productRanges/ProductRange';
 import CreateProductRange from '../containers/productRanges/CreateProductRange';
+import CreateSaHoldStory from '../containers/saHoldStories/CreateSaHoldStory';
 import ProductsOnHold from '../containers/reports/ProductsOnHold';
+import SalesPackages from '../containers/salesPackages/SalesPackages';
+import SalesPackage from '../containers/salesPackages/SalesPackage';
+import CreateSalesPackage from '../containers/salesPackages/CreateSalesPackage';
 
 const Root = ({ store }) => (
     <div>
@@ -84,6 +90,11 @@ const Root = ({ store }) => (
                             />
 
                             <Switch>
+                                <Route
+                                    exact
+                                    path="/products/maint/tariffs/create"
+                                    component={CreateTariff}
+                                />
                                 <Route
                                     exact
                                     path="/products/maint/tariffs/:id"
@@ -154,6 +165,25 @@ const Root = ({ store }) => (
                                     exact
                                     path="/products/maint/product-ranges/:id"
                                     component={ProductRange}
+                                />
+                            </Switch>
+
+                            <Switch>
+                                <Route
+                                    exact
+                                    path="/products/maint/sales-packages/create"
+                                    component={CreateSalesPackage}
+                                />
+
+                                <Route
+                                    exact
+                                    path="/products/maint/sales-packages/:id"
+                                    component={SalesPackage}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/sales-packages"
+                                    component={SalesPackages}
                                 />
                             </Switch>
 
@@ -328,6 +358,16 @@ const Root = ({ store }) => (
                                 exact
                                 path="/products/reports/products-on-hold"
                                 component={ProductsOnHold}
+                            />
+                            <Route
+                                exact
+                                path="/products/maint/put-product-on-hold"
+                                component={SaHoldStoriesCreateSearch}
+                            />
+                            <Route
+                                exact
+                                path="/products/maint/put-product-on-hold/:articleNumber"
+                                component={CreateSaHoldStory}
                             />
                             <Route exact path="/:sectionId" component={MenuPage} />
                         </div>

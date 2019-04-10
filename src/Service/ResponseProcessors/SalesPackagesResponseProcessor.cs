@@ -6,6 +6,8 @@
     using Linn.Common.Nancy.Facade;
     using Linn.Products.Domain.Linnapps.SalesPackages;
 
+    using PagedList.Core;
+
     public class SalesPackagesResponseProcessor : JsonResponseProcessor<IEnumerable<SalesPackage>>
     {
         public SalesPackagesResponseProcessor(IResourceBuilder<IEnumerable<SalesPackage>> resourceBuilder)

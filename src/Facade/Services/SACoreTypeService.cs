@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Facade.Services
 {
     using System;
+    using System.Linq.Expressions;
 
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
@@ -35,6 +36,11 @@
                 resource.LookAheadDays,
                 resource.SortOrder,
                 resource.TriggerLevel);
+        }
+
+        protected override Expression<Func<SaCoreType, bool>> SearchExpression(string searchTerm)
+        {
+            throw new NotImplementedException();
         }
     }
 }

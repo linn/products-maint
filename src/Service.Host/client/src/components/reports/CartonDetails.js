@@ -16,6 +16,7 @@ const CartonDetails = ({ reportData, loading }) => (
                 <ReportTable
                     reportData={reportData}
                     showTotals={false}
+                    showRowTitles
                     placeholderRows={10}
                     placeholderColumns={3}
                     showTitle={false}

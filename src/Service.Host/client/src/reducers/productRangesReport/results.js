@@ -1,7 +1,7 @@
-﻿import reportResults from '../reducerFactories/reportResults';
-import * as actionTypes from '../../actions';
+﻿import { productRangesReportActionTypes as actionTypes } from '../../actions';
+import results from '../reducerFactories/reportResultsFactory';
+import * as reportTypes from '../../reportTypes';
 
-export default reportResults(
-    actionTypes.REQUEST_PRODUCT_RANGES_REPORT,
-    actionTypes.RECEIVE_PRODUCT_RANGES_REPORT
-);
+const defaultState = { loading: false, data: null };
+
+export default results(reportTypes.productRangesReport.actionType, actionTypes, defaultState);

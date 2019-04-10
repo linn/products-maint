@@ -23,6 +23,7 @@
             return this.serviceDbContext.SalesArticles
                 .Where(b => b.ArticleNumber == key)
                 .Include(a => a.SaCoreType)
+                .Include(a => a.HoldStories)
                 .ToList().First();
         }
 

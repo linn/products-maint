@@ -33,5 +33,7 @@
         public string ForecastType { get; set; }
 
         public string ArticleType { get; set; }
+
+        public bool OnHold { get; set; }
     }
 }

@@ -10,6 +10,8 @@
     using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Facade.ResourceBuilders;
 
+    using PagedList.Core;
+
     public class ResponsesModule : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -42,6 +44,8 @@
             builder.RegisterType<SerialNumbersResourceBuilder>().As<IResourceBuilder<IEnumerable<SerialNumber>>>();
             builder.RegisterType<SernosNoteResourceBuilder>().As<IResourceBuilder<SernosNote>>();
             builder.RegisterType<SernosNotesResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosNote>>>();
+            builder.RegisterType<SalesPackagesPaginatedResourceBuilder>()
+                .As<IResourceBuilder<IPagedList<SalesPackage>>>();
         }
     }
 }

@@ -1,20 +1,21 @@
 import { connect } from 'react-redux';
 import SaCoreType from '../../components/SaCoreType';
+import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import saCoreTypeActions from '../../actions/saCoreTypeActions';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import saCoreTypeSelectors from '../../selectors/saCoreTypeSelectors';
 
 const mapStateToProps = (state, { match }) => ({
     item: saCoreTypeSelectors.getItem(state),
-    saCoreTypeId: match.params.coreType,
+    itemId: match.params.coreType,
     editStatus: saCoreTypeSelectors.getEditStatus(state),
     loading: saCoreTypeSelectors.getLoading(state),
     snackbarVisible: saCoreTypeSelectors.getSnackbarVisible(state),
     errorMessage: getSingleErrorMessage(state)
 });
 
-const initialise = ({ saCoreTypeId }) => dispatch => {
-    dispatch(saCoreTypeActions.fetch(saCoreTypeId));
+const initialise = ({ itemId }) => dispatch => {
+    dispatch(saCoreTypeActions.fetch(itemId));
 };
 
 const mapDispatchToProps = {
@@ -28,4 +29,4 @@ const mapDispatchToProps = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(SaCoreType);
+)(initialiseOnMount(SaCoreType));

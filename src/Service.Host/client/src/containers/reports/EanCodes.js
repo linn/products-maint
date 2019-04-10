@@ -2,16 +2,18 @@
 import queryString from 'query-string';
 import EanCodes from '../../components/reports/EanCodes';
 import initialiseOnMount from '../common/initialiseOnMount';
-import fetchEanCodesReport from '../../actions/eanCodesReport';
+import actions from '../../actions/eanCodesReport';
 import config from '../../config';
 import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
+import * as reportTypes from '../../reportTypes';
 
-const reportName = 'eanCodesReport';
+const reportName = reportTypes.eanCodesReport.item;
+
 const getOptions = ownProps => {
-    const query = ownProps.location.search
+    const options = ownProps.location.search
         ? queryString.parse(ownProps.location.search)
         : { includePhasedOut: false, cartonisedOnly: true };
-    return query;
+    return options;
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -22,7 +24,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const initialise = ({ options }) => dispatch => {
-    dispatch(fetchEanCodesReport(options.includePhasedOut, options.cartonisedOnly));
+    dispatch(actions.fetchReport(options));
 };
 
 const mapDispatchToProps = {

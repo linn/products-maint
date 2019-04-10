@@ -17,6 +17,7 @@
                 TariffCode = tariff.TariffCode,
                 Description = tariff.Description,
                 USTariffCode = tariff.USTariffCode,
+                Id = tariff.Id,
                 Duty = tariff.Duty,
                 DateInvalid = tariff.DateInvalid?.ToString("o"),
                 Links = this.BuildLinks(tariff).ToArray()
@@ -28,6 +29,16 @@
         private IEnumerable<LinkResource> BuildLinks(Tariff tariff)
         {
             yield return new LinkResource("self", this.GetLocation(tariff));
+
+            if (tariff.EnteredBy.HasValue)
+            {
+                yield return new LinkResource("entered-by", $"/employees/{tariff.EnteredBy}");
+            }
+
+            if (tariff.ChangedBy.HasValue)
+            {
+                yield return new LinkResource("changed-by", $"/employees/{tariff.ChangedBy}");
+            }
         }
     }
 }

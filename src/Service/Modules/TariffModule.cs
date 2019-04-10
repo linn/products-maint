@@ -1,18 +1,25 @@
 ﻿namespace Linn.Products.Service.Modules
 {
-    using Linn.Products.Facade.Services;
+    using Linn.Common.Facade;
+    using Linn.Common.Resources;
+    using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
+    using Linn.Products.Service.Extensions;
+    using Linn.Products.Resources.Validators;
     using Linn.Products.Service.Models;
+
     using Nancy;
     using Nancy.ModelBinding;
+    using Nancy.Security;
 
     public sealed class TariffModule : NancyModule
     {
-        private readonly ITariffService tariffService;
+        private readonly IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService;
 
-        public TariffModule(ITariffService tariffService)
+        public TariffModule(IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService)
         {
             this.tariffService = tariffService;
+
             this.Get("/products/maint/tariffs", _ => this.GetTariffs());
             this.Get("/products/maint/tariffs/{id:int}", parameters => this.GetTariff(parameters.id));
             this.Put("/products/maint/tariffs/{id:int}", parameters => this.UpdateTariff(parameters.id));
@@ -21,36 +28,44 @@
 
         private object GetTariffs()
         {
-            var resource = this.Bind<TariffQueryResource>();
-            var tariffs = this.tariffService.GetTariffs(resource.SearchTerm);
+            var resource = this.Bind<QueryResource>();
+            var tariffs = string.IsNullOrEmpty(resource.SearchTerm)
+                              ? this.tariffService.GetAll()
+                              : this.tariffService.Search(resource.SearchTerm);
 
-            return this.Negotiate.WithModel(tariffs)
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+            return this.Negotiate.WithModel(tariffs).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
 
         private object GetTariff(int id)
         {
-            var tariff = this.tariffService.GetTariff(id);
-            return this.Negotiate.WithModel(tariff)
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+            var tariff = this.tariffService.GetById(id);
+            return this.Negotiate.WithModel(tariff).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
 
         private object UpdateTariff(int id)
         {
+            this.RequiresAuthentication();
+            var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
+
             var resource = this.Bind<TariffResource>();
-            var tariff = this.tariffService.UpdateTariff(id, resource);
+            resource.Links = new[] { new LinkResource("changed-by", employeeUri) };
+            var tariff = this.tariffService.Update(id, resource);
             return this.Negotiate.WithModel(tariff);
         }
 
         private object AddTariff()
         {
+            this.RequiresAuthentication();
+            var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
             var resource = this.Bind<TariffResource>();
-
-            var result = this.tariffService.AddTariff(resource);
-
-            return this.Negotiate.WithModel(result);
+            resource.Links = new[] { new LinkResource("entered-by", employeeUri) };
+            var validator = new TariffValidator();
+            var results = validator.Validate(resource);
+            return validator.Validate(resource).IsValid
+                       ? this.Negotiate.WithModel(this.tariffService.Add(resource))
+                       : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
         }
     }
 }
