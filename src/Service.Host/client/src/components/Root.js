@@ -40,21 +40,20 @@ import CreateVatCode from '../containers/vatCodes/CreateVatCode';
 import 'typeface-roboto';
 import SalesArticles from '../containers/salesArticles/SalesArticles';
 import SalesArticle from '../containers/salesArticles/SalesArticle';
-import SaHoldStoriesSearch from '../containers/saHoldStories/Search';
-import SaHoldStoriesCreateSearch from '../containers/saHoldStories/CreateSearch';
-import HoldStoriesBySalesArticle from '../containers/saHoldStories/HoldStoriesBySalesArticle';
-import SaHoldStory from '../containers/saHoldStories/SaHoldStory';
+import SaHoldStoriesSearch from '../containers/SaHoldStories/Search';
+import SaHoldStoriesCreateSearch from '../containers/SaHoldStories/CreateSearch';
+import HoldStoriesBySalesArticle from '../containers/SaHoldStories/HoldStoriesBySalesArticle';
+import SaHoldStory from '../containers/SaHoldStories/SaHoldStory';
 import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesOptions';
 import SalesArticleCoreTypes from '../containers/reports/SalesArticleCoreTypes';
 import SerialNumbers from '../containers/serialNumbers/SerialNumbers';
 import SernosSequences from '../containers/sernosSequences/SernosSequences';
 import SernosSequence from '../containers/sernosSequences/SernosSequence';
-import AmendSerialNumber from '../containers/serialNumbers/AmendSerialNumber';
 import CreateSernosSequence from '../containers/sernosSequences/CreateSernosSequence';
 import ProductRanges from '../containers/productRanges/ProductRanges';
 import ProductRange from '../containers/productRanges/ProductRange';
 import CreateProductRange from '../containers/productRanges/CreateProductRange';
-import CreateSaHoldStory from '../containers/saHoldStories/CreateSaHoldStory';
+import CreateSaHoldStory from '../containers/SaHoldStories/CreateSaHoldStory';
 import ProductsOnHold from '../containers/reports/ProductsOnHold';
 import SalesPackages from '../containers/salesPackages/SalesPackages';
 import SalesPackage from '../containers/salesPackages/SalesPackage';
@@ -210,11 +209,6 @@ const Root = ({ store }) => (
                                     exact
                                     path="/products/maint/serial-numbers"
                                     component={SerialNumbers}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/serial-numbers/:sernosTRef"
-                                    component={AmendSerialNumber}
                                 />
                             </Switch>
 

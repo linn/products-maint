@@ -98,10 +98,14 @@ function SerialNumber({ serialNumber, item, updateSernosNote, addSernosNote }) {
 }
 
 SerialNumber.propTypes = {
+    item: PropTypes.shape({}),
     serialNumber: PropTypes.shape({}).isRequired,
-    item: PropTypes.shape({}).isRequired,
     updateSernosNote: PropTypes.func.isRequired,
     addSernosNote: PropTypes.func.isRequired
+};
+
+SerialNumber.defaultProps = {
+    item: {}
 };
 
 export default SerialNumber;

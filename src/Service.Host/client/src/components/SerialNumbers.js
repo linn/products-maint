@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Dropdown, Loading, Title } from '@linn-it/linn-form-components-library';
+import { Dropdown, Loading, Title, SnackbarMessage } from '@linn-it/linn-form-components-library';
 import {
     TextField,
     InputAdornment,
@@ -20,8 +20,12 @@ function SerialNumbers({
     loading,
     fetchItems,
     sernosNotes,
+    snackbarVisible,
+    sernosNoteLoading,
+    sernosNotesLoading,
     addSernosNote,
-    updateSernosNote
+    updateSernosNote,
+    setSnackbarVisible
 }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [salesArticles, setSalesArticles] = useState([]);
@@ -98,45 +102,53 @@ function SerialNumbers({
                 }}
             />
 
-            {loading && <Loading />}
+            {loading || sernosNoteLoading || sernosNotesLoading ? (
+                <Loading />
+            ) : (
+                items.length > 0 && (
+                    <Fragment>
+                        <SnackbarMessage
+                            visible={snackbarVisible}
+                            onClose={() => setSnackbarVisible(false)}
+                            message="Save Successful"
+                        />
 
-            {!loading && items.length > 0 && (
-                <Fragment>
-                    <Dropdown
-                        value={selectedArticle}
-                        label=""
-                        fullWidth
-                        items={salesArticles}
-                        onChange={handleSalesArticleChange}
-                        propertyName="serialNumbered"
-                    />
+                        <Dropdown
+                            value={selectedArticle || ''}
+                            label="Article Number"
+                            fullWidth
+                            items={salesArticles.length ? salesArticles : ['']}
+                            onChange={handleSalesArticleChange}
+                            propertyName="serialNumbered"
+                        />
 
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Date </TableCell>
-                                <TableCell align="right">Trans</TableCell>
-                                <TableCell align="right">Document</TableCell>
-                                <TableCell align="right">Article No</TableCell>
-                                <TableCell align="right">Comments</TableCell>
-                                <TableCell />
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {items
-                                .filter(item => item.articleNumber === selectedArticle)
-                                .map(item => (
-                                    <SerialNumber
-                                        key={item.sernosTRef}
-                                        serialNumber={item}
-                                        item={getSernosNote(sernosNotes, item)}
-                                        addSernosNote={addSernosNote}
-                                        updateSernosNote={updateSernosNote}
-                                    />
-                                ))}
-                        </TableBody>
-                    </Table>
-                </Fragment>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Date </TableCell>
+                                    <TableCell align="right">Trans</TableCell>
+                                    <TableCell align="right">Document</TableCell>
+                                    <TableCell align="right">Article No</TableCell>
+                                    <TableCell align="right">Comments</TableCell>
+                                    <TableCell />
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {items
+                                    .filter(item => item.articleNumber === selectedArticle)
+                                    .map(item => (
+                                        <SerialNumber
+                                            key={item.sernosTRef}
+                                            serialNumber={item}
+                                            item={getSernosNote(sernosNotes, item)}
+                                            addSernosNote={addSernosNote}
+                                            updateSernosNote={updateSernosNote}
+                                        />
+                                    ))}
+                            </TableBody>
+                        </Table>
+                    </Fragment>
+                )
             )}
 
             {!loading && searchTerm && !items.length && <Typography>No matching items</Typography>}
@@ -149,12 +161,19 @@ SerialNumbers.propTypes = {
     loading: PropTypes.bool.isRequired,
     fetchItems: PropTypes.func.isRequired,
     sernosNotes: PropTypes.arrayOf(PropTypes.shape({})),
+    sernosNoteLoading: PropTypes.bool,
+    sernosNotesLoading: PropTypes.bool,
+    snackbarVisible: PropTypes.bool,
     addSernosNote: PropTypes.func.isRequired,
-    updateSernosNote: PropTypes.func.isRequired
+    updateSernosNote: PropTypes.func.isRequired,
+    setSnackbarVisible: PropTypes.func.isRequired
 };
 
 SerialNumbers.defaultProps = {
-    sernosNotes: []
+    sernosNotes: [],
+    sernosNoteLoading: false,
+    sernosNotesLoading: false,
+    snackbarVisible: false
 };
 
 export default SerialNumbers;

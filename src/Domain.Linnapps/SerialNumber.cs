@@ -3,7 +3,6 @@
     using System;
 
     using Linn.Common.Domain.Exceptions;
-    using Linn.Products.Domain.Linnapps.Products;
 
     public class SerialNumber
     {

@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import queryString from 'query-string';
 import SerialNumbers from '../../components/SerialNumbers';
 import initialiseOnMount from '../common/initialiseOnMount';
 import serialNumbersActions from '../../actions/serialNumbersActions';
@@ -8,28 +7,24 @@ import salesArticlesSelectors from '../../selectors/salesArticlesSelectors';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import serialNumbersSelectors from '../../selectors/serialNumbersSelectors';
 import sernosNotesSelectors from '../../selectors/sernosNotesSelectors';
+import sernosNoteSelectors from '../../selectors/sernosNoteSelectors';
 
 const mapStateToProps = state => ({
     items: serialNumbersSelectors.getItems(state),
     loading: serialNumbersSelectors.getLoading(state),
     errorMessage: getSingleErrorMessage(state),
     salesArticles: salesArticlesSelectors.getItems(state),
-    sernosNotes: sernosNotesSelectors.getItems(state)
+    sernosNotes: sernosNotesSelectors.getItems(state),
+    snackbarVisible: sernosNoteSelectors.getSnackbarVisible(state),
+    sernosNoteLoading: sernosNoteSelectors.getLoading(state),
+    sernosNotesLoading: sernosNotesSelectors.getLoading(state)
 });
 
-const initialise = props => dispatch => {
-    const { sernosNumber } = queryString.parse(props.location.search);
-
-    if (sernosNumber) {
-        dispatch(serialNumbersActions.fetchByQueryString('sernosNumber', sernosNumber));
-    }
-};
-
 const mapDispatchToProps = {
-    initialise,
     fetchItems: serialNumbersActions.fetchByQueryString,
     addSernosNote: sernosNoteActions.add,
-    updateSernosNote: sernosNoteActions.update
+    updateSernosNote: sernosNoteActions.update,
+    setSnackbarVisible: sernosNoteActions.setSnackbarVisible
 };
 
 export default connect(

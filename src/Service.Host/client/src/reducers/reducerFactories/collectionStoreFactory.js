@@ -20,7 +20,6 @@ export default function(
             case actionTypes[`REQUEST_${itemRoot}`]:
                 return {
                     ...state,
-                    // TODO check nothing is dependant on this not being cleared
                     item: {},
                     loading: true
                 };
