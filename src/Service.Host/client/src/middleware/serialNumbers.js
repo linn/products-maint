@@ -1,18 +1,21 @@
 import * as actionTypes from '../actions';
 import sernosNotesActions from '../actions/sernosNotesActions';
 
+const fetchSernosNotes = (sernosNumber, dispatch) => {
+    const sernosNotesHref = `/products/maint/serial-numbers/notes?sernosNumber=${sernosNumber}`;
+    dispatch(sernosNotesActions.fetchByHref(sernosNotesHref));
+};
+
 const fetchSernosNotesFromSerialNumber = (data, dispatch) => {
     if (data.length) {
         const { sernosNumber } = data[0];
-        const sernosNotesHref = `/products/maint/serial-numbers/notes?sernosNumber=${sernosNumber}`;
-        dispatch(sernosNotesActions.fetchByHref(sernosNotesHref));
+        fetchSernosNotes(sernosNumber, dispatch);
     }
 };
 
 const fetchSernosNoteFromSernosNote = (data, dispatch) => {
     const { sernosNumber } = data;
-    const sernosNotesHref = `/products/maint/serial-numbers/notes?sernosNumber=${sernosNumber}`;
-    dispatch(sernosNotesActions.fetchByHref(sernosNotesHref));
+    fetchSernosNotes(sernosNumber, dispatch);
 };
 
 export default ({ dispatch }) => next => action => {

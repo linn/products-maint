@@ -12,7 +12,7 @@ import {
     TableBody
 } from '@material-ui/core';
 import { getSernosNote } from '../selectors/sernosNotesSelectors';
-import SerialNumber from './SerialNumber';
+import SernosNote from './SernosNote';
 import Page from '../containers/Page';
 
 function SerialNumbers({
@@ -137,7 +137,7 @@ function SerialNumbers({
                                 {items
                                     .filter(item => item.articleNumber === selectedArticle)
                                     .map(item => (
-                                        <SerialNumber
+                                        <SernosNote
                                             key={item.sernosTRef}
                                             serialNumber={item}
                                             item={getSernosNote(sernosNotes, item)}

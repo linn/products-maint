@@ -8,7 +8,7 @@ import { InputField } from '@linn-it/linn-form-components-library';
 import moment from 'moment';
 import { getSelfHref } from '../helpers/utilities';
 
-function SerialNumber({ serialNumber, item, updateSernosNote, addSernosNote }) {
+function SernosNote({ serialNumber, item, updateSernosNote, addSernosNote }) {
     const [editing, setEditing] = useState(false);
     const [sernosNote, setSernosNote] = useState({});
     const [prevSernosNote, setPrevSernosNote] = useState({});
@@ -97,15 +97,15 @@ function SerialNumber({ serialNumber, item, updateSernosNote, addSernosNote }) {
     );
 }
 
-SerialNumber.propTypes = {
+SernosNote.propTypes = {
     item: PropTypes.shape({}),
     serialNumber: PropTypes.shape({}).isRequired,
     updateSernosNote: PropTypes.func.isRequired,
     addSernosNote: PropTypes.func.isRequired
 };
 
-SerialNumber.defaultProps = {
+SernosNote.defaultProps = {
     item: {}
 };
 
-export default SerialNumber;
+export default SernosNote;
