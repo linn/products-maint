@@ -1,6 +1,7 @@
 ﻿const path = require('path');
 
 module.exports = {
+    mode: 'production',
     entry: {
         app: ['babel-polyfill', './client/src/index.js'],
         'silent-renew': './client/silent-renew/index.js'
@@ -67,7 +68,6 @@ module.exports = {
             }
         ]
     },
-    devtool: 'source-map' // enum
+    devtool: 'cheap-source-map' // enum
     // enhance debugging by adding meta info for the browser devtools
-    // source-map most detailed at the expense of build speed.
 };
