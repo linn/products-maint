@@ -16,7 +16,7 @@
 
     using NUnit.Framework;
 
-    public class WhenAddingSaHoldStory : ContextBase
+    public class WhenUpdatingSaHoldStory : ContextBase
     {
         private SaHoldStoryResource requestResource;
 
@@ -25,11 +25,9 @@
         {
             this.requestResource = new SaHoldStoryResource
                                        {
-                                           SalesArticle = "KLIMAX/NTK",
-                                           HoldStoryId = 1,
-                                           DateStarted = new DateTime().ToShortDateString(),
-                                           PutOnHoldByEmployee = "Employee",
-                                           ReasonStarted = "reason"
+                                           DateFinished = new DateTime().ToShortDateString(),
+                                           TakenOffHoldByEmployee = "Employee",
+                                           ReasonFinished = "test"
                                        };
             var holdStory = new SaHoldStory
                                 {
@@ -41,17 +39,27 @@
                                     ReasonStarted = "reason"
                                 };
 
-            this.SaHoldStoryService.Add(Arg.Any<SaHoldStoryResource>())
-                .Returns(new SuccessResult<SaHoldStory>(holdStory));
+            this.SaHoldStoryService.Update(1, Arg.Any<SaHoldStoryResource>())
+                .Returns(new SuccessResult<SaHoldStory>(holdStory)
+                {
+                    Data = new SaHoldStory
+                               {
+                                   HoldStoryId = 1,
+                                   SalesArticle = new SalesArticle { ArticleNumber = "KLIMAX/NTK" },
+                                   PutOnHoldByEmployee = new Employee { Id = 1, FullName = "Employee" },
+                                   TakenOffHoldByEmployee = new Employee { Id = 1, FullName = "Employee" },
+                                   ReasonFinished = "test"
+                    }
+                });
 
-            this.Response = this.Browser.Post(
-                "/products/maint/sa-hold-stories",
+            this.Response = this.Browser.Put(
+                "/products/maint/sa-hold-stories/1",
                 with =>
-                    {
-                        with.Header("Accept", "application/json");
-                        with.Header("Content-Type", "application/json");
-                        with.JsonBody(this.requestResource);
-                    }).Result;
+                {
+                    with.Header("Accept", "application/json");
+                    with.Header("Content-Type", "application/json");
+                    with.JsonBody(this.requestResource);
+                }).Result;
         }
 
         [Test]
@@ -63,8 +71,9 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SaHoldStoryService.Received().Add(
-                Arg.Is<SaHoldStoryResource>(r => r.HoldStoryId == this.requestResource.HoldStoryId));
+            this.SaHoldStoryService.Received().Update(
+                1,
+                Arg.Is<SaHoldStoryResource>(r => r.ReasonFinished == this.requestResource.ReasonFinished));
         }
 
         [Test]
@@ -72,6 +81,7 @@
         {
             var resource = this.Response.Body.DeserializeJson<SaHoldStoryResource>();
             resource.HoldStoryId.Should().Be(1);
+            resource.ReasonFinished.Should().Be("test");
         }
     }
 }

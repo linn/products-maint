@@ -42,8 +42,8 @@ import SalesArticles from '../containers/salesArticles/SalesArticles';
 import SalesArticle from '../containers/salesArticles/SalesArticle';
 import SaHoldStoriesSearch from '../containers/saHoldStories/Search';
 import SaHoldStoriesCreateSearch from '../containers/saHoldStories/CreateSearch';
-import HoldStoriesBySalesArticle from '../containers/saHoldStories/HoldStoriesBySalesArticle';
 import SaHoldStory from '../containers/saHoldStories/SaHoldStory';
+import CloseSaHoldStory from '../containers/saHoldStories/CloseSaHoldStory';
 import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesOptions';
 import SalesArticleCoreTypes from '../containers/reports/SalesArticleCoreTypes';
 import SernosSequences from '../containers/sernosSequences/SernosSequences';
@@ -326,16 +326,6 @@ const Root = ({ store }) => (
                             />
                             <Route
                                 exact
-                                path="/products/reports/sa-hold-stories-for-sales-article/:articleNumber"
-                                component={HoldStoriesBySalesArticle}
-                            />
-                            <Route
-                                exact
-                                path="/products/reports/sa-hold-stories-for-sales-article"
-                                render={() => <Redirect to="/products/reports/sa-hold-stories" />}
-                            />
-                            <Route
-                                exact
                                 path="/products/reports/sa-hold-stories/:holdStoryId"
                                 component={SaHoldStory}
                             />
@@ -353,6 +343,11 @@ const Root = ({ store }) => (
                                 exact
                                 path="/products/maint/put-product-on-hold/:articleNumber"
                                 component={CreateSaHoldStory}
+                            />
+                            <Route
+                                exact
+                                path="/products/maint/close-hold-story/:holdStoryId"
+                                component={CloseSaHoldStory}
                             />
                             <Route exact path="/:sectionId" component={MenuPage} />
                         </div>
