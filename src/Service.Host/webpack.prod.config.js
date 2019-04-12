@@ -1,12 +1,9 @@
 ﻿const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
+    mode: 'production',
     entry: {
-        app: [
-            'babel-polyfill',
-            './client/src/index.js'
-        ],
+        app: ['babel-polyfill', './client/src/index.js'],
         'silent-renew': './client/silent-renew/index.js'
     },
     output: {
@@ -17,14 +14,7 @@ module.exports = {
     module: {
         rules: [
             {
-                exclude: [
-                    /\.html$/,
-                    /\.(js|jsx)$/,
-                    /\.css$/,
-                    /\.scss$/,
-                    /\.json$/,
-                    /\.svg$/
-                ],
+                exclude: [/\.html$/, /\.(js|jsx)$/, /\.css$/, /\.scss$/, /\.json$/, /\.svg$/],
                 use: {
                     loader: 'url-loader',
                     query: {
@@ -78,7 +68,6 @@ module.exports = {
             }
         ]
     },
-    devtool: 'source-map' // enum
+    devtool: 'cheap-source-map' // enum
     // enhance debugging by adding meta info for the browser devtools
-    // source-map most detailed at the expense of build speed.
 };
