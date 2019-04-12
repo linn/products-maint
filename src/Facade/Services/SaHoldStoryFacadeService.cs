@@ -48,10 +48,9 @@
         protected override void UpdateFromResource(SaHoldStory entity, SaHoldStoryResource updateResource)
         {
             var employeeUri = updateResource.Links.FirstOrDefault(l => l.Rel == "taken-off-hold-by")?.Href;
-            entity.Update(
-                DateTime.Parse(updateResource.DateFinished), 
-                updateResource.ReasonFinished, 
-                this.employeeRepository.FindById((int)employeeUri.ParseId()));
+            entity.DateFinished = DateTime.Parse(updateResource.DateFinished);
+            entity.ReasonFinished = updateResource.ReasonFinished;
+            entity.PutOnHoldByEmployee = this.employeeRepository.FindById((int)employeeUri.ParseId());
         }
 
         protected override Expression<Func<SaHoldStory, bool>> SearchExpression(string searchTerm)
