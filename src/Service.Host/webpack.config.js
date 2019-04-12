@@ -2,6 +2,7 @@
 const webpack = require('webpack');
 
 module.exports = {
+    mode: 'development',
     entry: {
         app: [
             'babel-polyfill',

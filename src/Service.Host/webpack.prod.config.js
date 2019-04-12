@@ -1,12 +1,8 @@
 ﻿const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        app: [
-            'babel-polyfill',
-            './client/src/index.js'
-        ],
+        app: ['babel-polyfill', './client/src/index.js'],
         'silent-renew': './client/silent-renew/index.js'
     },
     output: {
@@ -17,14 +13,7 @@ module.exports = {
     module: {
         rules: [
             {
-                exclude: [
-                    /\.html$/,
-                    /\.(js|jsx)$/,
-                    /\.css$/,
-                    /\.scss$/,
-                    /\.json$/,
-                    /\.svg$/
-                ],
+                exclude: [/\.html$/, /\.(js|jsx)$/, /\.css$/, /\.scss$/, /\.json$/, /\.svg$/],
                 use: {
                     loader: 'url-loader',
                     query: {
