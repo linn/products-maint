@@ -141,7 +141,7 @@ function SaHoldStory({
                         ) : (
                             <Fragment />
                         )}
-                        {viewing() || creating() ? (
+                        {!editing() ? (
                             <Grid item xs={6}>
                                 <InputField
                                     value={saHoldStory.reasonStarted}
@@ -153,9 +153,7 @@ function SaHoldStory({
                                     fullWidth
                                     error={!saHoldStory.reasonStarted}
                                     helperText={
-                                        !saHoldStory.reasonStarted
-                                            ? 'You must provide a reason'
-                                            : ''
+                                        !saHoldStory.reasonStarted && 'You must provide a reason'
                                     }
                                 />
                             </Grid>
@@ -189,9 +187,7 @@ function SaHoldStory({
                                     propertyName="reasonFinished"
                                     error={editing() && !saHoldStory.reasonFinished}
                                     helperText={
-                                        !saHoldStory.reasonFinished
-                                            ? 'You must provide a reason'
-                                            : ''
+                                        !saHoldStory.reasonFinished && 'You must provide a reason'
                                     }
                                 />
                             </Grid>
