@@ -153,7 +153,9 @@ function SaHoldStory({
                                     fullWidth
                                     error={!saHoldStory.reasonStarted}
                                     helperText={
-                                        !saHoldStory.reasonStarted && 'You must provide a reason'
+                                        !saHoldStory.reasonStarted
+                                            ? 'You must provide a reason'
+                                            : ''
                                     }
                                 />
                             </Grid>
@@ -187,7 +189,9 @@ function SaHoldStory({
                                     propertyName="reasonFinished"
                                     error={editing() && !saHoldStory.reasonFinished}
                                     helperText={
-                                        !saHoldStory.reasonFinished && 'You must provide a reason'
+                                        !saHoldStory.reasonFinished
+                                            ? 'You must provide a reason'
+                                            : ''
                                     }
                                 />
                             </Grid>

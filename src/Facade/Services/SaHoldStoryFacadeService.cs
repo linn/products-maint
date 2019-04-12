@@ -50,7 +50,7 @@
             var employeeUri = updateResource.Links.FirstOrDefault(l => l.Rel == "taken-off-hold-by")?.Href;
             entity.DateFinished = DateTime.Parse(updateResource.DateFinished);
             entity.ReasonFinished = updateResource.ReasonFinished;
-            entity.PutOnHoldByEmployee = this.employeeRepository.FindById((int)employeeUri.ParseId());
+            entity.TakenOffHoldByEmployee = this.employeeRepository.FindById((int)employeeUri.ParseId());
         }
 
         protected override Expression<Func<SaHoldStory, bool>> SearchExpression(string searchTerm)
