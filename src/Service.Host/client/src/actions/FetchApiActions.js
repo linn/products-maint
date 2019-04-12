@@ -3,21 +3,19 @@ import config from '../config';
 import * as sharedActionTypes from './index';
 
 export default function FetchApiActions(actionTypeRoot, uri, actionTypes) {
-    const responseTypes = [
-        {
-            type: actionTypes[`REQUEST_${actionTypeRoot}`],
-            payload: {}
-        },
-        {
-            type: actionTypes[`RECEIVE_${actionTypeRoot}`],
-            payload: async (action, state, res) => ({ data: await res.json() })
-        },
-        {
-            type: sharedActionTypes.FETCH_ERROR,
-            payload: (action, state, res) =>
-                res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
-        }
-    ];
+    const requestedResponse = {
+        type: actionTypes[`REQUEST_${actionTypeRoot}`],
+        payload: {}
+    };
+    const receivedResponse = {
+        type: actionTypes[`RECEIVE_${actionTypeRoot}`],
+        payload: async (action, state, res) => ({ data: await res.json() })
+    };
+    const errorResponse = {
+        type: sharedActionTypes.FETCH_ERROR,
+        payload: (action, state, res) =>
+            res ? `Error - ${res.status} ${res.statusText}` : `Network request failed`
+    };
 
     this.fetch = () => ({
         [CALL_API]: {
@@ -27,7 +25,7 @@ export default function FetchApiActions(actionTypeRoot, uri, actionTypes) {
             headers: {
                 Accept: 'application/json'
             },
-            types: responseTypes
+            types: [requestedResponse, receivedResponse, errorResponse]
         }
     });
 
@@ -39,7 +37,7 @@ export default function FetchApiActions(actionTypeRoot, uri, actionTypes) {
             headers: {
                 Accept: 'application/json'
             },
-            types: responseTypes
+            types: [requestedResponse, receivedResponse, errorResponse]
         }
     });
 
@@ -51,7 +49,17 @@ export default function FetchApiActions(actionTypeRoot, uri, actionTypes) {
             headers: {
                 Accept: 'application/json'
             },
-            types: responseTypes
+            types: [
+                {
+                    type: actionTypes[`REQUEST_SEARCH_${actionTypeRoot}`],
+                    payload: {}
+                },
+                {
+                    type: actionTypes[`RECEIVE_SEARCH_${actionTypeRoot}`],
+                    payload: async (action, state, res) => ({ data: await res.json() })
+                },
+                errorResponse
+            ]
         }
     });
 
