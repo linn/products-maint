@@ -2,9 +2,9 @@
 {
     using FluentValidation;
 
-    public class SerialNumberValidator : AbstractValidator<SerialNumberResource>
+    public class SerialNumberResourceValidator : AbstractValidator<SerialNumberResource>
     {
-        public SerialNumberValidator()
+        public SerialNumberResourceValidator()
         {
             this.RuleFor(serialNumber => serialNumber.SernosGroup)
                 .NotNull().WithMessage("Serial Number must have a Sernos Group")

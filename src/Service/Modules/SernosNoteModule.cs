@@ -2,6 +2,7 @@
 {
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
+    using Linn.Products.Resources.Validators;
     using Linn.Products.Service.Models;
 
     using Nancy;
@@ -41,18 +42,24 @@
         {
             var resource = this.Bind<SernosNoteCreateResource>();
 
-            var result = this.sernosNoteService.Add(resource);
-            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                .WithView("Index");
+            var validator = new SernosNoteCreateResourceValidator();
+
+            return validator.Validate(resource).IsValid
+                       ? this.Negotiate.WithModel(this.sernosNoteService.Add(resource))
+                           .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                       : this.Negotiate.WithModel(resource).WithStatusCode(HttpStatusCode.BadRequest);
         }
 
         private object UpdateSernosNote(int id)
         {
             var resource = this.Bind<SernosNoteResource>();
 
-            var result = this.sernosNoteService.Update(id, resource);
-            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                .WithView("Index");
+            var validator = new SernosNoteResourceValidator();
+
+            return validator.Validate(resource).IsValid
+                       ? this.Negotiate.WithModel(this.sernosNoteService.Update(id, resource))
+                           .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index")
+                       : this.Negotiate.WithModel(resource).WithStatusCode(HttpStatusCode.BadRequest);
         }
     }
 }
