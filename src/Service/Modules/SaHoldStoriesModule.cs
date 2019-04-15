@@ -23,9 +23,11 @@
         {
             this.saHoldStoryService = saHoldStoryService;
             this.saHoldStoriesReportService = reportService;
-            this.Post("/products/reports/sa-hold-stories", _ => this.AddSaHoldStory());
-            this.Get("/products/reports/sa-hold-stories", parameters => this.GetSaHoldStories());
-            this.Get("/products/reports/sa-hold-stories/{holdStoryId}", parameters => this.GetSaHoldStory(parameters.holdStoryId));
+            this.Post("/products/maint/sa-hold-stories", _ => this.AddSaHoldStory());
+            this.Get("/products/maint/sa-hold-stories", parameters => this.GetSaHoldStories());
+            this.Get("/products/maint/sa-hold-stories/{holdStoryId}", parameters => this.GetSaHoldStory(parameters.holdStoryId));
+            this.Put("/products/maint/sa-hold-stories/{holdStoryId}", parameters => this.UpdateSaHoldStory(parameters.holdstoryId));
+
             this.Get("/products/reports/sa-hold-stories-for-sales-article/{articleNumber*}", parameters => this.GetSaHoldStoriesForArticleNumber(parameters.articleNumber));
         }
 
@@ -49,6 +51,21 @@
         {
             return this.Negotiate
                 .WithModel(this.saHoldStoriesReportService.GetSaHoldStories(articleNumber))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
+        }
+
+        private object UpdateSaHoldStory(int holdStoryId)
+        {
+            this.RequiresAuthentication();
+            var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
+
+            var resource = this.Bind<SaHoldStoryResource>();
+            resource.Links = new[] { new LinkResource("taken-off-hold-by", employeeUri) };
+
+            var result = this.saHoldStoryService.Update(holdStoryId, resource);
+
+            return this.Negotiate.WithModel(result).WithModel(result)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }

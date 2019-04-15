@@ -11,11 +11,11 @@ const mapStateToProps = state => ({
 });
 
 const pageLoad = (pageNumber = 1, rowsPerPage = 5) => dispatch => {
-    dispatch(salesPackagesActions.fetch(pageNumber, rowsPerPage));
+    dispatch(salesPackagesActions.fetchPage(pageNumber, rowsPerPage));
 };
 
-const initialise = ({ pageNumber, pageSize }) => dispatch => {
-    dispatch(salesPackagesActions.fetch(pageNumber, pageSize));
+const initialise = ({ pageNumber = 1, pageSize = 5 }) => dispatch => {
+    dispatch(salesPackagesActions.fetchPage(pageNumber, pageSize));
 };
 
 const mapDispatchToProps = {

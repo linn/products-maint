@@ -63,7 +63,7 @@
                 .Returns(new SuccessResult<IEnumerable<SaHoldStory>>(new List<SaHoldStory> { saHoldStory1, saHoldStory2 }));
 
             this.Response = this.Browser.Get(
-                "/products/reports/sa-hold-stories/",
+                "/products/maint/sa-hold-stories/",
                 with =>
                     {
                         with.Header("Accept", "application/json");
