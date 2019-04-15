@@ -1,18 +1,18 @@
-import { ExpectedConditions, browser } from 'protractor';
+const { ExpectedConditions, browser } = require('protractor');
 
 const waitUntilDisplayedTimeout = 30000;
 
-export const checkSelectorExist = selector => selector !== undefined;
+const checkSelectorExist = selector => selector !== undefined;
 
 /**
  * @returns Function which resolves to boolean
  */
-export const isDisplayed = selector => {
+const isDisplayed = selector => {
     if (!checkSelectorExist(selector)) return;
     return ExpectedConditions.visibilityOf(selector);
 };
 
-export const isHidden = selector => {
+const isHidden = selector => {
     if (!checkSelectorExist(selector)) return;
     return ExpectedConditions.invisibilityOf(selector);
 };
@@ -20,11 +20,12 @@ export const isHidden = selector => {
 /**
  * Wait until this page is displayed.
  */
-export const waitUntilDisplayed = async (
+const waitUntilDisplayed = async (
     selector,
     classname = '',
     timeout = waitUntilDisplayedTimeout
 ) => {
+    console.info('wait until displayed');
     if (!checkSelectorExist(selector)) return;
 
     await browser.wait(
@@ -34,11 +35,7 @@ export const waitUntilDisplayed = async (
     );
 };
 
-export const waitUntilHidden = async (
-    selector,
-    classname = '',
-    timeout = waitUntilDisplayedTimeout
-) => {
+const waitUntilHidden = async (selector, classname = '', timeout = waitUntilDisplayedTimeout) => {
     if (!checkSelectorExist(selector)) return;
 
     await browser.wait(
@@ -48,10 +45,10 @@ export const waitUntilHidden = async (
     );
 };
 
-export const waitForCount = (elementArrayFinder, expectedCount) => () =>
+const waitForCount = (elementArrayFinder, expectedCount) => () =>
     elementArrayFinder.count().then(actualCount => expectedCount === actualCount);
 
-export const waitUntilCount = async (
+const waitUntilCount = async (
     elementArrayFinder,
     expectedCount,
     timeout = waitUntilDisplayedTimeout
@@ -62,3 +59,5 @@ export const waitUntilCount = async (
         `Failed while waiting for "${elementArrayFinder.locator()}" to have ${expectedCount} elements.`
     );
 };
+
+module.exports = [waitUntilDisplayed, waitUntilCount, waitForCount, waitUntilHidden];

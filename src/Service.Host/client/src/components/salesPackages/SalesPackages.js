@@ -65,7 +65,7 @@ function SalesPackages({ page, loading, pageLoad }) {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Sales Package Id</TableCell>
+                                <TableCell id="qa-sales-package-id-column-header">Sales Package Id</TableCell>
                                 <TableCell>Description</TableCell>
                                 <TableCell>Actions</TableCell>
                             </TableRow>

@@ -5,15 +5,10 @@ const chai = require('chai');
 exports.config = {
     allScriptsTimeout: 20000,
 
-    specs: ['./e2e/**/*.spec.js'],
+    specs: ['./e2e/**/**/*.spec.js'],
 
     capabilities: {
-        browserName: 'chrome',
-        chromeOptions: {
-            args: process.env.JHI_E2E_HEADLESS
-                ? ['--headless', '--disable-gpu', '--window-size=800,600']
-                : ['--disable-gpu', '--window-size=800,600']
-        }
+        browserName: 'chrome'
     },
 
     directConnect: true,
