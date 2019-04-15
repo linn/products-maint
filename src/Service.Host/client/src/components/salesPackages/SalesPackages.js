@@ -56,7 +56,7 @@ function SalesPackages({ page, loading, pageLoad }) {
     };
 
     return (
-        <Page>
+        <Page id="qa-sales-packages-page">
             {loading ? (
                 <Loading />
             ) : (
