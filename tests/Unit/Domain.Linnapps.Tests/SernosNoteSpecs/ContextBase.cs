@@ -15,7 +15,7 @@
                                SernosNumber = 1,
                                TransCode = "code",
                                SernosNoteId = 1,
-//                               SernosTRef = 1
+                               SernosTRef = 1
                            };
         }
     }

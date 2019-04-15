@@ -23,7 +23,7 @@
             var serialNumber = this.repository.FindById(sernosTRef);
             if (serialNumber == null)
             {
-                return new NotFoundResult<SerialNumber>();
+                return new NotFoundResult<SerialNumber>(sernosTRef.ToString());
             }
 
             return new SuccessResult<SerialNumber>(serialNumber);
@@ -34,7 +34,7 @@
             var serialNumbers = this.repository.FilterBy(s => s.SernosNumber == sernosNumber);
             if (serialNumbers == null)
             {
-                return new NotFoundResult<IEnumerable<SerialNumber>>();
+                return new NotFoundResult<IEnumerable<SerialNumber>>(sernosNumber.ToString());
             }
 
             return new SuccessResult<IEnumerable<SerialNumber>>(serialNumbers);

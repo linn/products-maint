@@ -7,15 +7,14 @@
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
-    
+
     public class SernosNoteService : ISernosNoteService
     {
         private readonly IRepository<SernosNote, int> repository;
+
         private readonly ITransactionManager transactionManager;
 
-        public SernosNoteService(
-            IRepository<SernosNote, int> repository, 
-            ITransactionManager transactionManager)
+        public SernosNoteService(IRepository<SernosNote, int> repository, ITransactionManager transactionManager)
         {
             this.repository = repository;
             this.transactionManager = transactionManager;
@@ -26,15 +25,15 @@
             var sernosNote = this.repository.FindById(sernosNoteId);
             if (sernosNote == null)
             {
-                return new NotFoundResult<SernosNote>();
+                return new NotFoundResult<SernosNote>(sernosNoteId.ToString());
             }
 
             return new SuccessResult<SernosNote>(sernosNote);
         }
 
-        public IResult<SernosNote> GetSernosNote(string sernosGroup, int? sernosNumber, string transCode)
+        public IResult<SernosNote> GetSernosNote(string sernosGroup, int sernosNumber, string transCode)
         {
-            if (!this.ValidateQuery(sernosGroup, sernosNumber, transCode))
+            if (!this.ValidateQuery(sernosGroup, transCode))
             {
                 return new BadRequestResult<SernosNote>("Invalid search parameters");
             }
@@ -44,7 +43,8 @@
 
             if (sernosNote == null)
             {
-                return new NotFoundResult<SernosNote>();
+                return new NotFoundResult<SernosNote>(
+                    $"sernosGroup: {sernosGroup} sernosNumber: {sernosNumber.ToString()} transCode: {transCode}");
             }
 
             return new SuccessResult<SernosNote>(sernosNote);
@@ -69,7 +69,7 @@
                 var sernosNote = new SernosNote(resource.SernosNotes)
                                      {
                                          SernosGroup = resource.SernosGroup,
-                                         SernosNumber = resource.SernosNumber,                                         
+                                         SernosNumber = resource.SernosNumber,
                                          SernosTRef = resource.SernosTRef,
                                          TransCode = resource.TransCode
                                      };
@@ -112,9 +112,9 @@
             return new SuccessResult<SernosNote>(sernosNote);
         }
 
-        private bool ValidateQuery(string sernosGroup, int? sernosNumber, string transCode)
+        private bool ValidateQuery(string sernosGroup, string transCode)
         {
-            return !string.IsNullOrEmpty(sernosGroup) && !string.IsNullOrEmpty(transCode) && sernosNumber.HasValue;
+            return !string.IsNullOrEmpty(sernosGroup) && !string.IsNullOrEmpty(transCode);
         }
     }
 }

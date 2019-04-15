@@ -18,7 +18,7 @@
             this.Sut.SernosNotes.Should().Be("new note");
             this.Sut.SernosGroup.Should().Be("new sernos group");
             this.Sut.SernosNumber.Should().Be(2);
-//            this.Sut.SernosTRef.Should().Be(2);
+            this.Sut.SernosTRef.Should().Be(2);
             this.Sut.TransCode.Should().Be("new trans code");
         }
     }

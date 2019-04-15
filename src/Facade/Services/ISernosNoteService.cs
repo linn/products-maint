@@ -10,7 +10,7 @@
     {
         IResult<SernosNote> GetSernosNoteById(int sernosNoteId);
 
-        IResult<SernosNote> GetSernosNote(string sernosGroup, int? sernosNumber, string transCode);
+        IResult<SernosNote> GetSernosNote(string sernosGroup, int sernosNumber, string transCode);
 
         IResult<IEnumerable<SernosNote>> GetSernosNotesBySerialNumber(int sernosNumber);
 

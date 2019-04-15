@@ -50,12 +50,12 @@ function SernosNote({ serialNumber, item, updateSernosNote, addSernosNote }) {
         <TableRow key={serialNumber.sernosTRef}>
             <TableCell component="th" scope="row">
                 {serialNumber.sernosDate
-                    ? moment(serialNumber.sernosDate).format('YYYY-MM-DD')
+                    ? moment(serialNumber.sernosDate).format('DD MMM YYYY')
                     : ''}
             </TableCell>
-            <TableCell align="right">{serialNumber.transCode}</TableCell>
-            <TableCell align="right">{serialNumber.documentNumber}</TableCell>
-            <TableCell align="right">{serialNumber.articleNumber}</TableCell>
+            <TableCell>{serialNumber.transCode}</TableCell>
+            <TableCell>{serialNumber.documentNumber}</TableCell>
+            <TableCell>{serialNumber.articleNumber}</TableCell>
             {editing ? (
                 <Fragment>
                     <TableCell>
@@ -67,6 +67,7 @@ function SernosNote({ serialNumber, item, updateSernosNote, addSernosNote }) {
                             value={sernosNote.sernosNotes}
                             onChange={handleFieldChange}
                             propertyName="sernosNotes"
+                            maxLength={2000}
                         />
                     </TableCell>
                     <TableCell>
@@ -85,7 +86,7 @@ function SernosNote({ serialNumber, item, updateSernosNote, addSernosNote }) {
                 </Fragment>
             ) : (
                 <Fragment>
-                    <TableCell align="right">{sernosNote ? sernosNote.sernosNotes : ''}</TableCell>
+                    <TableCell>{sernosNote.sernosNotes}</TableCell>
                     <TableCell>
                         <Button onClick={() => setEditing(true)}>
                             <EditIcon />

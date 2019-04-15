@@ -32,7 +32,7 @@
                                   };
 
             this.SernosNoteRepository.FindBy(Arg.Any<Expression<Func<SernosNote, bool>>>()).Returns(this.sernosNote);
-            this.result = this.Sut.GetSernosNote(string.Empty, null, "code");
+            this.result = this.Sut.GetSernosNote(string.Empty, 123, "code");
         }        
 
         [Test]
