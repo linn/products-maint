@@ -1,39 +1,33 @@
-const { browser, element, by, ExpectedConditions } = require('protractor');
+const { browser, element, by } = require('protractor');
 const chai = require('chai');
 
 const { expect } = chai;
-const waitUntilDisplayed = require('../util/utils');
+const { waitUntilDisplayed } = require('../util/utils');
+const SignInPage = require('../page-objects/signin-page');
 
 describe('Sales Packages', () => {
-    it('should render the page', async () => {
-        browser.get('/products/maint/sales-packages');
-        const userName = 'peterma';
-        const psswrd = 'Products1';
-        const until = ExpectedConditions;
-        browser.wait(
-            until.presenceOf(element(by.className('sign-in'))),
-            10000,
-            'Element taking too long to appear in the DOM'
-        );
+    it('should first login', async () => {
+        await browser.get('/signin');
+        const signInPage = new SignInPage();
+        await signInPage.waitUntilDisplayed();
+        signInPage.setUserName('');
+        signInPage.setPassword('');
+        signInPage.login();
+        await signInPage.waitUntilHidden();
+    });
 
-        const userNameInput = element(by.id('Username'));
-        await waitUntilDisplayed(userNameInput);
-
-        const pwdInput = element(by.id('Password'));
-        await waitUntilDisplayed(pwdInput);
-
-        const submit = element(by.className('btn-primary'));
-        await waitUntilDisplayed(submit);
-
-        userNameInput.sendKeys(userName);
-        pwdInput.sendKeys(psswrd);
-        submit.click();
-
-        const idColumnHeader = element(by.id('qa-sales-package-id-column-header'));
-
-        await waitUntilDisplayed(idColumnHeader);
-        expect(await idColumnHeader.isPresent()).to.be.true;
+    it('should render the page with table', async () => {
+        await browser.get('/products/maint/sales-packages');
+        const table = element(by.id('qa-sales-packages-table'));
+        await waitUntilDisplayed(table);
+        expect(table.isPresent()).to.be.true;
     });
 
     it('should render five rows by default', async () => {});
+
+    it('should have pagination options', async () => {
+        const paginationOptions = element(by.id('qa-table-pagination-options'));
+        await waitUntilDisplayed(paginationOptions);
+        expect(paginationOptions.isPresent()).to.be.true;
+    });
 });

@@ -2,26 +2,23 @@ const { $, browser } = require('protractor');
 
 const BasePage = require('./base-component');
 
-const selector = $('#sign-in');
+const selector = $('.card');
 
 class SignInPage extends BasePage {
     constructor() {
         super(selector);
         this.selector = selector;
-        this.selector = undefined;
-
-        this.username = this.selector.$('#UserName');
+        this.username = this.selector.$('#Username');
 
         this.password = this.selector.$('#Password');
 
-        this.loginButton = this.selector.$('button[type=submit]');
+        this.loginButton = this.selector.$('.btn-primary');
 
         this.title = this.selector.$('#panel-title');
-        console.info(this.title, this.loginButton, this.password, this.username);
     }
 
     async get() {
-        await browser.get('#/login');
+        await browser.get('#/products/maint');
         await this.waitUntilDisplayed();
     }
 
@@ -49,10 +46,6 @@ class SignInPage extends BasePage {
         await this.setUserName(username);
         await this.setPassword(password);
         await this.login();
-    }
-
-    async autoSignOut() {
-        await browser.get('#/logout');
     }
 
     async login() {

@@ -62,10 +62,10 @@ function SalesPackages({ page, loading, pageLoad }) {
             ) : (
                 <Fragment>
                     <CreateButton createUrl="/products/maint/sales-packages/create" />
-                    <Table>
+                    <Table id="qa-sales-packages-table">
                         <TableHead>
                             <TableRow>
-                                <TableCell id="qa-sales-package-id-column-header">Sales Package Id</TableCell>
+                                <TableCell>Sales Package Id</TableCell>
                                 <TableCell>Description</TableCell>
                                 <TableCell>Actions</TableCell>
                             </TableRow>
@@ -116,6 +116,7 @@ function SalesPackages({ page, loading, pageLoad }) {
                             {page.totalItemCount && (
                                 <TableRow>
                                     <TablePagination
+                                        id="qa-table-pagination-options"
                                         rowsPerPageOptions={[5, 10, 25, 50]}
                                         count={page.totalItemCount}
                                         rowsPerPage={rowsPerPage}

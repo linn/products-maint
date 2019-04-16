@@ -2,6 +2,8 @@ const chaiAsPromised = require('chai-as-promised');
 
 const chai = require('chai');
 
+const protractor = require('protractor');
+
 exports.config = {
     allScriptsTimeout: 20000,
 
@@ -27,8 +29,7 @@ exports.config = {
     },
 
     onPrepare() {
-        let globals = require('protractor');
-        let browser = globals.browser;
+        const { browser } = protractor;
         // eslint-disable-next-line no-undef
         browser.driver
             .manage()
