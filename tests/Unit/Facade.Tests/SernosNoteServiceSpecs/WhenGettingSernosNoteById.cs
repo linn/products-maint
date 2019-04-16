@@ -28,7 +28,7 @@
                                   };
 
             this.SernosNoteRepository.FindById(111).Returns(this.sernosNote);
-            this.result = this.Sut.GetSernosNoteById(111);
+            this.result = this.Sut.GetById(111);
         }
 
         [Test]

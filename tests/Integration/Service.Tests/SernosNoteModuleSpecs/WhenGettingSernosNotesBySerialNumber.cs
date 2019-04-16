@@ -39,7 +39,7 @@
                                       TransCode = "code"
                                   };
 
-            this.SernosNoteService.GetSernosNotesBySerialNumber(222).Returns(
+            this.SernosNoteService.Search("222").Returns(
                 new SuccessResult<IEnumerable<SernosNote>>(new List<SernosNote> { sernosNote1, sernosNote2 }));
 
             this.Response = this.Browser.Get(
@@ -54,7 +54,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SernosNoteService.Received().GetSernosNotesBySerialNumber(222);
+            this.SernosNoteService.Received().Search("222");
         }
 
         [Test]

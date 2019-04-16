@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Linq.Expressions;
 
     using FluentAssertions;
@@ -13,11 +14,11 @@
 
     using NUnit.Framework;
 
-    public class WhenGettingSernosNoteBySearchQuery : ContextBase
+    public class WhenGettingSernosNoteBySernosNumber : ContextBase
     {
         private SernosNote sernosNote;
 
-        private IResult<SernosNote> result;
+        private IResult<IEnumerable<SernosNote>> result;
 
         [SetUp]
         public void SetUp()
@@ -31,23 +32,22 @@
                                       TransCode = "code"
                                   };
 
-            this.SernosNoteRepository.FindBy(Arg.Any<Expression<Func<SernosNote, bool>>>()).Returns(this.sernosNote);
-            this.result = this.Sut.GetSernosNote("group", 222, "code");
+            this.SernosNoteRepository.FilterBy(Arg.Any<Expression<Func<SernosNote, bool>>>()).Returns(new List<SernosNote> { this.sernosNote }.AsQueryable());
+            this.result = this.Sut.Search("222");
         }
 
         [Test]
         public void ShouldGetSernosNote()
         {
-            this.SernosNoteRepository.Received().FindBy(Arg.Any<Expression<Func<SernosNote, bool>>>());
+            this.SernosNoteRepository.Received().FilterBy(Arg.Any<Expression<Func<SernosNote, bool>>>());
         }
 
         [Test]
         public void ShouldReturnSuccessResult()
         {
-            this.result.Should().BeOfType<SuccessResult<SernosNote>>();
-            var dataResult = ((SuccessResult<SernosNote>)this.result).Data;
-            dataResult.SernosNoteId.Should().Be(111);
-            dataResult.SernosNotes.Should().Be("notes");
+            this.result.Should().BeOfType<SuccessResult<IEnumerable<SernosNote>>>();
+            var dataResult = ((SuccessResult<IEnumerable<SernosNote>>)this.result).Data;
+            dataResult.Should().Contain(s => s.SernosNoteId == 111);
         }
     }
 }

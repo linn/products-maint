@@ -7,6 +7,7 @@
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Facade.ResourceBuilders;
     using Linn.Products.Facade.Services;
+    using Linn.Products.Resources;
     using Linn.Products.Service.Modules;
     using Linn.Products.Service.ResponseProcessors;
 
@@ -18,12 +19,12 @@
 
     public abstract class ContextBase : NancyContextBase
     {
-        protected ISernosNoteService SernosNoteService { get; private set; }
+        protected IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource> SernosNoteService { get; private set; }
 
         [SetUp]
         public void EstablishContext()
         {
-            this.SernosNoteService = Substitute.For<ISernosNoteService>();
+            this.SernosNoteService = Substitute.For<IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource>>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>

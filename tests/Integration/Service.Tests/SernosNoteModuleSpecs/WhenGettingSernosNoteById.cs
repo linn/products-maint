@@ -27,7 +27,7 @@
                                      TransCode = "code"
                                  };
 
-            this.SernosNoteService.GetSernosNoteById(111)
+            this.SernosNoteService.GetById(111)
                 .Returns(new SuccessResult<SernosNote>(sernosNote) { Data = sernosNote });
 
             this.Response = this.Browser.Get(
@@ -38,7 +38,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SernosNoteService.Received().GetSernosNoteById(111);
+            this.SernosNoteService.Received().GetById(111);
         }
 
         [Test]

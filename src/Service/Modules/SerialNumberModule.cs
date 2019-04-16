@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Service.Modules
 {
+    using Linn.Common.Facade;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
     using Linn.Products.Service.Models;
@@ -9,9 +11,9 @@
 
     public sealed class SerialNumberModule : NancyModule
     {
-        private readonly ISerialNumberService serialNumberService;
+        private readonly IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource> serialNumberService;
 
-        public SerialNumberModule(ISerialNumberService serialNumberService)
+        public SerialNumberModule(IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource> serialNumberService)
         {
             this.serialNumberService = serialNumberService;
             this.Get("/products/maint/serial-numbers", _ => this.GetSerialNumbers());
@@ -20,7 +22,7 @@
 
         private object GetSerialNumberByTRef(int sernosTRef)
         {
-            var result = this.serialNumberService.GetByTRef(sernosTRef);
+            var result = this.serialNumberService.GetById(sernosTRef);
             return this.Negotiate
                 .WithModel(result)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
@@ -30,7 +32,7 @@
         private object GetSerialNumbers()
         {
             var resource = this.Bind<SerialNumberQueryResource>();
-            var result = this.serialNumberService.GetBySernosNumber(resource.SernosNumber);
+            var result = this.serialNumberService.Search(resource.SernosNumber.ToString());
             return this.Negotiate
                 .WithModel(result)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)

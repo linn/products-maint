@@ -23,7 +23,7 @@
                                        SernosNumber = 222
                                    };
 
-            this.SerialNumberService.GetByTRef(123)
+            this.SerialNumberService.GetById(123)
                 .Returns(new SuccessResult<SerialNumber>(serialNumber) { Data = serialNumber });
 
             this.Response = this.Browser.Get(
@@ -34,7 +34,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SerialNumberService.Received().GetByTRef(123);
+            this.SerialNumberService.Received().GetById(123);
         }
 
         [Test]

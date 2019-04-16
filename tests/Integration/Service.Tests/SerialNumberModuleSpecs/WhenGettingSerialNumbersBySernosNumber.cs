@@ -30,7 +30,7 @@
                                         SernosNumber = 222
                                     };
 
-            this.SerialNumberService.GetBySernosNumber(222).Returns(
+            this.SerialNumberService.Search("222").Returns(
                 new SuccessResult<IEnumerable<SerialNumber>>(
                     new List<SerialNumber>
                         {
@@ -49,7 +49,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SerialNumberService.Received().GetBySernosNumber(222);
+            this.SerialNumberService.Received().Search("222");
         }
 
         [Test]

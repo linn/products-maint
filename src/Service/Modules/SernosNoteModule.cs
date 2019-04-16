@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Service.Modules
 {
-    using Linn.Products.Facade.Services;
+    using Linn.Common.Facade;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
     using Linn.Products.Resources.Validators;
     using Linn.Products.Service.Models;
@@ -10,9 +11,9 @@
 
     public sealed class SernosNoteModule : NancyModule
     {
-        private readonly ISernosNoteService sernosNoteService;
+        private readonly IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource> sernosNoteService;
 
-        public SernosNoteModule(ISernosNoteService sernosNoteService)
+        public SernosNoteModule(IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource> sernosNoteService)
         {
             this.sernosNoteService = sernosNoteService;
             this.Get("/products/maint/serial-numbers/notes", _ => this.GetSernosNotes());
@@ -23,7 +24,7 @@
 
         private object GetSernosNoteById(int id)
         {
-            var result = this.sernosNoteService.GetSernosNoteById(id);
+            var result = this.sernosNoteService.GetById(id);
             return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
@@ -32,7 +33,7 @@
         {
             var resource = this.Bind<SernosNoteQueryResource>();
 
-            var results = this.sernosNoteService.GetSernosNotesBySerialNumber(resource.SernosNumber);
+            var results = this.sernosNoteService.Search(resource.SernosNumber.ToString());
 
             return this.Negotiate.WithModel(results).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
