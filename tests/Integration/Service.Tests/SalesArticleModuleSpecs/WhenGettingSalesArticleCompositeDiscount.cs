@@ -26,7 +26,7 @@
                                                          BaseSalesArticle = "b",
                                                          NoDiscountSalesArticle = "n"
                                                      };
-            this.SalesArticleCompositeDiscountFacadeService.GetCompositeDiscount("sa")
+            this.SalesArticleCompositeDiscountFacadeService.GetCompositeDiscount("SA")
                 .Returns(new SuccessResult<SalesArticleCompositeDiscount>(this.salesArticleCompositeDiscount));
 
             this.Response = this.Browser.Get(
@@ -46,7 +46,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SalesArticleCompositeDiscountFacadeService.Received().GetCompositeDiscount("sa");
+            this.SalesArticleCompositeDiscountFacadeService.Received().GetCompositeDiscount("SA");
         }
 
         [Test]

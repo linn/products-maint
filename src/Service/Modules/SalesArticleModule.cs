@@ -43,7 +43,7 @@
             this.RequiresAuthentication();
             var resource = this.Bind<SalesArticleCompositeDiscountResource>();
 
-            var result = this.salesArticleCompositeDiscountFacadeService.SetCompositeDiscount(id, resource);
+            var result = this.salesArticleCompositeDiscountFacadeService.SetCompositeDiscount(id.ToUpper(), resource);
 
             return this.Negotiate
                 .WithModel(result)
@@ -53,10 +53,8 @@
 
         private object GetSalesArticleCompositeDiscount(string id)
         {
-            var aaaa = this.salesArticleCompositeDiscountFacadeService.GetCompositeDiscount(id);
-
             return this.Negotiate
-                .WithModel(this.salesArticleCompositeDiscountFacadeService.GetCompositeDiscount(id))
+                .WithModel(this.salesArticleCompositeDiscountFacadeService.GetCompositeDiscount(id.ToUpper()))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
@@ -64,7 +62,7 @@
         private object GetSalesArticle(string id)
         {
             return this.Negotiate
-                .WithModel(this.salesArticleService.GetById(id))
+                .WithModel(this.salesArticleService.GetById(id.ToUpper()))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
@@ -74,7 +72,7 @@
             this.RequiresAuthentication();
             var resource = this.Bind<SalesArticleResource>();
 
-            var result = this.salesArticleService.Update(id, resource);
+            var result = this.salesArticleService.Update(id.ToUpper(), resource);
 
             return this.Negotiate
                 .WithModel(result)
@@ -89,7 +87,7 @@
             if (!string.IsNullOrEmpty(resource.ArticleNumber))
             {
                 return this.Negotiate
-                    .WithModel(this.salesArticleService.GetById(resource.ArticleNumber))
+                    .WithModel(this.salesArticleService.GetById(resource.ArticleNumber.ToUpper()))
                     .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                     .WithView("Index");
             }

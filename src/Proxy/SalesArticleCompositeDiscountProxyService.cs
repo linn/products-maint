@@ -47,9 +47,15 @@
             return new SalesArticleCompositeDiscount
                        {
                            SalesArticle = articleNumber,
-                           BaseSalesArticle = baseArticleParameter.Value?.ToString(),
-                           NoDiscountSalesArticle = noDiscountArticleParameter.Value?.ToString()
-                       };
+                           BaseSalesArticle =
+                               ((Oracle.ManagedDataAccess.Types.OracleString)baseArticleParameter.Value).IsNull
+                                   ? null
+                                   : baseArticleParameter.Value.ToString(),
+                           NoDiscountSalesArticle =
+                               ((Oracle.ManagedDataAccess.Types.OracleString)noDiscountArticleParameter.Value).IsNull
+                                   ? null
+                                   : noDiscountArticleParameter.Value.ToString()
+            };
         }
 
         public SalesArticleCompositeDiscount SetCompositeDiscount(

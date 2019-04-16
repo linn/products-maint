@@ -34,7 +34,7 @@
                                     NoDiscountArticleNumber = "n"
                                 };
             this.SalesArticleCompositeDiscountFacadeService.SetCompositeDiscount(
-                    "sa",
+                    "SA",
                     Arg.Any<SalesArticleCompositeDiscountResource>())
                 .Returns(new SuccessResult<SalesArticleCompositeDiscount>(this.salesArticleCompositeDiscount));
 
@@ -59,7 +59,7 @@
         {
             this.SalesArticleCompositeDiscountFacadeService
                 .Received().SetCompositeDiscount(
-                    "sa",
+                    "SA",
                     Arg.Is<SalesArticleCompositeDiscountResource>(r => r.NoDiscountArticleNumber == this.resource.NoDiscountArticleNumber));
         }
 

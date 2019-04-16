@@ -28,7 +28,7 @@
                                     ForecastType = "Y",
                                     ForecastFromDate = 1.December(2020).ToString("o")
                                 };
-            this.SalesArticleForecastService.Update("sa", Arg.Any<SalesArticleResource>())
+            this.SalesArticleForecastService.Update("SA", Arg.Any<SalesArticleResource>())
                 .Returns(new SuccessResult<SalesArticle>(this.salesArticle));
 
             this.Response = this.Browser.Put(
@@ -50,7 +50,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SalesArticleForecastService.Received().Update("sa", Arg.Is<SalesArticleResource>(r => r.ForecastType == this.resource.ForecastType));
+            this.SalesArticleForecastService.Received().Update("SA", Arg.Is<SalesArticleResource>(r => r.ForecastType == this.resource.ForecastType));
         }
 
         [Test]

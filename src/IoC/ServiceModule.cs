@@ -63,7 +63,7 @@
             // Oracle proxies
             builder.RegisterType<StockTriggerLevelDataProxy>().As<IStockTriggerLevelDataService>();
             builder.RegisterType<DatabaseProxy>().As<IDatabaseService>();
-            builder.RegisterType<SalesArticleCompositeDiscountService>().As<ISalesArticleCompositeDiscountService>();
+            builder.RegisterType<SalesArticleCompositeDiscountProxyService>().As<ISalesArticleCompositeDiscountService>();
         }
     }
 }
