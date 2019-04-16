@@ -23,6 +23,7 @@ describe('collection store reducer factory', () => {
         };
 
         const expected = {
+            item: {},
             loading: true
         };
 
@@ -39,7 +40,7 @@ describe('collection store reducer factory', () => {
 
         const action = {
             type: actionTypes.RECEIVE_ENTITIES,
-            payload: { data: [{ name: '1', links: [{rel: 'self', href: '/1' }] }] }
+            payload: { data: [{ name: '1', links: [{ rel: 'self', href: '/1' }] }] }
         };
 
         const expected = {

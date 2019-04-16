@@ -46,6 +46,7 @@ import SaHoldStory from '../containers/saHoldStories/SaHoldStory';
 import CloseSaHoldStory from '../containers/saHoldStories/CloseSaHoldStory';
 import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesOptions';
 import SalesArticleCoreTypes from '../containers/reports/SalesArticleCoreTypes';
+import SerialNumbers from '../containers/serialNumbers/SerialNumbers';
 import SernosSequences from '../containers/sernosSequences/SernosSequences';
 import SernosSequence from '../containers/sernosSequences/SernosSequence';
 import CreateSernosSequence from '../containers/sernosSequences/CreateSernosSequence';
@@ -200,6 +201,14 @@ const Root = ({ store }) => (
                                     exact
                                     path="/products/maint/carton-types"
                                     component={CartonDetails}
+                                />
+                            </Switch>
+
+                            <Switch>
+                                <Route
+                                    exact
+                                    path="/products/maint/serial-numbers"
+                                    component={SerialNumbers}
                                 />
                             </Switch>
 
