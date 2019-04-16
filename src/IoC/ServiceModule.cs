@@ -51,6 +51,7 @@
             builder.RegisterType<VatCodeService>().As<IFacadeService<VatCode, string, VatCodeResource, VatCodeResource>>();
             builder.RegisterType<ProductRangeService>().As<IFacadeService<ProductRange, int, ProductRangeResource, ProductRangeUpdateResource>>();
             builder.RegisterType<SalesPackageService>().As<IFacadeService<SalesPackage, int, SalesPackageResource, SalesPackageResource>>();
+            builder.RegisterType<SalesArticleCompositeDiscountFacadeService>().As<ISalesArticleCompositeDiscountFacadeService>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();
@@ -62,6 +63,7 @@
             // Oracle proxies
             builder.RegisterType<StockTriggerLevelDataProxy>().As<IStockTriggerLevelDataService>();
             builder.RegisterType<DatabaseProxy>().As<IDatabaseService>();
+            builder.RegisterType<SalesArticleCompositeDiscountService>().As<ISalesArticleCompositeDiscountService>();
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿namespace Linn.Products.Facade.Services
 {
-    using System;
-
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps.Models;
     using Linn.Products.Domain.Linnapps.Products;
@@ -18,14 +16,20 @@
 
         public IResult<SalesArticleCompositeDiscount> GetCompositeDiscount(string articleNumber)
         {
-            throw new NotImplementedException();
+            var compositeDiscount = this.salesArticleCompositeDiscountService.GetCompositeDiscount(articleNumber);
+
+            return new SuccessResult<SalesArticleCompositeDiscount>(compositeDiscount);
         }
 
         public IResult<SalesArticleCompositeDiscount> SetCompositeDiscount(
             string articleNumber,
             SalesArticleCompositeDiscountResource resource)
         {
-            throw new NotImplementedException();
+            var result = this.salesArticleCompositeDiscountService.SetCompositeDiscount(
+                articleNumber,
+                resource.BaseArticleNumber,
+                resource.NoDiscountArticleNumber);
+            return new SuccessResult<SalesArticleCompositeDiscount>(result);
         }
     }
 }

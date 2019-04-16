@@ -6,6 +6,7 @@
     using Linn.Common.Facade;
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.Models;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Facade.ResourceBuilders;
@@ -42,6 +43,7 @@
             builder.RegisterType<SalesPackagesResourceBuilder>().As<IResourceBuilder<IEnumerable<SalesPackage>>>();
             builder.RegisterType<SalesPackagesPaginatedResourceBuilder>()
                 .As<IResourceBuilder<IPagedList<SalesPackage>>>();
+            builder.RegisterType<SalesArticleCompositeDiscountResourceBuilder>().As<IResourceBuilder<SalesArticleCompositeDiscount>>();
         }
     }
 }
