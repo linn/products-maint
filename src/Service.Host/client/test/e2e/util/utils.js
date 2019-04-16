@@ -25,7 +25,6 @@ const waitUntilDisplayed = async (
     classname = '',
     timeout = waitUntilDisplayedTimeout
 ) => {
-    console.info('wait until displayed');
     if (!checkSelectorExist(selector)) return;
 
     await browser.wait(
@@ -60,4 +59,4 @@ const waitUntilCount = async (
     );
 };
 
-module.exports = [waitUntilDisplayed, waitUntilCount, waitForCount, waitUntilHidden];
+module.exports = waitUntilDisplayed;
