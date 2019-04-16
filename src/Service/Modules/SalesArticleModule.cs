@@ -5,6 +5,7 @@
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
+    using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
     using Linn.Products.Service.Models;
 
@@ -16,18 +17,48 @@
     {
         private readonly IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> salesArticleService;
 
+        private readonly ISalesArticleCompositeDiscountFacadeService salesArticleCompositeDiscountFacadeService;
+
         private readonly ISalesArticleService salesArticleProxyService;
 
         public SalesArticleModule(
             IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> salesArticleService,
+            ISalesArticleCompositeDiscountFacadeService salesArticleCompositeDiscountFacadeService,
             ISalesArticleService salesArticleProxyService)
         {
             this.salesArticleService = salesArticleService;
+            this.salesArticleCompositeDiscountFacadeService = salesArticleCompositeDiscountFacadeService;
             this.salesArticleProxyService = salesArticleProxyService;
 
             this.Get("/products/maint/sales-articles", _ => this.GetSalesArticles());
             this.Get("/products/maint/sales-articles/{id*}", parameters => this.GetSalesArticle(parameters.id));
             this.Put("/products/maint/sales-articles/{id*}", parameters => this.UpdateSalesArticle(parameters.id));
+
+            this.Get("/products/maint/sales-articles/composite-discounts/{id*}", parameters => this.GetSalesArticleCompositeDiscount(parameters.id));
+            this.Put("/products/maint/sales-articles/composite-discounts/{id*}", parameters => this.UpdateSalesArticleCompositeDiscount(parameters.id));
+        }
+
+        private object UpdateSalesArticleCompositeDiscount(string id)
+        {
+            this.RequiresAuthentication();
+            var resource = this.Bind<SalesArticleCompositeDiscountResource>();
+
+            var result = this.salesArticleCompositeDiscountFacadeService.SetCompositeDiscount(id, resource);
+
+            return this.Negotiate
+                .WithModel(result)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
+        }
+
+        private object GetSalesArticleCompositeDiscount(string id)
+        {
+            var aaaa = this.salesArticleCompositeDiscountFacadeService.GetCompositeDiscount(id);
+
+            return this.Negotiate
+                .WithModel(this.salesArticleCompositeDiscountFacadeService.GetCompositeDiscount(id))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object GetSalesArticle(string id)

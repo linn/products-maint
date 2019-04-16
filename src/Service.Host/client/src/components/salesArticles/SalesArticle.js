@@ -68,6 +68,7 @@ function SalesArticle({
         if (editStatus === 'view') {
             setEditStatus('edit');
         }
+
         setSalesArticle({ ...salesArticle, [propertyName]: newValue });
     };
     const salesArticleCoreTypeHref = getHref(salesArticle, 'sa-core-type')
@@ -80,6 +81,7 @@ function SalesArticle({
         if (newValue) {
             links = links.map(link => (link.rel === rel ? { rel, href: newValue } : link));
         }
+
         setSalesArticle({ ...salesArticle, links });
     };
 
@@ -104,6 +106,7 @@ function SalesArticle({
         { id: 'N', displayText: 'No' },
         { id: '', displayText: '' }
     ];
+
     return (
         <Page>
             <Grid container spacing={24}>
