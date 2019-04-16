@@ -15,8 +15,20 @@ export const makeNumber = (str, defaultValue = 0) => {
     return Number.isNaN(result) ? defaultValue : result;
 };
 
+export const sortList = list => {
+    return list.slice().sort((a, b) => {
+        if (a < b) {
+            return -1;
+        }
+        if (a > b) {
+            return 1;
+        }
+        return 0;
+    });
+};
+
 export const sortEntityList = (list, property) => {
-    const sortedList = list.slice().sort((a, b) => {
+    return list.slice().sort((a, b) => {
         if (a[property] < b[property]) {
             return -1;
         }
@@ -25,6 +37,4 @@ export const sortEntityList = (list, property) => {
         }
         return 0;
     });
-
-    return sortedList;
 };

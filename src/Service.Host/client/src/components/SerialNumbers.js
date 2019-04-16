@@ -12,6 +12,7 @@ import { Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@m
 import { getSernosNote } from '../selectors/sernosNotesSelectors';
 import SernosNote from './SernosNote';
 import Page from '../containers/Page';
+import { sortEntityList, sortList } from '../helpers/utilities';
 
 function SerialNumbers({
     items,
@@ -35,8 +36,9 @@ function SerialNumbers({
         if (items.length) {
             const groups = [];
             items.map(item => !groups.includes(item.sernosGroup) && groups.push(item.sernosGroup));
-            setSernosGroups(groups);
-            setSelectedSernosGroup(groups[0] || '');
+            const sortedGroups = sortList(groups);
+            setSernosGroups(sortedGroups);
+            setSelectedSernosGroup(sortedGroups[0] || '');
         }
     }, [items]);
 
@@ -90,7 +92,7 @@ function SerialNumbers({
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {items
+                                {sortEntityList(items, 'sernosDate')
                                     .filter(item => item.sernosGroup === selectedSernosGroup)
                                     .map(item => (
                                         <SernosNote
