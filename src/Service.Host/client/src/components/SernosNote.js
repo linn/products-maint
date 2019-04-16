@@ -46,6 +46,13 @@ function SernosNote({ serialNumber, item, updateSernosNote, addSernosNote }) {
         }
     };
 
+    const handleCancelClick = () => {
+        setEditing(false);
+        if (prevSernosNote) {
+            setSernosNote(prevSernosNote);
+        }
+    };
+
     return (
         <TableRow key={serialNumber.sernosTRef}>
             <TableCell component="th" scope="row">
@@ -60,26 +67,22 @@ function SernosNote({ serialNumber, item, updateSernosNote, addSernosNote }) {
                 <Fragment>
                     <TableCell>
                         <InputField
-                            label="Notes"
-                            fullWidth
                             error={sernosNoteInvalid()}
+                            fullWidth
                             helperText={sernosNoteInvalid() ? 'This field is required' : ''}
+                            label="Notes"
+                            margin="dense"
+                            maxLength={2000}
+                            propertyName="sernosNotes"
                             value={sernosNote.sernosNotes}
                             onChange={handleFieldChange}
-                            propertyName="sernosNotes"
-                            maxLength={2000}
                         />
                     </TableCell>
                     <TableCell>
                         <Button disabled={sernosNoteInvalid()} onClick={handleSaveClick}>
                             <Done />
                         </Button>
-                        <Button
-                            onClick={() => {
-                                setEditing(false);
-                                setSernosNote(prevSernosNote);
-                            }}
-                        >
+                        <Button onClick={handleCancelClick}>
                             <Clear />
                         </Button>
                     </TableCell>
