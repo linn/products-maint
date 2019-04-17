@@ -92,7 +92,7 @@ function SerialNumbers({
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {sortEntityList(items, 'sernosDate', 'date')
+                                {sortEntityList(items, 'sernosDate')
                                     .filter(item => item.sernosGroup === selectedSernosGroup)
                                     .map(item => (
                                         <SernosNote

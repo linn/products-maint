@@ -91,7 +91,7 @@ describe('when sorting an entity list', () => {
         });
     });
 
-    describe('when sorting on date field', () => {
+    describe('when sorting on iso string field', () => {
         it('should sort the list', () => {
             const expected = [
                 {
@@ -111,7 +111,7 @@ describe('when sorting an entity list', () => {
                 }
             ];
 
-            expect(sortEntityList(entityList, 'created', 'date')).toEqual(expected);
+            expect(sortEntityList(entityList, 'created')).toEqual(expected);
         });
     });
 });
@@ -127,7 +127,7 @@ describe('when sorting a list', () => {
         });
     });
 
-    describe('when sorting on a date', () => {
+    describe('when sorting on a iso string', () => {
         it('should sort the list', () => {
             const list = [
                 '2005-06-05T15:00:10.0000000',
@@ -141,7 +141,7 @@ describe('when sorting a list', () => {
                 '2010-06-05T15:00:10.0000000'
             ];
 
-            expect(sortList(list, 'date')).toEqual(expected);
+            expect(sortList(list)).toEqual(expected);
         });
     });
 });

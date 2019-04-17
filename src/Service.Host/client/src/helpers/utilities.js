@@ -1,6 +1,4 @@
-﻿import moment from 'moment';
-
-export const getHref = (itemWithLinks, rel) => {
+﻿export const getHref = (itemWithLinks, rel) => {
     if (itemWithLinks && itemWithLinks.links && itemWithLinks.links.length > 0) {
         const link = itemWithLinks.links.find(l => l.rel === rel);
 
@@ -17,12 +15,8 @@ export const makeNumber = (str, defaultValue = 0) => {
     return Number.isNaN(result) ? defaultValue : result;
 };
 
-export const sortList = (list, type) => {
-    if (type === 'date') {
-        return list.slice().sort((a, b) => moment.utc(a).diff(moment.utc(b)));
-    }
-
-    return list.slice().sort((a, b) => {
+export const sortList = list =>
+    list.slice().sort((a, b) => {
         if (a < b) {
             return -1;
         }
@@ -31,14 +25,9 @@ export const sortList = (list, type) => {
         }
         return 0;
     });
-};
 
-export const sortEntityList = (list, property, type) => {
-    if (type === 'date') {
-        return list.slice().sort((a, b) => moment.utc(a[property]).diff(moment.utc(b[property])));
-    }
-
-    return list.slice().sort((a, b) => {
+export const sortEntityList = (list, property) =>
+    list.slice().sort((a, b) => {
         if (a[property] < b[property]) {
             return -1;
         }
@@ -47,4 +36,3 @@ export const sortEntityList = (list, property, type) => {
         }
         return 0;
     });
-};
