@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Persistence.Linnapps
 {
+    using System.Collections.Immutable;
+
     using Linn.Common.Configuration;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
@@ -34,6 +36,8 @@
 
         public DbSet<SalesPackage> SalesPackages { get; set; }
 
+        public DbSet<RootProduct> RootProducts { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             this.BuildSaCoreType(builder);
@@ -48,6 +52,7 @@
             this.BuildProductRanges(builder);
             this.BuildEmployees(builder);
             this.BuildSalesPackages(builder);
+            this.BuildRootProducts(builder);
             base.OnModelCreating(builder);
         }
 
@@ -207,6 +212,7 @@
             builder.Entity<SalesArticle>().Property(t => t.ForecastToDate).HasColumnName("FORECAST_TO_DATE");
             builder.Entity<SalesArticle>().Property(t => t.PhaseInDate).HasColumnName("PHASE_IN_DATE");
             builder.Entity<SalesArticle>().Property(t => t.PhaseOutDate).HasColumnName("PHASE_OUT_DATE");
+            builder.Entity<SalesArticle>().Property(t => t.LastHoldStoryId).HasColumnName("HOLD_STORY_ID");
             builder.Entity<SalesArticle>().Property(t => t.PercentageOfRootProductSales)
                 .HasColumnName("PERCENTAGE_SALES");
             builder.Entity<SalesArticle>().Property(t => t.ArticleType).HasColumnName("ARTICLE_TYPE").HasMaxLength(1);
@@ -237,13 +243,15 @@
             e.Property(t => t.DateFinished).HasColumnName("DATE_FINISHED");
             e.Property(t => t.ReasonStarted).HasColumnName("REASON_STARTED");
             e.Property(t => t.ReasonFinished).HasColumnName("REASON_FINISHED");
-            e.Property(t => t.RootProduct).HasColumnName("ROOT_PRODUCT");
             e.Property(t => t.AnticipatedEndDate).HasColumnName("ANTICIPATED_END_DATE");
             e.Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER");
+            e.Property(t => t.RootProductName).HasColumnName("ROOT_PRODUCT");
             e.HasOne(t => t.PutOnHoldByEmployee);
             e.HasOne(t => t.TakenOffHoldByEmployee);
             e.HasOne<SalesArticle>(s => s.SalesArticle).WithMany(g => g.HoldStories)
                 .HasForeignKey(s => s.ArticleNumber);
+            e.HasOne<RootProduct>(s => s.RootProduct).WithMany(g => g.HoldStories)
+                .HasForeignKey(s => s.RootProductName);
         }
 
         private void BuildEmployees(ModelBuilder builder)
@@ -254,5 +262,16 @@
             e.Property(t => t.Id).HasColumnName("USER_NUMBER");
             e.Property(t => t.FullName).HasColumnName("USER_NAME");
         }
+
+        private void BuildRootProducts(ModelBuilder builder)
+        {
+            EntityTypeBuilder<RootProduct> e = builder.Entity<RootProduct>();
+            e.ToTable("ROOT_PRODS");
+            e.HasKey(t => t.Name);
+            e.Property(t => t.Name).HasColumnName("ROOT_PRODUCT");
+            e.Property(t => t.Description).HasColumnName("DESCRIPTION");
+            e.HasMany(t => t.HoldStories).WithOne(f => f.RootProduct);
+        }
+
     }
 }

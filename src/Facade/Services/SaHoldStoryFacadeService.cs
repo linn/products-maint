@@ -14,6 +14,7 @@
     public class SaHoldStoryFacadeService : FacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>
     {
         private readonly IRepository<SalesArticle, string> salesArticleRepository;
+        private readonly IRepository<RootProduct, string> rootProductRepository;
 
         private readonly IRepository<Employee, int> employeeRepository;
 
@@ -21,11 +22,13 @@
             IRepository<SaHoldStory, int> repo,
             ITransactionManager transactionManager,
             IRepository<SalesArticle, string> salesArticleRepository,
+            IRepository<RootProduct, string> rootProductRepository,
             IRepository<Employee, int> employeeRepository)
             : base(repo, transactionManager)
         {
             this.salesArticleRepository = salesArticleRepository;
             this.employeeRepository = employeeRepository;
+            this.rootProductRepository = rootProductRepository;
         }
 
         protected override SaHoldStory CreateFromResource(SaHoldStoryResource resource)
@@ -37,7 +40,8 @@
                                     DateStarted = DateTime.Parse(resource.DateStarted),
                                     PutOnHoldByEmployee = this.employeeRepository.FindById((int)resource.Links.FirstOrDefault(a => a.Rel == "put-on-hold-by")?.Href.ParseId()),
                                     ReasonStarted = resource.ReasonStarted,
-                                    RootProduct = resource.RootProduct,
+                                    RootProduct = this.rootProductRepository.FindById(resource.RootProduct),
+                                    RootProductName = resource.RootProduct,
                                     DateFinished = null,
                                     ReasonFinished = null,
                                     AnticipatedEndDate = string.IsNullOrEmpty(resource.AnticipatedEndDate) ? (DateTime?)null : DateTime.Parse(resource.AnticipatedEndDate),

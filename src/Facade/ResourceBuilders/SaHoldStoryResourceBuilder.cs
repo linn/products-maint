@@ -25,7 +25,7 @@
                            ReasonStarted = saHoldStory.ReasonStarted,
                            ReasonFinished = saHoldStory.ReasonFinished,
                            AnticipatedEndDate = saHoldStory.AnticipatedEndDate?.ToString("o"),  
-                           RootProduct = saHoldStory.RootProduct,
+                           RootProduct = saHoldStory.RootProduct?.Name,
                            Links = this.BuildLinks(saHoldStory).ToArray()
             };
         }

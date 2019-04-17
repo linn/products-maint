@@ -31,7 +31,8 @@
             builder.RegisterType<SalesArticlesResourceBuilder>().As<IResourceBuilder<IEnumerable<SalesArticle>>>();
             builder.RegisterType<TypeOfSaleResourceBuilder>().As<IResourceBuilder<TypeOfSale>>();
             builder.RegisterType<TypesOfSaleResourceBuilder>().As<IResourceBuilder<IEnumerable<TypeOfSale>>>();
-
+            builder.RegisterType<RootProductResourceBuilder>().As<IResourceBuilder<RootProduct>>();
+            builder.RegisterType<RootProductsResourceBuilder>().As<IResourceBuilder<IEnumerable<RootProduct>>>();
             builder.RegisterType<SaHoldStoryResourceBuilder>().As<IResourceBuilder<SaHoldStory>>();
             builder.RegisterType<SaHoldStoriesResourceBuilder>().As<IResourceBuilder<IEnumerable<SaHoldStory>>>();
             builder.RegisterType<VatCodeResourceBuilder>().As<IResourceBuilder<VatCode>>();

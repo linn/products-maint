@@ -11,14 +11,17 @@
     public class ProductsOnHoldService : IProductsOnHoldService
     {
         private readonly IRepository<SaHoldStory, int> saHoldStoryRepository;
+        private readonly IRepository<SalesArticle, string> salesArticleRepository;
 
-        public ProductsOnHoldService(IRepository<SaHoldStory, int> saHoldStoryRepository)
+        public ProductsOnHoldService(IRepository<SaHoldStory, int> saHoldStoryRepository, IRepository<SalesArticle, string> salesArticleRepository)
         {
-            this.saHoldStoryRepository = saHoldStoryRepository; 
+            this.saHoldStoryRepository = saHoldStoryRepository;
+            this.salesArticleRepository = salesArticleRepository;
         }
 
         public ResultsModel GetProductsOnHold()
         {
+            var salesArticlesOnHold = this.salesArticleRepository.FindAll().Where(s => s.LastHoldStoryId != null);
             var productsOnHold = this.saHoldStoryRepository.FindAll().Where(s => s.DateFinished == null);  
             var results = new ResultsModel(new[] { "Article Number", "Invoice Description", "Put On Hold By", "Date Started", "Anticipated End Date", "Reason Started"})
                               {
@@ -33,15 +36,16 @@
             results.SetColumnType(4, GridDisplayType.TextValue);
             results.SetColumnType(5, GridDisplayType.TextValue);
 
-            foreach (var productOnHold in productsOnHold)
+            foreach (var salesArticleOnHold in salesArticlesOnHold)
             {
-                var row = results.AddRow(productOnHold.ArticleNumber.Replace("/", "%2F"), productOnHold.ArticleNumber);
-                results.SetGridTextValue(row.RowIndex, 0, productOnHold.SalesArticle.ArticleNumber);
-                results.SetGridTextValue(row.RowIndex, 1, productOnHold.SalesArticle.InvoiceDescription);
-                results.SetGridTextValue(row.RowIndex, 2, productOnHold.PutOnHoldByEmployee.FullName);
-                results.SetGridTextValue(row.RowIndex, 3, productOnHold.DateStarted.ToShortDateString());
-                results.SetGridTextValue(row.RowIndex, 4, productOnHold.AnticipatedEndDate != null ? ((DateTime) productOnHold.AnticipatedEndDate).ToShortDateString() : null);
-                results.SetGridTextValue(row.RowIndex, 5, productOnHold.ReasonStarted);
+                var holdStory = this.saHoldStoryRepository.FindById((int)salesArticleOnHold.LastHoldStoryId);
+                var row = results.AddRow(salesArticleOnHold.ArticleNumber.Replace("/", "%2F"), holdStory.ArticleNumber);
+                results.SetGridTextValue(row.RowIndex, 0, holdStory.SalesArticle.ArticleNumber);
+                results.SetGridTextValue(row.RowIndex, 1, holdStory.SalesArticle.InvoiceDescription);
+                results.SetGridTextValue(row.RowIndex, 2, holdStory.PutOnHoldByEmployee.FullName);
+                results.SetGridTextValue(row.RowIndex, 3, holdStory.DateStarted.ToShortDateString());
+                results.SetGridTextValue(row.RowIndex, 4, holdStory.AnticipatedEndDate != null ? ((DateTime) holdStory.AnticipatedEndDate).ToShortDateString() : null);
+                results.SetGridTextValue(row.RowIndex, 5, holdStory.ReasonStarted);
             }
 
             results.RowDrillDownTemplates.Add(new DrillDownModel("stories", "/products/maint/sales-articles/{rowId}"));

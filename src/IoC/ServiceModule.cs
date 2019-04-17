@@ -51,6 +51,8 @@
             builder.RegisterType<VatCodeService>().As<IFacadeService<VatCode, string, VatCodeResource, VatCodeResource>>();
             builder.RegisterType<ProductRangeService>().As<IFacadeService<ProductRange, int, ProductRangeResource, ProductRangeUpdateResource>>();
             builder.RegisterType<SalesPackageService>().As<IFacadeService<SalesPackage, int, SalesPackageResource, SalesPackageResource>>();
+            builder.RegisterType<RootProductService>()
+                .As<IFacadeService<RootProduct, string, RootProductResource, RootProductResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();

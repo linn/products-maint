@@ -39,7 +39,7 @@
                                           },
                 ReasonStarted = "Reason 1",
                 ReasonFinished = "reason2",
-                RootProduct = "prod"
+                RootProduct = new RootProduct() { Name = "prod" }
             };
  
             this.SaHoldStoryService.GetById(1)
