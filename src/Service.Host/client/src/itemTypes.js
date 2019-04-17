@@ -83,6 +83,30 @@ export const productRanges = new ItemType(
     '/products/maint/product-ranges'
 );
 
+export const serialNumber = new ItemType(
+    'serialNumber',
+    'SERIAL_NUMBER',
+    '/products/maint/serial-numbers'
+);
+
+export const serialNumbers = new ItemType(
+    'serialNumbers',
+    'SERIAL_NUMBERS',
+    '/products/maint/serial-numbers'
+);
+
+export const sernosNote = new ItemType(
+    'sernosNote',
+    'SERNOS_NOTE',
+    '/products/maint/serial-numbers/notes'
+);
+
+export const sernosNotes = new ItemType(
+    'sernosNotes',
+    'SERNOS_NOTES',
+    '/products/maint/serial-numbers/notes'
+);
+
 export const salesPackage = new ItemType(
     'salesPackage',
     'SALES_PACKAGE',

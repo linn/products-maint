@@ -6,7 +6,6 @@
     using Linn.Common.Persistence;
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Linnapps.Products;
-    using Linn.Products.Domain.Linnapps.Repositories;
 
     public class ProductsOnHoldService : IProductsOnHoldService
     {

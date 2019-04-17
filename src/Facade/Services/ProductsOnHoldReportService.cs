@@ -2,6 +2,7 @@
 {
     using Linn.Common.Facade;
     using Linn.Common.Reporting.Models;
+    using Linn.Products.Domain.Linnapps.Reports;
     using Linn.Products.Domain.Linnapps.Repositories;
 
     public class ProductsOnHoldReportService : IProductsOnHoldReportService

@@ -8,7 +8,6 @@ import {
     SnackbarMessage
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
-import Page from '../../containers/Page';
 import history from '../../history';
 
 function SalesArticleCompositeDiscount({
@@ -62,57 +61,59 @@ function SalesArticleCompositeDiscount({
     };
 
     return (
-        <Page>
-            <Grid container spacing={24}>
-                {loading || !salesArticleCompositeDiscount ? (
-                    <Grid item xs={12}>
-                        <Loading />
-                    </Grid>
-                ) : (
-                    <Fragment>
-                        <SnackbarMessage
-                            visible={snackbarVisible}
-                            onClose={() => setSnackbarVisible(false)}
-                            message="Save Successful"
-                        />
+        <Grid container spacing={24}>
+            {loading || !salesArticleCompositeDiscount ? (
+                <Grid item xs={12}>
+                    <Loading />
+                </Grid>
+            ) : (
+                <Fragment>
+                    <SnackbarMessage
+                        visible={snackbarVisible}
+                        onClose={() => setSnackbarVisible(false)}
+                        message="Save Successful"
+                    />
 
-                        <Grid container spacing={24}>
-                            <Grid item xs={12}>
-                                <Title text={salesArticleCompositeDiscount.articleNumber} />
-                            </Grid>
-                            <Grid item xs={3}>
-                                <InputField
-                                    label="Base Part"
-                                    type="string"
-                                    fullWidth
-                                    propertyName="baseArticleNumber"
-                                    value={salesArticleCompositeDiscount.baseArticleNumber}
-                                    onChange={handleFieldChange}
-                                />
-                            </Grid>
-                            <Grid item xs={3}>
-                                <InputField
-                                    label="Gloss Part"
-                                    type="string"
-                                    fullWidth
-                                    propertyName="noDiscountArticleNumber"
-                                    value={salesArticleCompositeDiscount.noDiscountArticleNumber}
-                                    onChange={handleFieldChange}
-                                />
-                            </Grid>
-                        </Grid>
+                    <Grid container spacing={24}>
                         <Grid item xs={12}>
-                            <SaveBackCancelButtons
-                                saveDisabled={viewing()}
-                                saveClick={handleSaveClick}
-                                cancelClick={handleCancelClick}
-                                backClick={handleBackClick}
+                            <Title
+                                text={`Composite discount parts for ${
+                                    salesArticleCompositeDiscount.articleNumber
+                                }`}
                             />
                         </Grid>
-                    </Fragment>
-                )}
-            </Grid>
-        </Page>
+                        <Grid item xs={3}>
+                            <InputField
+                                label="Base Part"
+                                type="string"
+                                fullWidth
+                                propertyName="baseArticleNumber"
+                                value={salesArticleCompositeDiscount.baseArticleNumber}
+                                onChange={handleFieldChange}
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <InputField
+                                label="Gloss Part"
+                                type="string"
+                                fullWidth
+                                propertyName="noDiscountArticleNumber"
+                                value={salesArticleCompositeDiscount.noDiscountArticleNumber}
+                                onChange={handleFieldChange}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <SaveBackCancelButtons
+                            saveDisabled={viewing()}
+                            saveClick={handleSaveClick}
+                            cancelClick={handleCancelClick}
+                            backClick={handleBackClick}
+                        />
+                    </Grid>
+                </Fragment>
+            )}
+        </Grid>
     );
 }
 
@@ -133,7 +134,6 @@ SalesArticleCompositeDiscount.propTypes = {
     editStatus: PropTypes.string.isRequired,
     itemId: PropTypes.string,
     updateSalesArticleCompositeDiscount: PropTypes.func,
-//    history: PropTypes.shape({}).isRequired,
     setEditStatus: PropTypes.func.isRequired,
     loading: PropTypes.bool,
     snackbarVisible: PropTypes.bool,
