@@ -32,9 +32,7 @@
         private object GetSernosNotes()
         {
             var resource = this.Bind<SernosNoteQueryResource>();
-
             var results = this.sernosNoteService.Search(resource.SernosNumber.ToString());
-
             return this.Negotiate.WithModel(results).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
@@ -42,25 +40,21 @@
         private object AddSernosNote()
         {
             var resource = this.Bind<SernosNoteCreateResource>();
-
-            var validator = new SernosNoteCreateResourceValidator();
-
-            return validator.Validate(resource).IsValid
+            var results = new SernosNoteCreateResourceValidator().Validate(resource);
+            return results.IsValid
                        ? this.Negotiate.WithModel(this.sernosNoteService.Add(resource))
                            .WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                       : this.Negotiate.WithModel(resource).WithStatusCode(HttpStatusCode.BadRequest);
+                       : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
         }
 
         private object UpdateSernosNote(int id)
         {
             var resource = this.Bind<SernosNoteResource>();
-
-            var validator = new SernosNoteResourceValidator();
-
-            return validator.Validate(resource).IsValid
+            var results = new SernosNoteResourceValidator().Validate(resource);
+            return results.IsValid
                        ? this.Negotiate.WithModel(this.sernosNoteService.Update(id, resource))
                            .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index")
-                       : this.Negotiate.WithModel(resource).WithStatusCode(HttpStatusCode.BadRequest);
+                       : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
         }
     }
 }

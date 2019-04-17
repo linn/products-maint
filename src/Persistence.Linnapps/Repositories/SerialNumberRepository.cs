@@ -33,7 +33,7 @@
 
         public void Add(SerialNumber entity)
         {
-            throw new NotImplementedException();
+            this.serviceDbContext.SerialNumbers.Add(entity);
         }
 
         public void Remove(SerialNumber entity)

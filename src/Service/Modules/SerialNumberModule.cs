@@ -1,13 +1,19 @@
 ﻿namespace Linn.Products.Service.Modules
 {
+    using FluentValidation.Results;
+
     using Linn.Common.Facade;
+    using Linn.Common.Resources;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
+    using Linn.Products.Resources.Validators;
+    using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
 
     using Nancy;
     using Nancy.ModelBinding;
+    using Nancy.Security;
 
     public sealed class SerialNumberModule : NancyModule
     {
@@ -18,6 +24,19 @@
             this.serialNumberService = serialNumberService;
             this.Get("/products/maint/serial-numbers", _ => this.GetSerialNumbers());
             this.Get("/products/maint/serial-numbers/{sernosTRef}", parameters => this.GetSerialNumberByTRef(parameters.sernosTRef));
+            this.Post("/products/maint/serial-numbers/create", _ => this.CreateSerialNumber());
+        }
+
+        private object CreateSerialNumber()
+        {
+            this.RequiresAuthentication();
+            var resource = this.Bind<SerialNumberResource>();
+            resource.Links = new[] { new LinkResource("entered-by", this.Context.CurrentUser.GetEmployeeUri()) };
+            var results = new SerialNumberResourceValidator().Validate(resource);
+
+            return results.IsValid
+                       ? this.Negotiate.WithModel(this.serialNumberService.Add(resource))
+                       : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
         }
 
         private object GetSerialNumberByTRef(int sernosTRef)
