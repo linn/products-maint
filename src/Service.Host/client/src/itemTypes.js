@@ -93,3 +93,9 @@ export const salesPackages = new ItemType(
     'SALES_PACKAGES',
     '/products/maint/sales-packages'
 );
+
+export const salesArticleCompositeDiscount = new ItemType(
+    'salesArticleCompositeDiscount',
+    'SALES_ARTICLE_COMPOSITE_DISCOUNT',
+    '/products/maint/sales-articles/composite-discounts'
+);

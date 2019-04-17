@@ -26,9 +26,9 @@
             SalesArticleCompositeDiscountResource resource)
         {
             var result = this.salesArticleCompositeDiscountService.SetCompositeDiscount(
-                articleNumber,
-                resource.BaseArticleNumber,
-                resource.NoDiscountArticleNumber);
+                articleNumber.ToUpper(),
+                resource.BaseArticleNumber.ToUpper(),
+                resource.NoDiscountArticleNumber.ToUpper());
             return new SuccessResult<SalesArticleCompositeDiscount>(result);
         }
     }

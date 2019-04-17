@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import { getSelfHref, getHref } from '../../helpers/utilities';
 import Page from '../../containers/Page';
 import HoldStoriesBySalesArticle from '../../containers/saHoldStories/HoldStoriesBySalesArticle';
+import SalesArticleCompositeDiscount from '../../containers/salesArticles/SalesArticleCompositeDiscount';
 
 function SalesArticle({
     loading,
@@ -137,6 +138,7 @@ function SalesArticle({
                             >
                                 <Tab label="View Or Edit Details" />
                                 <Tab label="View Hold History" />
+                                <Tab label="Set Composite Discount" />
                             </Tabs>
                             {tab === 0 && (
                                 <Grid container spacing={24}>
@@ -246,6 +248,12 @@ function SalesArticle({
                             )}
                             {tab === 1 && (
                                 <HoldStoriesBySalesArticle
+                                    articleNumber={salesArticle.articleNumber}
+                                    match={match}
+                                />
+                            )}
+                            {tab === 2 && (
+                                <SalesArticleCompositeDiscount
                                     articleNumber={salesArticle.articleNumber}
                                     match={match}
                                 />

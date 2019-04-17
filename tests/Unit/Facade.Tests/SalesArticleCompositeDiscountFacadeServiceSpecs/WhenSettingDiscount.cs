@@ -23,16 +23,16 @@
         {
             this.salesArticleCompositeDiscount = new SalesArticleCompositeDiscount
                                                      {
-                                                         SalesArticle = "sa",
-                                                         BaseSalesArticle = "b",
-                                                         NoDiscountSalesArticle = "n"
+                                                         SalesArticle = "SA",
+                                                         BaseSalesArticle = "B",
+                                                         NoDiscountSalesArticle = "N"
                                                      };
             this.resource = new SalesArticleCompositeDiscountResource
                                 {
                                     NoDiscountArticleNumber = "n",
                                     BaseArticleNumber = "b"
                                 };
-            this.SalesArticleCompositeDiscountService.SetCompositeDiscount("sa", "b", "n")
+            this.SalesArticleCompositeDiscountService.SetCompositeDiscount("SA", "B", "N")
                 .Returns(this.salesArticleCompositeDiscount);
             this.result = this.Sut.SetCompositeDiscount("sa", this.resource);
         }
@@ -40,7 +40,7 @@
         [Test]
         public void ShouldSetDiscountWithProxy()
         {
-            this.SalesArticleCompositeDiscountService.Received().SetCompositeDiscount("sa", "b", "n");
+            this.SalesArticleCompositeDiscountService.Received().SetCompositeDiscount("SA", "B", "N");
         }
 
         [Test]
@@ -48,9 +48,9 @@
         {
             this.result.Should().BeOfType<SuccessResult<SalesArticleCompositeDiscount>>();
             var dataResult = ((SuccessResult<SalesArticleCompositeDiscount>)this.result).Data;
-            dataResult.SalesArticle.Should().Be("sa");
-            dataResult.BaseSalesArticle.Should().Be("b");
-            dataResult.NoDiscountSalesArticle.Should().Be("n");
+            dataResult.SalesArticle.Should().Be("SA");
+            dataResult.BaseSalesArticle.Should().Be("B");
+            dataResult.NoDiscountSalesArticle.Should().Be("N");
         }
     }
 }

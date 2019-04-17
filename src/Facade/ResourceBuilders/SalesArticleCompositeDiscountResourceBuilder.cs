@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using Linn.Common.Facade;
     using Linn.Common.Resources;
@@ -14,8 +15,10 @@
         {
             return new SalesArticleCompositeDiscountResource
                        {
+                           ArticleNumber = salesArticleCompositeDiscount.SalesArticle,
                            NoDiscountArticleNumber = salesArticleCompositeDiscount.NoDiscountSalesArticle,
-                           BaseArticleNumber = salesArticleCompositeDiscount.BaseSalesArticle
+                           BaseArticleNumber = salesArticleCompositeDiscount.BaseSalesArticle,
+                           Links = this.BuildLinks(salesArticleCompositeDiscount).ToArray()
                        };
         }
 
