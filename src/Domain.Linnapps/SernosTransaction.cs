@@ -1,6 +1,6 @@
 ﻿namespace Linn.Products.Domain.Linnapps
 {
-    public class SernosTrans
+    public class SernosTransaction
     {
         public string TransCode { get; set; }
 

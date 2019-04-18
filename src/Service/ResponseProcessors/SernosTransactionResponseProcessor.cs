@@ -4,9 +4,9 @@
     using Linn.Common.Nancy.Facade;
     using Linn.Products.Domain.Linnapps;
 
-    public class SernosTransResponseProcessor : JsonResponseProcessor<SernosTrans>
+    public class SernosTransactionResponseProcessor : JsonResponseProcessor<SernosTransaction>
     {
-        public SernosTransResponseProcessor(IResourceBuilder<SernosTrans> resourceBuilder)
+        public SernosTransactionResponseProcessor(IResourceBuilder<SernosTransaction> resourceBuilder)
             : base(resourceBuilder, "sernos-trans", 1)
         {
         }

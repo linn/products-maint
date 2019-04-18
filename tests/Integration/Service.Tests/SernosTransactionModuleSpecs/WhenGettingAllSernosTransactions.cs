@@ -16,26 +16,26 @@
 
     using NUnit.Framework;
 
-    public class WhenGettingAllSernosTrans : ContextBase
+    public class WhenGettingAllSernosTransactions : ContextBase
     {
         [SetUp]
         public void SetUp()
         {
-            var sernosTrans1 = new SernosTrans { TransCode = "code1", TransDescription = "desc1", Comments = "comments1" };
-            var sernosTrans2 = new SernosTrans { TransCode = "code2", TransDescription = "desc2", Comments = "comments2" };
+            var sernosTrans1 = new SernosTransaction { TransCode = "code1", TransDescription = "desc1", Comments = "comments1" };
+            var sernosTrans2 = new SernosTransaction { TransCode = "code2", TransDescription = "desc2", Comments = "comments2" };
 
-            this.SernosTransService.GetAll().Returns(
-                new SuccessResult<IEnumerable<SernosTrans>>(new List<SernosTrans> { sernosTrans1, sernosTrans2 }));
+            this.SernosTransactionService.GetAll().Returns(
+                new SuccessResult<IEnumerable<SernosTransaction>>(new List<SernosTransaction> { sernosTrans1, sernosTrans2 }));
 
             this.Response = this.Browser.Get(
-                "/products/maint/sernos-trans",
+                "/products/maint/sernos-transactions",
                 with => { with.Header("Accept", "application/json"); }).Result;
         }
 
         [Test]
         public void ShouldCallService()
         {
-            this.SernosTransService.Received().GetAll();
+            this.SernosTransactionService.Received().GetAll();
         }
 
         [Test]
@@ -47,7 +47,7 @@
         [Test]
         public void ShouldReturnResource()
         {
-            var resources = this.Response.Body.DeserializeJson<IEnumerable<SernosTransResource>>().ToList();
+            var resources = this.Response.Body.DeserializeJson<IEnumerable<SernosTransactionResource>>().ToList();
             resources.Should().HaveCount(2);
             resources.Should().Contain(s => s.TransCode == "code1");
             resources.Should().Contain(s => s.TransCode == "code2");

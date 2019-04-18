@@ -42,7 +42,7 @@
 
         public DbSet<SerialNumber> SerialNumbers { get; set; }
 
-        public DbSet<SernosTrans> SernosTranses { get; set; }
+        public DbSet<SernosTransaction> SernosTranses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -223,34 +223,34 @@
 
         private void BuildSernosTrans(ModelBuilder builder)
         {
-            builder.Entity<SernosTrans>().ToTable("SERNOS_TRANS");
-            builder.Entity<SernosTrans>().HasKey(s => s.TransCode);
-            builder.Entity<SernosTrans>().Property(s => s.TransCode).HasColumnName("TRANS_CODE").HasMaxLength(10);
-            builder.Entity<SernosTrans>().Property(s => s.TransDescription).HasColumnName("TRANS_DESCRIPTION").HasMaxLength(50);
-            builder.Entity<SernosTrans>().Property(s => s.Comments).HasColumnName("COMMENTS").HasMaxLength(2000);
-            builder.Entity<SernosTrans>().Property(s => s.ManualPost).HasColumnName("MANUAL_POST").HasMaxLength(1);
-            builder.Entity<SernosTrans>().Property(s => s.NettBuilds).HasColumnName("NETT_BUILDS");
-            builder.Entity<SernosTrans>().Property(s => s.NettIssues).HasColumnName("NETT_ISSUES");
-            builder.Entity<SernosTrans>().Property(s => s.NettSales).HasColumnName("NETT_SALES");
-            builder.Entity<SernosTrans>().Property(s => s.NettMoves).HasColumnName("NETT_MOVES");
-            builder.Entity<SernosTrans>().Property(s => s.NettLoans).HasColumnName("NETT_LOANS");
-            builder.Entity<SernosTrans>().Property(s => s.NettSteals).HasColumnName("NETT_STEALS");
-            builder.Entity<SernosTrans>().Property(s => s.NettScraps).HasColumnName("NETT_SCRAPS");
-            builder.Entity<SernosTrans>().Property(s => s.UpdateLastTransaction).HasColumnName("UPDATE_LAST_TRANSACTION").HasMaxLength(1);
-            builder.Entity<SernosTrans>().Property(s => s.UpdateBuiltBy).HasColumnName("UPDATE_BUILT_BY").HasMaxLength(1);
-            builder.Entity<SernosTrans>().Property(s => s.UpdateLastAccount).HasColumnName("UPDATE_LAST_ACCOUNT").HasMaxLength(1);
-            builder.Entity<SernosTrans>().Property(s => s.LastTransCheck).HasColumnName("LAST_TRANS_CHECK").HasMaxLength(1);
-            builder.Entity<SernosTrans>().Property(s => s.CheckLastTransCode).HasColumnName("CHECK_LAST_TRANS_CODE").HasMaxLength(10);
-            builder.Entity<SernosTrans>().Property(s => s.LastTransCheckMess).HasColumnName("LAST_TRANS_CHECK_MESS").HasMaxLength(128);
-            builder.Entity<SernosTrans>().Property(s => s.SameDocumentCheck).HasColumnName("SAME_DOCUMENT_CHECK").HasMaxLength(1);
-            builder.Entity<SernosTrans>().Property(s => s.SameDocumentCheckMess).HasColumnName("SAME_DOCUMENT_CHECK_MESS").HasMaxLength(128);
-            builder.Entity<SernosTrans>().Property(s => s.SameDoclineCheck).HasColumnName("SAME_DOCLINE_CHECK").HasMaxLength(1);
-            builder.Entity<SernosTrans>().Property(s => s.SameDoclineCheckMess).HasColumnName("SAME_DOCLINE_CHECK_MESS").HasMaxLength(128);
-            builder.Entity<SernosTrans>().Property(s => s.SameAccountCheck).HasColumnName("SAME_ACCOUNT_CHECK").HasMaxLength(1);
-            builder.Entity<SernosTrans>().Property(s => s.SameAccountCheckMess).HasColumnName("SAME_ACCOUNT_CHECK_MESS").HasMaxLength(128);
-            builder.Entity<SernosTrans>().Property(s => s.SameOutletCheck).HasColumnName("SAME_OUTLET_CHECK").HasMaxLength(1);
-            builder.Entity<SernosTrans>().Property(s => s.SameOutletCheckMess).HasColumnName("SAME_OUTLET_CHECK_MESS").HasMaxLength(128);
-            builder.Entity<SernosTrans>().Property(s => s.AuthOperation).HasColumnName("AUTH_OPERATION").HasMaxLength(10);
+            builder.Entity<SernosTransaction>().ToTable("SERNOS_TRANS");
+            builder.Entity<SernosTransaction>().HasKey(s => s.TransCode);
+            builder.Entity<SernosTransaction>().Property(s => s.TransCode).HasColumnName("TRANS_CODE").HasMaxLength(10);
+            builder.Entity<SernosTransaction>().Property(s => s.TransDescription).HasColumnName("TRANS_DESCRIPTION").HasMaxLength(50);
+            builder.Entity<SernosTransaction>().Property(s => s.Comments).HasColumnName("COMMENTS").HasMaxLength(2000);
+            builder.Entity<SernosTransaction>().Property(s => s.ManualPost).HasColumnName("MANUAL_POST").HasMaxLength(1);
+            builder.Entity<SernosTransaction>().Property(s => s.NettBuilds).HasColumnName("NETT_BUILDS");
+            builder.Entity<SernosTransaction>().Property(s => s.NettIssues).HasColumnName("NETT_ISSUES");
+            builder.Entity<SernosTransaction>().Property(s => s.NettSales).HasColumnName("NETT_SALES");
+            builder.Entity<SernosTransaction>().Property(s => s.NettMoves).HasColumnName("NETT_MOVES");
+            builder.Entity<SernosTransaction>().Property(s => s.NettLoans).HasColumnName("NETT_LOANS");
+            builder.Entity<SernosTransaction>().Property(s => s.NettSteals).HasColumnName("NETT_STEALS");
+            builder.Entity<SernosTransaction>().Property(s => s.NettScraps).HasColumnName("NETT_SCRAPS");
+            builder.Entity<SernosTransaction>().Property(s => s.UpdateLastTransaction).HasColumnName("UPDATE_LAST_TRANSACTION").HasMaxLength(1);
+            builder.Entity<SernosTransaction>().Property(s => s.UpdateBuiltBy).HasColumnName("UPDATE_BUILT_BY").HasMaxLength(1);
+            builder.Entity<SernosTransaction>().Property(s => s.UpdateLastAccount).HasColumnName("UPDATE_LAST_ACCOUNT").HasMaxLength(1);
+            builder.Entity<SernosTransaction>().Property(s => s.LastTransCheck).HasColumnName("LAST_TRANS_CHECK").HasMaxLength(1);
+            builder.Entity<SernosTransaction>().Property(s => s.CheckLastTransCode).HasColumnName("CHECK_LAST_TRANS_CODE").HasMaxLength(10);
+            builder.Entity<SernosTransaction>().Property(s => s.LastTransCheckMess).HasColumnName("LAST_TRANS_CHECK_MESS").HasMaxLength(128);
+            builder.Entity<SernosTransaction>().Property(s => s.SameDocumentCheck).HasColumnName("SAME_DOCUMENT_CHECK").HasMaxLength(1);
+            builder.Entity<SernosTransaction>().Property(s => s.SameDocumentCheckMess).HasColumnName("SAME_DOCUMENT_CHECK_MESS").HasMaxLength(128);
+            builder.Entity<SernosTransaction>().Property(s => s.SameDoclineCheck).HasColumnName("SAME_DOCLINE_CHECK").HasMaxLength(1);
+            builder.Entity<SernosTransaction>().Property(s => s.SameDoclineCheckMess).HasColumnName("SAME_DOCLINE_CHECK_MESS").HasMaxLength(128);
+            builder.Entity<SernosTransaction>().Property(s => s.SameAccountCheck).HasColumnName("SAME_ACCOUNT_CHECK").HasMaxLength(1);
+            builder.Entity<SernosTransaction>().Property(s => s.SameAccountCheckMess).HasColumnName("SAME_ACCOUNT_CHECK_MESS").HasMaxLength(128);
+            builder.Entity<SernosTransaction>().Property(s => s.SameOutletCheck).HasColumnName("SAME_OUTLET_CHECK").HasMaxLength(1);
+            builder.Entity<SernosTransaction>().Property(s => s.SameOutletCheckMess).HasColumnName("SAME_OUTLET_CHECK_MESS").HasMaxLength(128);
+            builder.Entity<SernosTransaction>().Property(s => s.AuthOperation).HasColumnName("AUTH_OPERATION").HasMaxLength(10);
         }
 
         private void BuildTariffs(ModelBuilder builder)

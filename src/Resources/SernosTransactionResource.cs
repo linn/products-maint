@@ -2,7 +2,7 @@
 {
     using Linn.Common.Resources;
 
-    public class SernosTransResource : HypermediaResource
+    public class SernosTransactionResource : HypermediaResource
     {
         public string TransCode { get; set; }
 

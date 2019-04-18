@@ -13,24 +13,24 @@
 
     using NUnit.Framework;
 
-    public class WhenGettingSernosTrans : ContextBase
+    public class WhenGettingSernosTransaction : ContextBase
     {
         [SetUp]
         public void SetUp()
         {
-            var sernosTrans = new SernosTrans { TransCode = "code", TransDescription = "desc", Comments = "comments" };
-            this.SernosTransService.GetById("code")
-                .Returns(new SuccessResult<SernosTrans>(sernosTrans) { Data = sernosTrans });
+            var sernosTrans = new SernosTransaction { TransCode = "code", TransDescription = "desc", Comments = "comments" };
+            this.SernosTransactionService.GetById("code")
+                .Returns(new SuccessResult<SernosTransaction>(sernosTrans) { Data = sernosTrans });
 
             this.Response = this.Browser.Get(
-                "/products/maint/sernos-trans/code",
+                "/products/maint/sernos-transactions/code",
                 with => { with.Header("Accept", "application/json"); }).Result;
         }
 
         [Test]
         public void ShouldCallService()
         {
-            this.SernosTransService.Received().GetById("code");
+            this.SernosTransactionService.Received().GetById("code");
         }
 
         [Test]
@@ -42,7 +42,7 @@
         [Test]
         public void ShouldReturnResource()
         {
-            var resource = this.Response.Body.DeserializeJson<SernosTransResource>();
+            var resource = this.Response.Body.DeserializeJson<SernosTransactionResource>();
             resource.TransCode.Should().Be("code");
         }
     }

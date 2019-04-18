@@ -19,22 +19,22 @@
 
     public abstract class ContextBase : NancyContextBase
     {
-        protected IFacadeService<SernosTrans, string, SernosTransResource, SernosTransResource> SernosTransService { get; private set; }
+        protected IFacadeService<SernosTransaction, string, SernosTransactionResource, SernosTransactionResource> SernosTransactionService { get; private set; }
 
         [SetUp]
         public void EstablishContext()
         {
-            this.SernosTransService = Substitute.For<IFacadeService<SernosTrans, string, SernosTransResource, SernosTransResource>>();
+            this.SernosTransactionService = Substitute.For<IFacadeService<SernosTransaction, string, SernosTransactionResource, SernosTransactionResource>>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
                 {
-                    with.Dependency(this.SernosTransService);
-                    with.Dependency<IResourceBuilder<SernosTrans>>(new SernosTransResourceBuilder());
-                    with.Dependency<IResourceBuilder<IEnumerable<SernosTrans>>>(new SernosTransesResourceBuilder());
-                    with.Module<SernosTransModule>();
-                    with.ResponseProcessor<SernosTransResponseProcessor>();
-                    with.ResponseProcessor<SernosTransesResponseProcessor>();
+                    with.Dependency(this.SernosTransactionService);
+                    with.Dependency<IResourceBuilder<SernosTransaction>>(new SernosTransactionResourceBuilder());
+                    with.Dependency<IResourceBuilder<IEnumerable<SernosTransaction>>>(new SernosTransactionsResourceBuilder());
+                    with.Module<SernosTransactionModule>();
+                    with.ResponseProcessor<SernosTransactionResponseProcessor>();
+                    with.ResponseProcessor<SernosTransactionsResponseProcessor>();
                     with.RequestStartup(
                         (container, pipelines, context) =>
                         {
