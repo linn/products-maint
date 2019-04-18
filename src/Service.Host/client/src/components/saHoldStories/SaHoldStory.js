@@ -36,7 +36,10 @@ function SaHoldStory({
     const initialState = () => {
         if (creating()) {
             return {
-                salesArticle: deslugify(match.params.articleNumber),
+                salesArticle: match.params.articleNumber
+                    ? deslugify(match.params.articleNumber)
+                    : null,
+                rootProduct: match.params.name,
                 dateStarted: moment().toISOString()
             };
         }
@@ -82,7 +85,7 @@ function SaHoldStory({
 
     const titleText = () => {
         if (creating()) {
-            return `Put ${saHoldStory.salesArticle} on Hold?`;
+            return `Put ${saHoldStory.salesArticle || saHoldStory.rootProduct} on Hold?`;
         }
         if (editing()) {
             return `Take ${saHoldStory.salesArticle} off Hold?`;

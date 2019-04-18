@@ -20,7 +20,7 @@
 
         public RootProduct FindById(string key)
         {
-            return this.serviceDbContext.RootProducts.Where(b => b.Name == key).ToList().FirstOrDefault();
+            return this.serviceDbContext.RootProducts.Where(b => b.Name == key).Include(s => s.HoldStories).ToList().FirstOrDefault();
         }
 
         public IQueryable<RootProduct> FindAll()

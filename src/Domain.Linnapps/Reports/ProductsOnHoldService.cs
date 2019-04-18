@@ -37,7 +37,7 @@
             foreach (var salesArticleOnHold in salesArticlesOnHold)
             {
                 var holdStory = this.saHoldStoryRepository.FindById((int)salesArticleOnHold.LastHoldStoryId);
-                var row = results.AddRow(salesArticleOnHold.ArticleNumber.Replace("/", "%2F"), holdStory.ArticleNumber);
+                var row = results.AddRow(salesArticleOnHold.ArticleNumber.Replace("/", "%2F"), salesArticleOnHold.ArticleNumber);
                 results.SetGridTextValue(row.RowIndex, 0, salesArticleOnHold.ArticleNumber);
                 results.SetGridTextValue(row.RowIndex, 1, salesArticleOnHold.InvoiceDescription);
                 results.SetGridTextValue(row.RowIndex, 2, holdStory.PutOnHoldByEmployee.FullName);

@@ -14,17 +14,27 @@
     {
         public RootProductResource Build(RootProduct rootProduct)
         {
-            return new RootProductResource { Name = rootProduct.Name, Description = rootProduct.Description, Links = this.BuildLinks(rootProduct).ToArray() };
+            return new RootProductResource
+                       {
+                           Name = rootProduct.Name,
+                           Description = rootProduct.Description,
+                           Links = this.BuildLinks(rootProduct).ToArray(),
+                           onHold = isOnHold(rootProduct)
+                       };
         }
 
         object IResourceBuilder<RootProduct>.Build(RootProduct r) => this.Build(r);
-
 
         public string GetLocation(RootProduct rootProduct)
         {
             return $"/products/maint/root-products/{Uri.EscapeDataString(rootProduct.Name)}";
         }
 
+        private static bool isOnHold(RootProduct rootProduct)
+        {
+            return rootProduct.HoldStories?.Any(story => story.DateFinished == null) ?? false;
+
+        }
         private IEnumerable<LinkResource> BuildLinks(RootProduct rootProduct)
         {
             var openStory = rootProduct.HoldStories?.FirstOrDefault(s => s.DateFinished == null);
@@ -35,7 +45,6 @@
                                  Href = this.GetLocation(rootProduct)
                              };
 
- 
             yield return new LinkResource
                              {
                                  Rel = "put-on-hold",

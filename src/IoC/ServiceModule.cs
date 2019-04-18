@@ -52,6 +52,7 @@
             builder.RegisterType<SalesPackageService>().As<IFacadeService<SalesPackage, int, SalesPackageResource, SalesPackageResource>>();
             builder.RegisterType<RootProductService>()
                 .As<IFacadeService<RootProduct, string, RootProductResource, RootProductResource>>();
+            builder.RegisterType<SalesArticleCompositeDiscountFacadeService>().As<ISalesArticleCompositeDiscountFacadeService>();
             builder.RegisterType<SerialNumberService>().As<IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource>>();
             builder.RegisterType<SernosNoteService>().As<IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource>>();
 

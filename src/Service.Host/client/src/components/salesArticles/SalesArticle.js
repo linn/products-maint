@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import moment from 'moment';
-import { Grid, Typography, Button, Tabs, Tab } from '@material-ui/core';
+import { Grid, Typography, Button, Tabs, Tab, Tooltip } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import {
     InputField,
@@ -155,22 +155,31 @@ function SalesArticle({
                                             !salesArticle.rootProductOnHold ? (
                                                 <Fragment>
                                                     <span> ON HOLD </span>
-                                                    <Button
-                                                        disabled={salesArticle.rootProductOnHold}
-                                                        component={Link}
-                                                        to={getHref(salesArticle, 'put-off-hold')}
-                                                    >
-                                                        REMOVE HOLD
-                                                    </Button>
+                                                    <Tooltip disableFocusListener title="Add">
+                                                        <Button
+                                                            disabled={
+                                                                salesArticle.rootProductOnHold
+                                                            }
+                                                            component={Link}
+                                                            to={getHref(
+                                                                salesArticle,
+                                                                'put-off-hold'
+                                                            )}
+                                                        >
+                                                            REMOVE HOLD
+                                                        </Button>{' '}
+                                                    </Tooltip>
                                                 </Fragment>
                                             ) : (
-                                                <Button
-                                                    component={Link}
-                                                    disabled={salesArticle.rootProductOnHold}
-                                                    to={getHref(salesArticle, 'put-on-hold')}
-                                                >
-                                                    PUT ON HOLD
-                                                </Button>
+                                                <Tooltip disableFocusListener title="Add">
+                                                    <Button
+                                                        component={Link}
+                                                        disabled={salesArticle.rootProductOnHold}
+                                                        to={getHref(salesArticle, 'put-on-hold')}
+                                                    >
+                                                        PUT ON HOLD
+                                                    </Button>
+                                                </Tooltip>
                                             )}
                                             {salesArticle.rootProductOnHold && (
                                                 <div>ROOT PRODUCT ON HOLD</div>

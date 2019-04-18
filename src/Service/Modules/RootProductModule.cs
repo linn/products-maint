@@ -23,9 +23,17 @@
             this.rootProductService = rootProductService;
 
             this.Get("/products/maint/root-products", _ => this.GetRootProducts());
-
+            this.Get("/products/maint/root-products/{name}", parameters => this.GetRootProduct(parameters.name));
         }
 
+        private object GetRootProduct(string name)
+        {
+            var result = this.rootProductService.GetById(name);
+            return this.Negotiate
+                .WithModel(result)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
+        }
 
         private object GetRootProducts()
         {
