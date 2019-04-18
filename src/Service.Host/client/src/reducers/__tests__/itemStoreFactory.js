@@ -29,6 +29,7 @@ describe('item store reducer factory', () => {
 
         const expected = {
             loading: true,
+            item: {},
             editStatus: 'view'
         };
 
