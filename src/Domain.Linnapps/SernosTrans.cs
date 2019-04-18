@@ -2,17 +2,13 @@
 {
     public class SernosTrans
     {
-        public SernosTrans()
-        {
-        }
-
         public string TransCode { get; set; }
 
         public string TransDescription { get; set; }
 
         public string Comments { get; set; }
 
-        public int ManualPost { get; set; }
+        public string ManualPost { get; set; }
 
         public int? NettBuilds { get; set; }
 
@@ -36,7 +32,7 @@
 
         public string LastTransCheck { get; set; }
 
-        public string CheckLastTransCheck { get; set; }
+        public string CheckLastTransCode { get; set; }
 
         public string LastTransCheckMess { get; set; }
 

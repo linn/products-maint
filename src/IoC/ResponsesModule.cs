@@ -46,6 +46,8 @@
             builder.RegisterType<SernosNotesResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosNote>>>();
             builder.RegisterType<SalesPackagesPaginatedResourceBuilder>()
                 .As<IResourceBuilder<IPagedList<SalesPackage>>>();
+            builder.RegisterType<SernosTransResourceBuilder>().As<IResourceBuilder<SernosTrans>>();
+            builder.RegisterType<SernosTransesResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosTrans>>>();
         }
     }
 }
