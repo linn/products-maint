@@ -111,7 +111,7 @@ function SalesArticle({
     return (
         <Page>
             <Grid container spacing={24}>
-                {loading || !salesArticle ? (
+                {loading || !salesArticle || !salesArticle.articleNumber ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
@@ -156,7 +156,7 @@ function SalesArticle({
                                                     <span> ON HOLD </span>
                                                     <Button
                                                         component={Link}
-                                                        to={salesArticle.links[3].href}
+                                                        to={getHref(salesArticle, 'put-off-hold')}
                                                     >
                                                         REMOVE HOLD
                                                     </Button>
@@ -164,7 +164,7 @@ function SalesArticle({
                                             ) : (
                                                 <Button
                                                     component={Link}
-                                                    to={salesArticle.links[2].href}
+                                                    to={getHref(salesArticle, 'put-on-hold')}
                                                 >
                                                     PUT ON HOLD
                                                 </Button>
