@@ -56,7 +56,7 @@
         private IEnumerable<LinkResource> BuildLinks(SalesArticle salesArticle)
         {
             var openStory = salesArticle.HoldStories?.FirstOrDefault(s => s.DateFinished == null);
-       
+
             yield return new LinkResource
                              {
                                  Rel = "self",
@@ -82,7 +82,7 @@
                                      Href = $"/products/maint/close-hold-story/{openStory.HoldStoryId}"
                                  };
             }
-           
+
             if (salesArticle.SaCoreType != null)
             {
                 yield return new LinkResource

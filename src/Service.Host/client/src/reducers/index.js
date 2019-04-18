@@ -9,6 +9,10 @@ import stockTriggerLevelsReport from './stockTriggerLevelReports';
 import salesProductsByProductRangeReport from './salesProductsByProductRangeReport';
 import saHoldStoriesReport from './saHoldStoriesReport';
 import cartonType from './cartonType';
+import serialNumber from './serialNumber';
+import serialNumbers from './serialNumbers';
+import sernosNote from './sernosNote';
+import sernosNotes from './sernosNotes';
 import sernosConfig from './sernosConfig';
 import sernosConfigs from './sernosConfigs';
 import sernosSequence from './sernosSequence';
@@ -30,6 +34,7 @@ import productsOnHoldReport from './productsOnHoldReport';
 import salesArticleCoreTypes from './salesArticleCoreTypes/index';
 import salesPackage from './salesPackage';
 import salesPackages from './salesPackages';
+import salesArticleCompositeDiscount from './salesArticleCompositeDiscount';
 
 const rootReducer = combineReducers({
     oidc,
@@ -40,6 +45,10 @@ const rootReducer = combineReducers({
     productRangesReport,
     salesProductsByProductRangeReport,
     cartonType,
+    serialNumber,
+    serialNumbers,
+    sernosNote,
+    sernosNotes,
     sernosConfig,
     sernosConfigs,
     sernosSequence,
@@ -62,7 +71,8 @@ const rootReducer = combineReducers({
     productRanges,
     productsOnHoldReport,
     salesPackage,
-    salesPackages
+    salesPackages,
+    salesArticleCompositeDiscount
 });
 
 export default rootReducer;

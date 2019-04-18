@@ -6,6 +6,7 @@
     using Linn.Common.Facade;
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.Models;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Facade.ResourceBuilders;
@@ -41,8 +42,13 @@
             builder.RegisterType<ProductRangesResourceBuilder>().As<IResourceBuilder<IEnumerable<ProductRange>>>();
             builder.RegisterType<SalesPackageResourceBuilder>().As<IResourceBuilder<SalesPackage>>();
             builder.RegisterType<SalesPackagesResourceBuilder>().As<IResourceBuilder<IEnumerable<SalesPackage>>>();
+            builder.RegisterType<SerialNumberResourceBuilder>().As<IResourceBuilder<SerialNumber>>();
+            builder.RegisterType<SerialNumbersResourceBuilder>().As<IResourceBuilder<IEnumerable<SerialNumber>>>();
+            builder.RegisterType<SernosNoteResourceBuilder>().As<IResourceBuilder<SernosNote>>();
+            builder.RegisterType<SernosNotesResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosNote>>>();
             builder.RegisterType<SalesPackagesPaginatedResourceBuilder>()
                 .As<IResourceBuilder<IPagedList<SalesPackage>>>();
+            builder.RegisterType<SalesArticleCompositeDiscountResourceBuilder>().As<IResourceBuilder<SalesArticleCompositeDiscount>>();
         }
     }
 }

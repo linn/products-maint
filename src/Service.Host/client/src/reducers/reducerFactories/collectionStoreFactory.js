@@ -20,6 +20,7 @@ export default function(
             case actionTypes[`REQUEST_${itemRoot}`]:
                 return {
                     ...state,
+                    item: {},
                     loading: true
                 };
             case actionTypes[`RECEIVE_${itemRoot}`]:
