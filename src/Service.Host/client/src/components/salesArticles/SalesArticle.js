@@ -111,7 +111,7 @@ function SalesArticle({
     return (
         <Page>
             <Grid container spacing={24}>
-                {loading || !salesArticle || !salesArticle.articleNumber ? (
+                {loading || !salesArticle ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
