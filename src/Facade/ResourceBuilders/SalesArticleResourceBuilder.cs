@@ -31,7 +31,8 @@
                            TypeOfSale = salesArticle.TypeOfSale,
                            PackingDescription = salesArticle.PackingDescription,
                            Links = this.BuildLinks(salesArticle).ToArray(),
-                           OnHold = this.IsOnHold(salesArticle)
+                           OnHold = IsOnHold(salesArticle),
+                           RootProductOnHold = RootProductGroupIsOnHold(salesArticle)
                        };
         }
 
@@ -42,9 +43,14 @@
             return $"/products/maint/sales-articles/{Uri.EscapeDataString(salesArticle.ArticleNumber)}";
         }
 
-        private bool IsOnHold(SalesArticle salesArticle)
+        private static bool IsOnHold(SalesArticle salesArticle)
         {
             return salesArticle.HoldStories?.Any(story => story.DateFinished == null) ?? false;
+        }
+
+        private static bool RootProductGroupIsOnHold(SalesArticle salesArticle)
+        {
+            return salesArticle.LastHoldStoryId != null && !IsOnHold(salesArticle);
         }
 
         private IEnumerable<LinkResource> BuildLinks(SalesArticle salesArticle)
@@ -68,7 +74,7 @@
                                  Rel = "put-on-hold",
                                  Href = $"/products/maint/put-product-on-hold/{Uri.EscapeDataString(salesArticle.ArticleNumber)}"
                              };
-            if (openStory != null)
+            if ( openStory != null)
             {
                 yield return new LinkResource
                                  {

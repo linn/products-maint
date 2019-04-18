@@ -35,5 +35,8 @@
         public string ArticleType { get; set; }
 
         public bool OnHold { get; set; }
+
+        public bool RootProductOnHold { get; set; }
+
     }
 }

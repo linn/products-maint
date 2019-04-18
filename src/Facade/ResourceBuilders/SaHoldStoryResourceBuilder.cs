@@ -15,7 +15,7 @@
         public SaHoldStoryResource Build(SaHoldStory saHoldStory)
         {
             return new SaHoldStoryResource
-                       {
+            {
                            HoldStoryId = saHoldStory.HoldStoryId,
                            SalesArticle = saHoldStory.SalesArticle.ArticleNumber,
                            DateStarted = saHoldStory.DateStarted.ToString("o"),

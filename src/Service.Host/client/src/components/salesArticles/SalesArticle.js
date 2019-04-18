@@ -146,10 +146,12 @@ function SalesArticle({
                                             style={{ textAlign: 'right' }}
                                             gutterBottom
                                         >
-                                            {salesArticle.onHold ? (
+                                            {salesArticle.onHold &&
+                                            !salesArticle.rootProductOnHold ? (
                                                 <Fragment>
                                                     <span> ON HOLD </span>
                                                     <Button
+                                                        disabled={salesArticle.rootProductOnHold}
                                                         component={Link}
                                                         to={salesArticle.links[3].href}
                                                     >
@@ -159,10 +161,14 @@ function SalesArticle({
                                             ) : (
                                                 <Button
                                                     component={Link}
+                                                    disabled={salesArticle.rootProductOnHold}
                                                     to={salesArticle.links[2].href}
                                                 >
                                                     PUT ON HOLD
                                                 </Button>
+                                            )}
+                                            {salesArticle.rootProductOnHold && (
+                                                <div>ROOT PRODUCT ON HOLD</div>
                                             )}
                                         </Typography>
                                     </Grid>
