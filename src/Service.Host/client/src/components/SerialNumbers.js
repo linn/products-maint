@@ -1,6 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {
+    CreateButton,
     Dropdown,
     Loading,
     SearchInputField,
@@ -52,13 +53,15 @@ function SerialNumbers({
 
     return (
         <Page>
-            <Title text="Amend Serial Number" />
+            <Title text="Serial Numbers" />
             <SearchInputField
                 label="Search by Serial Number"
                 placeholder="Serial Number"
                 onChange={handleSearchTermChange}
                 value={searchTerm}
             />
+
+            <CreateButton createUrl="/products/maint/serial-numbers/create" />
 
             {loading || sernosNoteLoading || sernosNotesLoading ? (
                 <Loading />
