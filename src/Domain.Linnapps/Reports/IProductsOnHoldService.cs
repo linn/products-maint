@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Domain.Linnapps.Repositories
+﻿namespace Linn.Products.Domain.Linnapps.Reports
 {
     using Linn.Common.Reporting.Models;
 

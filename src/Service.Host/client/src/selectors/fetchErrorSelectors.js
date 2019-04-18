@@ -3,9 +3,11 @@
     if (!fetchError) {
         return null;
     }
-    const hasErrorsProperty = Object.prototype.hasOwnProperty.call(fetchError, 'errors');
 
-    let hasErrorMessageProperty;
+    const hasErrorsProperty =
+        Object.prototype.hasOwnProperty.call(fetchError, 'errors') && fetchError.errors;
+
+    let hasErrorMessageProperty = false;
 
     if (hasErrorsProperty) {
         hasErrorMessageProperty = Object.prototype.hasOwnProperty.call(
@@ -26,11 +28,8 @@
         return fetchError.errors[0];
     }
 
-    if (!hasErrorsProperty) {
-        if (fetchError.statusText) {
-            return fetchError.statusText.message || fetchError.statusText;
-        }
-        return null;
+    if (fetchError.statusText) {
+        return fetchError.statusText.message || fetchError.statusText;
     }
 
     return null;

@@ -15,13 +15,13 @@
                 return {
                     ...state,
                     loading: false,
-                    item: {},
+                    item: null,
                     editStatus: 'create'
                 };
             case actionTypes[`REQUEST_${itemRoot}`]:
                 return {
                     ...state,
-                    item: {},
+                    item: null,
                     loading: true,
                     editStatus: 'view'
                 };
