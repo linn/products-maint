@@ -117,3 +117,15 @@ export const salesPackages = new ItemType(
     'SALES_PACKAGES',
     '/products/maint/sales-packages'
 );
+
+export const sernosTransaction = new ItemType(
+    'sernosTransaction',
+    'SERNOS_TRANSACTION',
+    '/products/maint/sernos-transactions'
+);
+
+export const sernosTransactions = new ItemType(
+    'sernosTransactions',
+    'SERNOS_TRANSACTIONS',
+    '/products/maint/sernos-transactions'
+);

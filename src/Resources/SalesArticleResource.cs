@@ -35,5 +35,7 @@
         public string ArticleType { get; set; }
 
         public bool OnHold { get; set; }
+
+        public string TypeOfSerialNumber { get; set; }
     }
 }

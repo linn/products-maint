@@ -100,3 +100,9 @@ export const sernosNotesActionTypes = makeActionTypes(itemTypes.sernosNotes.acti
 
 export const salesPackageActionTypes = makeActionTypes(itemTypes.salesPackage.actionType);
 export const salesPackagesActionTypes = makeActionTypes(itemTypes.salesPackages.actionType, false);
+
+export const sernosTransactionActionTypes = makeActionTypes(itemTypes.sernosTransaction.actionType);
+export const sernosTransactionsActionTypes = makeActionTypes(
+    itemTypes.sernosTransactions.actionType,
+    false
+);

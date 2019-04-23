@@ -18,20 +18,19 @@ function SerialNumber({
     editStatus,
     history,
     loading,
-    itemId,
     item,
     snackbarVisible,
+    typeOfSerialNumber,
     addItem,
     setEditStatus,
-    updateItem,
+    sernosTransactions,
+    sernosTransactionsLoading,
     setSnackbarVisible
 }) {
     const [serialNumber, setSerialNumber] = useState({});
     const [prevSerialNumber, setPrevSerialNumber] = useState({});
+    const [sernosTransactionsList, setSernosTransactionsList] = useState(['']);
 
-    // TODO effects for aticles and groups coming in
-    // when different set the fields in serialNumber
-    // test on if the fields have changed
     useEffect(() => {
         if (item !== prevSerialNumber) {
             setSerialNumber(item);
@@ -39,181 +38,246 @@ function SerialNumber({
         }
     }, [item, prevSerialNumber]);
 
-    const creating = () => editStatus === 'create';
-    const editing = () => editStatus === 'edit';
+    useEffect(() => {
+        const transactions = sernosTransactions.map(s => `${s.transCode}: ${s.transDescription}`);
+        setSernosTransactionsList(['', ...transactions]);
+    }, [sernosTransactions]);
+
     const viewing = () => editStatus === 'view';
 
     const articles = ['', 'please', 'fetch', 'me'];
 
+    const serialNumbered = [
+        '',
+        'Not serial numbered',
+        'Serial numbered in ones',
+        'Serial numbered in pairs, one box',
+        'Serial numbered in pairs, two boxes'
+    ];
+
     const handleFieldChange = (propertyName, newValue) => {
-        setEditStatus('edit');
         setSerialNumber({ ...serialNumber, [propertyName]: newValue });
     };
+
+    const salesArticleInvalid = () => !typeOfSerialNumber || typeOfSerialNumber === 'N';
+
+    const inputInvalid = () => salesArticleInvalid();
+
+    const handleSaveClick = () => {
+        addItem(serialNumber);
+        setEditStatus('view');
+    };
+
+    const handleBackClick = () => history.push('/products/maint/serial-numbers');
 
     return (
         <Page>
             <Grid container spacing={24}>
                 <Grid item xs={12}>
-                    {creating() ? (
-                        <Title text="Create Serial Number" />
-                    ) : (
-                        <Title text="Serial Number Details" />
-                    )}
+                    <Title text="Create Serial Number" />
                 </Grid>
                 {errorMessage && (
                     <Grid item xs={12}>
                         <ErrorCard errorMessage={errorMessage} />
                     </Grid>
                 )}
-                <Fragment>
-                    <SnackbarMessage
-                        visible={snackbarVisible}
-                        onClose={() => setSnackbarVisible(false)}
-                        message="Save Successful"
-                    />
-                    <Grid item xs={5}>
-                        <Dropdown
-                            label="Transaction"
-                            propertyName="transCode"
-                            items={articles}
-                            fullWidth
-                            value={serialNumber.transCode}
-                            onChange={handleFieldChange}
-                        />
+                {loading || sernosTransactionsLoading ? (
+                    <Grid item xs={12}>
+                        <Loading />
                     </Grid>
-                    <Grid item xs={5}>
-                        <InputField
-                            disabled
-                            fullWidth
-                            label="Transaction Details"
-                            value={serialNumber.transCodeDetails}
-                            propertyName="transCodeDetails"
-                            onChange={handleFieldChange}
+                ) : (
+                    <Fragment>
+                        <SnackbarMessage
+                            message="Save Successful"
+                            onClose={() => setSnackbarVisible(false)}
+                            visible={snackbarVisible}
                         />
-                    </Grid>
-                    <Grid item xs={5}>
-                        <Dropdown
-                            label="Article Number"
-                            items={articles}
-                            fullWidth
-                            value={serialNumber.articleNumber}
-                            propertyName="articleNumber"
-                            onChange={handleFieldChange}
-                        />
-                    </Grid>
-                    <Grid item xs={5}>
-                        <InputField
-                            disabled
-                            fullWidth
-                            label="Article Details"
-                            value={serialNumber.articleDetails}
-                            propertyName="articleDetails"
-                            onChange={handleFieldChange}
-                        />
-                    </Grid>
-                    <Grid item xs={5}>
-                        <InputField
-                            disabled
-                            fullWidth
-                            label="Sernos Group"
-                            value={serialNumber.sernosGroup}
-                            propertyName="sernosGroup"
-                            onChange={handleFieldChange}
-                        />
-                    </Grid>
-                    <Grid item xs={5}>
-                        <Dropdown
-                            label="Serial Numbered"
-                            items={articles}
-                            fullWidth
-                            value={serialNumber.serialNumbered}
-                            propertyName="serialNumbered"
-                            onChange={handleFieldChange}
-                        />
-                    </Grid>
-                    <Grid item xs={5}>
-                        <InputField
-                            fullWidth
-                            label="From Serial Number"
-                            value={serialNumber.fromSernosNumber}
-                            propertyName="fromSernosNumber"
-                            onChange={handleFieldChange}
-                        />
-                    </Grid>
-                    <Grid item xs={5}>
-                        <InputField
-                            fullWidth
-                            label="To Serial Number"
-                            value={serialNumber.toSernosNumber}
-                            propertyName="toSernosNumber"
-                            onChange={handleFieldChange}
-                        />
-                    </Grid>
-                    <Grid item xs={5}>
-                        <InputField
-                            fullWidth
-                            label="Previous Serial Number"
-                            value={serialNumber.prevSernosNumber}
-                            propertyName="prevSernosNumber"
-                            onChange={handleFieldChange}
-                        />
-                    </Grid>
-                    <Grid item xs={5} />
-                    <Grid item xs={5}>
-                        <InputField
-                            fullWidth
-                            label="Document Number"
-                            value={serialNumber.documentNumber}
-                            propertyName="documentNumber"
-                            onChange={handleFieldChange}
-                        />
-                    </Grid>
-                    <Grid item xs={5}>
-                        <InputField
-                            fullWidth
-                            label="Document Type"
-                            value={serialNumber.documentType}
-                            propertyName="documentType"
-                            onChange={handleFieldChange}
-                        />
-                    </Grid>
-                    <Grid item xs={5}>
-                        <InputField
-                            fullWidth
-                            label="Sernos TRef"
-                            value={serialNumber.sernosTRef}
-                            propertyName="sernosTRef"
-                            onChange={handleFieldChange}
-                        />
-                    </Grid>
-                    <Grid item xs={5}>
-                        <InputField
-                            fullWidth
-                            label="Sernos Date"
-                            type="date"
-                            value={
-                                serialNumber.sernosDate
-                                    ? moment(serialNumber.sernosDate).format('DD MMM YYYY')
-                                    : ''
-                            }
-                            propertyName="sernosDate"
-                            onChange={handleFieldChange}
-                        />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <InputField
-                            fullWidth
-                            label="Notes"
-                            rows={3}
-                            value={serialNumber.sernosNotes}
-                            propertyName="sernosNotes"
-                            onChange={handleFieldChange}
-                        />
-                    </Grid>
-                </Fragment>
+                        <Grid item xs={5}>
+                            <Dropdown
+                                disabled={viewing()}
+                                fullWidth
+                                items={sernosTransactionsList}
+                                label="Transaction"
+                                onChange={handleFieldChange}
+                                propertyName="transCode"
+                                value={serialNumber.transCode}
+                            />
+                        </Grid>
+                        <Grid item xs={5} />
+                        <Grid item xs={5}>
+                            <Dropdown
+                                disabled={viewing()}
+                                error={salesArticleInvalid()}
+                                fullWidth
+                                helperText={
+                                    salesArticleInvalid() && 'Sales Article must be serial numbered'
+                                }
+                                items={articles}
+                                label="Article Number"
+                                onChange={handleFieldChange}
+                                propertyName="articleNumber"
+                                value={serialNumber.articleNumber}
+                            />
+                        </Grid>
+                        <Grid item xs={5} />
+                        <Grid item xs={5}>
+                            <InputField
+                                disabled
+                                fullWidth
+                                label="Sernos Group"
+                                maxLength={10}
+                                onChange={handleFieldChange}
+                                propertyName="sernosGroup"
+                                value={serialNumber.sernosGroup}
+                            />
+                        </Grid>
+                        <Grid item xs={5}>
+                            <Dropdown
+                                disabled={viewing()}
+                                fullWidth
+                                label="Serial Numbered"
+                                items={serialNumbered}
+                                onChange={handleFieldChange}
+                                propertyName="serialNumbered"
+                                value={serialNumber.serialNumbered || ''}
+                            />
+                        </Grid>
+                        <Grid item xs={5}>
+                            <InputField
+                                disabled={viewing()}
+                                fullWidth
+                                label="From Serial Number"
+                                maxLength={8}
+                                onChange={handleFieldChange}
+                                propertyName="fromSernosNumber"
+                                type="number"
+                                value={serialNumber.fromSernosNumber}
+                            />
+                        </Grid>
+                        <Grid item xs={5}>
+                            <InputField
+                                disabled={viewing()}
+                                fullWidth
+                                label="To Serial Number"
+                                maxLength={8}
+                                onChange={handleFieldChange}
+                                propertyName="toSernosNumber"
+                                type="number"
+                                value={serialNumber.toSernosNumber}
+                            />
+                        </Grid>
+                        <Grid item xs={5}>
+                            <InputField
+                                disabled={viewing()}
+                                fullWidth
+                                label="Previous Serial Number"
+                                maxLength={8}
+                                onChange={handleFieldChange}
+                                propertyName="prevSernosNumber"
+                                type="number"
+                                value={serialNumber.prevSernosNumber}
+                            />
+                        </Grid>
+                        <Grid item xs={5} />
+                        <Grid item xs={5}>
+                            <InputField
+                                disabled={viewing()}
+                                fullWidth
+                                label="Document Number"
+                                maxLength={8}
+                                onChange={handleFieldChange}
+                                propertyName="documentNumber"
+                                type="number"
+                                value={serialNumber.documentNumber}
+                            />
+                        </Grid>
+                        <Grid item xs={5}>
+                            <InputField
+                                disabled={viewing()}
+                                fullWidth
+                                label="Document Type"
+                                maxLength={2}
+                                onChange={handleFieldChange}
+                                propertyName="documentType"
+                                value={serialNumber.documentType}
+                            />
+                        </Grid>
+                        <Grid item xs={5}>
+                            <InputField
+                                disabled={viewing()}
+                                fullWidth
+                                label="Sernos TRef"
+                                maxLength={8}
+                                onChange={handleFieldChange}
+                                propertyName="sernosTRef"
+                                type="number"
+                                value={serialNumber.sernosTRef}
+                            />
+                        </Grid>
+                        <Grid item xs={5}>
+                            <InputField
+                                disabled
+                                fullWidth
+                                label="Sernos Date"
+                                onChange={handleFieldChange}
+                                propertyName="sernosDate"
+                                type="date"
+                                value={
+                                    serialNumber.sernosDate
+                                        ? moment(serialNumber.sernosDate).format('DD MMM YYYY')
+                                        : ''
+                                }
+                            />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <InputField
+                                disabled={viewing()}
+                                fullWidth
+                                label="Notes"
+                                maxLength={2000}
+                                onChange={handleFieldChange}
+                                propertyName="sernosNotes"
+                                rows={3}
+                                value={serialNumber.sernosNotes}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <SaveBackCancelButtons
+                                saveDisabled={viewing() || inputInvalid()}
+                                saveClick={handleSaveClick}
+                                cancelClick={handleBackClick}
+                                backClick={handleBackClick}
+                            />
+                        </Grid>
+                    </Fragment>
+                )}
             </Grid>
         </Page>
     );
 }
+
+SerialNumber.propTypes = {
+    item: PropTypes.shape({}),
+    history: PropTypes.shape({}).isRequired,
+    editStatus: PropTypes.string.isRequired,
+    errorMessage: PropTypes.string,
+    loading: PropTypes.bool.isRequired,
+    snackbarVisible: PropTypes.bool,
+    typeOfSerialNumber: PropTypes.string,
+    sernosTransactions: PropTypes.shape({}),
+    sernosTransactionsLoading: PropTypes.bool,
+    addItem: PropTypes.func.isRequired,
+    setEditStatus: PropTypes.func.isRequired,
+    setSnackbarVisible: PropTypes.func.isRequired
+};
+
+SerialNumber.defaultProps = {
+    item: {},
+    errorMessage: '',
+    snackbarVisible: false,
+    typeOfSerialNumber: '',
+    sernosTransactions: null,
+    sernosTransactionsLoading: false
+};
 
 export default SerialNumber;

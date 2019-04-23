@@ -34,6 +34,8 @@ import productsOnHoldReport from './productsOnHoldReport';
 import salesArticleCoreTypes from './salesArticleCoreTypes/index';
 import salesPackage from './salesPackage';
 import salesPackages from './salesPackages';
+import sernosTransaction from './sernosTransaction';
+import sernosTransactions from './sernosTransactions';
 
 const rootReducer = combineReducers({
     oidc,
@@ -70,7 +72,9 @@ const rootReducer = combineReducers({
     productRanges,
     productsOnHoldReport,
     salesPackage,
-    salesPackages
+    salesPackages,
+    sernosTransaction,
+    sernosTransactions
 });
 
 export default rootReducer;

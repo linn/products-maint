@@ -42,6 +42,8 @@
 
         public string RootProduct { get; set; }
 
+        public string TypeOfSerialNumber { get; set; }
+
         [ForeignKey("SA_CORE_TYPE")]
         public SaCoreType SaCoreType { get; set; }
 
