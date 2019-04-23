@@ -19,12 +19,12 @@
         private readonly IRepository<Employee, int> employeeRepository;
 
         public SaHoldStoryFacadeService(
-            IRepository<SaHoldStory, int> repo,
+            IRepository<SaHoldStory, int> saHoldStoryRepository,
             ITransactionManager transactionManager,
             IRepository<SalesArticle, string> salesArticleRepository,
             IRepository<RootProduct, string> rootProductRepository,
             IRepository<Employee, int> employeeRepository)
-            : base(repo, transactionManager)
+            : base(saHoldStoryRepository, transactionManager)
         {
             this.salesArticleRepository = salesArticleRepository;
             this.employeeRepository = employeeRepository;

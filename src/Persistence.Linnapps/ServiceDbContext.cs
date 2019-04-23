@@ -1,7 +1,5 @@
 ﻿namespace Linn.Products.Persistence.Linnapps
 {
-    using System.Collections.Immutable;
-
     using Linn.Common.Configuration;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
@@ -41,6 +39,7 @@
         public DbSet<SalesPackage> SalesPackages { get; set; }
 
         public DbSet<RootProduct> RootProducts { get; set; }
+
         public DbSet<SernosNote> SernosNotes { get; set; }
 
         public DbSet<SerialNumber> SerialNumbers { get; set; }
@@ -97,35 +96,40 @@
             builder.Entity<SalesPackage>().ToTable("SALES_PACKAGES");
             builder.Entity<SalesPackage>().HasKey(s => s.Id);
             builder.Entity<SalesPackage>().Property(s => s.Id).HasColumnName("BRIDGE_ID");
-            builder.Entity<SalesPackage>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID").HasMaxLength(10);
+            builder.Entity<SalesPackage>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID")
+                .HasMaxLength(10);
             builder.Entity<SalesPackage>().Property(s => s.Description).HasColumnName("DESCRIPTION").HasMaxLength(50);
             builder.Entity<SalesPackage>().HasMany(s => s.Elements);
 
             builder.Entity<SalesPackageElement>().ToTable("SALES_PACKAGE_ELEMENTS");
             builder.Entity<SalesPackageElement>().HasKey(s => new { s.SalesPackageId, s.ElementType });
-            builder.Entity<SalesPackageElement>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID").HasMaxLength(10);
-            builder.Entity<SalesPackageElement>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE").HasMaxLength(10);
+            builder.Entity<SalesPackageElement>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID")
+                .HasMaxLength(10);
+            builder.Entity<SalesPackageElement>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE")
+                .HasMaxLength(10);
             builder.Entity<SalesPackageElement>().Property(s => s.Sequence).HasColumnName("SPE_SEQUENCE");
             builder.Entity<SalesPackageElement>().Property(s => s.Quantity).HasColumnName("QUANTITY");
             builder.Entity<SalesPackageElement>().HasMany(s => s.Packages);
 
             builder.Entity<SalesPackageElementType>().ToTable("SALES_PACKAGE_EL_TYPES");
             builder.Entity<SalesPackageElementType>().HasKey(s => s.ElementType);
-            builder.Entity<SalesPackageElementType>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE").HasMaxLength(10);
-            builder.Entity<SalesPackageElementType>().Property(s => s.Description).HasColumnName("PACKAGE_ELEMENT_TYPE_DESCRIPTI").HasMaxLength(50);
+            builder.Entity<SalesPackageElementType>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE")
+                .HasMaxLength(10);
+            builder.Entity<SalesPackageElementType>().Property(s => s.Description)
+                .HasColumnName("PACKAGE_ELEMENT_TYPE_DESCRIPTI").HasMaxLength(50);
 
             builder.Entity<SalesPackageElementJoin>().ToTable("SALES_PACKAGE_ELEMENT_JOINS");
             builder.Entity<SalesPackageElementJoin>().HasKey(s => s.Id);
             builder.Entity<SalesPackageElementJoin>().Property(s => s.Id).HasColumnName("ID");
             builder.Entity<SalesPackageElementJoin>().Property(s => s.BridgeId).HasColumnName("BRIDGE_ID");
-            builder.Entity<SalesPackageElementJoin>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID").HasMaxLength(10);
-            builder.Entity<SalesPackageElementJoin>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE").HasMaxLength(10);
-            builder.Entity<SalesPackageElementJoin>().HasOne(j => j.SalesPackage)
-                .WithMany(r => r.Elements)
+            builder.Entity<SalesPackageElementJoin>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID")
+                .HasMaxLength(10);
+            builder.Entity<SalesPackageElementJoin>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE")
+                .HasMaxLength(10);
+            builder.Entity<SalesPackageElementJoin>().HasOne(j => j.SalesPackage).WithMany(r => r.Elements)
                 .HasForeignKey(j => j.BridgeId);
 
-            builder.Entity<SalesPackageElementJoin>().HasOne(j => j.SalesPackageElement)
-                .WithMany(d => d.Packages)
+            builder.Entity<SalesPackageElementJoin>().HasOne(j => j.SalesPackageElement).WithMany(d => d.Packages)
                 .HasForeignKey(j => new { j.SalesPackageId, j.ElementType });
         }
 
@@ -216,7 +220,8 @@
         {
             builder.Entity<SernosSequence>().ToTable("SERNOS_SEQUENCES");
             builder.Entity<SernosSequence>().HasKey(t => t.SequenceName);
-            builder.Entity<SernosSequence>().Property(t => t.SequenceName).HasColumnName("SEQUENCE_NAME").HasMaxLength(10);
+            builder.Entity<SernosSequence>().Property(t => t.SequenceName).HasColumnName("SEQUENCE_NAME")
+                .HasMaxLength(10);
             builder.Entity<SernosSequence>().Property(t => t.Description).HasColumnName("DESCRIPTION").HasMaxLength(50);
             builder.Entity<SernosSequence>().Property(t => t.NextSerialNumber).HasColumnName("NEXT_SERIAL_NUMBER");
             builder.Entity<SernosSequence>().Property(t => t.DateClosed).HasColumnName("DATE_CLOSED");

@@ -19,7 +19,7 @@
                            Name = rootProduct.Name,
                            Description = rootProduct.Description,
                            Links = this.BuildLinks(rootProduct).ToArray(),
-                           onHold = isOnHold(rootProduct)
+                           onHold = IsOnHold(rootProduct)
                        };
         }
 
@@ -30,7 +30,7 @@
             return $"/products/maint/root-products/{Uri.EscapeDataString(rootProduct.Name)}";
         }
 
-        private static bool isOnHold(RootProduct rootProduct)
+        private static bool IsOnHold(RootProduct rootProduct)
         {
             return rootProduct.HoldStories?.Any(story => story.DateFinished == null) ?? false;
 
