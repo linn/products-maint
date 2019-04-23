@@ -24,7 +24,7 @@
                 .Where(b => b.ArticleNumber == key)
                 .Include(a => a.SaCoreType)
                 .Include(a => a.HoldStories)
-                .ToList().First();
+                .ToList().FirstOrDefault();
         }
 
         public IQueryable<SalesArticle> FindAll()

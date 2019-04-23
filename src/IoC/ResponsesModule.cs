@@ -6,6 +6,7 @@
     using Linn.Common.Facade;
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.Models;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Facade.ResourceBuilders;
@@ -48,6 +49,7 @@
                 .As<IResourceBuilder<IPagedList<SalesPackage>>>();
             builder.RegisterType<SernosTransactionResourceBuilder>().As<IResourceBuilder<SernosTransaction>>();
             builder.RegisterType<SernosTransactionsResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosTransaction>>>();
+            builder.RegisterType<SalesArticleCompositeDiscountResourceBuilder>().As<IResourceBuilder<SalesArticleCompositeDiscount>>();
         }
     }
 }

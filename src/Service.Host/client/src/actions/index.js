@@ -106,3 +106,7 @@ export const sernosTransactionsActionTypes = makeActionTypes(
     itemTypes.sernosTransactions.actionType,
     false
 );
+
+export const salesArticleCompositeDiscountActionTypes = makeActionTypes(
+    itemTypes.salesArticleCompositeDiscount.actionType
+);
