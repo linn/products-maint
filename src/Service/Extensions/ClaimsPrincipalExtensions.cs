@@ -7,8 +7,7 @@
     {
         public static string GetEmployeeUri(this ClaimsPrincipal principal)
         {
-            var uri =  principal?.Claims?.FirstOrDefault(c => c.Type == "employee")?.Value;
-            return uri;
+            return principal?.Claims?.FirstOrDefault(c => c.Type == "employee")?.Value;
         }
     }
 }

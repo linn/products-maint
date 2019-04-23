@@ -20,13 +20,13 @@
 
         public RootProduct FindById(string key)
         {
-            return this.serviceDbContext.RootProducts.Where(b => b.Name == key).Include(s => s.HoldStories).ToList().FirstOrDefault();
+            return this.serviceDbContext.RootProducts.Where(b => b.Name == key).Include(s => s.HoldStories).ToList()
+                .FirstOrDefault();
         }
 
         public IQueryable<RootProduct> FindAll()
         {
-            var list =  this.serviceDbContext.RootProducts;
-            return list;
+            return this.serviceDbContext.RootProducts;
         }
 
         public void Add(RootProduct entity)
@@ -41,8 +41,7 @@
 
         public RootProduct FindBy(Expression<Func<RootProduct, bool>> expression)
         {
-            var result = this.serviceDbContext.RootProducts.Where(expression).ToList().FirstOrDefault();
-            return result;
+            return this.serviceDbContext.RootProducts.Where(expression).ToList().FirstOrDefault();
         }
 
         public IQueryable<RootProduct> FilterBy(Expression<Func<RootProduct, bool>> expression)

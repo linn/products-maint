@@ -30,7 +30,6 @@
                                            DateStarted = new DateTime().ToShortDateString(),
                                            PutOnHoldByEmployee = "Employee",
                                            ReasonStarted = "reason",
-                                           RootProduct =  null
                                        };
             var holdStory = new SaHoldStory
                                 {
@@ -40,7 +39,6 @@
                                     ArticleNumber = "KLIMAX/NTK",
                                     SalesArticle = new SalesArticle { ArticleNumber = "KLIMAX/NTK" },
                                     ReasonStarted = "reason",
-                                    RootProduct = null
                                 };
 
             this.SaHoldStoryService.Add(Arg.Any<SaHoldStoryResource>())
