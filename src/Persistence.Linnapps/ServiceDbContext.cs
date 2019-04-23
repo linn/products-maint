@@ -60,7 +60,6 @@
             this.BuildEmployees(builder);
             this.BuildSalesPackages(builder);
             this.BuildRootProducts(builder);
-
             this.BuildSernosNotes(builder);
             this.BuildSerialNumbers(builder);
             base.OnModelCreating(builder);
@@ -317,6 +316,5 @@
             e.Property(t => t.Description).HasColumnName("DESCRIPTION");
             e.HasMany(t => t.HoldStories).WithOne(f => f.RootProduct);
         }
-
     }
 }

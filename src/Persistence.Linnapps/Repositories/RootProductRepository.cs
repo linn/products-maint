@@ -48,7 +48,6 @@
         public IQueryable<RootProduct> FilterBy(Expression<Func<RootProduct, bool>> expression)
         {
             return this.serviceDbContext.RootProducts.Where(expression).Include(s => s.HoldStories);
-
         }
     }
 }
