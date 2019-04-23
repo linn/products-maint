@@ -7,6 +7,8 @@
 
     public interface ISaHoldStoriesReportService
     {
-        IResult<ResultsModel> GetSaHoldStories(string articleNumber);
+        IResult<ResultsModel> GetHoldStoriesForSalesArticle(string articleNumber);
+
+        IResult<ResultsModel> GetHoldStoriesForRootProduct(string rootProductName);
     }
 }

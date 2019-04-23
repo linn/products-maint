@@ -26,7 +26,7 @@
             builder.RegisterType<CartonDetailsReportService>().As<ICartonDetailsReportService>();
             builder.RegisterType<ProductReports>().As<IProductReports>();
             builder.RegisterType<StockTriggerLevelReportService>().As<IStockTriggerLevelReportService>();
-            builder.RegisterType<SaHoldStoryService>().As<ISaHoldStoryReportService>();
+            builder.RegisterType<SaHoldStoryService>().As<ISaHoldStoryService>();
             builder.RegisterType<SalesArticleReports>().As<ISalesArticleReports>();
             builder.RegisterType<ProductsOnHoldService>().As<IProductsOnHoldService>();
 

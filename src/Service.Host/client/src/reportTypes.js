@@ -29,3 +29,9 @@ export const salesProductsByProductRangeReport = new ItemType(
     'SALES_PRODUCTS_BY_RANGE',
     '/products/reports/sales-products-by-product-range'
 );
+
+export const holdStoriesByRootProductReport = new ItemType(
+    'holdStoriesByRootProductReport',
+    'HOLD_STORIES_BY_ROOT_PRODUCT',
+    '/products/reports/sa-hold-stories-for-root-product/'
+);

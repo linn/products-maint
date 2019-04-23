@@ -73,7 +73,13 @@ function SaHoldStory({
     };
 
     const handleBackClick = () => {
-        history.push(`/products/maint/sales-articles/${slugify(saHoldStory.salesArticle)}`);
+        let url;
+        if (saHoldStory.salesArticle) {
+            url = `/products/maint/sales-articles/${slugify(saHoldStory.salesArticle)}`;
+        } else if (saHoldStory.rootProduct) {
+            url = `/products/maint/root-products/${slugify(saHoldStory.rootProduct)}`;
+        }
+        history.push(url);
     };
 
     const handleFieldChange = (propertyName, newValue) => {
@@ -88,9 +94,9 @@ function SaHoldStory({
             return `Put ${saHoldStory.salesArticle || saHoldStory.rootProduct} on Hold?`;
         }
         if (editing()) {
-            return `Take ${saHoldStory.salesArticle} off Hold?`;
+            return `Take ${saHoldStory.salesArticle || saHoldStory.rootProduct} off Hold?`;
         }
-        return `${saHoldStory.salesArticle} Hold Story Details`;
+        return `${saHoldStory.salesArticle || saHoldStory.rootProduct} Hold Story Details`;
     };
 
     return (

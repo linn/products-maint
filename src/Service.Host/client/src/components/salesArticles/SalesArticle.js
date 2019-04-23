@@ -155,30 +155,39 @@ function SalesArticle({
                                             !salesArticle.rootProductOnHold ? (
                                                 <Fragment>
                                                     <span> ON HOLD </span>
-                                                    <Tooltip disableFocusListener title="Add">
+
+                                                    <Button
+                                                        disabled={salesArticle.rootProductOnHold}
+                                                        component={Link}
+                                                        to={getHref(salesArticle, 'put-off-hold')}
+                                                    >
+                                                        REMOVE HOLD
+                                                    </Button>
+                                                </Fragment>
+                                            ) : (
+                                                <Tooltip
+                                                    disableFocusListener
+                                                    title={
+                                                        salesArticle.rootProductOnHold
+                                                            ? 'This sales article is already on hold as part of its root product group.'
+                                                            : ''
+                                                    }
+                                                    placement="top-end"
+                                                >
+                                                    <span>
                                                         <Button
+                                                            component={Link}
                                                             disabled={
                                                                 salesArticle.rootProductOnHold
                                                             }
-                                                            component={Link}
                                                             to={getHref(
                                                                 salesArticle,
-                                                                'put-off-hold'
+                                                                'put-on-hold'
                                                             )}
                                                         >
-                                                            REMOVE HOLD
-                                                        </Button>{' '}
-                                                    </Tooltip>
-                                                </Fragment>
-                                            ) : (
-                                                <Tooltip disableFocusListener title="Add">
-                                                    <Button
-                                                        component={Link}
-                                                        disabled={salesArticle.rootProductOnHold}
-                                                        to={getHref(salesArticle, 'put-on-hold')}
-                                                    >
-                                                        PUT ON HOLD
-                                                    </Button>
+                                                            PUT ON HOLD
+                                                        </Button>
+                                                    </span>
                                                 </Tooltip>
                                             )}
                                             {salesArticle.rootProductOnHold && (

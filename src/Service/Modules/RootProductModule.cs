@@ -23,7 +23,7 @@
             this.rootProductService = rootProductService;
 
             this.Get("/products/maint/root-products", _ => this.GetRootProducts());
-            this.Get("/products/maint/root-products/{name}", parameters => this.GetRootProduct(parameters.name));
+            this.Get("/products/maint/root-products/{name*}", parameters => this.GetRootProduct(parameters.name));
         }
 
         private object GetRootProduct(string name)

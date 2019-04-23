@@ -17,7 +17,7 @@
             return new SaHoldStoryResource
             {
                            HoldStoryId = saHoldStory.HoldStoryId,
-                           SalesArticle = saHoldStory.SalesArticle.ArticleNumber,
+                           SalesArticle = saHoldStory.SalesArticle?.ArticleNumber,
                            DateStarted = saHoldStory.DateStarted.ToString("o"),
                            DateFinished = saHoldStory.DateFinished?.ToString("o"),
                            PutOnHoldByEmployee = saHoldStory.PutOnHoldByEmployee.FullName,

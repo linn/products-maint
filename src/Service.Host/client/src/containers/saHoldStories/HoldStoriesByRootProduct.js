@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import HoldStoriesBySalesArticle from '../../components/saHoldStories/HoldStories';
+import HoldStories from '../../components/saHoldStories/HoldStories';
 import initialiseOnMount from '../common/initialiseOnMount';
-import { fetchSaHoldStoriesReport } from '../../actions/saHoldStoryReportActions';
+import { fetchRootProductHoldStoriesReport } from '../../actions/saHoldStoryReportActions';
 import config from '../../config';
 import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
 
@@ -10,12 +10,12 @@ const reportName = 'saHoldStoriesReport';
 const mapStateToProps = (state, { match }) => ({
     reportData: getReportData(state, reportName),
     loading: getReportLoading(state, reportName),
-    articleNumber: match.params.articleNumber,
+    rootProduct: match.params.name,
     config
 });
 
-const initialise = ({ articleNumber }) => dispatch => {
-    dispatch(fetchSaHoldStoriesReport(articleNumber));
+const initialise = ({ rootProduct }) => dispatch => {
+    dispatch(fetchRootProductHoldStoriesReport(rootProduct));
 };
 
 const mapDispatchToProps = {
@@ -25,4 +25,4 @@ const mapDispatchToProps = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(initialiseOnMount(HoldStoriesBySalesArticle));
+)(initialiseOnMount(HoldStories));

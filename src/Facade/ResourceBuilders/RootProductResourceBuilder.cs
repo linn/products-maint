@@ -53,9 +53,9 @@
             if (openStory != null)
             {
                 yield return new LinkResource
-                                 {
-                                     Rel = "put-off-hold",
-                                    Href = $"{this.GetLocation(rootProduct)}/put-off-hold"
+                                    {
+                                        Rel = "put-off-hold",
+                                        Href = $"/products/maint/close-hold-story/{openStory.HoldStoryId}"
                 };
             }
         }
