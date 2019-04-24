@@ -33,8 +33,12 @@ function SerialNumber({
 
     useEffect(() => {
         if (item !== prevSerialNumber) {
-            setSerialNumber(item);
             setPrevSerialNumber(item);
+            if (item !== null) {
+                setSerialNumber(item);
+            } else {
+                setSerialNumber({});
+            }
         }
     }, [item, prevSerialNumber]);
 
@@ -59,7 +63,14 @@ function SerialNumber({
         setSerialNumber({ ...serialNumber, [propertyName]: newValue });
     };
 
-    const salesArticleInvalid = () => !typeOfSerialNumber || typeOfSerialNumber === 'N';
+    const salesArticleInvalid = () => {
+        if (!typeOfSerialNumber || typeOfSerialNumber === 'N') {
+            return true;
+        }
+
+        return false;
+    };
+    // !typeOfSerialNumber || typeOfSerialNumber === 'N' ? true : false;
 
     const inputInvalid = () => salesArticleInvalid();
 
@@ -264,7 +275,7 @@ SerialNumber.propTypes = {
     loading: PropTypes.bool.isRequired,
     snackbarVisible: PropTypes.bool,
     typeOfSerialNumber: PropTypes.string,
-    sernosTransactions: PropTypes.shape({}),
+    sernosTransactions: PropTypes.arrayOf(PropTypes.shape({})),
     sernosTransactionsLoading: PropTypes.bool,
     addItem: PropTypes.func.isRequired,
     setEditStatus: PropTypes.func.isRequired,
@@ -276,7 +287,7 @@ SerialNumber.defaultProps = {
     errorMessage: '',
     snackbarVisible: false,
     typeOfSerialNumber: '',
-    sernosTransactions: null,
+    sernosTransactions: [],
     sernosTransactionsLoading: false
 };
 
