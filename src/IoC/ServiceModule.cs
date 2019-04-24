@@ -10,6 +10,7 @@
     using Linn.Products.Domain.Linnapps.RemoteServices;
     using Linn.Products.Domain.Linnapps.Reports;
     using Linn.Products.Domain.Linnapps.SalesPackages;
+    using Linn.Products.Domain.Linnapps.SernosTransactions;
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
     using Linn.Products.Facade;
@@ -53,6 +54,7 @@
             builder.RegisterType<SalesArticleCompositeDiscountFacadeService>().As<ISalesArticleCompositeDiscountFacadeService>();
             builder.RegisterType<SerialNumberService>().As<IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource>>();
             builder.RegisterType<SernosNoteService>().As<IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource>>();
+            builder.RegisterType<SernosTransactionService>().As<IFacadeService<SernosTrans, string, SernosTransactionResource, SernosTransactionResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();

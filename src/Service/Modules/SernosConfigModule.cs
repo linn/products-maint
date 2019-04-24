@@ -2,6 +2,7 @@
 {
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.SernosTransactions;
     using Linn.Products.Resources;
     using Linn.Products.Service.Models;
 
@@ -12,13 +13,29 @@
     {
         private readonly IFacadeService<SernosConfig, string, SernosConfigResource, SernosConfigResource> sernosConfigService;
 
-        public SernosConfigModule(IFacadeService<SernosConfig, string, SernosConfigResource, SernosConfigResource> sernosConfigService)
+        private readonly IFacadeService<SernosTrans, string, SernosTransactionResource, SernosTransactionResource> sernosTransactionService;
+
+        public SernosConfigModule(
+            IFacadeService<SernosConfig, string, SernosConfigResource, SernosConfigResource> sernosConfigService,
+            IFacadeService<SernosTrans, string, SernosTransactionResource, SernosTransactionResource> sernosTransactionService)
         {
             this.sernosConfigService = sernosConfigService;
+            this.sernosTransactionService = sernosTransactionService;
             this.Get("/products/maint/sernos-configs/{name}", parameters => this.GetSernosConfigByName(parameters.name));
             this.Get("/products/maint/sernos-configs/", _ => this.GetSernosConfigs());
             this.Put("/products/maint/sernos-configs/{name}", parameters => this.UpdateSernosConfig(parameters.name));
             this.Post("/products/maint/sernos-configs", _ => this.AddSernosConfig());
+
+            this.Get("/products/maint/serial-number-transactions/{id}", parameters => this.GetTransCode(parameters.id));
+        }
+
+        private object GetTransCode(string transCode)
+        {
+            var result = this.sernosTransactionService.GetById(transCode);
+            return this.Negotiate
+                .WithModel(result)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object GetSernosConfigs()

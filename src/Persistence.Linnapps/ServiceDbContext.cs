@@ -4,6 +4,7 @@
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.SalesPackages;
+    using Linn.Products.Domain.Linnapps.SernosTransactions;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -42,6 +43,10 @@
 
         public DbSet<SerialNumber> SerialNumbers { get; set; }
 
+        public DbSet<SernosTrans> SerialNumberTransactionTypes { get; set; }
+
+        public DbSet<SernosCount> SerialNumberTransactionCountTypes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             this.BuildSaCoreType(builder);
@@ -58,6 +63,7 @@
             this.BuildSalesPackages(builder);
             this.BuildSernosNotes(builder);
             this.BuildSerialNumbers(builder);
+            this.BuildSerialNumberTransactions(builder);
             base.OnModelCreating(builder);
         }
 
@@ -75,6 +81,36 @@
             optionsBuilder.UseLoggerFactory(MyLoggerFactory);
             optionsBuilder.EnableSensitiveDataLogging(true);
             base.OnConfiguring(optionsBuilder);
+        }
+
+        private void BuildSerialNumberTransactions(ModelBuilder builder)
+        {
+            builder.Entity<SernosTrans>().ToTable("SERNOS_TRANS");
+            builder.Entity<SernosTrans>().HasKey(r => r.TransCode);
+            builder.Entity<SernosTrans>().Property(r => r.TransCode).HasColumnName("TRANS_CODE").HasMaxLength(10);
+            builder.Entity<SernosTrans>().Property(r => r.TransDescription).HasColumnName("TRANS_DESCRIPTION").HasMaxLength(50);
+            builder.Entity<SernosTrans>().Property(r => r.Comments).HasColumnName("COMMENTS").HasMaxLength(2000);
+            builder.Entity<SernosTrans>().Property(r => r.ManualPost).HasColumnName("MANUAL_POST").HasMaxLength(1);
+            builder.Entity<SernosTrans>().Property(r => r.UpdateLastTransaction).HasColumnName("UPDATE_LAST_TRANSACTION").HasMaxLength(1);
+            builder.Entity<SernosTrans>().Property(r => r.UpdateBuiltBy).HasColumnName("UPDATE_BUILT_BY").HasMaxLength(1);
+            builder.Entity<SernosTrans>().Property(r => r.UpdateLastAccount).HasColumnName("UPDATE_LAST_ACCOUNT").HasMaxLength(1);
+            builder.Entity<SernosTrans>().HasMany(t => t.SernosTransCounts).WithOne(e => e.SernosTrans);
+
+            builder.Entity<SernosTransCount>().ToTable("SERNOS_TRANS_COUNTS");
+            builder.Entity<SernosTransCount>().HasKey(s => new { s.TransCode, s.SernosCount });
+            builder.Entity<SernosTransCount>().Property(r => r.TransCode).HasColumnName("TRANS_CODE").HasMaxLength(10);
+            builder.Entity<SernosTransCount>().Property(r => r.SernosCount).HasColumnName("SERNOS_COUNT").HasMaxLength(10);
+            builder.Entity<SernosTransCount>().Property(r => r.CheckError).HasColumnName("CHECK_ERROR").HasMaxLength(1);
+            builder.Entity<SernosTransCount>().Property(r => r.CheckErrorMess).HasColumnName("CHECK_ERROR_MESS").HasMaxLength(128);
+            builder.Entity<SernosTransCount>().Property(r => r.CorrectValue).HasColumnName("CORRECT_VALUE").HasMaxLength(10);
+            builder.Entity<SernosTransCount>().Property(r => r.CountIncrement).HasColumnName("COUNT_INCREMENT").HasMaxLength(10);
+            builder.Entity<SernosTransCount>().HasOne<SernosTrans>(s => s.SernosTrans).WithMany(g => g.SernosTransCounts)
+                .HasForeignKey(s => s.TransCode);
+
+            builder.Entity<SernosCount>().ToTable("SERNOS_COUNTS");
+            builder.Entity<SernosCount>().HasKey(r => r.Name);
+            builder.Entity<SernosCount>().Property(r => r.Name).HasColumnName("NAME").HasMaxLength(10);
+            builder.Entity<SernosCount>().Property(r => r.Description).HasColumnName("DESCRIPTION").HasMaxLength(50);
         }
 
         private void BuildProductRanges(ModelBuilder builder)

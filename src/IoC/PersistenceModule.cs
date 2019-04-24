@@ -8,6 +8,7 @@
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Domain.Linnapps.SalesPackages;
+    using Linn.Products.Domain.Linnapps.SernosTransactions;
     using Linn.Products.Persistence.Linnapps;
     using Linn.Products.Persistence.Linnapps.Repositories;
 
@@ -24,6 +25,7 @@
             builder.RegisterType<CartonTypeRepository>().As<IRepository<CartonType, string>>();
             builder.RegisterType<SaCoreTypeRepository>().As<IRepository<SaCoreType, int>>();
             builder.RegisterType<SernosConfigRepository>().As<IRepository<SernosConfig, string>>();
+            builder.RegisterType<SernosTransRepository>().As<IRepository<SernosTrans, string>>();
             builder.RegisterType<TypeOfSaleRepository>().As<IRepository<TypeOfSale, string>>();
             builder.RegisterType<SalesArticleRepository>().As<IRepository<SalesArticle, string>>();
             builder.RegisterType<SernosSequenceRepository>().As<IRepository<SernosSequence, string>>();
