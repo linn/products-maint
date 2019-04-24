@@ -54,6 +54,7 @@
             builder.RegisterType<SerialNumberService>().As<IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource>>();
             builder.RegisterType<SernosNoteService>().As<IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource>>();
             builder.RegisterType<SernosTransactionService>().As<IFacadeService<SernosTransaction, string, SernosTransactionResource, SernosTransactionResource>>();
+            builder.RegisterType<SalesArticleSerialNumberFacadeService>().As<ISalesArticleSerialNumberFacadeService>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();
@@ -66,6 +67,7 @@
             builder.RegisterType<StockTriggerLevelDataProxy>().As<IStockTriggerLevelDataService>();
             builder.RegisterType<DatabaseProxy>().As<IDatabaseService>();
             builder.RegisterType<SalesArticleCompositeDiscountProxyService>().As<ISalesArticleCompositeDiscountService>();
+            builder.RegisterType<SernosPack>().As<ISernosPack>();
         }
     }
 }

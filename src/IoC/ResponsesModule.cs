@@ -50,6 +50,7 @@
             builder.RegisterType<SernosTransactionResourceBuilder>().As<IResourceBuilder<SernosTransaction>>();
             builder.RegisterType<SernosTransactionsResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosTransaction>>>();
             builder.RegisterType<SalesArticleCompositeDiscountResourceBuilder>().As<IResourceBuilder<SalesArticleCompositeDiscount>>();
+            builder.RegisterType<SalesArticleSerialNumberDetailsResourceBuilder>().As<IResourceBuilder<SalesArticleSerialNumberDetails>>();
         }
     }
 }
