@@ -194,29 +194,6 @@ function SerialNumber({
                             <InputField
                                 disabled={viewing()}
                                 fullWidth
-                                label="Document Number"
-                                maxLength={8}
-                                onChange={handleFieldChange}
-                                propertyName="documentNumber"
-                                type="number"
-                                value={serialNumber.documentNumber}
-                            />
-                        </Grid>
-                        <Grid item xs={5}>
-                            <InputField
-                                disabled={viewing()}
-                                fullWidth
-                                label="Document Type"
-                                maxLength={2}
-                                onChange={handleFieldChange}
-                                propertyName="documentType"
-                                value={serialNumber.documentType}
-                            />
-                        </Grid>
-                        <Grid item xs={5}>
-                            <InputField
-                                disabled={viewing()}
-                                fullWidth
                                 label="Sernos TRef"
                                 maxLength={8}
                                 onChange={handleFieldChange}
