@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Service.Modules
 {
+    using System;
+
     using FluentValidation.Results;
 
     using Linn.Common.Facade;
@@ -24,7 +26,7 @@
             this.serialNumberService = serialNumberService;
             this.Get("/products/maint/serial-numbers", _ => this.GetSerialNumbers());
             this.Get("/products/maint/serial-numbers/{sernosTRef}", parameters => this.GetSerialNumberByTRef(parameters.sernosTRef));
-            this.Post("/products/maint/serial-numbers/create", _ => this.CreateSerialNumber());
+            this.Post("/products/maint/serial-numbers", _ => this.CreateSerialNumber());
         }
 
         private object CreateSerialNumber()
@@ -32,6 +34,7 @@
             this.RequiresAuthentication();
             var resource = this.Bind<SerialNumberResource>();
             resource.Links = new[] { new LinkResource("entered-by", this.Context.CurrentUser.GetEmployeeUri()) };
+
             var results = new SerialNumberResourceValidator().Validate(resource);
 
             return results.IsValid

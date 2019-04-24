@@ -7,24 +7,44 @@
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.Exceptions;
+    using Linn.Products.Domain.Linnapps.RemoteServices;
     using Linn.Products.Facade.Extensions;
     using Linn.Products.Resources;
 
     public class SerialNumberService : FacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource>
     {
-        public SerialNumberService(IRepository<SerialNumber, int> repository, ITransactionManager transactionManager)
+        private readonly ISernosPack sernosPack;
+
+        public SerialNumberService(
+            IRepository<SerialNumber, int> repository,
+            ITransactionManager transactionManager,
+            ISernosPack sernosPack)
             : base(repository, transactionManager)
         {
+            this.sernosPack = sernosPack;
         }
 
         protected override SerialNumber CreateFromResource(SerialNumberResource resource)
         {
+            var employee = resource.Links.FirstOrDefault(a => a.Rel == "entered-by");
+
+            if (employee == null)
+            {
+                throw new IncompleteDataException("Must supply an employee number when creating a Serial Number");
+            }
+
+            if (!this.sernosPack.CheckSernosTrans(resource.TransCode, resource.ArticleNumber, resource.SernosNumber))
+            {
+                throw new InvalidSerialNumberTransactionException(this.sernosPack.GetSernosMessage());
+            }
+
             return new SerialNumber(
                     resource.SernosTRef,
                     resource.SernosGroup,
                     resource.TransCode,
                     resource.ArticleNumber,
-                    resource.Links.FirstOrDefault(a => a.Rel == "entered-by").Href.ParseId())
+                    employee.Href.ParseId())
                     {
                         DocumentType = resource.DocumentType,
                         DocumentNumber = resource.DocumentNumber,

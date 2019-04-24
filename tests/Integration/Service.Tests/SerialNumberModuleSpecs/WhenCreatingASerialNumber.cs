@@ -42,7 +42,7 @@
                 .Returns(new CreatedResult<SerialNumber>(new SerialNumber(33, "group", "trans", "art", 1234)));
 
             this.Response = this.Browser.Post(
-                "/products/maint/serial-numbers/create",
+                "/products/maint/serial-numbers",
                 with =>
                     {
                         with.Header("Accept", "application/json");
