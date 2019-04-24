@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import moment from 'moment';
-import { Grid, Typography, Button, Tabs, Tab } from '@material-ui/core';
+import { Grid, Typography, Button, Tabs, Tab, Tooltip } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import {
     InputField,
@@ -151,10 +151,13 @@ function SalesArticle({
                                             style={{ textAlign: 'right' }}
                                             gutterBottom
                                         >
-                                            {salesArticle.onHold ? (
+                                            {salesArticle.onHold &&
+                                            !salesArticle.rootProductOnHold ? (
                                                 <Fragment>
                                                     <span> ON HOLD </span>
+
                                                     <Button
+                                                        disabled={salesArticle.rootProductOnHold}
                                                         component={Link}
                                                         to={getHref(salesArticle, 'put-off-hold')}
                                                     >
@@ -162,12 +165,33 @@ function SalesArticle({
                                                     </Button>
                                                 </Fragment>
                                             ) : (
-                                                <Button
-                                                    component={Link}
-                                                    to={getHref(salesArticle, 'put-on-hold')}
+                                                <Tooltip
+                                                    disableFocusListener
+                                                    title={
+                                                        salesArticle.rootProductOnHold
+                                                            ? 'This sales article is already on hold as part of its root product group.'
+                                                            : ''
+                                                    }
+                                                    placement="top-end"
                                                 >
-                                                    PUT ON HOLD
-                                                </Button>
+                                                    <span>
+                                                        <Button
+                                                            component={Link}
+                                                            disabled={
+                                                                salesArticle.rootProductOnHold
+                                                            }
+                                                            to={getHref(
+                                                                salesArticle,
+                                                                'put-on-hold'
+                                                            )}
+                                                        >
+                                                            PUT ON HOLD
+                                                        </Button>
+                                                    </span>
+                                                </Tooltip>
+                                            )}
+                                            {salesArticle.rootProductOnHold && (
+                                                <div>ROOT PRODUCT ON HOLD</div>
                                             )}
                                         </Typography>
                                     </Grid>

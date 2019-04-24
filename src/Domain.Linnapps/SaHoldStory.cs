@@ -34,6 +34,8 @@
 
         public DateTime? AnticipatedEndDate { get; set; }
 
-        public string RootProduct { get; set; }
+        public RootProduct RootProduct { get; set; }
+
+        public string RootProductName { get; set; }
     }
 }

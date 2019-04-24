@@ -24,14 +24,12 @@ function Report({ reportData, loading }) {
     );
 }
 
-function HoldStoriesBySalesArticle({ reportData, loading, match }) {
-    const titleify = articleNumber => articleNumber.replace(/%2F/g, '/');
-
+function HoldStories({ reportData, loading }) {
     return (
         <Grid container spacing={24} justify="center">
             <Grid item xs={12}>
                 <Grid item xs={10}>
-                    <Title text={`${titleify(match.params.articleNumber)} Hold Stories`} />
+                    <Title text="Hold Stories" />
                 </Grid>
             </Grid>
             <Grid item xs={12}>
@@ -41,7 +39,7 @@ function HoldStoriesBySalesArticle({ reportData, loading, match }) {
     );
 }
 
-HoldStoriesBySalesArticle.propTypes = {
+HoldStories.propTypes = {
     reportData: PropTypes.shape({}),
     options: PropTypes.shape({}),
     match: PropTypes.shape({}).isRequired,
@@ -58,10 +56,10 @@ Report.defaultProps = {
     reportData: null
 };
 
-HoldStoriesBySalesArticle.defaultProps = {
+HoldStories.defaultProps = {
     reportData: null,
     options: {},
     loading: false
 };
 
-export default HoldStoriesBySalesArticle;
+export default HoldStories;

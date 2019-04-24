@@ -34,6 +34,8 @@ import productsOnHoldReport from './productsOnHoldReport';
 import salesArticleCoreTypes from './salesArticleCoreTypes/index';
 import salesPackage from './salesPackage';
 import salesPackages from './salesPackages';
+import rootProducts from './rootProducts/rootProducts';
+import rootProduct from './rootProducts/rootProduct';
 import salesArticleCompositeDiscount from './salesArticleCompositeDiscount';
 
 const rootReducer = combineReducers({
@@ -72,7 +74,9 @@ const rootReducer = combineReducers({
     productsOnHoldReport,
     salesPackage,
     salesPackages,
-    salesArticleCompositeDiscount
+    salesArticleCompositeDiscount,
+    rootProduct,
+    rootProducts
 });
 
 export default rootReducer;

@@ -1,24 +1,28 @@
 ﻿namespace Linn.Products.Facade
 {
-    using System;
-    using System.Collections.Generic;
-
     using Linn.Common.Facade;
     using Linn.Common.Reporting.Models;
+    using Linn.Products.Domain.Linnapps.Reports;
     using Linn.Products.Facade.Services;
 
     public class SaHoldStoryReportService : ISaHoldStoriesReportService
     {
-        private readonly Domain.Linnapps.Reports.ISaHoldStoryReportService saHoldStoryReportService;
+        private readonly ISaHoldStoryService saHoldStoryService;
 
-        public SaHoldStoryReportService(Domain.Linnapps.Reports.ISaHoldStoryReportService saHoldStoryReportService)
+        public SaHoldStoryReportService(ISaHoldStoryService saHoldStoryService)
         {
-            this.saHoldStoryReportService = saHoldStoryReportService;
+            this.saHoldStoryService = saHoldStoryService;
         }
 
-        public IResult<ResultsModel> GetSaHoldStories(string articleNumber)
+        public IResult<ResultsModel> GetHoldStoriesForSalesArticle(string articleNumber)
         {
-            var results = this.saHoldStoryReportService.GetSaHoldStoriesReportForSalesArticle(articleNumber);
+            var results = this.saHoldStoryService.GetHoldStoriesForSalesArticle(articleNumber);
+            return new SuccessResult<ResultsModel>(results);
+        }
+
+        public IResult<ResultsModel> GetHoldStoriesForRootProduct(string rootProductName)
+        {
+            var results = this.saHoldStoryService.GetHoldStoriesForRootProduct(rootProductName);
             return new SuccessResult<ResultsModel>(results);
         }
     }

@@ -35,6 +35,7 @@
             builder.RegisterType<SerialNumberRepository>().As<IRepository<SerialNumber, int>>();
             builder.RegisterType<SernosNoteRepository>().As<IRepository<SernosNote, int>>();
             builder.RegisterType<EmployeeRepository>().As<IRepository<Employee, int>>();
+            builder.RegisterType<RootProductRepository>().As<IRepository<RootProduct, string>>();
         }
     }
 }
