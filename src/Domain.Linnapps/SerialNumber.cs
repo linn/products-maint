@@ -6,11 +6,10 @@
 
     public class SerialNumber
     {
-        public SerialNumber(int sernosTRef, string sernosGroup, string transCode, string articleNumber, int createdBy)
+        public SerialNumber(string sernosGroup, string transCode, string articleNumber, int createdBy)
         {
             this.ValidateSerialNumber(sernosGroup, transCode, articleNumber);
-
-            this.SernosTRef = sernosTRef;
+            
             this.SernosGroup = sernosGroup;
             this.TransCode = transCode;
             this.ArticleNumber = articleNumber;
@@ -59,7 +58,7 @@
 
             if (string.IsNullOrEmpty(articleNumber))
             {
-                throw new DomainException("You must supply an artile number");
+                throw new DomainException("You must supply an article number");
             }
         }
     }

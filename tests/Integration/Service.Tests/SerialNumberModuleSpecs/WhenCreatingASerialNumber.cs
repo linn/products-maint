@@ -1,21 +1,15 @@
 ﻿namespace Linn.Products.Service.Tests.SerialNumberModuleSpecs
 {
-    using System;
-
     using FluentAssertions;
-
-    using FluentValidation.Results;
 
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
-    using Linn.Products.Resources.Validators;
 
     using Nancy;
     using Nancy.Testing;
 
     using NSubstitute;
-    using NSubstitute.Core.Arguments;
 
     using NUnit.Framework;
 
@@ -39,7 +33,7 @@
                                };
 
             this.SerialNumberService.Add(Arg.Any<SerialNumberResource>())
-                .Returns(new CreatedResult<SerialNumber>(new SerialNumber(33, "group", "trans", "art", 1234)));
+                .Returns(new CreatedResult<SerialNumber>(new SerialNumber("group", "trans", "art", 1234)));
 
             this.Response = this.Browser.Post(
                 "/products/maint/serial-numbers",

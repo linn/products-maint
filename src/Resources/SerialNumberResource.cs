@@ -6,9 +6,15 @@
     {
         public string ArticleNumber { get; set; }
 
+        public int CreatedBy { get; set; }
+
         public int? DocumentNumber { get; set; }
 
         public string DocumentType { get; set; }
+
+        public int FromSernosNumber { get; set; }
+
+        public int ToSernosNumber { get; set; }
 
         public int? PrevSernosNumber { get; set; }
 

@@ -5,60 +5,61 @@
     using System.Linq;
     using System.Linq.Expressions;
 
+    using Linn.Common.Domain.Exceptions;
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Exceptions;
-    using Linn.Products.Domain.Linnapps.RemoteServices;
     using Linn.Products.Facade.Extensions;
     using Linn.Products.Resources;
 
     public class SerialNumberService : FacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource>, ISerialNumberFacadeService
     {
-        private readonly ISernosPack sernosPack;
+        private readonly ISerialNumberFactory serialNumberFactory;
 
         public SerialNumberService(
             IRepository<SerialNumber, int> repository,
             ITransactionManager transactionManager,
-            ISernosPack sernosPack)
+            ISerialNumberFactory serialNumberFactory)
             : base(repository, transactionManager)
         {
-            this.sernosPack = sernosPack;
+            this.serialNumberFactory = serialNumberFactory;
         }
 
         public IResult<IEnumerable<SerialNumber>> CreateSerialNumbers(SerialNumberResource resource)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override SerialNumber CreateFromResource(SerialNumberResource resource)
         {
             var employee = resource.Links.FirstOrDefault(a => a.Rel == "entered-by");
 
             if (employee == null)
             {
-                throw new IncompleteDataException("Must supply an employee number when creating a Serial Number");
+                return new BadRequestResult<IEnumerable<SerialNumber>>("Must supply an employee number when creating a Serial Number");
             }
 
-            if (!this.sernosPack.CheckSernosTrans(resource.TransCode, resource.ArticleNumber, resource.SernosNumber))
+            var employeeNumber = employee.Href.ParseId();
+
+            IEnumerable<SerialNumber> serialNumbers;
+
+            try
             {
-                throw new InvalidSerialNumberTransactionException(this.sernosPack.GetSernosMessage());
-            }
-
-            return new SerialNumber(
-                    resource.SernosTRef,
-                    resource.SernosGroup,
+                serialNumbers = this.serialNumberFactory.CreateSerialNumbers(
                     resource.TransCode,
                     resource.ArticleNumber,
-                    employee.Href.ParseId())
-                    {
-                        DocumentType = resource.DocumentType,
-                        DocumentNumber = resource.DocumentNumber,
-                        PrevSernosNumber = resource.PrevSernosNumber,
-                        SernosDate = string.IsNullOrEmpty(resource.SernosDate)
-                                ? (DateTime?)null
-                                : DateTime.Parse(resource.SernosDate)
-                    };
+                    resource.FromSernosNumber,
+                    resource.ToSernosNumber,
+                    resource.PrevSernosNumber,
+                    employeeNumber);
+            }
+            catch (DomainException e)
+            {
+                return new BadRequestResult<IEnumerable<SerialNumber>>(e.Message);
+            }
+
+            return new CreatedResult<IEnumerable<SerialNumber>>(serialNumbers);
+        }
+
+        protected override SerialNumber CreateFromResource(SerialNumberResource resource)
+        {
+            throw new System.NotImplementedException();
         }
 
         protected override void UpdateFromResource(SerialNumber entity, SerialNumberResource updateResource)

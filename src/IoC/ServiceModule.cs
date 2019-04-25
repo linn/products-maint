@@ -29,6 +29,7 @@
             builder.RegisterType<SaHoldStoryService>().As<ISaHoldStoryReportService>();
             builder.RegisterType<SalesArticleReports>().As<ISalesArticleReports>();
             builder.RegisterType<ProductsOnHoldService>().As<IProductsOnHoldService>();
+            builder.RegisterType<SerialNumberFactory>().As<ISerialNumberFactory>();
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
