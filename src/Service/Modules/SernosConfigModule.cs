@@ -27,6 +27,27 @@
             this.Post("/products/maint/sernos-configs", _ => this.AddSernosConfig());
 
             this.Get("/products/maint/serial-number-transactions/{id}", parameters => this.GetTransCode(parameters.id));
+            this.Post("/products/maint/serial-number-transactions", _ => this.AddTransCode());
+            this.Put("/products/maint/serial-number-transactions/{id}", parameters => this.UpdateTransCode(parameters.id));
+        }
+
+        private object UpdateTransCode(string transCode)
+        {
+            var resource = this.Bind<SernosTransactionResource>();
+
+            var result = this.sernosTransactionService.Update(transCode, resource);
+            return this.Negotiate.WithModel(result);
+        }
+
+        private object AddTransCode()
+        {
+            var resource = this.Bind<SernosTransactionResource>();
+
+            var result = this.sernosTransactionService.Add(resource);
+            return this.Negotiate
+                .WithModel(result)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object GetTransCode(string transCode)
