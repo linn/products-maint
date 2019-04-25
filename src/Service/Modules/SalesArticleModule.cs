@@ -46,7 +46,7 @@
 
         private object GetSerialNumberDetails(string id)
         {
-            var result = this.salesArticleSerialNumberFacadeService.GetSerialNumberDetails(id);
+            var result = this.salesArticleSerialNumberFacadeService.GetSerialNumberDetails(id.ToUpper());
 
             return this.Negotiate.WithModel(result);
         }

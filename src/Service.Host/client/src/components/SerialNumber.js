@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Grid } from '@material-ui/core';
@@ -19,17 +19,24 @@ function SerialNumber({
     history,
     loading,
     item,
+    salesArticleSernosDetails,
     snackbarVisible,
-    typeOfSerialNumber,
     addItem,
     setEditStatus,
     sernosTransactions,
     sernosTransactionsLoading,
-    setSnackbarVisible
+    setSnackbarVisible,
+    fetchSalesArticleSernosDetails
 }) {
     const [serialNumber, setSerialNumber] = useState({});
     const [prevSerialNumber, setPrevSerialNumber] = useState({});
     const [sernosTransactionsList, setSernosTransactionsList] = useState(['']);
+
+    const savedFetchSalesArticleSernosDetails = useRef(null);
+
+    useEffect(() => {
+        savedFetchSalesArticleSernosDetails.current = fetchSalesArticleSernosDetails;
+    }, [fetchSalesArticleSernosDetails]);
 
     useEffect(() => {
         if (item !== prevSerialNumber) {
@@ -47,32 +54,35 @@ function SerialNumber({
         setSernosTransactionsList(['', ...transactions]);
     }, [sernosTransactions]);
 
+    useEffect(() => {
+        if (serialNumber.articleNumber) {
+            savedFetchSalesArticleSernosDetails.current(serialNumber.articleNumber);
+        }
+    }, [serialNumber.articleNumber]);
+
+    useEffect(() => {
+        if (salesArticleSernosDetails) {
+            setSerialNumber({
+                ...serialNumber,
+                sernosGroup: salesArticleSernosDetails.sernosGroup,
+                serialNumbered: salesArticleSernosDetails.serialNumbered
+            });
+        } else {
+            setSerialNumber({
+                ...serialNumber,
+                sernosGroup: null,
+                serialNumbered: null
+            });
+        }
+    }, [salesArticleSernosDetails, serialNumber]);
+
+    const articles = ['', 'MAJIK-IP', 'MAJIK CD', 'KLIMAX DS', 'KIKO DSM', 'AKURATE CD'];
+
     const viewing = () => editStatus === 'view';
-
-    const articles = ['', 'please', 'fetch', 'me'];
-
-    const serialNumbered = [
-        '',
-        'Not serial numbered',
-        'Serial numbered in ones',
-        'Serial numbered in pairs, one box',
-        'Serial numbered in pairs, two boxes'
-    ];
 
     const handleFieldChange = (propertyName, newValue) => {
         setSerialNumber({ ...serialNumber, [propertyName]: newValue });
     };
-
-    const salesArticleInvalid = () => {
-        if (!typeOfSerialNumber || typeOfSerialNumber === 'N') {
-            return true;
-        }
-
-        return false;
-    };
-    // !typeOfSerialNumber || typeOfSerialNumber === 'N' ? true : false;
-
-    const inputInvalid = () => salesArticleInvalid();
 
     const handleSaveClick = () => {
         addItem(serialNumber);
@@ -118,11 +128,7 @@ function SerialNumber({
                         <Grid item xs={5}>
                             <Dropdown
                                 disabled={viewing()}
-                                error={salesArticleInvalid()}
                                 fullWidth
-                                helperText={
-                                    salesArticleInvalid() && 'Sales Article must be serial numbered'
-                                }
                                 items={articles}
                                 label="Article Number"
                                 onChange={handleFieldChange}
@@ -143,14 +149,14 @@ function SerialNumber({
                             />
                         </Grid>
                         <Grid item xs={5}>
-                            <Dropdown
-                                disabled={viewing()}
+                            <InputField
+                                disabled
                                 fullWidth
                                 label="Serial Numbered"
-                                items={serialNumbered}
+                                maxLength={10}
                                 onChange={handleFieldChange}
-                                propertyName="serialNumbered"
-                                value={serialNumber.serialNumbered || ''}
+                                propertyName="sernosGroup"
+                                value={serialNumber.serialNumbered}
                             />
                         </Grid>
                         <Grid item xs={5}>
@@ -231,7 +237,7 @@ function SerialNumber({
                         </Grid>
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
-                                saveDisabled={viewing() || inputInvalid()}
+                                saveDisabled={viewing()}
                                 saveClick={handleSaveClick}
                                 cancelClick={handleBackClick}
                                 backClick={handleBackClick}
@@ -251,19 +257,19 @@ SerialNumber.propTypes = {
     errorMessage: PropTypes.string,
     loading: PropTypes.bool.isRequired,
     snackbarVisible: PropTypes.bool,
-    typeOfSerialNumber: PropTypes.string,
+    salesArticleSernosDetails: PropTypes.shape({}).isRequired,
     sernosTransactions: PropTypes.arrayOf(PropTypes.shape({})),
     sernosTransactionsLoading: PropTypes.bool,
     addItem: PropTypes.func.isRequired,
     setEditStatus: PropTypes.func.isRequired,
-    setSnackbarVisible: PropTypes.func.isRequired
+    setSnackbarVisible: PropTypes.func.isRequired,
+    fetchSalesArticleSernosDetails: PropTypes.func.isRequired
 };
 
 SerialNumber.defaultProps = {
     item: {},
     errorMessage: '',
     snackbarVisible: false,
-    typeOfSerialNumber: '',
     sernosTransactions: [],
     sernosTransactionsLoading: false
 };

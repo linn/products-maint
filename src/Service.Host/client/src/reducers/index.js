@@ -37,6 +37,7 @@ import salesPackages from './salesPackages';
 import sernosTransaction from './sernosTransaction';
 import sernosTransactions from './sernosTransactions';
 import salesArticleCompositeDiscount from './salesArticleCompositeDiscount';
+import salesArticleSernosDetails from './salesArticleSernosDetails';
 
 const rootReducer = combineReducers({
     oidc,
@@ -76,7 +77,8 @@ const rootReducer = combineReducers({
     salesPackages,
     sernosTransaction,
     sernosTransactions,
-    salesArticleCompositeDiscount
+    salesArticleCompositeDiscount,
+    salesArticleSernosDetails
 });
 
 export default rootReducer;

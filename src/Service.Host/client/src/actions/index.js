@@ -61,6 +61,9 @@ export const RECEIVE_PRODUCTS_ON_HOLD_REPORT = 'RECEIVE_PRODUCTS_ON_HOLD_REPORT'
 export const REQUEST_MENU = 'REQUEST_MENU';
 export const RECEIVE_MENU = 'RECEIVE_MENU';
 
+export const REQUEST_SALES_ARTICLE_SERNOS_DETAILS = 'REQUEST_SALES_ARTICLE_SERNOS_DETAILS';
+export const RECEIVE_SALES_ARTICLE_SERNOS_DETAILS = 'RECEIVE_SALES_ARTICLE_SERNOS_DETAILS';
+
 export const cartonTypeActionTypes = makeActionTypes(itemTypes.cartonType.actionType);
 
 export const sernosConfigActionTypes = makeActionTypes(itemTypes.sernosConfig.actionType);
