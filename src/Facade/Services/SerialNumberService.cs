@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Facade.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
 
@@ -12,7 +13,7 @@
     using Linn.Products.Facade.Extensions;
     using Linn.Products.Resources;
 
-    public class SerialNumberService : FacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource>
+    public class SerialNumberService : FacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource>, ISerialNumberFacadeService
     {
         private readonly ISernosPack sernosPack;
 
@@ -23,6 +24,11 @@
             : base(repository, transactionManager)
         {
             this.sernosPack = sernosPack;
+        }
+
+        public IResult<IEnumerable<SerialNumber>> CreateSerialNumbers(SerialNumberResource resource)
+        {
+            throw new NotImplementedException();
         }
 
         protected override SerialNumber CreateFromResource(SerialNumberResource resource)

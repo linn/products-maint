@@ -19,12 +19,12 @@
 
     public abstract class ContextBase : NancyContextBase
     {
-        protected IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource> SerialNumberService { get; private set; }
+        protected ISerialNumberFacadeService SerialNumberService { get; private set; }
 
         [SetUp]
         public void EstablishContext()
         {
-            this.SerialNumberService = Substitute.For<IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource>>();
+            this.SerialNumberService = Substitute.For<ISerialNumberFacadeService>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>

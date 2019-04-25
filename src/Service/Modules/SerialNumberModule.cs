@@ -1,12 +1,6 @@
 ﻿namespace Linn.Products.Service.Modules
 {
-    using System;
-
-    using FluentValidation.Results;
-
-    using Linn.Common.Facade;
     using Linn.Common.Resources;
-    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
     using Linn.Products.Resources.Validators;
@@ -19,9 +13,9 @@
 
     public sealed class SerialNumberModule : NancyModule
     {
-        private readonly IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource> serialNumberService;
+        private readonly ISerialNumberFacadeService serialNumberService;
 
-        public SerialNumberModule(IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource> serialNumberService)
+        public SerialNumberModule(ISerialNumberFacadeService serialNumberService)
         {
             this.serialNumberService = serialNumberService;
             this.Get("/products/maint/serial-numbers", _ => this.GetSerialNumbers());
