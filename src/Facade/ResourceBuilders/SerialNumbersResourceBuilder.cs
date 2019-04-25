@@ -1,6 +1,5 @@
 ﻿namespace Linn.Products.Facade.ResourceBuilders
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -21,7 +20,7 @@
 
         public string GetLocation(IEnumerable<SerialNumber> model)
         {
-            throw new NotImplementedException();
+            return "/products/maint/serial-numbers";
         }
     }
 }

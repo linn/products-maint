@@ -20,19 +20,19 @@
             this.serialNumberService = serialNumberService;
             this.Get("/products/maint/serial-numbers", _ => this.GetSerialNumbers());
             this.Get("/products/maint/serial-numbers/{sernosTRef}", parameters => this.GetSerialNumberByTRef(parameters.sernosTRef));
-            this.Post("/products/maint/serial-numbers", _ => this.CreateSerialNumber());
+            this.Post("/products/maint/serial-numbers", _ => this.CreateSerialNumbers());
         }
 
-        private object CreateSerialNumber()
+        private object CreateSerialNumbers()
         {
             this.RequiresAuthentication();
             var resource = this.Bind<SerialNumberResource>();
             resource.Links = new[] { new LinkResource("entered-by", this.Context.CurrentUser.GetEmployeeUri()) };
-
             var results = new SerialNumberResourceValidator().Validate(resource);
 
+            var serialNumbers = this.serialNumberService.CreateSerialNumbers(resource);
             return results.IsValid
-                       ? this.Negotiate.WithModel(this.serialNumberService.Add(resource))
+                       ? this.Negotiate.WithModel(serialNumbers)
                        : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
         }
 

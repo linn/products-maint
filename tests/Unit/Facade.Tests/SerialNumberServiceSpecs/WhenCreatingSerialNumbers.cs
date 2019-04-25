@@ -60,6 +60,19 @@
         }
 
         [Test]
+        public void ShouldAddToDatabase()
+        {
+            this.SerialNumberRepository.Received().Add(Arg.Is<SerialNumber>(a => a.SernosNumber == 555));
+            this.SerialNumberRepository.Received().Add(Arg.Is<SerialNumber>(a => a.SernosNumber == 556));
+        }
+
+        [Test]
+        public void ShouldCommitTransaction()
+        {
+            this.TransactionManager.Received().Commit();
+        }
+
+        [Test]
         public void ShouldReturnSerialNumbers()
         {
             this.result.Should().BeOfType<CreatedResult<IEnumerable<SerialNumber>>>();

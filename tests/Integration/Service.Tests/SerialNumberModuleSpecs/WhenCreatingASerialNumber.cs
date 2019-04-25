@@ -1,5 +1,8 @@
 ﻿namespace Linn.Products.Service.Tests.SerialNumberModuleSpecs
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -23,17 +26,21 @@
             this.resource = new SerialNumberResource
                                {
                                    ArticleNumber = "art",
-                                   DocumentNumber = 22,
-                                   DocumentType = "doc",
                                    PrevSernosNumber = 11,
                                    SernosDate = "12/12/2019",
                                    SernosGroup = "group",
                                    SernosTRef = 33,
-                                   TransCode = "trans"
+                                   TransCode = "trans",
+                                   FromSernosNumber = 1,
+                                   ToSernosNumber = 2
                                };
 
-            this.SerialNumberService.Add(Arg.Any<SerialNumberResource>())
-                .Returns(new CreatedResult<SerialNumber>(new SerialNumber("group", "trans", "art", 1234)));
+            this.SerialNumberService.CreateSerialNumbers(Arg.Any<SerialNumberResource>())
+                .Returns(new CreatedResult<IEnumerable<SerialNumber>>(new List<SerialNumber>
+                                                                          {
+                                                                              new SerialNumber("group", "trans", "art", 800) { SernosNumber = 1 },
+                                                                              new SerialNumber("group", "trans", "art", 800) { SernosNumber = 2 }
+                                                                          }.AsEnumerable()));
 
             this.Response = this.Browser.Post(
                 "/products/maint/serial-numbers",
@@ -49,16 +56,14 @@
         public void ShouldCallService()
         {
 
-            this.SerialNumberService.Received().Add(Arg.Any<SerialNumberResource>());
+            this.SerialNumberService.Received().CreateSerialNumbers(Arg.Any<SerialNumberResource>());
         }
 
 
         [Test]
         public void ShouldHaveCreateStatusCode()
         {
-
             this.Response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
-
     }
 }

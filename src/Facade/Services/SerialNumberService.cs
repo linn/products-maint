@@ -9,20 +9,25 @@
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Domain.Linnapps.Exceptions;
     using Linn.Products.Facade.Extensions;
     using Linn.Products.Resources;
 
     public class SerialNumberService : FacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource>, ISerialNumberFacadeService
     {
+        private readonly IRepository<SerialNumber, int> serialNumberRepository;
+
+        private readonly ITransactionManager transactionManager;
+
         private readonly ISerialNumberFactory serialNumberFactory;
 
         public SerialNumberService(
-            IRepository<SerialNumber, int> repository,
+            IRepository<SerialNumber, int> serialNumberRepository,
             ITransactionManager transactionManager,
             ISerialNumberFactory serialNumberFactory)
-            : base(repository, transactionManager)
+            : base(serialNumberRepository, transactionManager)
         {
+            this.serialNumberRepository = serialNumberRepository;
+            this.transactionManager = transactionManager;
             this.serialNumberFactory = serialNumberFactory;
         }
 
@@ -53,6 +58,13 @@
             {
                 return new BadRequestResult<IEnumerable<SerialNumber>>(e.Message);
             }
+
+            foreach (var serialNumber in serialNumbers)
+            {
+                this.serialNumberRepository.Add(serialNumber);
+            }
+
+            this.transactionManager.Commit();
 
             return new CreatedResult<IEnumerable<SerialNumber>>(serialNumbers);
         }
