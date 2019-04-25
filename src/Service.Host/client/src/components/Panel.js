@@ -34,7 +34,7 @@ function Panel({ section, classes }) {
                                 <ListItem>
                                     <Typography variant="button" gutterBottom>
                                         {category.title.replace('&amp;', '&')}
-                                    </Typography>{' '}
+                                    </Typography>
                                 </ListItem>
                                 {category.items.map(entry => (
                                     <Fragment>
@@ -51,7 +51,6 @@ function Panel({ section, classes }) {
                                                         variant="overline"
                                                         classes={{ overline: classes.menuItems }}
                                                     >
-                                                        {' '}
                                                         {entry.title}
                                                     </Typography>
                                                 </ListItem>

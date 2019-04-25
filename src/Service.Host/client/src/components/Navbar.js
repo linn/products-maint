@@ -42,7 +42,6 @@ function Navbar({ classes, menu, loading }) {
     const handleClose = () => {
         setAnchorEl();
     };
-    // history.push(`/${menuIds[value]}`); get history comes in as props
 
     return (
         <ClickAwayListener onClickAway={() => setSelected(false)}>
@@ -86,15 +85,17 @@ function Navbar({ classes, menu, loading }) {
                                 onClose={handleClose}
                             >
                                 <MenuItem onClick={handleClose}>{menu.myStuff.userName}</MenuItem>
-                                <Fragment>
-                                    {menu.myStuff.groups.map(group => (
-                                        <a href={group.items[0].href}>
-                                            <MenuItem onClick={handleClose}>
-                                                {group.items[0].title}
-                                            </MenuItem>{' '}
-                                        </a>
-                                    ))}
-                                </Fragment>
+                                {menu.myStuff.userName && (
+                                    <Fragment>
+                                        {menu.myStuff.groups.map(group => (
+                                            <a href={group.items[0].href}>
+                                                <MenuItem onClick={handleClose}>
+                                                    {group.items[0].title}
+                                                </MenuItem>{' '}
+                                            </a>
+                                        ))}
+                                    </Fragment>
+                                )}
                             </Menu>
                         </Fragment>
                     ) : (
