@@ -7,6 +7,8 @@
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps.SernosTransactions;
 
+    using Microsoft.EntityFrameworkCore;
+
     public class SernosTransRepository : IRepository<SernosTrans, string>
     {
         private readonly ServiceDbContext serviceDbContext;
@@ -19,12 +21,15 @@
         public SernosTrans FindById(string key)
         {
             return this.serviceDbContext.SerialNumberTransactionTypes
-                .Where(a => a.TransCode == key).ToList().FirstOrDefault();
+                .Where(a => a.TransCode == key)
+                .Include(b => b.SernosTransCounts)
+                .ToList().FirstOrDefault();
         }
 
         public IQueryable<SernosTrans> FindAll()
         {
-            return this.serviceDbContext.SerialNumberTransactionTypes;
+            return this.serviceDbContext.SerialNumberTransactionTypes
+                .Include(a => a.SernosTransCounts);
         }
 
         public void Add(SernosTrans sernosTrans)
@@ -39,12 +44,14 @@
 
         public SernosTrans FindBy(Expression<Func<SernosTrans, bool>> expression)
         {
-            throw new NotImplementedException();
+            return this.serviceDbContext.SerialNumberTransactionTypes
+                .Where(expression)
+                .FirstOrDefault();
         }
 
         public IQueryable<SernosTrans> FilterBy(Expression<Func<SernosTrans, bool>> expression)
         {
-            throw new NotImplementedException();
+            return this.serviceDbContext.SerialNumberTransactionTypes.Where(expression);
         }
     }
 }

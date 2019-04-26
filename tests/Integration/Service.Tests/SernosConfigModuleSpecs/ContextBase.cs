@@ -38,10 +38,12 @@
                     with.Dependency<IResourceBuilder<SernosConfig>>(new SernosConfigResourceBuilder());
                     with.Dependency<IResourceBuilder<SernosTrans>>(new SernosTransactionResourceBuilder());
                     with.Dependency<IResourceBuilder<IEnumerable<SernosConfig>>>(new SernosConfigsResourceBuilder());
+                    with.Dependency<IResourceBuilder<IEnumerable<SernosTrans>>>(new SernosTransactionsResourceBuilder());
                     with.Module<SernosConfigModule>();
                     with.ResponseProcessor<SernosConfigResponseProcessor>();
                     with.ResponseProcessor<SernosTransactionResponseProcessor>();
                     with.ResponseProcessor<SernosConfigsResponseProcessor>();
+                    with.ResponseProcessor<SernosTransactionsResponseProcessor>();
                     with.RequestStartup(
                         (container, pipelines, context) =>
                         {
