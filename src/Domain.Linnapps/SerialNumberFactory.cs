@@ -3,10 +3,8 @@
     using System;
     using System.Collections.Generic;
 
-    using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps.Exceptions;
-    using Linn.Products.Domain.Linnapps.Models;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
 
