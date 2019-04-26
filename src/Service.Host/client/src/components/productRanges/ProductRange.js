@@ -104,7 +104,7 @@ class ProductRange extends Component {
             <Page>
                 <Grid container spacing={24}>
                     <Grid item xs={12}>
-                        <Title text="Product Range Details" />
+                        <Title id="qa-product-range-title" text="Product Range Details" />
                     </Grid>
                     {errorMessage && (
                         <Grid item xs={12}>
