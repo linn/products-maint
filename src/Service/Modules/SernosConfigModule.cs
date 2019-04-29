@@ -15,12 +15,16 @@
 
         private readonly IFacadeService<SernosTrans, string, SernosTransactionResource, SernosTransactionResource> sernosTransactionService;
 
+        private readonly IFacadeService<SernosCount, string, SernosCountResource, SernosCountResource> sernosCountFacadeService;
+
         public SernosConfigModule(
             IFacadeService<SernosConfig, string, SernosConfigResource, SernosConfigResource> sernosConfigService,
-            IFacadeService<SernosTrans, string, SernosTransactionResource, SernosTransactionResource> sernosTransactionService)
+            IFacadeService<SernosTrans, string, SernosTransactionResource, SernosTransactionResource> sernosTransactionService,
+            IFacadeService<SernosCount, string, SernosCountResource, SernosCountResource> sernosCountFacadeService)
         {
             this.sernosConfigService = sernosConfigService;
             this.sernosTransactionService = sernosTransactionService;
+            this.sernosCountFacadeService = sernosCountFacadeService;
             this.Get("/products/maint/sernos-configs/{name}", parameters => this.GetSernosConfigByName(parameters.name));
             this.Get("/products/maint/sernos-configs/", _ => this.GetSernosConfigs());
             this.Put("/products/maint/sernos-configs/{name}", parameters => this.UpdateSernosConfig(parameters.name));
@@ -30,6 +34,17 @@
             this.Get("/products/maint/serial-number-transactions/{id}", parameters => this.GetTransCode(parameters.id));
             this.Post("/products/maint/serial-number-transactions", _ => this.AddTransCode());
             this.Put("/products/maint/serial-number-transactions/{id}", parameters => this.UpdateTransCode(parameters.id));
+
+            this.Get("/products/maint/serial-number-counts", _ => this.GetSernosCounts());
+        }
+
+        private object GetSernosCounts()
+        {
+            var results = this.sernosCountFacadeService.GetAll();
+            return this.Negotiate
+                .WithModel(results)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object GetTransCodes()

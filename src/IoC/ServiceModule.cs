@@ -55,6 +55,7 @@
             builder.RegisterType<SerialNumberService>().As<IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource>>();
             builder.RegisterType<SernosNoteService>().As<IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource>>();
             builder.RegisterType<SernosTransactionService>().As<IFacadeService<SernosTrans, string, SernosTransactionResource, SernosTransactionResource>>();
+            builder.RegisterType<SernosCountService>().As<IFacadeService<SernosCount, string, SernosCountResource, SernosCountResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();

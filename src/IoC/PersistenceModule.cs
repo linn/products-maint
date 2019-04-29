@@ -26,6 +26,7 @@
             builder.RegisterType<SaCoreTypeRepository>().As<IRepository<SaCoreType, int>>();
             builder.RegisterType<SernosConfigRepository>().As<IRepository<SernosConfig, string>>();
             builder.RegisterType<SernosTransRepository>().As<IRepository<SernosTrans, string>>();
+            builder.RegisterType<SernosCountRepository>().As<IRepository<SernosCount, string>>();
             builder.RegisterType<TypeOfSaleRepository>().As<IRepository<TypeOfSale, string>>();
             builder.RegisterType<SalesArticleRepository>().As<IRepository<SalesArticle, string>>();
             builder.RegisterType<SernosSequenceRepository>().As<IRepository<SernosSequence, string>>();
