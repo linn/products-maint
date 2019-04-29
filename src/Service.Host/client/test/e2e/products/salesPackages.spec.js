@@ -3,31 +3,23 @@ const chai = require('chai');
 
 const { expect } = chai;
 const { waitUntilDisplayed } = require('../util/utils');
-const SignInPage = require('../page-objects/signin-page');
 
 describe('Sales Packages', () => {
-    it('should first login', async () => {
-        await browser.get('/signin');
-        const signInPage = new SignInPage();
-        await signInPage.waitUntilDisplayed();
-        signInPage.setUserName('');
-        signInPage.setPassword('');
-        signInPage.login();
-        await signInPage.waitUntilHidden();
-    });
-
     it('should render the page with table', async () => {
         await browser.get('/products/maint/sales-packages');
-        const table = element(by.id('qa-sales-packages-table'));
+        const table = element(by.className('MuiTable-root-187'));
         await waitUntilDisplayed(table);
-        expect(table.isPresent()).to.be.true;
+        return expect(table.isPresent()).to.eventually.be.true;
     });
-
-    it('should render five rows by default', async () => {});
-
+    it('should render five rows by default', async () => {
+        const rows = element.all(by.className('MuiTableRow-root-189'));
+        await waitUntilDisplayed(rows);
+        console.info(rows);
+        return expect(rows.length).to.eventually.equal(6); // +1 for the header
+    });
     it('should have pagination options', async () => {
-        const paginationOptions = element(by.id('qa-table-pagination-options'));
+        const paginationOptions = element(by.className('MuiTablePagination-root-217'));
         await waitUntilDisplayed(paginationOptions);
-        expect(paginationOptions.isPresent()).to.be.true;
+        return expect(paginationOptions.isPresent()).to.eventually.be.true;
     });
 });
