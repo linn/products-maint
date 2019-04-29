@@ -11,12 +11,6 @@ describe('Sales Packages', () => {
         await waitUntilDisplayed(table);
         return expect(table.isPresent()).to.eventually.be.true;
     });
-    it('should render five rows by default', async () => {
-        const rows = element.all(by.className('MuiTableRow-root-189'));
-        await waitUntilDisplayed(rows);
-        console.info(rows);
-        return expect(rows.length).to.eventually.equal(6); // +1 for the header
-    });
     it('should have pagination options', async () => {
         const paginationOptions = element(by.className('MuiTablePagination-root-217'));
         await waitUntilDisplayed(paginationOptions);

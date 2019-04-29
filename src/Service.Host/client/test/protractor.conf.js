@@ -7,7 +7,7 @@ const protractor = require('protractor');
 exports.config = {
     allScriptsTimeout: 20000,
 
-    specs: ['./e2e/**/**/*.spec.js'],
+    specs: ['./e2e/**/**/*.integration.js'],
 
     capabilities: {
         browserName: 'chrome'

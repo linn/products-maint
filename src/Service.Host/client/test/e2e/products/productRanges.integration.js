@@ -11,7 +11,7 @@ describe('Product Ranges', () => {
         const signInPage = new SignInPage();
         await signInPage.waitUntilDisplayed();
         signInPage.setUserName('peterma');
-        signInPage.setPassword('LinnProducts1');
+        signInPage.setPassword('InfiniteJest1');
         signInPage.login();
         await signInPage.waitUntilHidden();
     });

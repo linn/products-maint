@@ -17,7 +17,7 @@
     },
     "overrides": [
         {
-            "files": ["*.test.js", "*.spec.js"],
+            "files": ["*.integration.js"],
             "rules": {
                 "no-unused-expressions": "off",
                 "jest/valid-expect": "off"
