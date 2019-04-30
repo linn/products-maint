@@ -11,7 +11,6 @@ const ProductRanges = ({ items, loading }) => (
             <Fragment>
                 <CreateButton createUrl="/products/maint/product-ranges/create" />
                 <EntityList
-                    id="qa-product-ranges-title"
                     title="Product Ranges"
                     entityList={items.sort((a, b) => a.rangeName.localeCompare(b.rangeName))}
                     entityId="rangeName"

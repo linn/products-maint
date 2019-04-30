@@ -10,8 +10,8 @@ describe('Product Ranges', () => {
         await browser.get('/signin');
         const signInPage = new SignInPage();
         await signInPage.waitUntilDisplayed();
-        signInPage.setUserName('peterma');
-        signInPage.setPassword('InfiniteJest1');
+        signInPage.setUserName(process.env.TEST_USER_NAME);
+        signInPage.setPassword(process.env.TEST_USER_PWD);
         signInPage.login();
         await signInPage.waitUntilHidden();
     });
