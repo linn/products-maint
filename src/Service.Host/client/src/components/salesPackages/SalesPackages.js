@@ -96,19 +96,21 @@ function SalesPackages({ page, loading, pageLoad }) {
                                             </TableCell>
                                         </TableRow>
                                         {rowOpen === row.salesPackageId &&
-                                            row.elements.map(element => (
-                                                <tr key={element.elementType}>
-                                                    <TableCell>
-                                                        Type: {element.elementType}
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Sequence: {element.sequence}
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Quantity: {element.quantity}
-                                                    </TableCell>
-                                                </tr>
-                                            ))}
+                                            row.elements
+                                                .sort((a, b) => a.sequence - b.sequence)
+                                                .map(element => (
+                                                    <tr key={element.elementType}>
+                                                        <TableCell>
+                                                            Type: {element.elementType}
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            Sequence: {element.sequence}
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            Quantity: {element.quantity}
+                                                        </TableCell>
+                                                    </tr>
+                                                ))}
                                     </Fragment>
                                 ))}
                         </TableBody>
