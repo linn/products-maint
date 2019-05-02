@@ -56,12 +56,5 @@ describe('Product Ranges', () => {
         const listItem = element(by.tagName('a'));
         await waitUntilDisplayed(listItem);
         return expect(listItem.isPresent()).to.eventually.be.true;
-        // const createProductRangeTitle = element(by.id('qa-product-range-title'));
-        // await waitUntilDisplayed(createProductRangeTitle);
-        // expect(createProductRangeTitle.isPresent()).to.be.true;
-        // const idField = element(by.id('qa-product-range-id'));
-        // expect(idField.isPresent()).to.be.true;
-        // expect(idField.isEnabled()).to.be.false;
-        // browser.get('/products/maint/product-ranges');
     });
 });

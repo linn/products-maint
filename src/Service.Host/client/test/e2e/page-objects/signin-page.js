@@ -9,11 +9,8 @@ class SignInPage extends BasePage {
         super(selector);
         this.selector = selector;
         this.username = this.selector.$('#Username');
-
         this.password = this.selector.$('#Password');
-
         this.loginButton = this.selector.$('.btn-primary');
-
         this.title = this.selector.$('#panel-title');
     }
 
