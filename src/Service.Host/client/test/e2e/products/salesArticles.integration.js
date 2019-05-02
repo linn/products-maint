@@ -16,10 +16,10 @@ describe('Sales Articles', () => {
     });
 
     it('should allow navigation to an individual sales article', async () => {
-        const listItem = element(by.className('Typeahead-a-208'));
+        const listItem = element(by.tagName('p'));
         await waitUntilDisplayed(listItem);
         listItem.click();
-        const tab = element(by.className('MuiTab-label-303'));
+        const tab = element(by.tagName('button'));
         await waitUntilDisplayed(tab);
         return expect(tab.getText()).to.eventually.equal('VIEW OR EDIT DETAILS');
     });

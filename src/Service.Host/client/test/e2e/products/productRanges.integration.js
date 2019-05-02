@@ -18,7 +18,7 @@ describe('Product Ranges', () => {
 
     it('should render the product ranges title', async () => {
         await browser.get('/products/maint/product-ranges');
-        const title = element(by.className('MuiTypography-h4-85'));
+        const title = element(by.tagName('h4'));
         await waitUntilDisplayed(title);
         return expect(title.getText()).to.eventually.equal('Product Ranges');
     });
@@ -30,13 +30,13 @@ describe('Product Ranges', () => {
     });
 
     it('should navigate to the create product range', async () => {
-        const createButton = element(by.className('CreateButton-root-140'));
+        const createButton = element(by.tagName('button'));
         await waitUntilDisplayed(createButton);
         return expect(createButton.getText()).to.eventually.equal('CREATE');
     });
 
     it('should show the create product range view', async () => {
-        const createButton = element(by.className('CreateButton-root-140'));
+        const createButton = element(by.tagName('button'));
         await waitUntilDisplayed(createButton);
         createButton.click();
 
@@ -46,9 +46,9 @@ describe('Product Ranges', () => {
     });
 
     it('should have an id field', async () => {
-        const idField = element(by.className('MuiInputLabel-disabled-296'));
+        const idField = element(by.tagName('input'));
         await waitUntilDisplayed(idField);
-        return expect(idField.getText()).to.eventually.equal('Id');
+        return expect(idField.isEnabled()).to.eventually.be.false;
     });
 
     it('should navigate to the view product range', async () => {
