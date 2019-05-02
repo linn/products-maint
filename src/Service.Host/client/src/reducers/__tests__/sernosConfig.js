@@ -15,6 +15,7 @@ describe('sernos config reducer', () => {
 
         const expected = {
             loading: true,
+            item: null,
             editStatus: 'view'
         };
 

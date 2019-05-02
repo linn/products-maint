@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import HoldStoriesBySalesArticle from '../../components/saHoldStories/HoldStoriesBySalesArticle';
+import HoldStoriesBySalesArticle from '../../components/saHoldStories/HoldStories';
 import initialiseOnMount from '../common/initialiseOnMount';
-import fetchSaHoldStoriesReport from '../../actions/saHoldStoryReportActions';
+import { fetchSaHoldStoriesReport } from '../../actions/saHoldStoryReportActions';
 import config from '../../config';
 import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
 

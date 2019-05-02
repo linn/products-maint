@@ -1,17 +1,11 @@
 ﻿namespace Linn.Products.Domain.Linnapps.Products
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
 
     public class SalesArticle
     {
-        public SalesArticle()
-        {
-            //ef
-        }
-
         public string ArticleNumber { get; set; }
 
         public string ArticleType { get; set; }
@@ -41,6 +35,8 @@
         public string ForecastType { get; set; }
 
         public string RootProduct { get; set; }
+
+        public int? LastHoldStoryId { get; set; }
 
         [ForeignKey("SA_CORE_TYPE")]
         public SaCoreType SaCoreType { get; set; }

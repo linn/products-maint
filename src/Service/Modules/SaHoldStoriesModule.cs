@@ -27,8 +27,8 @@
             this.Get("/products/maint/sa-hold-stories", parameters => this.GetSaHoldStories());
             this.Get("/products/maint/sa-hold-stories/{holdStoryId}", parameters => this.GetSaHoldStory(parameters.holdStoryId));
             this.Put("/products/maint/sa-hold-stories/{holdStoryId}", parameters => this.UpdateSaHoldStory(parameters.holdstoryId));
-
             this.Get("/products/reports/sa-hold-stories-for-sales-article/{articleNumber*}", parameters => this.GetSaHoldStoriesForArticleNumber(parameters.articleNumber));
+            this.Get("/products/reports/hold-stories-for-root-product/{rootProduct}", parameters => this.GetHoldStoriesForRootProduct(parameters.rootProduct));
         }
 
         private object GetSaHoldStories()
@@ -50,9 +50,15 @@
         private object GetSaHoldStoriesForArticleNumber(string articleNumber)
         {
             return this.Negotiate
-                .WithModel(this.saHoldStoriesReportService.GetSaHoldStories(articleNumber))
+                .WithModel(this.saHoldStoriesReportService.GetHoldStoriesForSalesArticle(articleNumber))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
+        }
+
+        private object GetHoldStoriesForRootProduct(string rootProduct)
+        {
+            return this.Negotiate.WithModel(this.saHoldStoriesReportService.GetHoldStoriesForRootProduct(rootProduct))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("index");
         }
 
         private object UpdateSaHoldStory(int holdStoryId)

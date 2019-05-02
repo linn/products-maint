@@ -27,6 +27,9 @@ const App = ({ classes }) => (
             <ListItem component={Link} to="/products/maint/sales-packages" button>
                 <Typography color="primary">Sales Packages</Typography>
             </ListItem>
+            <ListItem component={Link} to="/products/maint/root-products" button>
+                <Typography color="primary">Root Products</Typography>
+            </ListItem>
         </List>
         <Typography variant="h6">Reports</Typography>
         <List>
@@ -54,6 +57,9 @@ const App = ({ classes }) => (
         <List>
             <ListItem component={Link} to="/products/maint/sa-core-types" button>
                 <Typography color="primary">Sales Article Core Types</Typography>
+            </ListItem>
+            <ListItem component={Link} to="/products/maint/serial-numbers" button>
+                <Typography color="primary">Amend Serial Number</Typography>
             </ListItem>
             <ListItem component={Link} to="/products/maint/sernos-sequences" button>
                 <Typography color="primary">Sernos Sequences</Typography>

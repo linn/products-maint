@@ -78,6 +78,9 @@ export const saCoreTypesActionTypes = makeActionTypes(itemTypes.saCoreTypes.acti
 export const salesArticleActionTypes = makeActionTypes(itemTypes.salesArticle.actionType);
 export const salesArticlesActionTypes = makeActionTypes(itemTypes.salesArticles.actionType, false);
 
+export const rootProductActionTypes = makeActionTypes(itemTypes.rootProduct.actionType);
+export const rootProductsActionTypes = makeActionTypes(itemTypes.rootProducts.actionType, true);
+
 export const tariffActionTypes = makeActionTypes(itemTypes.tariff.actionType);
 export const tariffsActionTypes = makeActionTypes(itemTypes.tariffs.actionType, false);
 
@@ -92,5 +95,15 @@ export const vatCodesActionTypes = makeActionTypes(itemTypes.vatCodes.actionType
 export const productRangeActionTypes = makeActionTypes(itemTypes.productRange.actionType);
 export const productRangesActionTypes = makeActionTypes(itemTypes.productRanges.actionType, false);
 
+export const serialNumberActionTypes = makeActionTypes(itemTypes.serialNumber.actionType);
+export const serialNumbersActionTypes = makeActionTypes(itemTypes.serialNumbers.actionType, false);
+
+export const sernosNoteActionTypes = makeActionTypes(itemTypes.sernosNote.actionType);
+export const sernosNotesActionTypes = makeActionTypes(itemTypes.sernosNotes.actionType, false);
+
 export const salesPackageActionTypes = makeActionTypes(itemTypes.salesPackage.actionType);
 export const salesPackagesActionTypes = makeActionTypes(itemTypes.salesPackages.actionType, false);
+
+export const salesArticleCompositeDiscountActionTypes = makeActionTypes(
+    itemTypes.salesArticleCompositeDiscount.actionType
+);

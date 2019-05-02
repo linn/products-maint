@@ -22,7 +22,7 @@
         {
             var results = new ResultsModel(new[] { "col1 " });
 
-            this.SaHoldStoriesReportService.GetSaHoldStories("article")
+            this.SaHoldStoriesReportService.GetHoldStoriesForSalesArticle("article")
                 .Returns(new SuccessResult<ResultsModel>(results)
                              {
                                 Data = new ResultsModel { ReportTitle = new NameModel("title") }
@@ -45,7 +45,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SaHoldStoriesReportService.Received().GetSaHoldStories("article");
+            this.SaHoldStoriesReportService.Received().GetHoldStoriesForSalesArticle("article");
         }
 
         [Test]

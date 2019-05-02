@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import moment from 'moment';
-import { Grid, Typography, Button, Tabs, Tab } from '@material-ui/core';
+import { Grid, Typography, Button, Tabs, Tab, Tooltip } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import {
     InputField,
@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import { getSelfHref, getHref } from '../../helpers/utilities';
 import Page from '../../containers/Page';
 import HoldStoriesBySalesArticle from '../../containers/saHoldStories/HoldStoriesBySalesArticle';
+import SalesArticleCompositeDiscount from '../../containers/salesArticles/SalesArticleCompositeDiscount';
 
 function SalesArticle({
     loading,
@@ -68,6 +69,7 @@ function SalesArticle({
         if (editStatus === 'view') {
             setEditStatus('edit');
         }
+
         setSalesArticle({ ...salesArticle, [propertyName]: newValue });
     };
     const salesArticleCoreTypeHref = getHref(salesArticle, 'sa-core-type')
@@ -80,6 +82,7 @@ function SalesArticle({
         if (newValue) {
             links = links.map(link => (link.rel === rel ? { rel, href: newValue } : link));
         }
+
         setSalesArticle({ ...salesArticle, links });
     };
 
@@ -104,6 +107,7 @@ function SalesArticle({
         { id: 'N', displayText: 'No' },
         { id: '', displayText: '' }
     ];
+
     return (
         <Page>
             <Grid container spacing={24}>
@@ -134,6 +138,7 @@ function SalesArticle({
                             >
                                 <Tab label="View Or Edit Details" />
                                 <Tab label="View Hold History" />
+                                <Tab label="Set Composite Discount" />
                             </Tabs>
                             {tab === 0 && (
                                 <Grid container spacing={24}>
@@ -146,23 +151,47 @@ function SalesArticle({
                                             style={{ textAlign: 'right' }}
                                             gutterBottom
                                         >
-                                            {salesArticle.onHold ? (
+                                            {salesArticle.onHold &&
+                                            !salesArticle.rootProductOnHold ? (
                                                 <Fragment>
                                                     <span> ON HOLD </span>
+
                                                     <Button
+                                                        disabled={salesArticle.rootProductOnHold}
                                                         component={Link}
-                                                        to={salesArticle.links[3].href}
+                                                        to={getHref(salesArticle, 'put-off-hold')}
                                                     >
                                                         REMOVE HOLD
                                                     </Button>
                                                 </Fragment>
                                             ) : (
-                                                <Button
-                                                    component={Link}
-                                                    to={salesArticle.links[2].href}
+                                                <Tooltip
+                                                    disableFocusListener
+                                                    title={
+                                                        salesArticle.rootProductOnHold
+                                                            ? 'This sales article is already on hold as part of its root product group.'
+                                                            : ''
+                                                    }
+                                                    placement="top-end"
                                                 >
-                                                    PUT ON HOLD
-                                                </Button>
+                                                    <span>
+                                                        <Button
+                                                            component={Link}
+                                                            disabled={
+                                                                salesArticle.rootProductOnHold
+                                                            }
+                                                            to={getHref(
+                                                                salesArticle,
+                                                                'put-on-hold'
+                                                            )}
+                                                        >
+                                                            PUT ON HOLD
+                                                        </Button>
+                                                    </span>
+                                                </Tooltip>
+                                            )}
+                                            {salesArticle.rootProductOnHold && (
+                                                <div>ROOT PRODUCT ON HOLD</div>
                                             )}
                                         </Typography>
                                     </Grid>
@@ -243,6 +272,12 @@ function SalesArticle({
                             )}
                             {tab === 1 && (
                                 <HoldStoriesBySalesArticle
+                                    articleNumber={salesArticle.articleNumber}
+                                    match={match}
+                                />
+                            )}
+                            {tab === 2 && (
+                                <SalesArticleCompositeDiscount
                                     articleNumber={salesArticle.articleNumber}
                                     match={match}
                                 />
