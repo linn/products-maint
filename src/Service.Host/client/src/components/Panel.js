@@ -37,7 +37,7 @@ function Panel({ section, classes, close }) {
 
     return (
         <Paper classes={{ root: classes.paper }}>
-            <Button onClick={close} color="secondary" style={classes.closeButton}>
+            <Button onClick={close} color="secondary" style={styles.closeButton}>
                 <Close />
             </Button>
             <Grid container justify="flex-start">
