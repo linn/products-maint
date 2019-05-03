@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Loading, EntityList, CreateButton } from '@linn-it/linn-form-components-library';
-import Page from '../containers/Page';
-import { sortEntityList } from '../helpers/utilities';
+import Page from '../../containers/Page';
+import { sortEntityList } from '../../helpers/utilities';
 
 const TypesOfSale = ({ typesOfSale, loading }) => (
     <Page>

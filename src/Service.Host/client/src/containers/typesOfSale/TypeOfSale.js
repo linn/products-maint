@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import TypeOfSale from '../../components/TypeOfSale';
+import TypeOfSale from '../../components/typesOfSale/TypeOfSale';
 import initialiseOnMount from '../common/initialiseOnMount';
 import typeOfSaleActions from '../../actions/typeOfSaleActions';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';

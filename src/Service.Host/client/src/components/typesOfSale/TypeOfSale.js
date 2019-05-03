@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import {
+    OnOffSwitch,
     SaveBackCancelButtons,
     InputField,
     Loading,
@@ -9,72 +10,68 @@ import {
     ErrorCard,
     SnackbarMessage
 } from '@linn-it/linn-form-components-library';
-import Page from '../containers/Page';
+import Page from '../../containers/Page';
 
-function VatCode({
-    errorMessage,
+function TypeOfSale({
     editStatus,
+    errorMessage,
     history,
-    loading,
     itemId,
     item,
+    loading,
     snackbarVisible,
     addItem,
-    setEditStatus,
     updateItem,
+    setEditStatus,
     setSnackbarVisible
 }) {
-    const [vatCode, setVatCode] = useState({});
-    const [prevVatCode, setPrevVatCode] = useState({});
+    const [typeOfSale, setTypeOfSale] = useState({});
+    const [prevTypeOfSale, setPrevTypeOfSale] = useState({});
+
+    useEffect(() => {
+        if (item !== prevTypeOfSale) {
+            setTypeOfSale(item);
+            setPrevTypeOfSale(item);
+        }
+    });
 
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
 
-    useEffect(() => {
-        if (creating() && vatCode.vatOnly == null) {
-            setVatCode({
-                ...item,
-                vatOnly: 'N'
-            });
-        } else if (item !== prevVatCode) {
-            setVatCode({ ...item, reason: '' });
-            setPrevVatCode(item);
-        }
-    });
-
-    const codeInvalid = () => !vatCode.code;
-    const descriptionInvalid = () => !vatCode.description;
-    const rateInvalid = () => typeof vatCode.rate !== 'number';
-    const reasonInvalid = () => !vatCode.reason && editing();
+    const nameInvalid = () => !typeOfSale.name;
+    const descriptionInvalid = () => !typeOfSale.description;
+    const nominalInvalid = () => !typeOfSale.nominal;
+    const departmentInvalid = () => !typeOfSale.department;
 
     const inputInvalid = () =>
-        !creating()
-            ? codeInvalid() || descriptionInvalid() || rateInvalid() || reasonInvalid()
-            : codeInvalid() || descriptionInvalid() || rateInvalid();
+        nameInvalid() || descriptionInvalid() || nominalInvalid() || departmentInvalid();
 
     const handleSaveClick = () => {
+        setEditStatus('view');
         if (editing()) {
-            updateItem(itemId, vatCode);
-            setEditStatus('view');
+            updateItem(itemId, typeOfSale);
         } else if (creating()) {
-            addItem(vatCode);
-            setEditStatus('view');
+            addItem(typeOfSale);
         }
     };
 
     const handleCancelClick = () => {
-        setVatCode(prevVatCode);
+        setTypeOfSale(item);
         setEditStatus('view');
     };
 
     const handleBackClick = () => {
-        history.push('/products/maint/vat-codes');
+        history.push('/products/maint/types-of-sale');
     };
 
     const handleFieldChange = (propertyName, newValue) => {
         setEditStatus('edit');
-        setVatCode({ ...vatCode, [propertyName]: newValue });
+        if (propertyName === 'realSale') {
+            setTypeOfSale({ ...typeOfSale, [propertyName]: newValue ? 'Y' : 'N' });
+        } else {
+            setTypeOfSale({ ...typeOfSale, [propertyName]: newValue });
+        }
     };
 
     return (
@@ -82,9 +79,9 @@ function VatCode({
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     {creating() ? (
-                        <Title text="Create Vat Code" />
+                        <Title text="Create Type of Sale" />
                     ) : (
-                        <Title text="Vat Code Details" />
+                        <Title text="Type of Sale Details" />
                     )}
                 </Grid>
                 {errorMessage && (
@@ -92,7 +89,7 @@ function VatCode({
                         <ErrorCard errorMessage={errorMessage} />
                     </Grid>
                 )}
-                {loading || !vatCode ? (
+                {loading || !typeOfSale ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
@@ -107,25 +104,25 @@ function VatCode({
                             <InputField
                                 fullWidth
                                 disabled={!creating()}
-                                value={vatCode.code}
-                                label="VAT Code"
-                                maxLength={1}
+                                value={typeOfSale.name}
+                                label="Name"
+                                maxLength={10}
                                 helperText={
                                     !creating()
                                         ? 'This field cannot be changed'
-                                        : `${codeInvalid() ? 'This field is required' : ''}`
+                                        : `${nameInvalid() ? 'This field is required' : ''}`
                                 }
-                                error={codeInvalid()}
+                                error={nameInvalid()}
                                 onChange={handleFieldChange}
-                                propertyName="code"
+                                propertyName="name"
                             />
                         </Grid>
                         <Grid item xs={8}>
                             <InputField
-                                value={vatCode.description}
+                                value={typeOfSale.description}
                                 label="Description"
-                                maxLength={50}
                                 fullWidth
+                                maxLength={50}
                                 helperText={descriptionInvalid() ? 'This field is required' : ''}
                                 error={descriptionInvalid()}
                                 onChange={handleFieldChange}
@@ -134,30 +131,36 @@ function VatCode({
                         </Grid>
                         <Grid item xs={8}>
                             <InputField
-                                value={vatCode.rate}
-                                error={rateInvalid()}
-                                label="Rate"
+                                value={typeOfSale.department}
+                                label="Department"
                                 fullWidth
-                                helperText={rateInvalid() ? 'This field is required' : ''}
+                                maxLength={10}
+                                helperText={departmentInvalid() ? 'This field is required' : ''}
+                                error={departmentInvalid()}
                                 onChange={handleFieldChange}
-                                propertyName="rate"
-                                type="number"
+                                propertyName="department"
                             />
                         </Grid>
-                        {!creating() && (
-                            <Grid item xs={8}>
-                                <InputField
-                                    value={vatCode.reason}
-                                    error={reasonInvalid()}
-                                    label="Reason"
-                                    maxLength={50}
-                                    fullWidth
-                                    helperText={reasonInvalid() ? 'This field is required' : ''}
-                                    onChange={handleFieldChange}
-                                    propertyName="reason"
-                                />
-                            </Grid>
-                        )}
+                        <Grid item xs={8}>
+                            <InputField
+                                value={typeOfSale.nominal}
+                                label="Nominal"
+                                fullWidth
+                                maxLength={10}
+                                helperText={nominalInvalid() ? 'This field is required' : ''}
+                                error={nominalInvalid()}
+                                onChange={handleFieldChange}
+                                propertyName="nominal"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <OnOffSwitch
+                                label="Real Sale"
+                                value={typeOfSale.realSale === 'Y'}
+                                onChange={handleFieldChange}
+                                propertyName="realSale"
+                            />
+                        </Grid>
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
                                 saveDisabled={viewing() || inputInvalid()}
@@ -173,12 +176,13 @@ function VatCode({
     );
 }
 
-VatCode.propTypes = {
+TypeOfSale.propTypes = {
     item: PropTypes.shape({
-        vatCode: PropTypes.string,
+        typeOfSale: PropTypes.string,
         description: PropTypes.string,
-        rate: PropTypes.number,
-        reason: PropTypes.string
+        department: PropTypes.string,
+        nominal: PropTypes.string,
+        realSale: PropTypes.string
     }),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
@@ -192,14 +196,14 @@ VatCode.propTypes = {
     setSnackbarVisible: PropTypes.func.isRequired
 };
 
-VatCode.defaultProps = {
+TypeOfSale.defaultProps = {
     item: {},
-    addItem: null,
     snackbarVisible: false,
+    addItem: null,
     updateItem: null,
     loading: null,
     errorMessage: '',
     itemId: null
 };
 
-export default VatCode;
+export default TypeOfSale;

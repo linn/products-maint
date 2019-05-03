@@ -2,7 +2,6 @@ import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import {
-    OnOffSwitch,
     SaveBackCancelButtons,
     InputField,
     Loading,
@@ -10,68 +9,72 @@ import {
     ErrorCard,
     SnackbarMessage
 } from '@linn-it/linn-form-components-library';
-import Page from '../containers/Page';
+import Page from '../../containers/Page';
 
-function TypeOfSale({
-    editStatus,
+function VatCode({
     errorMessage,
+    editStatus,
     history,
+    loading,
     itemId,
     item,
-    loading,
     snackbarVisible,
     addItem,
-    updateItem,
     setEditStatus,
+    updateItem,
     setSnackbarVisible
 }) {
-    const [typeOfSale, setTypeOfSale] = useState({});
-    const [prevTypeOfSale, setPrevTypeOfSale] = useState({});
-
-    useEffect(() => {
-        if (item !== prevTypeOfSale) {
-            setTypeOfSale(item);
-            setPrevTypeOfSale(item);
-        }
-    });
+    const [vatCode, setVatCode] = useState({});
+    const [prevVatCode, setPrevVatCode] = useState({});
 
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
 
-    const nameInvalid = () => !typeOfSale.name;
-    const descriptionInvalid = () => !typeOfSale.description;
-    const nominalInvalid = () => !typeOfSale.nominal;
-    const departmentInvalid = () => !typeOfSale.department;
+    useEffect(() => {
+        if (creating() && vatCode.vatOnly == null) {
+            setVatCode({
+                ...item,
+                vatOnly: 'N'
+            });
+        } else if (item !== prevVatCode) {
+            setVatCode({ ...item, reason: '' });
+            setPrevVatCode(item);
+        }
+    });
+
+    const codeInvalid = () => !vatCode.code;
+    const descriptionInvalid = () => !vatCode.description;
+    const rateInvalid = () => typeof vatCode.rate !== 'number';
+    const reasonInvalid = () => !vatCode.reason && editing();
 
     const inputInvalid = () =>
-        nameInvalid() || descriptionInvalid() || nominalInvalid() || departmentInvalid();
+        !creating()
+            ? codeInvalid() || descriptionInvalid() || rateInvalid() || reasonInvalid()
+            : codeInvalid() || descriptionInvalid() || rateInvalid();
 
     const handleSaveClick = () => {
-        setEditStatus('view');
         if (editing()) {
-            updateItem(itemId, typeOfSale);
+            updateItem(itemId, vatCode);
+            setEditStatus('view');
         } else if (creating()) {
-            addItem(typeOfSale);
+            addItem(vatCode);
+            setEditStatus('view');
         }
     };
 
     const handleCancelClick = () => {
-        setTypeOfSale(item);
+        setVatCode(prevVatCode);
         setEditStatus('view');
     };
 
     const handleBackClick = () => {
-        history.push('/products/maint/types-of-sale');
+        history.push('/products/maint/vat-codes');
     };
 
     const handleFieldChange = (propertyName, newValue) => {
         setEditStatus('edit');
-        if (propertyName === 'realSale') {
-            setTypeOfSale({ ...typeOfSale, [propertyName]: newValue ? 'Y' : 'N' });
-        } else {
-            setTypeOfSale({ ...typeOfSale, [propertyName]: newValue });
-        }
+        setVatCode({ ...vatCode, [propertyName]: newValue });
     };
 
     return (
@@ -79,9 +82,9 @@ function TypeOfSale({
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     {creating() ? (
-                        <Title text="Create Type of Sale" />
+                        <Title text="Create Vat Code" />
                     ) : (
-                        <Title text="Type of Sale Details" />
+                        <Title text="Vat Code Details" />
                     )}
                 </Grid>
                 {errorMessage && (
@@ -89,7 +92,7 @@ function TypeOfSale({
                         <ErrorCard errorMessage={errorMessage} />
                     </Grid>
                 )}
-                {loading || !typeOfSale ? (
+                {loading || !vatCode ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
@@ -104,25 +107,25 @@ function TypeOfSale({
                             <InputField
                                 fullWidth
                                 disabled={!creating()}
-                                value={typeOfSale.name}
-                                label="Name"
-                                maxLength={10}
+                                value={vatCode.code}
+                                label="VAT Code"
+                                maxLength={1}
                                 helperText={
                                     !creating()
                                         ? 'This field cannot be changed'
-                                        : `${nameInvalid() ? 'This field is required' : ''}`
+                                        : `${codeInvalid() ? 'This field is required' : ''}`
                                 }
-                                error={nameInvalid()}
+                                error={codeInvalid()}
                                 onChange={handleFieldChange}
-                                propertyName="name"
+                                propertyName="code"
                             />
                         </Grid>
                         <Grid item xs={8}>
                             <InputField
-                                value={typeOfSale.description}
+                                value={vatCode.description}
                                 label="Description"
-                                fullWidth
                                 maxLength={50}
+                                fullWidth
                                 helperText={descriptionInvalid() ? 'This field is required' : ''}
                                 error={descriptionInvalid()}
                                 onChange={handleFieldChange}
@@ -131,36 +134,30 @@ function TypeOfSale({
                         </Grid>
                         <Grid item xs={8}>
                             <InputField
-                                value={typeOfSale.department}
-                                label="Department"
+                                value={vatCode.rate}
+                                error={rateInvalid()}
+                                label="Rate"
                                 fullWidth
-                                maxLength={10}
-                                helperText={departmentInvalid() ? 'This field is required' : ''}
-                                error={departmentInvalid()}
+                                helperText={rateInvalid() ? 'This field is required' : ''}
                                 onChange={handleFieldChange}
-                                propertyName="department"
+                                propertyName="rate"
+                                type="number"
                             />
                         </Grid>
-                        <Grid item xs={8}>
-                            <InputField
-                                value={typeOfSale.nominal}
-                                label="Nominal"
-                                fullWidth
-                                maxLength={10}
-                                helperText={nominalInvalid() ? 'This field is required' : ''}
-                                error={nominalInvalid()}
-                                onChange={handleFieldChange}
-                                propertyName="nominal"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <OnOffSwitch
-                                label="Real Sale"
-                                value={typeOfSale.realSale === 'Y'}
-                                onChange={handleFieldChange}
-                                propertyName="realSale"
-                            />
-                        </Grid>
+                        {!creating() && (
+                            <Grid item xs={8}>
+                                <InputField
+                                    value={vatCode.reason}
+                                    error={reasonInvalid()}
+                                    label="Reason"
+                                    maxLength={50}
+                                    fullWidth
+                                    helperText={reasonInvalid() ? 'This field is required' : ''}
+                                    onChange={handleFieldChange}
+                                    propertyName="reason"
+                                />
+                            </Grid>
+                        )}
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
                                 saveDisabled={viewing() || inputInvalid()}
@@ -176,13 +173,12 @@ function TypeOfSale({
     );
 }
 
-TypeOfSale.propTypes = {
+VatCode.propTypes = {
     item: PropTypes.shape({
-        typeOfSale: PropTypes.string,
+        vatCode: PropTypes.string,
         description: PropTypes.string,
-        department: PropTypes.string,
-        nominal: PropTypes.string,
-        realSale: PropTypes.string
+        rate: PropTypes.number,
+        reason: PropTypes.string
     }),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
@@ -196,14 +192,14 @@ TypeOfSale.propTypes = {
     setSnackbarVisible: PropTypes.func.isRequired
 };
 
-TypeOfSale.defaultProps = {
+VatCode.defaultProps = {
     item: {},
-    snackbarVisible: false,
     addItem: null,
+    snackbarVisible: false,
     updateItem: null,
     loading: null,
     errorMessage: '',
     itemId: null
 };
 
-export default TypeOfSale;
+export default VatCode;

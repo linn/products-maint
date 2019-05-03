@@ -9,7 +9,8 @@ import {
     TablePagination,
     TableFooter,
     TableRow,
-    TableCell
+    TableCell,
+    TableSortLabel
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
@@ -30,9 +31,11 @@ const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: tru
     TablePaginationActions
 );
 
-function SalesPackages({ page, loading, pageLoad }) {
+function SalesPackages({ page, loading, pageLoad, pageSortedLoad }) {
     const [rowOpen, setRowOpen] = useState();
     const [localPage, setLocalPage] = useState(0);
+    const [localOrderBy, setOrderBy] = useState();
+    const [asc, setAsc] = useState(false);
     const [rowsPerPage, setRowsPerpage] = useState(5);
 
     const handleRowOnClick = salesPackageId =>
@@ -55,6 +58,12 @@ function SalesPackages({ page, loading, pageLoad }) {
         pageLoad(localPage + 1, event.target.value);
     };
 
+    const createSortHandler = property => {
+        setOrderBy(property);
+        setAsc(!asc);
+        pageSortedLoad(localPage + 1, rowsPerPage, property, asc);
+    };
+
     return (
         <Page>
             {loading ? (
@@ -65,7 +74,17 @@ function SalesPackages({ page, loading, pageLoad }) {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Sales Package Id</TableCell>
+                                <TableCell
+                                    sortDirection={localOrderBy === 'salesPackageId' ? asc : false}
+                                >
+                                    <TableSortLabel
+                                        active={localOrderBy === 'salesPacakgeId'}
+                                        direction={asc ? 'asc' : 'desc'}
+                                        onClick={() => createSortHandler('salesPackageId')}
+                                    >
+                                        Sales Package Id
+                                    </TableSortLabel>
+                                </TableCell>
                                 <TableCell>Description</TableCell>
                                 <TableCell>Actions</TableCell>
                             </TableRow>
@@ -142,7 +161,8 @@ function SalesPackages({ page, loading, pageLoad }) {
 SalesPackages.propTypes = {
     page: PropTypes.PropTypes.shape({}).isRequired,
     loading: PropTypes.bool.isRequired,
-    pageLoad: PropTypes.func.isRequired
+    pageLoad: PropTypes.func.isRequired,
+    pageSortedLoad: PropTypes.func.isRequired
 };
 
 export default SalesPackages;

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import SalesPackage from '../../components/salesPackages/SalesPackage';
-import salesPackagesActions from '../../actions/salesPackage';
+import salesPackagesActions from '../../actions/salesPackages/salesPackage';
 import salesPackageSelectors from '../../selectors/salesPackageSelectors';
 
 const mapStateToProps = state => ({

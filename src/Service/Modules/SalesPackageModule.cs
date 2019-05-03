@@ -1,5 +1,8 @@
 ﻿namespace Linn.Products.Service.Modules
 {
+    using System;
+    using System.Linq.Expressions;
+
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Resources;
@@ -21,6 +24,13 @@
             this.Get("/products/maint/sales-packages", _ => this.GetSalesPackages());
             this.Get("/products/maint/sales-packages/{id}", parameters => this.GetSalesPackage(parameters.id));
             this.Get("/products/maint/sales-packages/{pageNumber}/{pageSize}", parameters => this.GetSalesPackages(parameters.pageNumber, parameters.pageSize));
+            this.Get(
+                "products/maint/sales-packages/{pageNumber}/{pageSize}/{sortBy}/{ascending}",
+                parameters => this.GetSalesPackages(
+                    parameters.pageNumber,
+                    parameters.pageSize,
+                    parameters.sortBy,
+                    parameters.ascending));
             this.Put("/products/maint/sales-packages/{id}", parameters => this.UpdateSalesPackage(parameters.id));
             this.Post("/products/maint/sales-packages", _ => this.AddSalesPackage());
         }
@@ -56,14 +66,35 @@
         private object GetSalesPackages(int pageNumber, int pageSize)
         {
             return this.Negotiate.WithModel(this.salesPackageService.GetAll(pageNumber, pageSize))
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
+        }
+
+        private object GetSalesPackages(int pageNumber, int pageSize, string sortBy, bool ascending)
+        {
+            return this.Negotiate
+                .WithModel(
+                    this.salesPackageService.GetAll(
+                        pageNumber,
+                        pageSize,
+                        this.GetSortExpressionOnProperty(sortBy),
+                        ascending))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object GetSalesPackage(int id)
         {
             var result = this.salesPackageService.GetById(id);
-            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
+            return this.Negotiate.WithModel(result)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
+        }
+
+        private Expression<Func<SalesPackage, string>> GetSortExpressionOnProperty(string sortBy)
+        {
+            var param = Expression.Parameter(typeof(SalesPackage));
+            return Expression.Lambda<Func<SalesPackage, string>>(Expression.Property(param, sortBy), param);
         }
     }
 }

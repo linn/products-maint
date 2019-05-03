@@ -41,6 +41,18 @@ export default function FetchApiActions(actionTypeRoot, uri, actionTypes) {
         }
     });
 
+    this.fetchSortedPage = (pageNumber, rowsPerPage, sortBy, asc) => ({
+        [CALL_API]: {
+            endpoint: `${config.appRoot}${uri}/${pageNumber}/${rowsPerPage}/${sortBy}/${asc}`,
+            method: 'GET',
+            options: { requires: true },
+            headers: {
+                Accept: 'application/json'
+            },
+            types: [requestedResponse, receivedResponse, errorResponse]
+        }
+    });
+
     this.search = searchTerm => ({
         [CALL_API]: {
             endpoint: `${config.appRoot}${uri}?searchTerm=${searchTerm}`,
