@@ -157,8 +157,8 @@ function SalesPackage({
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Type</TableCell>
-                                        <TableCell align="right">Sequence</TableCell>
-                                        <TableCell align="right">Quantity</TableCell>
+                                        <TableCell>Sequence</TableCell>
+                                        <TableCell>Quantity</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

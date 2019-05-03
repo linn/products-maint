@@ -1,6 +1,6 @@
 import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
-import SernosSequences from '../SernosSequences';
+import SernosSequences from '../sernosSequences/SernosSequences';
 
 describe('<SernosSequences />', () => {
     let wrapper;

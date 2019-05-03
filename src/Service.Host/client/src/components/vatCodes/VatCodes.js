@@ -1,21 +1,21 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Loading, EntityList, CreateButton } from '@linn-it/linn-form-components-library';
-import Page from '../containers/Page';
-import { sortEntityList } from '../helpers/utilities';
+import Page from '../../containers/Page';
+import { sortEntityList } from '../../helpers/utilities';
 
-function SernosSequences({ sernosSequences, loading }) {
+function VatCodes({ vatCodes, loading }) {
     return (
         <Page>
             {loading ? (
                 <Loading />
             ) : (
                 <Fragment>
-                    <CreateButton createUrl="/products/maint/sernos-sequences/create" />
+                    <CreateButton createUrl="/products/maint/vat-codes/create" />
                     <EntityList
-                        title="Sernos Sequences"
-                        entityList={sortEntityList(sernosSequences, 'sequenceName')}
-                        entityId="sequenceName"
+                        title="Vat Codes"
+                        entityList={sortEntityList(vatCodes, 'code')}
+                        entityId="code"
                         loading={loading}
                         descriptionFieldName="description"
                     />
@@ -25,9 +25,9 @@ function SernosSequences({ sernosSequences, loading }) {
     );
 }
 
-SernosSequences.propTypes = {
-    sernosSequences: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+VatCodes.propTypes = {
+    vatCodes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     loading: PropTypes.bool.isRequired
 };
 
-export default SernosSequences;
+export default VatCodes;

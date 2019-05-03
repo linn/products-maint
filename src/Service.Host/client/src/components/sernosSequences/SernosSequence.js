@@ -10,7 +10,7 @@ import {
     ErrorCard,
     SnackbarMessage
 } from '@linn-it/linn-form-components-library';
-import Page from '../containers/Page';
+import Page from '../../containers/Page';
 
 function SernosSequence({
     editStatus,

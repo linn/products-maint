@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import initialiseOnMount from '../common/initialiseOnMount';
 import sernosSequenceActions from '../../actions/sernosSequenceActions';
-import SernosSequence from '../../components/SernosSequence';
+import SernosSequence from '../../components/sernosSequences/SernosSequence';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import sernosSequenceSelectors from '../../selectors/sernosSequenceSelectors';
 

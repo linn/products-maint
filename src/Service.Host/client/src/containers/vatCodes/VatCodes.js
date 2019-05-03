@@ -1,5 +1,5 @@
 ﻿import { connect } from 'react-redux';
-import VatCodes from '../../components/VatCodes';
+import VatCodes from '../../components/vatCodes/VatCodes';
 import initialiseOnMount from '../common/initialiseOnMount';
 import vatCodesActions from '../../actions/vatCodesActions';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
