@@ -72,6 +72,7 @@
 
         private object GetSalesPackages(int pageNumber, int pageSize, string sortBy, bool ascending)
         {
+
             return this.Negotiate
                 .WithModel(
                     this.salesPackageService.GetAll(
@@ -91,10 +92,10 @@
                 .WithView("Index");
         }
 
-        private Expression<Func<SalesPackage, string>> GetSortExpressionOnProperty(string sortBy)
+        private Expression<Func<SalesPackage, dynamic>> GetSortExpressionOnProperty(string sortBy)
         {
             var param = Expression.Parameter(typeof(SalesPackage));
-            return Expression.Lambda<Func<SalesPackage, string>>(Expression.Property(param, sortBy), param);
+            return Expression.Lambda<Func<SalesPackage, dynamic>>(Expression.Property(param, sortBy), param);
         }
     }
 }
