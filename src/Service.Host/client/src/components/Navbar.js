@@ -61,7 +61,7 @@ function Navbar({ classes, menu, loading, username }) {
             setAnchorEl();
         };
         const handleSignOut = () => {
-            window.location.assign('https://www-sys.linn.co.uk/signout');
+            window.location.assign('https://www.linn.co.uk/signout');
         };
 
         return (
