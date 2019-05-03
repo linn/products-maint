@@ -1,7 +1,5 @@
-﻿
-namespace Linn.Products.Service.Tests.SalesPackageModuleSpecs
+﻿namespace Linn.Products.Service.Tests.SalesPackageModuleSpecs
 {
-    using System.Collections.Generic;
     using System.Linq;
 
     using FluentAssertions;
@@ -14,7 +12,6 @@ namespace Linn.Products.Service.Tests.SalesPackageModuleSpecs
     using Nancy.Testing;
 
     using NSubstitute;
-    using NSubstitute.Core.Arguments;
 
     using NUnit.Framework;
 

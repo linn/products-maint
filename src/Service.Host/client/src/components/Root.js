@@ -58,6 +58,9 @@ import SalesPackage from '../containers/salesPackages/SalesPackage';
 import CreateSalesPackage from '../containers/salesPackages/CreateSalesPackage';
 import RootProducts from '../containers/rootProducts/RootProducts';
 import RootProduct from '../containers/rootProducts/RootProduct';
+import SerialNumberTransactions from '../containers/serialNumberTransactions/SerialNumberTransactions';
+import SerialNumberTransaction from '../containers/serialNumberTransactions/SerialNumberTransaction';
+import CreateSerialNumberTransaction from '../containers/serialNumberTransactions/CreateSerialNumberTransaction';
 
 const Root = ({ store }) => (
     <div>
@@ -139,6 +142,23 @@ const Root = ({ store }) => (
                             <Switch>
                                 <Route
                                     exact
+                                    path="/products/maint/serial-number-transactions"
+                                    component={SerialNumberTransactions}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/serial-number-transactions/create"
+                                    component={CreateSerialNumberTransaction}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/serial-number-transactions/:id"
+                                    component={SerialNumberTransaction}
+                                />
+                            </Switch>
+                            <Switch>
+                                <Route
+                                    exact
                                     path="/products/maint/sales-articles"
                                     component={SalesArticles}
                                 />
@@ -148,7 +168,6 @@ const Root = ({ store }) => (
                                     component={SalesArticle}
                                 />
                             </Switch>
-
                             <Switch>
                                 <Route
                                     exact

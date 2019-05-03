@@ -31,6 +31,7 @@
             this.Post("/products/maint/sernos-configs", _ => this.AddSernosConfig());
 
             this.Get("/products/maint/serial-number-transactions", _ => this.GetTransCodes());
+            this.Get("/products/maint/serial-number-transactions/{pageNumber}/{pageSize}", parameters => this.GetTransCodes(parameters.pageNumber, parameters.pageSize));
             this.Get("/products/maint/serial-number-transactions/{id}", parameters => this.GetTransCode(parameters.id));
             this.Post("/products/maint/serial-number-transactions", _ => this.AddTransCode());
             this.Put("/products/maint/serial-number-transactions/{id}", parameters => this.UpdateTransCode(parameters.id));
@@ -54,6 +55,12 @@
                 .WithModel(results)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
+        }
+
+        private object GetTransCodes(int pageNumber, int pageSize)
+        {
+            return this.Negotiate.WithModel(this.sernosTransactionService.GetAll(pageNumber, pageSize))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
         }
 
         private object UpdateTransCode(string transCode)

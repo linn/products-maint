@@ -15,6 +15,8 @@ import sernosNote from './sernosNote';
 import sernosNotes from './sernosNotes';
 import sernosConfig from './sernosConfig';
 import sernosConfigs from './sernosConfigs';
+import serialNumberTransaction from './serialNumberTransaction';
+import serialNumberTransactions from './serialNumberTransactions';
 import sernosSequence from './sernosSequence';
 import sernosSequences from './sernosSequences';
 import fetchError from './fetchError';
@@ -53,6 +55,8 @@ const rootReducer = combineReducers({
     sernosNotes,
     sernosConfig,
     sernosConfigs,
+    serialNumberTransaction,
+    serialNumberTransactions,
     sernosSequence,
     sernosSequences,
     saCoreTypes,
