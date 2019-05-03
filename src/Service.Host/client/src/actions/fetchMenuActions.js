@@ -4,7 +4,7 @@ import * as actionTypes from './index';
 
 const fetchMenu = () => ({
     [CALL_API]: {
-        endpoint: `${config.appRoot}/intranet/menu`,
+        endpoint: `${config.appRoot}/intranet/menu-no-auth`,
         method: 'GET',
         options: { requiresAuth: false },
         headers: {

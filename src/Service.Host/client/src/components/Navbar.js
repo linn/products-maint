@@ -13,7 +13,6 @@ import {
     Typography
 } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-
 import Panel from './Panel';
 
 const styles = theme => ({
@@ -33,9 +32,6 @@ const styles = theme => ({
         marginLeft: -12,
         marginRight: 20
     },
-    userTab: {
-        // float: 'right'
-    },
     fullHeight: {
         ...theme.mixins.toolbar,
         minWidth: '100px'
@@ -46,22 +42,26 @@ const styles = theme => ({
     },
     tabs: {
         ...theme.mixins.toolbar
-        // width: '80%'
+    },
+    container: {
+        width: '100%'
     }
 });
 
-function Navbar({ classes, menu, loading }) {
+function Navbar({ classes, menu, loading, username }) {
     const [selected, setSelected] = useState(false);
     const [anchorEl, setAnchorEl] = useState();
     if (menu) {
-        const { sections } = menu;
-        const menuIds = sections.map(item => item.id);
+        const menuIds = menu.map(item => item.id);
 
         const handleClick = event => {
             setAnchorEl(event.currentTarget);
         };
         const handleClose = () => {
             setAnchorEl();
+        };
+        const handleSignOut = () => {
+            window.location.assign('https://www-sys.linn.co.uk/signout');
         };
 
         return (
@@ -75,6 +75,7 @@ function Navbar({ classes, menu, loading }) {
                                     alignItems="center"
                                     justify="space-between"
                                     spacing={24}
+                                    classes={{ container: classes.container }}
                                 >
                                     <Fragment>
                                         <Grid item xs={11}>
@@ -89,7 +90,7 @@ function Navbar({ classes, menu, loading }) {
                                                 indicatorColor="primary"
                                                 textColor="primary"
                                             >
-                                                {sections.map(item => (
+                                                {menu.map(item => (
                                                     <Tab
                                                         id={item.id}
                                                         key={item.id}
@@ -104,36 +105,29 @@ function Navbar({ classes, menu, loading }) {
                                                 ))}
                                             </Tabs>
                                         </Grid>
-                                        <Grid item xs={1} classes={{ root: classes.fullHeight }}>
+                                        <Grid item xs={1}>
                                             <Typography variant="h4">
                                                 <AccountCircle
                                                     aria-owns={anchorEl ? 'simple-menu' : undefined}
                                                     onClick={handleClick}
-                                                    id={sections.length}
-                                                    key={sections.length}
-                                                />{' '}
+                                                    id={menu.length}
+                                                    key={menu.length}
+                                                />
                                             </Typography>
                                         </Grid>
-
                                         <Menu
                                             id="simple-menu"
                                             anchorEl={anchorEl}
                                             open={Boolean(anchorEl)}
                                             onClose={handleClose}
                                         >
-                                            <MenuItem onClick={handleClose}>
-                                                {menu.myStuff.userName}
-                                            </MenuItem>
-                                            {menu.myStuff.userName && (
-                                                <Fragment>
-                                                    {menu.myStuff.groups.map(group => (
-                                                        <a href={group.items[0].href}>
-                                                            <MenuItem onClick={handleClose}>
-                                                                {group.items[0].title}
-                                                            </MenuItem>{' '}
-                                                        </a>
-                                                    ))}
-                                                </Fragment>
+                                            <MenuItem onClick={handleClose}>{username}</MenuItem>
+                                            {username && (
+                                                <span>
+                                                    <MenuItem onClick={handleSignOut}>
+                                                        Sign Out
+                                                    </MenuItem>
+                                                </span>
                                             )}
                                         </Menu>
                                     </Fragment>
@@ -147,10 +141,12 @@ function Navbar({ classes, menu, loading }) {
                         (item, i) =>
                             selected === i && (
                                 <Panel
-                                    section={sections.filter(e => e.id === item)[0]}
+                                    key={item}
+                                    section={menu.filter(e => e.id === item)[0]}
                                     id={item}
                                     style={{ align: 'right' }}
                                     anchorEl={item.id}
+                                    close={() => setSelected(false)}
                                 />
                             )
                     )}
@@ -161,8 +157,8 @@ function Navbar({ classes, menu, loading }) {
     return (
         <div className={classes.root}>
             <AppBar position="static" color="default">
-                <Toolbar classes={{ gutters: classes.toolbar }} />{' '}
-            </AppBar>{' '}
+                <Toolbar classes={{ gutters: classes.toolbar }} />
+            </AppBar>
         </div>
     );
 }
@@ -171,12 +167,14 @@ Navbar.propTypes = {
     classes: PropTypes.shape({}).isRequired,
     menu: PropTypes.arrayOf(PropTypes.shape({})),
     history: PropTypes.shape({}).isRequired,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    username: PropTypes.string
 };
 
 Navbar.defaultProps = {
     menu: {},
-    loading: false
+    loading: false,
+    username: ''
 };
 
 export default withStyles(styles)(Navbar);
