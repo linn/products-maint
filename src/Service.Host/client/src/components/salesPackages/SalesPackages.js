@@ -78,14 +78,24 @@ function SalesPackages({ page, loading, pageLoad, pageSortedLoad }) {
                                     sortDirection={localOrderBy === 'salesPackageId' ? asc : false}
                                 >
                                     <TableSortLabel
-                                        active={localOrderBy === 'salesPacakgeId'}
+                                        active={localOrderBy === 'salesPackageId'}
                                         direction={asc ? 'asc' : 'desc'}
                                         onClick={() => createSortHandler('salesPackageId')}
                                     >
                                         Sales Package Id
                                     </TableSortLabel>
                                 </TableCell>
-                                <TableCell>Description</TableCell>
+                                <TableCell
+                                    sortDirection={localOrderBy === 'description' ? asc : false}
+                                >
+                                    <TableSortLabel
+                                        active={localOrderBy === 'description'}
+                                        direction={asc ? 'asc' : 'desc'}
+                                        onClick={() => createSortHandler('description')}
+                                    >
+                                        Description
+                                    </TableSortLabel>
+                                </TableCell>
                                 <TableCell>Actions</TableCell>
                             </TableRow>
                         </TableHead>

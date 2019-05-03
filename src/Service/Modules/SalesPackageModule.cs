@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.Modules
+namespace Linn.Products.Service.Modules
 {
     using System;
     using System.Linq.Expressions;
@@ -92,6 +92,12 @@
                 .WithView("Index");
         }
 
+        /// <summary>
+        /// Creates an expression on salesPackage given a property name
+        /// </summary>
+        /// <p>The expression would typically be written param => param.sortBy</p>
+        /// <param name="sortBy">the property name</param>
+        /// <returns></returns>
         private Expression<Func<SalesPackage, dynamic>> GetSortExpressionOnProperty(string sortBy)
         {
             var param = Expression.Parameter(typeof(SalesPackage));
