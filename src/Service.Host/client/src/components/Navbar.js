@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Panel from './Panel';
+import config from '../config';
 
 const styles = theme => ({
     root: {
@@ -61,13 +62,13 @@ function Navbar({ classes, menu, loading, username }) {
             setAnchorEl();
         };
         const handleSignOut = () => {
-            window.location.assign('https://www-sys.linn.co.uk/signout');
+            window.location.assign(`${config.authorityUri}account/logout`);
         };
 
         return (
             <ClickAwayListener onClickAway={() => setSelected(false)}>
                 <div className={classes.root}>
-                    {menu && !loading ? (
+                    {menu && !loading && (
                         <AppBar position="static" color="default">
                             <Toolbar classes={{ gutters: classes.toolbar }}>
                                 <Grid
@@ -134,8 +135,6 @@ function Navbar({ classes, menu, loading, username }) {
                                 </Grid>
                             </Toolbar>
                         </AppBar>
-                    ) : (
-                        <Fragment />
                     )}
                     {menuIds.map(
                         (item, i) =>
@@ -172,7 +171,7 @@ Navbar.propTypes = {
 };
 
 Navbar.defaultProps = {
-    menu: {},
+    menu: null,
     loading: false,
     username: ''
 };
