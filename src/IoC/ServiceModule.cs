@@ -10,6 +10,7 @@
     using Linn.Products.Domain.Linnapps.RemoteServices;
     using Linn.Products.Domain.Linnapps.Reports;
     using Linn.Products.Domain.Linnapps.SalesPackages;
+    using Linn.Products.Domain.Linnapps.SernosTransactions;
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
     using Linn.Products.Facade;
@@ -26,7 +27,7 @@
             builder.RegisterType<CartonDetailsReportService>().As<ICartonDetailsReportService>();
             builder.RegisterType<ProductReports>().As<IProductReports>();
             builder.RegisterType<StockTriggerLevelReportService>().As<IStockTriggerLevelReportService>();
-            builder.RegisterType<SaHoldStoryService>().As<ISaHoldStoryReportService>();
+            builder.RegisterType<SaHoldStoryService>().As<ISaHoldStoryService>();
             builder.RegisterType<SalesArticleReports>().As<ISalesArticleReports>();
             builder.RegisterType<ProductsOnHoldService>().As<IProductsOnHoldService>();
             builder.RegisterType<SerialNumberFactory>().As<ISerialNumberFactory>();
@@ -51,11 +52,13 @@
             builder.RegisterType<VatCodeService>().As<IFacadeService<VatCode, string, VatCodeResource, VatCodeResource>>();
             builder.RegisterType<ProductRangeService>().As<IFacadeService<ProductRange, int, ProductRangeResource, ProductRangeUpdateResource>>();
             builder.RegisterType<SalesPackageService>().As<IFacadeService<SalesPackage, int, SalesPackageResource, SalesPackageResource>>();
+            builder.RegisterType<RootProductService>()
+                .As<IFacadeService<RootProduct, string, RootProductResource, RootProductResource>>();
             builder.RegisterType<SalesArticleCompositeDiscountFacadeService>().As<ISalesArticleCompositeDiscountFacadeService>();
             builder.RegisterType<SerialNumberService>().As<ISerialNumberFacadeService>();
             builder.RegisterType<SernosNoteService>().As<IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource>>();
-            builder.RegisterType<SernosTransactionService>().As<IFacadeService<SernosTransaction, string, SernosTransactionResource, SernosTransactionResource>>();
-            builder.RegisterType<SalesArticleSerialNumberFacadeService>().As<ISalesArticleSerialNumberFacadeService>();
+            builder.RegisterType<SernosTransactionService>().As<IFacadeService<SernosTrans, string, SernosTransactionResource, SernosTransactionResource>>();
+            builder.RegisterType<SernosCountService>().As<IFacadeService<SernosCount, string, SernosCountResource, SernosCountResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();

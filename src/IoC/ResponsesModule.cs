@@ -9,6 +9,7 @@
     using Linn.Products.Domain.Linnapps.Models;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.SalesPackages;
+    using Linn.Products.Domain.Linnapps.SernosTransactions;
     using Linn.Products.Facade.ResourceBuilders;
 
     using PagedList.Core;
@@ -24,6 +25,9 @@
             builder.RegisterType<CartonTypeResourceBuilder>().As<IResourceBuilder<CartonType>>();
             builder.RegisterType<SernosConfigResourceBuilder>().As<IResourceBuilder<SernosConfig>>();
             builder.RegisterType<SernosConfigsResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosConfig>>>();
+            builder.RegisterType<SernosTransactionResourceBuilder>().As<IResourceBuilder<SernosTrans>>();
+            builder.RegisterType<SernosTransactionsResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosTrans>>>();
+            builder.RegisterType<SernosCountsResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosCount>>>();
             builder.RegisterType<SernosSequenceResourceBuilder>().As<IResourceBuilder<SernosSequence>>();
             builder.RegisterType<SernosSequencesResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosSequence>>>();
             builder.RegisterType<SaCoreTypeResourceBuilder>().As<IResourceBuilder<SaCoreType>>();
@@ -32,7 +36,8 @@
             builder.RegisterType<SalesArticlesResourceBuilder>().As<IResourceBuilder<IEnumerable<SalesArticle>>>();
             builder.RegisterType<TypeOfSaleResourceBuilder>().As<IResourceBuilder<TypeOfSale>>();
             builder.RegisterType<TypesOfSaleResourceBuilder>().As<IResourceBuilder<IEnumerable<TypeOfSale>>>();
-
+            builder.RegisterType<RootProductResourceBuilder>().As<IResourceBuilder<RootProduct>>();
+            builder.RegisterType<RootProductsResourceBuilder>().As<IResourceBuilder<IEnumerable<RootProduct>>>();
             builder.RegisterType<SaHoldStoryResourceBuilder>().As<IResourceBuilder<SaHoldStory>>();
             builder.RegisterType<SaHoldStoriesResourceBuilder>().As<IResourceBuilder<IEnumerable<SaHoldStory>>>();
             builder.RegisterType<VatCodeResourceBuilder>().As<IResourceBuilder<VatCode>>();

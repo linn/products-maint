@@ -27,6 +27,9 @@ const App = ({ classes }) => (
             <ListItem component={Link} to="/products/maint/sales-packages" button>
                 <Typography color="primary">Sales Packages</Typography>
             </ListItem>
+            <ListItem component={Link} to="/products/maint/root-products" button>
+                <Typography color="primary">Root Products</Typography>
+            </ListItem>
         </List>
         <Typography variant="h6">Reports</Typography>
         <List>

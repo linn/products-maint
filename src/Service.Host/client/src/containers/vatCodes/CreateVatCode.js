@@ -1,7 +1,7 @@
 ﻿import { connect } from 'react-redux';
 import initialiseOnMount from '../common/initialiseOnMount';
 import vatCodeActions from '../../actions/vatCodeActions';
-import VatCode from '../../components/VatCode';
+import VatCode from '../../components/vatCodes/VatCode';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import vatCodeSelectors from '../../selectors/vatCodeSelectors';
 

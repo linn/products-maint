@@ -135,3 +135,15 @@ export const salesArticleCompositeDiscount = new ItemType(
     'SALES_ARTICLE_COMPOSITE_DISCOUNT',
     '/products/maint/sales-articles/composite-discounts'
 );
+
+export const rootProduct = new ItemType(
+    'rootProduct',
+    'ROOT_PRODUCT',
+    '/products/maint/root-products'
+);
+
+export const rootProducts = new ItemType(
+    'rootProducts',
+    'ROOT_PRODUCTS',
+    '/products/maint/root-products'
+);

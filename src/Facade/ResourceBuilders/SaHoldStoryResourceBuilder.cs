@@ -15,17 +15,17 @@
         public SaHoldStoryResource Build(SaHoldStory saHoldStory)
         {
             return new SaHoldStoryResource
-                       {
+            {
                            HoldStoryId = saHoldStory.HoldStoryId,
-                           SalesArticle = saHoldStory.SalesArticle.ArticleNumber,
+                           SalesArticle = saHoldStory.SalesArticle?.ArticleNumber,
                            DateStarted = saHoldStory.DateStarted.ToString("o"),
                            DateFinished = saHoldStory.DateFinished?.ToString("o"),
                            PutOnHoldByEmployee = saHoldStory.PutOnHoldByEmployee.FullName,
-                           TakenOffHoldByEmployee = saHoldStory.TakenOffHoldByEmployee == null ? null : saHoldStory.TakenOffHoldByEmployee.FullName,
+                           TakenOffHoldByEmployee = saHoldStory.TakenOffHoldByEmployee?.FullName,
                            ReasonStarted = saHoldStory.ReasonStarted,
                            ReasonFinished = saHoldStory.ReasonFinished,
                            AnticipatedEndDate = saHoldStory.AnticipatedEndDate?.ToString("o"),  
-                           RootProduct = saHoldStory.RootProduct,
+                           RootProduct = saHoldStory.RootProduct?.Name,
                            Links = this.BuildLinks(saHoldStory).ToArray()
             };
         }

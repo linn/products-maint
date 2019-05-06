@@ -19,6 +19,8 @@
 
         protected IRepository<Employee, int> EmployeeRepository { get; set; }
 
+        protected IRepository<RootProduct, string> RootProductRepository { get; set; }
+
         protected ITransactionManager TransactionManager { get; set; }
 
         [SetUp]
@@ -26,9 +28,15 @@
         {
             this.SaHoldStoryRepository = Substitute.For<IRepository<SaHoldStory, int>>();
             this.SalesArticleRepository = Substitute.For<IRepository<SalesArticle, string>>();
+            this.RootProductRepository = Substitute.For<IRepository<RootProduct, string>>();
             this.EmployeeRepository = Substitute.For<IRepository<Employee, int>>();
             this.TransactionManager = Substitute.For<ITransactionManager>();
-            this.Sut = new SaHoldStoryFacadeService(this.SaHoldStoryRepository, this.TransactionManager, this.SalesArticleRepository, this.EmployeeRepository);
+            this.Sut = new SaHoldStoryFacadeService(
+                this.SaHoldStoryRepository,
+                this.TransactionManager,
+                this.SalesArticleRepository,
+                this.RootProductRepository,
+                this.EmployeeRepository);
         }
     }
 }

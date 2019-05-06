@@ -4,6 +4,7 @@
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.SalesPackages;
+    using Linn.Products.Domain.Linnapps.SernosTransactions;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -38,11 +39,15 @@
 
         public DbSet<SalesPackage> SalesPackages { get; set; }
 
+        public DbSet<RootProduct> RootProducts { get; set; }
+
         public DbSet<SernosNote> SernosNotes { get; set; }
 
         public DbSet<SerialNumber> SerialNumbers { get; set; }
 
-        public DbSet<SernosTransaction> SernosTranses { get; set; }
+        public DbSet<SernosTrans> SerialNumberTransactionTypes { get; set; }
+
+        public DbSet<SernosCount> SerialNumberTransactionCountTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -58,9 +63,10 @@
             this.BuildProductRanges(builder);
             this.BuildEmployees(builder);
             this.BuildSalesPackages(builder);
+            this.BuildRootProducts(builder);
             this.BuildSernosNotes(builder);
             this.BuildSerialNumbers(builder);
-            this.BuildSernosTrans(builder);
+            this.BuildSerialNumberTransactions(builder);
             base.OnModelCreating(builder);
         }
 
@@ -80,6 +86,36 @@
             base.OnConfiguring(optionsBuilder);
         }
 
+        private void BuildSerialNumberTransactions(ModelBuilder builder)
+        {
+            builder.Entity<SernosTrans>().ToTable("SERNOS_TRANS");
+            builder.Entity<SernosTrans>().HasKey(r => r.TransCode);
+            builder.Entity<SernosTrans>().Property(r => r.TransCode).HasColumnName("TRANS_CODE").HasMaxLength(10);
+            builder.Entity<SernosTrans>().Property(r => r.TransDescription).HasColumnName("TRANS_DESCRIPTION").HasMaxLength(50);
+            builder.Entity<SernosTrans>().Property(r => r.Comments).HasColumnName("COMMENTS").HasMaxLength(2000);
+            builder.Entity<SernosTrans>().Property(r => r.ManualPost).HasColumnName("MANUAL_POST").HasMaxLength(1);
+            builder.Entity<SernosTrans>().Property(r => r.UpdateLastTransaction).HasColumnName("UPDATE_LAST_TRANSACTION").HasMaxLength(1);
+            builder.Entity<SernosTrans>().Property(r => r.UpdateBuiltBy).HasColumnName("UPDATE_BUILT_BY").HasMaxLength(1);
+            builder.Entity<SernosTrans>().Property(r => r.UpdateLastAccount).HasColumnName("UPDATE_LAST_ACCOUNT").HasMaxLength(1);
+            builder.Entity<SernosTrans>().HasMany(t => t.SernosTransCounts).WithOne(e => e.SernosTrans);
+
+            builder.Entity<SernosTransCount>().ToTable("SERNOS_TRANS_COUNTS");
+            builder.Entity<SernosTransCount>().HasKey(s => new { s.TransCode, s.SernosCount });
+            builder.Entity<SernosTransCount>().Property(r => r.TransCode).HasColumnName("TRANS_CODE").HasMaxLength(10);
+            builder.Entity<SernosTransCount>().Property(r => r.SernosCount).HasColumnName("SERNOS_COUNT").HasMaxLength(10);
+            builder.Entity<SernosTransCount>().Property(r => r.CheckError).HasColumnName("CHECK_ERROR").HasMaxLength(1);
+            builder.Entity<SernosTransCount>().Property(r => r.CheckErrorMess).HasColumnName("CHECK_ERROR_MESS").HasMaxLength(128);
+            builder.Entity<SernosTransCount>().Property(r => r.CorrectValue).HasColumnName("CORRECT_VALUE").HasMaxLength(10);
+            builder.Entity<SernosTransCount>().Property(r => r.CountIncrement).HasColumnName("COUNT_INCREMENT").HasMaxLength(10);
+            builder.Entity<SernosTransCount>().HasOne<SernosTrans>(s => s.SernosTrans).WithMany(g => g.SernosTransCounts)
+                .HasForeignKey(s => s.TransCode);
+
+            builder.Entity<SernosCount>().ToTable("SERNOS_COUNTS");
+            builder.Entity<SernosCount>().HasKey(r => r.Name);
+            builder.Entity<SernosCount>().Property(r => r.Name).HasColumnName("NAME").HasMaxLength(10);
+            builder.Entity<SernosCount>().Property(r => r.Description).HasColumnName("DESCRIPTION").HasMaxLength(50);
+        }
+
         private void BuildProductRanges(ModelBuilder builder)
         {
             builder.Entity<ProductRange>().ToTable("PRODUCT_RANGES");
@@ -96,35 +132,40 @@
             builder.Entity<SalesPackage>().ToTable("SALES_PACKAGES");
             builder.Entity<SalesPackage>().HasKey(s => s.Id);
             builder.Entity<SalesPackage>().Property(s => s.Id).HasColumnName("BRIDGE_ID");
-            builder.Entity<SalesPackage>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID").HasMaxLength(10);
+            builder.Entity<SalesPackage>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID")
+                .HasMaxLength(10);
             builder.Entity<SalesPackage>().Property(s => s.Description).HasColumnName("DESCRIPTION").HasMaxLength(50);
             builder.Entity<SalesPackage>().HasMany(s => s.Elements);
 
             builder.Entity<SalesPackageElement>().ToTable("SALES_PACKAGE_ELEMENTS");
             builder.Entity<SalesPackageElement>().HasKey(s => new { s.SalesPackageId, s.ElementType });
-            builder.Entity<SalesPackageElement>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID").HasMaxLength(10);
-            builder.Entity<SalesPackageElement>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE").HasMaxLength(10);
+            builder.Entity<SalesPackageElement>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID")
+                .HasMaxLength(10);
+            builder.Entity<SalesPackageElement>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE")
+                .HasMaxLength(10);
             builder.Entity<SalesPackageElement>().Property(s => s.Sequence).HasColumnName("SPE_SEQUENCE");
             builder.Entity<SalesPackageElement>().Property(s => s.Quantity).HasColumnName("QUANTITY");
             builder.Entity<SalesPackageElement>().HasMany(s => s.Packages);
 
             builder.Entity<SalesPackageElementType>().ToTable("SALES_PACKAGE_EL_TYPES");
             builder.Entity<SalesPackageElementType>().HasKey(s => s.ElementType);
-            builder.Entity<SalesPackageElementType>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE").HasMaxLength(10);
-            builder.Entity<SalesPackageElementType>().Property(s => s.Description).HasColumnName("PACKAGE_ELEMENT_TYPE_DESCRIPTI").HasMaxLength(50);
+            builder.Entity<SalesPackageElementType>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE")
+                .HasMaxLength(10);
+            builder.Entity<SalesPackageElementType>().Property(s => s.Description)
+                .HasColumnName("PACKAGE_ELEMENT_TYPE_DESCRIPTI").HasMaxLength(50);
 
             builder.Entity<SalesPackageElementJoin>().ToTable("SALES_PACKAGE_ELEMENT_JOINS");
             builder.Entity<SalesPackageElementJoin>().HasKey(s => s.Id);
             builder.Entity<SalesPackageElementJoin>().Property(s => s.Id).HasColumnName("ID");
             builder.Entity<SalesPackageElementJoin>().Property(s => s.BridgeId).HasColumnName("BRIDGE_ID");
-            builder.Entity<SalesPackageElementJoin>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID").HasMaxLength(10);
-            builder.Entity<SalesPackageElementJoin>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE").HasMaxLength(10);
-            builder.Entity<SalesPackageElementJoin>().HasOne(j => j.SalesPackage)
-                .WithMany(r => r.Elements)
+            builder.Entity<SalesPackageElementJoin>().Property(s => s.SalesPackageId).HasColumnName("SALES_PACKAGE_ID")
+                .HasMaxLength(10);
+            builder.Entity<SalesPackageElementJoin>().Property(s => s.ElementType).HasColumnName("PACKAGE_ELEMENT_TYPE")
+                .HasMaxLength(10);
+            builder.Entity<SalesPackageElementJoin>().HasOne(j => j.SalesPackage).WithMany(r => r.Elements)
                 .HasForeignKey(j => j.BridgeId);
 
-            builder.Entity<SalesPackageElementJoin>().HasOne(j => j.SalesPackageElement)
-                .WithMany(d => d.Packages)
+            builder.Entity<SalesPackageElementJoin>().HasOne(j => j.SalesPackageElement).WithMany(d => d.Packages)
                 .HasForeignKey(j => new { j.SalesPackageId, j.ElementType });
         }
 
@@ -215,7 +256,8 @@
         {
             builder.Entity<SernosSequence>().ToTable("SERNOS_SEQUENCES");
             builder.Entity<SernosSequence>().HasKey(t => t.SequenceName);
-            builder.Entity<SernosSequence>().Property(t => t.SequenceName).HasColumnName("SEQUENCE_NAME").HasMaxLength(10);
+            builder.Entity<SernosSequence>().Property(t => t.SequenceName).HasColumnName("SEQUENCE_NAME")
+                .HasMaxLength(10);
             builder.Entity<SernosSequence>().Property(t => t.Description).HasColumnName("DESCRIPTION").HasMaxLength(50);
             builder.Entity<SernosSequence>().Property(t => t.NextSerialNumber).HasColumnName("NEXT_SERIAL_NUMBER");
             builder.Entity<SernosSequence>().Property(t => t.DateClosed).HasColumnName("DATE_CLOSED");
@@ -287,6 +329,7 @@
             builder.Entity<SalesArticle>().Property(t => t.ForecastToDate).HasColumnName("FORECAST_TO_DATE");
             builder.Entity<SalesArticle>().Property(t => t.PhaseInDate).HasColumnName("PHASE_IN_DATE");
             builder.Entity<SalesArticle>().Property(t => t.PhaseOutDate).HasColumnName("PHASE_OUT_DATE");
+            builder.Entity<SalesArticle>().Property(t => t.LastHoldStoryId).HasColumnName("HOLD_STORY_ID");
             builder.Entity<SalesArticle>().Property(t => t.PercentageOfRootProductSales)
                 .HasColumnName("PERCENTAGE_SALES");
             builder.Entity<SalesArticle>().Property(t => t.ArticleType).HasColumnName("ARTICLE_TYPE").HasMaxLength(1);
@@ -318,13 +361,15 @@
             e.Property(t => t.DateFinished).HasColumnName("DATE_FINISHED");
             e.Property(t => t.ReasonStarted).HasColumnName("REASON_STARTED");
             e.Property(t => t.ReasonFinished).HasColumnName("REASON_FINISHED");
-            e.Property(t => t.RootProduct).HasColumnName("ROOT_PRODUCT");
             e.Property(t => t.AnticipatedEndDate).HasColumnName("ANTICIPATED_END_DATE");
             e.Property(t => t.ArticleNumber).HasColumnName("ARTICLE_NUMBER");
+            e.Property(t => t.RootProductName).HasColumnName("ROOT_PRODUCT");
             e.HasOne(t => t.PutOnHoldByEmployee);
             e.HasOne(t => t.TakenOffHoldByEmployee);
             e.HasOne<SalesArticle>(s => s.SalesArticle).WithMany(g => g.HoldStories)
                 .HasForeignKey(s => s.ArticleNumber);
+            e.HasOne<RootProduct>(s => s.RootProduct).WithMany(g => g.HoldStories)
+                .HasForeignKey(s => s.RootProductName);
         }
 
         private void BuildEmployees(ModelBuilder builder)
@@ -334,6 +379,16 @@
             e.HasKey(t => t.Id);
             e.Property(t => t.Id).HasColumnName("USER_NUMBER");
             e.Property(t => t.FullName).HasColumnName("USER_NAME");
+        }
+
+        private void BuildRootProducts(ModelBuilder builder)
+        {
+            EntityTypeBuilder<RootProduct> e = builder.Entity<RootProduct>();
+            e.ToTable("ROOT_PRODS");
+            e.HasKey(t => t.Name);
+            e.Property(t => t.Name).HasColumnName("ROOT_PRODUCT");
+            e.Property(t => t.Description).HasColumnName("DESCRIPTION");
+            e.HasMany(t => t.HoldStories).WithOne(f => f.RootProduct);
         }
     }
 }

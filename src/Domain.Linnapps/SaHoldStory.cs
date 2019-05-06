@@ -7,11 +7,6 @@
 
     public class SaHoldStory
     {
-        public SaHoldStory()
-        {
-            //ef
-        }
-
         public int HoldStoryId { get; set; }
 
         public SalesArticle SalesArticle { get; set; }
@@ -34,6 +29,8 @@
 
         public DateTime? AnticipatedEndDate { get; set; }
 
-        public string RootProduct { get; set; }
+        public RootProduct RootProduct { get; set; }
+
+        public string RootProductName { get; set; }
     }
 }

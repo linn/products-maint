@@ -37,5 +37,8 @@
         public bool OnHold { get; set; }
 
         public string TypeOfSerialNumber { get; set; }
+        
+        public bool RootProductOnHold { get; set; }
+
     }
 }

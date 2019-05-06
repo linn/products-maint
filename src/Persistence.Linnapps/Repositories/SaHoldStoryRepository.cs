@@ -29,7 +29,8 @@
                 .Include(e => e.PutOnHoldByEmployee)
                 .Include(e => e.TakenOffHoldByEmployee)
                 .Include(e => e.SalesArticle)
-                .ToList().First();
+                .Include(e => e.RootProduct)
+                .ToList().FirstOrDefault();
         }
 
         public IQueryable<SaHoldStory> FindAll()

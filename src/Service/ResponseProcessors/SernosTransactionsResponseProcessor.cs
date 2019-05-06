@@ -4,12 +4,12 @@
 
     using Linn.Common.Facade;
     using Linn.Common.Nancy.Facade;
-    using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.SernosTransactions;
 
-    public class SernosTransactionsResponseProcessor : JsonResponseProcessor<IEnumerable<SernosTransaction>>
+    public class SernosTransactionsResponseProcessor : JsonResponseProcessor<IEnumerable<SernosTrans>>
     {
-        public SernosTransactionsResponseProcessor(IResourceBuilder<IEnumerable<SernosTransaction>> resourceBuilder)
-            : base(resourceBuilder, "sernos-transes", 1)
+        public SernosTransactionsResponseProcessor(IResourceBuilder<IEnumerable<SernosTrans>> resourceBuilder)
+            : base(resourceBuilder, "serial-number-transactions", 1)
         {
         }
     }

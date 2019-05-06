@@ -10,7 +10,7 @@
     <PackageReference Include="FluentValidation" Version="8.2.3" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.2.0" />
     <PackageReference Include="Linn.Common.Configuration" Version="2.0.0" />
-    <PackageReference Include="Linn.Common.Facade" Version="4.0.0" />
+    <PackageReference Include="Linn.Common.Facade" Version="5.0.0" />
     <PackageReference Include="Linn.Common.Nancy.Facade" Version="2.0.2" />
     <PackageReference Include="Nancy" Version="2.0.0-clinteastwood" />
     <PackageReference Include="PagedList.Core" Version="1.17.4" />

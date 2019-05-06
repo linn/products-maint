@@ -40,8 +40,6 @@ import CreateVatCode from '../containers/vatCodes/CreateVatCode';
 import 'typeface-roboto';
 import SalesArticles from '../containers/salesArticles/SalesArticles';
 import SalesArticle from '../containers/salesArticles/SalesArticle';
-import SaHoldStoriesSearch from '../containers/saHoldStories/Search';
-import SaHoldStoriesCreateSearch from '../containers/saHoldStories/CreateSearch';
 import SaHoldStory from '../containers/saHoldStories/SaHoldStory';
 import CloseSaHoldStory from '../containers/saHoldStories/CloseSaHoldStory';
 import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesOptions';
@@ -59,6 +57,8 @@ import ProductsOnHold from '../containers/reports/ProductsOnHold';
 import SalesPackages from '../containers/salesPackages/SalesPackages';
 import SalesPackage from '../containers/salesPackages/SalesPackage';
 import CreateSalesPackage from '../containers/salesPackages/CreateSalesPackage';
+import RootProducts from '../containers/rootProducts/RootProducts';
+import RootProduct from '../containers/rootProducts/RootProduct';
 
 const Root = ({ store }) => (
     <div>
@@ -336,11 +336,6 @@ const Root = ({ store }) => (
                             />
                             <Route
                                 exact
-                                path="/products/reports/sa-hold-stories"
-                                component={SaHoldStoriesSearch}
-                            />
-                            <Route
-                                exact
                                 path="/products/reports/sa-hold-stories/:holdStoryId"
                                 component={SaHoldStory}
                             />
@@ -351,11 +346,6 @@ const Root = ({ store }) => (
                             />
                             <Route
                                 exact
-                                path="/products/maint/put-product-on-hold"
-                                component={SaHoldStoriesCreateSearch}
-                            />
-                            <Route
-                                exact
                                 path="/products/maint/put-product-on-hold/:articleNumber"
                                 component={CreateSaHoldStory}
                             />
@@ -363,6 +353,21 @@ const Root = ({ store }) => (
                                 exact
                                 path="/products/maint/close-hold-story/:holdStoryId"
                                 component={CloseSaHoldStory}
+                            />
+                            <Route
+                                exact
+                                path="/products/maint/root-products"
+                                component={RootProducts}
+                            />
+                            <Route
+                                exact
+                                path="/products/maint/root-products/:name"
+                                component={RootProduct}
+                            />
+                            <Route
+                                exact
+                                path="/products/maint/root-products/:name/put-on-hold"
+                                component={CreateSaHoldStory}
                             />
                             <Route exact path="/:sectionId" component={MenuPage} />
                         </div>

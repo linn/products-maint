@@ -36,6 +36,8 @@ import salesPackage from './salesPackage';
 import salesPackages from './salesPackages';
 import sernosTransaction from './sernosTransaction';
 import sernosTransactions from './sernosTransactions';
+import rootProducts from './rootProducts/rootProducts';
+import rootProduct from './rootProducts/rootProduct';
 import salesArticleCompositeDiscount from './salesArticleCompositeDiscount';
 import salesArticleSernosDetails from './salesArticleSernosDetails';
 
@@ -78,7 +80,10 @@ const rootReducer = combineReducers({
     sernosTransaction,
     sernosTransactions,
     salesArticleCompositeDiscount,
-    salesArticleSernosDetails
+    salesArticleSernosDetails,
+    salesArticleCompositeDiscount,
+    rootProduct,
+    rootProducts
 });
 
 export default rootReducer;
