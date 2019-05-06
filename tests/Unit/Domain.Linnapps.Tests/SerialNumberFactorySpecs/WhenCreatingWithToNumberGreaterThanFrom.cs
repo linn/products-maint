@@ -31,7 +31,7 @@
         [Test]
         public void ShouldThrowException()
         {
-            this.action.Should().Throw<InvalidDataException>().WithMessage("To serial number should not be less than from serial number");
+            this.action.Should().Throw<InvalidDataException>().WithMessage("To Serial Number should not be less than From Serial Number");
         }
     }
 }

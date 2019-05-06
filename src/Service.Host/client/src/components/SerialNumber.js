@@ -23,14 +23,18 @@ function SerialNumber({
     snackbarVisible,
     addItem,
     setEditStatus,
+    sernosNotes,
+    sernosNotesLoading,
     sernosTransactions,
     sernosTransactionsLoading,
     setSnackbarVisible,
+    addSernosNote,
     fetchSalesArticleSernosDetails
 }) {
     const [serialNumber, setSerialNumber] = useState({});
     const [prevSerialNumber, setPrevSerialNumber] = useState({});
     const [sernosTransactionsList, setSernosTransactionsList] = useState(['']);
+    const [selectedSernosTransaction, setSelectedSernosTransaction] = useState('');
 
     const savedFetchSalesArticleSernosDetails = useRef(null);
 
@@ -39,13 +43,17 @@ function SerialNumber({
     }, [fetchSalesArticleSernosDetails]);
 
     useEffect(() => {
-        if (item !== prevSerialNumber) {
-            setPrevSerialNumber(item);
-            if (item !== null) {
-                setSerialNumber(item);
-            } else {
-                setSerialNumber({});
-            }
+        if (item === null) {
+            setSerialNumber({});
+            setPrevSerialNumber(null);
+        } else {
+            const sernos = item[0];
+            setSerialNumber(s => ({
+                ...sernos,
+                fromSernosNumber: s.fromSernosNumber,
+                toSernosNumber: s.toSernosNumber
+            }));
+            setPrevSerialNumber(sernos);
         }
     }, [item, prevSerialNumber]);
 
@@ -62,37 +70,59 @@ function SerialNumber({
 
     useEffect(() => {
         if (salesArticleSernosDetails) {
-            setSerialNumber({
-                ...serialNumber,
+            setSerialNumber(s => ({
+                ...s,
                 sernosGroup: salesArticleSernosDetails.sernosGroup,
                 serialNumbered: salesArticleSernosDetails.serialNumbered
-            });
+            }));
         } else {
-            setSerialNumber({
-                ...serialNumber,
+            setSerialNumber(s => ({
+                ...s,
                 sernosGroup: null,
                 serialNumbered: null
-            });
+            }));
         }
-    }, [salesArticleSernosDetails, serialNumber]);
+    }, [salesArticleSernosDetails]);
 
     const articles = ['', 'MAJIK-IP', 'MAJIK CD', 'KLIMAX DS', 'KIKO DSM', 'AKURATE CD'];
 
     const viewing = () => editStatus === 'view';
 
     const handleFieldChange = (propertyName, newValue) => {
+        if (propertyName === 'transCode') {
+            const code = newValue.split(':')[0];
+
+            setSerialNumber({ ...serialNumber, [propertyName]: code });
+            setSelectedSernosTransaction(newValue);
+
+            return;
+        }
         setSerialNumber({ ...serialNumber, [propertyName]: newValue });
     };
 
     const handleSaveClick = () => {
-        addItem(serialNumber);
         setEditStatus('view');
+        addItem(serialNumber);
+        // for the length of the serial numbers?
+        for (
+            let sernosNumber = serialNumber.fromSernosNumber;
+            sernosNumber <= serialNumber.toSernosNumber;
+            sernosNumber += 1
+        )
+            addSernosNote({
+                sernosNotes: serialNumber.sernosNotes,
+                sernosGroup: serialNumber.sernosGroup,
+                sernosNumber,
+                sernosTRef: serialNumber.sernosTRef,
+                transCode: serialNumber.transCode
+            });
     };
 
     const handleBackClick = () => history.push('/products/maint/serial-numbers');
 
     return (
         <Page>
+            {/* {console.log(sernosNotes)} */}
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     <Title text="Create Serial Number" />
@@ -102,7 +132,7 @@ function SerialNumber({
                         <ErrorCard errorMessage={errorMessage} />
                     </Grid>
                 )}
-                {loading || sernosTransactionsLoading ? (
+                {loading || sernosTransactionsLoading || sernosNotesLoading ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
@@ -121,7 +151,7 @@ function SerialNumber({
                                 label="Transaction"
                                 onChange={handleFieldChange}
                                 propertyName="transCode"
-                                value={serialNumber.transCode}
+                                value={selectedSernosTransaction}
                             />
                         </Grid>
                         <Grid item xs={5} />
@@ -198,7 +228,7 @@ function SerialNumber({
                         <Grid item xs={5} />
                         <Grid item xs={5}>
                             <InputField
-                                disabled={viewing()}
+                                disabled
                                 fullWidth
                                 label="Sernos TRef"
                                 maxLength={8}

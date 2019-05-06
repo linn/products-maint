@@ -20,15 +20,19 @@
 
         private readonly ISerialNumberFactory serialNumberFactory;
 
+        private readonly IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource> sernosNoteService;
+
         public SerialNumberService(
             IRepository<SerialNumber, int> serialNumberRepository,
             ITransactionManager transactionManager,
-            ISerialNumberFactory serialNumberFactory)
+            ISerialNumberFactory serialNumberFactory,
+            IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource> sernosNoteService)
             : base(serialNumberRepository, transactionManager)
         {
             this.serialNumberRepository = serialNumberRepository;
             this.transactionManager = transactionManager;
             this.serialNumberFactory = serialNumberFactory;
+            this.sernosNoteService = sernosNoteService;
         }
 
         public IResult<IEnumerable<SerialNumber>> CreateSerialNumbers(SerialNumberResource resource)
@@ -62,7 +66,18 @@
             foreach (var serialNumber in serialNumbers)
             {
                 this.serialNumberRepository.Add(serialNumber);
+                // TODO so use the create resource in the facade and service
+                // here add the serial number fields to a new note and the notes from the resource
             }
+
+//            foreach (var serialNumber in serialNumbers)
+//            {
+//                SernosNote = new SernosNoteCreateResource
+//                                 {
+//                                     SernosGroup = serialNumber.SernosGroup,
+//                                     SernosNotes = serialNumber.serno
+//                                 };
+//            }
 
             this.transactionManager.Commit();
 

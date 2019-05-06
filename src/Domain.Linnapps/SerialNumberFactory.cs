@@ -30,6 +30,16 @@
             int? prevSerialNumber,
             int createdBy)
         {
+            if ((transCode == "RN ISSUED" || transCode == "RN BUILT") && prevSerialNumber == null)
+            {
+                throw new InvalidSerialNumberTransactionException("RN ISSUED and RN BUILT transactions must have a previous serial number");
+            }
+
+            if ((transCode == "RN ISSUED" || transCode == "RN BUILT") && fromSerialNumber != toSerialNumber)
+            {
+                throw new InvalidSerialNumberTransactionException("RN ISSUED and RN BUILT transactions can only be for a single serial number");
+            }
+
             var salesArticle = this.salesArticleRepository.FindById(articleNumber);
             if (salesArticle == null)
             {
@@ -50,7 +60,7 @@
 
             if (toSerialNumber < fromSerialNumber)
             {
-                throw new InvalidDataException("To serial number should not be less than from serial number");
+                throw new InvalidDataException("To Serial Number should not be less than From Serial Number");
             }
 
             if ((salesArticle.TypeOfSerialNumber == "P1" || salesArticle.TypeOfSerialNumber == "P2")

@@ -1,6 +1,7 @@
 import {
     REQUEST_SALES_ARTICLE_SERNOS_DETAILS,
-    RECEIVE_SALES_ARTICLE_SERNOS_DETAILS
+    RECEIVE_SALES_ARTICLE_SERNOS_DETAILS,
+    CLEAR_SALES_ARTICLE_SERNOS_DETAILS
 } from '../actions/index';
 
 const defaultState = {
@@ -21,6 +22,11 @@ function salesArticleSernosDetails(state = defaultState, action) {
                 ...state,
                 loading: false,
                 data: action.payload.data
+            };
+        case CLEAR_SALES_ARTICLE_SERNOS_DETAILS:
+            return {
+                ...state,
+                data: null
             };
         default:
             return state;
