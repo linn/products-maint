@@ -49,7 +49,7 @@ function SerialNumberTransactions({ page, loading, pageLoad }) {
 
     return (
         <Page>
-            {loading || !page? (
+            {loading || !page ? (
                 <Loading />
             ) : (
                 <Fragment>
@@ -64,7 +64,7 @@ function SerialNumberTransactions({ page, loading, pageLoad }) {
                         </TableHead>
                         <TableBody>
                             {page.elements &&
-                                page.elements.map((row) => (
+                                page.elements.map(row => (
                                     <Fragment key={row.transCode}>
                                         <TableRow>
                                             <TableCell component="th" scope="row">
