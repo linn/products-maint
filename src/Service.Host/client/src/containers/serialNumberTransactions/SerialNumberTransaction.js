@@ -22,7 +22,6 @@ const mapDispatchToProps = {
     initialise,
     updateSerialNumberTransaction: serialNumberTransactionActions.update,
     setEditStatus: serialNumberTransactionActions.setEditStatus,
-    resetSerialNumberTransaction: serialNumberTransactionActions.reset,
     setSnackbarVisible: serialNumberTransactionActions.setSnackbarVisible
 };
 

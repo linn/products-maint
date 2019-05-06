@@ -64,14 +64,9 @@ function SerialNumberTransactions({ page, loading, pageLoad }) {
                         </TableHead>
                         <TableBody>
                             {page.elements &&
-                                page.elements.map((row, index) => (
-                                    // there are duplicates in the live database so this is a workaround
-                                    // we should not use the index as a key as it will impact on performance when sorting
-                                    // eslint-disable-next-line react/no-array-index-key
+                                page.elements.map((row) => (
                                     <Fragment key={row.transCode}>
-                                        <TableRow
-  
-                                        >
+                                        <TableRow>
                                             <TableCell component="th" scope="row">
                                                 {row.transCode}
                                             </TableCell>

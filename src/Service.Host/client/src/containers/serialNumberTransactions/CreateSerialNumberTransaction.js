@@ -14,7 +14,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     addSerialNumberTransaction: serialNumberTransactionActions.add,
-    resetSerialNumberTransaction: serialNumberTransactionActions.reset,
     setEditStatus: serialNumberTransactionActions.setEditStatus,
     setSnackbarVisible: serialNumberTransactionActions.setSnackbarVisible
 };
