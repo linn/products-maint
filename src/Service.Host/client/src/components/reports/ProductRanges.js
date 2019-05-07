@@ -1,10 +1,10 @@
 ﻿import React from 'react';
-import { Loading, ReportTable, Title } from '@linn-it/linn-form-components-library';
+import { Loading, ReportTable, Title, ErrorCard } from '@linn-it/linn-form-components-library';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
 
-const ProductRanges = ({ reportData, loading, options }) => {
+const ProductRanges = ({ reportData, loading, options, errorMessage }) => {
     const optionsTitle =
         !options.includePhasedOut || options.includePhasedOut === 'false' ? 'Live ' : '';
     return (
@@ -13,6 +13,11 @@ const ProductRanges = ({ reportData, loading, options }) => {
                 <Grid item xs={12}>
                     <Title text={`${optionsTitle} Product Ranges`} />
                 </Grid>
+                {errorMessage && (
+                    <Grid item xs={12}>
+                        <ErrorCard errorMessage={errorMessage} />
+                    </Grid>
+                )}
                 <Grid item xs={12}>
                     {loading ? <Loading /> : ''}
                     <ReportTable
@@ -32,13 +37,15 @@ const ProductRanges = ({ reportData, loading, options }) => {
 ProductRanges.propTypes = {
     reportData: PropTypes.shape({}),
     loading: PropTypes.bool,
-    options: PropTypes.shape({})
+    options: PropTypes.shape({}),
+    errorMessage: PropTypes.string
 };
 
 ProductRanges.defaultProps = {
     reportData: null,
     options: {},
-    loading: false
+    loading: false,
+    errorMessage: ''
 };
 
 export default ProductRanges;

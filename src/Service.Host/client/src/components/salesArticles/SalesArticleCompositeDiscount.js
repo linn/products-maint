@@ -5,7 +5,8 @@ import {
     Title,
     Loading,
     SaveBackCancelButtons,
-    SnackbarMessage
+    SnackbarMessage,
+    ErrorCard
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import history from '../../history';
@@ -18,7 +19,8 @@ function SalesArticleCompositeDiscount({
     updateSalesArticleCompositeDiscount,
     setEditStatus,
     snackbarVisible,
-    setSnackbarVisible
+    setSnackbarVisible,
+    errorMessage
 }) {
     const [salesArticleCompositeDiscount, setSalesArticleCompositeDiscount] = useState();
     const [prevSalesArticleCompositeDiscount, setPrevSalesArticleCompositeDiscount] = useState({});
@@ -62,6 +64,11 @@ function SalesArticleCompositeDiscount({
 
     return (
         <Grid container spacing={24}>
+            {errorMessage && (
+                <Grid item xs={12}>
+                    <ErrorCard errorMessage={errorMessage} />
+                </Grid>
+            )}
             {loading || !salesArticleCompositeDiscount ? (
                 <Grid item xs={12}>
                     <Loading />
@@ -126,7 +133,8 @@ SalesArticleCompositeDiscount.defaultProps = {
     updateSalesArticleCompositeDiscount: null,
     loading: null,
     itemId: null,
-    snackbarVisible: false
+    snackbarVisible: false,
+    errorMessage: ''
 };
 
 SalesArticleCompositeDiscount.propTypes = {
@@ -138,7 +146,8 @@ SalesArticleCompositeDiscount.propTypes = {
     loading: PropTypes.bool,
     snackbarVisible: PropTypes.bool,
     setSnackbarVisible: PropTypes.func.isRequired,
-    match: PropTypes.shape({}).isRequired
+    match: PropTypes.shape({}).isRequired,
+    errorMessage: PropTypes.string
 };
 
 export default SalesArticleCompositeDiscount;
