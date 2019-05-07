@@ -14,7 +14,7 @@
 
     using NUnit.Framework;
 
-    public class WhenCreatingSerialNumbers : ContextBase
+    public class WhenCreatingSerialNumbersWithSernosNotes : ContextBase
     {
         private SerialNumberCreateResource resource;
 
@@ -25,12 +25,12 @@
         {
             this.resource = new SerialNumberCreateResource
                                 {
-
                                     TransCode = "trans",
                                     ArticleNumber = "art",
                                     FromSernosNumber = 555,
                                     ToSernosNumber = 556,
                                     PrevSernosNumber = 321,
+                                    SernosNotes = "some notes",
                                     Links = new List<LinkResource>
                                                 {
                                                     new LinkResource("entered-by", "/employees/888")
@@ -57,6 +57,12 @@
         public void ShouldCallFactory()
         {
             this.SerialNumberFactory.Received().CreateSerialNumbers("trans", "art", 555, 556, 321, 888);
+        }
+
+        [Test]
+        public void ShouldCallSernosNotesService()
+        {
+            this.SernosNoteService.Received().Add(Arg.Is<SernosNoteCreateResource>(n => n.SernosNotes == "some notes"));
         }
 
         [Test]

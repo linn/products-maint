@@ -16,14 +16,14 @@
 
     public class WhenCreatingWithInvalidInput : ContextBase
     {
-        private SerialNumberResource resource;
+        private SerialNumberCreateResource resource;
 
         private IResult<IEnumerable<SerialNumber>> result;
 
         [SetUp]
         public void SetUp()
         {
-            this.resource = new SerialNumberResource
+            this.resource = new SerialNumberCreateResource
             {
 
                 TransCode = "trans",

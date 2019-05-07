@@ -35,7 +35,7 @@
                                    ToSernosNumber = 2
                                };
 
-            this.SerialNumberService.CreateSerialNumbers(Arg.Any<SerialNumberResource>())
+            this.SerialNumberService.CreateSerialNumbers(Arg.Any<SerialNumberCreateResource>())
                 .Returns(new CreatedResult<IEnumerable<SerialNumber>>(new List<SerialNumber>
                                                                           {
                                                                               new SerialNumber("group", "trans", "art", 800) { SernosNumber = 1 },
@@ -56,7 +56,7 @@
         public void ShouldCallService()
         {
 
-            this.SerialNumberService.Received().CreateSerialNumbers(Arg.Any<SerialNumberResource>());
+            this.SerialNumberService.Received().CreateSerialNumbers(Arg.Any<SerialNumberCreateResource>());
         }
 
 

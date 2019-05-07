@@ -32,6 +32,8 @@
             this.SerialNumberRepository = Substitute.For<IRepository<SerialNumber, int>>();
             this.TransactionManager = Substitute.For<ITransactionManager>();
             this.SerialNumberFactory = Substitute.For<ISerialNumberFactory>();
+            this.SernosNoteService =
+                Substitute.For<IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource>>();
             this.Sut = new SerialNumberService(this.SerialNumberRepository, this.TransactionManager, this.SerialNumberFactory, this.SernosNoteService);
         }
     }

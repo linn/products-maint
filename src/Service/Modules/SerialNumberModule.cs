@@ -26,9 +26,9 @@
         private object CreateSerialNumbers()
         {
             this.RequiresAuthentication();
-            var resource = this.Bind<SerialNumberResource>();
-            resource.Links = new[] { new LinkResource("entered-by", this.Context.CurrentUser.GetEmployeeUri()) };
-            var results = new SerialNumberResourceValidator().Validate(resource);
+            var resource = this.Bind<SerialNumberCreateResource>();
+            resource.Links = new[] { new LinkResource("entered-by", this.Context.CurrentUser.GetEmployeeUri()) };            
+            var results = new SerialNumberCreateResourceValidator().Validate(resource);
 
             var serialNumbers = this.serialNumberService.CreateSerialNumbers(resource);
             return results.IsValid

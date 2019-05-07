@@ -13,14 +13,14 @@
 
     public class WhenCreatingWithoutEmployee : ContextBase
     {
-        private SerialNumberResource resource;
+        private SerialNumberCreateResource resource;
 
         private IResult<IEnumerable<SerialNumber>> result;
 
         [SetUp]
         public void SetUp()
         {
-            this.resource = new SerialNumberResource { Links = new List<LinkResource>().ToArray() };
+            this.resource = new SerialNumberCreateResource() { Links = new List<LinkResource>().ToArray() };
             this.result = this.Sut.CreateSerialNumbers(this.resource);
         }
 

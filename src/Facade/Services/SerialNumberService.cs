@@ -12,7 +12,7 @@
     using Linn.Products.Facade.Extensions;
     using Linn.Products.Resources;
 
-    public class SerialNumberService : FacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource>, ISerialNumberFacadeService
+    public class SerialNumberService : FacadeService<SerialNumber, int, SerialNumberCreateResource, SerialNumberResource>, ISerialNumberFacadeService
     {
         private readonly IRepository<SerialNumber, int> serialNumberRepository;
 
@@ -35,7 +35,7 @@
             this.sernosNoteService = sernosNoteService;
         }
 
-        public IResult<IEnumerable<SerialNumber>> CreateSerialNumbers(SerialNumberResource resource)
+        public IResult<IEnumerable<SerialNumber>> CreateSerialNumbers(SerialNumberCreateResource resource)
         {
             var employee = resource.Links.FirstOrDefault(a => a.Rel == "entered-by");
 
@@ -66,25 +66,28 @@
             foreach (var serialNumber in serialNumbers)
             {
                 this.serialNumberRepository.Add(serialNumber);
-                // TODO so use the create resource in the facade and service
-                // here add the serial number fields to a new note and the notes from the resource
-            }
 
-//            foreach (var serialNumber in serialNumbers)
-//            {
-//                SernosNote = new SernosNoteCreateResource
-//                                 {
-//                                     SernosGroup = serialNumber.SernosGroup,
-//                                     SernosNotes = serialNumber.serno
-//                                 };
-//            }
+                if (!string.IsNullOrEmpty(resource.SernosNotes))
+                {
+                    var sernosNote = new SernosNoteCreateResource()
+                                         {
+                                             SernosNotes = resource.SernosNotes,
+                                             SernosGroup = serialNumber.SernosGroup,
+                                             SernosTRef = serialNumber.SernosTRef,
+                                             SernosNumber = serialNumber.SernosNumber,
+                                             TransCode = serialNumber.TransCode
+                                         };
+
+                    this.sernosNoteService.Add(sernosNote);
+                }
+            }
 
             this.transactionManager.Commit();
 
             return new CreatedResult<IEnumerable<SerialNumber>>(serialNumbers);
         }
 
-        protected override SerialNumber CreateFromResource(SerialNumberResource resource)
+        protected override SerialNumber CreateFromResource(SerialNumberCreateResource resource)
         {
             throw new System.NotImplementedException();
         }

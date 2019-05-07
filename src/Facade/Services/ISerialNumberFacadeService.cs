@@ -6,8 +6,8 @@
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
 
-    public interface ISerialNumberFacadeService : IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource>
+    public interface ISerialNumberFacadeService : IFacadeService<SerialNumber, int, SerialNumberCreateResource, SerialNumberResource>
     {
-        IResult<IEnumerable<SerialNumber>> CreateSerialNumbers(SerialNumberResource resource);
+        IResult<IEnumerable<SerialNumber>> CreateSerialNumbers(SerialNumberCreateResource resource);
     }
 }
