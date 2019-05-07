@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.Tests.SernosTransModuleSpecs
+﻿namespace Linn.Products.Service.Tests.SernosTransactionModuleSpecs
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -6,8 +6,9 @@
     using FluentAssertions;
 
     using Linn.Common.Facade;
-    using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.SernosTransactions;
     using Linn.Products.Resources;
+    using Linn.Products.Service.Tests.SernosTransModuleSpecs;
 
     using Nancy;
     using Nancy.Testing;
@@ -21,11 +22,11 @@
         [SetUp]
         public void SetUp()
         {
-            var sernosTrans1 = new SernosTransaction { TransCode = "code1", TransDescription = "desc1", Comments = "comments1" };
-            var sernosTrans2 = new SernosTransaction { TransCode = "code2", TransDescription = "desc2", Comments = "comments2" };
+            var sernosTrans1 = new SernosTrans { TransCode = "code1", TransDescription = "desc1", Comments = "comments1" };
+            var sernosTrans2 = new SernosTrans { TransCode = "code2", TransDescription = "desc2", Comments = "comments2" };
 
             this.SernosTransactionService.GetAll().Returns(
-                new SuccessResult<IEnumerable<SernosTransaction>>(new List<SernosTransaction> { sernosTrans1, sernosTrans2 }));
+                new SuccessResult<IEnumerable<SernosTrans>>(new List<SernosTrans> { sernosTrans1, sernosTrans2 }));
 
             this.Response = this.Browser.Get(
                 "/products/maint/sernos-transactions",

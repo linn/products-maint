@@ -1,10 +1,10 @@
-﻿namespace Linn.Products.Service.Tests.SernosTransModuleSpecs
+﻿namespace Linn.Products.Service.Tests.SernosTransactionModuleSpecs
 {
     using System.Collections.Generic;
     using System.Security.Claims;
 
     using Linn.Common.Facade;
-    using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.SernosTransactions;
     using Linn.Products.Facade.ResourceBuilders;
     using Linn.Products.Resources;
     using Linn.Products.Service.Modules;
@@ -19,19 +19,19 @@
 
     public abstract class ContextBase : NancyContextBase
     {
-        protected IFacadeService<SernosTransaction, string, SernosTransactionResource, SernosTransactionResource> SernosTransactionService { get; private set; }
+        protected IFacadeService<SernosTrans, string, SernosTransactionResource, SernosTransactionResource> SernosTransactionService { get; private set; }
 
         [SetUp]
         public void EstablishContext()
         {
-            this.SernosTransactionService = Substitute.For<IFacadeService<SernosTransaction, string, SernosTransactionResource, SernosTransactionResource>>();
+            this.SernosTransactionService = Substitute.For<IFacadeService<SernosTrans, string, SernosTransactionResource, SernosTransactionResource>>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
                 {
                     with.Dependency(this.SernosTransactionService);
-                    with.Dependency<IResourceBuilder<SernosTransaction>>(new SernosTransactionResourceBuilder());
-                    with.Dependency<IResourceBuilder<IEnumerable<SernosTransaction>>>(new SernosTransactionsResourceBuilder());
+                    with.Dependency<IResourceBuilder<SernosTrans>>(new SernosTransactionResourceBuilder());
+                    with.Dependency<IResourceBuilder<IEnumerable<SernosTrans>>>(new SernosTransactionsResourceBuilder());
                     with.Module<SernosTransactionModule>();
                     with.ResponseProcessor<SernosTransactionResponseProcessor>();
                     with.ResponseProcessor<SernosTransactionsResponseProcessor>();
