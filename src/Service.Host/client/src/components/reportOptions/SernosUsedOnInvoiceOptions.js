@@ -44,7 +44,7 @@ function SernosUsedOnInvoiceOptions({ prevOptions, history }) {
                 <Button
                     color="primary"
                     variant="contained"
-                    disabled={invoiceNumber === '' && consignmentNumber === ''}
+                    disabled={!invoiceNumber && !consignmentNumber}
                     onClick={handleClick}
                 >
                     Run Report
