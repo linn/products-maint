@@ -22,12 +22,14 @@
 
         protected override void UpdateFromResource(SernosTrans sernosConfig, SernosTransactionResource updateResource)
         {
-            throw new NotImplementedException();
+            sernosConfig.TransDescription = updateResource.TransDescription;
+            sernosConfig.ManualPost = updateResource.ManualPost;
         }
 
         protected override Expression<Func<SernosTrans, bool>> SearchExpression(string searchTerm)
         {
-            throw new NotImplementedException();
+            return a => a.TransCode.ToLower().Contains(searchTerm.ToLower())
+                        || a.TransDescription.ToLower().Contains(searchTerm.ToLower());
         }
     }
 }

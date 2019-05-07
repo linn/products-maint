@@ -107,3 +107,11 @@ export const salesPackagesActionTypes = makeActionTypes(itemTypes.salesPackages.
 export const salesArticleCompositeDiscountActionTypes = makeActionTypes(
     itemTypes.salesArticleCompositeDiscount.actionType
 );
+
+export const serialNumberTransactionActionTypes = makeActionTypes(
+    itemTypes.serialNumberTransaction.actionType
+);
+export const serialNumberTransactionsActionTypes = makeActionTypes(
+    itemTypes.serialNumberTransactions.actionType,
+    false
+);

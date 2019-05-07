@@ -18,6 +18,8 @@
 
     using NUnit.Framework;
 
+    using PagedList.Core;
+
     public abstract class ContextBase : NancyContextBase
     {
         protected IFacadeService<SernosConfig, string, SernosConfigResource, SernosConfigResource> SernosConfigService { get; private set; }
@@ -43,12 +45,14 @@
                     with.Dependency<IResourceBuilder<SernosTrans>>(new SernosTransactionResourceBuilder());
                     with.Dependency<IResourceBuilder<IEnumerable<SernosConfig>>>(new SernosConfigsResourceBuilder());
                     with.Dependency<IResourceBuilder<IEnumerable<SernosTrans>>>(new SernosTransactionsResourceBuilder());
+                    with.Dependency<IResourceBuilder<IPagedList<SernosTrans>>>(new SernosTransactionsPaginatedResourceBuilder());
                     with.Dependency<IResourceBuilder<IEnumerable<SernosCount>>>(new SernosCountsResourceBuilder());
                     with.Module<SernosConfigModule>();
                     with.ResponseProcessor<SernosConfigResponseProcessor>();
                     with.ResponseProcessor<SernosTransactionResponseProcessor>();
                     with.ResponseProcessor<SernosConfigsResponseProcessor>();
                     with.ResponseProcessor<SernosTransactionsResponseProcessor>();
+                    with.ResponseProcessor<SernosTransactionsPaginatedResponseProcessor>();
                     with.ResponseProcessor<SernosCountsResponseProcessor>();
                     with.RequestStartup(
                         (container, pipelines, context) =>
