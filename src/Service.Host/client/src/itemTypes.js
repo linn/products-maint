@@ -135,3 +135,15 @@ export const rootProducts = new ItemType(
     'ROOT_PRODUCTS',
     '/products/maint/root-products'
 );
+
+export const serialNumberTransaction = new ItemType(
+    'serialNumberTransaction',
+    'SERIAL_NUMBER_TRANSACTION',
+    '/products/maint/serial-number-transactions'
+);
+
+export const serialNumberTransactions = new ItemType(
+    'serialNumberTransactions',
+    'SERIAL_NUMBER_TRANSACTIONS',
+    '/products/maint/serial-number-transactions'
+);

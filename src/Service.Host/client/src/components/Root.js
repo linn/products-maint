@@ -61,7 +61,9 @@ import RootProduct from '../containers/rootProducts/RootProduct';
 import SernosUsedOnInvoice from '../containers/reports/SernosUsedOnInvoice';
 import SernosUsedOnInvoiceOptions from '../containers/reportOptions/SernosUsedOnInvoiceOptions';
 import sernosUsedOnInvoiceOptions from '../containers/reportOptions/SernosUsedOnInvoiceOptions';
-
+import SerialNumberTransactions from '../containers/serialNumberTransactions/SerialNumberTransactions';
+import SerialNumberTransaction from '../containers/serialNumberTransactions/SerialNumberTransaction';
+import CreateSerialNumberTransaction from '../containers/serialNumberTransactions/CreateSerialNumberTransaction';
 
 const Root = ({ store }) => (
     <div>
@@ -143,6 +145,23 @@ const Root = ({ store }) => (
                             <Switch>
                                 <Route
                                     exact
+                                    path="/products/maint/serial-number-transactions"
+                                    component={SerialNumberTransactions}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/serial-number-transactions/create"
+                                    component={CreateSerialNumberTransaction}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/serial-number-transactions/:id"
+                                    component={SerialNumberTransaction}
+                                />
+                            </Switch>
+                            <Switch>
+                                <Route
+                                    exact
                                     path="/products/maint/sales-articles"
                                     component={SalesArticles}
                                 />
@@ -152,7 +171,6 @@ const Root = ({ store }) => (
                                     component={SalesArticle}
                                 />
                             </Switch>
-
                             <Switch>
                                 <Route
                                     exact
