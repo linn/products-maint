@@ -64,11 +64,6 @@ function SalesArticleCompositeDiscount({
 
     return (
         <Grid container spacing={24}>
-            {errorMessage && (
-                <Grid item xs={12}>
-                    <ErrorCard errorMessage={errorMessage} />
-                </Grid>
-            )}
             {loading || !salesArticleCompositeDiscount ? (
                 <Grid item xs={12}>
                     <Loading />
