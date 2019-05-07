@@ -19,7 +19,6 @@
         [SetUp]
         public void SetUp()
         {
-            var results = new ResultsModel(new[] { "col1 " });
             this.ReportService.GetReport(1, 1)
                 .Returns(new ResultsModel() { ReportTitle = new NameModel("t") });
 

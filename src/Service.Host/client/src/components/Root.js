@@ -58,6 +58,10 @@ import SalesPackage from '../containers/salesPackages/SalesPackage';
 import CreateSalesPackage from '../containers/salesPackages/CreateSalesPackage';
 import RootProducts from '../containers/rootProducts/RootProducts';
 import RootProduct from '../containers/rootProducts/RootProduct';
+import SernosUsedOnInvoice from '../containers/reports/SernosUsedOnInvoice';
+import SernosUsedOnInvoiceOptions from '../containers/reportOptions/SernosUsedOnInvoiceOptions';
+import sernosUsedOnInvoiceOptions from '../containers/reportOptions/SernosUsedOnInvoiceOptions';
+
 
 const Root = ({ store }) => (
     <div>
@@ -362,6 +366,16 @@ const Root = ({ store }) => (
                                 exact
                                 path="/products/maint/root-products/:name/put-on-hold"
                                 component={CreateSaHoldStory}
+                            />
+                            <Route
+                                exact
+                                path="/products/reports/sernos-used-on-invoice"
+                                component={sernosUsedOnInvoiceOptions}
+                            />
+                            <Route
+                                exact
+                                path="/products/reports/sernos-used-on-invoice/report"
+                                component={SernosUsedOnInvoice}
                             />
                             <Route exact path="/:sectionId" component={MenuPage} />
                         </div>

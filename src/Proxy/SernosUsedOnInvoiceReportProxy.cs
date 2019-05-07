@@ -47,7 +47,7 @@ namespace Linn.Products.Proxy
                          AND (INVOICE_DETAILS.DOCUMENT_NUMBER=INVOICES.DOCUMENT_NUMBER)
                          AND (INVOICES.CONSIGNMENT_ID=WANDLOG.CONSIGNMENT_ID)
                          and WANDLOG.UNWANDED_BY_WANDLOG_ID is NULL
-                         ORDER BY SALES_OUTLETS.NAME ASC";
+                         ORDER BY INVOICED_ITEMS.INVOICE_LINE ASC";
 
             var cmd = new OracleCommand(sql, this.connection) { CommandType = CommandType.Text };
             var dataAdapter = new OracleDataAdapter(cmd);

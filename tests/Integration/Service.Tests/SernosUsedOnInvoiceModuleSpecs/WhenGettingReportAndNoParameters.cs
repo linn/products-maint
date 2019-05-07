@@ -17,7 +17,6 @@
         [SetUp]
         public void SetUp()
         {
-            var results = new ResultsModel(new[] { "col1 " });
             this.ReportService.GetReport(null, null)
                 .Throws(new ArgumentException("Bad Arguments"));
 

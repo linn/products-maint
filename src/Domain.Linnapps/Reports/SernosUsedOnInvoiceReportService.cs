@@ -17,39 +17,42 @@
 
         public ResultsModel GetReport(int? invoiceNumber, int? consignmentNumber)
         {
+            string salesAccount;
             var table = this.databaseService.GetReport(invoiceNumber, consignmentNumber);
-
-            if (consignmentNumber == null)
+            try
             {
-                consignmentNumber = (int)table.Rows[0][1];
+                salesAccount = table.Rows[0][0].ToString();
             }
-
-            var salesAccount = table.Rows[0][0];
+            catch (IndexOutOfRangeException x)
+            {
+                salesAccount = string.Empty;
+            }
             var results = new ResultsModel(new[]
                                                {
                                                    "Invoice Line",
                                                    "Sales Article",
-                                                   "Quantity",
-                                                   "Warranty Number",
                                                    "Description",
-                                                   "Serial Number 1",
-                                                   "Serial Number 2",
+                                                   "Serial #1",
+                                                   "Serial #2",
+                                                   "Warranty",
                                                    "Order Number",
                                                    "Order Line"
                                                }) {
-                                                    ReportTitle = new NameModel($"{invoiceNumber} {consignmentNumber} {salesAccount}")
+                                                    ReportTitle = new NameModel(salesAccount)
                                                   };
 
             foreach (DataRow tableRow in table.Rows)
             {
                 var row = results.AddRow(tableRow[10].ToString());
-                results.SetGridValue(row.RowIndex, 0, int.Parse(tableRow[3].ToString()));
-                results.SetGridValue(row.RowIndex, 1, int.Parse(tableRow[10].ToString()));
-                results.SetGridValue(row.RowIndex, 2, tableRow[11] == DBNull.Value ? null  : (int?)int.Parse(tableRow[11].ToString()));
-                results.SetGridTextValue(row.RowIndex, 3, tableRow[6].ToString());
-                results.SetGridTextValue(row.RowIndex, 4, tableRow[9].ToString());
-                results.SetGridValue(row.RowIndex, 5, int.Parse(tableRow[4].ToString()));
-                results.SetGridValue(row.RowIndex, 6, int.Parse(tableRow[5].ToString()));
+                results.SetGridTextValue(row.RowIndex, 0, tableRow[3]?.ToString());
+                results.SetGridTextValue(row.RowIndex, 1, tableRow[6]?.ToString());
+                results.SetGridTextValue(row.RowIndex, 2, tableRow[9]?.ToString());
+                results.SetGridTextValue(row.RowIndex, 3, tableRow[10]?.ToString());
+                results.SetGridTextValue(row.RowIndex, 4, tableRow[11]?.ToString());
+                results.SetGridTextValue(row.RowIndex, 5, tableRow[8]?.ToString());
+                results.SetGridTextValue(row.RowIndex, 6, tableRow[4]?.ToString());
+                results.SetGridTextValue(row.RowIndex, 7, tableRow[5]?.ToString());
+
             }
 
             return results;
