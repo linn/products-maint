@@ -29,3 +29,9 @@ export const salesProductsByProductRangeReport = new ItemType(
     'SALES_PRODUCTS_BY_RANGE',
     '/products/reports/sales-products-by-product-range'
 );
+
+export const sernosUsedOnInvoiceReport = new ItemType(
+    'sernosUsedOnInvoiceReport',
+    'SERNOS_USED_ON_INVOICE',
+    '/products/reports/sernos-used-on-invoice'
+);
