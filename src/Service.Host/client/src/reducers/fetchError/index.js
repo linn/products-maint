@@ -1,6 +1,4 @@
-﻿import * as actionTypes from '../../actions';
-
-const defaultState = null;
+import * as actionTypes from '../../actions';
 
 const fetchError = (state, action) => {
     switch (action.type) {
@@ -13,7 +11,14 @@ const fetchError = (state, action) => {
                   }
                 : { statusText: action.payload };
         default:
-            return defaultState;
+            if (action.error) {
+                // this can occur when a request fails (no server response) see https://www.npmjs.com/package/redux-api-middleware#error
+                return {
+                    statusText:
+                        'There was an issue contacting the server, please try again later...'
+                };
+            }
+            return null;
     }
 };
 

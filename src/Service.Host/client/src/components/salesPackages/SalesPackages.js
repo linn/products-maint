@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Loading, CreateButton } from '@linn-it/linn-form-components-library';
+import { Loading, CreateButton, ErrorCard } from '@linn-it/linn-form-components-library';
 import {
     Table,
     TableHead,
@@ -31,7 +31,7 @@ const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: tru
     TablePaginationActions
 );
 
-function SalesPackages({ page, loading, pageLoad, pageSortedLoad }) {
+function SalesPackages({ page, loading, pageLoad, pageSortedLoad, errorMessage }) {
     const [rowOpen, setRowOpen] = useState();
     const [localPage, setLocalPage] = useState(0);
     const [localOrderBy, setOrderBy] = useState();
@@ -66,6 +66,7 @@ function SalesPackages({ page, loading, pageLoad, pageSortedLoad }) {
 
     return (
         <Page>
+            {errorMessage && <ErrorCard errorMessage={errorMessage} />}
             {loading ? (
                 <Loading />
             ) : (
@@ -172,7 +173,12 @@ SalesPackages.propTypes = {
     page: PropTypes.PropTypes.shape({}).isRequired,
     loading: PropTypes.bool.isRequired,
     pageLoad: PropTypes.func.isRequired,
-    pageSortedLoad: PropTypes.func.isRequired
+    pageSortedLoad: PropTypes.func.isRequired,
+    errorMessage: PropTypes.string
+};
+
+SalesPackages.defaultProps = {
+    errorMessage: ''
 };
 
 export default SalesPackages;

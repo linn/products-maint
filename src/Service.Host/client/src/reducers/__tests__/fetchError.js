@@ -2,6 +2,7 @@
 import fetchError from '../fetchError';
 import * as actionTypes from '../../actions';
 import cartonTypeActions from '../../actions/cartonTypeActions';
+import { SignalCellularNull } from '@material-ui/icons';
 
 describe('fetch error reducer', () => {
     test('when full error received', () => {
@@ -94,6 +95,21 @@ describe('fetch error reducer', () => {
 
         const expected = {
             statusText: 'Network failure'
+        };
+
+        expect(fetchError(state, action)).toEqual(expected);
+    });
+
+    test('when request fails', () => {
+        const state = null;
+
+        const action = {
+            error: true,
+            type: 'SOME_RANDOM_REQUEST'
+        };
+
+        const expected = {
+            statusText: 'There was an issue contacting the server, please try again later...'
         };
 
         expect(fetchError(state, action)).toEqual(expected);

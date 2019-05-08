@@ -1,10 +1,10 @@
 ﻿import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { Typeahead, CreateButton } from '@linn-it/linn-form-components-library';
+import { Typeahead, CreateButton, ErrorCard } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
 
-const Tariffs = ({ tariffs, fetchItems, loading, clearSearch }) => {
+const Tariffs = ({ tariffs, fetchItems, loading, clearSearch, errorMessage }) => {
     const results = tariffs.map(tariff => ({
         ...tariff,
         name: tariff.tariffCode,
@@ -17,6 +17,11 @@ const Tariffs = ({ tariffs, fetchItems, loading, clearSearch }) => {
     return (
         <Page>
             <Grid container spacing={24}>
+                {errorMessage && (
+                    <Grid item xs={12}>
+                        <ErrorCard errorMessage={errorMessage} />
+                    </Grid>
+                )}
                 <Grid item xs={10}>
                     <Typeahead
                         items={results}
@@ -38,11 +43,13 @@ Tariffs.propTypes = {
     tariffs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     loading: PropTypes.bool,
     fetchItems: PropTypes.func.isRequired,
-    clearSearch: PropTypes.func.isRequired
+    clearSearch: PropTypes.func.isRequired,
+    errorMessage: PropTypes.string
 };
 
 Tariffs.defaultProps = {
-    loading: false
+    loading: false,
+    errorMessage: ''
 };
 
 export default Tariffs;

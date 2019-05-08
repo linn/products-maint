@@ -68,6 +68,11 @@ function SaCoreType({
     return (
         <Page>
             <Grid container spacing={24}>
+                {errorMessage && (
+                    <Grid item xs={12}>
+                        <ErrorCard errorMessage={errorMessage} />
+                    </Grid>
+                )}
                 <Grid item xs={12}>
                     {creating() ? (
                         <Title text="Add Sales Article Core Type" />
@@ -81,11 +86,6 @@ function SaCoreType({
                     </Grid>
                 ) : (
                     <Fragment>
-                        {errorMessage && (
-                            <Grid item xs={12}>
-                                <ErrorCard errorMessage={errorMessage} />
-                            </Grid>
-                        )}
                         <SnackbarMessage
                             visible={snackbarVisible}
                             onClose={() => setSnackbarVisible(false)}

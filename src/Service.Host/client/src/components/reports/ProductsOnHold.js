@@ -31,7 +31,7 @@ function Report({ reportData, loading }) {
     );
 }
 
-function ProductsOnHold({ reportData, loading, history }) {
+function ProductsOnHold({ reportData, loading, history, errorMessage }) {
     const handleBackClick = () => {
         history.push('/products/maint');
     };
@@ -39,6 +39,11 @@ function ProductsOnHold({ reportData, loading, history }) {
     return (
         <Page>
             <Grid container spacing={24} justify="center">
+                {errorMessage && (
+                    <Grid item xs={12}>
+                        <ErrorCard errorMessage={errorMessage} />
+                    </Grid>
+                )}
                 <Grid item xs={12}>
                     <Grid item xs={10}>
                         <Title text="Products On Hold" />
@@ -58,7 +63,8 @@ function ProductsOnHold({ reportData, loading, history }) {
 ProductsOnHold.propTypes = {
     history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     reportData: PropTypes.shape({}),
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    errorMessage: PropTypes.string
 };
 
 Report.propTypes = {
@@ -73,7 +79,8 @@ Report.defaultProps = {
 
 ProductsOnHold.defaultProps = {
     reportData: null,
-    loading: false
+    loading: false,
+    errorMessage: ''
 };
 
 export default ProductsOnHold;

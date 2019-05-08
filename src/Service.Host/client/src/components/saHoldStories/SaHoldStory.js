@@ -102,17 +102,17 @@ function SaHoldStory({
     return (
         <Page>
             <Grid container spacing={24}>
+                {errorMessage && (
+                    <Grid item xs={12}>
+                        <ErrorCard errorMessage={errorMessage} />
+                    </Grid>
+                )}
                 {loading || (!saHoldStory && !creating()) ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
                 ) : (
                     <Fragment>
-                        {errorMessage && (
-                            <Grid item xs={12}>
-                                <ErrorCard errorMessage={errorMessage} />
-                            </Grid>
-                        )}
                         <Grid item xs={12}>
                             <Title text={titleText(match.params.articleNumber)} />
                         </Grid>
