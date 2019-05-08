@@ -1,29 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Linn.Products.Proxy
+﻿namespace Linn.Products.Proxy
 {
+    using System;
     using System.Data;
-
-    using Linn.Common.Configuration;
-    using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Linnapps.RemoteServices;
-
-    using Oracle.ManagedDataAccess.Client;
 
     public class SernosUsedOnInvoiceReportProxy : ISernosUsedOnInvoiceDatabaseService
     {
-        private readonly OracleConnection connection;
+        private readonly IDatabaseService databaseService;
 
-        public SernosUsedOnInvoiceReportProxy()
+        public SernosUsedOnInvoiceReportProxy(IDatabaseService databaseService)
         {
-            this.connection = new OracleConnection(ConnectionStrings.ManagedConnectionString());
+            this.databaseService = databaseService;
         }
 
         public DataTable GetReport(int? invoiceNumber, int? consignmentNumber)
         {
-            var queryClause = this.BuildQueryClause(invoiceNumber, consignmentNumber); 
+            var queryClause = BuildQueryClause(invoiceNumber, consignmentNumber); 
             var sql = $@"SELECT SALES_OUTLETS.NAME,
                          INVOICES.CONSIGNMENT_ID, INVOICES.DOCUMENT_NUMBER DOC_NUMBER, INVOICED_ITEMS.INVOICE_LINE,
                          INVOICED_ITEMS.SALES_ORDER_NUMBER, INVOICED_ITEMS.ORDER_LINE, WANDLOG.ARTICLE_NUMBER,
@@ -49,16 +41,10 @@ namespace Linn.Products.Proxy
                          and WANDLOG.UNWANDED_BY_WANDLOG_ID is NULL
                          ORDER BY INVOICED_ITEMS.INVOICE_LINE ASC";
 
-            var cmd = new OracleCommand(sql, this.connection) { CommandType = CommandType.Text };
-            var dataAdapter = new OracleDataAdapter(cmd);
-            var dataSet = new DataSet();
-
-            dataAdapter.Fill(dataSet);
-
-            return dataSet.Tables[0];
+            return this.databaseService.ExecuteQuery(sql).Tables[0];
         }
 
-        private string BuildQueryClause(int? invoiceNumber, int? consignmentNumber)
+        private static string BuildQueryClause(int? invoiceNumber, int? consignmentNumber)
         {
             if (invoiceNumber != null && consignmentNumber == null)
             {
