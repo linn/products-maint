@@ -4,7 +4,7 @@ import * as actionTypes from './index';
 
 const fetchMenu = () => ({
     [CALL_API]: {
-        endpoint: `http://localhost:50459/intranet/menu-no-auth`,
+        endpoint: `${config.proxyRoot}/intranet/menu-no-auth`,
         method: 'GET',
         options: { requiresAuth: false },
         headers: {
