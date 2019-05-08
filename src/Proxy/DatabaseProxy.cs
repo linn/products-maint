@@ -8,16 +8,14 @@
     {
         public DataSet ExecuteQuery(string sql)
         {
-            var connection = new OracleConnection(ConnectionStrings.ManagedConnectionString());
-            var dataAdapter = new OracleDataAdapter(
-                new OracleCommand(sql, connection) { CommandType = CommandType.Text });
-
-            var dataSet = new DataSet();
-
-            dataAdapter.Fill(dataSet);
-            connection.Close();
-
-            return dataSet;
+            using (OracleConnection connection = new OracleConnection(ConnectionStrings.ManagedConnectionString()))
+                {
+                var dataAdapter = new OracleDataAdapter(
+                    new OracleCommand(sql, connection) { CommandType = CommandType.Text });
+                    var dataSet = new DataSet();
+                    dataAdapter.Fill(dataSet);
+                    return dataSet;
+                }
         }
 
         public int GetIdSequence(string sequenceName)

@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 import SernosUsedOnInvoice from '../../components/reports/SernosUsedOnInvoice';
 import initialiseOnMount from '../common/initialiseOnMount';
+import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import actions from '../../actions/sernosUsedOnInvoiceReport';
 import config from '../../config';
 import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
@@ -24,6 +25,7 @@ const mapStateToProps = (state, ownProps) => ({
     reportData: getReportData(state, reportName),
     loading: getReportLoading(state, reportName),
     options: getOptions(ownProps),
+    errorMessage: getSingleErrorMessage(state),
     config
 });
 

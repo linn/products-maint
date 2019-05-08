@@ -25,6 +25,8 @@
                 with =>
                     {
                         with.Header("Accept", "application/json");
+                        with.Query("invoiceNumber", string.Empty);
+                        with.Query("consignmentNumber", string.Empty);
                     }).Result;
         }
 

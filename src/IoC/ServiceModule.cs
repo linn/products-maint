@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.IoC
 {
+    using System.Data;
+
     using Autofac;
 
     using Linn.Common.Configuration;
@@ -17,6 +19,8 @@
     using Linn.Products.Facade.Services;
     using Linn.Products.Proxy;
     using Linn.Products.Resources;
+
+    using Oracle.ManagedDataAccess.Client;
 
     public class ServiceModule : Module
     {
@@ -73,6 +77,10 @@
             builder.RegisterType<DatabaseProxy>().As<IDatabaseService>();
             builder.RegisterType<SalesArticleCompositeDiscountProxyService>().As<ISalesArticleCompositeDiscountService>();
             builder.RegisterType<SernosUsedOnInvoiceReportProxy>().As<ISernosUsedOnInvoiceDatabaseService>();
+
+            builder.RegisterType<OracleConnection>().As<IDbConnection>().WithParameter("connectionString", ConnectionStrings.ManagedConnectionString());
+            builder.RegisterType<OracleCommand>().As<IDbCommand>();
+            builder.RegisterType<OracleDataAdapter>().As<IDataAdapter>();
         }
     }
 }

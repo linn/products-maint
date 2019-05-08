@@ -31,13 +31,18 @@ function Report({ reportData, loading }) {
     );
 }
 
-function SernosUsedOnInvoice({ reportData, loading, history }) {
+function SernosUsedOnInvoice({ reportData, loading, history, errorMessage }) {
     const handleBackClick = () => {
         history.push('/products/reports/sernos-used-on-invoice');
     };
     return (
         <Page>
             <Grid container spacing={24} justify="center">
+                {errorMessage && (
+                    <Grid item xs={12}>
+                        <ErrorCard errorMessage={errorMessage} />
+                    </Grid>
+                )}
                 <Grid item xs={12}>
                     <Grid item xs={10}>
                         <Title
@@ -61,7 +66,8 @@ function SernosUsedOnInvoice({ reportData, loading, history }) {
 SernosUsedOnInvoice.propTypes = {
     history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     reportData: PropTypes.shape({}),
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    errorMessage: PropTypes.string
 };
 
 Report.propTypes = {
@@ -76,7 +82,8 @@ Report.defaultProps = {
 
 SernosUsedOnInvoice.defaultProps = {
     reportData: null,
-    loading: false
+    loading: false,
+    errorMessage: ''
 };
 
 export default SernosUsedOnInvoice;

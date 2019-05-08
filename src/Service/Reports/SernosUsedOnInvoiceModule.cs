@@ -2,6 +2,7 @@
 {
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
+    using Linn.Products.Resources.Validators;
     using Linn.Products.Service.Models;
 
     using Nancy;
@@ -20,10 +21,8 @@
         private object GetSernosUsedOnInvoice()
         {
             var resource = this.Bind<SernosUsedOnInvoiceReportRequestResource>();
-         
-           var results = this.facadeService.GetReport(resource.InvoiceNumber, resource.ConsignmentNumber);
-                return this.Negotiate.WithModel(results).WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                    .WithView("Index");
+            var results =  this.facadeService.GetReport(resource.InvoiceNumber, resource.ConsignmentNumber);
+            return this.Negotiate.WithModel(results).WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
         }
     }
 }
