@@ -39,6 +39,7 @@ import salesPackages from './salesPackages';
 import rootProducts from './rootProducts/rootProducts';
 import rootProduct from './rootProducts/rootProduct';
 import salesArticleCompositeDiscount from './salesArticleCompositeDiscount';
+import sernosUsedOnInvoiceReport from './sernosUsedOnInvoiceReport';
 
 const rootReducer = combineReducers({
     oidc,
@@ -80,7 +81,8 @@ const rootReducer = combineReducers({
     salesPackages,
     salesArticleCompositeDiscount,
     rootProduct,
-    rootProducts
+    rootProducts,
+    sernosUsedOnInvoiceReport
 });
 
 export default rootReducer;
