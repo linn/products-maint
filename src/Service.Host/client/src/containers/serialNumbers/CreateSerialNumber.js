@@ -8,8 +8,10 @@ import serialNumberSelectors from '../../selectors/serialNumberSelectors';
 import sernosTransactionsSelectors from '../../selectors/sernosTransactionsSelectors';
 import sernosNoteActions from '../../actions/sernosNoteActions';
 import sernosNotesSelectors from '../../selectors/sernosNotesSelectors';
-import { getArticleType } from '../../selectors/salesArticleSelectors';
+// import { getArticleType } from '../../selectors/salesArticleSelectors';
 import getSalesArticleSernosDetails from '../../selectors/salesArticleSernosDetailsSelectors';
+import salesArticlesActions from '../../actions/salesArticles';
+import salesArticlesSelectors from '../../selectors/salesArticlesSelectors';
 import {
     fetchSalesArticleSernosDetails,
     clearSalesArticleSernosDetails
@@ -21,12 +23,11 @@ const mapStateToProps = state => ({
     errorMessage: getSingleErrorMessage(state),
     loading: serialNumberSelectors.getLoading(state),
     salesArticleSernosDetails: getSalesArticleSernosDetails(state),
-    sernosNotes: sernosNotesSelectors.getItems(state),
-    sernosNotesLoading: sernosNotesSelectors.getLoading(state),
     sernosTransactions: sernosTransactionsSelectors.getItems(state),
     sernosTransactionsLoading: sernosTransactionsSelectors.getLoading(state),
     snackbarVisible: serialNumberSelectors.getSnackbarVisible(state),
-    salesArticleType: getArticleType(state)
+    salesArticlesSearchResults: salesArticlesSelectors.getSearchItems(state),
+    salesArticlesLoading: salesArticlesSelectors.getSearchLoading(state)
 });
 
 const initialise = () => dispatch => {
@@ -39,8 +40,8 @@ const initialise = () => dispatch => {
 const mapDispatchToProps = {
     initialise,
     addItem: serialNumberActions.add,
-    addSernosNote: sernosNoteActions.add,
     fetchSalesArticleSernosDetails,
+    fetchSalesArticles: salesArticlesActions.search,
     setEditStatus: serialNumberActions.setEditStatus,
     setSnackbarVisible: serialNumberActions.setSnackbarVisible
 };

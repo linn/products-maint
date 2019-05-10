@@ -8,23 +8,13 @@
 
         public int CreatedBy { get; set; }
 
-        public int? DocumentNumber { get; set; }
-
-        public string DocumentType { get; set; }
-
         public int FromSernosNumber { get; set; }
 
         public int ToSernosNumber { get; set; }
 
         public int? PrevSernosNumber { get; set; }
 
-        public string SernosDate { get; set; }
-
         public string SernosGroup { get; set; }
-
-        public int SernosNumber { get; set; }
-
-        public int SernosTRef { get; set; }
 
         public string TransCode { get; set; }
 

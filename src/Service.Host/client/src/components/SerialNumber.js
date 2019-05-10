@@ -9,7 +9,9 @@ import {
     Title,
     ErrorCard,
     SnackbarMessage,
-    Dropdown
+    Dropdown,
+    useSearch,
+    AutoComplete
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 
@@ -22,21 +24,33 @@ function SerialNumber({
     salesArticleSernosDetails,
     snackbarVisible,
     addItem,
+    salesArticlesSearchResults,
     setEditStatus,
-    sernosNotes,
-    sernosNotesLoading,
     sernosTransactions,
     sernosTransactionsLoading,
     setSnackbarVisible,
-    addSernosNote,
-    fetchSalesArticleSernosDetails
+    fetchSalesArticleSernosDetails,
+    fetchSalesArticles,
+    salesArticlesLoading
 }) {
     const [serialNumber, setSerialNumber] = useState({});
     const [prevSerialNumber, setPrevSerialNumber] = useState({});
     const [sernosTransactionsList, setSernosTransactionsList] = useState(['']);
     const [selectedSernosTransaction, setSelectedSernosTransaction] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
+    const [salesArticles, setSalesArticles] = useState([]);
 
     const savedFetchSalesArticleSernosDetails = useRef(null);
+
+    useSearch(fetchSalesArticles, searchTerm);
+
+    useEffect(() => {
+        setSalesArticles(() =>
+            salesArticlesSearchResults.map(s => ({
+                label: `${s.articleNumber}: ${s.description}`
+            }))
+        );
+    }, [salesArticlesSearchResults]);
 
     useEffect(() => {
         savedFetchSalesArticleSernosDetails.current = fetchSalesArticleSernosDetails;
@@ -84,9 +98,11 @@ function SerialNumber({
         }
     }, [salesArticleSernosDetails]);
 
-    const articles = ['', 'MAJIK-IP', 'MAJIK CD', 'KLIMAX DS', 'KIKO DSM', 'AKURATE CD'];
-
     const viewing = () => editStatus === 'view';
+
+    const handleSearchTermChange = value => {
+        setSearchTerm(value);
+    };
 
     const handleFieldChange = (propertyName, newValue) => {
         if (propertyName === 'transCode') {
@@ -97,32 +113,23 @@ function SerialNumber({
 
             return;
         }
+        if (propertyName === 'articleNumber') {
+            const articleNo = newValue.label.split(':')[0];
+            setSerialNumber({ ...serialNumber, [propertyName]: articleNo });
+            return;
+        }
         setSerialNumber({ ...serialNumber, [propertyName]: newValue });
     };
 
     const handleSaveClick = () => {
         setEditStatus('view');
         addItem(serialNumber);
-        // for the length of the serial numbers?
-        for (
-            let sernosNumber = serialNumber.fromSernosNumber;
-            sernosNumber <= serialNumber.toSernosNumber;
-            sernosNumber += 1
-        )
-            addSernosNote({
-                sernosNotes: serialNumber.sernosNotes,
-                sernosGroup: serialNumber.sernosGroup,
-                sernosNumber,
-                sernosTRef: serialNumber.sernosTRef,
-                transCode: serialNumber.transCode
-            });
     };
 
     const handleBackClick = () => history.push('/products/maint/serial-numbers');
 
     return (
         <Page>
-            {/* {console.log(sernosNotes)} */}
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     <Title text="Create Serial Number" />
@@ -132,7 +139,7 @@ function SerialNumber({
                         <ErrorCard errorMessage={errorMessage} />
                     </Grid>
                 )}
-                {loading || sernosTransactionsLoading || sernosNotesLoading ? (
+                {loading || sernosTransactionsLoading ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
@@ -156,15 +163,20 @@ function SerialNumber({
                         </Grid>
                         <Grid item xs={5} />
                         <Grid item xs={5}>
-                            <Dropdown
+                            {/* TODO maybe when receing itll be viewing so show article number */}
+                            {/* brought back in new text field and hide this */}
+                            <AutoComplete
+                                suggestions={salesArticles}
                                 disabled={viewing()}
-                                fullWidth
-                                items={articles}
-                                label="Article Number"
                                 onChange={handleFieldChange}
                                 propertyName="articleNumber"
+                                label="Select Article Number"
                                 value={serialNumber.articleNumber}
+                                onInputChange={handleSearchTermChange}
                             />
+                        </Grid>
+                        <Grid item xs={1}>
+                            {salesArticlesLoading && <Loading />}
                         </Grid>
                         <Grid item xs={5} />
                         <Grid item xs={5}>
@@ -179,6 +191,7 @@ function SerialNumber({
                             />
                         </Grid>
                         <Grid item xs={5}>
+                            {/* TODO bring back serial numbered with the resource */}
                             <InputField
                                 disabled
                                 fullWidth
@@ -255,6 +268,7 @@ function SerialNumber({
                         </Grid>
                         <Grid item xs={8}>
                             <InputField
+                                // TODO bring back notes with the resource
                                 disabled={viewing()}
                                 fullWidth
                                 label="Notes"
@@ -287,19 +301,24 @@ SerialNumber.propTypes = {
     errorMessage: PropTypes.string,
     loading: PropTypes.bool.isRequired,
     snackbarVisible: PropTypes.bool,
+    salesArticlesSearchResults: PropTypes.arrayOf(PropTypes.shape({})),
     salesArticleSernosDetails: PropTypes.shape({}).isRequired,
+    salesArticlesLoading: PropTypes.bool,
     sernosTransactions: PropTypes.arrayOf(PropTypes.shape({})),
     sernosTransactionsLoading: PropTypes.bool,
     addItem: PropTypes.func.isRequired,
     setEditStatus: PropTypes.func.isRequired,
     setSnackbarVisible: PropTypes.func.isRequired,
-    fetchSalesArticleSernosDetails: PropTypes.func.isRequired
+    fetchSalesArticleSernosDetails: PropTypes.func.isRequired,
+    fetchSalesArticles: PropTypes.func.isRequired
 };
 
 SerialNumber.defaultProps = {
     item: {},
     errorMessage: '',
     snackbarVisible: false,
+    salesArticlesSearchResults: [{}],
+    salesArticlesLoading: false,
     sernosTransactions: [],
     sernosTransactionsLoading: false
 };
