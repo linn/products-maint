@@ -109,13 +109,6 @@
                 .WithModel(new SuccessResult<IEnumerable<SalesArticle>>(this.salesArticleProxyService.Search(resource.SearchTerm)))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
-
-//            var results = this.salesArticleService.GetAll();
-//
-//            return this.Negotiate
-//                .WithModel(results)
-//                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
-//                .WithView("Index");
         }
     }
 }
