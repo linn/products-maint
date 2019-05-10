@@ -1,6 +1,5 @@
 import * as actionTypes from '../actions';
 import sernosNotesActions from '../actions/sernosNotesActions';
-import sernosNoteActions from '../actions/sernosNoteActions';
 
 const fetchSernosNotes = (sernosNumber, dispatch) => {
     const sernosNotesHref = `/products/maint/serial-numbers/notes?sernosNumber=${sernosNumber}`;
@@ -19,21 +18,6 @@ const fetchSernosNoteFromSernosNote = (data, dispatch) => {
     fetchSernosNotes(sernosNumber, dispatch);
 };
 
-// const createSernosNote = (data, dispatch) => {
-//     const { serialNumber } = data;
-//     console.log(data);
-//     if (serialNumber.sernosNotes) {
-//         const sernosNote = {
-//             sernosNotes: serialNumber.sernosNotes,
-//             sernosGroup: serialNumber.sernosGroup,
-//             sernosNumber: serialNumber.sernosNumber,
-//             sernosTRef: serialNumber.sernosTRef,
-//             transCode: serialNumber.transCode
-//         };
-//         dispatch(sernosNoteActions.add(sernosNote));
-//     }
-// };
-
 export default ({ dispatch }) => next => action => {
     const result = next(action);
 
@@ -45,10 +29,6 @@ export default ({ dispatch }) => next => action => {
         case actionTypes.sernosNoteActionTypes.RECEIVE_NEW_SERNOS_NOTE:
             fetchSernosNoteFromSernosNote(action.payload.data, dispatch);
             break;
-        // case actionTypes.serialNumberActionTypes.RECEIVE_NEW_SERIAL_NUMBER:
-        // createSernosNote(action.payload.data, dispatch);
-        // fetchSernosNotesFromSerialNumber(action.payload.data, dispatch);
-        // break;
         default:
     }
 

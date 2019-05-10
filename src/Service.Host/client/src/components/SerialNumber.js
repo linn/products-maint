@@ -163,14 +163,12 @@ function SerialNumber({
                         </Grid>
                         <Grid item xs={5} />
                         <Grid item xs={5}>
-                            {/* TODO maybe when receing itll be viewing so show article number */}
-                            {/* brought back in new text field and hide this */}
                             <AutoComplete
                                 suggestions={salesArticles}
                                 disabled={viewing()}
                                 onChange={handleFieldChange}
                                 propertyName="articleNumber"
-                                label="Select Article Number"
+                                label="Article Number Search"
                                 value={serialNumber.articleNumber}
                                 onInputChange={handleSearchTermChange}
                             />
@@ -191,7 +189,6 @@ function SerialNumber({
                             />
                         </Grid>
                         <Grid item xs={5}>
-                            {/* TODO bring back serial numbered with the resource */}
                             <InputField
                                 disabled
                                 fullWidth
@@ -268,7 +265,6 @@ function SerialNumber({
                         </Grid>
                         <Grid item xs={8}>
                             <InputField
-                                // TODO bring back notes with the resource
                                 disabled={viewing()}
                                 fullWidth
                                 label="Notes"
