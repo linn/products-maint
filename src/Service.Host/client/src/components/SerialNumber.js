@@ -11,9 +11,11 @@ import {
     SnackbarMessage,
     Dropdown,
     useSearch,
-    AutoComplete
+    AutoComplete,
+    CreateButton
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
+import { getSernosNote } from '../selectors/sernosNotesSelectors';
 
 function SerialNumber({
     errorMessage,
@@ -26,6 +28,7 @@ function SerialNumber({
     addItem,
     salesArticlesSearchResults,
     setEditStatus,
+    sernosNotes,
     sernosTransactions,
     sernosTransactionsLoading,
     setSnackbarVisible,
@@ -47,6 +50,7 @@ function SerialNumber({
     useEffect(() => {
         setSalesArticles(() =>
             salesArticlesSearchResults.map(s => ({
+                ...s,
                 label: `${s.articleNumber}: ${s.description}`
             }))
         );
@@ -72,7 +76,9 @@ function SerialNumber({
     }, [item, prevSerialNumber]);
 
     useEffect(() => {
-        const transactions = sernosTransactions.map(s => `${s.transCode}: ${s.transDescription}`);
+        const transactions = sernosTransactions
+            .filter(s => s.manualPost === 'Y')
+            .map(s => s.transCode);
         setSernosTransactionsList(['', ...transactions]);
     }, [sernosTransactions]);
 
@@ -80,7 +86,7 @@ function SerialNumber({
         if (serialNumber.articleNumber) {
             savedFetchSalesArticleSernosDetails.current(serialNumber.articleNumber);
         }
-    }, [serialNumber.articleNumber]);
+    }, [serialNumber.articleNumber, editStatus]);
 
     useEffect(() => {
         if (salesArticleSernosDetails) {
@@ -105,18 +111,12 @@ function SerialNumber({
     };
 
     const handleFieldChange = (propertyName, newValue) => {
-        if (propertyName === 'transCode') {
-            const code = newValue.split(':')[0];
-
-            setSerialNumber({ ...serialNumber, [propertyName]: code });
-            setSelectedSernosTransaction(newValue);
-
+        if (propertyName === 'articleNumber') {
+            setSerialNumber({ ...serialNumber, [propertyName]: newValue.articleNumber });
             return;
         }
-        if (propertyName === 'articleNumber') {
-            const articleNo = newValue.label.split(':')[0];
-            setSerialNumber({ ...serialNumber, [propertyName]: articleNo });
-            return;
+        if (propertyName === 'transCode') {
+            setSelectedSernosTransaction(newValue);
         }
         setSerialNumber({ ...serialNumber, [propertyName]: newValue });
     };
@@ -126,13 +126,27 @@ function SerialNumber({
         addItem(serialNumber);
     };
 
+    const fromSernosNumberInvalid = () => !serialNumber.fromSernosNumber;
+
     const handleBackClick = () => history.push('/products/maint/serial-numbers');
+
+    const getSernosNoteText = () => {
+        const note = getSernosNote(sernosNotes, serialNumber);
+        return note ? note.sernosNotes : '';
+    };
 
     return (
         <Page>
             <Grid container spacing={24}>
                 <Grid item xs={12}>
                     <Title text="Create Serial Number" />
+                    {viewing() && (
+                        <Fragment>
+                            <Grid item xs={12}>
+                                <CreateButton createUrl="/products/maint/serial-numbers/create" />
+                            </Grid>
+                        </Fragment>
+                    )}
                 </Grid>
                 {errorMessage && (
                     <Grid item xs={12}>
@@ -163,15 +177,27 @@ function SerialNumber({
                         </Grid>
                         <Grid item xs={5} />
                         <Grid item xs={5}>
-                            <AutoComplete
-                                suggestions={salesArticles}
-                                disabled={viewing()}
-                                onChange={handleFieldChange}
-                                propertyName="articleNumber"
-                                label="Article Number Search"
-                                value={serialNumber.articleNumber}
-                                onInputChange={handleSearchTermChange}
-                            />
+                            {viewing() ? (
+                                <InputField
+                                    disabled
+                                    fullWidth
+                                    label="Article Number"
+                                    maxLength={10}
+                                    onChange={handleFieldChange}
+                                    propertyName="sernosGroup"
+                                    value={serialNumber.articleNumber}
+                                />
+                            ) : (
+                                <AutoComplete
+                                    suggestions={salesArticles}
+                                    disabled={viewing()}
+                                    onChange={handleFieldChange}
+                                    propertyName="articleNumber"
+                                    label="Article Number Search"
+                                    value={serialNumber.articleNumber}
+                                    onInputChange={handleSearchTermChange}
+                                />
+                            )}
                         </Grid>
                         <Grid item xs={1}>
                             {salesArticlesLoading && <Loading />}
@@ -201,6 +227,8 @@ function SerialNumber({
                         </Grid>
                         <Grid item xs={5}>
                             <InputField
+                                error={fromSernosNumberInvalid()}
+                                errorText="Required field"
                                 disabled={viewing()}
                                 fullWidth
                                 label="From Serial Number"
@@ -272,12 +300,16 @@ function SerialNumber({
                                 onChange={handleFieldChange}
                                 propertyName="sernosNotes"
                                 rows={3}
-                                value={serialNumber.sernosNotes}
+                                value={
+                                    viewing()
+                                        ? getSernosNoteText(sernosNotes, serialNumber)
+                                        : serialNumber.sernosNotes
+                                }
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
-                                saveDisabled={viewing()}
+                                saveDisabled={viewing() || fromSernosNumberInvalid()}
                                 saveClick={handleSaveClick}
                                 cancelClick={handleBackClick}
                                 backClick={handleBackClick}
@@ -300,6 +332,7 @@ SerialNumber.propTypes = {
     salesArticlesSearchResults: PropTypes.arrayOf(PropTypes.shape({})),
     salesArticleSernosDetails: PropTypes.shape({}).isRequired,
     salesArticlesLoading: PropTypes.bool,
+    sernosNotes: PropTypes.arrayOf(PropTypes.shape({})),
     sernosTransactions: PropTypes.arrayOf(PropTypes.shape({})),
     sernosTransactionsLoading: PropTypes.bool,
     addItem: PropTypes.func.isRequired,
@@ -315,6 +348,7 @@ SerialNumber.defaultProps = {
     snackbarVisible: false,
     salesArticlesSearchResults: [{}],
     salesArticlesLoading: false,
+    sernosNotes: [],
     sernosTransactions: [],
     sernosTransactionsLoading: false
 };

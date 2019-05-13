@@ -13,7 +13,7 @@ const fetchSernosNotesFromSerialNumber = (data, dispatch) => {
     }
 };
 
-const fetchSernosNoteFromSernosNote = (data, dispatch) => {
+const fetchSernosNotesFromSernosNote = (data, dispatch) => {
     const { sernosNumber } = data;
     fetchSernosNotes(sernosNumber, dispatch);
 };
@@ -23,11 +23,12 @@ export default ({ dispatch }) => next => action => {
 
     switch (action.type) {
         case actionTypes.serialNumbersActionTypes.RECEIVE_SERIAL_NUMBERS:
+        case actionTypes.serialNumberActionTypes.RECEIVE_NEW_SERIAL_NUMBER:
             fetchSernosNotesFromSerialNumber(action.payload.data, dispatch);
             break;
         case actionTypes.sernosNoteActionTypes.RECEIVE_UPDATED_SERNOS_NOTE:
         case actionTypes.sernosNoteActionTypes.RECEIVE_NEW_SERNOS_NOTE:
-            fetchSernosNoteFromSernosNote(action.payload.data, dispatch);
+            fetchSernosNotesFromSernosNote(action.payload.data, dispatch);
             break;
         default:
     }

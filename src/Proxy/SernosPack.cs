@@ -79,6 +79,7 @@
             cmd.Parameters.Add(serialNumberParameter);
 
             connection.Open();
+            // TODO catch exception
             cmd.ExecuteNonQuery();
             connection.Close();
 

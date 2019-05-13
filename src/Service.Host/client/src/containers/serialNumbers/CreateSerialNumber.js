@@ -6,9 +6,6 @@ import sernosTransactionsActions from '../../actions/sernosTransactionsActions';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import serialNumberSelectors from '../../selectors/serialNumberSelectors';
 import sernosTransactionsSelectors from '../../selectors/sernosTransactionsSelectors';
-import sernosNoteActions from '../../actions/sernosNoteActions';
-import sernosNotesSelectors from '../../selectors/sernosNotesSelectors';
-// import { getArticleType } from '../../selectors/salesArticleSelectors';
 import getSalesArticleSernosDetails from '../../selectors/salesArticleSernosDetailsSelectors';
 import salesArticlesActions from '../../actions/salesArticles';
 import salesArticlesSelectors from '../../selectors/salesArticlesSelectors';
@@ -16,6 +13,7 @@ import {
     fetchSalesArticleSernosDetails,
     clearSalesArticleSernosDetails
 } from '../../actions/salesArticleSernosDetails';
+import sernosNotesSelectors from '../../selectors/sernosNotesSelectors';
 
 const mapStateToProps = state => ({
     item: serialNumberSelectors.getItem(state),
@@ -23,6 +21,7 @@ const mapStateToProps = state => ({
     errorMessage: getSingleErrorMessage(state),
     loading: serialNumberSelectors.getLoading(state),
     salesArticleSernosDetails: getSalesArticleSernosDetails(state),
+    sernosNotes: sernosNotesSelectors.getItems(state),
     sernosTransactions: sernosTransactionsSelectors.getItems(state),
     sernosTransactionsLoading: sernosTransactionsSelectors.getLoading(state),
     snackbarVisible: serialNumberSelectors.getSnackbarVisible(state),
