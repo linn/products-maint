@@ -49,6 +49,9 @@ function SalesArticle({
         }
     });
 
+    const inputInvalid = () =>
+        salesArticle.percentageOfRootProductSales < 0 ||
+        salesArticle.percentageOfRootProductSales > 100;
     const handleSaveClick = () => {
         if (editing()) {
             updateSalesArticle(itemId, salesArticle);
@@ -247,6 +250,10 @@ function SalesArticle({
                                             propertyName="percentageOfRootProductSales"
                                             value={salesArticle.percentageOfRootProductSales}
                                             onChange={handleFieldChange}
+                                            error={inputInvalid()}
+                                            helperText={
+                                                inputInvalid() ? 'Must be between 0 and 100.' : ''
+                                            }
                                         />
                                     </Grid>
                                     <Grid item xs={6} />
@@ -262,7 +269,7 @@ function SalesArticle({
                                     </Grid>
                                     <Grid item xs={12}>
                                         <SaveBackCancelButtons
-                                            saveDisabled={viewing()}
+                                            saveDisabled={viewing() || inputInvalid()}
                                             saveClick={handleSaveClick}
                                             cancelClick={handleCancelClick}
                                             backClick={handleBackClick}

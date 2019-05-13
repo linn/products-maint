@@ -49,7 +49,9 @@ function SerialNumbers({
     };
 
     const handleSearchTermChange = (...args) => {
-        setSearchTerm(args[1]);
+        if (!Number.isNaN(args[1])) {
+            setSearchTerm(args[1]);
+        }
     };
 
     return (
