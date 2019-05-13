@@ -7,6 +7,7 @@ import Page from '../../containers/Page';
 const RootProducts = ({ items, fetchItems, loading, clearSearch, errorMessage }) => {
     const forecastItems = items.map(item => ({
         ...item,
+        id: item.name,
         name: item.name
     }));
 
