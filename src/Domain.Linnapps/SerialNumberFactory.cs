@@ -46,7 +46,16 @@
                 throw new ArticleNotFoundException($"Could not find Sales Article {articleNumber}");
             }
 
-            var sernosGroup = this.sernosPack.GetProductGroup(articleNumber);
+            string sernosGroup;
+
+            try
+            {
+                sernosGroup = this.sernosPack.GetProductGroup(articleNumber);
+            }
+            catch (Exception e)
+            {
+                throw new InvalidSerialNumberTransactionException(e.Message);
+            }
 
             if (string.IsNullOrEmpty(sernosGroup))
             {

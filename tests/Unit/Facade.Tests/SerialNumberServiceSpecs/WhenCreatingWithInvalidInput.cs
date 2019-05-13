@@ -24,18 +24,19 @@
         public void SetUp()
         {
             this.resource = new SerialNumberCreateResource
-            {
-
-                TransCode = "trans",
-                ArticleNumber = "art",
-                FromSernosNumber = 555,
-                ToSernosNumber = 556,
-                PrevSernosNumber = 321,
-                Links = new List<LinkResource>
+                                {
+                                    TransCode = "trans",
+                                    ArticleNumber = "art",
+                                    FromSernosNumber = 555,
+                                    ToSernosNumber = 556,
+                                    PrevSernosNumber = 321,
+                                    Links = new List<LinkResource>
                                                 {
-                                                    new LinkResource("entered-by", "/employees/888")
+                                                    new LinkResource(
+                                                        "entered-by",
+                                                        "/employees/888")
                                                 }.ToArray()
-            };
+                                };
 
             this.SerialNumberFactory.CreateSerialNumbers("trans", "art", 555, 556, 321, 888)
                 .Throws(new DomainException("message"));

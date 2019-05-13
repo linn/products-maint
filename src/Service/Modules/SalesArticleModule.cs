@@ -48,7 +48,10 @@
         {
             var result = this.salesArticleSerialNumberFacadeService.GetSerialNumberDetails(id.ToUpper());
 
-            return this.Negotiate.WithModel(result);
+            return this.Negotiate
+                .WithModel(result)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object UpdateSalesArticleCompositeDiscount(string id)

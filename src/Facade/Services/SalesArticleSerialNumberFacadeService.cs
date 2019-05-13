@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Facade.Services
 {
+    using System;
+
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps.Models;
@@ -26,7 +28,16 @@
                 return new NotFoundResult<SalesArticleSerialNumberDetails>($"Could not find Sales Article {articleNumber}");
             }
 
-            var sernosGroup = this.sernosPack.GetProductGroup(articleNumber);
+            string sernosGroup;
+
+            try
+            {
+                sernosGroup = this.sernosPack.GetProductGroup(articleNumber);
+            }
+            catch (Exception e)
+            {
+                return new BadRequestResult<SalesArticleSerialNumberDetails>(e.Message);
+            }
 
             var salesArticleSerialNumberDetails = new SalesArticleSerialNumberDetails
                                                       {
