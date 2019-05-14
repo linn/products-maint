@@ -32,13 +32,15 @@ function VatCode({
     const viewing = () => editStatus === 'view';
 
     useEffect(() => {
-        if (creating() && vatCode.vatOnly == null) {
+        if (creating() && !vatCode.vatOnly) {
             setVatCode({
-                ...item,
                 vatOnly: 'N'
             });
-        } else if (item !== prevVatCode) {
+        } else if (editing() && item !== prevVatCode) {
             setVatCode({ ...item, reason: '' });
+            setPrevVatCode(item);
+        } else if (viewing() && item !== prevVatCode) {
+            setVatCode({ ...item });
             setPrevVatCode(item);
         }
     });
@@ -73,8 +75,14 @@ function VatCode({
     };
 
     const handleFieldChange = (propertyName, newValue) => {
-        setEditStatus('edit');
-        setVatCode({ ...vatCode, [propertyName]: newValue });
+        if (!editing()) {
+            setEditStatus('edit');
+        }
+        if (!editing() && propertyName !== 'reason') {
+            setVatCode({ ...vatCode, reason: '', [propertyName]: newValue });
+        } else {
+            setVatCode({ ...vatCode, [propertyName]: newValue });
+        }
     };
 
     return (
@@ -152,7 +160,11 @@ function VatCode({
                                     label="Reason"
                                     maxLength={50}
                                     fullWidth
-                                    helperText={reasonInvalid() ? 'This field is required' : ''}
+                                    helperText={
+                                        reasonInvalid()
+                                            ? 'You must provide a reason to make a change.'
+                                            : ''
+                                    }
                                     onChange={handleFieldChange}
                                     propertyName="reason"
                                 />
