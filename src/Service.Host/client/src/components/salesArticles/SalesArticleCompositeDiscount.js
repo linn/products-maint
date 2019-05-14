@@ -5,8 +5,7 @@ import {
     Title,
     Loading,
     SaveBackCancelButtons,
-    SnackbarMessage,
-    ErrorCard
+    SnackbarMessage
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import history from '../../history';
@@ -19,8 +18,7 @@ function SalesArticleCompositeDiscount({
     updateSalesArticleCompositeDiscount,
     setEditStatus,
     snackbarVisible,
-    setSnackbarVisible,
-    errorMessage
+    setSnackbarVisible
 }) {
     const [salesArticleCompositeDiscount, setSalesArticleCompositeDiscount] = useState();
     const [prevSalesArticleCompositeDiscount, setPrevSalesArticleCompositeDiscount] = useState({});
@@ -89,6 +87,7 @@ function SalesArticleCompositeDiscount({
                                 label="Base Part"
                                 type="string"
                                 fullWidth
+                                maxLength={14}
                                 propertyName="baseArticleNumber"
                                 value={salesArticleCompositeDiscount.baseArticleNumber}
                                 onChange={handleFieldChange}
@@ -99,6 +98,7 @@ function SalesArticleCompositeDiscount({
                                 label="Gloss Part"
                                 type="string"
                                 fullWidth
+                                maxLength={14}
                                 propertyName="noDiscountArticleNumber"
                                 value={salesArticleCompositeDiscount.noDiscountArticleNumber}
                                 onChange={handleFieldChange}
@@ -128,8 +128,7 @@ SalesArticleCompositeDiscount.defaultProps = {
     updateSalesArticleCompositeDiscount: null,
     loading: null,
     itemId: null,
-    snackbarVisible: false,
-    errorMessage: ''
+    snackbarVisible: false
 };
 
 SalesArticleCompositeDiscount.propTypes = {
@@ -142,7 +141,6 @@ SalesArticleCompositeDiscount.propTypes = {
     snackbarVisible: PropTypes.bool,
     setSnackbarVisible: PropTypes.func.isRequired,
     match: PropTypes.shape({}).isRequired,
-    errorMessage: PropTypes.string
 };
 
 export default SalesArticleCompositeDiscount;

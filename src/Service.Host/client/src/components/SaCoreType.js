@@ -105,6 +105,7 @@ function SaCoreType({
                                 onChange={handleFieldChange}
                                 propertyName="coreType"
                                 error={inputInvalid()}
+                                maxLength={8}
                             />
                         </Grid>
                         <Grid item xs={8}>
@@ -112,6 +113,7 @@ function SaCoreType({
                                 value={saCoreType.description}
                                 label="Description"
                                 fullWidth
+                                maxLength={30}
                                 onChange={handleFieldChange}
                                 propertyName="description"
                             />
@@ -123,6 +125,7 @@ function SaCoreType({
                                 value={saCoreType.lookAheadDays}
                                 label="Look Ahead Days"
                                 onChange={handleFieldChange}
+                                maxLength={8}
                                 propertyName="lookAheadDays"
                             />
                         </Grid>
@@ -133,6 +136,7 @@ function SaCoreType({
                                 value={saCoreType.triggerLevel}
                                 label="Trigger level"
                                 onChange={handleFieldChange}
+                                maxLength={8}
                                 propertyName="triggerLevel"
                             />
                         </Grid>
@@ -143,6 +147,7 @@ function SaCoreType({
                                 value={saCoreType.sortOrder}
                                 label="Sort Order"
                                 onChange={handleFieldChange}
+                                maxLength={8}
                                 propertyName="sortOrder"
                             />
                         </Grid>
