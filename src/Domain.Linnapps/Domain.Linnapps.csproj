@@ -14,10 +14,4 @@
     <PackageReference Include="Linn.Common.Serialization" Version="2.1.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="Linn.Common.Facade">
-      <HintPath>..\..\..\..\Users\AdamC\.nuget\packages\linn.common.facade\4.0.0\lib\netstandard2.0\Linn.Common.Facade.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>
