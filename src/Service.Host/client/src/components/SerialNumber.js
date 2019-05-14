@@ -115,6 +115,20 @@ function SerialNumber({
             setSerialNumber({ ...serialNumber, [propertyName]: newValue.articleNumber });
             return;
         }
+
+        if (
+            propertyName === 'fromSernosNumber' &&
+            (serialNumber.serialNumbered === 'Serial numbered in pairs, one box' ||
+                serialNumber.serialNumbered === 'Serial numbered in pairs, two boxes')
+        ) {
+            setSerialNumber({
+                ...serialNumber,
+                fromSernosNumber: newValue,
+                toSernosNumber: newValue + 1
+            });
+            return;
+        }
+
         if (propertyName === 'transCode') {
             setSelectedSernosTransaction(newValue);
         }
@@ -123,6 +137,15 @@ function SerialNumber({
 
     const handleSaveClick = () => {
         setEditStatus('view');
+
+        if (!serialNumber.toSernosNumber) {
+            addItem({
+                ...serialNumber,
+                toSernosNumber: serialNumber.fromSernosNumber
+            });
+            return;
+        }
+
         addItem(serialNumber);
     };
 
