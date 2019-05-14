@@ -353,7 +353,7 @@ SerialNumber.propTypes = {
     loading: PropTypes.bool.isRequired,
     snackbarVisible: PropTypes.bool,
     salesArticlesSearchResults: PropTypes.arrayOf(PropTypes.shape({})),
-    salesArticleSernosDetails: PropTypes.shape({}).isRequired,
+    salesArticleSernosDetails: PropTypes.shape({}),
     salesArticlesLoading: PropTypes.bool,
     sernosNotes: PropTypes.arrayOf(PropTypes.shape({})),
     sernosTransactions: PropTypes.arrayOf(PropTypes.shape({})),
@@ -371,6 +371,7 @@ SerialNumber.defaultProps = {
     snackbarVisible: false,
     salesArticlesSearchResults: [{}],
     salesArticlesLoading: false,
+    salesArticleSernosDetails: null,
     sernosNotes: [],
     sernosTransactions: [],
     sernosTransactionsLoading: false
