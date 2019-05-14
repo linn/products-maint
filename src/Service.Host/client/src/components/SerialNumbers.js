@@ -7,7 +7,8 @@ import {
     SearchInputField,
     SnackbarMessage,
     Title,
-    useSearch
+    useSearch,
+    ErrorCard
 } from '@linn-it/linn-form-components-library';
 import { Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 import { getSernosNote } from '../selectors/sernosNotesSelectors';
@@ -25,7 +26,8 @@ function SerialNumbers({
     sernosNotesLoading,
     addSernosNote,
     updateSernosNote,
-    setSnackbarVisible
+    setSnackbarVisible,
+    errorMessage
 }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [sernosGroups, setSernosGroups] = useState([]);
@@ -53,6 +55,7 @@ function SerialNumbers({
 
     return (
         <Page>
+            {errorMessage && <ErrorCard errorMessage={errorMessage} />}
             <Title text="Serial Numbers" />
             <SearchInputField
                 label="Search by Serial Number"
@@ -127,14 +130,16 @@ SerialNumbers.propTypes = {
     snackbarVisible: PropTypes.bool,
     addSernosNote: PropTypes.func.isRequired,
     updateSernosNote: PropTypes.func.isRequired,
-    setSnackbarVisible: PropTypes.func.isRequired
+    setSnackbarVisible: PropTypes.func.isRequired,
+    errorMessage: PropTypes.string
 };
 
 SerialNumbers.defaultProps = {
     sernosNotes: [],
     sernosNoteLoading: false,
     sernosNotesLoading: false,
-    snackbarVisible: false
+    snackbarVisible: false,
+    errorMessage: ''
 };
 
 export default SerialNumbers;

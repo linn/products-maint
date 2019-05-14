@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.IoC
 {
+    using System.Data;
+
     using Autofac;
 
     using Linn.Common.Configuration;
@@ -18,6 +20,8 @@
     using Linn.Products.Proxy;
     using Linn.Products.Resources;
 
+    using Oracle.ManagedDataAccess.Client;
+
     public class ServiceModule : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -27,6 +31,7 @@
             builder.RegisterType<CartonDetailsReportService>().As<ICartonDetailsReportService>();
             builder.RegisterType<ProductReports>().As<IProductReports>();
             builder.RegisterType<StockTriggerLevelReportService>().As<IStockTriggerLevelReportService>();
+            builder.RegisterType<SernosUsedOnInvoiceReportService>().As<ISernosUsedOnInvoiceReportService>();
             builder.RegisterType<SaHoldStoryService>().As<ISaHoldStoryService>();
             builder.RegisterType<SalesArticleReports>().As<ISalesArticleReports>();
             builder.RegisterType<ProductsOnHoldService>().As<IProductsOnHoldService>();
@@ -46,6 +51,7 @@
             builder.RegisterType<StockTriggerLevelsService>().As<IStockTriggerLevelsService>();
             builder.RegisterType<SaHoldStoryFacadeService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
             builder.RegisterType<ProductsOnHoldReportService>().As<IProductsOnHoldReportService>();
+            builder.RegisterType<SernosUsedOnInvoiceFacade>().As<ISernosUsedOnInvoiceFacade>();
 
             builder.RegisterType<SaHoldStoryFacadeService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
             builder.RegisterType<SalesArticleService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
@@ -73,6 +79,11 @@
             builder.RegisterType<DatabaseProxy>().As<IDatabaseService>();
             builder.RegisterType<SalesArticleCompositeDiscountProxyService>().As<ISalesArticleCompositeDiscountService>();
             builder.RegisterType<SernosPack>().As<ISernosPack>();
+            builder.RegisterType<SernosUsedOnInvoiceReportProxy>().As<ISernosUsedOnInvoiceDatabaseService>();
+
+            builder.RegisterType<OracleConnection>().As<IDbConnection>().WithParameter("connectionString", ConnectionStrings.ManagedConnectionString());
+            builder.RegisterType<OracleCommand>().As<IDbCommand>();
+            builder.RegisterType<OracleDataAdapter>().As<IDataAdapter>();
         }
     }
 }

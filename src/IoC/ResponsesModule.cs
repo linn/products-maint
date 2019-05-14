@@ -27,6 +27,7 @@
             builder.RegisterType<SernosConfigsResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosConfig>>>();
             builder.RegisterType<SernosTransactionResourceBuilder>().As<IResourceBuilder<SernosTrans>>();
             builder.RegisterType<SernosTransactionsResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosTrans>>>();
+            builder.RegisterType<SernosTransactionsPaginatedResourceBuilder>().As<IResourceBuilder<IPagedList<SernosTrans>>>();
             builder.RegisterType<SernosCountsResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosCount>>>();
             builder.RegisterType<SernosSequenceResourceBuilder>().As<IResourceBuilder<SernosSequence>>();
             builder.RegisterType<SernosSequencesResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosSequence>>>();

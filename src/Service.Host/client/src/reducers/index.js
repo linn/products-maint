@@ -15,6 +15,8 @@ import sernosNote from './sernosNote';
 import sernosNotes from './sernosNotes';
 import sernosConfig from './sernosConfig';
 import sernosConfigs from './sernosConfigs';
+import serialNumberTransaction from './serialNumberTransaction';
+import serialNumberTransactions from './serialNumberTransactions';
 import sernosSequence from './sernosSequence';
 import sernosSequences from './sernosSequences';
 import fetchError from './fetchError';
@@ -40,6 +42,7 @@ import rootProducts from './rootProducts/rootProducts';
 import rootProduct from './rootProducts/rootProduct';
 import salesArticleCompositeDiscount from './salesArticleCompositeDiscount';
 import salesArticleSernosDetails from './salesArticleSernosDetails';
+import sernosUsedOnInvoiceReport from './sernosUsedOnInvoiceReport';
 
 const rootReducer = combineReducers({
     oidc,
@@ -56,6 +59,8 @@ const rootReducer = combineReducers({
     sernosNotes,
     sernosConfig,
     sernosConfigs,
+    serialNumberTransaction,
+    serialNumberTransactions,
     sernosSequence,
     sernosSequences,
     saCoreTypes,
@@ -81,9 +86,9 @@ const rootReducer = combineReducers({
     sernosTransactions,
     salesArticleCompositeDiscount,
     salesArticleSernosDetails,
-    salesArticleCompositeDiscount,
     rootProduct,
-    rootProducts
+    rootProducts,
+    sernosUsedOnInvoiceReport
 });
 
 export default rootReducer;
