@@ -20,7 +20,7 @@
     public abstract class ContextBase : NancyContextBase
     {
         protected ISalesArticleReportService SalesArticleReportService { get; private set; }
-
+        
         [SetUp]
         public void EstablishContext()
         {

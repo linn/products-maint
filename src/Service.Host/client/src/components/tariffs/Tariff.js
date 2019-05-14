@@ -69,17 +69,17 @@ function Tariff({
                 <Grid item xs={12}>
                     {creating() ? <Title text="Add Tariff" /> : <Title text="Tariff Details" />}
                 </Grid>
+                {errorMessage && (
+                    <Grid item xs={12}>
+                        <ErrorCard errorMessage={errorMessage} />
+                    </Grid>
+                )}
                 {loading || (!tariff && !creating()) ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
                 ) : (
                     <Fragment>
-                        {errorMessage && (
-                            <Grid item xs={12}>
-                                <ErrorCard errorMessage={errorMessage} />
-                            </Grid>
-                        )}
                         <SnackbarMessage
                             visible={snackbarVisible}
                             onClose={() => setSnackbarVisible(false)}

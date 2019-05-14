@@ -49,11 +49,11 @@ const styles = theme => ({
     }
 });
 
-function Navbar({ classes, menu, loading, username }) {
+function Navbar({ classes, sections, loading, username, myStuff }) {
     const [selected, setSelected] = useState(false);
     const [anchorEl, setAnchorEl] = useState();
-    if (menu) {
-        const menuIds = menu.map(item => item.id);
+    if (sections) {
+        const menuIds = sections.map(item => item.id);
 
         const handleClick = event => {
             setAnchorEl(event.currentTarget);
@@ -68,7 +68,7 @@ function Navbar({ classes, menu, loading, username }) {
         return (
             <ClickAwayListener onClickAway={() => setSelected(false)}>
                 <div className={classes.root}>
-                    {menu && !loading && (
+                    {sections && !loading && (
                         <AppBar position="static" color="default">
                             <Toolbar classes={{ gutters: classes.toolbar }}>
                                 <Grid
@@ -91,7 +91,7 @@ function Navbar({ classes, menu, loading, username }) {
                                                 indicatorColor="primary"
                                                 textColor="primary"
                                             >
-                                                {menu.map(item => (
+                                                {sections.map(item => (
                                                     <Tab
                                                         id={item.id}
                                                         key={item.id}
@@ -111,8 +111,8 @@ function Navbar({ classes, menu, loading, username }) {
                                                 <AccountCircle
                                                     aria-owns={anchorEl ? 'simple-menu' : undefined}
                                                     onClick={handleClick}
-                                                    id={menu.length}
-                                                    key={menu.length}
+                                                    id={sections.length}
+                                                    key={sections.length}
                                                 />
                                             </Typography>
                                         </Grid>
@@ -123,13 +123,15 @@ function Navbar({ classes, menu, loading, username }) {
                                             onClose={handleClose}
                                         >
                                             <MenuItem onClick={handleClose}>{username}</MenuItem>
-                                            {username && (
-                                                <span>
-                                                    <MenuItem onClick={handleSignOut}>
-                                                        Sign Out
-                                                    </MenuItem>
-                                                </span>
-                                            )}
+                                            {username &&
+                                                myStuff.groups.map(item => (
+                                                    <span>
+                                                        <MenuItem onClick={handleClose}>
+                                                            {item.items[0].title}
+                                                        </MenuItem>
+                                                    </span>
+                                                ))}
+                                            <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
                                         </Menu>
                                     </Fragment>
                                 </Grid>
@@ -141,7 +143,7 @@ function Navbar({ classes, menu, loading, username }) {
                             selected === i && (
                                 <Panel
                                     key={item}
-                                    section={menu.filter(e => e.id === item)[0]}
+                                    section={sections.filter(e => e.id === item)[0]}
                                     id={item}
                                     style={{ align: 'right' }}
                                     anchorEl={item.id}
@@ -164,14 +166,14 @@ function Navbar({ classes, menu, loading, username }) {
 
 Navbar.propTypes = {
     classes: PropTypes.shape({}).isRequired,
-    menu: PropTypes.arrayOf(PropTypes.shape({})),
+    sections: PropTypes.arrayOf(PropTypes.shape({})),
     history: PropTypes.shape({}).isRequired,
     loading: PropTypes.bool,
     username: PropTypes.string
 };
 
 Navbar.defaultProps = {
-    menu: null,
+    sections: null,
     loading: false,
     username: ''
 };

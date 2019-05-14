@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import ProductRanges from '../../components/reports/ProductRanges';
 import initialiseOnMount from '../common/initialiseOnMount';
 import actions from '../../actions/productRangesReport';
+import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import config from '../../config';
 import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
 import * as reportTypes from '../../reportTypes';
@@ -19,6 +20,7 @@ const getOptions = ownProps => {
 const mapStateToProps = (state, ownProps) => ({
     reportData: getReportData(state, reportName),
     loading: getReportLoading(state, reportName),
+    errorMessage: getSingleErrorMessage(state),
     options: getOptions(ownProps),
     config
 });

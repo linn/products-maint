@@ -1,12 +1,14 @@
 ﻿import { connect } from 'react-redux';
 import SalesPackages from '../../components/salesPackages/SalesPackages';
 import salesPackagesActions from '../../actions/salesPackages/salesPackages';
+import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import initialiseOnMount from '../common/initialiseOnMount';
 import salesPackagesSelectors from '../../selectors/salesPackagesSelectors';
 
 const mapStateToProps = state => ({
     page: salesPackagesSelectors.getPage(state),
     loading: salesPackagesSelectors.getLoading(state),
+    errorMessage: getSingleErrorMessage(state),
     classes: {}
 });
 

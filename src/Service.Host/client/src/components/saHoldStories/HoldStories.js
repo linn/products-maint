@@ -24,9 +24,14 @@ function Report({ reportData, loading }) {
     );
 }
 
-function HoldStories({ reportData, loading }) {
+function HoldStories({ reportData, loading, errorMessage }) {
     return (
         <Grid container spacing={24} justify="center">
+            {errorMessage && (
+                <Grid item xs={12}>
+                    <ErrorCard errorMessage={errorMessage} />
+                </Grid>
+            )}
             <Grid item xs={12}>
                 <Grid item xs={10}>
                     <Title text="Hold Stories" />
@@ -43,7 +48,8 @@ HoldStories.propTypes = {
     reportData: PropTypes.shape({}),
     options: PropTypes.shape({}),
     match: PropTypes.shape({}).isRequired,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    errorMessage: PropTypes.string
 };
 
 Report.propTypes = {
@@ -59,7 +65,8 @@ Report.defaultProps = {
 HoldStories.defaultProps = {
     reportData: null,
     options: {},
-    loading: false
+    loading: false,
+    errorMessage: ''
 };
 
 export default HoldStories;

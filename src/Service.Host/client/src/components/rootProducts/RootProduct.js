@@ -23,17 +23,17 @@ function RootProduct({ item, snackbarVisible, setSnackbarVisible, loading, error
     return (
         <Page>
             <Grid container spacing={24}>
+                {errorMessage && (
+                    <Grid item xs={12}>
+                        <ErrorCard errorMessage={errorMessage} />
+                    </Grid>
+                )}
                 {loading || !item ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
                 ) : (
                     <Fragment>
-                        {errorMessage && (
-                            <Grid item xs={12}>
-                                <ErrorCard errorMessage={errorMessage} />
-                            </Grid>
-                        )}
                         <SnackbarMessage
                             visible={snackbarVisible}
                             onClose={() => setSnackbarVisible(false)}

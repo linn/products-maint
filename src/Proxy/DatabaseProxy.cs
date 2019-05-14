@@ -6,6 +6,18 @@
 
     public class DatabaseProxy : IDatabaseService
     {
+        public DataSet ExecuteQuery(string sql)
+        {
+            using (OracleConnection connection = new OracleConnection(ConnectionStrings.ManagedConnectionString()))
+                {
+                var dataAdapter = new OracleDataAdapter(
+                    new OracleCommand(sql, connection) { CommandType = CommandType.Text });
+                    var dataSet = new DataSet();
+                    dataAdapter.Fill(dataSet);
+                    return dataSet;
+                }
+        }
+
         public int GetIdSequence(string sequenceName)
         {
             var connection = new OracleConnection(ConnectionStrings.ManagedConnectionString());

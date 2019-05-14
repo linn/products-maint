@@ -1,5 +1,4 @@
-﻿
-namespace Linn.Products.Service.Tests.SalesPackageModuleSpecs
+﻿namespace Linn.Products.Service.Tests.SalesPackageModuleSpecs
 {
     using System.Linq;
 

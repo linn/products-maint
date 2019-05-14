@@ -1,10 +1,10 @@
 ﻿import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { Typeahead } from '@linn-it/linn-form-components-library';
+import { Typeahead, ErrorCard } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
 
-const SalesArticles = ({ items, fetchItems, loading, clearSearch }) => {
+const SalesArticles = ({ items, fetchItems, loading, clearSearch, errorMessage }) => {
     const forecastItems = items.map(item => ({
         ...item,
         name: item.articleNumber
@@ -13,6 +13,11 @@ const SalesArticles = ({ items, fetchItems, loading, clearSearch }) => {
     return (
         <Page>
             <Grid container spacing={24}>
+                {errorMessage && (
+                    <Grid item xs={12}>
+                        <ErrorCard errorMessage={errorMessage} />
+                    </Grid>
+                )}
                 <Grid item xs={12}>
                     <Typeahead
                         items={forecastItems}
@@ -38,11 +43,13 @@ SalesArticles.propTypes = {
     ).isRequired,
     loading: PropTypes.bool,
     fetchItems: PropTypes.func.isRequired,
-    clearSearch: PropTypes.func.isRequired
+    clearSearch: PropTypes.func.isRequired,
+    errorMessage: PropTypes.string
 };
 
 SalesArticles.defaultProps = {
-    loading: false
+    loading: false,
+    errorMessage: ''
 };
 
 export default SalesArticles;
