@@ -13,29 +13,14 @@ import { Loading, useSearch } from '@linn-it/linn-form-components-library';
 import SearchIcon from '@material-ui/icons/Search';
 
 const styles = {
-    boldHeader: {
-        fontWeight: 'bold',
-        width: '140px'
-    },
     pullRight: {
         float: 'right'
-    },
-    halfWidth: {
-        width: '50%'
-    },
-    biggerText: {
-        fontSize: 14
     },
     a: {
         textDecoration: 'none'
     },
     dialog: {
-        position: 'absolute',
-        width: '50%',
-        backgroundColor: 'white',
-        padding: '50px',
-        margin: '50px',
-        outline: 'none'
+        padding: '50px'
     }
 };
 
@@ -85,7 +70,7 @@ const PopUpTypeAhead = ({ title, loading, fetchItems, searchItems, onSelect, cle
                 <SearchIcon fontSize="large" />
             </IconButton>
             <Dialog open={dialogOpen} onClose={handleClose} >
-                <div className={styles.dialog}>
+                <div style={styles.dialog}>
                     <Fragment>
                         <Typography variant="h4" gutterBottom>
                             {title}
