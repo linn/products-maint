@@ -62,6 +62,17 @@ function SalesArticleCompositeDiscount({
         });
     };
 
+    const handleBaseChange = newValue => {
+        if (editStatus === 'view') {
+            setEditStatus('edit');
+        }
+
+        setSalesArticleCompositeDiscount({
+            ...salesArticleCompositeDiscount,
+            baseArticleNumber: newValue.articleNumber
+        });
+    };
+
     const handleGlossChange = newValue => {
         if (editStatus === 'view') {
             setEditStatus('edit');
@@ -95,17 +106,20 @@ function SalesArticleCompositeDiscount({
                                 }`}
                             />
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={4}>
                             <InputField
                                 label="Base Part"
                                 type="string"
-                                fullWidth
                                 propertyName="baseArticleNumber"
                                 value={salesArticleCompositeDiscount.baseArticleNumber}
                                 onChange={handleFieldChange}
                             />
+                            <SalesArticlePopUpTypeAhead
+                                onSelect={handleBaseChange}
+                                title="Search for sales article"
+                            />
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <InputField
                                 label="Gloss Part"
                                 type="string"
