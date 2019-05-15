@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { Loading } from '@linn-it/linn-form-components-library';
 import {
     List,
     ListItem,
@@ -9,9 +10,9 @@ import {
     Dialog
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { Loading, useSearch } from '@linn-it/linn-form-components-library';
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
+import useSearch from './useSearch';
 
 const styles = {
     pullRight: {
