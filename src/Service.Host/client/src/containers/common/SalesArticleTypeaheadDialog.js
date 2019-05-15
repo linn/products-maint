@@ -1,7 +1,9 @@
 ﻿import { connect } from 'react-redux';
-import PopUpTypeAhead from '../../components/common/PopUpTypeAhead';
+//import { TypeaheadDialog } from '@linn-it/linn-form-components-library';
 import salesArticlesActions from '../../actions/salesArticles';
 import salesArticlesSelectors from '../../selectors/salesArticlesSelectors';
+//import TypeaheadDialog from '../../components/common/PopUpTypeAhead';
+import TypeaheadDialog from '../../components/common/TypeaheadDialog';
 
 const mapStateToProps = (state, { onSelect, title }) => ({
     title,
@@ -20,4 +22,4 @@ const mapDispatchToProps = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PopUpTypeAhead);
+)(TypeaheadDialog);

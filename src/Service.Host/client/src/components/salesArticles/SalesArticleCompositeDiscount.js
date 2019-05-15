@@ -8,7 +8,7 @@ import {
     SnackbarMessage
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
-import SalesArticlePopUpTypeAhead from '../../containers/common/SalesArticlePopUpTypeAhead';
+import SalesArticleTypeaheadDialog from '../../containers/common/SalesArticleTypeaheadDialog';
 
 import history from '../../history';
 
@@ -114,7 +114,7 @@ function SalesArticleCompositeDiscount({
                                 value={salesArticleCompositeDiscount.baseArticleNumber}
                                 onChange={handleFieldChange}
                             />
-                            <SalesArticlePopUpTypeAhead
+                            <SalesArticleTypeaheadDialog
                                 onSelect={handleBaseChange}
                                 title="Search for sales article"
                             />
@@ -127,7 +127,7 @@ function SalesArticleCompositeDiscount({
                                 value={salesArticleCompositeDiscount.noDiscountArticleNumber}
                                 onChange={handleFieldChange}
                             />
-                            <SalesArticlePopUpTypeAhead
+                            <SalesArticleTypeaheadDialog
                                 onSelect={handleGlossChange}
                                 title="Search for sales article"
                             />
