@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { Grid } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import {
     SaveBackCancelButtons,
     InputField,
@@ -11,8 +11,7 @@ import {
     SnackbarMessage,
     Dropdown,
     useSearch,
-    AutoComplete,
-    CreateButton
+    AutoComplete
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 import { getSernosNote } from '../selectors/sernosNotesSelectors';
@@ -34,18 +33,23 @@ function SerialNumber({
     setSnackbarVisible,
     fetchSalesArticleSernosDetails,
     fetchSalesArticles,
-    salesArticlesLoading
+    salesArticlesLoading,
+    clearSerialNumber,
+    clearSalesArticleSernosDetails
 }) {
     const [serialNumber, setSerialNumber] = useState({});
     const [prevSerialNumber, setPrevSerialNumber] = useState({});
     const [sernosTransactionsList, setSernosTransactionsList] = useState(['']);
-    const [selectedSernosTransaction, setSelectedSernosTransaction] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [salesArticles, setSalesArticles] = useState([]);
 
     const savedFetchSalesArticleSernosDetails = useRef(null);
 
     useSearch(fetchSalesArticles, searchTerm);
+
+    useEffect(() => {
+        savedFetchSalesArticleSernosDetails.current = fetchSalesArticleSernosDetails;
+    }, [fetchSalesArticleSernosDetails]);
 
     useEffect(() => {
         setSalesArticles(() =>
@@ -57,13 +61,10 @@ function SerialNumber({
     }, [salesArticlesSearchResults]);
 
     useEffect(() => {
-        savedFetchSalesArticleSernosDetails.current = fetchSalesArticleSernosDetails;
-    }, [fetchSalesArticleSernosDetails]);
-
-    useEffect(() => {
         if (item === null) {
             setSerialNumber({});
             setPrevSerialNumber(null);
+            setSalesArticles([{}]);
         } else {
             const sernos = item[0];
 
@@ -99,11 +100,13 @@ function SerialNumber({
 
     useEffect(() => {
         if (salesArticleSernosDetails) {
-            setSerialNumber(s => ({
-                ...s,
-                sernosGroup: salesArticleSernosDetails.sernosGroup,
-                serialNumbered: salesArticleSernosDetails.serialNumbered
-            }));
+            if (serialNumber.articleNumber) {
+                setSerialNumber(s => ({
+                    ...s,
+                    sernosGroup: salesArticleSernosDetails.sernosGroup,
+                    serialNumbered: salesArticleSernosDetails.serialNumbered
+                }));
+            }
         } else {
             setSerialNumber(s => ({
                 ...s,
@@ -111,7 +114,7 @@ function SerialNumber({
                 serialNumbered: null
             }));
         }
-    }, [salesArticleSernosDetails]);
+    }, [salesArticleSernosDetails, serialNumber.articleNumber]);
 
     const viewing = () => editStatus === 'view';
 
@@ -138,9 +141,6 @@ function SerialNumber({
             return;
         }
 
-        if (propertyName === 'transCode') {
-            setSelectedSernosTransaction(newValue);
-        }
         setSerialNumber({ ...serialNumber, [propertyName]: newValue });
     };
 
@@ -167,6 +167,12 @@ function SerialNumber({
         return note ? note.sernosNotes : '';
     };
 
+    const handleCreateClick = () => {
+        clearSalesArticleSernosDetails();
+        clearSerialNumber();
+        setEditStatus('edit');
+    };
+
     return (
         <Page>
             <Grid container spacing={24}>
@@ -175,7 +181,14 @@ function SerialNumber({
                     {viewing() && (
                         <Fragment>
                             <Grid item xs={12}>
-                                <CreateButton createUrl="/products/maint/serial-numbers/create" />
+                                <Button
+                                    color="primary"
+                                    variant="outlined"
+                                    style={{ float: 'right' }}
+                                    onClick={handleCreateClick}
+                                >
+                                    Create Another
+                                </Button>
                             </Grid>
                         </Fragment>
                     )}
@@ -204,7 +217,7 @@ function SerialNumber({
                                 label="Transaction"
                                 onChange={handleFieldChange}
                                 propertyName="transCode"
-                                value={selectedSernosTransaction}
+                                value={serialNumber.transCode}
                             />
                         </Grid>
                         <Grid item xs={5} />
@@ -218,9 +231,6 @@ function SerialNumber({
                                 onInputChange={handleSearchTermChange}
                                 isLoading={salesArticlesLoading}
                             />
-                        </Grid>
-                        <Grid item xs={1}>
-                            {salesArticlesLoading && <Loading />}
                         </Grid>
                         <Grid item xs={5} />
                         <Grid item xs={5}>
@@ -240,8 +250,6 @@ function SerialNumber({
                                 fullWidth
                                 label="Serial Numbered"
                                 maxLength={10}
-                                onChange={handleFieldChange}
-                                propertyName="sernosGroup"
                                 value={serialNumber.serialNumbered}
                             />
                         </Grid>
@@ -359,7 +367,9 @@ SerialNumber.propTypes = {
     setEditStatus: PropTypes.func.isRequired,
     setSnackbarVisible: PropTypes.func.isRequired,
     fetchSalesArticleSernosDetails: PropTypes.func.isRequired,
-    fetchSalesArticles: PropTypes.func.isRequired
+    fetchSalesArticles: PropTypes.func.isRequired,
+    clearSerialNumber: PropTypes.func.isRequired,
+    clearSalesArticleSernosDetails: PropTypes.func.isRequired
 };
 
 SerialNumber.defaultProps = {
