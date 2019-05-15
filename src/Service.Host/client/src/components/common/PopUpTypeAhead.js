@@ -11,6 +11,7 @@ import {
 import PropTypes from 'prop-types';
 import { Loading, useSearch } from '@linn-it/linn-form-components-library';
 import SearchIcon from '@material-ui/icons/Search';
+import CloseIcon from '@material-ui/icons/Close';
 
 const styles = {
     pullRight: {
@@ -61,6 +62,7 @@ const PopUpTypeAhead = ({ title, loading, fetchItems, searchItems, onSelect, cle
                 </List>
             );
         }
+
         return <Typography>No matching items</Typography>;
     };
 
@@ -69,8 +71,11 @@ const PopUpTypeAhead = ({ title, loading, fetchItems, searchItems, onSelect, cle
             <IconButton aria-label="Delete" onClick={handleOpen}>
                 <SearchIcon fontSize="large" />
             </IconButton>
-            <Dialog open={dialogOpen} onClose={handleClose} >
+            <Dialog open={dialogOpen} onClose={handleClose}>
                 <div style={styles.dialog}>
+                    <IconButton style={styles.pullRight} aria-label="Close" onClick={handleClose}>
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
                     <Fragment>
                         <Typography variant="h4" gutterBottom>
                             {title}
