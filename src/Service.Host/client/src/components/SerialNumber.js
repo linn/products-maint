@@ -200,27 +200,15 @@ function SerialNumber({
                         </Grid>
                         <Grid item xs={5} />
                         <Grid item xs={5}>
-                            {viewing() ? (
-                                <InputField
-                                    disabled
-                                    fullWidth
-                                    label="Article Number"
-                                    maxLength={10}
-                                    onChange={handleFieldChange}
-                                    propertyName="sernosGroup"
-                                    value={serialNumber.articleNumber}
-                                />
-                            ) : (
-                                <AutoComplete
-                                    suggestions={salesArticles}
-                                    disabled={viewing()}
-                                    onChange={handleFieldChange}
-                                    propertyName="articleNumber"
-                                    label="Article Number Search"
-                                    value={serialNumber.articleNumber}
-                                    onInputChange={handleSearchTermChange}
-                                />
-                            )}
+                            <AutoComplete
+                                suggestions={salesArticles}
+                                disabled={viewing()}
+                                onChange={handleFieldChange}
+                                propertyName="articleNumber"
+                                label="Article Number Search"
+                                value={serialNumber.articleNumber}
+                                onInputChange={handleSearchTermChange}
+                            />
                         </Grid>
                         <Grid item xs={1}>
                             {salesArticlesLoading && <Loading />}
