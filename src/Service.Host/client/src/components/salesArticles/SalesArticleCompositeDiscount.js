@@ -5,10 +5,11 @@ import {
     Title,
     Loading,
     SaveBackCancelButtons,
-    SnackbarMessage,
-    ErrorCard
+    SnackbarMessage
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
+import SalesArticlePopUpTypeAhead from '../../containers/common/SalesArticlePopUpTypeAhead';
+
 import history from '../../history';
 
 function SalesArticleCompositeDiscount({
@@ -19,14 +20,10 @@ function SalesArticleCompositeDiscount({
     updateSalesArticleCompositeDiscount,
     setEditStatus,
     snackbarVisible,
-    setSnackbarVisible,
-    errorMessage
+    setSnackbarVisible
 }) {
     const [salesArticleCompositeDiscount, setSalesArticleCompositeDiscount] = useState();
     const [prevSalesArticleCompositeDiscount, setPrevSalesArticleCompositeDiscount] = useState({});
-
-    const editing = () => editStatus === 'edit';
-    const viewing = () => editStatus === 'view';
 
     useEffect(() => {
         if (item !== prevSalesArticleCompositeDiscount) {
@@ -34,6 +31,9 @@ function SalesArticleCompositeDiscount({
             setPrevSalesArticleCompositeDiscount(item);
         }
     });
+
+    const editing = () => editStatus === 'edit';
+    const viewing = () => editStatus === 'view';
 
     const handleSaveClick = () => {
         if (editing()) {
@@ -59,6 +59,17 @@ function SalesArticleCompositeDiscount({
         setSalesArticleCompositeDiscount({
             ...salesArticleCompositeDiscount,
             [propertyName]: newValue
+        });
+    };
+
+    const handleGlossChange = newValue => {
+        if (editStatus === 'view') {
+            setEditStatus('edit');
+        }
+
+        setSalesArticleCompositeDiscount({
+            ...salesArticleCompositeDiscount,
+            noDiscountArticleNumber: newValue.articleNumber
         });
     };
 
@@ -94,14 +105,17 @@ function SalesArticleCompositeDiscount({
                                 onChange={handleFieldChange}
                             />
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={5}>
                             <InputField
                                 label="Gloss Part"
                                 type="string"
-                                fullWidth
                                 propertyName="noDiscountArticleNumber"
                                 value={salesArticleCompositeDiscount.noDiscountArticleNumber}
                                 onChange={handleFieldChange}
+                            />
+                            <SalesArticlePopUpTypeAhead
+                                onSelect={handleGlossChange}
+                                title="Search for sales article"
                             />
                         </Grid>
                     </Grid>
@@ -119,19 +133,6 @@ function SalesArticleCompositeDiscount({
     );
 }
 
-SalesArticleCompositeDiscount.defaultProps = {
-    item: PropTypes.shape({
-        articleNumber: PropTypes.string,
-        baseArticleNumber: PropTypes.string,
-        noDiscountArticleNumber: PropTypes.string
-    }),
-    updateSalesArticleCompositeDiscount: null,
-    loading: null,
-    itemId: null,
-    snackbarVisible: false,
-    errorMessage: ''
-};
-
 SalesArticleCompositeDiscount.propTypes = {
     item: PropTypes.shape({}),
     editStatus: PropTypes.string.isRequired,
@@ -141,8 +142,19 @@ SalesArticleCompositeDiscount.propTypes = {
     loading: PropTypes.bool,
     snackbarVisible: PropTypes.bool,
     setSnackbarVisible: PropTypes.func.isRequired,
-    match: PropTypes.shape({}).isRequired,
-    errorMessage: PropTypes.string
+    match: PropTypes.shape({}).isRequired
+};
+
+SalesArticleCompositeDiscount.defaultProps = {
+    item: PropTypes.shape({
+        articleNumber: PropTypes.string,
+        baseArticleNumber: PropTypes.string,
+        noDiscountArticleNumber: PropTypes.string
+    }),
+    updateSalesArticleCompositeDiscount: null,
+    loading: null,
+    itemId: null,
+    snackbarVisible: false
 };
 
 export default SalesArticleCompositeDiscount;
