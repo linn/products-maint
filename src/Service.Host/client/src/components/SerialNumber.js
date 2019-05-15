@@ -66,11 +66,20 @@ function SerialNumber({
             setPrevSerialNumber(null);
         } else {
             const sernos = item[0];
+
             setSerialNumber(s => ({
                 ...sernos,
                 fromSernosNumber: s.fromSernosNumber,
                 toSernosNumber: s.toSernosNumber
             }));
+
+            setSalesArticles([
+                {
+                    articleNumber: sernos.articleNumber,
+                    label: sernos.articleNumber
+                }
+            ]);
+
             setPrevSerialNumber(sernos);
         }
     }, [item, prevSerialNumber]);
@@ -206,8 +215,8 @@ function SerialNumber({
                                 onChange={handleFieldChange}
                                 propertyName="articleNumber"
                                 label="Article Number Search"
-                                value={serialNumber.articleNumber}
                                 onInputChange={handleSearchTermChange}
+                                isLoading={salesArticlesLoading}
                             />
                         </Grid>
                         <Grid item xs={1}>
