@@ -21,7 +21,8 @@ const styles = {
         textDecoration: 'none'
     },
     dialog: {
-        padding: '50px'
+        margin: '50px',
+        minWidth: '500px'
     }
 };
 
@@ -72,12 +73,12 @@ const PopUpTypeAhead = ({ title, loading, fetchItems, searchItems, onSelect, cle
                 <SearchIcon fontSize="large" />
             </IconButton>
             <Dialog open={dialogOpen} onClose={handleClose}>
-                <div style={styles.dialog}>
+                <div>
                     <IconButton style={styles.pullRight} aria-label="Close" onClick={handleClose}>
-                        <CloseIcon fontSize="small" />
+                        <CloseIcon />
                     </IconButton>
-                    <Fragment>
-                        <Typography variant="h4" gutterBottom>
+                    <div style={styles.dialog}>
+                        <Typography variant="h5" gutterBottom>
                             {title}
                         </Typography>
                         <TextField
@@ -102,7 +103,7 @@ const PopUpTypeAhead = ({ title, loading, fetchItems, searchItems, onSelect, cle
                             }}
                         />
                         {loading ? <Loading /> : showResults()}
-                    </Fragment>
+                    </div>
                 </div>
             </Dialog>
         </Fragment>
