@@ -5,6 +5,8 @@
     using Linn.Products.Resources;
     using Linn.Products.Service.Models;
 
+    using Microsoft.EntityFrameworkCore;
+
     using Nancy;
     using Nancy.ModelBinding;
 
@@ -17,7 +19,7 @@
             this.vatCodeService = vatCodeService;
             this.Get("/products/maint/vat-codes/{code}", parameters => this.GetVatCodeByCode(parameters.code));
             this.Get("/products/maint/vat-codes/", _ => this.GetVatCodes());
-            this.Put("/products/maint/vat-codes/{code}", parameters => this.UpdateSernosConfig(parameters.code));
+            this.Put("/products/maint/vat-codes/{code}", parameters => this.UpdateVatCode(parameters.code));
             this.Post("/products/maint/vat-codes", _ => this.AddVatCode());
         }
 
@@ -25,9 +27,16 @@
         {
             var resource = this.Bind<VatCodeResource>();
 
-            var result = this.vatCodeService.Add(resource);
-            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                .WithView("Index");
+            try
+            {
+                var result = this.vatCodeService.Add(resource);
+                return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                    .WithView("Index");
+            }
+            catch (DbUpdateException e)
+            {
+                return new BadRequestResult<VatCode>(e.InnerException.Message);
+            }
         }
 
         private object GetVatCodeByCode(string code)
@@ -44,13 +53,19 @@
                 .WithView("Index");
         }
 
-        private object UpdateSernosConfig(string code)
+        private object UpdateVatCode(string code)
         {
             var resource = this.Bind<VatCodeResource>();
-
-            var result = this.vatCodeService.Update(code, resource);
+            try
+            {
+                var result = this.vatCodeService.Update(code, resource);
             return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
-        }
+            }
+            catch (DbUpdateException e)
+            {
+                return new BadRequestResult<VatCode>(e.InnerException.Message);
+            }
+}
     }
 }
