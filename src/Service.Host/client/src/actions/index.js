@@ -65,6 +65,10 @@ export const RECEIVE_PRODUCTS_ON_HOLD_REPORT = 'RECEIVE_PRODUCTS_ON_HOLD_REPORT'
 export const REQUEST_MENU = 'REQUEST_MENU';
 export const RECEIVE_MENU = 'RECEIVE_MENU';
 
+export const REQUEST_SALES_ARTICLE_SERNOS_DETAILS = 'REQUEST_SALES_ARTICLE_SERNOS_DETAILS';
+export const RECEIVE_SALES_ARTICLE_SERNOS_DETAILS = 'RECEIVE_SALES_ARTICLE_SERNOS_DETAILS';
+export const CLEAR_SALES_ARTICLE_SERNOS_DETAILS = 'CLEAR_SALES_ARTICLE_SERNOS_DETAILS';
+
 export const cartonTypeActionTypes = makeActionTypes(itemTypes.cartonType.actionType);
 
 export const sernosConfigActionTypes = makeActionTypes(itemTypes.sernosConfig.actionType);
@@ -107,6 +111,12 @@ export const sernosNotesActionTypes = makeActionTypes(itemTypes.sernosNotes.acti
 
 export const salesPackageActionTypes = makeActionTypes(itemTypes.salesPackage.actionType);
 export const salesPackagesActionTypes = makeActionTypes(itemTypes.salesPackages.actionType, false);
+
+export const sernosTransactionActionTypes = makeActionTypes(itemTypes.sernosTransaction.actionType);
+export const sernosTransactionsActionTypes = makeActionTypes(
+    itemTypes.sernosTransactions.actionType,
+    false
+);
 
 export const salesArticleCompositeDiscountActionTypes = makeActionTypes(
     itemTypes.salesArticleCompositeDiscount.actionType

@@ -54,6 +54,7 @@
             builder.RegisterType<SalesPackagesPaginatedResourceBuilder>()
                 .As<IResourceBuilder<IPagedList<SalesPackage>>>();
             builder.RegisterType<SalesArticleCompositeDiscountResourceBuilder>().As<IResourceBuilder<SalesArticleCompositeDiscount>>();
+            builder.RegisterType<SalesArticleSerialNumberDetailsResourceBuilder>().As<IResourceBuilder<SalesArticleSerialNumberDetails>>();
         }
     }
 }

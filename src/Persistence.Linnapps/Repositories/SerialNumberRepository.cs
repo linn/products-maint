@@ -6,16 +6,18 @@
 
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
-
-    using Microsoft.EntityFrameworkCore;
+    using Linn.Products.Proxy;
 
     public class SerialNumberRepository : IRepository<SerialNumber, int>
     {
+        private readonly IDatabaseService linnappsDatabaseService;
+
         private readonly ServiceDbContext serviceDbContext;
 
-        public SerialNumberRepository(ServiceDbContext serviceDbContext)
+        public SerialNumberRepository(ServiceDbContext serviceDbContext, IDatabaseService linnappsDatabaseService)
         {
             this.serviceDbContext = serviceDbContext;
+            this.linnappsDatabaseService = linnappsDatabaseService;
         }
 
         public SerialNumber FindById(int key)
@@ -33,7 +35,8 @@
 
         public void Add(SerialNumber entity)
         {
-            throw new NotImplementedException();
+            entity.SernosTRef = this.linnappsDatabaseService.GetIdSequence("SERNOS_SEQ");
+            this.serviceDbContext.SerialNumbers.Add(entity);
         }
 
         public void Remove(SerialNumber entity)

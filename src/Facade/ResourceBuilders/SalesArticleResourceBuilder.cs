@@ -30,6 +30,7 @@
                            PhaseOutDate = salesArticle.PhaseOutDate?.ToString("o"),
                            TypeOfSale = salesArticle.TypeOfSale,
                            PackingDescription = salesArticle.PackingDescription,
+                           TypeOfSerialNumber = salesArticle.TypeOfSerialNumber,
                            Links = this.BuildLinks(salesArticle).ToArray(),
                            OnHold = IsOnHold(salesArticle),
                            RootProductOnHold = RootProductGroupIsOnHold(salesArticle)

@@ -58,12 +58,10 @@
         private object AddTariff()
         {
             this.RequiresAuthentication();
-            var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
             var resource = this.Bind<TariffResource>();
-            resource.Links = new[] { new LinkResource("entered-by", employeeUri) };
-            var validator = new TariffValidator();
-            var results = validator.Validate(resource);
-            return validator.Validate(resource).IsValid
+            resource.Links = new[] { new LinkResource("entered-by", this.Context.CurrentUser.GetEmployeeUri()) };
+            var results = new TariffValidator().Validate(resource);
+            return results.IsValid
                        ? this.Negotiate.WithModel(this.tariffService.Add(resource))
                        : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
         }
