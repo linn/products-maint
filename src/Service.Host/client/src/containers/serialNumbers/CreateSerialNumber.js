@@ -16,7 +16,7 @@ import {
 import sernosNotesSelectors from '../../selectors/sernosNotesSelectors';
 
 const mapStateToProps = state => ({
-    item: serialNumberSelectors.getItem(state),
+    items: serialNumberSelectors.getItem(state),
     editStatus: serialNumberSelectors.getEditStatus(state),
     errorMessage: getSingleErrorMessage(state),
     loading: serialNumberSelectors.getLoading(state),

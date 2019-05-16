@@ -21,7 +21,7 @@ function SerialNumber({
     editStatus,
     history,
     loading,
-    item,
+    items,
     salesArticleSernosDetails,
     snackbarVisible,
     addItem,
@@ -61,12 +61,12 @@ function SerialNumber({
     }, [salesArticlesSearchResults]);
 
     useEffect(() => {
-        if (item === null) {
+        if (items === null) {
             setSerialNumber({});
             setPrevSerialNumber(null);
             setSalesArticles([{}]);
         } else {
-            const sernos = item[0];
+            const sernos = items[0];
 
             setSerialNumber(s => ({
                 ...sernos,
@@ -83,7 +83,7 @@ function SerialNumber({
 
             setPrevSerialNumber(sernos);
         }
-    }, [item, prevSerialNumber]);
+    }, [items, prevSerialNumber]);
 
     useEffect(() => {
         const transactions = sernosTransactions
@@ -351,7 +351,7 @@ function SerialNumber({
 }
 
 SerialNumber.propTypes = {
-    item: PropTypes.shape({}),
+    items: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
@@ -373,7 +373,7 @@ SerialNumber.propTypes = {
 };
 
 SerialNumber.defaultProps = {
-    item: {},
+    items: {},
     errorMessage: '',
     snackbarVisible: false,
     salesArticlesSearchResults: [{}],
