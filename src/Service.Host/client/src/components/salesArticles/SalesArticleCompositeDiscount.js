@@ -8,6 +8,8 @@ import {
     SnackbarMessage
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
+import SalesArticleTypeaheadDialog from '../../containers/common/SalesArticleTypeaheadDialog';
+
 import history from '../../history';
 
 function SalesArticleCompositeDiscount({
@@ -23,15 +25,15 @@ function SalesArticleCompositeDiscount({
     const [salesArticleCompositeDiscount, setSalesArticleCompositeDiscount] = useState();
     const [prevSalesArticleCompositeDiscount, setPrevSalesArticleCompositeDiscount] = useState({});
 
-    const editing = () => editStatus === 'edit';
-    const viewing = () => editStatus === 'view';
-
     useEffect(() => {
         if (item !== prevSalesArticleCompositeDiscount) {
             setSalesArticleCompositeDiscount(item);
             setPrevSalesArticleCompositeDiscount(item);
         }
     });
+
+    const editing = () => editStatus === 'edit';
+    const viewing = () => editStatus === 'view';
 
     const handleSaveClick = () => {
         if (editing()) {
@@ -60,6 +62,28 @@ function SalesArticleCompositeDiscount({
         });
     };
 
+    const handleBaseChange = newValue => {
+        if (editStatus === 'view') {
+            setEditStatus('edit');
+        }
+
+        setSalesArticleCompositeDiscount({
+            ...salesArticleCompositeDiscount,
+            baseArticleNumber: newValue.articleNumber
+        });
+    };
+
+    const handleGlossChange = newValue => {
+        if (editStatus === 'view') {
+            setEditStatus('edit');
+        }
+
+        setSalesArticleCompositeDiscount({
+            ...salesArticleCompositeDiscount,
+            noDiscountArticleNumber: newValue.articleNumber
+        });
+    };
+
     return (
         <Grid container spacing={24}>
             {loading || !salesArticleCompositeDiscount ? (
@@ -82,26 +106,30 @@ function SalesArticleCompositeDiscount({
                                 }`}
                             />
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={4}>
                             <InputField
                                 label="Base Part"
                                 type="string"
-                                fullWidth
-                                maxLength={14}
                                 propertyName="baseArticleNumber"
                                 value={salesArticleCompositeDiscount.baseArticleNumber}
                                 onChange={handleFieldChange}
                             />
+                            <SalesArticleTypeaheadDialog
+                                onSelect={handleBaseChange}
+                                title="Search for sales article"
+                            />
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={4}>
                             <InputField
                                 label="Gloss Part"
                                 type="string"
-                                fullWidth
-                                maxLength={14}
                                 propertyName="noDiscountArticleNumber"
                                 value={salesArticleCompositeDiscount.noDiscountArticleNumber}
                                 onChange={handleFieldChange}
+                            />
+                            <SalesArticleTypeaheadDialog
+                                onSelect={handleGlossChange}
+                                title="Search for sales article"
                             />
                         </Grid>
                     </Grid>
@@ -119,6 +147,18 @@ function SalesArticleCompositeDiscount({
     );
 }
 
+SalesArticleCompositeDiscount.propTypes = {
+    item: PropTypes.shape({}),
+    editStatus: PropTypes.string.isRequired,
+    itemId: PropTypes.string,
+    updateSalesArticleCompositeDiscount: PropTypes.func,
+    setEditStatus: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
+    snackbarVisible: PropTypes.bool,
+    setSnackbarVisible: PropTypes.func.isRequired,
+    match: PropTypes.shape({}).isRequired
+};
+
 SalesArticleCompositeDiscount.defaultProps = {
     item: PropTypes.shape({
         articleNumber: PropTypes.string,
@@ -129,18 +169,6 @@ SalesArticleCompositeDiscount.defaultProps = {
     loading: null,
     itemId: null,
     snackbarVisible: false
-};
-
-SalesArticleCompositeDiscount.propTypes = {
-    item: PropTypes.shape({}),
-    editStatus: PropTypes.string.isRequired,
-    itemId: PropTypes.string,
-    updateSalesArticleCompositeDiscount: PropTypes.func,
-    setEditStatus: PropTypes.func.isRequired,
-    loading: PropTypes.bool,
-    snackbarVisible: PropTypes.bool,
-    setSnackbarVisible: PropTypes.func.isRequired,
-    match: PropTypes.shape({}).isRequired,
 };
 
 export default SalesArticleCompositeDiscount;
