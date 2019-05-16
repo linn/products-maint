@@ -118,6 +118,18 @@ export const salesPackages = new ItemType(
     '/products/maint/sales-packages'
 );
 
+export const sernosTransaction = new ItemType(
+    'sernosTransaction',
+    'SERNOS_TRANSACTION',
+    '/products/maint/sernos-transactions'
+);
+
+export const sernosTransactions = new ItemType(
+    'sernosTransactions',
+    'SERNOS_TRANSACTIONS',
+    '/products/maint/sernos-transactions'
+);
+
 export const salesArticleCompositeDiscount = new ItemType(
     'salesArticleCompositeDiscount',
     'SALES_ARTICLE_COMPOSITE_DISCOUNT',

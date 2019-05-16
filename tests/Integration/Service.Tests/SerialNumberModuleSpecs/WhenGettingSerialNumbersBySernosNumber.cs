@@ -21,14 +21,16 @@
         [SetUp]
         public void SetUp()
         {
-            var serialNumber1 = new SerialNumber(123, "group", "code", "article", 321)
+            var serialNumber1 = new SerialNumber("group", "code", "article", 321)
                                     {
-                                        SernosNumber = 222
+                                        SernosNumber = 222,
+                                        SernosTRef = 123
                                     };
-            var serialNumber2 = new SerialNumber(555, "group a", "code a", "article a", 888)
+            var serialNumber2 = new SerialNumber("group a", "code a", "article a", 888)
                                     {
-                                        SernosNumber = 222
-                                    };
+                                        SernosNumber = 222,
+                                        SernosTRef = 555
+            };
 
             this.SerialNumberService.Search("222").Returns(
                 new SuccessResult<IEnumerable<SerialNumber>>(

@@ -35,6 +35,7 @@
             builder.RegisterType<SaHoldStoryService>().As<ISaHoldStoryService>();
             builder.RegisterType<SalesArticleReports>().As<ISalesArticleReports>();
             builder.RegisterType<ProductsOnHoldService>().As<IProductsOnHoldService>();
+            builder.RegisterType<SerialNumberFactory>().As<ISerialNumberFactory>();
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
@@ -60,10 +61,11 @@
             builder.RegisterType<RootProductService>()
                 .As<IFacadeService<RootProduct, string, RootProductResource, RootProductResource>>();
             builder.RegisterType<SalesArticleCompositeDiscountFacadeService>().As<ISalesArticleCompositeDiscountFacadeService>();
-            builder.RegisterType<SerialNumberService>().As<IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource>>();
+            builder.RegisterType<SerialNumberService>().As<ISerialNumberFacadeService>();
             builder.RegisterType<SernosNoteService>().As<IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource>>();
             builder.RegisterType<SernosTransactionService>().As<IFacadeService<SernosTrans, string, SernosTransactionResource, SernosTransactionResource>>();
             builder.RegisterType<SernosCountService>().As<IFacadeService<SernosCount, string, SernosCountResource, SernosCountResource>>();
+            builder.RegisterType<SalesArticleSerialNumberFacadeService>().As<ISalesArticleSerialNumberFacadeService>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();
@@ -76,6 +78,7 @@
             builder.RegisterType<StockTriggerLevelDataProxy>().As<IStockTriggerLevelDataService>();
             builder.RegisterType<DatabaseProxy>().As<IDatabaseService>();
             builder.RegisterType<SalesArticleCompositeDiscountProxyService>().As<ISalesArticleCompositeDiscountService>();
+            builder.RegisterType<SernosPack>().As<ISernosPack>();
             builder.RegisterType<SernosUsedOnInvoiceReportProxy>().As<ISernosUsedOnInvoiceDatabaseService>();
 
             builder.RegisterType<OracleConnection>().As<IDbConnection>().WithParameter("connectionString", ConnectionStrings.ManagedConnectionString());

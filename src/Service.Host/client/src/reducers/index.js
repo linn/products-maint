@@ -36,9 +36,12 @@ import productsOnHoldReport from './productsOnHoldReport';
 import salesArticleCoreTypes from './salesArticleCoreTypes/index';
 import salesPackage from './salesPackage';
 import salesPackages from './salesPackages';
+import sernosTransaction from './sernosTransaction';
+import sernosTransactions from './sernosTransactions';
 import rootProducts from './rootProducts/rootProducts';
 import rootProduct from './rootProducts/rootProduct';
 import salesArticleCompositeDiscount from './salesArticleCompositeDiscount';
+import salesArticleSernosDetails from './salesArticleSernosDetails';
 import sernosUsedOnInvoiceReport from './sernosUsedOnInvoiceReport';
 
 const rootReducer = combineReducers({
@@ -79,7 +82,10 @@ const rootReducer = combineReducers({
     productsOnHoldReport,
     salesPackage,
     salesPackages,
+    sernosTransaction,
+    sernosTransactions,
     salesArticleCompositeDiscount,
+    salesArticleSernosDetails,
     rootProduct,
     rootProducts,
     sernosUsedOnInvoiceReport

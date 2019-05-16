@@ -22,7 +22,7 @@
 
         protected override Tariff CreateFromResource(TariffResource resource)
         {
-            var tariff = new Tariff
+            return new Tariff
             {
                 TariffCode = resource.TariffCode,
                 Description = resource.Description,
@@ -31,8 +31,6 @@
                 Duty = resource.Duty,
                 EnteredBy = resource.Links.FirstOrDefault(a => a.Rel == "entered-by")?.Href.ParseId()
             };
-
-            return tariff;
         }
 
         protected override void UpdateFromResource(Tariff entity, TariffResource updateResource)

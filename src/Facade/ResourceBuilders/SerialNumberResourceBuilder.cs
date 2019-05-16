@@ -15,14 +15,9 @@
         {
             return new SerialNumberResource
                        {
-                           AccountId = serialNumber.AccountId,
                            ArticleNumber = serialNumber.ArticleNumber,
-                           CreatedBy = serialNumber.CreatedBy,
-                           DatePostedToVax = serialNumber.DatePostedToVax?.ToString("o"),
-                           DocumentLine = serialNumber.DocumentLine,
                            DocumentNumber = serialNumber.DocumentNumber,
                            DocumentType = serialNumber.DocumentType,
-                           OutletNumber = serialNumber.OutletNumber,
                            PrevSernosNumber = serialNumber.PrevSernosNumber,
                            SernosDate = serialNumber.SernosDate?.ToString("o"),
                            SernosGroup = serialNumber.SernosGroup,
@@ -49,6 +44,8 @@
                                  Rel = "sales-article",
                                  Href = $"/products/maint/sales-articles/{Uri.EscapeDataString(serialNumber.ArticleNumber)}"
                              };
+
+            yield return new LinkResource { Rel = "entered-by", Href = $"/employees/{serialNumber.CreatedBy}" };
         }
     }
 }
