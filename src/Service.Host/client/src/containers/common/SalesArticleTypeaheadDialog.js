@@ -1,8 +1,7 @@
 ﻿import { connect } from 'react-redux';
+import { TypeaheadDialog } from '@linn-it/linn-form-components-library';
 import salesArticlesActions from '../../actions/salesArticles';
 import salesArticlesSelectors from '../../selectors/salesArticlesSelectors';
-//import { TypeaheadDialog } from '@linn-it/linn-form-components-library';
-import TypeaheadDialog from '../../components/common/TypeaheadDialog';
 
 const mapStateToProps = (state, { onSelect, title }) => ({
     title,
