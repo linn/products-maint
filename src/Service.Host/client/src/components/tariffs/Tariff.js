@@ -38,7 +38,9 @@ function Tariff({
         }
     });
 
-    const inputInvalid = () => !tariff.tariffCode || !tariff.description;
+    const dutyNotPercentage = () => tariff.duty < 0 || tariff.duty > 100;
+
+    const inputInvalid = () => !tariff.tariffCode || !tariff.description || dutyNotPercentage();
 
     const handleSaveClick = () => {
         if (editing()) {
@@ -134,7 +136,10 @@ function Tariff({
                                 label="Duty"
                                 adornment="%"
                                 onChange={handleFieldChange}
+                                maxLength={6}
                                 propertyName="duty"
+                                error={dutyNotPercentage()}
+                                helperText={dutyNotPercentage() ? 'Must be between 0 and 100.' : ''}
                             />
                         </Grid>
                         <Grid item xs={3}>
@@ -179,7 +184,7 @@ Tariff.propTypes = {
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,
     updateTariff: PropTypes.func,
-    history: PropTypes.func.isRequired,
+    history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     addTariff: PropTypes.func,
     loading: PropTypes.bool,
     snackbarVisible: PropTypes.bool,
