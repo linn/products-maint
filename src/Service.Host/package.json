@@ -22,7 +22,8 @@
         "setupFiles": [
             "raf/polyfill",
             "./react-animation-test-shim.js",
-            "./setup-enzyme.js"
+            "./setup-enzyme.js",
+            "./jest-setup.js"
         ],
         "transform": {
             "^.+\\.js$": "babel-jest"
