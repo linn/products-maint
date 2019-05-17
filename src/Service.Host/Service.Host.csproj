@@ -10,6 +10,7 @@
   <ItemGroup>
     <Folder Include="client\assets\" />
     <Folder Include="client\src\components\common\__tests__\" />
+    <Folder Include="client\src\themes\" />
     <Folder Include="Properties\" />
     <Compile Remove="client\build\**" />
     <Compile Remove="client\coverage\**" />
