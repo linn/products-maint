@@ -60,7 +60,6 @@ import CreateSalesPackage from '../containers/salesPackages/CreateSalesPackage';
 import RootProducts from '../containers/rootProducts/RootProducts';
 import RootProduct from '../containers/rootProducts/RootProduct';
 import SernosUsedOnInvoice from '../containers/reports/SernosUsedOnInvoice';
-import SernosUsedOnInvoiceOptions from '../containers/reportOptions/SernosUsedOnInvoiceOptions';
 import sernosUsedOnInvoiceOptions from '../containers/reportOptions/SernosUsedOnInvoiceOptions';
 import SerialNumberTransactions from '../containers/serialNumberTransactions/SerialNumberTransactions';
 import SerialNumberTransaction from '../containers/serialNumberTransactions/SerialNumberTransaction';
