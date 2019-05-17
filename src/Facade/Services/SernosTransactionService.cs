@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Facade.Services
 {
     using System;
+    using System.Linq;
     using System.Linq.Expressions;
 
     using Linn.Common.Facade;
@@ -17,13 +18,40 @@
 
         protected override SernosTrans CreateFromResource(SernosTransactionResource resource)
         {
-            throw new NotImplementedException();
+            return new SernosTrans
+                       {
+                           TransCode = resource.TransCode,
+                           ManualPost = resource.ManualPost,
+                           TransDescription = resource.TransDescription,
+                           Comments = resource.Comments,
+                           SernosTransCounts = resource.SernosTransCounts.Select(
+                               item => new SernosTransCount
+                                           {
+                                               TransCode = item.TransCode,
+                                               SernosCount = item.SernosCount,
+                                               CheckError = item.CheckError,
+                                               CorrectValue = item.CorrectValue,
+                                               CountIncrement = item.CountIncrement,
+                                               CheckErrorMess = item.CheckErrorMess
+                                           }).ToList()
+                       };
         }
 
         protected override void UpdateFromResource(SernosTrans sernosConfig, SernosTransactionResource updateResource)
         {
+            sernosConfig.Comments = updateResource.Comments;
             sernosConfig.TransDescription = updateResource.TransDescription;
             sernosConfig.ManualPost = updateResource.ManualPost;
+            sernosConfig.SernosTransCounts = updateResource.SernosTransCounts.Select(
+                item => new SernosTransCount
+                            {
+                                TransCode = item.TransCode,
+                                SernosCount = item.SernosCount,
+                                CheckError = item.CheckError,
+                                CorrectValue = item.CorrectValue,
+                                CountIncrement = item.CountIncrement,
+                                CheckErrorMess = item.CheckErrorMess
+                            }).ToList();
         }
 
         protected override Expression<Func<SernosTrans, bool>> SearchExpression(string searchTerm)

@@ -1,4 +1,5 @@
 ﻿﻿import React, { Fragment, useState, useEffect } from 'react';
+import set from 'lodash/set';
 import PropTypes from 'prop-types';
 import { Grid, Button, Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
@@ -28,10 +29,22 @@ function SerialNumberTransaction({
 }) {
     const [serialNumberTransaction, setSerialNumberTransaction] = useState({});
     const [prevSerialNumberTransaction, setPrevSerialNumberTransaction] = useState({});
+    const [newElements, setNewElements] = useState([]);
 
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
+
+    const emptySernosTransCode = {
+        transCode: '',
+        sernosCount: '',
+        checkError: '',
+        correctValue: 0,
+        countIncrement: 0,
+        checkErrorMess: ''
+    };
+
+    const errorOptions = ['None', 'Error', 'Warning'];
 
     useEffect(() => {
         if (item !== prevSerialNumberTransaction) {
@@ -40,14 +53,23 @@ function SerialNumberTransaction({
         }
     });
 
+    const cursor = {
+        cursor: 'pointer'
+    };
+
     const transCodeInvalid = () => !serialNumberTransaction.transCode;
     const descriptionInvalid = () => !serialNumberTransaction.transDescription;
+    const showFieldsToAddElement = () => {
+        setNewElements(prevState => [...prevState, emptySernosTransCode]);
+    };
 
     const handleSaveClick = () => {
         if (editing()) {
+            // converge any new elements
             updateSerialNumberTransaction(itemId, serialNumberTransaction);
             setEditStatus('view');
         } else if (creating()) {
+            // converge any new elements
             addSerialNumberTransaction(serialNumberTransaction);
         }
     };
@@ -71,7 +93,12 @@ function SerialNumberTransaction({
 
     const handleNewElement = (propertyName, newValue) => {
         setEditStatus('edit');
-        // ({ ...newElement, [propertyName]: newValue });
+        const splitIndex = propertyName.indexOf(',');
+        const index = propertyName.slice(0, splitIndex);
+        const prop = propertyName.slice(splitIndex + 1);
+        const newElement = newElements[index];
+        newElement[prop] = newValue;
+        setNewElements([...newElements, ...newElement]);
     };
 
     const handleElementChange = (propertyName, newValue) => {
@@ -79,9 +106,9 @@ function SerialNumberTransaction({
         const splitIndex = propertyName.indexOf(',');
         const index = propertyName.slice(0, splitIndex);
         const prop = propertyName.slice(splitIndex + 1);
-        const { elements } = salesPackage;
-        elements[index][prop] = newValue;
-        // setSalesPackage({ ...salesPackage, elements });
+        const { sernosTransCounts } = serialNumberTransaction;
+        sernosTransCounts[index][prop] = newValue;
+        setSerialNumberTransaction({ ...serialNumberTransaction, sernosTransCounts });
     };
 
     const yesNoOptions = ['Y', 'N'];
@@ -150,12 +177,12 @@ function SerialNumberTransaction({
                         <Grid container>
                             <Grid item xs={6}>
                                 <InputField
-                                    value={serialNumberTransaction.comment}
-                                    label="Comment"
+                                    value={serialNumberTransaction.comments}
+                                    label="Comments"
                                     rows={3}
                                     fullWidth
                                     onChange={handleFieldChange}
-                                    propertyName="comment"
+                                    propertyName="comments"
                                 />
                             </Grid>
                         </Grid>
@@ -171,13 +198,13 @@ function SerialNumberTransaction({
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {serialNumberTransaction.elements &&
-                                    serialNumberTransaction.elements.map((row, index) => (
-                                        <TableRow style={cursor} key={row.count}>
+                                {serialNumberTransaction.sernosTransCounts &&
+                                    serialNumberTransaction.sernosTransCounts.map((row, index) => (
+                                        <TableRow style={cursor} key={row.sernosCount}>
                                             <TableCell>
-                                                <Dropdown
+                                                <InputField
                                                     disabled
-                                                    value={row.count}
+                                                    value={row.sernosCount}
                                                     label="Count"
                                                     propertyName="count"
                                                 />
@@ -203,6 +230,7 @@ function SerialNumberTransaction({
                                                 <Dropdown
                                                     value={row.checkError}
                                                     label="Check Error"
+                                                    items={errorOptions}
                                                     onChange={handleElementChange}
                                                     propertyName={`${index},checkError`}
                                                 />
@@ -218,22 +246,16 @@ function SerialNumberTransaction({
                                             </TableCell>
                                         </TableRow>
                                     ))}
-                                <TableRow>
-                                    <TableCell>
-                                        <Button onClick={showFieldsToAddElement}>
-                                            <AddIcon />
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
                                 {newElements &&
                                     newElements.map((element, index) => (
-                                        <TableRow style={cursor}>
+                                        <TableRow style={cursor} key={element.sernosCount + index}>
                                             <TableCell>
                                                 <Dropdown
                                                     disabled
-                                                    value={element.count}
+                                                    value={element.sernosCount}
                                                     label="Count"
                                                     propertyName="count"
+                                                    onChange={handleElementChange}
                                                 />
                                             </TableCell>
                                             <TableCell>
@@ -257,6 +279,7 @@ function SerialNumberTransaction({
                                                 <Dropdown
                                                     value={element.checkError}
                                                     label="Check Error"
+                                                    items={errorOptions}
                                                     onChange={handleNewElement}
                                                     propertyName={`${index},checkError`}
                                                 />
@@ -272,6 +295,13 @@ function SerialNumberTransaction({
                                             </TableCell>
                                         </TableRow>
                                     ))}
+                                <TableRow key="addButton">
+                                    <TableCell>
+                                        <Button onClick={showFieldsToAddElement}>
+                                            <AddIcon />
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
                             </TableBody>
                         </Table>
                         <Grid item xs={12}>
