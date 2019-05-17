@@ -1,9 +1,9 @@
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 import config from '../config';
 import * as actionTypes from './index';
 
 export const fetchSaHoldStoriesReport = articleNumber => ({
-    [CALL_API]: {
+    [RSAA]: {
         endpoint: `${
             config.appRoot
         }/products/reports/sa-hold-stories-for-sales-article/${articleNumber}`,
@@ -31,7 +31,7 @@ export const fetchSaHoldStoriesReport = articleNumber => ({
 });
 
 export const fetchRootProductHoldStoriesReport = rootProduct => ({
-    [CALL_API]: {
+    [RSAA]: {
         endpoint: `${config.appRoot}/products/reports/hold-stories-for-root-product/${rootProduct}`,
         method: 'GET',
         options: { requiresAuth: true },

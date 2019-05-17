@@ -1,9 +1,9 @@
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 import config from '../config';
 import * as actionTypes from './index';
 
 export const fetchSalesArticleSernosDetails = articleNumber => ({
-    [CALL_API]: {
+    [RSAA]: {
         endpoint: `${
             config.appRoot
         }/products/maint/sales-articles/serial-number-details/${articleNumber}`,
