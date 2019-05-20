@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Menu from '../components/Menu';
+import MenuPage from '../components/MenuPage';
 import { getMenuSection, getMenuLoading } from '../selectors/menuSelectors';
 
 const getsectionId = ownProps => ownProps.match.params.sectionId;
@@ -9,4 +9,4 @@ const mapStateToProps = (state, ownProps) => ({
     loading: getMenuLoading(state)
 });
 
-export default connect(mapStateToProps)(Menu);
+export default connect(mapStateToProps)(MenuPage);
