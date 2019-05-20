@@ -1,16 +1,16 @@
 ﻿import { connect } from 'react-redux';
+import { ReportSelectors } from '@linn-it/linn-form-components-library';
 import CartonDetails from '../../components/reports/CartonDetails';
 import initialiseOnMount from '../common/initialiseOnMount';
 import actions from '../../actions/cartonDetailsReport';
 import config from '../../config';
-import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
 import * as reportTypes from '../../reportTypes';
 
-const reportName = reportTypes.cartonDetailsReport.item;
+const reportSelectors = new ReportSelectors(reportTypes.cartonDetailsReport.item);
 
 const mapStateToProps = state => ({
-    reportData: getReportData(state, reportName),
-    loading: getReportLoading(state, reportName),
+    reportData: reportSelectors.getReportData(state),
+    loading: reportSelectors.getReportLoading(state),
     config
 });
 

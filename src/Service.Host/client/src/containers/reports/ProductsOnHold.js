@@ -1,16 +1,16 @@
 import { connect } from 'react-redux';
+import { ReportSelectors } from '@linn-it/linn-form-components-library';
 import ProductsOnHold from '../../components/reports/ProductsOnHold';
 import initialiseOnMount from '../common/initialiseOnMount';
 import fetchProductsOnHold from '../../actions/productsOnHoldReportActions';
 import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import config from '../../config';
-import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
 
-const reportName = 'productsOnHoldReport';
+const reportSelectors = new ReportSelectors('productsOnHoldReport');
 
 const mapStateToProps = state => ({
-    reportData: getReportData(state, reportName),
-    loading: getReportLoading(state, reportName),
+    reportData: reportSelectors.getReportData(state),
+    loading: reportSelectors.getReportLoading(state),
     errorMessage: getSingleErrorMessage(state),
     config
 });

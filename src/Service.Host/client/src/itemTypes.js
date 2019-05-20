@@ -1,4 +1,4 @@
-﻿import ItemType from './ItemType';
+﻿import { ItemType } from '@linn-it/linn-form-components-library';
 
 export const cartonType = new ItemType('cartonType', 'CARTON_TYPE', '/products/maint/carton-types');
 

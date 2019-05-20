@@ -19,6 +19,7 @@
             {
                 return new BadRequestResult<ResultsModel>("invoiceNumber or consignmentNumber must be specified");
             }
+
             var results = this.service.GetReport(invoiceNumber, consignmentNumber);
             return new SuccessResult<ResultsModel>(results);
         }
