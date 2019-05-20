@@ -44,7 +44,8 @@ const mapDispatchToProps = {
     setEditStatus: serialNumberActions.setEditStatus,
     setSnackbarVisible: serialNumberActions.setSnackbarVisible,
     clearSerialNumber: serialNumberActions.create,
-    clearSalesArticleSernosDetails
+    clearSalesArticleSernosDetails,
+    clearSearch: salesArticlesActions.clearSearch
 };
 
 export default connect(

@@ -7,7 +7,6 @@ import {
     SearchInputField,
     SnackbarMessage,
     Title,
-    useSearch,
     ErrorCard
 } from '@linn-it/linn-form-components-library';
 import { Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
@@ -15,6 +14,7 @@ import { getSernosNote } from '../selectors/sernosNotesSelectors';
 import SernosNote from './SernosNote';
 import Page from '../containers/Page';
 import { sortEntityList, sortList } from '../helpers/utilities';
+import useSearch from './useSearchLocal';
 
 function SerialNumbers({
     items,
@@ -33,7 +33,7 @@ function SerialNumbers({
     const [sernosGroups, setSernosGroups] = useState([]);
     const [selectedSernosGroup, setSelectedSernosGroup] = useState('');
 
-    useSearch(fetchItems, searchTerm, 'sernosNumber');
+    useSearch(fetchItems, searchTerm, null, 'sernosNumber');
 
     useEffect(() => {
         if (items.length) {
@@ -64,6 +64,7 @@ function SerialNumbers({
                 placeholder="Serial Number"
                 onChange={handleSearchTermChange}
                 value={searchTerm}
+                // type="number"
             />
 
             <CreateButton createUrl="/products/maint/serial-numbers/create" />
