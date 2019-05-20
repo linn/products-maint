@@ -22,8 +22,7 @@
         "setupFiles": [
             "raf/polyfill",
             "./react-animation-test-shim.js",
-            "./setup-enzyme.js",
-            "./jest-setup.js"
+            "./setup-enzyme.js"
         ],
         "transform": {
             "^.+\\.js$": "babel-jest"
@@ -76,7 +75,7 @@
         "webpack-dev-server": "^3.3.1"
     },
     "dependencies": {
-        "@linn-it/linn-form-components-library": "^1.0.27",
+        "@linn-it/linn-form-components-library": "^1.0.29",
         "@material-ui/core": "^3.9.3",
         "@material-ui/icons": "^3.0.1",
         "babel-polyfill": "^6.26.0",
@@ -101,7 +100,7 @@
         "react-router": "^4.3.1",
         "react-router-dom": "^4.3.1",
         "redux": "^3.7.2",
-        "redux-api-middleware": "^3.0.1",
+        "redux-api-middleware": "^2.3.0",
         "redux-devtools": "^3.4.1",
         "redux-oidc": "^3.0.2",
         "redux-thunk": "^2.3.0",
