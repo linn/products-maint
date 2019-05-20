@@ -6,8 +6,9 @@ import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import serialNumberTransactionSelectors from '../../selectors/serialNumberTransactionSelectors';
 
 const mapStateToProps = (state, { match }) => ({
-    item: serialNumberTransactionSelectors.getItem(state),
+    sernosTransCodes: serialNumberTransactionSelectors.getSernosTransCodes(state),
     itemId: match.params.id,
+    item: serialNumberTransactionSelectors.getItem(state),
     editStatus: serialNumberTransactionSelectors.getEditStatus(state),
     loading: serialNumberTransactionSelectors.getLoading(state),
     snackbarVisible: serialNumberTransactionSelectors.getSnackbarVisible(state),

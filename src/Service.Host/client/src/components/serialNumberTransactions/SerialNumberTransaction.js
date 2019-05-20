@@ -1,8 +1,8 @@
 ﻿﻿import React, { Fragment, useState, useEffect } from 'react';
-import set from 'lodash/set';
 import PropTypes from 'prop-types';
 import { Grid, Button, Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import { DeleteIcon } from '@material-ui/icons/Delete';
+import { AddIcon } from '@material-ui/icons/Add';
 import {
     SaveBackCancelButtons,
     InputField,
@@ -18,6 +18,7 @@ function SerialNumberTransaction({
     loading,
     errorMessage,
     editStatus,
+    sernosTransCodes,
     item,
     itemId,
     updateSerialNumberTransaction,
@@ -63,13 +64,22 @@ function SerialNumberTransaction({
         setNewElements(prevState => [...prevState, emptySernosTransCode]);
     };
 
+    const removeElement = index => {
+        setNewElements(prevState => [
+            ...prevState,
+            prevState.slice(0, index).concat(prevState.slice(index + 1, prevState.length))
+        ]);
+    };
+
     const handleSaveClick = () => {
         if (editing()) {
-            // converge any new elements
+            const { sernosTransCounts } = serialNumberTransaction;
+            serialNumberTransaction.sernosTransCounts = [...sernosTransCounts, ...newElements];
             updateSerialNumberTransaction(itemId, serialNumberTransaction);
             setEditStatus('view');
         } else if (creating()) {
-            // converge any new elements
+            const { sernosTransCounts } = serialNumberTransaction;
+            serialNumberTransaction.sernosTransCounts = [...sernosTransCounts, ...newElements];
             addSerialNumberTransaction(serialNumberTransaction);
         }
     };
@@ -251,8 +261,8 @@ function SerialNumberTransaction({
                                         <TableRow style={cursor} key={element.sernosCount + index}>
                                             <TableCell>
                                                 <Dropdown
-                                                    disabled
-                                                    value={element.sernosCount}
+                                                    items={sernosTransCodes}
+                                                    value="of"
                                                     label="Count"
                                                     propertyName="count"
                                                     onChange={handleElementChange}
@@ -277,9 +287,9 @@ function SerialNumberTransaction({
                                             </TableCell>
                                             <TableCell>
                                                 <Dropdown
-                                                    value={element.checkError}
                                                     label="Check Error"
                                                     items={errorOptions}
+                                                    value="Error"
                                                     onChange={handleNewElement}
                                                     propertyName={`${index},checkError`}
                                                 />
@@ -292,6 +302,12 @@ function SerialNumberTransaction({
                                                     onChange={handleNewElement}
                                                     propertyName={`${index},message`}
                                                 />
+                                            </TableCell>
+
+                                            <TableCell>
+                                                <Button onClick={() => removeElement(index)}>
+                                                    <DeleteIcon />
+                                                </Button>
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -335,6 +351,7 @@ SerialNumberTransaction.propTypes = {
     item: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
+    sernosTransCodes: PropTypes.arrayOf(PropTypes.string).isRequired,
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,
     updateSerialNumberTransaction: PropTypes.func,

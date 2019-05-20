@@ -8,6 +8,7 @@ const mapStateToProps = state => ({
     item: { manualPost: 'N', updateBuiltBy: 'N' },
     editStatus: 'create',
     errorMessage: getSingleErrorMessage(state),
+    sernosTransCodes: serialNumberTransactionSelectors.getSernosTransCodes(state),
     loading: serialNumberTransactionSelectors.getLoading(state),
     snackbarVisible: serialNumberTransactionSelectors.getSnackbarVisible(state)
 });
