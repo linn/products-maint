@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-import { ReportSelectors } from '@linn-it/linn-form-components-library';
+import { ReportSelectors, fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import SernosUsedOnInvoice from '../../components/reports/SernosUsedOnInvoice';
 import initialiseOnMount from '../common/initialiseOnMount';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import actions from '../../actions/sernosUsedOnInvoiceReport';
 import config from '../../config';
 import * as reportTypes from '../../reportTypes';
@@ -25,7 +24,7 @@ const mapStateToProps = (state, ownProps) => ({
     reportData: reportSelectors.getReportData(state),
     loading: reportSelectors.getReportLoading(state),
     options: getOptions(ownProps),
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     config
 });
 

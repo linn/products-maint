@@ -1,7 +1,7 @@
 ﻿import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import ProductRanges from '../../components/productRanges/ProductRanges';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import productRangesActions from '../../actions/productRanges';
 import initialiseOnMount from '../common/initialiseOnMount';
 import productRangesSelectors from '../../selectors/productRangesSelectors';
@@ -9,7 +9,7 @@ import productRangesSelectors from '../../selectors/productRangesSelectors';
 const mapStateToProps = state => ({
     items: productRangesSelectors.getItems(state),
     loading: productRangesSelectors.getLoading(state),
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     classes: {}
 });
 

@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import RootProduct from '../../components/rootProducts/RootProduct';
 import initialiseOnMount from '../common/initialiseOnMount';
 import rootProductActions from '../../actions/rootProducts/rootProduct';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import rootProductSelectors from '../../selectors/rootProducts/rootProductSelectors';
 
 const mapStateToProps = (state, { match }) => ({
@@ -10,7 +10,7 @@ const mapStateToProps = (state, { match }) => ({
     itemId: match.params.name,
     editStatus: rootProductSelectors.getEditStatus(state),
     loading: rootProductSelectors.getLoading(state),
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     snackbarVisible: rootProductSelectors.getSnackbarVisible(state)
 });
 

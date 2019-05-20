@@ -1,8 +1,8 @@
 ﻿import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import SalesArticle from '../../components/salesArticles/SalesArticle';
 import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import salesArticleActions from '../../actions/salesArticle';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import salesArticleSelectors from '../../selectors/salesArticleSelectors';
 import saCoreTypeActions from '../../actions/saCoreTypesActions';
 import saCoreTypesSelectors from '../../selectors/saCoreTypesSelector';
@@ -13,7 +13,7 @@ const mapStateToProps = (state, { match }) => ({
     saCoreTypes: saCoreTypesSelectors.getItems(state),
     editStatus: salesArticleSelectors.getEditStatus(state),
     loading: salesArticleSelectors.getLoading(state),
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     snackbarVisible: salesArticleSelectors.getSnackbarVisible(state)
 });
 

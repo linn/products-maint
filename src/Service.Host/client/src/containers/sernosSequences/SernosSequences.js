@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import SernosSequences from '../../components/sernosSequences/SernosSequences';
 import initialiseOnMount from '../common/initialiseOnMount';
 import sernosSequencesActions from '../../actions/sernosSequencesActions';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import sernosSequencesSelectors from '../../selectors/sernosSequencesSelectors';
 
 const mapStateToProps = state => ({
     sernosSequences: sernosSequencesSelectors.getItems(state),
     loading: sernosSequencesSelectors.getLoading(state),
-    errorMessage: getSingleErrorMessage(state)
+    errorMessage: fetchErrorSelectors(state)
 });
 
 const initialise = () => dispatch => {
