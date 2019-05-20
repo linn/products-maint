@@ -1,9 +1,9 @@
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 import config from '../config';
 import * as actionTypes from './index';
 
 const fetchProductsOnHold = () => ({
-    [CALL_API]: {
+    [RSAA]: {
         endpoint: `${config.appRoot}/products/reports/products-on-hold`,
         method: 'GET',
         options: { requiresAuth: true },

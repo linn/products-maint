@@ -1,9 +1,9 @@
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 import config from '../config';
 import * as actionTypes from './index';
 
 export const fetchStockTriggerLevelParts = locationId => ({
-    [CALL_API]: {
+    [RSAA]: {
         endpoint: `${config.appRoot}/products/reports/parts-at-location/${locationId}`,
         method: 'GET',
         options: { requiresAuth: true },
@@ -29,7 +29,7 @@ export const fetchStockTriggerLevelParts = locationId => ({
 });
 
 export const fetchStockTriggerLevelsByPart = partNumber => ({
-    [CALL_API]: {
+    [RSAA]: {
         endpoint: `${config.appRoot}/products/reports/stock-trigger-levels/18104/${partNumber}`,
         method: 'GET',
         options: { requiresAuth: true },
