@@ -9,27 +9,6 @@ export const getMenuSection = (state, sectionId) => {
     if (sections) {
         const section = sections.filter(x => x.id === sectionId);
         const { columns } = section[0];
-        //     const categories = [];
-
-        //     columns.forEach(column => {
-        //         categories.push(column.categories);
-        //     });
-
-        //     const lists = [];
-
-        //     categories.forEach(list => {
-        //         lists.push(list);
-        //     });
-
-        //     const data = [];
-        //     lists.forEach(list => {
-        //         list.forEach(item => {
-        //             data.push(item);
-        //         });
-        //     });
-
-        //     return data;
-
         return columns;
     }
     return [];
