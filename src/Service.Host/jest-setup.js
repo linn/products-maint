@@ -1,1 +1,2 @@
 ﻿global.fetch = () => {};
+global.getJSON = () => {};
