@@ -1,8 +1,8 @@
 ﻿import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import ProductRange from '../../components/productRanges/ProductRange';
 import initialiseOnMount from '../common/initialiseOnMount';
 import productRangeActions from '../../actions/productRange';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import productRangeSelectors from '../../selectors/productRangeSelectors';
 
 const mapStateToProps = (state, { match }) => ({
@@ -10,7 +10,7 @@ const mapStateToProps = (state, { match }) => ({
     id: Number(match.params.id),
     editStatus: productRangeSelectors.getEditStatus(state),
     loading: productRangeSelectors.getLoading(state),
-    errorMessage: getSingleErrorMessage(state)
+    errorMessage: fetchErrorSelectors(state)
 });
 
 const initialise = ({ id }) => dispatch => {

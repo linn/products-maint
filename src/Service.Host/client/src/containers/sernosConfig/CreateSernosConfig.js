@@ -1,13 +1,13 @@
 ﻿import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import sernosConfigActions from '../../actions/sernosConfigActions';
 import SernosConfig from '../../components/SernosConfig';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import sernosConfigSelectors from '../../selectors/sernosConfigSelectors';
 
 const mapStateToProps = state => ({
     item: { serialNumbered: 'N' },
     editStatus: 'create',
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     loading: sernosConfigSelectors.getLoading(state),
     snackbarVisible: sernosConfigSelectors.getSnackbarVisible(state)
 });

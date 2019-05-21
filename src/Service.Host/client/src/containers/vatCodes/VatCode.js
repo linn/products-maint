@@ -1,8 +1,8 @@
 ﻿import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import VatCode from '../../components/vatCodes/VatCode';
 import initialiseOnMount from '../common/initialiseOnMount';
 import vatCodeActions from '../../actions/vatCodeActions';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import vatCodeSelectors from '../../selectors/vatCodeSelectors';
 
 const mapStateToProps = (state, { match }) => ({
@@ -11,7 +11,7 @@ const mapStateToProps = (state, { match }) => ({
     editStatus: vatCodeSelectors.getEditStatus(state),
     loading: vatCodeSelectors.getLoading(state),
     snackbarVisible: vatCodeSelectors.getSnackbarVisible(state),
-    errorMessage: getSingleErrorMessage(state)
+    errorMessage: fetchErrorSelectors(state)
 });
 
 const initialise = ({ itemId }) => dispatch => {

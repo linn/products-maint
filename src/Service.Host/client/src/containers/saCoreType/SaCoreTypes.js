@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import SaCoreTypes from '../../components/SaCoreTypes';
 import initialiseOnMount from '../common/initialiseOnMount';
 import saCoreTypesActions from '../../actions/saCoreTypesActions';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import saCoreTypesSelectors from '../../selectors/saCoreTypesSelector';
 
 const mapStateToProps = state => ({
     saCoreTypes: saCoreTypesSelectors.getItems(state),
     loading: saCoreTypesSelectors.getLoading(state),
-    errorMessage: getSingleErrorMessage(state)
+    errorMessage: fetchErrorSelectors(state)
 });
 
 const initialise = () => dispatch => {

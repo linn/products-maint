@@ -1,4 +1,4 @@
-import ItemSelectors from './ItemSelectors';
+import { ItemSelectors } from '@linn-it/linn-form-components-library';
 import * as itemTypes from '../itemTypes';
 
 export default new ItemSelectors(itemTypes.productRange.item);

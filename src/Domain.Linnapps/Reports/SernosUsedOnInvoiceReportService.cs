@@ -23,10 +23,11 @@
             {
                 salesAccount = table.Rows[0][0].ToString();
             }
-            catch (IndexOutOfRangeException x)
+            catch (IndexOutOfRangeException)
             {
                 salesAccount = string.Empty;
             }
+
             var results = new ResultsModel(new[]
                                                {
                                                    "Invoice Line",
@@ -52,10 +53,9 @@
                 results.SetGridTextValue(row.RowIndex, 5, tableRow[8]?.ToString());
                 results.SetGridTextValue(row.RowIndex, 6, tableRow[4]?.ToString());
                 results.SetGridTextValue(row.RowIndex, 7, tableRow[5]?.ToString());
-
             }
 
             return results;
-        }      
+        }
     }
 }

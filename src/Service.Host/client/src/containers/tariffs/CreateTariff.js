@@ -1,14 +1,14 @@
 ﻿import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import tariffActions from '../../actions/tariff';
 import Tariff from '../../components/tariffs/Tariff';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import tariffSelectors from '../../selectors/tariffSelectors';
 
 const mapStateToProps = state => ({
     item: {},
     editStatus: 'create',
     loading: tariffSelectors.getLoading(state),
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     snackbarVisible: tariffSelectors.getSnackbarVisible(state)
 });
 

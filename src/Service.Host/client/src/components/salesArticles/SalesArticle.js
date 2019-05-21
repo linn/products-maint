@@ -83,7 +83,14 @@ function SalesArticle({
         setEditStatus('edit');
         let { links } = salesArticle;
         if (newValue) {
-            links = links.map(link => (link.rel === rel ? { rel, href: newValue } : link));
+            const existingLink = links.find(link => link.rel === rel);
+            if (existingLink) {
+                links = links.map(link => (link.rel === rel ? { rel, href: newValue } : link));
+            } else {
+                links.push({ rel, href: newValue });
+            }
+        } else {
+            links = links.filter(link => link.rel !== rel);
         }
 
         setSalesArticle({ ...salesArticle, links });

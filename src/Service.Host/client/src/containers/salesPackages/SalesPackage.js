@@ -1,5 +1,5 @@
 ﻿import { connect } from 'react-redux';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import SalesPackage from '../../components/salesPackages/SalesPackage';
 import salesPackagesActions from '../../actions/salesPackages/salesPackage';
 import initialiseOnMount from '../common/initialiseOnMount';
@@ -9,7 +9,7 @@ const mapStateToProps = (state, { match }) => ({
     item: salesPackageSelectors.getItem(state),
     itemId: match.params.id,
     editStatus: salesPackageSelectors.getEditStatus(state),
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     snackbarVisible: salesPackageSelectors.getSnackbarVisible(state),
     loading: salesPackageSelectors.getLoading(state),
     classes: {}
