@@ -1,6 +1,7 @@
 import * as actionTypes from '../../actions';
 
 const fetchError = (state, action) => {
+    console.error('action type', action);
     switch (action.type) {
         case actionTypes.FETCH_ERROR:
             return action.payload.error

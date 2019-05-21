@@ -18,7 +18,7 @@ export default new function serialNumberTransaction() {
             return null;
         }
 
-        return storeItem.sernosTransCodes;
+        return storeItem.sernosTransCodes ? storeItem.sernosTransCodes : null;
     };
 
     this.getLoading = state => {

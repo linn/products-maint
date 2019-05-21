@@ -18,6 +18,12 @@
                     item: null,
                     editStatus: 'create'
                 };
+            case actionTypes['REQUEST_SERIAL_NUMBER_COUNTS']:
+                return {
+                    ...state,
+                    editStatus: 'edit',
+                    sernosTransCodes: null
+                };
             case actionTypes[`REQUEST_${itemRoot}`]:
                 return {
                     ...state,
@@ -57,7 +63,12 @@
                     item: action.payload.data,
                     editStatus: 'view'
                 };
-
+            case actionTypes['RECEIVE_SERIAL_NUMBER_COUNTS']:
+                return {
+                    ...state,
+                    editStatus: 'edit',
+                    sernosTransCodes: action.payload.data
+                };
             case actionTypes[`RECEIVE_UPDATED_${itemRoot}`]:
                 return {
                     ...state,

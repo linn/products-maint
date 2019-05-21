@@ -5,6 +5,7 @@ const initialiseOnMount = ComposedComponent =>
         componentDidMount() {
             const { initialise } = this.props;
             if (initialise) {
+                console.error('initialise on mount', this.props);
                 initialise(this.props);
             }
         }

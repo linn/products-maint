@@ -1,8 +1,8 @@
 ﻿﻿import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Button, Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core';
-import { DeleteIcon } from '@material-ui/icons/Delete';
-import { AddIcon } from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
 import {
     SaveBackCancelButtons,
     InputField,
@@ -18,9 +18,10 @@ function SerialNumberTransaction({
     loading,
     errorMessage,
     editStatus,
-    sernosTransCodes,
     item,
     itemId,
+    fetchCodes,
+    sernosTransCodes,
     updateSerialNumberTransaction,
     addSerialNumberTransaction,
     setEditStatus,
@@ -31,6 +32,9 @@ function SerialNumberTransaction({
     const [serialNumberTransaction, setSerialNumberTransaction] = useState({});
     const [prevSerialNumberTransaction, setPrevSerialNumberTransaction] = useState({});
     const [newElements, setNewElements] = useState([]);
+
+    console.error('item', item);
+    console.error('sernosTransCodes', sernosTransCodes);
 
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
@@ -45,7 +49,7 @@ function SerialNumberTransaction({
         checkErrorMess: ''
     };
 
-    const errorOptions = ['None', 'Error', 'Warning'];
+    const errorOptions = ['None', 'Error', 'Warning', ''];
 
     useEffect(() => {
         if (item !== prevSerialNumberTransaction) {
@@ -61,6 +65,10 @@ function SerialNumberTransaction({
     const transCodeInvalid = () => !serialNumberTransaction.transCode;
     const descriptionInvalid = () => !serialNumberTransaction.transDescription;
     const showFieldsToAddElement = () => {
+        if (!sernosTransCodes) {
+            console.error('show field to add balahchkldhjka cdkjhasdkjh');
+            fetchCodes();
+        }
         setNewElements(prevState => [...prevState, emptySernosTransCode]);
     };
 
@@ -121,7 +129,7 @@ function SerialNumberTransaction({
         setSerialNumberTransaction({ ...serialNumberTransaction, sernosTransCounts });
     };
 
-    const yesNoOptions = ['Y', 'N'];
+    const yesNoOptions = ['Y', 'N', ''];
 
     return (
         <Page>
@@ -261,8 +269,8 @@ function SerialNumberTransaction({
                                         <TableRow style={cursor} key={element.sernosCount + index}>
                                             <TableCell>
                                                 <Dropdown
+                                                    value={element.sernosCount}
                                                     items={sernosTransCodes}
-                                                    value="of"
                                                     label="Count"
                                                     propertyName="count"
                                                     onChange={handleElementChange}
@@ -287,9 +295,9 @@ function SerialNumberTransaction({
                                             </TableCell>
                                             <TableCell>
                                                 <Dropdown
+                                                    value={element.checkError}
                                                     label="Check Error"
                                                     items={errorOptions}
-                                                    value="Error"
                                                     onChange={handleNewElement}
                                                     propertyName={`${index},checkError`}
                                                 />
@@ -351,7 +359,8 @@ SerialNumberTransaction.propTypes = {
     item: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
-    sernosTransCodes: PropTypes.arrayOf(PropTypes.string).isRequired,
+    fetchCodes: PropTypes.func.isRequired,
+    sernosTransCodes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,
     updateSerialNumberTransaction: PropTypes.func,
