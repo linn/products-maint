@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import PropTypes from 'prop-types';
 import history from '../history';
 import Navigation from '../containers/Navigation';
-import MenuPage from '../containers/Menu';
+import MenuPage from '../containers/MenuPage';
 import App from './App';
 import Callback from '../containers/Callback';
 import Tariff from '../containers/tariffs/Tariff';
@@ -404,8 +404,8 @@ const Root = ({ store }) => (
                         </div>
                     </Router>
                 </OidcProvider>
-            </Provider>{' '}
-        </div>{' '}
+            </Provider>
+        </div>
     </div>
 );
 

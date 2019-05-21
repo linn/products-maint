@@ -1,13 +1,13 @@
 ﻿import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import cartonTypeActions from '../../actions/cartonTypeActions';
 import CartonType from '../../components/CartonType';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import cartonTypeSelectors from '../../selectors/cartonTypeSelectors';
 
 const mapStateToProps = state => ({
     item: {},
     editStatus: 'create',
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     loading: cartonTypeSelectors.getLoading(state),
     snackbarVisible: cartonTypeSelectors.getSnackbarVisible(state)
 });

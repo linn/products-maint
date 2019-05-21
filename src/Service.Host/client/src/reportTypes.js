@@ -1,4 +1,4 @@
-﻿import ItemType from './ItemType';
+﻿import { ItemType } from '@linn-it/linn-form-components-library';
 
 export const salesArticleCoreTypes = new ItemType(
     'salesArticleCoreTypes',

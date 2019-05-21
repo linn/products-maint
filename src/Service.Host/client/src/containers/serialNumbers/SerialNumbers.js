@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import SerialNumbers from '../../components/SerialNumbers';
 import initialiseOnMount from '../common/initialiseOnMount';
 import serialNumbersActions from '../../actions/serialNumbersActions';
 import sernosNoteActions from '../../actions/sernosNoteActions';
 import salesArticlesSelectors from '../../selectors/salesArticlesSelectors';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import serialNumbersSelectors from '../../selectors/serialNumbersSelectors';
 import sernosNotesSelectors from '../../selectors/sernosNotesSelectors';
 import sernosNoteSelectors from '../../selectors/sernosNoteSelectors';
@@ -12,7 +12,7 @@ import sernosNoteSelectors from '../../selectors/sernosNoteSelectors';
 const mapStateToProps = state => ({
     items: serialNumbersSelectors.getItems(state),
     loading: serialNumbersSelectors.getLoading(state),
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     salesArticles: salesArticlesSelectors.getItems(state),
     sernosNotes: sernosNotesSelectors.getItems(state),
     snackbarVisible: sernosNoteSelectors.getSnackbarVisible(state),

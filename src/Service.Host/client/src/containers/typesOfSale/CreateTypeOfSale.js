@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import initialiseOnMount from '../common/initialiseOnMount';
 import typeOfSaleActions from '../../actions/typeOfSaleActions';
 import TypeOfSale from '../../components/typesOfSale/TypeOfSale';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import typeOfSaleSelectors from '../../selectors/typeOfSaleSelectors';
 
 const mapStateToProps = state => ({
     item: typeOfSaleSelectors.getItem(state),
     editStatus: 'create',
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     loading: typeOfSaleSelectors.getLoading(state),
     snackbarVisible: typeOfSaleSelectors.getSnackbarVisible(state)
 });

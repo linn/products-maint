@@ -49,7 +49,7 @@ const styles = theme => ({
     }
 });
 
-function Navbar({ classes, sections, loading, username, myStuff }) {
+function Navigation({ classes, sections, loading, username, myStuff }) {
     const [selected, setSelected] = useState(false);
     const [anchorEl, setAnchorEl] = useState();
     if (sections) {
@@ -85,7 +85,13 @@ function Navbar({ classes, sections, loading, username, myStuff }) {
                                                     root: classes.tabs
                                                 }}
                                                 value={selected}
-                                                onChange={(event, value) => setSelected(value)}
+                                                onChange={(event, value) => {
+                                                    if (selected === value) {
+                                                        setSelected(false);
+                                                    } else {
+                                                        setSelected(value);
+                                                    }
+                                                }}
                                                 scrollButtons="auto"
                                                 variant="scrollable"
                                                 indicatorColor="primary"
@@ -164,18 +170,20 @@ function Navbar({ classes, sections, loading, username, myStuff }) {
     );
 }
 
-Navbar.propTypes = {
+Navigation.propTypes = {
     classes: PropTypes.shape({}).isRequired,
     sections: PropTypes.arrayOf(PropTypes.shape({})),
     history: PropTypes.shape({}).isRequired,
     loading: PropTypes.bool,
-    username: PropTypes.string
+    username: PropTypes.string,
+    myStuff: PropTypes.shape({})
 };
 
-Navbar.defaultProps = {
+Navigation.defaultProps = {
     sections: null,
+    myStuff: null,
     loading: false,
     username: ''
 };
 
-export default withStyles(styles)(Navbar);
+export default withStyles(styles)(Navigation);

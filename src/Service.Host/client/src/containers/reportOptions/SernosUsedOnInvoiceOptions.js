@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { ReportSelectors } from '@linn-it/linn-form-components-library';
 import SernosUsedOnInvoiceOptions from '../../components/reportOptions/SernosUsedOnInvoiceOptions';
-import { getReportOptions } from '../../selectors/reportSelectors';
+
+const reportSelectors = new ReportSelectors('sernosUsedOnInvoiceReport');
 
 const mapStateToProps = state => ({
-    prevOptions: getReportOptions(state, 'sernosUsedOnInvoiceReport')
+    prevOptions: reportSelectors.getReportOptions(state)
 });
 
 export default connect(

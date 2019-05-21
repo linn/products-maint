@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import productRangeActions from '../../actions/productRange';
 import ProductRange from '../../components/productRanges/ProductRange';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import initialiseOnMount from '../common/initialiseOnMount';
 
 const mapStateToProps = state => ({
     productRange: { dateInvalid: null },
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     editStatus: 'create'
 });
 

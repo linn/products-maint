@@ -1,13 +1,13 @@
 ﻿import { connect } from 'react-redux';
 import queryString from 'query-string';
+import { ReportSelectors } from '@linn-it/linn-form-components-library';
 import EanCodes from '../../components/reports/EanCodes';
 import initialiseOnMount from '../common/initialiseOnMount';
 import actions from '../../actions/eanCodesReport';
 import config from '../../config';
-import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
 import * as reportTypes from '../../reportTypes';
 
-const reportName = reportTypes.eanCodesReport.item;
+const reportSelectors = new ReportSelectors(reportTypes.eanCodesReport.item);
 
 const getOptions = ownProps => {
     const options = ownProps.location.search
@@ -17,8 +17,8 @@ const getOptions = ownProps => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-    reportData: getReportData(state, reportName),
-    loading: getReportLoading(state, reportName),
+    reportData: reportSelectors.getReportData(state),
+    loading: reportSelectors.getReportLoading(state),
     options: getOptions(ownProps),
     config
 });
