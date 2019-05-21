@@ -6,7 +6,7 @@ import actions from '../../actions/salesArticleCoreTypesReport';
 import config from '../../config';
 import * as reportTypes from '../../reportTypes';
 
-const reportSelectors = new ReportSelectors(reportTypes.eanCodesReport.item);
+const reportSelectors = new ReportSelectors(reportTypes.salesArticleCoreTypes.item);
 
 const mapStateToProps = state => ({
     reportData: reportSelectors.getReportData(state),

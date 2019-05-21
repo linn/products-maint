@@ -7,7 +7,7 @@ import actions from '../../actions/sernosUsedOnInvoiceReport';
 import config from '../../config';
 import * as reportTypes from '../../reportTypes';
 
-const reportSelectors = new ReportSelectors(reportTypes.eanCodesReport.item);
+const reportSelectors = new ReportSelectors(reportTypes.sernosUsedOnInvoiceReport.item);
 
 const getOptions = ownProps => {
     const options = queryString.parse(ownProps.location.search);
