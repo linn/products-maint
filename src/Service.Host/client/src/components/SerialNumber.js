@@ -35,7 +35,8 @@ function SerialNumber({
     fetchSalesArticles,
     salesArticlesLoading,
     clearSerialNumber,
-    clearSalesArticleSernosDetails
+    clearSalesArticleSernosDetails,
+    clearSearch
 }) {
     const [serialNumber, setSerialNumber] = useState({});
     const [prevSerialNumber, setPrevSerialNumber] = useState({});
@@ -45,7 +46,7 @@ function SerialNumber({
 
     const savedFetchSalesArticleSernosDetails = useRef(null);
 
-    useSearch(fetchSalesArticles, searchTerm);
+    useSearch(fetchSalesArticles, searchTerm, clearSearch);
 
     useEffect(() => {
         savedFetchSalesArticleSernosDetails.current = fetchSalesArticleSernosDetails;
@@ -369,7 +370,8 @@ SerialNumber.propTypes = {
     fetchSalesArticleSernosDetails: PropTypes.func.isRequired,
     fetchSalesArticles: PropTypes.func.isRequired,
     clearSerialNumber: PropTypes.func.isRequired,
-    clearSalesArticleSernosDetails: PropTypes.func.isRequired
+    clearSalesArticleSernosDetails: PropTypes.func.isRequired,
+    clearSearch: PropTypes.func.isRequired
 };
 
 SerialNumber.defaultProps = {

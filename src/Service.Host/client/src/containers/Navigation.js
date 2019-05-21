@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-
-import Navbar from '../components/Navbar';
+import Navigation from '../components/Navigation';
 import initialiseOnMount from './common/initialiseOnMount';
 import fetchMenu from '../actions/fetchMenuActions';
 import { getSections, getMenuLoading, getMyStuff } from '../selectors/menuSelectors';
@@ -26,5 +25,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(initialiseOnMount(Navbar))
+    )(initialiseOnMount(Navigation))
 );

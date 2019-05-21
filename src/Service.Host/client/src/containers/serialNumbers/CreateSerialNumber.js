@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import initialiseOnMount from '../common/initialiseOnMount';
 import serialNumberActions from '../../actions/serialNumberActions';
 import SerialNumber from '../../components/SerialNumber';
 import sernosTransactionsActions from '../../actions/sernosTransactionsActions';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import serialNumberSelectors from '../../selectors/serialNumberSelectors';
 import sernosTransactionsSelectors from '../../selectors/sernosTransactionsSelectors';
 import getSalesArticleSernosDetails from '../../selectors/salesArticleSernosDetailsSelectors';
@@ -18,7 +18,7 @@ import sernosNotesSelectors from '../../selectors/sernosNotesSelectors';
 const mapStateToProps = state => ({
     items: serialNumberSelectors.getItem(state),
     editStatus: serialNumberSelectors.getEditStatus(state),
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     loading: serialNumberSelectors.getLoading(state),
     salesArticleSernosDetails: getSalesArticleSernosDetails(state),
     sernosNotes: sernosNotesSelectors.getItems(state),
@@ -44,7 +44,8 @@ const mapDispatchToProps = {
     setEditStatus: serialNumberActions.setEditStatus,
     setSnackbarVisible: serialNumberActions.setSnackbarVisible,
     clearSerialNumber: serialNumberActions.create,
-    clearSalesArticleSernosDetails
+    clearSalesArticleSernosDetails,
+    clearSearch: salesArticlesActions.clearSearch
 };
 
 export default connect(

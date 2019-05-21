@@ -1,10 +1,12 @@
 ﻿import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { ReportSelectors } from '@linn-it/linn-form-components-library';
 import ProductRangesOptions from '../../components/reportOptions/ProductRangesOptions';
-import { getReportOptions } from '../../selectors/reportSelectors';
+
+const reportSelectors = new ReportSelectors('productRangesReport');
 
 const mapStateToProps = state => ({
-    prevOptions: getReportOptions(state, 'productRangesReport')
+    prevOptions: reportSelectors.getReportOptions(state)
 });
 
 export default connect(

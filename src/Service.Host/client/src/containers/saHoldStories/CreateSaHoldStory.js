@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import saHoldStoryActions from '../../actions/saHoldStoryActions';
 import SaHoldStory from '../../components/saHoldStories/SaHoldStory';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import saHoldStorySelectors from '../../selectors/saHoldStorySelectors';
 
 const mapStateToProps = state => ({
     item: {},
     editStatus: 'create',
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     loading: saHoldStorySelectors.getLoading(state),
     snackbarVisible: saHoldStorySelectors.getSnackbarVisible(state)
 });
