@@ -8,7 +8,7 @@
 
     using NUnit.Framework;
 
-    public class ContextBase
+    public abstract class ContextBase
     {
         protected SernosNoteService Sut { get; private set; }
 

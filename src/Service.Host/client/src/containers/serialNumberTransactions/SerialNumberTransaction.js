@@ -1,8 +1,8 @@
 ﻿import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import SerialNumberTransaction from '../../components/serialNumberTransactions/SerialNumberTransaction';
 import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import serialNumberTransactionActions from '../../actions/serialNumberTransactionActions';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import serialNumberTransactionSelectors from '../../selectors/serialNumberTransactionSelectors';
 
 const mapStateToProps = (state, { match }) => ({
@@ -11,7 +11,7 @@ const mapStateToProps = (state, { match }) => ({
     editStatus: serialNumberTransactionSelectors.getEditStatus(state),
     loading: serialNumberTransactionSelectors.getLoading(state),
     snackbarVisible: serialNumberTransactionSelectors.getSnackbarVisible(state),
-    errorMessage: getSingleErrorMessage(state)
+    errorMessage: fetchErrorSelectors(state)
 });
 
 const initialise = ({ itemId }) => dispatch => {

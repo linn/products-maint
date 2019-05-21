@@ -1,4 +1,4 @@
-﻿import ItemType from './ItemType';
+﻿import { ItemType } from '@linn-it/linn-form-components-library';
 
 export const cartonType = new ItemType('cartonType', 'CARTON_TYPE', '/products/maint/carton-types');
 
@@ -116,6 +116,18 @@ export const salesPackages = new ItemType(
     'salesPackages',
     'SALES_PACKAGES',
     '/products/maint/sales-packages'
+);
+
+export const sernosTransaction = new ItemType(
+    'sernosTransaction',
+    'SERNOS_TRANSACTION',
+    '/products/maint/sernos-transactions'
+);
+
+export const sernosTransactions = new ItemType(
+    'sernosTransactions',
+    'SERNOS_TRANSACTIONS',
+    '/products/maint/sernos-transactions'
 );
 
 export const salesArticleCompositeDiscount = new ItemType(

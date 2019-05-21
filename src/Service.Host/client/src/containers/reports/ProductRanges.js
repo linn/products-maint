@@ -1,14 +1,13 @@
 ﻿import { connect } from 'react-redux';
 import queryString from 'query-string';
+import { ReportSelectors, fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import ProductRanges from '../../components/reports/ProductRanges';
 import initialiseOnMount from '../common/initialiseOnMount';
 import actions from '../../actions/productRangesReport';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import config from '../../config';
-import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
 import * as reportTypes from '../../reportTypes';
 
-const reportName = reportTypes.productRangesReport.item;
+const reportSelectors = new ReportSelectors(reportTypes.eanCodesReport.item);
 
 const getOptions = ownProps => {
     const query = ownProps.location.search
@@ -18,9 +17,9 @@ const getOptions = ownProps => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-    reportData: getReportData(state, reportName),
-    loading: getReportLoading(state, reportName),
-    errorMessage: getSingleErrorMessage(state),
+    reportData: reportSelectors.getReportData(state),
+    loading: reportSelectors.getReportLoading(state),
+    errorMessage: fetchErrorSelectors(state),
     options: getOptions(ownProps),
     config
 });

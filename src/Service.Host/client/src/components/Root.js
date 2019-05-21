@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import PropTypes from 'prop-types';
 import history from '../history';
 import Navigation from '../containers/Navigation';
-import MenuPage from '../containers/Menu';
+import MenuPage from '../containers/MenuPage';
 import App from './App';
 import Callback from '../containers/Callback';
 import Tariff from '../containers/tariffs/Tariff';
@@ -45,6 +45,7 @@ import CloseSaHoldStory from '../containers/saHoldStories/CloseSaHoldStory';
 import SalesArticleCoreTypesOptions from './reportOptions/SalesArticleCoreTypesOptions';
 import SalesArticleCoreTypes from '../containers/reports/SalesArticleCoreTypes';
 import SerialNumbers from '../containers/serialNumbers/SerialNumbers';
+import CreateSerialNumber from '../containers/serialNumbers/CreateSerialNumber';
 import SernosSequences from '../containers/sernosSequences/SernosSequences';
 import SernosSequence from '../containers/sernosSequences/SernosSequence';
 import CreateSernosSequence from '../containers/sernosSequences/CreateSernosSequence';
@@ -59,7 +60,6 @@ import CreateSalesPackage from '../containers/salesPackages/CreateSalesPackage';
 import RootProducts from '../containers/rootProducts/RootProducts';
 import RootProduct from '../containers/rootProducts/RootProduct';
 import SernosUsedOnInvoice from '../containers/reports/SernosUsedOnInvoice';
-import SernosUsedOnInvoiceOptions from '../containers/reportOptions/SernosUsedOnInvoiceOptions';
 import sernosUsedOnInvoiceOptions from '../containers/reportOptions/SernosUsedOnInvoiceOptions';
 import SerialNumberTransactions from '../containers/serialNumberTransactions/SerialNumberTransactions';
 import SerialNumberTransaction from '../containers/serialNumberTransactions/SerialNumberTransaction';
@@ -227,6 +227,11 @@ const Root = ({ store }) => (
                             </Switch>
 
                             <Switch>
+                                <Route
+                                    exact
+                                    path="/products/maint/serial-numbers/create"
+                                    component={CreateSerialNumber}
+                                />
                                 <Route
                                     exact
                                     path="/products/maint/serial-numbers"
@@ -399,8 +404,8 @@ const Root = ({ store }) => (
                         </div>
                     </Router>
                 </OidcProvider>
-            </Provider>{' '}
-        </div>{' '}
+            </Provider>
+        </div>
     </div>
 );
 

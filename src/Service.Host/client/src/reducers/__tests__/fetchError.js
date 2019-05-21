@@ -2,7 +2,6 @@
 import fetchError from '../fetchError';
 import * as actionTypes from '../../actions';
 import cartonTypeActions from '../../actions/cartonTypeActions';
-import { SignalCellularNull } from '@material-ui/icons';
 
 describe('fetch error reducer', () => {
     test('when full error received', () => {

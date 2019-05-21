@@ -10,6 +10,7 @@
   <ItemGroup>
     <Folder Include="client\assets\" />
     <Folder Include="client\src\components\common\__tests__\" />
+    <Folder Include="client\src\themes\" />
     <Folder Include="Properties\" />
     <Compile Remove="client\build\**" />
     <Compile Remove="client\coverage\**" />
@@ -27,7 +28,7 @@
   <ItemGroup>
     <PackageReference Include="aspnetcore.dataprotection.aws.kms" Version="2.0.2" />
     <PackageReference Include="aspnetcore.dataprotection.aws.s3" Version="2.0.2" />
-    <PackageReference Include="FluentValidation" Version="8.2.0" />
+    <PackageReference Include="FluentValidation" Version="8.3.0" />
     <PackageReference Include="Linn.Common.Authentication.Host" Version="1.0.2" />
     <PackageReference Include="Linn.Common.Configuration" Version="2.0.0" />
     <PackageReference Include="Linn.Common.Logging" Version="2.0.0" />
