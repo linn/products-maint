@@ -64,6 +64,7 @@ import sernosUsedOnInvoiceOptions from '../containers/reportOptions/SernosUsedOn
 import SerialNumberTransactions from '../containers/serialNumberTransactions/SerialNumberTransactions';
 import SerialNumberTransaction from '../containers/serialNumberTransactions/SerialNumberTransaction';
 import CreateSerialNumberTransaction from '../containers/serialNumberTransactions/CreateSerialNumberTransaction';
+import NotFound from './NotFound';
 
 const Root = ({ store }) => (
     <div>
@@ -76,25 +77,28 @@ const Root = ({ store }) => (
                             <CssBaseline />
 
                             <Route
+                                exact
+                                path="/products/maint/signin-oidc-client"
+                                component={Callback}
+                            />
+
+                            <Route
                                 path="/"
                                 render={() => {
                                     document.title = 'Products';
                                     return false;
                                 }}
                             />
+
                             <Route
                                 exact
                                 path="/"
                                 render={() => <Redirect to="/products/maint" />}
                             />
-                            <Route exact path="/products/maint" component={App} />
-                            <Route
-                                exact
-                                path="/products/maint/signin-oidc-client"
-                                component={Callback}
-                            />
 
                             <Switch>
+                                <Route exact path="/products/maint" component={App} />
+
                                 <Route
                                     exact
                                     path="/products/maint/tariffs/create"
@@ -106,43 +110,41 @@ const Root = ({ store }) => (
                                     component={Tariff}
                                 />
                                 <Route exact path="/products/maint/tariffs" component={Tariffs} />
-                            </Switch>
 
-                            <Route exact path="/products/reports" component={App} />
-                            <Route
-                                exact
-                                path="/products/reports/sales-article-ean-codes"
-                                component={EanCodesOptions}
-                            />
-                            <Route
-                                exact
-                                path="/products/reports/sales-article-ean-codes/report"
-                                component={EanCodes}
-                            />
+                                <Route exact path="/products/reports" component={App} />
+                                <Route
+                                    exact
+                                    path="/products/reports/sales-article-ean-codes"
+                                    component={EanCodesOptions}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/reports/sales-article-ean-codes/report"
+                                    component={EanCodes}
+                                />
 
-                            <Route
-                                exact
-                                path="/products/reports/carton-details"
-                                component={CartonDetailsOptions}
-                            />
-                            <Route
-                                exact
-                                path="/products/reports/carton-details/report"
-                                component={CartonDetails}
-                            />
+                                <Route
+                                    exact
+                                    path="/products/reports/carton-details"
+                                    component={CartonDetailsOptions}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/reports/carton-details/report"
+                                    component={CartonDetails}
+                                />
 
-                            <Route
-                                exact
-                                path="/products/reports/sales-article-core-types"
-                                component={SalesArticleCoreTypesOptions}
-                            />
-                            <Route
-                                exact
-                                path="/products/reports/sales-article-core-types/report"
-                                component={SalesArticleCoreTypes}
-                            />
+                                <Route
+                                    exact
+                                    path="/products/reports/sales-article-core-types"
+                                    component={SalesArticleCoreTypesOptions}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/reports/sales-article-core-types/report"
+                                    component={SalesArticleCoreTypes}
+                                />
 
-                            <Switch>
                                 <Route
                                     exact
                                     path="/products/maint/serial-number-transactions"
@@ -158,8 +160,7 @@ const Root = ({ store }) => (
                                     path="/products/maint/serial-number-transactions/:id"
                                     component={SerialNumberTransaction}
                                 />
-                            </Switch>
-                            <Switch>
+
                                 <Route
                                     exact
                                     path="/products/maint/sales-articles"
@@ -170,8 +171,7 @@ const Root = ({ store }) => (
                                     path="/products/maint/sales-articles/:articleNumber"
                                     component={SalesArticle}
                                 />
-                            </Switch>
-                            <Switch>
+
                                 <Route
                                     exact
                                     path="/products/maint/product-ranges/create"
@@ -187,9 +187,7 @@ const Root = ({ store }) => (
                                     path="/products/maint/product-ranges/:id"
                                     component={ProductRange}
                                 />
-                            </Switch>
 
-                            <Switch>
                                 <Route
                                     exact
                                     path="/products/maint/sales-packages/create"
@@ -206,9 +204,7 @@ const Root = ({ store }) => (
                                     path="/products/maint/sales-packages"
                                     component={SalesPackages}
                                 />
-                            </Switch>
 
-                            <Switch>
                                 <Route
                                     exact
                                     path="/products/maint/carton-types/create"
@@ -224,9 +220,7 @@ const Root = ({ store }) => (
                                     path="/products/maint/carton-types"
                                     component={CartonDetails}
                                 />
-                            </Switch>
 
-                            <Switch>
                                 <Route
                                     exact
                                     path="/products/maint/serial-numbers/create"
@@ -237,9 +231,7 @@ const Root = ({ store }) => (
                                     path="/products/maint/serial-numbers"
                                     component={SerialNumbers}
                                 />
-                            </Switch>
 
-                            <Switch>
                                 <Route
                                     exact
                                     path="/products/maint/sernos-configs"
@@ -255,9 +247,7 @@ const Root = ({ store }) => (
                                     path="/products/maint/sernos-configs/:sernosConfigId"
                                     component={SernosConfig}
                                 />
-                            </Switch>
 
-                            <Switch>
                                 <Route
                                     exact
                                     path="/products/maint/sernos-sequences"
@@ -273,9 +263,7 @@ const Root = ({ store }) => (
                                     path="/products/maint/sernos-sequences/:sequenceName"
                                     component={SernosSequence}
                                 />
-                            </Switch>
 
-                            <Switch>
                                 <Route
                                     exact
                                     path="/products/maint/sa-core-types"
@@ -291,9 +279,7 @@ const Root = ({ store }) => (
                                     path="/products/maint/sa-core-types/:coreType"
                                     component={SaCoreType}
                                 />
-                            </Switch>
 
-                            <Switch>
                                 <Route
                                     exact
                                     path="/products/maint/types-of-sale"
@@ -309,9 +295,7 @@ const Root = ({ store }) => (
                                     path="/products/maint/types-of-sale/:typeOfSaleId"
                                     component={TypeOfSale}
                                 />
-                            </Switch>
 
-                            <Switch>
                                 <Route
                                     exact
                                     path="/products/maint/vat-codes"
@@ -327,80 +311,81 @@ const Root = ({ store }) => (
                                     path="/products/maint/vat-codes/:vatCodeId"
                                     component={VatCode}
                                 />
+
+                                <Route
+                                    exact
+                                    path="/products/reports/product-ranges"
+                                    component={ProductRangesOptions}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/reports/product-ranges/report"
+                                    component={ProductRangesReport}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/reports/sales-products-by-product-range"
+                                    component={SalesProductsByProductRange}
+                                />
+
+                                <Route
+                                    exact
+                                    path="/products/reports/parts-at-location/:locationId"
+                                    component={StockTriggerLevelParts}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/reports/stock-trigger-levels/:locationId/:partNumber"
+                                    component={StockTriggerLevelsByPart}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/reports/sa-hold-stories/:holdStoryId"
+                                    component={SaHoldStory}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/reports/products-on-hold"
+                                    component={ProductsOnHold}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/put-product-on-hold/:articleNumber"
+                                    component={CreateSaHoldStory}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/close-hold-story/:holdStoryId"
+                                    component={CloseSaHoldStory}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/root-products"
+                                    component={RootProducts}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/root-products/:name"
+                                    component={RootProduct}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/maint/root-products/:name/put-on-hold"
+                                    component={CreateSaHoldStory}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/reports/sernos-used-on-invoice"
+                                    component={sernosUsedOnInvoiceOptions}
+                                />
+                                <Route
+                                    exact
+                                    path="/products/reports/sernos-used-on-invoice/report"
+                                    component={SernosUsedOnInvoice}
+                                />
+                                <Route exact path="/:sectionId" component={MenuPage} />
+                                <Route component={NotFound} />
                             </Switch>
-
-                            <Route
-                                exact
-                                path="/products/reports/product-ranges"
-                                component={ProductRangesOptions}
-                            />
-                            <Route
-                                exact
-                                path="/products/reports/product-ranges/report"
-                                component={ProductRangesReport}
-                            />
-                            <Route
-                                exact
-                                path="/products/reports/sales-products-by-product-range"
-                                component={SalesProductsByProductRange}
-                            />
-
-                            <Route
-                                exact
-                                path="/products/reports/parts-at-location/:locationId"
-                                component={StockTriggerLevelParts}
-                            />
-                            <Route
-                                exact
-                                path="/products/reports/stock-trigger-levels/:locationId/:partNumber"
-                                component={StockTriggerLevelsByPart}
-                            />
-                            <Route
-                                exact
-                                path="/products/reports/sa-hold-stories/:holdStoryId"
-                                component={SaHoldStory}
-                            />
-                            <Route
-                                exact
-                                path="/products/reports/products-on-hold"
-                                component={ProductsOnHold}
-                            />
-                            <Route
-                                exact
-                                path="/products/maint/put-product-on-hold/:articleNumber"
-                                component={CreateSaHoldStory}
-                            />
-                            <Route
-                                exact
-                                path="/products/maint/close-hold-story/:holdStoryId"
-                                component={CloseSaHoldStory}
-                            />
-                            <Route
-                                exact
-                                path="/products/maint/root-products"
-                                component={RootProducts}
-                            />
-                            <Route
-                                exact
-                                path="/products/maint/root-products/:name"
-                                component={RootProduct}
-                            />
-                            <Route
-                                exact
-                                path="/products/maint/root-products/:name/put-on-hold"
-                                component={CreateSaHoldStory}
-                            />
-                            <Route
-                                exact
-                                path="/products/reports/sernos-used-on-invoice"
-                                component={sernosUsedOnInvoiceOptions}
-                            />
-                            <Route
-                                exact
-                                path="/products/reports/sernos-used-on-invoice/report"
-                                component={SernosUsedOnInvoice}
-                            />
-                            <Route exact path="/:sectionId" component={MenuPage} />
                         </div>
                     </Router>
                 </OidcProvider>
