@@ -1,5 +1,5 @@
+import { paginationStoreFactory } from '@linn-it/linn-form-components-library';
 import { salesPackagesActionTypes as actionTypes } from '../actions';
-import paginationStoreFactory from './reducerFactories/paginationStoreFactory';
 import * as itemTypes from '../itemTypes';
 
 const defaultState = {
