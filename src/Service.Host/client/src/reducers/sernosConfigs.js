@@ -1,5 +1,5 @@
-﻿import { sernosConfigsActionTypes as actionTypes } from '../actions';
-import collectionStoreFactory from './reducerFactories/collectionStoreFactory';
+﻿import { collectionStoreFactory } from '@linn-it/linn-form-components-library';
+import { sernosConfigsActionTypes as actionTypes } from '../actions';
 import * as itemTypes from '../itemTypes';
 
 const defaultState = {

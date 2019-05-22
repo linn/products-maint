@@ -1,5 +1,5 @@
+import { itemStoreFactory } from '@linn-it/linn-form-components-library';
 import { cartonTypeActionTypes as actionTypes } from '../actions';
-import itemStoreFactory from './reducerFactories/itemStoreFactory';
 import * as itemTypes from '../itemTypes';
 
 const defaultState = {
