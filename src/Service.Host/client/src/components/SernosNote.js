@@ -4,9 +4,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import Clear from '@material-ui/icons/Clear';
 import Done from '@material-ui/icons/Done';
 import { Button, TableRow, TableCell } from '@material-ui/core';
-import { InputField } from '@linn-it/linn-form-components-library';
+import { InputField, getSelfHref } from '@linn-it/linn-form-components-library';
 import moment from 'moment';
-import { getSelfHref } from '../helpers/utilities';
 
 function SernosNote({ serialNumber, item, updateSernosNote, addSernosNote }) {
     const [editing, setEditing] = useState(false);
