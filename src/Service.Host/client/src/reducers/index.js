@@ -1,4 +1,5 @@
-﻿import { combineReducers } from 'redux';
+﻿import { fetchErrorReducer as fetchError } from '@linn-it/linn-form-components-library';
+import { combineReducers } from 'redux';
 import { reducer as oidc } from 'redux-oidc';
 import eanCodesReport from './eanCodesReport';
 import cartonDetailsReport from './cartonDetailsReport';
@@ -19,7 +20,6 @@ import serialNumberTransaction from './serialNumberTransaction';
 import serialNumberTransactions from './serialNumberTransactions';
 import sernosSequence from './sernosSequence';
 import sernosSequences from './sernosSequences';
-import fetchError from './fetchError';
 import saCoreTypes from './saCoreTypes';
 import saCoreType from './saCoreType';
 import typesOfSale from './typesOfSale';
