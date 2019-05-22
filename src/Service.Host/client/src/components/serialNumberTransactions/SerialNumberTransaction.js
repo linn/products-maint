@@ -33,9 +33,6 @@ function SerialNumberTransaction({
     const [prevSerialNumberTransaction, setPrevSerialNumberTransaction] = useState({});
     const [newElements, setNewElements] = useState([]);
 
-    console.error('item', item);
-    console.error('sernosTransCodes', sernosTransCodes);
-
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
@@ -49,9 +46,18 @@ function SerialNumberTransaction({
         checkErrorMess: ''
     };
 
-    const errorOptions = ['None', 'Error', 'Warning', ''];
+    const errorOptions = [
+        { displayText: 'None', id: 'N' },
+        { displayText: 'Error', id: 'E' },
+        { displayText: 'Warning', id: 'W' },
+        ''
+    ];
 
     useEffect(() => {
+        if (!sernosTransCodes) {
+            fetchCodes();
+        }
+
         if (item !== prevSerialNumberTransaction) {
             setSerialNumberTransaction(item);
             setPrevSerialNumberTransaction(item);
@@ -65,25 +71,23 @@ function SerialNumberTransaction({
     const transCodeInvalid = () => !serialNumberTransaction.transCode;
     const descriptionInvalid = () => !serialNumberTransaction.transDescription;
     const showFieldsToAddElement = () => {
-        if (!sernosTransCodes) {
-            console.error('show field to add balahchkldhjka cdkjhasdkjh');
-            fetchCodes();
+        if (!newElements.includes(emptySernosTransCode) && sernosTransCodes) {
+            setNewElements([...newElements, emptySernosTransCode]);
         }
-        setNewElements(prevState => [...prevState, emptySernosTransCode]);
     };
 
     const removeElement = index => {
-        setNewElements(prevState => [
-            ...prevState,
-            prevState.slice(0, index).concat(prevState.slice(index + 1, prevState.length))
-        ]);
+        const copy = [...newElements];
+        copy.splice(index, 1);
+        setNewElements(copy);
     };
 
     const handleSaveClick = () => {
         if (editing()) {
             const { sernosTransCounts } = serialNumberTransaction;
-            serialNumberTransaction.sernosTransCounts = [...sernosTransCounts, ...newElements];
             updateSerialNumberTransaction(itemId, serialNumberTransaction);
+            serialNumberTransaction.sernosTransCounts = [...sernosTransCounts, ...newElements];
+            setNewElements([]);
             setEditStatus('view');
         } else if (creating()) {
             const { sernosTransCounts } = serialNumberTransaction;
@@ -116,6 +120,9 @@ function SerialNumberTransaction({
         const prop = propertyName.slice(splitIndex + 1);
         const newElement = newElements[index];
         newElement[prop] = newValue;
+        if (!newElement.transCode) {
+            newElement.transCode = item.transCode;
+        }
         setNewElements([...newElements, ...newElement]);
     };
 
@@ -125,6 +132,7 @@ function SerialNumberTransaction({
         const index = propertyName.slice(0, splitIndex);
         const prop = propertyName.slice(splitIndex + 1);
         const { sernosTransCounts } = serialNumberTransaction;
+
         sernosTransCounts[index][prop] = newValue;
         setSerialNumberTransaction({ ...serialNumberTransaction, sernosTransCounts });
     };
@@ -218,7 +226,7 @@ function SerialNumberTransaction({
                             <TableBody>
                                 {serialNumberTransaction.sernosTransCounts &&
                                     serialNumberTransaction.sernosTransCounts.map((row, index) => (
-                                        <TableRow style={cursor} key={row.sernosCount}>
+                                        <TableRow style={cursor} key={index}>
                                             <TableCell>
                                                 <InputField
                                                     disabled
@@ -266,14 +274,16 @@ function SerialNumberTransaction({
                                     ))}
                                 {newElements &&
                                     newElements.map((element, index) => (
-                                        <TableRow style={cursor} key={element.sernosCount + index}>
+                                        <TableRow style={cursor} key={index}>
                                             <TableCell>
                                                 <Dropdown
                                                     value={element.sernosCount}
-                                                    items={sernosTransCodes}
+                                                    items={sernosTransCodes.map(
+                                                        value => value.name
+                                                    )}
                                                     label="Count"
-                                                    propertyName="count"
-                                                    onChange={handleElementChange}
+                                                    propertyName={`${index},sernosCount`}
+                                                    onChange={handleNewElement}
                                                 />
                                             </TableCell>
                                             <TableCell>
@@ -289,6 +299,7 @@ function SerialNumberTransaction({
                                                 <InputField
                                                     value={element.correctValue}
                                                     label="Correct Value"
+                                                    type="number"
                                                     onChange={handleNewElement}
                                                     propertyName={`${index},correctValue`}
                                                 />
@@ -305,7 +316,7 @@ function SerialNumberTransaction({
                                             <TableCell>
                                                 <InputField
                                                     type="text"
-                                                    value={element.message}
+                                                    value={element.checkErrorMess}
                                                     label="Message"
                                                     onChange={handleNewElement}
                                                     propertyName={`${index},message`}

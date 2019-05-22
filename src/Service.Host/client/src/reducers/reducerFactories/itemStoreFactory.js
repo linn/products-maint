@@ -18,7 +18,7 @@
                     item: null,
                     editStatus: 'create'
                 };
-            case actionTypes['REQUEST_SERIAL_NUMBER_COUNTS']:
+            case 'REQUEST_SERIAL_NUMBER_COUNTS':
                 return {
                     ...state,
                     editStatus: 'edit',
@@ -63,7 +63,7 @@
                     item: action.payload.data,
                     editStatus: 'view'
                 };
-            case actionTypes['RECEIVE_SERIAL_NUMBER_COUNTS']:
+            case 'RECEIVE_SERIAL_NUMBER_COUNTS':
                 return {
                     ...state,
                     editStatus: 'edit',

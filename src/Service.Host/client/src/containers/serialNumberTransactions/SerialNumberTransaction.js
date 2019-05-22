@@ -17,7 +17,6 @@ const mapStateToProps = (state, { match }) => ({
 });
 
 const fetchCodes = () => dispatch => {
-    console.error('fetch those codes');
     dispatch(serialNumberTransactionUtilityActions());
 };
 
