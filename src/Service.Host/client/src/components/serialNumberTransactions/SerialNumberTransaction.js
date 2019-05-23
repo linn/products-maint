@@ -70,6 +70,30 @@ function SerialNumberTransaction({
 
     const transCodeInvalid = () => !serialNumberTransaction.transCode;
     const descriptionInvalid = () => !serialNumberTransaction.transDescription;
+    const sernosCountSelected = () =>
+        !newElements || (newElements && newElements.every(element => !element.sernosCount));
+    const invalidSernosCountSelection = () => {
+        const usedSernosCounts = newElements
+            .concat(serialNumberTransaction.sernosTransCounts)
+            .map(y => y.sernosCount);
+        return new Set(usedSernosCounts).size !== usedSernosCounts.length;
+    };
+
+    const checkErrorValidation = () => {
+        serialNumberTransaction.sernosTransCounts.forEach(element => {
+            if (!element.checkError) {
+                element.checkError = 'N';
+            }
+        });
+    };
+
+    const validate = () =>
+        viewing() ||
+        transCodeInvalid() ||
+        descriptionInvalid() ||
+        sernosCountSelected() ||
+        invalidSernosCountSelection();
+
     const showFieldsToAddElement = () => {
         if (!newElements.includes(emptySernosTransCode) && sernosTransCodes) {
             setNewElements([...newElements, emptySernosTransCode]);
@@ -78,15 +102,15 @@ function SerialNumberTransaction({
 
     const removeElement = index => {
         const copy = [...newElements];
-        copy.splice(index, 1);
-        setNewElements(copy);
+        setNewElements(copy.splice(index, 1));
     };
 
     const handleSaveClick = () => {
         if (editing()) {
             const { sernosTransCounts } = serialNumberTransaction;
-            updateSerialNumberTransaction(itemId, serialNumberTransaction);
             serialNumberTransaction.sernosTransCounts = [...sernosTransCounts, ...newElements];
+            checkErrorValidation();
+            updateSerialNumberTransaction(itemId, serialNumberTransaction);
             setNewElements([]);
             setEditStatus('view');
         } else if (creating()) {
@@ -178,7 +202,7 @@ function SerialNumberTransaction({
                                 }
                                 onChange={handleFieldChange}
                                 propertyName="transCode"
-                                error={transCodeInvalid()}
+                                error={creating() && transCodeInvalid}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -188,6 +212,7 @@ function SerialNumberTransaction({
                                 fullWidth
                                 onChange={handleFieldChange}
                                 propertyName="transDescription"
+                                error={descriptionInvalid}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -198,6 +223,7 @@ function SerialNumberTransaction({
                                 items={yesNoOptions}
                                 onChange={handleFieldChange}
                                 propertyName="manualPost"
+                                error={!serialNumberTransaction.manualPost}
                             />
                         </Grid>
                         <Grid container>
@@ -226,6 +252,8 @@ function SerialNumberTransaction({
                             <TableBody>
                                 {serialNumberTransaction.sernosTransCounts &&
                                     serialNumberTransaction.sernosTransCounts.map((row, index) => (
+                                        // except if sorting
+                                        // eslint-disable-next-line react/no-array-index-key
                                         <TableRow style={cursor} key={index}>
                                             <TableCell>
                                                 <InputField
@@ -240,6 +268,7 @@ function SerialNumberTransaction({
                                                     value={row.countIncrement}
                                                     label="Count Increment"
                                                     type="number"
+                                                    error={typeof row.countIncrement !== 'number'}
                                                     onChange={handleElementChange}
                                                     propertyName={`${index},countIncrement`}
                                                 />
@@ -248,6 +277,7 @@ function SerialNumberTransaction({
                                                 <InputField
                                                     value={row.correctValue}
                                                     label="Correct Value"
+                                                    error={typeof row.correctValue !== 'number'}
                                                     onChange={handleElementChange}
                                                     propertyName={`${index},correctValue`}
                                                 />
@@ -266,6 +296,7 @@ function SerialNumberTransaction({
                                                     type="text"
                                                     value={row.message}
                                                     label="Message"
+                                                    maxLength={128}
                                                     onChange={handleElementChange}
                                                     propertyName={`${index},message`}
                                                 />
@@ -274,6 +305,8 @@ function SerialNumberTransaction({
                                     ))}
                                 {newElements &&
                                     newElements.map((element, index) => (
+                                        // except if sorting
+                                        // eslint-disable-next-line react/no-array-index-key
                                         <TableRow style={cursor} key={index}>
                                             <TableCell>
                                                 <Dropdown
@@ -284,6 +317,7 @@ function SerialNumberTransaction({
                                                     label="Count"
                                                     propertyName={`${index},sernosCount`}
                                                     onChange={handleNewElement}
+                                                    error={!element.sernosCount}
                                                 />
                                             </TableCell>
                                             <TableCell>
@@ -291,6 +325,9 @@ function SerialNumberTransaction({
                                                     value={element.countIncrement}
                                                     label="Count Increment"
                                                     type="number"
+                                                    error={
+                                                        typeof element.countIncrement !== 'number'
+                                                    }
                                                     onChange={handleNewElement}
                                                     propertyName={`${index},countIncrement`}
                                                 />
@@ -300,6 +337,7 @@ function SerialNumberTransaction({
                                                     value={element.correctValue}
                                                     label="Correct Value"
                                                     type="number"
+                                                    error={typeof element.correctValue !== 'number'}
                                                     onChange={handleNewElement}
                                                     propertyName={`${index},correctValue`}
                                                 />
@@ -319,6 +357,7 @@ function SerialNumberTransaction({
                                                     value={element.checkErrorMess}
                                                     label="Message"
                                                     onChange={handleNewElement}
+                                                    maxLength={128}
                                                     propertyName={`${index},message`}
                                                 />
                                             </TableCell>
@@ -341,9 +380,7 @@ function SerialNumberTransaction({
                         </Table>
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
-                                saveDisabled={
-                                    viewing() || transCodeInvalid() || descriptionInvalid()
-                                }
+                                saveDisabled={validate()}
                                 saveClick={handleSaveClick}
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}
