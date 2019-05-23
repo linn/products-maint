@@ -7,7 +7,7 @@ import actions from '../../actions/salesProductsByProductRangeReport';
 import config from '../../config';
 import * as reportTypes from '../../reportTypes';
 
-const reportSelectors = new ReportSelectors(reportTypes.eanCodesReport.item);
+const reportSelectors = new ReportSelectors(reportTypes.salesProductsByProductRangeReport.item);
 
 const getOptions = ownProps => {
     const query = ownProps.location.search
