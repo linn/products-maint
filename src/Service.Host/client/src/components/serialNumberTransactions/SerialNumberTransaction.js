@@ -68,7 +68,7 @@ function SerialNumberTransaction({
         cursor: 'pointer'
     };
 
-    const transCodeInvalid = () => !serialNumberTransaction.transCode;
+    const transCodeInvalid = () => creating() && !serialNumberTransaction.transCode;
     const descriptionInvalid = () => !serialNumberTransaction.transDescription;
     const sernosCountSelected = () =>
         !newElements || (newElements && newElements.every(element => !element.sernosCount));
@@ -202,7 +202,7 @@ function SerialNumberTransaction({
                                 }
                                 onChange={handleFieldChange}
                                 propertyName="transCode"
-                                error={creating() && transCodeInvalid}
+                                error={transCodeInvalid}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -397,6 +397,7 @@ SerialNumberTransaction.defaultProps = {
     item: {},
     addSerialNumberTransaction: null,
     updateSerialNumberTransaction: null,
+    sernosTransCodes: null,
     loading: null,
     errorMessage: '',
     itemId: null,
@@ -408,7 +409,7 @@ SerialNumberTransaction.propTypes = {
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
     fetchCodes: PropTypes.func.isRequired,
-    sernosTransCodes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+    sernosTransCodes: PropTypes.arrayOf(PropTypes.shape({})),
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,
     updateSerialNumberTransaction: PropTypes.func,
