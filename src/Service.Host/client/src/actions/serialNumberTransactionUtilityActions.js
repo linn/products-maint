@@ -2,6 +2,19 @@ import { CALL_API } from 'redux-api-middleware';
 import config from '../config';
 import * as sharedActionTypes from './index';
 
+
+import { FetchApiActions } from '@linn-it/linn-form-components-library';
+import { serialNumberTransactionsActionTypes as actionTypes } from './index';
+import * as itemTypes from '../itemTypes';
+import config from '../config';
+
+export default new FetchApiActions(
+    itemTypes.serialNumberTransCount.actionType,
+    itemTypes.serialNumberTransCount.uri,
+    actionTypes,
+    config.appRoot
+);
+
 const getSernosTransCodes = () => ({
     [CALL_API]: {
         endpoint: `${config.appRoot}/products/maint/serial-number-counts`,
