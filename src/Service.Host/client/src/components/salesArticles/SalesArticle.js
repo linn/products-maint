@@ -9,10 +9,11 @@ import {
     Loading,
     SaveBackCancelButtons,
     SnackbarMessage,
-    Dropdown
+    Dropdown,
+    getHref,
+    getSelfHref
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
-import { getSelfHref, getHref } from '../../helpers/utilities';
 import Page from '../../containers/Page';
 import HoldStoriesBySalesArticle from '../../containers/saHoldStories/HoldStoriesBySalesArticle';
 import SalesArticleCompositeDiscount from '../../containers/salesArticles/SalesArticleCompositeDiscount';

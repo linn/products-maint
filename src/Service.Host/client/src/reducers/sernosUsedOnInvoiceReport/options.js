@@ -1,7 +1,11 @@
+import { reportOptionsFactory } from '@linn-it/linn-form-components-library';
 import { sernosUsedOnInvoiceReportActionTypes as actionTypes } from '../../actions';
-import options from '../reducerFactories/reportOptionsFactory';
 import * as reportTypes from '../../reportTypes';
 
 const defaultState = {};
 
-export default options(reportTypes.sernosUsedOnInvoiceReport.actionType, actionTypes, defaultState);
+export default reportOptionsFactory(
+    reportTypes.sernosUsedOnInvoiceReport.actionType,
+    actionTypes,
+    defaultState
+);
