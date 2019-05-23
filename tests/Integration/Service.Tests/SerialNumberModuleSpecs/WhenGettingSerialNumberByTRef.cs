@@ -18,9 +18,10 @@
         [SetUp]
         public void SetUp()
         {
-            var serialNumber = new SerialNumber(123, "group", "code", "article", 321)
+            var serialNumber = new SerialNumber("group", "code", "article", 321)
                                    {
-                                       SernosNumber = 222
+                                       SernosNumber = 222,
+                                       SernosTRef = 123
                                    };
 
             this.SerialNumberService.GetById(123)

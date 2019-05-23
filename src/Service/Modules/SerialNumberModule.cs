@@ -1,23 +1,39 @@
 ﻿namespace Linn.Products.Service.Modules
 {
-    using Linn.Common.Facade;
-    using Linn.Products.Domain.Linnapps;
+    using Linn.Common.Resources;
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
+    using Linn.Products.Resources.Validators;
+    using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
 
     using Nancy;
     using Nancy.ModelBinding;
+    using Nancy.Security;
 
     public sealed class SerialNumberModule : NancyModule
     {
-        private readonly IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource> serialNumberService;
+        private readonly ISerialNumberFacadeService serialNumberService;
 
-        public SerialNumberModule(IFacadeService<SerialNumber, int, SerialNumberResource, SerialNumberResource> serialNumberService)
+        public SerialNumberModule(ISerialNumberFacadeService serialNumberService)
         {
             this.serialNumberService = serialNumberService;
             this.Get("/products/maint/serial-numbers", _ => this.GetSerialNumbers());
             this.Get("/products/maint/serial-numbers/{sernosTRef}", parameters => this.GetSerialNumberByTRef(parameters.sernosTRef));
+            this.Post("/products/maint/serial-numbers", _ => this.CreateSerialNumbers());
+        }
+
+        private object CreateSerialNumbers()
+        {
+            this.RequiresAuthentication();
+            var resource = this.Bind<SerialNumberCreateResource>();
+            resource.Links = new[] { new LinkResource("entered-by", this.Context.CurrentUser.GetEmployeeUri()) };            
+            var results = new SerialNumberCreateResourceValidator().Validate(resource);
+
+            var serialNumbers = this.serialNumberService.CreateSerialNumbers(resource);
+            return results.IsValid
+                       ? this.Negotiate.WithModel(serialNumbers)
+                       : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
         }
 
         private object GetSerialNumberByTRef(int sernosTRef)

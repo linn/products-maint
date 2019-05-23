@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import TypesOfSale from '../../components/typesOfSale/TypesOfSale';
 import initialiseOnMount from '../common/initialiseOnMount';
 import typesOfSaleActions from '../../actions/typesOfSaleActions';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import typesOfSaleSelectors from '../../selectors/typesOfSaleSelectors';
 
 const mapStateToProps = state => ({
     typesOfSale: typesOfSaleSelectors.getItems(state),
     loading: typesOfSaleSelectors.getLoading(state),
-    errorMessage: getSingleErrorMessage(state)
+    errorMessage: fetchErrorSelectors(state)
 });
 
 const initialise = () => dispatch => {

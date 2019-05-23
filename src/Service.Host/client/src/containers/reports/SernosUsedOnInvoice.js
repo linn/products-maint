@@ -1,14 +1,13 @@
 import { connect } from 'react-redux';
 import queryString from 'query-string';
+import { ReportSelectors, fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import SernosUsedOnInvoice from '../../components/reports/SernosUsedOnInvoice';
 import initialiseOnMount from '../common/initialiseOnMount';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import actions from '../../actions/sernosUsedOnInvoiceReport';
 import config from '../../config';
-import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
 import * as reportTypes from '../../reportTypes';
 
-const reportName = reportTypes.sernosUsedOnInvoiceReport.item;
+const reportSelectors = new ReportSelectors(reportTypes.sernosUsedOnInvoiceReport.item);
 
 const getOptions = ownProps => {
     const options = queryString.parse(ownProps.location.search);
@@ -22,10 +21,10 @@ const getOptions = ownProps => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-    reportData: getReportData(state, reportName),
-    loading: getReportLoading(state, reportName),
+    reportData: reportSelectors.getReportData(state),
+    loading: reportSelectors.getReportLoading(state),
     options: getOptions(ownProps),
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     config
 });
 

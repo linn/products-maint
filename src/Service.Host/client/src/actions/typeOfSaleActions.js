@@ -1,9 +1,11 @@
+import { UpdateApiActions } from '@linn-it/linn-form-components-library';
 import { typeOfSaleActionTypes as actionTypes } from './index';
-import UpdateApiActions from './UpdateApiActions';
 import * as itemTypes from '../itemTypes';
+import config from '../config';
 
 export default new UpdateApiActions(
     itemTypes.typeOfSale.actionType,
     itemTypes.typeOfSale.uri,
-    actionTypes
+    actionTypes,
+    config.appRoot
 );

@@ -1,9 +1,9 @@
-import { CALL_API } from 'redux-api-middleware';
+import { RSAA } from 'redux-api-middleware';
 import config from '../config';
 import * as actionTypes from './index';
 
 const fetchMenu = () => ({
-    [CALL_API]: {
+    [RSAA]: {
         endpoint: `${config.proxyRoot}/intranet/menu-no-auth`,
         method: 'GET',
         options: { requiresAuth: false },

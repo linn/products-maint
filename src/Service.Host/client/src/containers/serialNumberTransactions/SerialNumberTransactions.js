@@ -1,14 +1,14 @@
 ﻿import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import SerialNumberTransactions from '../../components/serialNumberTransactions/SerialNumberTransactions';
 import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import serialNumberTransactionsActions from '../../actions/serialNumberTransactionsActions';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import serialNumberTransactionsSelectors from '../../selectors/serialNumberTransactionsSelectors';
 
 const mapStateToProps = state => ({
     page: serialNumberTransactionsSelectors.getPage(state),
     loading: serialNumberTransactionsSelectors.getLoading(state),
-    errorMessage: getSingleErrorMessage(state)
+    errorMessage: fetchErrorSelectors(state)
 });
 
 const pageLoad = (pageNumber = 1, rowsPerPage = 5) => dispatch => {

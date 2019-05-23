@@ -9,10 +9,11 @@ import {
     Loading,
     SaveBackCancelButtons,
     SnackbarMessage,
-    Dropdown
+    Dropdown,
+    getHref,
+    getSelfHref
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
-import { getSelfHref, getHref } from '../../helpers/utilities';
 import Page from '../../containers/Page';
 import HoldStoriesBySalesArticle from '../../containers/saHoldStories/HoldStoriesBySalesArticle';
 import SalesArticleCompositeDiscount from '../../containers/salesArticles/SalesArticleCompositeDiscount';
@@ -83,7 +84,14 @@ function SalesArticle({
         setEditStatus('edit');
         let { links } = salesArticle;
         if (newValue) {
-            links = links.map(link => (link.rel === rel ? { rel, href: newValue } : link));
+            const existingLink = links.find(link => link.rel === rel);
+            if (existingLink) {
+                links = links.map(link => (link.rel === rel ? { rel, href: newValue } : link));
+            } else {
+                links.push({ rel, href: newValue });
+            }
+        } else {
+            links = links.filter(link => link.rel !== rel);
         }
 
         setSalesArticle({ ...salesArticle, links });

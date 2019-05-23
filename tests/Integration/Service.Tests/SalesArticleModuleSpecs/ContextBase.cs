@@ -1,5 +1,6 @@
 ﻿namespace Linn.Products.Service.Tests.SalesArticleModuleSpecs
 {
+    using System;
     using System.Collections.Generic;
     using System.Security.Claims;
 
@@ -28,12 +29,15 @@
 
         protected ISalesArticleCompositeDiscountFacadeService SalesArticleCompositeDiscountFacadeService { get; private set; }
 
+        protected ISalesArticleSerialNumberFacadeService SalesArticleSerialNumberFacadeService { get; private set; }
+
         [SetUp]
         public void EstablishContext()
         {
             this.SalesArticleService = Substitute.For<ISalesArticleService>();
             this.SalesArticleForecastService = Substitute.For<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
             this.SalesArticleCompositeDiscountFacadeService = Substitute.For<ISalesArticleCompositeDiscountFacadeService>();
+            this.SalesArticleSerialNumberFacadeService = Substitute.For<ISalesArticleSerialNumberFacadeService>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
@@ -41,14 +45,18 @@
                     with.Dependency(this.SalesArticleService);
                     with.Dependency(this.SalesArticleForecastService);
                     with.Dependency(this.SalesArticleCompositeDiscountFacadeService);
+                    with.Dependency(this.SalesArticleSerialNumberFacadeService);
                     with.Dependency<IResourceBuilder<SalesArticle>>(new SalesArticleResourceBuilder());
                     with.Dependency<IResourceBuilder<IEnumerable<SalesArticle>>>(new SalesArticlesResourceBuilder());
                     with.Dependency<IResourceBuilder<SalesArticleCompositeDiscount>>(
                         new SalesArticleCompositeDiscountResourceBuilder());
+                    with.Dependency<IResourceBuilder<SalesArticleSerialNumberDetails>>(
+                        new SalesArticleSerialNumberDetailsResourceBuilder());
                     with.Module<SalesArticleModule>();
                     with.ResponseProcessor<SalesArticleResponseProcessor>();
                     with.ResponseProcessor<SalesArticlesResponseProcessor>();
                     with.ResponseProcessor<SalesArticleCompositeDiscountResponseProcessor>();
+                    with.ResponseProcessor<SalesArticleSerialNumberDetailsResponseProcessor>();
                     with.RequestStartup(
                         (container, pipelines, context) =>
                         {

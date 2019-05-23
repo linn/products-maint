@@ -1,4 +1,4 @@
-﻿import { getSelfHref } from '../helpers/utilities';
+﻿import { getSelfHref } from '@linn-it/linn-form-components-library';
 import history from '../history';
 
 export default () => next => action => {

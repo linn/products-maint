@@ -1,4 +1,5 @@
-﻿import { combineReducers } from 'redux';
+﻿import { fetchErrorReducer as fetchError } from '@linn-it/linn-form-components-library';
+import { combineReducers } from 'redux';
 import { reducer as oidc } from 'redux-oidc';
 import eanCodesReport from './eanCodesReport';
 import cartonDetailsReport from './cartonDetailsReport';
@@ -19,7 +20,6 @@ import serialNumberTransaction from './serialNumberTransaction';
 import serialNumberTransactions from './serialNumberTransactions';
 import sernosSequence from './sernosSequence';
 import sernosSequences from './sernosSequences';
-import fetchError from './fetchError';
 import saCoreTypes from './saCoreTypes';
 import saCoreType from './saCoreType';
 import typesOfSale from './typesOfSale';
@@ -36,9 +36,12 @@ import productsOnHoldReport from './productsOnHoldReport';
 import salesArticleCoreTypes from './salesArticleCoreTypes/index';
 import salesPackage from './salesPackage';
 import salesPackages from './salesPackages';
+import sernosTransaction from './sernosTransaction';
+import sernosTransactions from './sernosTransactions';
 import rootProducts from './rootProducts/rootProducts';
 import rootProduct from './rootProducts/rootProduct';
 import salesArticleCompositeDiscount from './salesArticleCompositeDiscount';
+import salesArticleSernosDetails from './salesArticleSernosDetails';
 import sernosUsedOnInvoiceReport from './sernosUsedOnInvoiceReport';
 
 const rootReducer = combineReducers({
@@ -79,7 +82,10 @@ const rootReducer = combineReducers({
     productsOnHoldReport,
     salesPackage,
     salesPackages,
+    sernosTransaction,
+    sernosTransactions,
     salesArticleCompositeDiscount,
+    salesArticleSernosDetails,
     rootProduct,
     rootProducts,
     sernosUsedOnInvoiceReport

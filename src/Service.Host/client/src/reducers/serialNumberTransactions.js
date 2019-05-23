@@ -1,5 +1,5 @@
-﻿import { serialNumberTransactionsActionTypes as actionTypes } from '../actions';
-import paginationStoreFactory from './reducerFactories/paginationStoreFactory';
+﻿import { paginationStoreFactory } from '@linn-it/linn-form-components-library';
+import { serialNumberTransactionsActionTypes as actionTypes } from '../actions';
 import * as itemTypes from '../itemTypes';
 
 const defaultState = {

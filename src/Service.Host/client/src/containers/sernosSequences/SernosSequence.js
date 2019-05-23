@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import SernosSequence from '../../components/sernosSequences/SernosSequence';
 import initialiseOnMount from '../common/initialiseOnMount';
 import sernosSequenceActions from '../../actions/sernosSequenceActions';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import sernosSequenceSelectors from '../../selectors/sernosSequenceSelectors';
 
 const mapStateToProps = (state, { match }) => ({
@@ -11,7 +11,7 @@ const mapStateToProps = (state, { match }) => ({
     editStatus: sernosSequenceSelectors.getEditStatus(state),
     loading: sernosSequenceSelectors.getLoading(state),
     snackbarVisible: sernosSequenceSelectors.getSnackbarVisible(state),
-    errorMessage: getSingleErrorMessage(state)
+    errorMessage: fetchErrorSelectors(state)
 });
 
 const initialise = ({ itemId }) => dispatch => {

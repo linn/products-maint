@@ -1,16 +1,16 @@
 import { connect } from 'react-redux';
+import { ReportSelectors } from '@linn-it/linn-form-components-library';
 import StockTriggerLevelParts from '../../components/reports/StockTriggerLevelParts';
 import initialiseOnMount from '../common/initialiseOnMount';
 import { fetchStockTriggerLevelParts } from '../../actions/stockTriggerLevelsReportActions';
 import config from '../../config';
-import { getReportData, getReportLoading } from '../../selectors/reportSelectors';
 
-const reportName = 'stockTriggerLevelsReport';
+const reportSelectors = new ReportSelectors('stockTriggerLevelsReport');
 const getLocationId = ownProps => ownProps.match.params.locationId;
 
 const mapStateToProps = (state, ownProps) => ({
-    reportData: getReportData(state, reportName),
-    loading: getReportLoading(state, reportName),
+    reportData: reportSelectors.getReportData(state),
+    loading: reportSelectors.getReportLoading(state),
     locationId: getLocationId(ownProps),
     config
 });

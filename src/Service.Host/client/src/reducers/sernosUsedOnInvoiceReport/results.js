@@ -1,7 +1,11 @@
+import { reportResultsFactory } from '@linn-it/linn-form-components-library';
 import { sernosUsedOnInvoiceReportActionTypes as actionTypes } from '../../actions';
-import results from '../reducerFactories/reportResultsFactory';
 import * as reportTypes from '../../reportTypes';
 
 const defaultState = { loading: false, data: null };
 
-export default results(reportTypes.sernosUsedOnInvoiceReport.actionType, actionTypes, defaultState);
+export default reportResultsFactory(
+    reportTypes.sernosUsedOnInvoiceReport.actionType,
+    actionTypes,
+    defaultState
+);

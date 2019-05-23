@@ -21,14 +21,18 @@
 
         private readonly ISalesArticleService salesArticleProxyService;
 
+        private readonly ISalesArticleSerialNumberFacadeService salesArticleSerialNumberFacadeService;
+
         public SalesArticleModule(
             IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> salesArticleService,
             ISalesArticleCompositeDiscountFacadeService salesArticleCompositeDiscountFacadeService,
-            ISalesArticleService salesArticleProxyService)
+            ISalesArticleService salesArticleProxyService,
+            ISalesArticleSerialNumberFacadeService salesArticleSerialNumberFacadeService)
         {
             this.salesArticleService = salesArticleService;
             this.salesArticleCompositeDiscountFacadeService = salesArticleCompositeDiscountFacadeService;
             this.salesArticleProxyService = salesArticleProxyService;
+            this.salesArticleSerialNumberFacadeService = salesArticleSerialNumberFacadeService;
 
             this.Get("/products/maint/sales-articles", _ => this.GetSalesArticles());
             this.Get("/products/maint/sales-articles/{id*}", parameters => this.GetSalesArticle(parameters.id));
@@ -36,6 +40,18 @@
 
             this.Get("/products/maint/sales-articles/composite-discounts/{id*}", parameters => this.GetSalesArticleCompositeDiscount(parameters.id));
             this.Put("/products/maint/sales-articles/composite-discounts/{id*}", parameters => this.UpdateSalesArticleCompositeDiscount(parameters.id));
+
+            this.Get("/products/maint/sales-articles/serial-number-details/{id*}", parameters => this.GetSerialNumberDetails(parameters.id));
+        }
+
+        private object GetSerialNumberDetails(string id)
+        {
+            var result = this.salesArticleSerialNumberFacadeService.GetSerialNumberDetails(id.ToUpper());
+
+            return this.Negotiate
+                .WithModel(result)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object UpdateSalesArticleCompositeDiscount(string id)

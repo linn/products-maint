@@ -1,8 +1,8 @@
 ﻿import { connect } from 'react-redux';
+import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import SalesArticleCompositeDiscount from '../../components/salesArticles/SalesArticleCompositeDiscount';
 import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import salesArticleCompositeDiscountActions from '../../actions/salesArticleCompositeDiscount';
-import getSingleErrorMessage from '../../selectors/fetchErrorSelectors';
 import salesArticleCompositeDiscountSelectors from '../../selectors/salesArticleCompositeDiscountSelectors';
 
 const mapStateToProps = (state, { match }) => ({
@@ -10,7 +10,7 @@ const mapStateToProps = (state, { match }) => ({
     itemId: match.params.articleNumber,
     editStatus: salesArticleCompositeDiscountSelectors.getEditStatus(state),
     loading: salesArticleCompositeDiscountSelectors.getLoading(state),
-    errorMessage: getSingleErrorMessage(state),
+    errorMessage: fetchErrorSelectors(state),
     snackbarVisible: salesArticleCompositeDiscountSelectors.getSnackbarVisible(state)
 });
 
