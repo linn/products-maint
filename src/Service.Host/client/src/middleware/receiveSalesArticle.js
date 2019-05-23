@@ -1,5 +1,5 @@
-﻿import * as actionTypes from '../actions';
-import { getHref } from '../helpers/utilities';
+﻿import { getHref } from '@linn-it/linn-form-components-library';
+import * as actionTypes from '../actions';
 import saCoreTypeActions from '../actions/saCoreTypeActions';
 
 const fetchSaCoreType = (data, dispatch) => {

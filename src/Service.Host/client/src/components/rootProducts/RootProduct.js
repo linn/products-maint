@@ -7,9 +7,9 @@ import {
     Loading,
     Title,
     ErrorCard,
-    SnackbarMessage
+    SnackbarMessage,
+    getHref
 } from '@linn-it/linn-form-components-library';
-import { getHref } from '../../helpers/utilities';
 import HoldStoriesByRootProduct from '../../containers/saHoldStories/HoldStoriesByRootProduct';
 
 import Page from '../../containers/Page';

@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Loading, CreateButton, ErrorCard } from '@linn-it/linn-form-components-library';
+import { Loading, CreateButton, ErrorCard, getSelfHref } from '@linn-it/linn-form-components-library';
 import {
     Table,
     TableHead,
@@ -16,7 +16,6 @@ import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 
 import TablePaginationActions from '../common/TablePaginationActions';
-import { getSelfHref } from '../../helpers/utilities';
 import Page from '../../containers/Page';
 
 const actionsStyles = theme => ({
