@@ -56,7 +56,7 @@ function SerialNumberTransaction({
         { displayText: 'None', id: 'N' },
         { displayText: 'Error', id: 'E' },
         { displayText: 'Warning', id: 'W' },
-        ''
+        { displayText: '', id: ''}
     ];
 
     const cursor = {
@@ -77,8 +77,9 @@ function SerialNumberTransaction({
 
     const checkErrorValidation = () => {
         serialNumberTransaction.sernosTransCounts.forEach(element => {
-            if (!element.checkError) {
-                element.checkError = 'N';
+            const elementToCheck = element;
+            if (!elementToCheck.checkError) {
+                elementToCheck.checkError = 'N';
             }
         });
     };
@@ -111,12 +112,14 @@ function SerialNumberTransaction({
             setEditStatus('view');
         } else if (creating()) {
             newElements.forEach(newElement => {
-                if (!newElement.transCode) {
-                    newElement.transCode = serialNumberTransaction.transCode;
+                const elementToCheck = newElement;
+                if (!elementToCheck.transCode) {
+                    elementToCheck.transCode = serialNumberTransaction.transCode;
                 }
             });
 
             serialNumberTransaction.sernosTransCounts = newElements;
+            checkErrorValidation();
             addSerialNumberTransaction(serialNumberTransaction);
         }
     };
@@ -205,7 +208,7 @@ function SerialNumberTransaction({
                                 }
                                 onChange={handleFieldChange}
                                 propertyName="transCode"
-                                error={transCodeInvalid}
+                                error={transCodeInvalid()}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -215,7 +218,7 @@ function SerialNumberTransaction({
                                 fullWidth
                                 onChange={handleFieldChange}
                                 propertyName="transDescription"
-                                error={descriptionInvalid}
+                                error={descriptionInvalid()}
                             />
                         </Grid>
                         <Grid item xs={6}>
