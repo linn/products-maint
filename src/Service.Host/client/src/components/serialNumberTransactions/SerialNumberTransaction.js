@@ -99,7 +99,8 @@ function SerialNumberTransaction({
 
     const removeElement = index => {
         const copy = [...newElements];
-        setNewElements(copy.splice(index, 1));
+        copy.splice(index, 1);
+        setNewElements(copy);
     };
 
     const handleSaveClick = () => {
