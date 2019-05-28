@@ -164,6 +164,7 @@ function SerialNumberTransaction({
     };
 
     const yesNoOptions = ['Y', 'N', ''];
+    const sernosCountOptions = [...sernosTransCountTypes.map(value => value.name), ''];
 
     return (
         <Page>
@@ -313,9 +314,7 @@ function SerialNumberTransaction({
                                             <TableCell>
                                                 <Dropdown
                                                     value={element.sernosCount}
-                                                    items={sernosTransCountTypes.map(
-                                                        value => value.name
-                                                    )}
+                                                    items={sernosCountOptions}
                                                     label="Count"
                                                     propertyName={`${index},sernosCount`}
                                                     onChange={handleNewElement}

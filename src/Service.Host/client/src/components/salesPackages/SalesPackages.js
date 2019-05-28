@@ -1,7 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Loading, CreateButton, ErrorCard, getSelfHref } from '@linn-it/linn-form-components-library';
+import {
+    Loading,
+    CreateButton,
+    ErrorCard,
+    getSelfHref
+} from '@linn-it/linn-form-components-library';
 import {
     Table,
     TableHead,
@@ -35,7 +40,7 @@ function SalesPackages({ page, loading, pageLoad, pageSortedLoad, errorMessage }
     const [localPage, setLocalPage] = useState(0);
     const [localOrderBy, setOrderBy] = useState();
     const [asc, setAsc] = useState(false);
-    const [rowsPerPage, setRowsPerpage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
 
     const handleRowOnClick = salesPackageId =>
         rowOpen === salesPackageId ? setRowOpen(null) : setRowOpen(salesPackageId);
@@ -53,7 +58,7 @@ function SalesPackages({ page, loading, pageLoad, pageSortedLoad, errorMessage }
 
     const handleChangeRowsPerPage = event => {
         setLocalPage(0);
-        setRowsPerpage(event.target.value);
+        setRowsPerPage(event.target.value);
         pageLoad(localPage + 1, event.target.value);
     };
 
