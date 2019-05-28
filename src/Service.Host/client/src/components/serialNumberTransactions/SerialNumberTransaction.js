@@ -66,12 +66,13 @@ function SerialNumberTransaction({
     const transCodeInvalid = () => creating() && !serialNumberTransaction.transCode;
     const descriptionInvalid = () => !serialNumberTransaction.transDescription;
     const sernosCountSelected = () =>
-        !newElements || (newElements && newElements.every(element => !element.sernosCount));
+        newElements.length > 0 && newElements.every(element => !element.sernosCount);
     const invalidSernosCountSelection = () => {
-        const usedSernosCounts = newElements
-            .concat(serialNumberTransaction.sernosTransCounts)
-            .map(y => y.sernosCount);
-        return new Set(usedSernosCounts).size !== usedSernosCounts.length;
+        const usedSernosCounts = creating()
+            ? newElements
+            : newElements.concat(serialNumberTransaction.sernosTransCounts);
+        const counts = usedSernosCounts.map(a => a.sernosCount);
+        return new Set(counts).size !== counts.length;
     };
 
     const checkErrorValidation = () => {
@@ -109,8 +110,13 @@ function SerialNumberTransaction({
             setNewElements([]);
             setEditStatus('view');
         } else if (creating()) {
-            const { sernosTransCounts } = serialNumberTransaction;
-            serialNumberTransaction.sernosTransCounts = [...sernosTransCounts, ...newElements];
+            newElements.forEach(newElement => {
+                if (!newElement.transCode) {
+                    newElement.transCode = serialNumberTransaction.transCode;
+                }
+            });
+
+            serialNumberTransaction.sernosTransCounts = newElements;
             addSerialNumberTransaction(serialNumberTransaction);
         }
     };
@@ -142,11 +148,8 @@ function SerialNumberTransaction({
         const prop = propertyName.slice(splitIndex + 1);
         const newElement = newElements[index];
         newElement[prop] = newValue;
-        if (!newElement.transCode) {
-            newElement.transCode = serialNumberTransaction.transCode;
-        }
 
-        //setNewElements([...newElements]);
+        setNewElements([...newElements]);
     };
 
     const handleElementChange = (propertyName, newValue) => {
@@ -293,11 +296,11 @@ function SerialNumberTransaction({
                                             <TableCell>
                                                 <InputField
                                                     type="text"
-                                                    value={row.message}
+                                                    value={row.checkErrorMess}
                                                     label="Message"
                                                     maxLength={128}
                                                     onChange={handleElementChange}
-                                                    propertyName={`${index},message`}
+                                                    propertyName={`${index},checkErrorMess`}
                                                 />
                                             </TableCell>
                                         </TableRow>
