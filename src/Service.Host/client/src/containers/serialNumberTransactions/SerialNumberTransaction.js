@@ -5,28 +5,25 @@ import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import serialNumberTransactionActions from '../../actions/serialNumberTransactionActions';
 import serialNumberTransactionUtilityActions from '../../actions/serialNumberTransactionUtilityActions';
 import serialNumberTransactionSelectors from '../../selectors/serialNumberTransactionSelectors';
+import serialNumberTransactionCountsSelectors from '../../selectors/serialNumberTransactionCountsSelectors';
 
 const mapStateToProps = (state, { match }) => ({
     itemId: match.params.id,
     item: serialNumberTransactionSelectors.getItem(state),
-    sernosTransCodes: serialNumberTransactionSelectors.getSernosTransCodes(state),
+    sernosTransCountTypes: serialNumberTransactionCountsSelectors.getItems(state),
     editStatus: serialNumberTransactionSelectors.getEditStatus(state),
     loading: serialNumberTransactionSelectors.getLoading(state),
     snackbarVisible: serialNumberTransactionSelectors.getSnackbarVisible(state),
     errorMessage: fetchErrorSelectors(state)
 });
 
-const fetchCodes = () => dispatch => {
-    dispatch(serialNumberTransactionUtilityActions());
-};
-
 const initialise = ({ itemId }) => dispatch => {
     dispatch(serialNumberTransactionActions.fetch(itemId));
+    dispatch(serialNumberTransactionUtilityActions.fetch());
 };
 
 const mapDispatchToProps = {
     initialise,
-    fetchCodes,
     updateSerialNumberTransaction: serialNumberTransactionActions.update,
     setEditStatus: serialNumberTransactionActions.setEditStatus,
     setSnackbarVisible: serialNumberTransactionActions.setSnackbarVisible

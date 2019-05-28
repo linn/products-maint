@@ -52,7 +52,7 @@ function SerialNumberTransactions({ page, loading, pageLoad }) {
                 <Loading />
             ) : (
                 <Fragment>
-                    <CreateButton createUrl="/products/maint/sales-packages/create" />
+                    <CreateButton createUrl="/products/maint/serial-number-transactions/create" />
                     <Table>
                         <TableHead>
                             <TableRow>

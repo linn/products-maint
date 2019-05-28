@@ -130,8 +130,8 @@ export const sernosTransactions = new ItemType(
     '/products/maint/sernos-transactions'
 );
 
-export const serialNumberTransCount = new ItemType(
-    'sernosTransCount',
+export const serialNumberTransCounts = new ItemType(
+    'serialNumberTransCounts',
     'SERIAL_NUMBER_COUNTS',
     '/products/maint/serial-number-counts'
 );

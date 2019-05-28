@@ -20,8 +20,7 @@ function SerialNumberTransaction({
     editStatus,
     item,
     itemId,
-    fetchCodes,
-    sernosTransCodes,
+    sernosTransCountTypes,
     updateSerialNumberTransaction,
     addSerialNumberTransaction,
     setEditStatus,
@@ -36,6 +35,13 @@ function SerialNumberTransaction({
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
+
+    useEffect(() => {
+        if (!creating() && item !== prevSerialNumberTransaction) {
+            setSerialNumberTransaction(item);
+            setPrevSerialNumberTransaction(item);
+        }
+    });
 
     const emptySernosTransCode = {
         transCode: '',
@@ -52,17 +58,6 @@ function SerialNumberTransaction({
         { displayText: 'Warning', id: 'W' },
         ''
     ];
-
-    useEffect(() => {
-        if (!sernosTransCodes) {
-            fetchCodes();
-        }
-
-        if (item !== prevSerialNumberTransaction) {
-            setSerialNumberTransaction(item);
-            setPrevSerialNumberTransaction(item);
-        }
-    });
 
     const cursor = {
         cursor: 'pointer'
@@ -95,7 +90,7 @@ function SerialNumberTransaction({
         invalidSernosCountSelection();
 
     const showFieldsToAddElement = () => {
-        if (!newElements.includes(emptySernosTransCode) && sernosTransCodes) {
+        if (!newElements.includes(emptySernosTransCode) && sernosTransCountTypes) {
             setNewElements([...newElements, emptySernosTransCode]);
         }
     };
@@ -138,16 +133,20 @@ function SerialNumberTransaction({
     };
 
     const handleNewElement = (propertyName, newValue) => {
-        setEditStatus('edit');
+        if (viewing()) {
+            setEditStatus('edit');
+        }
+
         const splitIndex = propertyName.indexOf(',');
         const index = propertyName.slice(0, splitIndex);
         const prop = propertyName.slice(splitIndex + 1);
         const newElement = newElements[index];
         newElement[prop] = newValue;
         if (!newElement.transCode) {
-            newElement.transCode = item.transCode;
+            newElement.transCode = serialNumberTransaction.transCode;
         }
-        setNewElements([...newElements, ...newElement]);
+
+        //setNewElements([...newElements]);
     };
 
     const handleElementChange = (propertyName, newValue) => {
@@ -311,7 +310,7 @@ function SerialNumberTransaction({
                                             <TableCell>
                                                 <Dropdown
                                                     value={element.sernosCount}
-                                                    items={sernosTransCodes.map(
+                                                    items={sernosTransCountTypes.map(
                                                         value => value.name
                                                     )}
                                                     label="Count"
@@ -358,7 +357,7 @@ function SerialNumberTransaction({
                                                     label="Message"
                                                     onChange={handleNewElement}
                                                     maxLength={128}
-                                                    propertyName={`${index},message`}
+                                                    propertyName={`${index},checkErrorMess`}
                                                 />
                                             </TableCell>
 
@@ -397,7 +396,7 @@ SerialNumberTransaction.defaultProps = {
     item: {},
     addSerialNumberTransaction: null,
     updateSerialNumberTransaction: null,
-    sernosTransCodes: null,
+    sernosTransCountTypes: null,
     loading: null,
     errorMessage: '',
     itemId: null,
@@ -408,8 +407,7 @@ SerialNumberTransaction.propTypes = {
     item: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     editStatus: PropTypes.string.isRequired,
-    fetchCodes: PropTypes.func.isRequired,
-    sernosTransCodes: PropTypes.arrayOf(PropTypes.shape({})),
+    sernosTransCountTypes: PropTypes.arrayOf(PropTypes.shape({})),
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,
     updateSerialNumberTransaction: PropTypes.func,
