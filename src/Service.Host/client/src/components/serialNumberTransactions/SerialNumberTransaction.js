@@ -56,7 +56,7 @@ function SerialNumberTransaction({
         { displayText: 'None', id: 'N' },
         { displayText: 'Error', id: 'E' },
         { displayText: 'Warning', id: 'W' },
-        { displayText: '', id: ''}
+        { displayText: '', id: '' }
     ];
 
     const cursor = {
