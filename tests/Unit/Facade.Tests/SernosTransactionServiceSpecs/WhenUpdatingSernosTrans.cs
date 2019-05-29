@@ -1,5 +1,7 @@
-﻿namespace Linn.Products.Facade.Tests.SernosTransactionServiceSpecs
+namespace Linn.Products.Facade.Tests.SernosTransactionServiceSpecs
 {
+    using System.Collections.Generic;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -25,7 +27,12 @@
             this.resource = new SernosTransactionResource
                                 {
                                     TransDescription = "d",
-                                    ManualPost = "Y"
+                                    ManualPost = "Y",
+                                    SernosTransCounts = new List<SernosTransactionCountResource>
+                                                            {
+                                                                new SernosTransactionCountResource(),
+                                                                new SernosTransactionCountResource()
+                                                            }
                                 };
             this.SerialNumberTransactionRepository.FindById("t").Returns(this.sernosTrans);
             this.result = this.Sut.Update(this.sernosTrans.TransCode, this.resource);

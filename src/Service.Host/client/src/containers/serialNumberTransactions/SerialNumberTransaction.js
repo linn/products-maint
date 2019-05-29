@@ -3,11 +3,14 @@ import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import SerialNumberTransaction from '../../components/serialNumberTransactions/SerialNumberTransaction';
 import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import serialNumberTransactionActions from '../../actions/serialNumberTransactionActions';
+import serialNumberTransactionUtilityActions from '../../actions/serialNumberTransactionUtilityActions';
 import serialNumberTransactionSelectors from '../../selectors/serialNumberTransactionSelectors';
+import serialNumberTransactionCountsSelectors from '../../selectors/serialNumberTransactionCountsSelectors';
 
 const mapStateToProps = (state, { match }) => ({
-    item: serialNumberTransactionSelectors.getItem(state),
     itemId: match.params.id,
+    item: serialNumberTransactionSelectors.getItem(state),
+    sernosTransCountTypes: serialNumberTransactionCountsSelectors.getItems(state),
     editStatus: serialNumberTransactionSelectors.getEditStatus(state),
     loading: serialNumberTransactionSelectors.getLoading(state),
     snackbarVisible: serialNumberTransactionSelectors.getSnackbarVisible(state),
@@ -16,6 +19,7 @@ const mapStateToProps = (state, { match }) => ({
 
 const initialise = ({ itemId }) => dispatch => {
     dispatch(serialNumberTransactionActions.fetch(itemId));
+    dispatch(serialNumberTransactionUtilityActions.fetch());
 };
 
 const mapDispatchToProps = {

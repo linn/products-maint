@@ -4,6 +4,12 @@
 
     public class SernosTrans
     {
+        public SernosTrans()
+        {
+            this.UpdateLastTransaction = "N";
+            this.UpdateBuiltBy = "N";
+        }
+
         public string TransCode { get; set; }
 
         public string TransDescription { get; set; }
