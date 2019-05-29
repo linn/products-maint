@@ -66,7 +66,7 @@ function SerialNumberTransaction({
     const transCodeInvalid = () => creating() && !serialNumberTransaction.transCode;
     const descriptionInvalid = () => !serialNumberTransaction.transDescription;
     const sernosCountSelected = () =>
-        newElements.length > 0 && newElements.every(element => !element.sernosCount);
+        newElements.length > 0 && newElements.some(element => !element.sernosCount);
     const invalidSernosCountSelection = () => {
         const usedSernosCounts = creating()
             ? newElements
@@ -127,6 +127,7 @@ function SerialNumberTransaction({
 
     const handleCancelClick = () => {
         setSerialNumberTransaction(item);
+        setNewElements([]);
         setEditStatus('view');
     };
 
