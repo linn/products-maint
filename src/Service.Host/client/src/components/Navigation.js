@@ -10,12 +10,14 @@ import {
     MenuItem,
     Toolbar,
     Grid,
-    Typography
+    Typography,
+    Badge
 } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Notifications from '@material-ui/icons/Notifications';
 import Panel from './Panel';
+import News from './News';
 import config from '../config';
-import News from '../containers/News';
 
 const styles = theme => ({
     root: {
@@ -50,8 +52,9 @@ const styles = theme => ({
     }
 });
 
-function Navigation({ classes, sections, loading, username, myStuff }) {
+function Navigation({ classes, sections, loading, username, myStuff, notifications }) {
     const [selected, setSelected] = useState(false);
+    const [notificationsShown, setNotificationsShown] = useState(false); 
     const [anchorEl, setAnchorEl] = useState();
     if (sections) {
         const menuIds = sections.map(item => item.id);
@@ -64,6 +67,9 @@ function Navigation({ classes, sections, loading, username, myStuff }) {
         };
         const handleSignOut = () => {
             window.location.assign(`${config.authorityUri}account/logout`);
+        };
+        const toggleNotifications = () => {
+            setNotificationsShown(!notificationsShown);
         };
 
         return (
@@ -80,7 +86,7 @@ function Navigation({ classes, sections, loading, username, myStuff }) {
                                     classes={{ container: classes.container }}
                                 >
                                     <Fragment>
-                                        <Grid item xs={11}>
+                                        <Grid item xs={10}>
                                             <Tabs
                                                 classes={{
                                                     root: classes.tabs
@@ -123,6 +129,16 @@ function Navigation({ classes, sections, loading, username, myStuff }) {
                                                 />
                                             </Typography>
                                         </Grid>
+                                        <Grid item xs={1}>
+                                            <Typography variant="h4">
+                                                <Badge
+                                                    badgeContent={notifications.length} // TODO - use cookies
+                                                    color="primary"
+                                                >
+                                                    <Notifications onClick={toggleNotifications} />
+                                                </Badge>
+                                            </Typography>
+                                        </Grid>
                                         <Menu
                                             id="simple-menu"
                                             anchorEl={anchorEl}
@@ -143,7 +159,11 @@ function Navigation({ classes, sections, loading, username, myStuff }) {
                                     </Fragment>
                                 </Grid>
                             </Toolbar>
-                            <News />
+                            <News
+                                notifications={notifications}
+                                open={notificationsShown}
+                                onClose={toggleNotifications}
+                            />
                         </AppBar>
                     )}
                     {menuIds.map(

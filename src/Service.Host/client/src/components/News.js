@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Snackbar, withStyles } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import CloseIcon from '@material-ui/icons/Close';
+import Badge from '@material-ui/core/Badge';
 
 const styles = theme => ({
     root: {
@@ -33,6 +34,7 @@ function useInterval(callback, delay) {
             savedCallback.current();
         };
         if (delay !== null) {
+            // TODO - only start the counter when notifications are open
             const id = setInterval(tick, delay);
             return () => clearInterval(id);
         }
@@ -44,12 +46,11 @@ function SlideTransition(props) {
     return <Slide {...props} direction="left" />;
 }
 
-function Notifications({ news, classes }) {
+function Notifications({ notifications, classes, open, onClose }) {
     const [count, setCount] = useState(0);
-    const [open, setOpen] = useState(true);
 
     useInterval(() => {
-        if (count < news.notifications.length - 1) {
+        if (count < notifications.length - 1) {
             setCount(count + 1);
         } else {
             setCount(0);
@@ -58,12 +59,12 @@ function Notifications({ news, classes }) {
 
     const handleClose = () => setOpen(false);
 
-    return news.notifications.map((e, i) => (
+    return notifications.map((e, i) => (
         <Snackbar
             message={
                 <span id="client-snackbar" className={classes.message}>
                     {`${e.title} ${e.content}`}
-                    <CloseIcon className={classes.icon} onClick={handleClose} />
+                    <CloseIcon className={classes.icon} onClick={onClose} />
                 </span>
             }
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
