@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import News from '../components/News';
+import Notifications from '../components/News';
 import initialiseOnMount from './common/functionalInitialiseOnMount';
 import fetchNews from '../actions/newsActions';
 import { getNews, getNewsLoading } from '../selectors/newsSelectors';
@@ -11,9 +11,8 @@ const mapStateToProps = state => ({
             {
                 created: '/Date(1557928928312)/',
                 labels: [],
-                content:
-                    'https://surveys.healthyworkinglives.scot/surveys/ew-2018-linn-products-limited',
-                title: '** Please complete our Healthy Working Lives survey.  Thank you! **',
+                content: 'Thank You!',
+                title: 'Please complete our Healthy Working Lives survey.',
                 links: [
                     {
                         rel: 'self',
@@ -48,5 +47,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(initialiseOnMount(News))
+    )(initialiseOnMount(Notifications))
 );
