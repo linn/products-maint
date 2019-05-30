@@ -4,6 +4,8 @@
     using Extensions;
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Facade;
+    using Linn.Products.Facade.Models;
     using Linn.Products.Resources;
     using Linn.Products.Service.Models;
 
@@ -15,11 +17,11 @@
 
     public sealed class VatCodeModule : NancyModule
     {
-        private readonly IFacadeService<VatCode, string, VatCodeResource, VatCodeResource> vatCodeService;
+        private readonly IFacadeServiceLocal<VatCode, string, VatCodeResource, VatCodeResource> vatCodeService;
         private readonly IAuthorisationService authorisationService;
 
         public VatCodeModule(
-            IFacadeService<VatCode, string, VatCodeResource, VatCodeResource> vatCodeService,
+            IFacadeServiceLocal<VatCode, string, VatCodeResource, VatCodeResource> vatCodeService,
             IAuthorisationService authorisationService)
         {
             this.vatCodeService = vatCodeService;
@@ -32,13 +34,14 @@
 
         private object AddVatCode()
         {
-
-
             var resource = this.Bind<VatCodeResource>();
+
+            var privileges = this.Context.CurrentUser.GetPrivileges();
 
             try
             {
-                var result = this.vatCodeService.Add(resource);
+                var result = this.vatCodeService.Add(resource, privileges);
+
                 return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                     .WithView("Index");
             }
@@ -50,7 +53,10 @@
 
         private object GetVatCodeByCode(string code)
         {
-            var result = this.vatCodeService.GetById(code);
+            var privileges = this.Context.CurrentUser.GetPrivileges();
+
+            var result = this.vatCodeService.GetById(code, privileges);
+
             return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
@@ -65,9 +71,10 @@
         private object UpdateVatCode(string code)
         {
             this.RequiresAuthentication();
-            var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
 
-            if (!this.authorisationService.CanEditOrCreateVatCodes(this.Context.CurrentUser.GetPrivileges()))
+            var privileges = this.Context.CurrentUser.GetPrivileges();
+
+            if (!this.authorisationService.CanEditOrCreateVatCodes(privileges))
             {
                 return this.Negotiate.WithModel(new BadRequestResult<VatCode>("You are not authorised to create or edit vat codes"));
             }
@@ -75,8 +82,9 @@
             var resource = this.Bind<VatCodeResource>();
             try
             {
-                var result = this.vatCodeService.Update(code, resource);
-            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                var result = this.vatCodeService.Update(code, resource, privileges);
+
+                return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
             }
             catch (DbUpdateException e)

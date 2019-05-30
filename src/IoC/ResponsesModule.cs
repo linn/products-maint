@@ -10,6 +10,7 @@
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Domain.Linnapps.SernosTransactions;
+    using Linn.Products.Facade.Models;
     using Linn.Products.Facade.ResourceBuilders;
 
     using PagedList.Core;
@@ -41,7 +42,7 @@
             builder.RegisterType<RootProductsResourceBuilder>().As<IResourceBuilder<IEnumerable<RootProduct>>>();
             builder.RegisterType<SaHoldStoryResourceBuilder>().As<IResourceBuilder<SaHoldStory>>();
             builder.RegisterType<SaHoldStoriesResourceBuilder>().As<IResourceBuilder<IEnumerable<SaHoldStory>>>();
-            builder.RegisterType<VatCodeResourceBuilder>().As<IResourceBuilder<VatCode>>();
+            builder.RegisterType<VatCodeResourceBuilder>().As<IResourceBuilder<ResponseModel<VatCode>>>();
             builder.RegisterType<VatCodesResourceBuilder>().As<IResourceBuilder<IEnumerable<VatCode>>>();
             builder.RegisterType<ProductRangeResourceBuilder>().As<IResourceBuilder<ProductRange>>();
             builder.RegisterType<ProductRangesResourceBuilder>().As<IResourceBuilder<IEnumerable<ProductRange>>>();

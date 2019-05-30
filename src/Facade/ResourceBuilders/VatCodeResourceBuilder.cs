@@ -6,32 +6,33 @@
     using Linn.Common.Facade;
     using Linn.Common.Resources;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Facade.Models;
     using Linn.Products.Resources;
 
-    public class VatCodeResourceBuilder : IResourceBuilder<VatCode>
+    public class VatCodeResourceBuilder : IResourceBuilder<ResponseModel<VatCode>>
     {
-        public VatCodeResource Build(VatCode vatCode)
+        public VatCodeResource Build(ResponseModel<VatCode> vatCodeModel)
         {
             return new VatCodeResource
                        {
-                           Code = vatCode.Code,
-                           Description = vatCode.Description,
-                           Rate = vatCode.Rate,
-                           Reason = vatCode.Reason,
-                           VatOnly = vatCode.VatOnly,
-                           VatReturnId = vatCode.VatReturnId,
-                           Links = this.BuildLinks(vatCode).ToArray()
+                           Code = vatCodeModel.Entity.Code,
+                           Description = vatCodeModel.Entity.Description,
+                           Rate = vatCodeModel.Entity.Rate,
+                           Reason = vatCodeModel.Entity.Reason,
+                           VatOnly = vatCodeModel.Entity.VatOnly,
+                           VatReturnId = vatCodeModel.Entity.VatReturnId,
+                           Links = this.BuildLinks(vatCodeModel).ToArray()
                        };
         }
 
-        public string GetLocation(VatCode vatCode)
+        public string GetLocation(ResponseModel<VatCode> vatCode)
         {
-            return $"/products/maint/vat-codes/{vatCode.Code}";
+            return $"/products/maint/vat-codes/{vatCode.Entity.Code}";
         }
 
-        object IResourceBuilder<VatCode>.Build(VatCode vatCode) => this.Build(vatCode);
+        object IResourceBuilder<ResponseModel<VatCode>>.Build(ResponseModel<VatCode> vatCodeModel) => this.Build(vatCodeModel);
 
-        private IEnumerable<LinkResource> BuildLinks(VatCode vatCode)
+        private IEnumerable<LinkResource> BuildLinks(ResponseModel<VatCode> vatCode)
         {
             yield return new LinkResource { Rel = "self", Href = this.GetLocation(vatCode) };
         }
