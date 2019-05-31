@@ -12,7 +12,7 @@
         [SetUp]
         public void SetUp()
         {
-            this.Privileges.Add("finance.admin");
+            this.Privileges.Add("vat.admin");
             this.Model = new ResponseModel<VatCode>(this.Entity, this.Privileges);
             this.Result = this.Sut.Build(this.Model);
         }
