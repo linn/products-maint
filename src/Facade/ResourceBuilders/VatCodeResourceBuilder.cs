@@ -7,7 +7,6 @@
     using Linn.Common.Resources;
     using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Facade.Models;
     using Linn.Products.Resources;
 
     public class VatCodeResourceBuilder : IResourceBuilder<ResponseModel<VatCode>>

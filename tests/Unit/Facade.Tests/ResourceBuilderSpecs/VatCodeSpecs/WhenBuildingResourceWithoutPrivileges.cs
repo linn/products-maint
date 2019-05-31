@@ -2,8 +2,8 @@
 {
     using FluentAssertions;
 
+    using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Facade.Models;
 
     using NUnit.Framework;
 

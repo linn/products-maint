@@ -10,7 +10,6 @@
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Domain.Linnapps.SernosTransactions;
-    using Linn.Products.Facade.Models;
     using Linn.Products.Facade.ResourceBuilders;
 
     using PagedList.Core;

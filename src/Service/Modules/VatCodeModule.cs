@@ -1,12 +1,10 @@
 ﻿namespace Linn.Products.Service.Modules
 {
-    using Domain;
-    using Extensions;
     using Linn.Common.Facade;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Facade;
-    using Linn.Products.Facade.Models;
     using Linn.Products.Resources;
+    using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
 
     using Microsoft.EntityFrameworkCore;
@@ -17,11 +15,11 @@
 
     public sealed class VatCodeModule : NancyModule
     {
-        private readonly IFacadeServiceLocal<VatCode, string, VatCodeResource, VatCodeResource> vatCodeService;
+        private readonly IFacadeService<VatCode, string, VatCodeResource, VatCodeResource> vatCodeService;
         private readonly IAuthorisationService authorisationService;
 
         public VatCodeModule(
-            IFacadeServiceLocal<VatCode, string, VatCodeResource, VatCodeResource> vatCodeService,
+            IFacadeService<VatCode, string, VatCodeResource, VatCodeResource> vatCodeService,
             IAuthorisationService authorisationService)
         {
             this.vatCodeService = vatCodeService;

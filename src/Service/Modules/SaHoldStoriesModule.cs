@@ -15,6 +15,7 @@
     public sealed class SaHoldStoriesModule : NancyModule
     {
         private readonly ISaHoldStoriesReportService saHoldStoriesReportService;
+
         private readonly IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource> saHoldStoryService;
 
         public SaHoldStoriesModule(

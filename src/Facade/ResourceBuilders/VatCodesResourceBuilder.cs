@@ -6,7 +6,6 @@
 
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Facade.Models;
     using Linn.Products.Resources;
 
     public class VatCodesResourceBuilder : IResourceBuilder<IEnumerable<VatCode>>

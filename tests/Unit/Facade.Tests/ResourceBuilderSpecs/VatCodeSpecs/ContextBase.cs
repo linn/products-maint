@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
 
+    using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Facade.Models;
     using Linn.Products.Facade.ResourceBuilders;
     using Linn.Products.Resources;
 

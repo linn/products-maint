@@ -8,7 +8,7 @@
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
 
-    public class VatCodeService : FacadeServiceLocal<VatCode, string, VatCodeResource, VatCodeResource>
+    public class VatCodeService : FacadeService<VatCode, string, VatCodeResource, VatCodeResource>
     {
         public VatCodeService(IRepository<VatCode, string> repository, ITransactionManager transactionManager)
             : base(repository, transactionManager)

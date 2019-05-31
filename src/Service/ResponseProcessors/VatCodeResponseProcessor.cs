@@ -3,7 +3,6 @@
     using Linn.Common.Facade;
     using Linn.Common.Nancy.Facade;
     using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Facade.Models;
 
     public class VatCodeResponseProcessor : JsonResponseProcessor<ResponseModel<VatCode>>
     {
