@@ -15,7 +15,7 @@
 
         public IEnumerable<RootProductResource> Build(IEnumerable<RootProduct> rootProducts)
         {
-            return rootProducts.Select(a => this.rootProductResourceBuilder.Build(a));
+            return rootProducts.Select(a => this.rootProductResourceBuilder.Build(new ResponseModel<RootProduct>(a, null)));
         }
 
         object IResourceBuilder<IEnumerable<RootProduct>>.Build(IEnumerable<RootProduct> rootProducts) =>

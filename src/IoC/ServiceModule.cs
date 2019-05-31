@@ -3,10 +3,11 @@
     using System.Data;
 
     using Autofac;
-    using Domain;
+
     using Linn.Common.Configuration;
     using Linn.Common.Facade;
     using Linn.Common.Proxy;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
@@ -21,7 +22,8 @@
     using Linn.Products.Resources;
 
     using Oracle.ManagedDataAccess.Client;
-    using ProductRange = Domain.Linnapps.Products.ProductRange;
+
+    using ProductRange = Linn.Products.Domain.Linnapps.Products.ProductRange;
 
     public class ServiceModule : Module
     {

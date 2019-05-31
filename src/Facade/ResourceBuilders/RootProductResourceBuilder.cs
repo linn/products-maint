@@ -6,57 +6,62 @@
 
     using Linn.Common.Facade;
     using Linn.Common.Resources;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
 
-    public class RootProductResourceBuilder : IResourceBuilder<RootProduct>
+    public class RootProductResourceBuilder : IResourceBuilder<ResponseModel<RootProduct>>
     {
-        public RootProductResource Build(RootProduct rootProduct)
+        private readonly IAuthorisationService authorisationService = new AuthorisationService();
+
+        public RootProductResource Build(ResponseModel<RootProduct> rootProduct)
         {
             return new RootProductResource
                        {
-                           Name = rootProduct.Name,
-                           Description = rootProduct.Description,
+                           Name = rootProduct.Entity.Name,
+                           Description = rootProduct.Entity.Description,
                            Links = this.BuildLinks(rootProduct).ToArray(),
                            onHold = IsOnHold(rootProduct)
                        };
         }
 
-        object IResourceBuilder<RootProduct>.Build(RootProduct r) => this.Build(r);
+        object IResourceBuilder<ResponseModel<RootProduct>>.Build(ResponseModel<RootProduct> r) => this.Build(r);
 
-        public string GetLocation(RootProduct rootProduct)
+        public string GetLocation(ResponseModel<RootProduct> rootProduct)
         {
-            return $"/products/maint/root-products/{Uri.EscapeDataString(rootProduct.Name)}";
+            return $"/products/maint/root-products/{Uri.EscapeDataString(rootProduct.Entity.Name)}";
         }
 
-        private static bool IsOnHold(RootProduct rootProduct)
+        private static bool IsOnHold(ResponseModel<RootProduct> rootProductResponseModel)
         {
-            return rootProduct.HoldStories?.Any(story => story.DateFinished == null) ?? false;
-
+            return rootProductResponseModel.Entity.HoldStories?.Any(story => story.DateFinished == null) ?? false;
         }
-        private IEnumerable<LinkResource> BuildLinks(RootProduct rootProduct)
+
+        private IEnumerable<LinkResource> BuildLinks(ResponseModel<RootProduct> rootProductResponseModel)
         {
-            var openStory = rootProduct.HoldStories?.FirstOrDefault(s => s.DateFinished == null);
+            var openStory = rootProductResponseModel.Entity.HoldStories?.FirstOrDefault(s => s.DateFinished == null);
 
             yield return new LinkResource
                              {
                                  Rel = "self",
-                                 Href = this.GetLocation(rootProduct)
+                                 Href = this.GetLocation(rootProductResponseModel)
                              };
 
-            yield return new LinkResource
-                             {
-                                 Rel = "put-on-hold",
-                                 Href = $"{this.GetLocation(rootProduct)}/put-on-hold"
-                             };
-            if (openStory != null)
+            if (openStory != null && this.authorisationService.CanPutProductOnOffHold(rootProductResponseModel.Privileges))
             {
                 yield return new LinkResource
                                     {
                                         Rel = "put-off-hold",
                                         Href = $"/products/maint/close-hold-story/{openStory.HoldStoryId}"
                 };
+            }
+            else if (this.authorisationService.CanPutProductOnOffHold(rootProductResponseModel.Privileges))
+            {
+                yield return new LinkResource
+                                 {
+                                     Rel = "put-on-hold",
+                                     Href = $"{this.GetLocation(rootProductResponseModel)}/put-on-hold"
+                                 };
             }
         }
     }

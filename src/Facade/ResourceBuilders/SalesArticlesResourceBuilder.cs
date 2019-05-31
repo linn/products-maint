@@ -14,7 +14,7 @@
 
         public IEnumerable<SalesArticleResource> Build(IEnumerable<SalesArticle> salesArticles)
         {
-            return salesArticles.Select(a => this.salesArticleResourceBuilder.Build(a));
+            return salesArticles.Select(a => this.salesArticleResourceBuilder.Build(new ResponseModel<SalesArticle>(a, null)));
         }
 
         object IResourceBuilder<IEnumerable<SalesArticle>>.Build(IEnumerable<SalesArticle> salesArticles) =>

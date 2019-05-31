@@ -6,76 +6,74 @@
 
     using Linn.Common.Facade;
     using Linn.Common.Resources;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
 
-    public class SalesArticleResourceBuilder : IResourceBuilder<SalesArticle>
+    public class SalesArticleResourceBuilder : IResourceBuilder<ResponseModel<SalesArticle>>
     {
-        public SalesArticleResource Build(SalesArticle salesArticle)
+        private readonly IAuthorisationService authorisationService = new AuthorisationService();
+  
+        public SalesArticleResource Build(ResponseModel<SalesArticle> salesArticleResponseModel)
         {
             return new SalesArticleResource
                        {
-                           Id = salesArticle.ArticleNumber,
-                           ArticleNumber = salesArticle.ArticleNumber,
-                           ArticleType = salesArticle.ArticleType,
-                           Description  = salesArticle.InvoiceDescription,
-                           CartonType = salesArticle.CartonType,
-                           ForecastType = salesArticle.ForecastType,
-                           ForecastFromDate = salesArticle.ForecastFromDate?.ToString("o"),
-                           ForecastToDate = salesArticle.ForecastToDate?.ToString("o"),
-                           PercentageOfRootProductSales = salesArticle.PercentageOfRootProductSales,
-                           EanCode = salesArticle.EanCode,
-                           SaDiscountFamily = salesArticle.SaDiscountFamily,
-                           PhaseInDate = salesArticle.PhaseInDate?.ToString("o"),
-                           PhaseOutDate = salesArticle.PhaseOutDate?.ToString("o"),
-                           TypeOfSale = salesArticle.TypeOfSale,
-                           PackingDescription = salesArticle.PackingDescription,
-                           TypeOfSerialNumber = salesArticle.TypeOfSerialNumber,
-                           Links = this.BuildLinks(salesArticle).ToArray(),
-                           OnHold = IsOnHold(salesArticle),
-                           RootProductOnHold = RootProductGroupIsOnHold(salesArticle)
+                           Id = salesArticleResponseModel.Entity.ArticleNumber,
+                           ArticleNumber = salesArticleResponseModel.Entity.ArticleNumber,
+                           ArticleType = salesArticleResponseModel.Entity.ArticleType,
+                           Description  = salesArticleResponseModel.Entity.InvoiceDescription,
+                           CartonType = salesArticleResponseModel.Entity.CartonType,
+                           ForecastType = salesArticleResponseModel.Entity.ForecastType,
+                           ForecastFromDate = salesArticleResponseModel.Entity.ForecastFromDate?.ToString("o"),
+                           ForecastToDate = salesArticleResponseModel.Entity.ForecastToDate?.ToString("o"),
+                           PercentageOfRootProductSales = salesArticleResponseModel.Entity.PercentageOfRootProductSales,
+                           EanCode = salesArticleResponseModel.Entity.EanCode,
+                           SaDiscountFamily = salesArticleResponseModel.Entity.SaDiscountFamily,
+                           PhaseInDate = salesArticleResponseModel.Entity.PhaseInDate?.ToString("o"),
+                           PhaseOutDate = salesArticleResponseModel.Entity.PhaseOutDate?.ToString("o"),
+                           TypeOfSale = salesArticleResponseModel.Entity.TypeOfSale,
+                           PackingDescription = salesArticleResponseModel.Entity.PackingDescription,
+                           TypeOfSerialNumber = salesArticleResponseModel.Entity.TypeOfSerialNumber,
+                           Links = this.BuildLinks(salesArticleResponseModel).ToArray(),
+                           OnHold = IsOnHold(salesArticleResponseModel),
+                           RootProductOnHold = RootProductGroupIsOnHold(salesArticleResponseModel)
                        };
         }
 
-        object IResourceBuilder<SalesArticle>.Build(SalesArticle salesArticle) => this.Build(salesArticle);
+        object IResourceBuilder<ResponseModel<SalesArticle>>.Build(ResponseModel<SalesArticle> salesArticleResponseModel) => this.Build(salesArticleResponseModel);
 
-        public string GetLocation(SalesArticle salesArticle)
+        public string GetLocation(ResponseModel<SalesArticle> salesArticleResponseModel)
         {
-            return $"/products/maint/sales-articles/{Uri.EscapeDataString(salesArticle.ArticleNumber)}";
+            return $"/products/maint/sales-articles/{Uri.EscapeDataString(salesArticleResponseModel.Entity.ArticleNumber)}";
         }
 
-        private static bool IsOnHold(SalesArticle salesArticle)
+        private static bool IsOnHold(ResponseModel<SalesArticle> salesArticleResponseModel)
         {
-            return salesArticle.HoldStories?.Any(story => story.DateFinished == null) ?? false;
+            return salesArticleResponseModel.Entity.HoldStories?.Any(story => story.DateFinished == null) ?? false;
         }
 
-        private static bool RootProductGroupIsOnHold(SalesArticle salesArticle)
+        private static bool RootProductGroupIsOnHold(ResponseModel<SalesArticle> salesArticleResponseModel)
         {
-            return salesArticle.LastHoldStoryId != null && !IsOnHold(salesArticle);
+            return salesArticleResponseModel.Entity.LastHoldStoryId != null && !IsOnHold(salesArticleResponseModel);
         }
 
-        private IEnumerable<LinkResource> BuildLinks(SalesArticle salesArticle)
+        private IEnumerable<LinkResource> BuildLinks(ResponseModel<SalesArticle> salesArticleResponseModel)
         {
-            var openStory = salesArticle.HoldStories?.FirstOrDefault(s => s.DateFinished == null);
+            var openStory = salesArticleResponseModel.Entity.HoldStories?.FirstOrDefault(s => s.DateFinished == null);
 
             yield return new LinkResource
                              {
                                  Rel = "self",
-                                 Href = this.GetLocation(salesArticle)
+                                 Href = this.GetLocation(salesArticleResponseModel)
                              };
 
             yield return new LinkResource
                              {
                                 Rel = "hold-stories",
-                                Href = $"/products/reports/sa-hold-stories-for-sales-article/{Uri.EscapeDataString(salesArticle.ArticleNumber)}"
+                                Href = $"/products/reports/sa-hold-stories-for-sales-article/{Uri.EscapeDataString(salesArticleResponseModel.Entity.ArticleNumber)}"
                              };
 
-            yield return new LinkResource
-                             {
-                                 Rel = "put-on-hold",
-                                 Href = $"/products/maint/put-product-on-hold/{Uri.EscapeDataString(salesArticle.ArticleNumber)}"
-                             };
-            if ( openStory != null)
+            if (openStory != null && this.authorisationService.CanPutProductOnOffHold(salesArticleResponseModel.Privileges))
             {
                 yield return new LinkResource
                                  {
@@ -83,13 +81,22 @@
                                      Href = $"/products/maint/close-hold-story/{openStory.HoldStoryId}"
                                  };
             }
+            else if (this.authorisationService.CanPutProductOnOffHold(salesArticleResponseModel.Privileges))
+            {
+                yield return new LinkResource
+                                 {
+                                     Rel = "put-on-hold",
+                                     Href =
+                                         $"/products/maint/put-product-on-hold/{Uri.EscapeDataString(salesArticleResponseModel.Entity.ArticleNumber)}"
+                                 };
+            }
 
-            if (salesArticle.SaCoreType != null)
+            if (salesArticleResponseModel.Entity.SaCoreType != null)
             {
                 yield return new LinkResource
                              {
                                  Rel = "sa-core-type",
-                                 Href = $"/products/maint/sa-core-types/{salesArticle.SaCoreType.CoreType}"
+                                 Href = $"/products/maint/sa-core-types/{salesArticleResponseModel.Entity.SaCoreType.CoreType}"
                              };
             }
         }

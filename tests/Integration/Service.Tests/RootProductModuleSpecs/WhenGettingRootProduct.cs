@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Service.Tests.RootProductModuleSpecs
 {
+    using System.Collections.Generic;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -16,14 +18,14 @@
 
     public class WhenGettingRootProductById : ContextBase
     {
-        private RootProduct rootProduct;
+        private ResponseModel<RootProduct> rootProductResponseModel;
 
         [SetUp]
         public void SetUp()
         {
-            this.rootProduct = new RootProduct { Name = "rp" };
-            this.RootProductService.GetById("rp").Returns(new SuccessResult<RootProduct>(this.rootProduct));
-
+            var rootProduct = new RootProduct { Name = "rp" };
+            this.rootProductResponseModel = new ResponseModel<RootProduct>(rootProduct, null);
+            this.RootProductService.GetById("rp", Arg.Any<IEnumerable<string>>()).Returns(new SuccessResult<ResponseModel<RootProduct>>(this.rootProductResponseModel));
             this.Response = this.Browser.Get(
                 "/products/maint/root-products/rp",
                 with =>
@@ -41,7 +43,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.RootProductService.Received().GetById("rp");
+            this.RootProductService.Received().GetById("rp", Arg.Any<IEnumerable<string>>());
         }
 
         [Test]

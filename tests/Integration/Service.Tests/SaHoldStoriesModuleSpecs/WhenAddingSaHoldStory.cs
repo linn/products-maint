@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Service.Tests.SaHoldStoriesModuleSpecs
 {
     using System;
+    using System.Collections.Generic;
 
     using FluentAssertions;
 
@@ -43,6 +44,8 @@
 
             this.SaHoldStoryService.Add(Arg.Any<SaHoldStoryResource>())
                 .Returns(new SuccessResult<SaHoldStory>(holdStory));
+
+            this.AuthorisationService.CanPutProductOnOffHold(Arg.Any<List<string>>()).Returns(true);
 
             this.Response = this.Browser.Post(
                 "/products/maint/sa-hold-stories",

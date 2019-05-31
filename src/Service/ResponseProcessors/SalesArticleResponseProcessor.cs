@@ -4,9 +4,9 @@
     using Linn.Common.Nancy.Facade;
     using Linn.Products.Domain.Linnapps.Products;
 
-    public class SalesArticleResponseProcessor : JsonResponseProcessor<SalesArticle>
+    public class SalesArticleResponseProcessor : JsonResponseProcessor<ResponseModel<SalesArticle>>
     {
-        public SalesArticleResponseProcessor(IResourceBuilder<SalesArticle> resourceBuilder)
+        public SalesArticleResponseProcessor(IResourceBuilder<ResponseModel<SalesArticle>> resourceBuilder)
             : base(resourceBuilder, "sales-article", 1)
         {
         }

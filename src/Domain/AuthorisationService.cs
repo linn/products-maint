@@ -10,6 +10,11 @@
             return this.Satisfies("finance.admin", privileges);
         }
 
+        public bool CanPutProductOnOffHold(IEnumerable<string> privileges)
+        {
+            return this.Satisfies("product.on-off-hold", privileges);
+        }
+
         private bool Satisfies(string privilegeRequired, IEnumerable<string> privileges)
         {
             return privileges != null && privileges.Contains(privilegeRequired);

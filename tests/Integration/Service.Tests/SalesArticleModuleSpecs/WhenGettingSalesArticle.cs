@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Service.Tests.SalesArticleModuleSpecs
 {
+    using System.Collections.Generic;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -15,13 +17,14 @@
 
     public class WhenGettingSalesArticle : ContextBase
     {
-        private SalesArticle salesArticle;
+        private ResponseModel<SalesArticle> salesArticleResponseModel;
 
         [SetUp]
         public void SetUp()
         {
-            this.salesArticle = new SalesArticle { ArticleNumber = "sa" };
-            this.SalesArticleForecastService.GetById("SA").Returns(new SuccessResult<SalesArticle>(this.salesArticle));
+            var salesArticle = new SalesArticle { ArticleNumber = "sa" };
+            var responseModel = new ResponseModel<SalesArticle>(salesArticle, null);
+            this.SalesArticleForecastService.GetById("SA", Arg.Any<IEnumerable<string>>()).Returns(new SuccessResult<ResponseModel<SalesArticle>>(responseModel));
 
             this.Response = this.Browser.Get(
                 "/products/maint/sales-articles",
@@ -41,7 +44,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SalesArticleForecastService.Received().GetById("SA");
+            this.SalesArticleForecastService.Received().GetById("SA", Arg.Any<IEnumerable<string>>());
         }
 
         [Test]

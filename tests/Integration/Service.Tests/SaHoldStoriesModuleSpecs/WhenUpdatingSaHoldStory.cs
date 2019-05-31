@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Service.Tests.SaHoldStoriesModuleSpecs
 {
     using System;
+    using System.Collections.Generic;
 
     using FluentAssertions;
 
@@ -38,6 +39,8 @@
                                     SalesArticle = new SalesArticle { ArticleNumber = "KLIMAX/NTK" },
                                     ReasonStarted = "reason"
                                 };
+
+            this.AuthorisationService.CanPutProductOnOffHold(Arg.Any<List<string>>()).Returns(true);
 
             this.SaHoldStoryService.Update(1, Arg.Any<SaHoldStoryResource>())
                 .Returns(new SuccessResult<SaHoldStory>(holdStory)

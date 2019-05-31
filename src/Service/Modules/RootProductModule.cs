@@ -3,6 +3,7 @@
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
+    using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
 
     using Nancy;
@@ -24,7 +25,8 @@
 
         private object GetRootProduct(string name)
         {
-            var result = this.rootProductService.GetById(name);
+            var privileges = this.Context.CurrentUser.GetPrivileges();
+            var result = this.rootProductService.GetById(name, privileges);
             return this.Negotiate
                 .WithModel(result)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
