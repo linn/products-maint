@@ -1,7 +1,5 @@
-﻿namespace Linn.Products.Facade.Tests.SalesArticleResourceBuilderSpecs
+﻿namespace Linn.Products.Facade.Tests.ResourceBuilderSpecs.SalesArticleSpecs
 {
-    using System.Linq;
-
     using FluentAssertions;
 
     using Linn.Common.Facade;

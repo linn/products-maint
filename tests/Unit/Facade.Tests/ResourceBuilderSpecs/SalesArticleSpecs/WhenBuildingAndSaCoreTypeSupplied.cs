@@ -1,6 +1,6 @@
-﻿namespace Linn.Products.Facade.Tests.SalesArticleResourceBuilderSpecs
+﻿namespace Linn.Products.Facade.Tests.ResourceBuilderSpecs.SalesArticleSpecs
 {
-    using System.Collections.Generic;
+    using System.Linq;
 
     using FluentAssertions;
 
@@ -11,7 +11,7 @@
 
     using NUnit.Framework;
 
-    public class WhenBuildingResourceAndSalesArticleOnHold : ContextBase
+    public class WhenBuildingAndSaCoreTypeSupplied : ContextBase
     {
         private ResponseModel<SalesArticle> salesArticle;
 
@@ -21,20 +21,14 @@
         public void SetUp()
         {
             this.salesArticle = new ResponseModel<SalesArticle>(
-                new SalesArticle
-                    {
-                        ArticleNumber = "sa",
-                        HoldStories = new List<SaHoldStory> { new SaHoldStory { DateFinished = null } }
-                    },
-                null);
-
+                new SalesArticle { ArticleNumber = "sa", SaCoreType = new SaCoreType(1, "descr") }, null);
             this.resource = this.Sut.Build(this.salesArticle);
         }
 
         [Test]
-        public void ShouldBuildResourceWithOnHoldTrue()
-        { 
-            this.resource.OnHold.Should().BeTrue();
+        public void ShouldBuildResourceWithLinkToCoreType()
+        {
+            this.resource.Links.Any(l => l.Rel == "sa-core-type").Should().BeTrue();
         }
     }
 }

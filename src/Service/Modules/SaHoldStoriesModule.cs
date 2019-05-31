@@ -76,7 +76,7 @@
 
             if (!this.authorisationService.CanPutProductOnOffHold(privileges))
             {
-                return this.Negotiate.WithModel(new BadRequestResult<ResponseModel<VatCode>>("You are not authorised to update hold stories."));
+                return this.Negotiate.WithModel(new UnauthorisedResult<SaHoldStory>("You are not authorised to update hold stories."));
             }
 
             var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
@@ -97,7 +97,7 @@
 
             if (!this.authorisationService.CanPutProductOnOffHold(privileges))
             {
-                return this.Negotiate.WithModel(new BadRequestResult<ResponseModel<VatCode>>("You are not authorised to create hold stories."));
+                return this.Negotiate.WithModel(new UnauthorisedResult<SaHoldStory>("You are not authorised to create hold stories."));
             }
 
             var employeeUri = this.Context.CurrentUser.GetEmployeeUri();

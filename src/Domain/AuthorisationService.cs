@@ -12,7 +12,7 @@
 
         public bool CanPutProductOnOffHold(IEnumerable<string> privileges)
         {
-            return this.Satisfies("product.on-off-hold", privileges);
+            return this.Satisfies("product.hold", privileges);
         }
 
         private bool Satisfies(string privilegeRequired, IEnumerable<string> privileges)

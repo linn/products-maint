@@ -67,12 +67,6 @@
                                  Href = this.GetLocation(salesArticleResponseModel)
                              };
 
-            yield return new LinkResource
-                             {
-                                Rel = "hold-stories",
-                                Href = $"/products/reports/sa-hold-stories-for-sales-article/{Uri.EscapeDataString(salesArticleResponseModel.Entity.ArticleNumber)}"
-                             };
-
             if (openStory != null && this.authorisationService.CanPutProductOnOffHold(salesArticleResponseModel.Privileges))
             {
                 yield return new LinkResource
