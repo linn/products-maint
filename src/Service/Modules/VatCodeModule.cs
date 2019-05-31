@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Service.Modules
 {
+    using System.Linq;
+
     using Linn.Common.Facade;
     using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
@@ -33,8 +35,13 @@
         private object AddVatCode()
         {
             var resource = this.Bind<VatCodeResource>();
+            this.RequiresAuthentication();
+            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
 
-            var privileges = this.Context.CurrentUser.GetPrivileges();
+            if (!this.authorisationService.CanEditOrCreateVatCodes(privileges))
+            {
+                return this.Negotiate.WithModel(new BadRequestResult<ResponseModel<VatCode>>("You are not authorised to create or edit vat codes"));
+            }
 
             try
             {
@@ -69,12 +76,11 @@
         private object UpdateVatCode(string code)
         {
             this.RequiresAuthentication();
-
-            var privileges = this.Context.CurrentUser.GetPrivileges();
+            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
 
             if (!this.authorisationService.CanEditOrCreateVatCodes(privileges))
             {
-                return this.Negotiate.WithModel(new BadRequestResult<VatCode>("You are not authorised to create or edit vat codes"));
+                return this.Negotiate.WithModel(new BadRequestResult<ResponseModel<VatCode>>("You are not authorised to create or edit vat codes"));
             }
 
             var resource = this.Bind<VatCodeResource>();
