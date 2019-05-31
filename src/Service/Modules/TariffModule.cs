@@ -4,8 +4,8 @@
     using Linn.Common.Resources;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
-    using Linn.Products.Service.Extensions;
     using Linn.Products.Resources.Validators;
+    using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
 
     using Nancy;
