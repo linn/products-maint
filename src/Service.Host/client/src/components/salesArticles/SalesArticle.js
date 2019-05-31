@@ -62,9 +62,24 @@ function SalesArticle({
 
     const canChangeHoldStatus = () => {
         if (item.onHold) {
-            return item.links.some(l => l.rel === 'sales-article.put-off-hold');
+            return item.links.some(l => l.rel === 'put-off-hold');
         }
-        return item.links.some(l => l.rel === 'sales-article.put-on-hold');
+        return item.links.some(l => l.rel === 'put-on-hold');
+    };
+
+    const buttonProps = rel => {
+        let props;
+        if (canChangeHoldStatus()) {
+            props = {
+                component: Link,
+                to: getHref(salesArticle, rel)
+            };
+        } else {
+            props = {
+                disabled: true
+            };
+        }
+        return props;
     };
 
     const tooltipText = () => {
@@ -190,15 +205,7 @@ function SalesArticle({
                                                     >
                                                         <span>
                                                             <Button
-                                                                disabled={
-                                                                    !canChangeHoldStatus() ||
-                                                                    salesArticle.rootProductOnHold
-                                                                }
-                                                                component={Link}
-                                                                to={getHref(
-                                                                    salesArticle,
-                                                                    'put-off-hold'
-                                                                )}
+                                                                {...buttonProps('put-off-hold')}
                                                             >
                                                                 REMOVE HOLD
                                                             </Button>
@@ -212,17 +219,7 @@ function SalesArticle({
                                                     placement="top-end"
                                                 >
                                                     <span>
-                                                        <Button
-                                                            component={Link}
-                                                            disabled={
-                                                                salesArticle.rootProductOnHold ||
-                                                                !canChangeHoldStatus()
-                                                            }
-                                                            to={getHref(
-                                                                salesArticle,
-                                                                'put-on-hold'
-                                                            )}
-                                                        >
+                                                        <Button {...buttonProps('put-on-hold')}>
                                                             PUT ON HOLD
                                                         </Button>
                                                     </span>
