@@ -1,10 +1,9 @@
 ﻿namespace Linn.Products.Domain
 {
-    using System;
     using System.Collections.Generic;
 
     public interface IAuthorisationService
     {
-        bool CanEditOrCreateVatCodes(IEnumerable<string> privileges);
+        bool HasPermissionFor(AuthorisedAction action, IEnumerable<string> privileges);
     }
 }
