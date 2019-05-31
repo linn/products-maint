@@ -1,11 +1,12 @@
 ﻿namespace Linn.Products.Service.Tests.VatCodeModuleSpecs
 {
+    using System.Collections.Generic;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
-    using Linn.Products.Service.Tests.VatCodesModuleSpecs;
 
     using Nancy;
     using Nancy.Testing;
@@ -20,7 +21,8 @@
         public void SetUp()
         {
             var vatCode = new VatCode("A", "STD UK VAT RATE.", 20, null, 1, "N");
-            this.VatCodeService.GetById("A").Returns(new SuccessResult<VatCode>(vatCode) { Data = vatCode });
+            this.VatCodeService.GetById("A", Arg.Any<IEnumerable<string>>())
+                .Returns(new SuccessResult<ResponseModel<VatCode>>(new ResponseModel<VatCode>(vatCode, new List<string>())));
 
             this.Response = this.Browser.Get(
                 "/products/maint/vat-codes/A",
@@ -30,7 +32,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.VatCodeService.Received().GetById("A");
+            this.VatCodeService.Received().GetById("A", Arg.Any<IEnumerable<string>>());
         }
 
         [Test]
