@@ -15,7 +15,7 @@
 
         public IEnumerable<VatCodeResource> Build(IEnumerable<VatCode> vatCodes)
         {
-            return vatCodes.Select(a => this.vatCodeResourceBuilder.Build(new ResponseModel<VatCode> { Entity = a }));
+            return vatCodes.Select(a => this.vatCodeResourceBuilder.Build(new ResponseModel<VatCode>(a, null)));
         }
 
         public string GetLocation(IEnumerable<VatCode> vatCodes)

@@ -10,10 +10,6 @@
             this.Privileges = privileges;
         }
 
-        public ResponseModel()
-        {
-        }
-
         public T Entity { get; set; }
 
         public IEnumerable<string> Privileges { get; set; }

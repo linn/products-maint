@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.Tests.VatCodesModuleSpecs
+﻿namespace Linn.Products.Service.Tests.VatCodeModuleSpecs
 {
     using System.Collections.Generic;
     using System.Security.Claims;
@@ -22,8 +22,8 @@
     public abstract class ContextBase : NancyContextBase
     {
         protected IFacadeService<VatCode, string, VatCodeResource, VatCodeResource> VatCodeService { get; private set; }
-        protected IAuthorisationService AuthorisationService { get; private set; }
 
+        protected IAuthorisationService AuthorisationService { get; private set; }
 
         [SetUp]
         public void EstablishContext()

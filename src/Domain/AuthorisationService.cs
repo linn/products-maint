@@ -7,7 +7,12 @@
     {
         public bool CanEditOrCreateVatCodes(IEnumerable<string> privileges)
         {
-            return privileges.Contains("finance.admin");
+            return this.Satisfies("finance.admin", privileges);
+        }
+
+        private bool Satisfies(string privilegeRequired, IEnumerable<string> privileges)
+        {
+            return privileges != null && privileges.Contains(privilegeRequired);
         }
     }
 }

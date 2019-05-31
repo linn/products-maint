@@ -8,7 +8,6 @@
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
-    using Linn.Products.Service.Tests.VatCodesModuleSpecs;
 
     using Nancy;
     using Nancy.Testing;
