@@ -9,7 +9,7 @@
         [SetUp]
         public void SetUp()
         {
-            this.Privileges.Add("finance.admin");
+            this.Privileges.Add("vat.admin");
             this.HasPrivilegeResult = this.Sut.CanEditOrCreateVatCodes(this.Privileges);
         }
 

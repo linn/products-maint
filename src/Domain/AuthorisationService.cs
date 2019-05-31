@@ -7,7 +7,7 @@
     {
         public bool CanEditOrCreateVatCodes(IEnumerable<string> privileges)
         {
-            return this.Satisfies("finance.admin", privileges);
+            return this.Satisfies("vat.admin", privileges);
         }
 
         private bool Satisfies(string privilegeRequired, IEnumerable<string> privileges)
