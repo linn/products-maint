@@ -1,11 +1,12 @@
 ﻿namespace Linn.Products.Service.Tests.VatCodeModuleSpecs
 {
+    using System.Collections.Generic;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
-    using Linn.Products.Service.Tests.VatCodesModuleSpecs;
 
     using Nancy;
     using Nancy.Testing;
@@ -23,12 +24,8 @@
         {
             this.requestResource = new VatCodeResource { Description = "new description", Rate = 55 };
             var vatCode = new VatCode("A", "STD UK VAT RATE.", 20, null, 1, "N") { Description = "new description" };
-            this.VatCodeService.Update("A", Arg.Any<VatCodeResource>())
-                .Returns(new SuccessResult<VatCode>(vatCode)
-                             {
-                                 Data = vatCode
-                             });
-
+            this.VatCodeService.Update("A", Arg.Any<VatCodeResource>(), Arg.Any<IEnumerable<string>>())
+                .Returns(new SuccessResult<ResponseModel<VatCode>>(new ResponseModel<VatCode>(vatCode, new List<string>())));
             this.Response = this.Browser.Put(
                 "/products/maint/vat-codes/A",
                 with =>
@@ -51,7 +48,8 @@
             this.VatCodeService.Received()
                 .Update(
                     "A",
-                    Arg.Is<VatCodeResource>(r => r.Description == this.requestResource.Description));
+                    Arg.Is<VatCodeResource>(r => r.Description == this.requestResource.Description),
+                    Arg.Any<IEnumerable<string>>());
         }
 
         [Test]

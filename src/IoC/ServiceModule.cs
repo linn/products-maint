@@ -3,7 +3,7 @@
     using System.Data;
 
     using Autofac;
-
+    using Domain;
     using Linn.Common.Configuration;
     using Linn.Common.Facade;
     using Linn.Common.Proxy;
@@ -21,6 +21,7 @@
     using Linn.Products.Resources;
 
     using Oracle.ManagedDataAccess.Client;
+    using ProductRange = Domain.Linnapps.Products.ProductRange;
 
     public class ServiceModule : Module
     {
@@ -36,6 +37,7 @@
             builder.RegisterType<SalesArticleReports>().As<ISalesArticleReports>();
             builder.RegisterType<ProductsOnHoldService>().As<IProductsOnHoldService>();
             builder.RegisterType<SerialNumberFactory>().As<ISerialNumberFactory>();
+            builder.RegisterType<AuthorisationService>().As<IAuthorisationService>();
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
