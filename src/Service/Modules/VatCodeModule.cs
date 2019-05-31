@@ -40,7 +40,7 @@
 
             if (!this.authorisationService.CanEditOrCreateVatCodes(privileges))
             {
-                return this.Negotiate.WithModel(new BadRequestResult<ResponseModel<VatCode>>("You are not authorised to create or edit vat codes"));
+                return this.Negotiate.WithModel(new UnauthorisedResult<ResponseModel<VatCode>>("You are not authorised to create or edit vat codes"));
             }
 
             try
@@ -80,7 +80,7 @@
 
             if (!this.authorisationService.CanEditOrCreateVatCodes(privileges))
             {
-                return this.Negotiate.WithModel(new BadRequestResult<ResponseModel<VatCode>>("You are not authorised to create or edit vat codes"));
+                return this.Negotiate.WithModel(new UnauthorisedResult<ResponseModel<VatCode>>("You are not authorised to create or edit vat codes"));
             }
 
             var resource = this.Bind<VatCodeResource>();
