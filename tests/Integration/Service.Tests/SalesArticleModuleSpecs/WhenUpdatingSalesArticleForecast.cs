@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Service.Tests.SalesArticleModuleSpecs
 {
+    using System.Collections.Generic;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -15,21 +17,21 @@
 
     public class WhenUpdatingSalesArticleForecast : ContextBase
     {
-        private SalesArticle salesArticle;
 
         private SalesArticleResource resource;
 
         [SetUp]
         public void SetUp()
         {
-            this.salesArticle = new SalesArticle { ArticleNumber = "sa" };
+            var salesArticle = new SalesArticle { ArticleNumber = "sa" };
+            var responseModel = new ResponseModel<SalesArticle>(salesArticle, null);
             this.resource = new SalesArticleResource
                                 {
                                     ForecastType = "Y",
                                     ForecastFromDate = 1.December(2020).ToString("o")
                                 };
-            this.SalesArticleForecastService.Update("SA", Arg.Any<SalesArticleResource>())
-                .Returns(new SuccessResult<SalesArticle>(this.salesArticle));
+            this.SalesArticleForecastService.Update("SA", Arg.Any<SalesArticleResource>(), Arg.Any<IEnumerable<string>>())
+                .Returns(new SuccessResult<ResponseModel<SalesArticle>>(responseModel));
 
             this.Response = this.Browser.Put(
                 "/products/maint/sales-articles/sa",
@@ -50,7 +52,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SalesArticleForecastService.Received().Update("SA", Arg.Is<SalesArticleResource>(r => r.ForecastType == this.resource.ForecastType));
+            this.SalesArticleForecastService.Received().Update("SA", Arg.Is<SalesArticleResource>(r => r.ForecastType == this.resource.ForecastType), Arg.Any<IEnumerable<string>>());
         }
 
         [Test]

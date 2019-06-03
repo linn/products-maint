@@ -1,12 +1,14 @@
 ﻿namespace Linn.Products.Service.Modules
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
+    using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
 
     using Nancy;
@@ -77,8 +79,13 @@
 
         private object GetSalesArticle(string id)
         {
+            var privileges = this.Context.CurrentUser.GetPrivileges();
+
+            IEnumerable<string> enumerable = privileges.ToList();
+            var result = this.salesArticleService.GetById(id, enumerable);
+
             return this.Negotiate
-                .WithModel(this.salesArticleService.GetById(id.ToUpper()))
+                .WithModel(this.salesArticleService.GetById(id.ToUpper(), enumerable))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
@@ -88,7 +95,7 @@
             this.RequiresAuthentication();
             var resource = this.Bind<SalesArticleResource>();
 
-            var result = this.salesArticleService.Update(id.ToUpper(), resource);
+            var result = this.salesArticleService.Update(id.ToUpper(), resource, this.Context.CurrentUser.GetPrivileges());
 
             return this.Negotiate
                 .WithModel(result)
@@ -99,11 +106,12 @@
         private object GetSalesArticles()
         {
             this.RequiresAuthentication();
+
             var resource = this.Bind<SalesArticleRequestResource>();
             if (!string.IsNullOrEmpty(resource.ArticleNumber))
             {
                 return this.Negotiate
-                    .WithModel(this.salesArticleService.GetById(resource.ArticleNumber.ToUpper()))
+                    .WithModel(this.salesArticleService.GetById(resource.ArticleNumber.ToUpper(), this.Context.CurrentUser.GetPrivileges()))
                     .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                     .WithView("Index");
             }

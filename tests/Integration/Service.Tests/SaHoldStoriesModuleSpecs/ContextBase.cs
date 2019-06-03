@@ -6,6 +6,7 @@
     using Linn.Common.Facade;
     using Linn.Common.Nancy.Facade;
     using Linn.Common.Reporting.Models;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Reports;
     using Linn.Products.Domain.Linnapps.Repositories;
@@ -30,16 +31,20 @@
 
         protected ISaHoldStoriesReportService SaHoldStoriesReportService { get; set; }
 
+        protected IAuthorisationService AuthorisationService { get; set; }
+
         [SetUp]
         public void EstablishContext()
         {
             this.SaHoldStoryService = Substitute.For<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
             this.SaHoldStoriesReportService = Substitute.For<ISaHoldStoriesReportService>();
+            this.AuthorisationService = Substitute.For<IAuthorisationService>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
                     {
                         with.Dependency(this.SaHoldStoriesReportService);
+                        with.Dependency(this.AuthorisationService);
                         with.Dependency(this.SaHoldStoryService);
                         with.Dependency<IResourceBuilder<IEnumerable<SaHoldStory>>>(new SaHoldStoriesResourceBuilder());
                         with.Dependency<IResourceBuilder<ResultsModel>>(new ResultsModelResourceBuilder());

@@ -60,6 +60,38 @@ function SalesArticle({
         }
     };
 
+    const canChangeHoldStatus = () => {
+        if (item.onHold) {
+            return item.links.some(l => l.rel === 'put-off-hold');
+        }
+        return item.links.some(l => l.rel === 'put-on-hold');
+    };
+
+    const buttonProps = rel => {
+        let props;
+        if (canChangeHoldStatus()) {
+            props = {
+                component: Link,
+                to: getHref(salesArticle, rel)
+            };
+        } else {
+            props = {
+                disabled: true
+            };
+        }
+        return props;
+    };
+
+    const tooltipText = () => {
+        if (salesArticle.rootProductOnHold) {
+            return 'This sales article is already on hold as part of its root product group.';
+        }
+        if (!canChangeHoldStatus()) {
+            return 'You are not authorised to complete this action.';
+        }
+        return '';
+    };
+
     const handleCancelClick = () => {
         setSalesArticle(item);
         setEditStatus('view');
@@ -166,36 +198,28 @@ function SalesArticle({
                                             !salesArticle.rootProductOnHold ? (
                                                 <Fragment>
                                                     <span> ON HOLD </span>
-
-                                                    <Button
-                                                        disabled={salesArticle.rootProductOnHold}
-                                                        component={Link}
-                                                        to={getHref(salesArticle, 'put-off-hold')}
+                                                    <Tooltip
+                                                        disableFocusListener
+                                                        title={tooltipText()}
+                                                        placement="top-end"
                                                     >
-                                                        REMOVE HOLD
-                                                    </Button>
+                                                        <span>
+                                                            <Button
+                                                                {...buttonProps('put-off-hold')}
+                                                            >
+                                                                REMOVE HOLD
+                                                            </Button>
+                                                        </span>
+                                                    </Tooltip>
                                                 </Fragment>
                                             ) : (
                                                 <Tooltip
                                                     disableFocusListener
-                                                    title={
-                                                        salesArticle.rootProductOnHold
-                                                            ? 'This sales article is already on hold as part of its root product group.'
-                                                            : ''
-                                                    }
+                                                    title={tooltipText()}
                                                     placement="top-end"
                                                 >
                                                     <span>
-                                                        <Button
-                                                            component={Link}
-                                                            disabled={
-                                                                salesArticle.rootProductOnHold
-                                                            }
-                                                            to={getHref(
-                                                                salesArticle,
-                                                                'put-on-hold'
-                                                            )}
-                                                        >
+                                                        <Button {...buttonProps('put-on-hold')}>
                                                             PUT ON HOLD
                                                         </Button>
                                                     </span>

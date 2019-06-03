@@ -4,6 +4,7 @@
     using System.Security.Claims;
 
     using Linn.Common.Facade;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Models;
     using Linn.Products.Domain.Linnapps.Products;
@@ -24,16 +25,20 @@
     public abstract class ContextBase : NancyContextBase
     {
         protected IFacadeService<RootProduct, string, RootProductResource, RootProductResource> RootProductService { get; private set; }
+
+        protected IAuthorisationService AuthorisationService { get; private set; }
+
         [SetUp]
         public void EstablishContext()
         {
+            this.AuthorisationService = Substitute.For<IAuthorisationService>();
             this.RootProductService = Substitute.For<IFacadeService<RootProduct, string, RootProductResource, RootProductResource>>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
                 {
                     with.Dependency(this.RootProductService);
-                    with.Dependency<IResourceBuilder<RootProduct>>(new RootProductResourceBuilder());
+                    with.Dependency<IResourceBuilder<ResponseModel<RootProduct>>>(new RootProductResourceBuilder());
                     with.Dependency<IResourceBuilder<IEnumerable<RootProduct>>>(new RootProductsResourceBuilder());
                     with.Module<RootProductModule>();
                     with.ResponseProcessor<RootProductResponseProcessor>();

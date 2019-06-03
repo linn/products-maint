@@ -12,6 +12,9 @@
                 case AuthorisedAction.VatAdmin:
                     return this.CanEditOrCreateVatCodes(privileges);
                     break;
+                case AuthorisedAction.ProductHold:
+                    return this.CanPutProductOnOffHold(privileges);
+                    break;
                 default:
                     return false;
                     break;
@@ -21,6 +24,11 @@
         private bool CanEditOrCreateVatCodes(IEnumerable<string> privileges)
         {
             return this.Satisfies("vat.admin", privileges);
+        }
+
+        public bool CanPutProductOnOffHold(IEnumerable<string> privileges)
+        {
+            return this.Satisfies("product.hold", privileges);
         }
 
         private bool Satisfies(string privilegeRequired, IEnumerable<string> privileges)

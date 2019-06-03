@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Service.Tests.SalesArticleModuleSpecs
 {
+    using System.Collections.Generic;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -21,7 +23,7 @@
         public void SetUp()
         {
             this.salesArticle = new SalesArticle { ArticleNumber = "sa" };
-            this.SalesArticleForecastService.GetById("SA").Returns(new SuccessResult<SalesArticle>(this.salesArticle));
+            this.SalesArticleForecastService.GetById("SA", Arg.Any<List<string>>()).Returns(new SuccessResult<ResponseModel<SalesArticle>>(new ResponseModel<SalesArticle>(this.salesArticle, null)));
 
             this.Response = this.Browser.Get(
                 "/products/maint/sales-articles/sa",
@@ -40,7 +42,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SalesArticleForecastService.Received().GetById("SA");
+            this.SalesArticleForecastService.Received().GetById("SA", Arg.Any<List<string>>());
         }
 
         [Test]
