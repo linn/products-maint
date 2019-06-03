@@ -6,6 +6,7 @@
     using FluentAssertions;
 
     using Linn.Common.Facade;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
@@ -31,7 +32,7 @@
                 ReasonFinished = "test"
             };
             
-            this.AuthorisationService.CanPutProductOnOffHold(Arg.Any<List<string>>()).Returns(false);
+            this.AuthorisationService.HasPermissionFor(AuthorisedAction.ProductHold, Arg.Any<List<string>>()).Returns(false);
 
             this.Response = this.Browser.Put(
                 "/products/maint/sa-hold-stories/1",

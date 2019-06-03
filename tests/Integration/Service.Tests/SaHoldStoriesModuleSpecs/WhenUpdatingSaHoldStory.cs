@@ -6,6 +6,7 @@
     using FluentAssertions;
 
     using Linn.Common.Facade;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
@@ -40,7 +41,7 @@
                                     ReasonStarted = "reason"
                                 };
 
-            this.AuthorisationService.CanPutProductOnOffHold(Arg.Any<List<string>>()).Returns(true);
+            this.AuthorisationService.HasPermissionFor(AuthorisedAction.ProductHold, Arg.Any<List<string>>()).Returns(true);
 
             this.SaHoldStoryService.Update(1, Arg.Any<SaHoldStoryResource>())
                 .Returns(new SuccessResult<SaHoldStory>(holdStory)

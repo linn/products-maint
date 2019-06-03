@@ -12,6 +12,9 @@
                 case AuthorisedAction.VatAdmin:
                     return this.CanEditOrCreateVatCodes(privileges);
                     break;
+                case AuthorisedAction.ProductHold:
+                    return this.CanPutProductOnOffHold(privileges);
+                    break;
                 default:
                     return false;
                     break;

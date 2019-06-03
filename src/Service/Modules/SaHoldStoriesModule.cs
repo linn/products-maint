@@ -74,7 +74,7 @@
             this.RequiresAuthentication();
             var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
 
-            if (!this.authorisationService.CanPutProductOnOffHold(privileges))
+            if (!this.authorisationService.HasPermissionFor(AuthorisedAction.ProductHold, privileges))
             {
                 return this.Negotiate.WithModel(new UnauthorisedResult<SaHoldStory>("You are not authorised to update hold stories."));
             }
@@ -95,7 +95,7 @@
             this.RequiresAuthentication();
             var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
 
-            if (!this.authorisationService.CanPutProductOnOffHold(privileges))
+            if (!this.authorisationService.HasPermissionFor(AuthorisedAction.ProductHold, privileges))
             {
                 return this.Negotiate.WithModel(new UnauthorisedResult<SaHoldStory>("You are not authorised to create hold stories."));
             }

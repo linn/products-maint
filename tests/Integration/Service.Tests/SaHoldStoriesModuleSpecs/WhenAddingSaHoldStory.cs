@@ -6,6 +6,7 @@
     using FluentAssertions;
 
     using Linn.Common.Facade;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
@@ -45,7 +46,7 @@
             this.SaHoldStoryService.Add(Arg.Any<SaHoldStoryResource>())
                 .Returns(new SuccessResult<SaHoldStory>(holdStory));
 
-            this.AuthorisationService.CanPutProductOnOffHold(Arg.Any<List<string>>()).Returns(true);
+            this.AuthorisationService.HasPermissionFor(AuthorisedAction.ProductHold, Arg.Any<List<string>>()).Returns(true);
 
             this.Response = this.Browser.Post(
                 "/products/maint/sa-hold-stories",

@@ -17,19 +17,19 @@
         {
             return new VatCodeResource
                        {
-                           Code = vatCodeModel.Entity.Code,
-                           Description = vatCodeModel.Entity.Description,
-                           Rate = vatCodeModel.Entity.Rate,
-                           Reason = vatCodeModel.Entity.Reason,
-                           VatOnly = vatCodeModel.Entity.VatOnly,
-                           VatReturnId = vatCodeModel.Entity.VatReturnId,
+                           Code = vatCodeModel.ResponseData.Code,
+                           Description = vatCodeModel.ResponseData.Description,
+                           Rate = vatCodeModel.ResponseData.Rate,
+                           Reason = vatCodeModel.ResponseData.Reason,
+                           VatOnly = vatCodeModel.ResponseData.VatOnly,
+                           VatReturnId = vatCodeModel.ResponseData.VatReturnId,
                            Links = this.BuildLinks(vatCodeModel).ToArray()
                        };
         }
 
         public string GetLocation(ResponseModel<VatCode> vatCode)
         {
-            return $"/products/maint/vat-codes/{vatCode.Entity.Code}";
+            return $"/products/maint/vat-codes/{vatCode.ResponseData.Code}";
         }
 
         object IResourceBuilder<ResponseModel<VatCode>>.Build(ResponseModel<VatCode> vatCodeModel) => this.Build(vatCodeModel);

@@ -18,8 +18,8 @@
         {
             return new RootProductResource
                        {
-                           Name = rootProduct.Entity.Name,
-                           Description = rootProduct.Entity.Description,
+                           Name = rootProduct.ResponseData.Name,
+                           Description = rootProduct.ResponseData.Description,
                            Links = this.BuildLinks(rootProduct).ToArray(),
                            onHold = IsOnHold(rootProduct)
                        };
@@ -29,17 +29,17 @@
 
         public string GetLocation(ResponseModel<RootProduct> rootProduct)
         {
-            return $"/products/maint/root-products/{Uri.EscapeDataString(rootProduct.Entity.Name)}";
+            return $"/products/maint/root-products/{Uri.EscapeDataString(rootProduct.ResponseData.Name)}";
         }
 
         private static bool IsOnHold(ResponseModel<RootProduct> rootProductResponseModel)
         {
-            return rootProductResponseModel.Entity.HoldStories?.Any(story => story.DateFinished == null) ?? false;
+            return rootProductResponseModel.ResponseData.HoldStories?.Any(story => story.DateFinished == null) ?? false;
         }
 
         private IEnumerable<LinkResource> BuildLinks(ResponseModel<RootProduct> rootProductResponseModel)
         {
-            var openStory = rootProductResponseModel.Entity.HoldStories?.FirstOrDefault(s => s.DateFinished == null);
+            var openStory = rootProductResponseModel.ResponseData.HoldStories?.FirstOrDefault(s => s.DateFinished == null);
 
             yield return new LinkResource
                              {
@@ -47,7 +47,7 @@
                                  Href = this.GetLocation(rootProductResponseModel)
                              };
 
-            if (openStory != null && this.authorisationService.CanPutProductOnOffHold(rootProductResponseModel.Privileges))
+            if (openStory != null && this.authorisationService.HasPermissionFor(AuthorisedAction.ProductHold, rootProductResponseModel.Privileges))
             {
                 yield return new LinkResource
                                     {
@@ -55,7 +55,7 @@
                                         Href = $"/products/maint/close-hold-story/{openStory.HoldStoryId}"
                 };
             }
-            else if (this.authorisationService.CanPutProductOnOffHold(rootProductResponseModel.Privileges))
+            else if (this.authorisationService.HasPermissionFor(AuthorisedAction.ProductHold, rootProductResponseModel.Privileges))
             {
                 yield return new LinkResource
                                  {

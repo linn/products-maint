@@ -18,22 +18,22 @@
         {
             return new SalesArticleResource
                        {
-                           Id = salesArticleResponseModel.Entity.ArticleNumber,
-                           ArticleNumber = salesArticleResponseModel.Entity.ArticleNumber,
-                           ArticleType = salesArticleResponseModel.Entity.ArticleType,
-                           Description  = salesArticleResponseModel.Entity.InvoiceDescription,
-                           CartonType = salesArticleResponseModel.Entity.CartonType,
-                           ForecastType = salesArticleResponseModel.Entity.ForecastType,
-                           ForecastFromDate = salesArticleResponseModel.Entity.ForecastFromDate?.ToString("o"),
-                           ForecastToDate = salesArticleResponseModel.Entity.ForecastToDate?.ToString("o"),
-                           PercentageOfRootProductSales = salesArticleResponseModel.Entity.PercentageOfRootProductSales,
-                           EanCode = salesArticleResponseModel.Entity.EanCode,
-                           SaDiscountFamily = salesArticleResponseModel.Entity.SaDiscountFamily,
-                           PhaseInDate = salesArticleResponseModel.Entity.PhaseInDate?.ToString("o"),
-                           PhaseOutDate = salesArticleResponseModel.Entity.PhaseOutDate?.ToString("o"),
-                           TypeOfSale = salesArticleResponseModel.Entity.TypeOfSale,
-                           PackingDescription = salesArticleResponseModel.Entity.PackingDescription,
-                           TypeOfSerialNumber = salesArticleResponseModel.Entity.TypeOfSerialNumber,
+                           Id = salesArticleResponseModel.ResponseData.ArticleNumber,
+                           ArticleNumber = salesArticleResponseModel.ResponseData.ArticleNumber,
+                           ArticleType = salesArticleResponseModel.ResponseData.ArticleType,
+                           Description  = salesArticleResponseModel.ResponseData.InvoiceDescription,
+                           CartonType = salesArticleResponseModel.ResponseData.CartonType,
+                           ForecastType = salesArticleResponseModel.ResponseData.ForecastType,
+                           ForecastFromDate = salesArticleResponseModel.ResponseData.ForecastFromDate?.ToString("o"),
+                           ForecastToDate = salesArticleResponseModel.ResponseData.ForecastToDate?.ToString("o"),
+                           PercentageOfRootProductSales = salesArticleResponseModel.ResponseData.PercentageOfRootProductSales,
+                           EanCode = salesArticleResponseModel.ResponseData.EanCode,
+                           SaDiscountFamily = salesArticleResponseModel.ResponseData.SaDiscountFamily,
+                           PhaseInDate = salesArticleResponseModel.ResponseData.PhaseInDate?.ToString("o"),
+                           PhaseOutDate = salesArticleResponseModel.ResponseData.PhaseOutDate?.ToString("o"),
+                           TypeOfSale = salesArticleResponseModel.ResponseData.TypeOfSale,
+                           PackingDescription = salesArticleResponseModel.ResponseData.PackingDescription,
+                           TypeOfSerialNumber = salesArticleResponseModel.ResponseData.TypeOfSerialNumber,
                            Links = this.BuildLinks(salesArticleResponseModel).ToArray(),
                            OnHold = IsOnHold(salesArticleResponseModel),
                            RootProductOnHold = RootProductGroupIsOnHold(salesArticleResponseModel)
@@ -44,22 +44,22 @@
 
         public string GetLocation(ResponseModel<SalesArticle> salesArticleResponseModel)
         {
-            return $"/products/maint/sales-articles/{Uri.EscapeDataString(salesArticleResponseModel.Entity.ArticleNumber)}";
+            return $"/products/maint/sales-articles/{Uri.EscapeDataString(salesArticleResponseModel.ResponseData.ArticleNumber)}";
         }
 
         private static bool IsOnHold(ResponseModel<SalesArticle> salesArticleResponseModel)
         {
-            return salesArticleResponseModel.Entity.HoldStories?.Any(story => story.DateFinished == null) ?? false;
+            return salesArticleResponseModel.ResponseData.HoldStories?.Any(story => story.DateFinished == null) ?? false;
         }
 
         private static bool RootProductGroupIsOnHold(ResponseModel<SalesArticle> salesArticleResponseModel)
         {
-            return salesArticleResponseModel.Entity.LastHoldStoryId != null && !IsOnHold(salesArticleResponseModel);
+            return salesArticleResponseModel.ResponseData.LastHoldStoryId != null && !IsOnHold(salesArticleResponseModel);
         }
 
         private IEnumerable<LinkResource> BuildLinks(ResponseModel<SalesArticle> salesArticleResponseModel)
         {
-            var openStory = salesArticleResponseModel.Entity.HoldStories?.FirstOrDefault(s => s.DateFinished == null);
+            var openStory = salesArticleResponseModel.ResponseData.HoldStories?.FirstOrDefault(s => s.DateFinished == null);
 
             yield return new LinkResource
                              {
@@ -67,7 +67,7 @@
                                  Href = this.GetLocation(salesArticleResponseModel)
                              };
 
-            if (openStory != null && this.authorisationService.CanPutProductOnOffHold(salesArticleResponseModel.Privileges))
+            if (openStory != null && this.authorisationService.HasPermissionFor(AuthorisedAction.ProductHold, salesArticleResponseModel.Privileges))
             {
                 yield return new LinkResource
                                  {
@@ -75,22 +75,22 @@
                                      Href = $"/products/maint/close-hold-story/{openStory.HoldStoryId}"
                                  };
             }
-            else if (this.authorisationService.CanPutProductOnOffHold(salesArticleResponseModel.Privileges))
+            else if (this.authorisationService.HasPermissionFor(AuthorisedAction.ProductHold, salesArticleResponseModel.Privileges))
             {
                 yield return new LinkResource
                                  {
                                      Rel = "put-on-hold",
                                      Href =
-                                         $"/products/maint/put-product-on-hold/{Uri.EscapeDataString(salesArticleResponseModel.Entity.ArticleNumber)}"
+                                         $"/products/maint/put-product-on-hold/{Uri.EscapeDataString(salesArticleResponseModel.ResponseData.ArticleNumber)}"
                                  };
             }
 
-            if (salesArticleResponseModel.Entity.SaCoreType != null)
+            if (salesArticleResponseModel.ResponseData.SaCoreType != null)
             {
                 yield return new LinkResource
                              {
                                  Rel = "sa-core-type",
-                                 Href = $"/products/maint/sa-core-types/{salesArticleResponseModel.Entity.SaCoreType.CoreType}"
+                                 Href = $"/products/maint/sa-core-types/{salesArticleResponseModel.ResponseData.SaCoreType.CoreType}"
                              };
             }
         }

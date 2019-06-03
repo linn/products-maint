@@ -7,6 +7,7 @@
 
     using Linn.Common.Facade;
     using Linn.Common.Resources;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
@@ -35,7 +36,7 @@
                 Links = new LinkResource[0]
             };
 
-            this.AuthorisationService.CanPutProductOnOffHold(Arg.Any<List<string>>()).Returns(false);
+            this.AuthorisationService.HasPermissionFor(AuthorisedAction.ProductHold, Arg.Any<List<string>>()).Returns(false);
 
             this.Response = this.Browser.Post(
                 "/products/maint/sa-hold-stories",
