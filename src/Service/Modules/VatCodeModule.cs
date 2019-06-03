@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.Modules
+namespace Linn.Products.Service.Modules
 {
     using System.Linq;
 
@@ -45,9 +45,7 @@
 
             try
             {
-                var result = this.vatCodeService.Add(resource, privileges);
-
-                return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                return this.Negotiate.WithModel(this.vatCodeService.Add(resource, privileges)).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                     .WithView("Index");
             }
             catch (DbUpdateException e)

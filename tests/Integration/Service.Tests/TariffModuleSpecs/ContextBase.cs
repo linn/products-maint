@@ -20,6 +20,7 @@ namespace Linn.Products.Service.Tests.TariffModuleSpecs
     public abstract class ContextBase : NancyContextBase
     {
         protected IFacadeService<Tariff, int, TariffResource, TariffResource> TariffService { get; private set; }
+
         protected IAuthorisationService AuthorisationService { get; private set; }
 
         [SetUp]
@@ -27,15 +28,15 @@ namespace Linn.Products.Service.Tests.TariffModuleSpecs
         {
             this.TariffService = Substitute.For<IFacadeService<Tariff, int, TariffResource, TariffResource>>();
             this.AuthorisationService = Substitute.For<IAuthorisationService>();
-            this.AuthorisationService.HasPermissionFor(AuthorisedAction.VatAdmin, Arg.Any<IEnumerable<string>>())
+            this.AuthorisationService.HasPermissionFor(AuthorisedAction.TariffAdmin, Arg.Any<IEnumerable<string>>())
                 .Returns(true);
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
                 {
                     with.Dependency(this.TariffService);
-                    with.Dependency<IResourceBuilder<Tariff>>(new TariffResourceBuilder());
-                    with.Dependency<IResourceBuilder<IEnumerable<Tariff>>>(new TariffsResourceBuilder());
+                    with.Dependency<IResourceBuilder<ResponseModel<Tariff>>>(new TariffResourceBuilder());
                     with.Dependency(this.AuthorisationService);
+                    with.Dependency<IResourceBuilder<IEnumerable<Tariff>>>(new TariffsResourceBuilder());
                     with.Module<TariffModule>();
                     with.ResponseProcessor<TariffResponseProcessor>();
                     with.ResponseProcessor<TariffsResponseProcessor>();

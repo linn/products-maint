@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.Tests.VatCodeModuleSpecs
+namespace Linn.Products.Service.Tests.VatCodeModuleSpecs
 {
     using System.Collections.Generic;
     using System.Linq;
