@@ -16,13 +16,14 @@
 
         private readonly IAuthorisationService authorisationService = new AuthorisationService();
 
-        public ResponseResource<IEnumerable<VatCodeResource>> Build(ResponseModel<IEnumerable<VatCode>> vatCodes)
+        public ResponseResource<IEnumerable<VatCodeResource>> Build(ResponseModel<IEnumerable<VatCode>> vatCodesModel)
         {
             var response = new ResponseResource<IEnumerable<VatCodeResource>>
                                {
-                                   ResponseData = vatCodes.ResponseData.Select(
-                                       a => this.vatCodeResourceBuilder.Build(new ResponseModel<VatCode>(a, null))),
-                                   Links = this.BuildLinks(vatCodes).ToArray()
+                                   ResponseData = vatCodesModel.ResponseData.Select(
+                                       a => this.vatCodeResourceBuilder.Build(
+                                           new ResponseModel<VatCode>(a, vatCodesModel.Privileges))),
+                                   Links = this.BuildLinks(vatCodesModel).ToArray()
                                };
             return response;
         }
@@ -32,7 +33,8 @@
             throw new NotImplementedException();
         }
 
-        object IResourceBuilder<ResponseModel<IEnumerable<VatCode>>>.Build(ResponseModel<IEnumerable<VatCode>> vatCodes) => this.Build(vatCodes);
+        object IResourceBuilder<ResponseModel<IEnumerable<VatCode>>>.Build(ResponseModel<IEnumerable<VatCode>> vatCodesModel) =>
+            this.Build(vatCodesModel);
 
         private IEnumerable<LinkResource> BuildLinks(ResponseModel<IEnumerable<VatCode>> vatCodesModel)
         {
