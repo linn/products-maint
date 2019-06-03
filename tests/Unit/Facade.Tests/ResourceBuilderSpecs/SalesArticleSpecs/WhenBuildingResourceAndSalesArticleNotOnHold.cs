@@ -1,9 +1,8 @@
-﻿namespace Linn.Products.Facade.Tests.SalesArticleResourceBuilderSpecs
+﻿namespace Linn.Products.Facade.Tests.ResourceBuilderSpecs.SalesArticleSpecs
 {
-    using System.Linq;
-
     using FluentAssertions;
 
+    using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
 
@@ -11,14 +10,14 @@
 
     public class WhenBuildingResourceAndSalesArticleNotOnHold : ContextBase
     {
-        private SalesArticle salesArticle;
+        private ResponseModel<SalesArticle> salesArticle;
 
         private SalesArticleResource resource;
              
         [SetUp]
         public void SetUp()
         {
-            this.salesArticle = new SalesArticle { ArticleNumber = "sa", SaCoreType = null };
+            this.salesArticle = new ResponseModel<SalesArticle>( new SalesArticle { ArticleNumber = "sa", SaCoreType = null }, null);
             this.resource = this.Sut.Build(this.salesArticle);
         }
 

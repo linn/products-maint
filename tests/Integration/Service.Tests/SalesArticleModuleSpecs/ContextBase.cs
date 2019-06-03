@@ -46,7 +46,7 @@
                     with.Dependency(this.SalesArticleForecastService);
                     with.Dependency(this.SalesArticleCompositeDiscountFacadeService);
                     with.Dependency(this.SalesArticleSerialNumberFacadeService);
-                    with.Dependency<IResourceBuilder<SalesArticle>>(new SalesArticleResourceBuilder());
+                    with.Dependency<IResourceBuilder<ResponseModel<SalesArticle>>>(new SalesArticleResourceBuilder());
                     with.Dependency<IResourceBuilder<IEnumerable<SalesArticle>>>(new SalesArticlesResourceBuilder());
                     with.Dependency<IResourceBuilder<SalesArticleCompositeDiscount>>(
                         new SalesArticleCompositeDiscountResourceBuilder());

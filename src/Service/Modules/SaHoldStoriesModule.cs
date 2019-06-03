@@ -1,7 +1,10 @@
 ﻿namespace Linn.Products.Service.Modules
 {
+    using System.Linq;
+
     using Linn.Common.Facade;
     using Linn.Common.Resources;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
@@ -18,10 +21,14 @@
 
         private readonly IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource> saHoldStoryService;
 
+        private readonly IAuthorisationService authorisationService;
+
         public SaHoldStoriesModule(
             ISaHoldStoriesReportService reportService,
-            IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource> saHoldStoryService)
+            IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource> saHoldStoryService,
+            IAuthorisationService authorisationService)
         {
+            this.authorisationService = authorisationService;
             this.saHoldStoryService = saHoldStoryService;
             this.saHoldStoriesReportService = reportService;
             this.Post("/products/maint/sa-hold-stories", _ => this.AddSaHoldStory());
@@ -65,8 +72,14 @@
         private object UpdateSaHoldStory(int holdStoryId)
         {
             this.RequiresAuthentication();
-            var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
+            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
 
+            if (!this.authorisationService.HasPermissionFor(AuthorisedAction.ProductHold, privileges))
+            {
+                return this.Negotiate.WithModel(new UnauthorisedResult<SaHoldStory>("You are not authorised to update hold stories."));
+            }
+
+            var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
             var resource = this.Bind<SaHoldStoryResource>();
             resource.Links = new[] { new LinkResource("taken-off-hold-by", employeeUri) };
 
@@ -80,6 +93,13 @@
         private object AddSaHoldStory()
         {
             this.RequiresAuthentication();
+            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+
+            if (!this.authorisationService.HasPermissionFor(AuthorisedAction.ProductHold, privileges))
+            {
+                return this.Negotiate.WithModel(new UnauthorisedResult<SaHoldStory>("You are not authorised to create hold stories."));
+            }
+
             var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
             var resource = this.Bind<SaHoldStoryResource>();
             resource.Links = new[] { new LinkResource("put-on-hold-by", employeeUri) };

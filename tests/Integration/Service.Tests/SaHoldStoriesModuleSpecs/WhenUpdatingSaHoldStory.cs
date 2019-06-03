@@ -1,10 +1,12 @@
 ﻿namespace Linn.Products.Service.Tests.SaHoldStoriesModuleSpecs
 {
     using System;
+    using System.Collections.Generic;
 
     using FluentAssertions;
 
     using Linn.Common.Facade;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
@@ -38,6 +40,8 @@
                                     SalesArticle = new SalesArticle { ArticleNumber = "KLIMAX/NTK" },
                                     ReasonStarted = "reason"
                                 };
+
+            this.AuthorisationService.HasPermissionFor(AuthorisedAction.ProductHold, Arg.Any<List<string>>()).Returns(true);
 
             this.SaHoldStoryService.Update(1, Arg.Any<SaHoldStoryResource>())
                 .Returns(new SuccessResult<SaHoldStory>(holdStory)

@@ -3,6 +3,7 @@
     public enum AuthorisedAction
     {
         SerialNumberAdmin,
-        VatAdmin
+        VatAdmin,
+        ProductHold
     }
 }

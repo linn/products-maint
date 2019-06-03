@@ -1,7 +1,6 @@
 ﻿import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
 import VatCodes from '../../components/vatCodes/VatCodes';
-import initialiseOnMount from '../common/initialiseOnMount';
 import vatCodesActions from '../../actions/vatCodesActions';
 import vatCodesSelectors from '../../selectors/vatCodesSelectors';
 
