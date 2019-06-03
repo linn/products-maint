@@ -42,7 +42,7 @@
             builder.RegisterType<SaHoldStoryResourceBuilder>().As<IResourceBuilder<SaHoldStory>>();
             builder.RegisterType<SaHoldStoriesResourceBuilder>().As<IResourceBuilder<IEnumerable<SaHoldStory>>>();
             builder.RegisterType<VatCodeResourceBuilder>().As<IResourceBuilder<ResponseModel<VatCode>>>();
-            builder.RegisterType<VatCodesResourceBuilder>().As<IResourceBuilder<IEnumerable<VatCode>>>();
+            builder.RegisterType<VatCodesResourceBuilder>().As<IResourceBuilder<ResponseModel<IEnumerable<VatCode>>>>();
             builder.RegisterType<ProductRangeResourceBuilder>().As<IResourceBuilder<ProductRange>>();
             builder.RegisterType<ProductRangesResourceBuilder>().As<IResourceBuilder<IEnumerable<ProductRange>>>();
             builder.RegisterType<SalesPackageResourceBuilder>().As<IResourceBuilder<SalesPackage>>();

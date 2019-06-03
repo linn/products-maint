@@ -6,9 +6,9 @@
     using Linn.Common.Nancy.Facade;
     using Linn.Products.Domain.Linnapps;
 
-    public class VatCodesResponseProcessor : JsonResponseProcessor<IEnumerable<VatCode>>
+    public class VatCodesResponseProcessor : JsonResponseProcessor<ResponseModel<IEnumerable<VatCode>>>
     {
-        public VatCodesResponseProcessor(IResourceBuilder<IEnumerable<VatCode>> resourceBuilder)
+        public VatCodesResponseProcessor(IResourceBuilder<ResponseModel<IEnumerable<VatCode>>> resourceBuilder)
             : base(resourceBuilder, "vat-codes", 1)
         {
         }

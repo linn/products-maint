@@ -37,7 +37,7 @@
                     with.Dependency(this.VatCodeService);
                     with.Dependency<IResourceBuilder<ResponseModel<VatCode>>>(new VatCodeResourceBuilder());
                     with.Dependency(this.AuthorisationService);
-                    with.Dependency<IResourceBuilder<IEnumerable<VatCode>>>(new VatCodesResourceBuilder());
+                    with.Dependency<IResourceBuilder<ResponseModel<IEnumerable<VatCode>>>>(new VatCodesResourceBuilder());
                     with.Module<VatCodeModule>();
                     with.ResponseProcessor<VatCodeResponseProcessor>();
                     with.ResponseProcessor<VatCodesResponseProcessor>();
