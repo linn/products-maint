@@ -68,7 +68,9 @@
 
         private object GetVatCodes()
         {
-            var result = this.vatCodeService.GetAll();
+            var privileges = this.Context.CurrentUser.GetPrivileges();
+
+            var result = this.vatCodeService.GetAll(privileges);
             return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
