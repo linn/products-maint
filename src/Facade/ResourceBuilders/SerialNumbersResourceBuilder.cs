@@ -13,7 +13,7 @@
 
         public IEnumerable<SerialNumberResource> Build(IEnumerable<SerialNumber> serialNumber)
         {
-            return serialNumber.Select(s => this.serialNumberResourceBuilder.Build(s));
+            return serialNumber.Select(s => this.serialNumberResourceBuilder.Build(new ResponseModel<SerialNumber>(s, null)));
         }
 
         object IResourceBuilder<IEnumerable<SerialNumber>>.Build(IEnumerable<SerialNumber> serialNumber) => this.Build(serialNumber);

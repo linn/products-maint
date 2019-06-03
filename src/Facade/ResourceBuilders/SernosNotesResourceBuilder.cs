@@ -13,7 +13,7 @@
 
         public IEnumerable<SernosNoteResource> Build(IEnumerable<SernosNote> sernosNotes)
         {
-            return sernosNotes.Select(s => this.sernosNoteResourceBuilder.Build(s));
+            return sernosNotes.Select(s => this.sernosNoteResourceBuilder.Build(new ResponseModel<SernosNote>(s, null)));
         }
 
         public string GetLocation(IEnumerable<SernosNote> model)

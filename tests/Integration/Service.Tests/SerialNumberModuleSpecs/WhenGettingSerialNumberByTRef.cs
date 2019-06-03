@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Service.Tests.SerialNumberModuleSpecs
 {
+    using System.Collections.Generic;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -24,8 +26,8 @@
                                        SernosTRef = 123
                                    };
 
-            this.SerialNumberService.GetById(123)
-                .Returns(new SuccessResult<SerialNumber>(serialNumber) { Data = serialNumber });
+            this.SerialNumberService.GetById(123, Arg.Any<IEnumerable<string>>())
+                .Returns(new SuccessResult<ResponseModel<SerialNumber>>(new ResponseModel<SerialNumber>(serialNumber, new List<string>())));
 
             this.Response = this.Browser.Get(
                 "/products/maint/serial-numbers/123",
@@ -35,7 +37,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SerialNumberService.Received().GetById(123);
+            this.SerialNumberService.Received().GetById(123, Arg.Any<IEnumerable<string>>());
         }
 
         [Test]

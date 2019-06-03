@@ -11,11 +11,16 @@
             {
                 case AuthorisedAction.VatAdmin:
                     return this.CanEditOrCreateVatCodes(privileges);
-                    break;
+                case AuthorisedAction.SerialNumberAdmin:
+                    return this.CanCreateOrUpdateSerialNumbers(privileges);
                 default:
                     return false;
-                    break;
             }
+        }
+
+        private bool CanCreateOrUpdateSerialNumbers(IEnumerable<string> privileges)
+        {
+            return this.Satisfies("serial-numbers.admin", privileges);
         }
 
         private bool CanEditOrCreateVatCodes(IEnumerable<string> privileges)
