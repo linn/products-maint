@@ -1,7 +1,5 @@
 ﻿namespace Linn.Products.Facade.Tests.ResourceBuilderSpecs.RootProductSpecs
 {
-    using System.Collections.Generic;
-
     using FluentAssertions;
 
     using Linn.Common.Facade;
