@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Snackbar, withStyles } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 import CloseIcon from '@material-ui/icons/Close';
-import Badge from '@material-ui/core/Badge';
 
 const styles = theme => ({
     root: {
@@ -23,7 +22,7 @@ const styles = theme => ({
     }
 });
 
-function useInterval(callback, delay) {
+function useInterval(callback, delay, open) {
     const savedCallback = useRef();
     useEffect(() => {
         savedCallback.current = callback;
@@ -33,13 +32,12 @@ function useInterval(callback, delay) {
         const tick = () => {
             savedCallback.current();
         };
-        if (delay !== null) {
-            // TODO - only start the counter when notifications are open
+        if (delay !== null && open) {
             const id = setInterval(tick, delay);
             return () => clearInterval(id);
         }
-        return null;
-    }, [delay]);
+        return () => null;
+    }, [delay, open]);
 }
 
 function SlideTransition(props) {
@@ -49,15 +47,22 @@ function SlideTransition(props) {
 function Notifications({ notifications, classes, open, onClose }) {
     const [count, setCount] = useState(0);
 
-    useInterval(() => {
-        if (count < notifications.length - 1) {
-            setCount(count + 1);
-        } else {
-            setCount(0);
-        }
-    }, 8000);
+    useInterval(
+        () => {
+            if (count < notifications.length - 1 && open) {
+                setCount(count + 1);
+            } else {
+                setCount(0);
+                clearInterval(this.id);
+            }
+        },
+        8000,
+        open
+    );
 
-    const handleClose = () => setOpen(false);
+    useEffect(() => {
+        setCount(0);
+    }, [open]);
 
     return notifications.map((e, i) => (
         <Snackbar

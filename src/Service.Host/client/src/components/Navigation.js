@@ -135,7 +135,7 @@ function Navigation({ classes, sections, loading, username, myStuff, notificatio
                                                     badgeContent={notifications.length} // TODO - use cookies
                                                     color="primary"
                                                 >
-                                                    <Notifications onClick={toggleNotifications} />
+                                                    <Notifications onClick={toggleNotifications} label="yass"/>
                                                 </Badge>
                                             </Typography>
                                         </Grid>
