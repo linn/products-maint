@@ -36,7 +36,7 @@
             this.Get("/products/maint/sa-hold-stories/{holdStoryId}", parameters => this.GetSaHoldStory(parameters.holdStoryId));
             this.Put("/products/maint/sa-hold-stories/{holdStoryId}", parameters => this.UpdateSaHoldStory(parameters.holdstoryId));
             this.Get("/products/reports/sa-hold-stories-for-sales-article/{articleNumber*}", parameters => this.GetSaHoldStoriesForArticleNumber(parameters.articleNumber));
-            this.Get("/products/reports/hold-stories-for-root-product/{rootProduct}", parameters => this.GetHoldStoriesForRootProduct(parameters.rootProduct));
+            this.Get("/products/reports/hold-stories-for-root-product/{rootProduct*}", parameters => this.GetHoldStoriesForRootProduct(parameters.rootProduct));
         }
 
         private object GetSaHoldStories()
