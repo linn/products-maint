@@ -38,7 +38,7 @@
             this.RequiresAuthentication();
             var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
 
-            if (!this.authorisationService.CanEditOrCreateVatCodes(privileges))
+            if (!this.authorisationService.HasPermissionFor(AuthorisedAction.VatAdmin, privileges))
             {
                 return this.Negotiate.WithModel(new UnauthorisedResult<ResponseModel<VatCode>>("You are not authorised to create or edit vat codes"));
             }
@@ -78,7 +78,7 @@
             this.RequiresAuthentication();
             var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
 
-            if (!this.authorisationService.CanEditOrCreateVatCodes(privileges))
+            if (!this.authorisationService.HasPermissionFor(AuthorisedAction.VatAdmin, privileges))
             {
                 return this.Negotiate.WithModel(new UnauthorisedResult<ResponseModel<VatCode>>("You are not authorised to create or edit vat codes"));
             }

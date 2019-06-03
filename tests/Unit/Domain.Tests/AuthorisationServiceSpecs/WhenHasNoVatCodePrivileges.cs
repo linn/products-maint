@@ -9,7 +9,7 @@
         [SetUp]
         public void SetUp()
         {
-            this.HasPrivilegeResult = this.Sut.CanEditOrCreateVatCodes(this.Privileges);
+            this.HasPrivilegeResult = this.Sut.HasPermissionFor(AuthorisedAction.VatAdmin, this.Privileges);
         }
 
         [Test]
