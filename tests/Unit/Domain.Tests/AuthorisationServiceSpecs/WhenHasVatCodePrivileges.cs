@@ -9,8 +9,8 @@
         [SetUp]
         public void SetUp()
         {
-            this.Privileges.Add("finance.admin");
-            this.HasPrivilegeResult = this.Sut.CanEditOrCreateVatCodes(this.Privileges);
+            this.Privileges.Add("vat.admin");
+            this.HasPrivilegeResult = this.Sut.HasPermissionFor(AuthorisedAction.VatAdmin, this.Privileges);
         }
 
         [Test]

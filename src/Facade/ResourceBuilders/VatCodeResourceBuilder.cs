@@ -38,7 +38,7 @@
         {
             yield return new LinkResource { Rel = "self", Href = this.GetLocation(vatCodeModel) };
 
-            if (this.authorisationService.CanEditOrCreateVatCodes(vatCodeModel.Privileges))
+            if (this.authorisationService.HasPermissionFor(AuthorisedAction.VatAdmin, vatCodeModel.Privileges))
             {
                 yield return new LinkResource { Rel = "edit", Href = this.GetLocation(vatCodeModel) };
             }

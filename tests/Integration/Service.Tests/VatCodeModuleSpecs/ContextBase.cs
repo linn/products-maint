@@ -29,7 +29,8 @@
         {
             this.VatCodeService = Substitute.For<IFacadeService<VatCode, string, VatCodeResource, VatCodeResource>>();
             this.AuthorisationService = Substitute.For<IAuthorisationService>();
-            this.AuthorisationService.CanEditOrCreateVatCodes(Arg.Any<IEnumerable<string>>()).Returns(true);
+            this.AuthorisationService.HasPermissionFor(AuthorisedAction.VatAdmin, Arg.Any<IEnumerable<string>>())
+                .Returns(true);
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
                 {
