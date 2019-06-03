@@ -5,23 +5,41 @@
     using System.Linq;
 
     using Linn.Common.Facade;
+    using Linn.Common.Resources;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
 
-    public class VatCodesResourceBuilder : IResourceBuilder<IEnumerable<VatCode>>
+    public class VatCodesResourceBuilder : IResourceBuilder<ResponseModel<IEnumerable<VatCode>>>
     {
         private readonly VatCodeResourceBuilder vatCodeResourceBuilder = new VatCodeResourceBuilder();
 
-        public IEnumerable<VatCodeResource> Build(IEnumerable<VatCode> vatCodes)
+        private readonly IAuthorisationService authorisationService = new AuthorisationService();
+
+        public ResponseResource<IEnumerable<VatCodeResource>> Build(ResponseModel<IEnumerable<VatCode>> vatCodes)
         {
-            return vatCodes.Select(a => this.vatCodeResourceBuilder.Build(new ResponseModel<VatCode>(a, null)));
+            var response = new ResponseResource<IEnumerable<VatCodeResource>>
+                               {
+                                   ResponseData = vatCodes.ResponseData.Select(
+                                       a => this.vatCodeResourceBuilder.Build(new ResponseModel<VatCode>(a, null))),
+                                   Links = this.BuildLinks(vatCodes).ToArray()
+                               };
+            return response;
         }
 
-        public string GetLocation(IEnumerable<VatCode> vatCodes)
+        public string GetLocation(ResponseModel<IEnumerable<VatCode>> vatCodes)
         {
             throw new NotImplementedException();
         }
 
-        object IResourceBuilder<IEnumerable<VatCode>>.Build(IEnumerable<VatCode> vatCodes) => this.Build(vatCodes);
+        object IResourceBuilder<ResponseModel<IEnumerable<VatCode>>>.Build(ResponseModel<IEnumerable<VatCode>> vatCodes) => this.Build(vatCodes);
+
+        private IEnumerable<LinkResource> BuildLinks(ResponseModel<IEnumerable<VatCode>> vatCodesModel)
+        {
+            if (this.authorisationService.HasPermissionFor(AuthorisedAction.VatAdmin, vatCodesModel.Privileges))
+            {
+                yield return new LinkResource { Rel = "create", Href = "/products/maint/vat-codes" };
+            }
+        }
     }
 }
