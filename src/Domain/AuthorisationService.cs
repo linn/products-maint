@@ -5,7 +5,20 @@
 
     public class AuthorisationService : IAuthorisationService
     {
-        public bool CanEditOrCreateVatCodes(IEnumerable<string> privileges)
+        public bool HasPermissionFor(AuthorisedAction action, IEnumerable<string> privileges)
+        {
+            switch (action)
+            {
+                case AuthorisedAction.VatAdmin:
+                    return this.CanEditOrCreateVatCodes(privileges);
+                    break;
+                default:
+                    return false;
+                    break;
+            }
+        }
+
+        private bool CanEditOrCreateVatCodes(IEnumerable<string> privileges)
         {
             return this.Satisfies("vat.admin", privileges);
         }
