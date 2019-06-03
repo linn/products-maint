@@ -93,13 +93,9 @@
         private object UpdateSalesArticle(string id)
         {
             this.RequiresAuthentication();
-
-            var privileges = this.Context.CurrentUser.GetPrivileges();
-            IEnumerable<string> enumerable = privileges.ToList();
-
             var resource = this.Bind<SalesArticleResource>();
 
-            var result = this.salesArticleService.Update(id.ToUpper(), resource, enumerable);
+            var result = this.salesArticleService.Update(id.ToUpper(), resource, this.Context.CurrentUser.GetPrivileges());
 
             return this.Negotiate
                 .WithModel(result)
@@ -111,14 +107,11 @@
         {
             this.RequiresAuthentication();
 
-            var privileges = this.Context.CurrentUser.GetPrivileges();
-            IEnumerable<string> enumerable = privileges.ToList();
-
             var resource = this.Bind<SalesArticleRequestResource>();
             if (!string.IsNullOrEmpty(resource.ArticleNumber))
             {
                 return this.Negotiate
-                    .WithModel(this.salesArticleService.GetById(resource.ArticleNumber.ToUpper(), enumerable))
+                    .WithModel(this.salesArticleService.GetById(resource.ArticleNumber.ToUpper(), this.Context.CurrentUser.GetPrivileges()))
                     .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                     .WithView("Index");
             }
