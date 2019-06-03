@@ -37,12 +37,7 @@ namespace Linn.Products.Service.Tests.TariffModuleSpecs
         [Test]
         public void ShouldReturnUnauthorisedResult()
         {
-            var response = this.Response.Body;
-
-            var random = this.Response.Body.DeserializeJson<UnauthorisedResult<ResponseModel<Tariff>>>();
-
-            Assert.AreEqual("You are not authorised to create or edit tariffs", this.Response.Body.DeserializeJson<UnauthorisedResult<ResponseModel<Tariff>>>().Message);
-
+            this.TariffService.DidNotReceiveWithAnyArgs().Add(Arg.Any<TariffResource>(), Arg.Any<IEnumerable<string>>());
         }
 
         [Test]
