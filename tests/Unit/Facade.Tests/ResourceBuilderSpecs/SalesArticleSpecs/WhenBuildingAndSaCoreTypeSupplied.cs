@@ -1,9 +1,10 @@
-﻿namespace Linn.Products.Facade.Tests.SalesArticleResourceBuilderSpecs
+﻿namespace Linn.Products.Facade.Tests.ResourceBuilderSpecs.SalesArticleSpecs
 {
     using System.Linq;
 
     using FluentAssertions;
 
+    using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
@@ -12,14 +13,15 @@
 
     public class WhenBuildingAndSaCoreTypeSupplied : ContextBase
     {
-        private SalesArticle salesArticle;
+        private ResponseModel<SalesArticle> salesArticle;
 
         private SalesArticleResource resource;
 
         [SetUp]
         public void SetUp()
         {
-            this.salesArticle = new SalesArticle { ArticleNumber = "sa", SaCoreType = new SaCoreType(1, "descr") };
+            this.salesArticle = new ResponseModel<SalesArticle>(
+                new SalesArticle { ArticleNumber = "sa", SaCoreType = new SaCoreType(1, "descr") }, null);
             this.resource = this.Sut.Build(this.salesArticle);
         }
 

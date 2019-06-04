@@ -24,8 +24,11 @@ namespace Linn.Products.Service.Tests.VatCodeModuleSpecs
             var vatCode1 = new VatCode("A", "STD UK VAT RATE.", 20, null, 1, "N");
             var vatCode2 = new VatCode("B", "UK VAT ZERO RATE", 0, "REASON", 5, "Y");
 
-            this.VatCodeService.GetAll().Returns(
-                new SuccessResult<IEnumerable<VatCode>>(new List<VatCode> { vatCode1, vatCode2 }));
+            this.VatCodeService.GetAll(Arg.Any<IEnumerable<string>>()).Returns(
+                new SuccessResult<ResponseModel<IEnumerable<VatCode>>>(
+                    new ResponseModel<IEnumerable<VatCode>>(
+                        new List<VatCode> { vatCode1, vatCode2 },
+                        new List<string>())));
 
             this.Response = this.Browser.Get(
                 "/products/maint/vat-codes",
@@ -35,7 +38,7 @@ namespace Linn.Products.Service.Tests.VatCodeModuleSpecs
         [Test]
         public void ShouldCallService()
         {
-            this.VatCodeService.Received().GetAll();
+            this.VatCodeService.Received().GetAll(Arg.Any<IEnumerable<string>>());
         }
 
         [Test]
@@ -47,7 +50,7 @@ namespace Linn.Products.Service.Tests.VatCodeModuleSpecs
         [Test]
         public void ShouldReturnResource()
         {
-            var resources = this.Response.Body.DeserializeJson<IEnumerable<VatCodeResource>>().ToList();
+            var resources = this.Response.Body.DeserializeJson<ResponseResource<IEnumerable<VatCodeResource>>>().ResponseData.ToList();
             resources.Should().HaveCount(2);
             resources.Should().Contain(a => a.Code == "A");
             resources.Should().Contain(a => a.Code == "B");

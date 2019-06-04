@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Linn.Products.Resources
+﻿namespace Linn.Products.Resources
 {
     using Linn.Common.Resources;
 

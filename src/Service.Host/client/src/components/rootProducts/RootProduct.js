@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Grid, Typography, Button, Tabs, Tab } from '@material-ui/core';
+import { Grid, Typography, Button, Tabs, Tab, Tooltip } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -16,6 +16,35 @@ import Page from '../../containers/Page';
 
 function RootProduct({ item, snackbarVisible, setSnackbarVisible, loading, errorMessage, match }) {
     const [tab, setTab] = useState(0);
+
+    const canChangeHoldStatus = () => {
+        if (item.onHold) {
+            return item.links.some(l => l.rel === 'put-off-hold');
+        }
+        return item.links.some(l => l.rel === 'put-on-hold');
+    };
+
+    const tooltipText = () => {
+        if (!canChangeHoldStatus()) {
+            return 'You are not authorised to complete this action.';
+        }
+        return '';
+    };
+
+    const buttonProps = rel => {
+        let props;
+        if (canChangeHoldStatus()) {
+            props = {
+                component: Link,
+                to: getHref(item, rel)
+            };
+        } else {
+            props = {
+                disabled: true
+            };
+        }
+        return props;
+    };
 
     const handleTabChange = (event, value) => {
         setTab(value);
@@ -65,20 +94,32 @@ function RootProduct({ item, snackbarVisible, setSnackbarVisible, loading, error
                                                 {item.onHold ? (
                                                     <Fragment>
                                                         <span> ON HOLD </span>
-                                                        <Button
-                                                            component={Link}
-                                                            to={getHref(item, 'put-off-hold')}
+                                                        <Tooltip
+                                                            disableFocusListener
+                                                            title={tooltipText()}
+                                                            placement="top-end"
                                                         >
-                                                            REMOVE HOLD
-                                                        </Button>{' '}
+                                                            <span>
+                                                                <Button
+                                                                    {...buttonProps('put-off-hold')}
+                                                                >
+                                                                    REMOVE HOLD
+                                                                </Button>
+                                                            </span>
+                                                        </Tooltip>
                                                     </Fragment>
                                                 ) : (
-                                                    <Button
-                                                        component={Link}
-                                                        to={getHref(item, 'put-on-hold')}
+                                                    <Tooltip
+                                                        disableFocusListener
+                                                        title={tooltipText()}
+                                                        placement="top-end"
                                                     >
-                                                        PUT ON HOLD
-                                                    </Button>
+                                                        <span>
+                                                            <Button {...buttonProps('put-on-hold')}>
+                                                                PUT ON HOLD
+                                                            </Button>
+                                                        </span>
+                                                    </Tooltip>
                                                 )}
                                             </Typography>
                                         </Grid>

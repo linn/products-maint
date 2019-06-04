@@ -3,6 +3,7 @@
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
+    using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
 
     using Nancy;
@@ -24,11 +25,21 @@
 
         private object GetRootProduct(string name)
         {
-            var result = this.rootProductService.GetById(name);
+            if (this.Context.CurrentUser != null)
+            {
+                var privileges = this.Context.CurrentUser.GetPrivileges();
+                return this.Negotiate
+                    .WithModel(this.rootProductService.GetById(name, privileges))
+                    .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                    .WithView("Index");
+
+            }
+
             return this.Negotiate
-                .WithModel(result)
+                .WithModel(this.rootProductService.GetById(name))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
+
         }
 
         private object GetRootProducts()

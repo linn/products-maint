@@ -29,13 +29,13 @@
             throw new NotImplementedException();
         }
 
-        protected override void UpdateFromResource(SalesArticle salesArticle, SalesArticleResource updateResource)
+        protected override void UpdateFromResource(SalesArticle salesArticleResponseModel, SalesArticleResource updateResource)
         {
             var coreTypeHref = updateResource.Links?.FirstOrDefault(a => a.Rel == "sa-core-type")?.Href;
             var coreType = string.IsNullOrEmpty(coreTypeHref)
                                ? null
                                : this.coreTypeRepository.FindById(coreTypeHref.ParseId());
-            salesArticle.Update(
+            salesArticleResponseModel.Update(
                 updateResource.ForecastType,
                 string.IsNullOrEmpty(updateResource.ForecastFromDate) ? (DateTime?)null : DateTime.Parse(updateResource.ForecastFromDate),
                 string.IsNullOrEmpty(updateResource.ForecastToDate) ? (DateTime?)null : DateTime.Parse(updateResource.ForecastToDate),
