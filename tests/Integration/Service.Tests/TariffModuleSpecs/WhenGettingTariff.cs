@@ -1,5 +1,6 @@
-﻿namespace Linn.Products.Service.Tests.TariffModuleSpecs
+namespace Linn.Products.Service.Tests.TariffModuleSpecs
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using FluentAssertions;
@@ -28,8 +29,8 @@
                 EnteredBy = 123,
                 ChangedBy = 456
             };
-            this.TariffService.GetById(1)
-                .Returns(new SuccessResult<Tariff>(tariff));
+            this.TariffService.GetById(1, Arg.Any<IEnumerable<string>>())
+                .Returns(new SuccessResult<ResponseModel<Tariff>>(new ResponseModel<Tariff>(tariff, new List<string>())));
 
             this.Response = this.Browser.Get(
                 "/products/maint/tariffs/1",
@@ -48,7 +49,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.TariffService.Received().GetById(1);
+            this.TariffService.Received().GetById(1, Arg.Any<IEnumerable<string>>());
         }
 
         [Test]
