@@ -25,12 +25,21 @@
 
         private object GetRootProduct(string name)
         {
-            var privileges = this.Context.CurrentUser.GetPrivileges();
-            var result = this.rootProductService.GetById(name, privileges);
+            if (this.Context.CurrentUser != null)
+            {
+                var privileges = this.Context.CurrentUser.GetPrivileges();
+                return this.Negotiate
+                    .WithModel(this.rootProductService.GetById(name, privileges))
+                    .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                    .WithView("Index");
+
+            }
+
             return this.Negotiate
-                .WithModel(result)
+                .WithModel(this.rootProductService.GetById(name))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
+
         }
 
         private object GetRootProducts()

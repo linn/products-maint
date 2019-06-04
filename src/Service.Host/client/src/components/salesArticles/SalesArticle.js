@@ -72,7 +72,8 @@ function SalesArticle({
         if (canChangeHoldStatus()) {
             props = {
                 component: Link,
-                to: getHref(salesArticle, rel)
+                to: getHref(salesArticle, rel),
+                disabled: salesArticle.rootProductOnHold
             };
         } else {
             props = {
