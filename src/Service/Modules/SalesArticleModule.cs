@@ -105,8 +105,6 @@
 
         private object GetSalesArticles()
         {
-            this.RequiresAuthentication();
-
             var resource = this.Bind<SalesArticleRequestResource>();
             if (!string.IsNullOrEmpty(resource.ArticleNumber))
             {
