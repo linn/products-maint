@@ -44,8 +44,9 @@
 
         private object GetSernosNotes()
         {
+            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
             var resource = this.Bind<SernosNoteQueryResource>();
-            var results = this.sernosNoteService.Search(resource.SernosNumber.ToString());
+            var results = this.sernosNoteService.Search(resource.SernosNumber.ToString(), privileges);
             return this.Negotiate.WithModel(results).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
@@ -63,7 +64,7 @@
             var resource = this.Bind<SernosNoteCreateResource>();
             var results = new SernosNoteCreateResourceValidator().Validate(resource);
             return results.IsValid
-                       ? this.Negotiate.WithModel(this.sernosNoteService.Add(resource))
+                       ? this.Negotiate.WithModel(this.sernosNoteService.Add(resource, privileges))
                            .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                        : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
         }
@@ -80,7 +81,7 @@
             var resource = this.Bind<SernosNoteResource>();
             var results = new SernosNoteResourceValidator().Validate(resource);
             return results.IsValid
-                       ? this.Negotiate.WithModel(this.sernosNoteService.Update(id, resource))
+                       ? this.Negotiate.WithModel(this.sernosNoteService.Update(id, resource, privileges))
                            .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index")
                        : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
         }

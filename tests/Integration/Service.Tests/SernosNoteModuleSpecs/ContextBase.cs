@@ -39,7 +39,7 @@
                         with.Dependency(this.SernosNoteService);
                         with.Dependency(this.AuthorisationService);
                         with.Dependency<IResourceBuilder<ResponseModel<SernosNote>>>(new SernosNoteResourceBuilder());
-                        with.Dependency<IResourceBuilder<IEnumerable<SernosNote>>>(new SernosNotesResourceBuilder());
+                        with.Dependency<IResourceBuilder<ResponseModel<IEnumerable<SernosNote>>>>(new SernosNotesResourceBuilder());
                         with.Module<SernosNoteModule>();
                         with.ResponseProcessor<SernosNoteResponseProcessor>();
                         with.ResponseProcessor<SernosNotesResponseProcessor>();

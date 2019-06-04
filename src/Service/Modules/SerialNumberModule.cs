@@ -47,8 +47,7 @@
             resource.Links = new[] { new LinkResource("entered-by", this.Context.CurrentUser.GetEmployeeUri()) };            
             var results = new SerialNumberCreateResourceValidator().Validate(resource);
 
-            // TODO, should I add privileges in here?
-            var serialNumbers = this.serialNumberService.CreateSerialNumbers(resource);
+            var serialNumbers = this.serialNumberService.CreateSerialNumbers(resource, privileges);
             return results.IsValid
                        ? this.Negotiate.WithModel(serialNumbers)
                        : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
@@ -67,8 +66,9 @@
         private object GetSerialNumbers()
         {
             // TODO use the new get for this
+            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
             var resource = this.Bind<SerialNumberQueryResource>();
-            var result = this.serialNumberService.Search(resource.SernosNumber.ToString());
+            var result = this.serialNumberService.Search(resource.SernosNumber.ToString(), privileges);
             return this.Negotiate
                 .WithModel(result)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)

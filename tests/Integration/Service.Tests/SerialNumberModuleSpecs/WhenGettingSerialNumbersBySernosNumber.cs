@@ -32,12 +32,11 @@
                                         SernosTRef = 555
             };
 
-            this.SerialNumberService.Search("222").Returns(
-                new SuccessResult<IEnumerable<SerialNumber>>(
-                    new List<SerialNumber>
-                        {
-                            serialNumber1, serialNumber2
-                        }));
+            this.SerialNumberService.Search("222", Arg.Any<IEnumerable<string>>()).Returns(
+                new SuccessResult<ResponseModel<IEnumerable<SerialNumber>>>(
+                    new ResponseModel<IEnumerable<SerialNumber>>(
+                        new List<SerialNumber> { serialNumber1, serialNumber2 }, 
+                        new List<string>())));
 
             this.Response = this.Browser.Get(
                 "products/maint/serial-numbers",
@@ -51,7 +50,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SerialNumberService.Received().Search("222");
+            this.SerialNumberService.Received().Search("222", Arg.Any<IEnumerable<string>>());
         }
 
         [Test]
@@ -63,7 +62,7 @@
         [Test]
         public void ShouldReturnResource()
         {
-            var resources = this.Response.Body.DeserializeJson<IEnumerable<SerialNumberResource>>().ToList();
+            var resources = this.Response.Body.DeserializeJson<ResponseResource<IEnumerable<SerialNumberResource>>>().ResponseData.ToList();
             resources.Should().HaveCount(2);
             resources.Should().Contain(s => s.SernosTRef == 123);
             resources.Should().Contain(s => s.SernosTRef == 555);

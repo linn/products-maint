@@ -38,7 +38,7 @@
                         with.Dependency(this.SerialNumberService);
                         with.Dependency(this.AuthorisationService);
                         with.Dependency<IResourceBuilder<ResponseModel<SerialNumber>>>(new SerialNumberResourceBuilder());
-                        with.Dependency<IResourceBuilder<IEnumerable<SerialNumber>>>(new SerialNumbersResourceBuilder());
+                        with.Dependency<IResourceBuilder<ResponseModel<IEnumerable<SerialNumber>>>>(new SerialNumbersResourceBuilder());
                         with.Module<SerialNumberModule>();
                         with.ResponseProcessor<SerialNumberResponseProcessor>();
                         with.ResponseProcessor<SerialNumbersResponseProcessor>();

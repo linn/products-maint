@@ -47,10 +47,10 @@
             builder.RegisterType<ProductRangesResourceBuilder>().As<IResourceBuilder<IEnumerable<ProductRange>>>();
             builder.RegisterType<SalesPackageResourceBuilder>().As<IResourceBuilder<SalesPackage>>();
             builder.RegisterType<SalesPackagesResourceBuilder>().As<IResourceBuilder<IEnumerable<SalesPackage>>>();
-            builder.RegisterType<SerialNumberResourceBuilder>().As<IResourceBuilder<SerialNumber>>();
-            builder.RegisterType<SerialNumbersResourceBuilder>().As<IResourceBuilder<IEnumerable<SerialNumber>>>();
-            builder.RegisterType<SernosNoteResourceBuilder>().As<IResourceBuilder<SernosNote>>();
-            builder.RegisterType<SernosNotesResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosNote>>>();
+            builder.RegisterType<SerialNumberResourceBuilder>().As<IResourceBuilder<ResponseModel<SerialNumber>>>();
+            builder.RegisterType<SerialNumbersResourceBuilder>().As<IResourceBuilder<ResponseModel<IEnumerable<SerialNumber>>>>();
+            builder.RegisterType<SernosNoteResourceBuilder>().As<IResourceBuilder<ResponseModel<SernosNote>>>();
+            builder.RegisterType<SernosNotesResourceBuilder>().As<IResourceBuilder<ResponseModel<IEnumerable<SernosNote>>>>();
             builder.RegisterType<SalesPackagesPaginatedResourceBuilder>()
                 .As<IResourceBuilder<IPagedList<SalesPackage>>>();
             builder.RegisterType<SalesArticleCompositeDiscountResourceBuilder>().As<IResourceBuilder<SalesArticleCompositeDiscount>>();
