@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.Tests.TariffModuleSpecs
+namespace Linn.Products.Service.Tests.TariffModuleSpecs
 {
     using System.Collections.Generic;
     using System.Linq;
