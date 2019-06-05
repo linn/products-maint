@@ -65,7 +65,6 @@
 
         private object GetSerialNumbers()
         {
-            // TODO use the new get for this
             var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
             var resource = this.Bind<SerialNumberQueryResource>();
             var result = this.serialNumberService.Search(resource.SernosNumber.ToString(), privileges);

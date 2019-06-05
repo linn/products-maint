@@ -31,8 +31,6 @@
 
         public string GetLocation(ResponseModel<IEnumerable<SernosNote>> model)
         {
-            // TODO see if this does anything
-            return "blooooop";
             throw new System.NotImplementedException();
         }
 

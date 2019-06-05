@@ -43,8 +43,7 @@
                 AuthorisedAction.SerialNumberAdmin,
                 serialNumbersModel.Privileges))
             {
-                // TODO see what rel should actuallybe in here
-                yield return new LinkResource { Rel = "create", Href = "/products/maint/serial-numbers" };
+                yield return new LinkResource { Rel = "amend-create-serial-number", Href = "/products/maint/serial-numbers" };
             }
         }
     }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {
-    CreateButton,
+    // CreateButton,
     Dropdown,
     Loading,
     SearchInputField,
@@ -10,11 +10,21 @@ import {
     ErrorCard,
     useSearch
 } from '@linn-it/linn-form-components-library';
-import { Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import {
+    Typography,
+    Table,
+    TableHead,
+    TableRow,
+    TableCell,
+    TableBody,
+    Tooltip
+} from '@material-ui/core';
 import { getSernosNote } from '../selectors/sernosNotesSelectors';
 import SernosNote from './SernosNote';
 import Page from '../containers/Page';
 import { sortEntityList, sortList } from '../helpers/utilities';
+
+import CreateButton from './CreateLocal';
 
 function SerialNumbers({
     items,
@@ -53,6 +63,16 @@ function SerialNumbers({
         setSearchTerm(args[1]);
     };
 
+    const canAmendOrCreateSerialNumbers = () => {
+        if (items.links) {
+            return items.links.some(l => l.rel === 'amend-create-serial-number');
+        }
+        return false;
+    };
+
+    const tooltipText = () =>
+        canAmendOrCreateSerialNumbers() ? '' : 'You are not authorised to complete this action';
+
     return (
         <Page>
             {errorMessage && <ErrorCard errorMessage={errorMessage} />}
@@ -66,7 +86,14 @@ function SerialNumbers({
                 value={searchTerm}
             />
 
-            <CreateButton createUrl="/products/maint/serial-numbers/create" />
+            <Tooltip title={tooltipText()} placement="top-end">
+                <span>
+                    <CreateButton
+                        disabled={!canAmendOrCreateSerialNumbers()}
+                        createUrl="/products/maint/serial-numbers/create"
+                    />
+                </span>
+            </Tooltip>
 
             {loading || sernosNoteLoading || sernosNotesLoading ? (
                 <Loading />
@@ -96,7 +123,7 @@ function SerialNumbers({
                                     <TableCell>Document Number</TableCell>
                                     <TableCell>Article Number</TableCell>
                                     <TableCell>Notes</TableCell>
-                                    <TableCell />
+                                    {canAmendOrCreateSerialNumbers() && <TableCell />}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -109,6 +136,8 @@ function SerialNumbers({
                                             item={getSernosNote(sernosNotes, item)}
                                             addSernosNote={addSernosNote}
                                             updateSernosNote={updateSernosNote}
+                                            canAmendSerialNumbers={canAmendOrCreateSerialNumbers()}
+                                            tooltipText={tooltipText()}
                                         />
                                     ))}
                             </TableBody>
