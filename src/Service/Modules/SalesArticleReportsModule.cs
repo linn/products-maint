@@ -24,7 +24,6 @@
 
         private object GetSalesArticlesByEanCode()
         {
-            this.RequiresAuthentication();
             var resource = this.Bind<EanCodesReportRequestResource>();
             var results = this.salesArticleReportService.GetEanCodeResults(
                 resource.IncludePhasedOut,
