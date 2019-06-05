@@ -76,7 +76,7 @@ namespace Linn.Products.Service.Host
             app.UseOwin(x => x.UseNancy(
                 config =>
                     {
-                        config.PassThroughWhenStatusCodesAre(HttpStatusCode.Forbidden);
+                        config.PassThroughWhenStatusCodesAre(HttpStatusCode.Unauthorized, HttpStatusCode.Forbidden);
                     }));
 
             app.Use((context, next) => context.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme));
