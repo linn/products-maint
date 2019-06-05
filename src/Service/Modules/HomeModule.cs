@@ -18,10 +18,10 @@
 
             this.Get("/products/maint/(.*)/create", _ => this.GetApp());
 
-            this.Get("/products/maint/signin-oidc-client", _ => this.GetApp());
-            this.Get("/products/maint/signin-oidc-silent", _ => this.SilentRenew());
+            //this.Get("/products/maint/signin-oidc-client", _ => this.GetApp());
+            //this.Get("/products/maint/signin-oidc-silent", _ => this.SilentRenew());
 
-            this.Get(@"^(.*)$", _ => this.GetApp());
+            //this.Get(@"^(.*)$", _ => this.GetApp());
         }
 
         private object SilentRenew()
