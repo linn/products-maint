@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {
-    // CreateButton,
+    CreateButton,
     Dropdown,
     Loading,
     SearchInputField,
@@ -23,8 +23,6 @@ import { getSernosNote } from '../selectors/sernosNotesSelectors';
 import SernosNote from './SernosNote';
 import Page from '../containers/Page';
 import { sortEntityList, sortList } from '../helpers/utilities';
-
-import CreateButton from './CreateLocal';
 
 function SerialNumbers({
     items,
