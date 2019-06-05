@@ -1,9 +1,11 @@
-﻿namespace Linn.Products.Domain
+namespace Linn.Products.Domain
 {
-    public enum AuthorisedAction
+    public class AuthorisedAction
     {
-        SerialNumberAdmin,
-        VatAdmin,
-        ProductHold
+        public const string VatAdmin = "vat.admin";
+
+        public const string TariffAdmin = "tariff.admin";
+
+        public const string ProductHold = "product.hold";
     }
 }

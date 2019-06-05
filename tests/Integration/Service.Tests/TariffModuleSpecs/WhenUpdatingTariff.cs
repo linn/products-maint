@@ -1,5 +1,7 @@
-﻿namespace Linn.Products.Service.Tests.TariffModuleSpecs
+namespace Linn.Products.Service.Tests.TariffModuleSpecs
 {
+    using System.Collections.Generic;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -22,8 +24,8 @@
         {
             this.requestResource = new TariffResource() { Description = "new description", TariffCode = "N" };
             var tariff = new Tariff { Description = "new description", TariffCode = "N", Id = 1};
-            this.TariffService.Update(1, Arg.Any<TariffResource>())
-                .Returns(new SuccessResult<Tariff>(tariff));
+            this.TariffService.Update(1, Arg.Any<TariffResource>(), Arg.Any<IEnumerable<string>>())
+                .Returns(new SuccessResult<ResponseModel<Tariff>>(new ResponseModel<Tariff>(tariff, new List<string>())));
 
             this.Response = this.Browser.Put(
                 "/products/maint/tariffs/1",
@@ -47,7 +49,8 @@
             this.TariffService.Received()
                 .Update(
                     1,
-                    Arg.Is<TariffResource>(r => r.Description == this.requestResource.Description));
+                    Arg.Is<TariffResource>(r => r.Description == this.requestResource.Description),
+                    Arg.Any<IEnumerable<string>>());
         }
 
         [Test]

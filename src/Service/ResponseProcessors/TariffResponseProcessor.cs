@@ -1,12 +1,12 @@
-﻿namespace Linn.Products.Service.ResponseProcessors
+namespace Linn.Products.Service.ResponseProcessors
 {
     using Linn.Common.Facade;
     using Linn.Common.Nancy.Facade;
     using Linn.Products.Domain.Linnapps.Products;
 
-    public class TariffResponseProcessor : JsonResponseProcessor<Tariff>
+    public class TariffResponseProcessor : JsonResponseProcessor<ResponseModel<Tariff>>
     {
-        public TariffResponseProcessor(IResourceBuilder<Tariff> resourceBuilder)
+        public TariffResponseProcessor(IResourceBuilder<ResponseModel<Tariff>> resourceBuilder)
             : base(resourceBuilder, "tariff", 1)
         {
         }

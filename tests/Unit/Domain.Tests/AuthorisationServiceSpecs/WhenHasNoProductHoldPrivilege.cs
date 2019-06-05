@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Domain.Tests.AuthorisationServiceSpecs
+namespace Linn.Products.Domain.Tests.AuthorisationServiceSpecs
 {
     using FluentAssertions;
 
@@ -10,7 +10,7 @@
         public void SetUp()
         {
             this.Privileges.Add("something.unrelated");
-            this.HasPrivilegeResult = this.Sut.CanPutProductOnOffHold(this.Privileges);
+            this.HasPrivilegeResult = this.Sut.HasPermissionFor("product.hold", this.Privileges);
         }
 
         [Test]
