@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.IoC
+namespace Linn.Products.IoC
 {
     using System.Collections.Generic;
 
@@ -20,7 +20,7 @@
         {
             // resource builders
             builder.RegisterType<ResultsModelResourceBuilder>().As<IResourceBuilder<ResultsModel>>();
-            builder.RegisterType<TariffResourceBuilder>().As<IResourceBuilder<Tariff>>();
+            builder.RegisterType<TariffResourceBuilder>().As<IResourceBuilder<ResponseModel<Tariff>>>();
             builder.RegisterType<TariffsResourceBuilder>().As<IResourceBuilder<IEnumerable<Tariff>>>();
             builder.RegisterType<CartonTypeResourceBuilder>().As<IResourceBuilder<CartonType>>();
             builder.RegisterType<SernosConfigResourceBuilder>().As<IResourceBuilder<SernosConfig>>();

@@ -27,6 +27,8 @@ namespace Linn.Products.Facade.ResourceBuilders
             };
         }
 
+        object IResourceBuilder<ResponseModel<Tariff>>.Build(ResponseModel<Tariff> r) => this.Build(r);
+
         public string GetLocation(ResponseModel<Tariff> tariff) => $"/products/maint/tariffs/{tariff.ResponseData.Id}";
 
         private IEnumerable<LinkResource> BuildLinks(ResponseModel<Tariff> tariff)
