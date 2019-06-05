@@ -75,6 +75,7 @@ function SerialNumbers({
         <Page>
             {errorMessage && <ErrorCard errorMessage={errorMessage} />}
             <Title text="Serial Numbers" />
+
             <SearchInputField
                 label="Search by Serial Number"
                 placeholder="Serial Number"
@@ -84,8 +85,8 @@ function SerialNumbers({
                 value={searchTerm}
             />
 
-            <Tooltip title={tooltipText()} placement="top-end">
-                <span>
+            <Tooltip title={tooltipText()} placement="top-end" disableFocusListener>
+                <span style={{ float: 'right' }}>
                     <CreateButton
                         disabled={!canAmendOrCreateSerialNumbers()}
                         createUrl="/products/maint/serial-numbers/create"
