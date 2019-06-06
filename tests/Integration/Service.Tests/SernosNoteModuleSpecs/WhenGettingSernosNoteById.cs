@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Service.Tests.SernosNoteModuleSpecs
 {
+    using System.Collections.Generic;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -27,8 +29,8 @@
                                      TransCode = "code"
                                  };
 
-            this.SernosNoteService.GetById(111)
-                .Returns(new SuccessResult<SernosNote>(sernosNote) { Data = sernosNote });
+            this.SernosNoteService.GetById(111, Arg.Any<IEnumerable<string>>())
+                .Returns(new SuccessResult<ResponseModel<SernosNote>>(new ResponseModel<SernosNote>(sernosNote, new List<string>())));
 
             this.Response = this.Browser.Get(
                 "/products/maint/serial-numbers/notes/111",
@@ -38,7 +40,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SernosNoteService.Received().GetById(111);
+            this.SernosNoteService.Received().GetById(111, Arg.Any<IEnumerable<string>>());
         }
 
         [Test]

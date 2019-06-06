@@ -18,7 +18,7 @@
     {
         private SerialNumberCreateResource resource;
 
-        private IResult<IEnumerable<SerialNumber>> result;
+        private IResult<ResponseModel<IEnumerable<SerialNumber>>> result;
 
         [SetUp]
         public void SetUp()
@@ -41,13 +41,13 @@
             this.SerialNumberFactory.CreateSerialNumbers("trans", "art", 555, 556, 321, 888)
                 .Throws(new DomainException("message"));
 
-            this.result = this.Sut.CreateSerialNumbers(this.resource);
+            this.result = this.Sut.CreateSerialNumbers(this.resource, new List<string>());
         }
 
         [Test]
         public void ShouldReturnBadRequest()
         {
-            this.result.Should().BeOfType<BadRequestResult<IEnumerable<SerialNumber>>>();
+            this.result.Should().BeOfType<BadRequestResult<ResponseModel<IEnumerable<SerialNumber>>>>();
         }
     }
 }
