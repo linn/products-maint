@@ -12,6 +12,6 @@
 
         public string Description { get; set; }
 
-        public IEnumerable<SalesPackageElementResource> Elements { get; set; } = new List<SalesPackageElementResource>();
+        public IEnumerable<SalesPackageElementResource> Elements { get; set; }
     }
 }
