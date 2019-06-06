@@ -34,19 +34,15 @@
 
         private object GetSernosNoteById(int id)
         {
-            this.RequiresAuthentication();
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
-
-            var result = this.sernosNoteService.GetById(id, privileges);
+            var result = this.sernosNoteService.GetById(id);
             return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
 
         private object GetSernosNotes()
         {
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
             var resource = this.Bind<SernosNoteQueryResource>();
-            var results = this.sernosNoteService.Search(resource.SernosNumber.ToString(), privileges);
+            var results = this.sernosNoteService.Search(resource.SernosNumber.ToString());
             return this.Negotiate.WithModel(results).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
@@ -54,34 +50,23 @@
         private object AddSernosNote()
         {
             this.RequiresAuthentication();
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
-
-            if (!this.authorisationService.HasPermissionFor(AuthorisedAction.SerialNumberAdmin, privileges))
-            {
-                return this.Negotiate.WithModel(new UnauthorisedResult<ResponseModel<SerialNumber>>("You are not authorised to create or edit serial numbers"));
-            }
 
             var resource = this.Bind<SernosNoteCreateResource>();
             var results = new SernosNoteCreateResourceValidator().Validate(resource);
             return results.IsValid
-                       ? this.Negotiate.WithModel(this.sernosNoteService.Add(resource, privileges))
+                       ? this.Negotiate.WithModel(this.sernosNoteService.Add(resource))
                            .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                        : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
         }
 
         private object UpdateSernosNote(int id)
         {
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
-
-            if (!this.authorisationService.HasPermissionFor(AuthorisedAction.SerialNumberAdmin, privileges))
-            {
-                return this.Negotiate.WithModel(new UnauthorisedResult<ResponseModel<SerialNumber>>("You are not authorised to create or edit serial numbers"));
-            }
+            this.RequiresAuthentication();
 
             var resource = this.Bind<SernosNoteResource>();
             var results = new SernosNoteResourceValidator().Validate(resource);
             return results.IsValid
-                       ? this.Negotiate.WithModel(this.sernosNoteService.Update(id, resource, privileges))
+                       ? this.Negotiate.WithModel(this.sernosNoteService.Update(id, resource))
                            .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index")
                        : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
         }

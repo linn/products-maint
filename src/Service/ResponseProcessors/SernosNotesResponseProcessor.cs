@@ -6,9 +6,9 @@
     using Linn.Common.Nancy.Facade;
     using Linn.Products.Domain.Linnapps;
 
-    public class SernosNotesResponseProcessor : JsonResponseProcessor<ResponseModel<IEnumerable<SernosNote>>>
+    public class SernosNotesResponseProcessor : JsonResponseProcessor<IEnumerable<SernosNote>>
     {
-        public SernosNotesResponseProcessor(IResourceBuilder<ResponseModel<IEnumerable<SernosNote>>> resourceBuilder)
+        public SernosNotesResponseProcessor(IResourceBuilder<IEnumerable<SernosNote>> resourceBuilder)
             : base(resourceBuilder, "sernos-notes", 1)
         {
         }

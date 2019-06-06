@@ -122,7 +122,7 @@ function SerialNumbers({
                                     <TableCell>Document Number</TableCell>
                                     <TableCell>Article Number</TableCell>
                                     <TableCell>Notes</TableCell>
-                                    {canAmendOrCreateSerialNumbers() && <TableCell />}
+                                    <TableCell />
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -135,8 +135,6 @@ function SerialNumbers({
                                             item={getSernosNote(sernosNotes, item)}
                                             addSernosNote={addSernosNote}
                                             updateSernosNote={updateSernosNote}
-                                            canAmendSerialNumbers={canAmendOrCreateSerialNumbers()}
-                                            tooltipText={tooltipText()}
                                         />
                                     ))}
                             </TableBody>
