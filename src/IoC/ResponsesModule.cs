@@ -1,5 +1,6 @@
 namespace Linn.Products.IoC
 {
+    using System.Collections;
     using System.Collections.Generic;
 
     using Autofac;
