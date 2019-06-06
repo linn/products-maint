@@ -7,13 +7,7 @@ import { Button, TableRow, TableCell } from '@material-ui/core';
 import { InputField, getSelfHref } from '@linn-it/linn-form-components-library';
 import moment from 'moment';
 
-function SernosNote({
-    serialNumber,
-    item,
-    updateSernosNote,
-    addSernosNote,
-    canAmendSerialNumbers
-}) {
+function SernosNote({ serialNumber, item, updateSernosNote, addSernosNote }) {
     const [editing, setEditing] = useState(false);
     const [sernosNote, setSernosNote] = useState({});
     const [prevSernosNote, setPrevSernosNote] = useState({});
@@ -95,13 +89,11 @@ function SernosNote({
             ) : (
                 <Fragment>
                     <TableCell>{sernosNote.sernosNotes}</TableCell>
-                    {canAmendSerialNumbers && (
-                        <TableCell>
-                            <Button onClick={() => setEditing(true)}>
-                                <EditIcon />
-                            </Button>
-                        </TableCell>
-                    )}
+                    <TableCell>
+                        <Button onClick={() => setEditing(true)}>
+                            <EditIcon />
+                        </Button>
+                    </TableCell>
                 </Fragment>
             )}
         </TableRow>

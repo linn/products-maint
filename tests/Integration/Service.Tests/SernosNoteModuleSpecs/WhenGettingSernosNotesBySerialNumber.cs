@@ -39,11 +39,8 @@
                                       TransCode = "code"
                                   };
 
-            this.SernosNoteService.Search("222", Arg.Any<IEnumerable<string>>()).Returns(
-                new SuccessResult<ResponseModel<IEnumerable<SernosNote>>>(
-                    new ResponseModel<IEnumerable<SernosNote>>(
-                        new List<SernosNote> { sernosNote1, sernosNote2 }, 
-                        new List<string>())));
+            this.SernosNoteService.Search("222").Returns(
+                new SuccessResult<IEnumerable<SernosNote>>(new List<SernosNote> { sernosNote1, sernosNote2 }));
 
             this.Response = this.Browser.Get(
                 "/products/maint/serial-numbers/notes",
@@ -57,7 +54,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SernosNoteService.Received().Search("222", Arg.Any<IEnumerable<string>>());
+            this.SernosNoteService.Received().Search("222");
         }
 
         [Test]
@@ -69,7 +66,7 @@
         [Test]
         public void ShouldReturnResource()
         {
-            var resources = this.Response.Body.DeserializeJson<ResponseResource<IEnumerable<SernosNoteResource>>>().ResponseData.ToList();
+            var resources = this.Response.Body.DeserializeJson<IEnumerable<SernosNoteResource>>().ToList();
             resources.Should().HaveCount(2);
             resources.Should().Contain(s => s.SernosNoteId == 111);
             resources.Should().Contain(s => s.SernosNoteId == 11123);

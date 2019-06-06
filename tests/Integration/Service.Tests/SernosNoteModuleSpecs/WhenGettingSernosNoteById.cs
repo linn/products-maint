@@ -29,8 +29,8 @@
                                      TransCode = "code"
                                  };
 
-            this.SernosNoteService.GetById(111, Arg.Any<IEnumerable<string>>())
-                .Returns(new SuccessResult<ResponseModel<SernosNote>>(new ResponseModel<SernosNote>(sernosNote, new List<string>())));
+            this.SernosNoteService.GetById(111)
+                .Returns(new SuccessResult<SernosNote>(sernosNote) { Data = sernosNote });
 
             this.Response = this.Browser.Get(
                 "/products/maint/serial-numbers/notes/111",
@@ -40,7 +40,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SernosNoteService.Received().GetById(111, Arg.Any<IEnumerable<string>>());
+            this.SernosNoteService.Received().GetById(111);
         }
 
         [Test]

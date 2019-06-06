@@ -29,17 +29,14 @@
         {
             this.SernosNoteService = Substitute.For<IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource>>();
             this.AuthorisationService = Substitute.For<IAuthorisationService>();
-            this.AuthorisationService.HasPermissionFor(
-                AuthorisedAction.SerialNumberAdmin,
-                Arg.Any<IEnumerable<string>>()).Returns(true);
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
                     {
                         with.Dependency(this.SernosNoteService);
                         with.Dependency(this.AuthorisationService);
-                        with.Dependency<IResourceBuilder<ResponseModel<SernosNote>>>(new SernosNoteResourceBuilder());
-                        with.Dependency<IResourceBuilder<ResponseModel<IEnumerable<SernosNote>>>>(new SernosNotesResourceBuilder());
+                        with.Dependency<IResourceBuilder<SernosNote>>(new SernosNoteResourceBuilder());
+                        with.Dependency<IResourceBuilder<IEnumerable<SernosNote>>>(new SernosNotesResourceBuilder());
                         with.Module<SernosNoteModule>();
                         with.ResponseProcessor<SernosNoteResponseProcessor>();
                         with.ResponseProcessor<SernosNotesResponseProcessor>();
