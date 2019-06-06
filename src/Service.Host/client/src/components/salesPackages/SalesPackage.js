@@ -2,6 +2,8 @@ import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Button, Table, TableBody, TableHead, TableRow, TableCell } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 import {
     SaveBackCancelButtons,
     InputField,
@@ -27,15 +29,11 @@ function SalesPackage({
 }) {
     const [salesPackage, setSalesPackage] = useState({});
     const [prevSalesPackage, setPrevSalesPackage] = useState({});
-    const [showAddRow, setShowAddRow] = useState(false);
-    const [newElement, setNewElement] = useState({});
+    const [newElements, setNewElements] = useState([]);
 
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
-    const cursor = {
-        cursor: 'pointer'
-    };
     useEffect(() => {
         if (!creating() && item !== prevSalesPackage) {
             setSalesPackage(item);
@@ -43,32 +41,49 @@ function SalesPackage({
         }
     });
 
-    const showFieldsToAddElement = () => {
-        setShowAddRow(true);
+    const emptySalesPackage = {
+        type: '',
+        sequence: '',
+        quantity: ''
     };
 
-    const inputInvalid = () => !salesPackage.salesPackageId;
+    //TODO - INPUT VALIDITY CHECK, type is required
+    const showFieldsToAddElement = () => {
+        setEditStatus('edit');
+        setNewElements([...newElements, emptySalesPackage]);
+    };
+
+    const removeNewElement = index => {
+        const copy = [...newElements];
+        copy.splice(index, 1);
+        setNewElements(copy);
+    };
 
     const handleSaveClick = () => {
         if (editing()) {
-            if (newElement.elementType) {
-                const { elements } = salesPackage;
-                elements.push(newElement);
-                setSalesPackage({ ...salesPackage, elements });
-            }
+            const { elements } = salesPackage;
+            salesPackage.elements = [...elements, ...newElements];
+            //checkErrorValidation();
             update(itemId, salesPackage);
+            setNewElements([]);
             setEditStatus('view');
-            setNewElement({});
-            setShowAddRow(false);
         } else if (creating()) {
+            newElements.forEach(newElement => {
+                const elementToCheck = newElement;
+                if (!elementToCheck.type) {
+                    elementToCheck.type = salesPackage.type;
+                }
+            });
+
+            salesPackage.elements = newElements;
+            //checkErrorValidation();
             add(salesPackage);
         }
     };
 
     const handleCancelClick = () => {
         setSalesPackage(item);
-        setNewElement({});
-        setShowAddRow(false);
+        setNewElements([]);
         setEditStatus('view');
     };
 
@@ -77,13 +92,25 @@ function SalesPackage({
     };
 
     const handleFieldChange = (propertyName, newValue) => {
-        setEditStatus('edit');
+        if (editStatus === 'view') {
+            setEditStatus('edit');
+        }
+
         setSalesPackage({ ...salesPackage, [propertyName]: newValue });
     };
 
     const handleNewElement = (propertyName, newValue) => {
-        setEditStatus('edit');
-        setNewElement({ ...newElement, [propertyName]: newValue });
+        if (viewing()) {
+            setEditStatus('edit');
+        }
+
+        const splitIndex = propertyName.indexOf(',');
+        const index = propertyName.slice(0, splitIndex);
+        const prop = propertyName.slice(splitIndex + 1);
+        const newElement = newElements[index];
+        newElement[prop] = newValue;
+
+        setNewElements([...newElements]);
     };
 
     const handleElementChange = (propertyName, newValue) => {
@@ -92,9 +119,12 @@ function SalesPackage({
         const index = propertyName.slice(0, splitIndex);
         const prop = propertyName.slice(splitIndex + 1);
         const { elements } = salesPackage;
+
         elements[index][prop] = newValue;
         setSalesPackage({ ...salesPackage, elements });
     };
+
+    const inputInvalid = () => newElements.some(e => !e.elementType);
 
     return (
         <Page>
@@ -106,17 +136,17 @@ function SalesPackage({
                         <Title text="Sales Package Details" />
                     )}
                 </Grid>
-                {errorMessage && (
-                    <Grid item xs={12}>
-                        <ErrorCard errorMessage={errorMessage} />
-                    </Grid>
-                )}
                 {loading || (!salesPackage && !creating()) ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>
                 ) : (
                     <Fragment>
+                        {errorMessage && (
+                            <Grid item xs={12}>
+                                <ErrorCard errorMessage={errorMessage} />
+                            </Grid>
+                        )}
                         <SnackbarMessage
                             visible={snackbarVisible}
                             onClose={() => setSnackbarVisible(false)}
@@ -152,88 +182,104 @@ function SalesPackage({
                             />
                         </Grid>
                         <Grid item xs={4} />
-                        {!creating() && (
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Type</TableCell>
-                                        <TableCell>Sequence</TableCell>
-                                        <TableCell>Quantity</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {salesPackage.elements &&
-                                        salesPackage.elements.map((row, index) => (
-                                            <TableRow style={cursor} key={row.elementType}>
-                                                <TableCell>
-                                                    <InputField
-                                                        disabled
-                                                        value={row.elementType}
-                                                        label="Type"
-                                                        propertyName="type"
-                                                        maxLength={10}
-                                                    />
-                                                </TableCell>
-                                                <TableCell>
-                                                    <InputField
-                                                        value={row.sequence}
-                                                        label="Sequence"
-                                                        onChange={handleElementChange}
-                                                        propertyName={`${index},sequence`}
-                                                    />
-                                                </TableCell>
-                                                <TableCell>
-                                                    <InputField
-                                                        value={row.quantity}
-                                                        label="Quantity"
-                                                        onChange={handleElementChange}
-                                                        propertyName={`${index},quantity`}
-                                                    />
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    {!showAddRow ? (
-                                        <TableRow>
+
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Type</TableCell>
+                                    <TableCell>Sequence</TableCell>
+                                    <TableCell>Quantity</TableCell>
+                                    <TableCell />
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {salesPackage.elements &&
+                                    salesPackage.elements.map((row, index) => (
+                                        // eslint-disable-next-line react/no-array-index-key
+                                        <TableRow key={index}>
                                             <TableCell>
-                                                <Button onClick={showFieldsToAddElement}>
-                                                    <AddIcon />
+                                                <InputField
+                                                    disabled
+                                                    value={row.elementType}
+                                                    label="Type"
+                                                    propertyName="type"
+                                                    maxLength={10}
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <InputField
+                                                    value={row.sequence}
+                                                    label="Sequence"
+                                                    type="number"
+                                                    onChange={handleElementChange}
+                                                    propertyName={`${index},sequence`}
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <InputField
+                                                    value={row.quantity}
+                                                    label="Quantity"
+                                                    type="number"
+                                                    onChange={handleElementChange}
+                                                    propertyName={`${index},quantity`}
+                                                />
+                                            </TableCell>
+                                            <TableCell />
+                                        </TableRow>
+                                    ))}
+                                {newElements &&
+                                    newElements.map((element, index) => (
+                                        // eslint-disable-next-line react/no-array-index-key
+                                        <TableRow key={index}>
+                                            <TableCell>
+                                                <InputField
+                                                    value={element.elementType}
+                                                    label="Type"
+                                                    onChange={handleNewElement}
+                                                    propertyName={`${index},elementType`}
+                                                    maxLength={10}
+                                                    error={!element.elementType}
+                                                    helperText={
+                                                        element.elementType
+                                                            ? ''
+                                                            : 'Field Cannot Be Empty'
+                                                    }
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <InputField
+                                                    value={element.sequence}
+                                                    label="Sequence"
+                                                    type="number"
+                                                    onChange={handleNewElement}
+                                                    propertyName={`${index},sequence`}
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <InputField
+                                                    value={element.quantity}
+                                                    label="Quantity"
+                                                    type="number"
+                                                    onChange={handleNewElement}
+                                                    propertyName={`${index},quantity`}
+                                                />
+                                            </TableCell>
+                                            <TableCell>
+                                                <Button onClick={() => removeNewElement(index)}>
+                                                    <DeleteIcon />
                                                 </Button>
                                             </TableCell>
                                         </TableRow>
-                                    ) : (
-                                        <TableRow style={cursor}>
-                                            <TableCell>
-                                                <InputField
-                                                    value={newElement.elementType}
-                                                    label="Type"
-                                                    onChange={handleNewElement}
-                                                    propertyName="elementType"
-                                                    maxLength={10}
-                                                    error={!newElement.elementType}
-                                                />
-                                            </TableCell>
-                                            <TableCell>
-                                                <InputField
-                                                    value={newElement.sequence}
-                                                    label="Sequence"
-                                                    onChange={handleNewElement}
-                                                    propertyName="sequence"
-                                                />
-                                            </TableCell>
-                                            <TableCell>
-                                                <InputField
-                                                    value={newElement.quantity}
-                                                    label="Quantity"
-                                                    onChange={handleNewElement}
-                                                    propertyName="quantity"
-                                                />
-                                            </TableCell>
-                                        </TableRow>
-                                    )}
-                                </TableBody>
-                            </Table>
-                        )}
-
+                                    ))}
+                                <TableRow key="addButton">
+                                    <TableCell>
+                                        <Button onClick={showFieldsToAddElement}>
+                                            <AddIcon />
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
                         <Grid item xs={12}>
                             <SaveBackCancelButtons
                                 saveDisabled={viewing() || inputInvalid()}
