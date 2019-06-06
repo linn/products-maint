@@ -11,6 +11,13 @@ import Page from '../../containers/Page';
 import { sortEntityList } from '../../helpers/utilities';
 
 function VatCodes({ vatCodes, loading, errorMessage }) {
+    const hasPermission = () => {
+        if (vatCodes[0]) {
+            return vatCodes[0].links.some(l => l.rel === 'vat.admin');
+        }
+        return false;
+    };
+
     return (
         <Page>
             <Grid container spacing={24}>
@@ -25,7 +32,10 @@ function VatCodes({ vatCodes, loading, errorMessage }) {
                     </Grid>
                 ) : (
                     <Grid item xs={12}>
-                        <CreateButton createUrl="/products/maint/vat-codes/create" />
+                        <CreateButton
+                            disabled={!hasPermission()}
+                            createUrl="/products/maint/vat-codes/create"
+                        />
                         <EntityList
                             title="Vat Codes"
                             entityList={sortEntityList(vatCodes, 'code')}

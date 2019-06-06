@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Facade.ResourceBuilders
+namespace Linn.Products.Facade.ResourceBuilders
 {
     using System;
     using System.Collections.Generic;
@@ -18,14 +18,13 @@
 
         public ResponseResource<IEnumerable<VatCodeResource>> Build(ResponseModel<IEnumerable<VatCode>> vatCodesModel)
         {
-            var response = new ResponseResource<IEnumerable<VatCodeResource>>
+            return new ResponseResource<IEnumerable<VatCodeResource>>
                                {
                                    ResponseData = vatCodesModel.ResponseData.Select(
                                        a => this.vatCodeResourceBuilder.Build(
                                            new ResponseModel<VatCode>(a, vatCodesModel.Privileges))),
                                    Links = this.BuildLinks(vatCodesModel).ToArray()
                                };
-            return response;
         }
 
         public string GetLocation(ResponseModel<IEnumerable<VatCode>> vatCodes)

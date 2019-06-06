@@ -32,7 +32,8 @@ namespace Linn.Products.Facade.ResourceBuilders
             return $"/products/maint/vat-codes/{vatCode.ResponseData.Code}";
         }
 
-        object IResourceBuilder<ResponseModel<VatCode>>.Build(ResponseModel<VatCode> vatCodeModel) => this.Build(vatCodeModel);
+        object IResourceBuilder<ResponseModel<VatCode>>.Build(ResponseModel<VatCode> vatCodeModel) =>
+            this.Build(vatCodeModel);
 
         private IEnumerable<LinkResource> BuildLinks(ResponseModel<VatCode> vatCodeModel)
         {
