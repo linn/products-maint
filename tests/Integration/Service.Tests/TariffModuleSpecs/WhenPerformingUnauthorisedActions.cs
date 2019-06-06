@@ -43,7 +43,7 @@ namespace Linn.Products.Service.Tests.TariffModuleSpecs
         [Test]
         public void ShouldHaveStatusCodeUnauthorised()
         {
-            Assert.AreEqual(HttpStatusCode.Unauthorized, this.Response.StatusCode);
+            Assert.AreEqual(HttpStatusCode.BadRequest, this.Response.StatusCode);
         }
     }
 }
