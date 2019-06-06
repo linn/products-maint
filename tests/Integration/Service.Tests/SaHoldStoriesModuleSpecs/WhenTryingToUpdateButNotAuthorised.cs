@@ -47,7 +47,7 @@
         [Test]
         public void ShouldReturnOk()
         {
-            this.Response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+            this.Response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
 
         [Test]
