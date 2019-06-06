@@ -47,7 +47,6 @@ function SalesPackage({
         quantity: ''
     };
 
-    //TODO - INPUT VALIDITY CHECK, type is required
     const showFieldsToAddElement = () => {
         setEditStatus('edit');
         setNewElements([...newElements, emptySalesPackage]);
@@ -63,7 +62,6 @@ function SalesPackage({
         if (editing()) {
             const { elements } = salesPackage;
             salesPackage.elements = [...elements, ...newElements];
-            //checkErrorValidation();
             update(itemId, salesPackage);
             setNewElements([]);
             setEditStatus('view');
@@ -76,7 +74,6 @@ function SalesPackage({
             });
 
             salesPackage.elements = newElements;
-            //checkErrorValidation();
             add(salesPackage);
         }
     };
