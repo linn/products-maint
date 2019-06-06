@@ -4,9 +4,9 @@
     using Linn.Common.Nancy.Facade;
     using Linn.Products.Domain.Linnapps;
 
-    public class SerialNumberResponseProcessor : JsonResponseProcessor<SerialNumber>
+    public class SerialNumberResponseProcessor : JsonResponseProcessor<ResponseModel<SerialNumber>>
     {
-        public SerialNumberResponseProcessor(IResourceBuilder<SerialNumber> resourceBuilder)
+        public SerialNumberResponseProcessor(IResourceBuilder<ResponseModel<SerialNumber>> resourceBuilder)
             : base(resourceBuilder, "serial-number", 1)
         {
         }

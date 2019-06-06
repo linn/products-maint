@@ -9,43 +9,43 @@
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
 
-    public class SerialNumberResourceBuilder : IResourceBuilder<SerialNumber>
+    public class SerialNumberResourceBuilder : IResourceBuilder<ResponseModel<SerialNumber>>
     {
-        public SerialNumberResource Build(SerialNumber serialNumber)
+        public SerialNumberResource Build(ResponseModel<SerialNumber> serialNumberModel)
         {
             return new SerialNumberResource
                        {
-                           ArticleNumber = serialNumber.ArticleNumber,
-                           DocumentNumber = serialNumber.DocumentNumber,
-                           DocumentType = serialNumber.DocumentType,
-                           PrevSernosNumber = serialNumber.PrevSernosNumber,
-                           SernosDate = serialNumber.SernosDate?.ToString("o"),
-                           SernosGroup = serialNumber.SernosGroup,
-                           SernosNumber = serialNumber.SernosNumber,
-                           SernosTRef = serialNumber.SernosTRef,
-                           TransCode = serialNumber.TransCode,
-                           Links = this.BuildLinks(serialNumber).ToArray()
+                           ArticleNumber = serialNumberModel.ResponseData.ArticleNumber,
+                           DocumentNumber = serialNumberModel.ResponseData.DocumentNumber,
+                           DocumentType = serialNumberModel.ResponseData.DocumentType,
+                           PrevSernosNumber = serialNumberModel.ResponseData.PrevSernosNumber,
+                           SernosDate = serialNumberModel.ResponseData.SernosDate?.ToString("o"),
+                           SernosGroup = serialNumberModel.ResponseData.SernosGroup,
+                           SernosNumber = serialNumberModel.ResponseData.SernosNumber,
+                           SernosTRef = serialNumberModel.ResponseData.SernosTRef,
+                           TransCode = serialNumberModel.ResponseData.TransCode,
+                           Links = this.BuildLinks(serialNumberModel).ToArray()
                        };
         }
 
-        public string GetLocation(SerialNumber serialNumber)
+        public string GetLocation(ResponseModel<SerialNumber> serialNumberModel)
         {
-            return $"/products/maint/serial-numbers/{serialNumber.SernosTRef}";
+            return $"/products/maint/serial-numbers/{serialNumberModel.ResponseData.SernosTRef}";
         }
 
-        object IResourceBuilder<SerialNumber>.Build(SerialNumber serialNumber) => this.Build(serialNumber);
+        object IResourceBuilder<ResponseModel<SerialNumber>>.Build(ResponseModel<SerialNumber> serialNumberModel) => this.Build(serialNumberModel);
 
-        private IEnumerable<LinkResource> BuildLinks(SerialNumber serialNumber)
+        private IEnumerable<LinkResource> BuildLinks(ResponseModel<SerialNumber> serialNumberModel)
         {
-            yield return new LinkResource { Rel = "self", Href = this.GetLocation(serialNumber) };
+            yield return new LinkResource { Rel = "self", Href = this.GetLocation(serialNumberModel) };
 
             yield return new LinkResource
                              {
                                  Rel = "sales-article",
-                                 Href = $"/products/maint/sales-articles/{Uri.EscapeDataString(serialNumber.ArticleNumber)}"
+                                 Href = $"/products/maint/sales-articles/{Uri.EscapeDataString(serialNumberModel.ResponseData.ArticleNumber)}"
                              };
 
-            yield return new LinkResource { Rel = "entered-by", Href = $"/employees/{serialNumber.CreatedBy}" };
+            yield return new LinkResource { Rel = "entered-by", Href = $"/employees/{serialNumberModel.ResponseData.CreatedBy}" };
         }
     }
 }

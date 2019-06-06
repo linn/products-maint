@@ -1,7 +1,6 @@
 ﻿namespace Linn.Products.Service.Tests.SerialNumberModuleSpecs
 {
     using System.Collections.Generic;
-    using System.Linq;
 
     using FluentAssertions;
 
@@ -35,12 +34,16 @@
                                    ToSernosNumber = 2
                                };
 
-            this.SerialNumberService.CreateSerialNumbers(Arg.Any<SerialNumberCreateResource>())
-                .Returns(new CreatedResult<IEnumerable<SerialNumber>>(new List<SerialNumber>
-                                                                          {
-                                                                              new SerialNumber("group", "trans", "art", 800) { SernosNumber = 1 },
-                                                                              new SerialNumber("group", "trans", "art", 800) { SernosNumber = 2 }
-                                                                          }.AsEnumerable()));
+            this.SerialNumberService
+                .CreateSerialNumbers(Arg.Any<SerialNumberCreateResource>(), Arg.Any<IEnumerable<string>>())
+                .Returns(new CreatedResult<ResponseModel<IEnumerable<SerialNumber>>>(
+                    new ResponseModel<IEnumerable<SerialNumber>>(
+                        new List<SerialNumber>
+                            {
+                                new SerialNumber("group", "trans", "art", 800) { SernosNumber = 1 },
+                                new SerialNumber("group", "trans", "art", 800) { SernosNumber = 2 }
+                            }, 
+                        new List<string>())));
 
             this.Response = this.Browser.Post(
                 "/products/maint/serial-numbers",
@@ -55,8 +58,7 @@
         [Test]
         public void ShouldCallService()
         {
-
-            this.SerialNumberService.Received().CreateSerialNumbers(Arg.Any<SerialNumberCreateResource>());
+            this.SerialNumberService.Received().CreateSerialNumbers(Arg.Any<SerialNumberCreateResource>(), Arg.Any<IEnumerable<string>>());
         }
 
 

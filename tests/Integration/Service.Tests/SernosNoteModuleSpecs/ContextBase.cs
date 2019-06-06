@@ -4,6 +4,7 @@
     using System.Security.Claims;
 
     using Linn.Common.Facade;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Facade.ResourceBuilders;
     using Linn.Products.Facade.Services;
@@ -21,17 +22,24 @@
     {
         protected IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource> SernosNoteService { get; private set; }
 
+        protected IAuthorisationService AuthorisationService { get; private set; }
+
         [SetUp]
         public void EstablishContext()
         {
             this.SernosNoteService = Substitute.For<IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource>>();
+            this.AuthorisationService = Substitute.For<IAuthorisationService>();
+            this.AuthorisationService.HasPermissionFor(
+                AuthorisedAction.SerialNumberAdmin,
+                Arg.Any<IEnumerable<string>>()).Returns(true);
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
                     {
                         with.Dependency(this.SernosNoteService);
-                        with.Dependency<IResourceBuilder<SernosNote>>(new SernosNoteResourceBuilder());
-                        with.Dependency<IResourceBuilder<IEnumerable<SernosNote>>>(new SernosNotesResourceBuilder());
+                        with.Dependency(this.AuthorisationService);
+                        with.Dependency<IResourceBuilder<ResponseModel<SernosNote>>>(new SernosNoteResourceBuilder());
+                        with.Dependency<IResourceBuilder<ResponseModel<IEnumerable<SernosNote>>>>(new SernosNotesResourceBuilder());
                         with.Module<SernosNoteModule>();
                         with.ResponseProcessor<SernosNoteResponseProcessor>();
                         with.ResponseProcessor<SernosNotesResponseProcessor>();
