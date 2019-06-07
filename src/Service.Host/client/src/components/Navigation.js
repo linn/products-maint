@@ -11,12 +11,13 @@ import {
     Toolbar,
     Grid,
     Typography,
-    Badge
+    Badge,
+    Button
 } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Notifications from '@material-ui/icons/Notifications';
 import Panel from './Panel';
-import News from './News';
 import config from '../config';
 
 const styles = theme => ({
@@ -28,6 +29,13 @@ const styles = theme => ({
     },
     tabLabel: {
         fontSize: '12px'
+    },
+    snackbarNew: {
+        background: theme.palette.primary.dark,
+        width: '800px'
+    },
+    snackbarSeen: {
+        width: '800px'
     },
     panel: {
         position: 'relative'
@@ -53,9 +61,21 @@ const styles = theme => ({
 });
 
 function Navigation({ classes, sections, loading, username, myStuff, notifications }) {
+    const areUnseenNotifications = () =>
+        notifications &&
+        notifications.some(e => {
+            if (!localStorage.getItem(e.title)) {
+                return true;
+            }
+            return false;
+        });
+
     const [selected, setSelected] = useState(false);
-    const [notificationsShown, setNotificationsShown] = useState(false); 
     const [anchorEl, setAnchorEl] = useState();
+    const isUnseen = notification => !localStorage.getItem(notification.title);
+    const [showNotificationDot, setShowNotificationDot] = useState(areUnseenNotifications());
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
     if (sections) {
         const menuIds = sections.map(item => item.id);
 
@@ -68,8 +88,66 @@ function Navigation({ classes, sections, loading, username, myStuff, notificatio
         const handleSignOut = () => {
             window.location.assign(`${config.authorityUri}account/logout`);
         };
-        const toggleNotifications = () => {
-            setNotificationsShown(!notificationsShown);
+
+        const handleDismiss = (key, e) => (
+            <Fragment>
+                <Button
+                    onClick={() => {
+                        closeSnackbar(key);
+                        // add this item to local storage on dismissal to rememeber the user has seen this notification
+                        localStorage.setItem(e.title, e.content);
+                        setShowNotificationDot(areUnseenNotifications());
+                    }}
+                >
+                    {isUnseen(e) ? 'Acknowledge' : 'Dismiss'}
+                </Button>
+            </Fragment>
+        );
+
+        const queueNotifications = () => {
+            if (!notifications || notifications.length === 0) {
+                enqueueSnackbar('No notifications to show!', {
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right'
+                    },
+                    variant: 'info',
+                    preventDuplicate: true
+                });
+            } // stagger the queuing for effect
+            else {
+                notifications
+                    // queue unseen notifications first
+                    .sort((a, b) => {
+                        if (isUnseen(a) && !isUnseen(b)) {
+                            return 1;
+                        }
+                        if (!isUnseen(a) && isUnseen(b)) {
+                            return -1;
+                        }
+                        return 0;
+                    })
+                    .forEach((e, i) => {
+                        setTimeout(() => {
+                            enqueueSnackbar(`${e.title} ${e.content}`, {
+                                anchorOrigin: {
+                                    vertical: 'bottom',
+                                    horizontal: 'right'
+                                },
+                                ContentProps: {
+                                    classes: {
+                                        // unseen notifications are blue, seen notifications are gray
+                                        root: localStorage.getItem(e.title)
+                                            ? classes.snackbarSeen
+                                            : classes.snackbarNew
+                                    }
+                                },
+                                action: key => handleDismiss(key, e),
+                                preventDuplicate: true
+                            });
+                        }, i * 200); // stagger the queuing for effect
+                    });
+            }
         };
 
         return (
@@ -132,10 +210,11 @@ function Navigation({ classes, sections, loading, username, myStuff, notificatio
                                         <Grid item xs={1}>
                                             <Typography variant="h4">
                                                 <Badge
-                                                    badgeContent={notifications.length} // TODO - use cookies
+                                                    badgeContent={showNotificationDot}
                                                     color="primary"
+                                                    variant="dot"
                                                 >
-                                                    <Notifications onClick={toggleNotifications} label="yass"/>
+                                                    <Notifications onClick={queueNotifications} />
                                                 </Badge>
                                             </Typography>
                                         </Grid>
@@ -159,11 +238,6 @@ function Navigation({ classes, sections, loading, username, myStuff, notificatio
                                     </Fragment>
                                 </Grid>
                             </Toolbar>
-                            <News
-                                notifications={notifications}
-                                open={notificationsShown}
-                                onClose={toggleNotifications}
-                            />
                         </AppBar>
                     )}
                     {menuIds.map(
@@ -198,12 +272,14 @@ Navigation.propTypes = {
     history: PropTypes.shape({}).isRequired,
     loading: PropTypes.bool,
     username: PropTypes.string,
-    myStuff: PropTypes.shape({})
+    myStuff: PropTypes.shape({}),
+    notifications: PropTypes.shape({})
 };
 
 Navigation.defaultProps = {
     sections: null,
     myStuff: null,
+    notifications: null,
     loading: false,
     username: ''
 };
