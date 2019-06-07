@@ -91,11 +91,8 @@ const rootReducer = combineReducers({
     rootProduct,
     rootProducts,
     sernosUsedOnInvoiceReport,
-<<<<<<< HEAD
-    news
-=======
+    news,
     serialNumberTransCounts
->>>>>>> master
 });
 
 export default rootReducer;
