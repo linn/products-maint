@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import { Tooltip } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { Typeahead, CreateButton, ErrorCard } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
@@ -39,10 +40,20 @@ const Tariffs = ({ items, fetchItems, loading, clearSearch, errorMessage }) => {
                     />
                 </Grid>
                 <Grid item xs={2}>
-                    <CreateButton
-                        disabled={!hasPermission()}
-                        createUrl="/products/maint/tariffs/create"
-                    />
+                    <Tooltip
+                        title={
+                            hasPermission() ? '' : 'You are not authorised to perform this action'
+                        }
+                        placement="top-end"
+                        disableFocusListener
+                    >
+                        <span style={{ float: 'right' }}>
+                            <CreateButton
+                                disabled={!hasPermission()}
+                                createUrl="/products/maint/tariffs/create"
+                            />
+                        </span>
+                    </Tooltip>
                 </Grid>
             </Grid>
         </Page>
