@@ -13,18 +13,18 @@ namespace Linn.Products.Facade.ResourceBuilders
     {
         private readonly IAuthorisationService authorisationService = new AuthorisationService();
 
-        public object Build(ResponseModel<Tariff> tariff)
+        public TariffResource Build(ResponseModel<Tariff> tariff)
         {
             return new TariffResource
-            {
-                TariffCode = tariff.ResponseData.TariffCode,
-                Description = tariff.ResponseData.Description,
-                USTariffCode = tariff.ResponseData.USTariffCode,
-                Id = tariff.ResponseData.Id,
-                Duty = tariff.ResponseData.Duty,
-                DateInvalid = tariff.ResponseData.DateInvalid?.ToString("o"),
-                Links = this.BuildLinks(tariff).ToArray()
-            };
+                       {
+                           TariffCode = tariff.ResponseData.TariffCode,
+                           Description = tariff.ResponseData.Description,
+                           USTariffCode = tariff.ResponseData.USTariffCode,
+                           Id = tariff.ResponseData.Id,
+                           Duty = tariff.ResponseData.Duty,
+                           DateInvalid = tariff.ResponseData.DateInvalid?.ToString("o"),
+                           Links = this.BuildLinks(tariff).ToArray()
+                       };
         }
 
         object IResourceBuilder<ResponseModel<Tariff>>.Build(ResponseModel<Tariff> r) => this.Build(r);

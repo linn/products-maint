@@ -31,7 +31,8 @@ describe('<VatCodes />', () => {
                     {
                         code: 'A',
                         description: 'STD UK VAT RATE.',
-                        rate: 20
+                        rate: 20,
+                        links: []
                     },
                     {
                         code: 'B',
