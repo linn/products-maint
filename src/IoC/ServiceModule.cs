@@ -7,6 +7,7 @@
     using Linn.Common.Configuration;
     using Linn.Common.Facade;
     using Linn.Common.Proxy;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
@@ -22,6 +23,8 @@
 
     using Oracle.ManagedDataAccess.Client;
 
+    using ProductRange = Linn.Products.Domain.Linnapps.Products.ProductRange;
+
     public class ServiceModule : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -36,6 +39,7 @@
             builder.RegisterType<SalesArticleReports>().As<ISalesArticleReports>();
             builder.RegisterType<ProductsOnHoldService>().As<IProductsOnHoldService>();
             builder.RegisterType<SerialNumberFactory>().As<ISerialNumberFactory>();
+            builder.RegisterType<AuthorisationService>().As<IAuthorisationService>();
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();

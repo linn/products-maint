@@ -21,7 +21,6 @@
             throw new System.NotImplementedException();
         }
 
-        object IResourceBuilder<IEnumerable<SernosNote>>.Build(IEnumerable<SernosNote> sernosNotes) =>
-            this.Build(sernosNotes);
+        object IResourceBuilder<IEnumerable<SernosNote>>.Build(IEnumerable<SernosNote> sernosNotes) => this.Build(sernosNotes);
     }
 }

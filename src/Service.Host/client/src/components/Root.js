@@ -78,8 +78,8 @@ const Root = ({ store }) => (
 
                             <Route
                                 exact
-                                path="/products/maint/signin-oidc-client"
-                                component={Callback}
+                                path="/"
+                                render={() => <Redirect to="/products/maint" />}
                             />
 
                             <Route
@@ -90,14 +90,14 @@ const Root = ({ store }) => (
                                 }}
                             />
 
-                            <Route
-                                exact
-                                path="/"
-                                render={() => <Redirect to="/products/maint" />}
-                            />
-
                             <Switch>
                                 <Route exact path="/products/maint" component={App} />
+
+                                <Route
+                                    exact
+                                    path="/products/maint/signin-oidc-client"
+                                    component={Callback}
+                                />
 
                                 <Route
                                     exact

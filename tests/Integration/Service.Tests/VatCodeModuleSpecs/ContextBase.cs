@@ -1,9 +1,10 @@
-﻿namespace Linn.Products.Service.Tests.VatCodesModuleSpecs
+﻿namespace Linn.Products.Service.Tests.VatCodeModuleSpecs
 {
     using System.Collections.Generic;
     using System.Security.Claims;
 
     using Linn.Common.Facade;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Facade.ResourceBuilders;
     using Linn.Products.Resources;
@@ -21,17 +22,22 @@
     {
         protected IFacadeService<VatCode, string, VatCodeResource, VatCodeResource> VatCodeService { get; private set; }
 
+        protected IAuthorisationService AuthorisationService { get; private set; }
+
         [SetUp]
         public void EstablishContext()
         {
             this.VatCodeService = Substitute.For<IFacadeService<VatCode, string, VatCodeResource, VatCodeResource>>();
-
+            this.AuthorisationService = Substitute.For<IAuthorisationService>();
+            this.AuthorisationService.HasPermissionFor(AuthorisedAction.VatAdmin, Arg.Any<IEnumerable<string>>())
+                .Returns(true);
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
                 {
                     with.Dependency(this.VatCodeService);
-                    with.Dependency<IResourceBuilder<VatCode>>(new VatCodeResourceBuilder());
-                    with.Dependency<IResourceBuilder<IEnumerable<VatCode>>>(new VatCodesResourceBuilder());
+                    with.Dependency<IResourceBuilder<ResponseModel<VatCode>>>(new VatCodeResourceBuilder());
+                    with.Dependency(this.AuthorisationService);
+                    with.Dependency<IResourceBuilder<ResponseModel<IEnumerable<VatCode>>>>(new VatCodesResourceBuilder());
                     with.Module<VatCodeModule>();
                     with.ResponseProcessor<VatCodeResponseProcessor>();
                     with.ResponseProcessor<VatCodesResponseProcessor>();

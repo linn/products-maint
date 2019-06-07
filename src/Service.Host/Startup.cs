@@ -70,9 +70,8 @@ namespace Linn.Products.Service.Host
                                             ForwardedHeaders = ForwardedHeaders.XForwardedProto
                                         });
 
-            app.UseAuthentication();
-
             app.UseBearerTokenAuthentication();
+            app.UseAuthentication();
 
             app.UseOwin(x => x.UseNancy(
                 config =>

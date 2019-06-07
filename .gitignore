@@ -70,3 +70,5 @@ src/Service.Host/client/build/
 config.env
 config-test.env
 local-update.sh
+
+src/Service\.Host/package-lock\.json

@@ -1,21 +1,31 @@
 ﻿namespace Linn.Products.Service.Modules
 {
+    using System.Linq;
+
     using Linn.Common.Facade;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
     using Linn.Products.Resources.Validators;
+    using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
 
     using Nancy;
     using Nancy.ModelBinding;
+    using Nancy.Security;
 
     public sealed class SernosNoteModule : NancyModule
     {
         private readonly IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource> sernosNoteService;
 
-        public SernosNoteModule(IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource> sernosNoteService)
+        private readonly IAuthorisationService authorisationService;
+
+        public SernosNoteModule(
+            IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource> sernosNoteService, 
+            IAuthorisationService authorisationService)
         {
             this.sernosNoteService = sernosNoteService;
+            this.authorisationService = authorisationService;
             this.Get("/products/maint/serial-numbers/notes", _ => this.GetSernosNotes());
             this.Get("/products/maint/serial-numbers/notes/{id}", parameters => this.GetSernosNoteById(parameters.id));
             this.Post("/products/maint/serial-numbers/notes", _ => this.AddSernosNote());
@@ -39,6 +49,8 @@
 
         private object AddSernosNote()
         {
+            this.RequiresAuthentication();
+
             var resource = this.Bind<SernosNoteCreateResource>();
             var results = new SernosNoteCreateResourceValidator().Validate(resource);
             return results.IsValid
@@ -49,6 +61,8 @@
 
         private object UpdateSernosNote(int id)
         {
+            this.RequiresAuthentication();
+
             var resource = this.Bind<SernosNoteResource>();
             var results = new SernosNoteResourceValidator().Validate(resource);
             return results.IsValid

@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Service.Tests.SernosNoteModuleSpecs
 {
+    using System.Collections.Generic;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;
@@ -40,10 +42,7 @@
                                  };
 
             this.SernosNoteService.Update(111, Arg.Any<SernosNoteResource>())
-                .Returns(new SuccessResult<SernosNote>(sernosNote)
-                             {
-                                 Data = sernosNote
-                             });
+                .Returns(new SuccessResult<SernosNote>(sernosNote) { Data = sernosNote });
 
             this.Response = this.Browser.Put(
                 "/products/maint/serial-numbers/notes/111",

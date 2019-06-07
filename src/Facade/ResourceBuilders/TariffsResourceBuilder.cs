@@ -1,5 +1,6 @@
-﻿namespace Linn.Products.Facade.ResourceBuilders
+namespace Linn.Products.Facade.ResourceBuilders
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -12,7 +13,7 @@
 
         public object Build(IEnumerable<Tariff> tariffs)
         {
-            return tariffs.Select(t => this.resourceBuilder.Build(t));
+            return tariffs.Select(t => this.resourceBuilder.Build(new ResponseModel<Tariff>(t,null)));
         }
 
         public string GetLocation(IEnumerable<Tariff> tariffs) => $"/products/maint/tariffs";

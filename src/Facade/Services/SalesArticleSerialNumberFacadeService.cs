@@ -22,8 +22,8 @@
 
         public IResult<SalesArticleSerialNumberDetails> GetSerialNumberDetails(string articleNumber)
         {
-            var salesArticle = this.salesArticleRepository.FindById(articleNumber);
-            if (salesArticle == null)
+            var salesArticleResponseModel = this.salesArticleRepository.FindById(articleNumber);
+            if (salesArticleResponseModel == null)
             {
                 return new NotFoundResult<SalesArticleSerialNumberDetails>($"Could not find Sales Article {articleNumber}");
             }
@@ -41,7 +41,7 @@
 
             var salesArticleSerialNumberDetails = new SalesArticleSerialNumberDetails
                                                       {
-                                                          SerialNumberType = salesArticle.TypeOfSerialNumber,
+                                                          SerialNumberType = salesArticleResponseModel.TypeOfSerialNumber,
                                                           SernosGroup = sernosGroup
                                                       };
 

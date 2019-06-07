@@ -8,6 +8,6 @@
 
     public interface ISerialNumberFacadeService : IFacadeService<SerialNumber, int, SerialNumberCreateResource, SerialNumberResource>
     {
-        IResult<IEnumerable<SerialNumber>> CreateSerialNumbers(SerialNumberCreateResource resource);
+        IResult<ResponseModel<IEnumerable<SerialNumber>>> CreateSerialNumbers(SerialNumberCreateResource resource, IEnumerable<string> privileges);
     }
 }

@@ -35,13 +35,13 @@
             this.sernosNoteService = sernosNoteService;
         }
 
-        public IResult<IEnumerable<SerialNumber>> CreateSerialNumbers(SerialNumberCreateResource resource)
+        public IResult<ResponseModel<IEnumerable<SerialNumber>>> CreateSerialNumbers(SerialNumberCreateResource resource, IEnumerable<string> privileges)
         {
             var employee = resource.Links.FirstOrDefault(a => a.Rel == "entered-by");
 
             if (employee == null)
             {
-                return new BadRequestResult<IEnumerable<SerialNumber>>("Must supply an employee number when creating a Serial Number");
+                return new BadRequestResult<ResponseModel<IEnumerable<SerialNumber>>>("Must supply an employee number when creating a Serial Number");
             }
 
             var employeeNumber = employee.Href.ParseId();
@@ -60,7 +60,7 @@
             }
             catch (DomainException e)
             {
-                return new BadRequestResult<IEnumerable<SerialNumber>>(e.Message);
+                return new BadRequestResult<ResponseModel<IEnumerable<SerialNumber>>>(e.Message);
             }
 
             foreach (var serialNumber in serialNumbers)
@@ -84,7 +84,8 @@
 
             this.transactionManager.Commit();
 
-            return new CreatedResult<IEnumerable<SerialNumber>>(serialNumbers);
+            return new CreatedResult<ResponseModel<IEnumerable<SerialNumber>>>(
+                new ResponseModel<IEnumerable<SerialNumber>>(serialNumbers, privileges));
         }
 
         protected override SerialNumber CreateFromResource(SerialNumberCreateResource resource)

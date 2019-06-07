@@ -1,5 +1,6 @@
-﻿namespace Linn.Products.IoC
+namespace Linn.Products.IoC
 {
+    using System.Collections;
     using System.Collections.Generic;
 
     using Autofac;
@@ -20,7 +21,7 @@
         {
             // resource builders
             builder.RegisterType<ResultsModelResourceBuilder>().As<IResourceBuilder<ResultsModel>>();
-            builder.RegisterType<TariffResourceBuilder>().As<IResourceBuilder<Tariff>>();
+            builder.RegisterType<TariffResourceBuilder>().As<IResourceBuilder<ResponseModel<Tariff>>>();
             builder.RegisterType<TariffsResourceBuilder>().As<IResourceBuilder<IEnumerable<Tariff>>>();
             builder.RegisterType<CartonTypeResourceBuilder>().As<IResourceBuilder<CartonType>>();
             builder.RegisterType<SernosConfigResourceBuilder>().As<IResourceBuilder<SernosConfig>>();
@@ -33,22 +34,22 @@
             builder.RegisterType<SernosSequencesResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosSequence>>>();
             builder.RegisterType<SaCoreTypeResourceBuilder>().As<IResourceBuilder<SaCoreType>>();
             builder.RegisterType<SaCoreTypesResourceBuilder>().As<IResourceBuilder<IEnumerable<SaCoreType>>>();
-            builder.RegisterType<SalesArticleResourceBuilder>().As<IResourceBuilder<SalesArticle>>();
+            builder.RegisterType<SalesArticleResourceBuilder>().As<IResourceBuilder<ResponseModel<SalesArticle>>>();
             builder.RegisterType<SalesArticlesResourceBuilder>().As<IResourceBuilder<IEnumerable<SalesArticle>>>();
             builder.RegisterType<TypeOfSaleResourceBuilder>().As<IResourceBuilder<TypeOfSale>>();
             builder.RegisterType<TypesOfSaleResourceBuilder>().As<IResourceBuilder<IEnumerable<TypeOfSale>>>();
-            builder.RegisterType<RootProductResourceBuilder>().As<IResourceBuilder<RootProduct>>();
+            builder.RegisterType<RootProductResourceBuilder>().As<IResourceBuilder<ResponseModel<RootProduct>>>();
             builder.RegisterType<RootProductsResourceBuilder>().As<IResourceBuilder<IEnumerable<RootProduct>>>();
             builder.RegisterType<SaHoldStoryResourceBuilder>().As<IResourceBuilder<SaHoldStory>>();
             builder.RegisterType<SaHoldStoriesResourceBuilder>().As<IResourceBuilder<IEnumerable<SaHoldStory>>>();
-            builder.RegisterType<VatCodeResourceBuilder>().As<IResourceBuilder<VatCode>>();
-            builder.RegisterType<VatCodesResourceBuilder>().As<IResourceBuilder<IEnumerable<VatCode>>>();
+            builder.RegisterType<VatCodeResourceBuilder>().As<IResourceBuilder<ResponseModel<VatCode>>>();
+            builder.RegisterType<VatCodesResourceBuilder>().As<IResourceBuilder<ResponseModel<IEnumerable<VatCode>>>>();
             builder.RegisterType<ProductRangeResourceBuilder>().As<IResourceBuilder<ProductRange>>();
             builder.RegisterType<ProductRangesResourceBuilder>().As<IResourceBuilder<IEnumerable<ProductRange>>>();
             builder.RegisterType<SalesPackageResourceBuilder>().As<IResourceBuilder<SalesPackage>>();
             builder.RegisterType<SalesPackagesResourceBuilder>().As<IResourceBuilder<IEnumerable<SalesPackage>>>();
-            builder.RegisterType<SerialNumberResourceBuilder>().As<IResourceBuilder<SerialNumber>>();
-            builder.RegisterType<SerialNumbersResourceBuilder>().As<IResourceBuilder<IEnumerable<SerialNumber>>>();
+            builder.RegisterType<SerialNumberResourceBuilder>().As<IResourceBuilder<ResponseModel<SerialNumber>>>();
+            builder.RegisterType<SerialNumbersResourceBuilder>().As<IResourceBuilder<ResponseModel<IEnumerable<SerialNumber>>>>();
             builder.RegisterType<SernosNoteResourceBuilder>().As<IResourceBuilder<SernosNote>>();
             builder.RegisterType<SernosNotesResourceBuilder>().As<IResourceBuilder<IEnumerable<SernosNote>>>();
             builder.RegisterType<SalesPackagesPaginatedResourceBuilder>()

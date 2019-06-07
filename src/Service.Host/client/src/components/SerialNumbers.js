@@ -10,7 +10,15 @@ import {
     ErrorCard,
     useSearch
 } from '@linn-it/linn-form-components-library';
-import { Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import {
+    Typography,
+    Table,
+    TableHead,
+    TableRow,
+    TableCell,
+    TableBody,
+    Tooltip
+} from '@material-ui/core';
 import { getSernosNote } from '../selectors/sernosNotesSelectors';
 import SernosNote from './SernosNote';
 import Page from '../containers/Page';
@@ -53,10 +61,21 @@ function SerialNumbers({
         setSearchTerm(args[1]);
     };
 
+    const canAmendOrCreateSerialNumbers = () => {
+        if (items.links) {
+            return items.links.some(l => l.rel === 'amend-create-serial-number');
+        }
+        return false;
+    };
+
+    const tooltipText = () =>
+        canAmendOrCreateSerialNumbers() ? '' : 'You are not authorised to complete this action';
+
     return (
         <Page>
             {errorMessage && <ErrorCard errorMessage={errorMessage} />}
             <Title text="Serial Numbers" />
+
             <SearchInputField
                 label="Search by Serial Number"
                 placeholder="Serial Number"
@@ -66,7 +85,14 @@ function SerialNumbers({
                 value={searchTerm}
             />
 
-            <CreateButton createUrl="/products/maint/serial-numbers/create" />
+            <Tooltip title={tooltipText()} placement="top-end" disableFocusListener>
+                <span style={{ float: 'right' }}>
+                    <CreateButton
+                        disabled={!canAmendOrCreateSerialNumbers()}
+                        createUrl="/products/maint/serial-numbers/create"
+                    />
+                </span>
+            </Tooltip>
 
             {loading || sernosNoteLoading || sernosNotesLoading ? (
                 <Loading />

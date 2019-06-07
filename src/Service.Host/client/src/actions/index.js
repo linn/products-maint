@@ -101,3 +101,7 @@ export const serialNumberTransactionsActionTypes = makeActionTypes(
     itemTypes.serialNumberTransactions.actionType,
     false
 );
+export const serialNumberTransactionCountsActionTypes = makeActionTypes(
+    itemTypes.serialNumberTransCounts.actionType,
+    false
+);

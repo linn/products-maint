@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Service.Tests.SernosNoteModuleSpecs
 {
+    using System.Collections.Generic;
+
     using FluentAssertions;
 
     using Linn.Common.Facade;

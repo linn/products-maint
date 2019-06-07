@@ -18,7 +18,7 @@
     {
         private SerialNumberCreateResource resource;
 
-        private IResult<IEnumerable<SerialNumber>> result;
+        private IResult<ResponseModel<IEnumerable<SerialNumber>>> result;
 
         [SetUp]
         public void SetUp()
@@ -44,13 +44,13 @@
                         new SerialNumber("group", "trans", "art", 888) { SernosNumber = 556 }
                     });
 
-            this.result = this.Sut.CreateSerialNumbers(this.resource);
+            this.result = this.Sut.CreateSerialNumbers(this.resource, new List<string>());
         }
 
         [Test]
         public void ShouldReturnCreated()
         {
-            this.result.Should().BeOfType<CreatedResult<IEnumerable<SerialNumber>>>();
+            this.result.Should().BeOfType<CreatedResult<ResponseModel<IEnumerable<SerialNumber>>>>();
         }
 
         [Test]
@@ -81,8 +81,8 @@
         [Test]
         public void ShouldReturnSerialNumbers()
         {
-            this.result.Should().BeOfType<CreatedResult<IEnumerable<SerialNumber>>>();
-            var dataResult = ((CreatedResult<IEnumerable<SerialNumber>>)this.result).Data.ToList();
+            this.result.Should().BeOfType<CreatedResult<ResponseModel<IEnumerable<SerialNumber>>>>();
+            var dataResult = ((CreatedResult<ResponseModel<IEnumerable<SerialNumber>>>)this.result).Data.ResponseData.ToList();
             dataResult.Should().HaveCount(2);
             dataResult.Should().Contain(s => s.SernosNumber == 555);
             dataResult.Should().Contain(s => s.SernosNumber == 556);
