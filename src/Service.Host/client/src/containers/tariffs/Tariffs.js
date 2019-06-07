@@ -7,7 +7,7 @@ import initialiseOnMount from '../common/initialiseOnMount';
 import tariffsSelectors from '../../selectors/tariffsSelectors';
 
 const mapStateToProps = state => ({
-    tariffs: tariffsSelectors.getSearchItems(state),
+    items: tariffsSelectors.getSearchItems(state),
     loading: tariffsSelectors.getSearchLoading(state),
     errorMessage: fetchErrorSelectors(state)
 });

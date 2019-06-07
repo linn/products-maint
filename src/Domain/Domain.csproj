@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Linn.Common.Domain" Version="1.0.0" />
-    <PackageReference Include="Linn.Common.Reporting" Version="1.0.0" />
-    <PackageReference Include="Linn.Common.Serialization" Version="2.1.0" />
+    <Compile Remove="Exceptions\**" />
+    <EmbeddedResource Remove="Exceptions\**" />
+    <None Remove="Exceptions\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Exceptions\" />
+    <PackageReference Include="Linn.Common.Domain" Version="1.0.0" />
+    <PackageReference Include="Linn.Common.Reporting" Version="1.0.0" />
+    <PackageReference Include="Linn.Common.Serialization" Version="2.1.0" />
   </ItemGroup>
 
 </Project>

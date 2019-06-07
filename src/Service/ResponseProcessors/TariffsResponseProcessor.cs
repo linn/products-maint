@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.ResponseProcessors
+namespace Linn.Products.Service.ResponseProcessors
 {
     using System.Collections.Generic;
 
@@ -6,9 +6,9 @@
     using Linn.Common.Nancy.Facade;
     using Linn.Products.Domain.Linnapps.Products;
 
-    public class TariffsResponseProcessor : JsonResponseProcessor<IEnumerable<Tariff>>
+    public class TariffsResponseProcessor : JsonResponseProcessor<ResponseModel<IEnumerable<Tariff>>>
     {
-        public TariffsResponseProcessor(IResourceBuilder<IEnumerable<Tariff>> resourceBuilder)
+        public TariffsResponseProcessor(IResourceBuilder<ResponseModel<IEnumerable<Tariff>>> resourceBuilder)
             : base(resourceBuilder, "tariffs", 1)
         {
         }

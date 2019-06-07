@@ -73,11 +73,12 @@ namespace Linn.Products.Service.Host
             app.UseBearerTokenAuthentication();
             app.UseAuthentication();
 
-            app.UseOwin(x => x.UseNancy(
-                config =>
-                    {
-                        config.PassThroughWhenStatusCodesAre(HttpStatusCode.Unauthorized, HttpStatusCode.Forbidden);
-                    }));
+            app.UseOwin(
+                x => x.UseNancy(
+                    config =>
+                        {
+                            config.PassThroughWhenStatusCodesAre(HttpStatusCode.Unauthorized, HttpStatusCode.Forbidden);
+                        }));
 
             app.Use((context, next) => context.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme));
         }
