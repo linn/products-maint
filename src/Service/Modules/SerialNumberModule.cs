@@ -67,7 +67,7 @@
         {
             var resource = this.Bind<SerialNumberQueryResource>();
 
-            if (this.Context.CurrentUser == null)
+            if (this.Context?.CurrentUser == null)
             {
                 return this.Negotiate.WithModel(this.serialNumberService.Search(resource.SernosNumber.ToString()))
                     .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
