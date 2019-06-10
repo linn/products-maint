@@ -36,7 +36,7 @@ namespace Linn.Products.Service.Modules
         {
             var resource = this.Bind<VatCodeResource>();
             this.RequiresAuthentication();
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
 
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.VatAdmin, privileges))
             {
@@ -56,7 +56,7 @@ namespace Linn.Products.Service.Modules
 
         private object GetVatCodeByCode(string code)
         {
-            var privileges = this.Context.CurrentUser.GetPrivileges();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges();
 
             var result = this.vatCodeService.GetById(code, privileges);
 
@@ -66,13 +66,7 @@ namespace Linn.Products.Service.Modules
 
         private object GetVatCodes()
         {
-            if (this.Context?.CurrentUser == null)
-            {
-                return this.Negotiate.WithModel(this.vatCodeService.GetAll()).WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                    .WithView("Index");
-            }
-
-            var privileges = this.Context.CurrentUser.GetPrivileges();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges();
 
             var result = this.vatCodeService.GetAll(privileges);
             return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
@@ -82,7 +76,7 @@ namespace Linn.Products.Service.Modules
         private object UpdateVatCode(string code)
         {
             this.RequiresAuthentication();
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
 
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.VatAdmin, privileges))
             {

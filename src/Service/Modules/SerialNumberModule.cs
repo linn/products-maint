@@ -41,7 +41,7 @@
         {
             this.RequiresAuthentication();
 
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
 
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.SerialNumberAdmin, privileges))
             {
@@ -49,7 +49,7 @@
             }
 
             var resource = this.Bind<SerialNumberCreateResource>();
-            resource.Links = new[] { new LinkResource("entered-by", this.Context.CurrentUser.GetEmployeeUri()) };            
+            resource.Links = new[] { new LinkResource("entered-by", this.Context?.CurrentUser?.GetEmployeeUri()) };            
             var results = new SerialNumberCreateResourceValidator().Validate(resource);
 
             var serialNumbers = this.serialNumberService.CreateSerialNumbers(resource, privileges);
@@ -60,7 +60,7 @@
 
         private object GetSerialNumberByTRef(int sernosTRef)
         {
-            var privileges = this.Context.CurrentUser.GetPrivileges();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges();
             var result = this.serialNumberService.GetById(sernosTRef, privileges);
             return this.Negotiate
                 .WithModel(result)
@@ -72,14 +72,9 @@
         {
             var resource = this.Bind<SerialNumberQueryResource>();
 
-            if (this.Context?.CurrentUser == null)
-            {
-                return this.Negotiate.WithModel(this.archiveSerialNumberService.Search(resource.SernosNumber.ToString()))
-                    .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
-            }
-
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
             var result = this.archiveSerialNumberService.Search(resource.SernosNumber.ToString(), privileges);
+
 
             return this.Negotiate
                 .WithModel(result)

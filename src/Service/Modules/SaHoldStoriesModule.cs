@@ -72,14 +72,14 @@
         private object UpdateSaHoldStory(int holdStoryId)
         {
             this.RequiresAuthentication();
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
 
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.ProductHold, privileges))
             {
                 return this.Negotiate.WithModel(new UnauthorisedResult<SaHoldStory>("You are not authorised to update hold stories."));
             }
 
-            var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
+            var employeeUri = this.Context?.CurrentUser.GetEmployeeUri();
             var resource = this.Bind<SaHoldStoryResource>();
             resource.Links = new[] { new LinkResource("taken-off-hold-by", employeeUri) };
 
@@ -93,14 +93,19 @@
         private object AddSaHoldStory()
         {
             this.RequiresAuthentication();
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
 
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.ProductHold, privileges))
             {
                 return this.Negotiate.WithModel(new UnauthorisedResult<SaHoldStory>("You are not authorised to create hold stories."));
             }
 
-            var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
+            var employeeUri = this.Context?.CurrentUser?.GetEmployeeUri();
+            if (employeeUri == null)
+            {
+                return new BadRequestResult<SaHoldStory>("Could not find an employee number associated with your log on credentials");
+            }
+
             var resource = this.Bind<SaHoldStoryResource>();
             resource.Links = new[] { new LinkResource("put-on-hold-by", employeeUri) };
 
