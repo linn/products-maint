@@ -47,7 +47,7 @@ namespace Linn.Products.Service.Modules
 
         private object GetTariff(int id)
         { 
-            var tariff = this.tariffService.GetById(id, this.Context.CurrentUser.GetPrivileges().ToList());
+            var tariff = this.tariffService.GetById(id, this.Context?.CurrentUser?.GetPrivileges().ToList());
             return this.Negotiate.WithModel(tariff).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
