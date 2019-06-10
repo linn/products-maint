@@ -56,6 +56,9 @@ namespace Linn.Products.IoC
                 .As<IResourceBuilder<IPagedList<SalesPackage>>>();
             builder.RegisterType<SalesArticleCompositeDiscountResourceBuilder>().As<IResourceBuilder<SalesArticleCompositeDiscount>>();
             builder.RegisterType<SalesArticleSerialNumberDetailsResourceBuilder>().As<IResourceBuilder<SalesArticleSerialNumberDetails>>();
+            builder.RegisterType<ArchiveSerialNumberResourceBuilder>().As<IResourceBuilder<ResponseModel<ArchiveSerialNumber>>>();
+            builder.RegisterType<ArchiveSerialNumbersResourceBuilder>()
+                .As<IResourceBuilder<ResponseModel<IEnumerable<ArchiveSerialNumber>>>>();
         }
     }
 }

@@ -20,13 +20,19 @@
     {
         private readonly ISerialNumberFacadeService serialNumberService;
         private readonly IAuthorisationService authorisationService;
+        private readonly
+            IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource>
+            archiveSerialNumberService;
 
         public SerialNumberModule(
             ISerialNumberFacadeService serialNumberService,
-            IAuthorisationService authorisationService)
+            IAuthorisationService authorisationService,
+            IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource>
+                archiveSerialNumberService)
         {
             this.serialNumberService = serialNumberService;
             this.authorisationService = authorisationService;
+            this.archiveSerialNumberService = archiveSerialNumberService;
             this.Get("/products/maint/serial-numbers", _ => this.GetSerialNumbers());
             this.Get("/products/maint/serial-numbers/{sernosTRef}", parameters => this.GetSerialNumberByTRef(parameters.sernosTRef));
             this.Post("/products/maint/serial-numbers", _ => this.CreateSerialNumbers());
@@ -67,7 +73,7 @@
         {
             var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
             var resource = this.Bind<SerialNumberQueryResource>();
-            var result = this.serialNumberService.Search(resource.SernosNumber.ToString(), privileges);
+            var result = this.archiveSerialNumberService.Search(resource.SernosNumber.ToString(), privileges);
             return this.Negotiate
                 .WithModel(result)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)

@@ -21,21 +21,16 @@
         [SetUp]
         public void SetUp()
         {
-            var serialNumber1 = new SerialNumber("group", "code", "article", 321)
-                                    {
-                                        SernosNumber = 222,
-                                        SernosTRef = 123
-                                    };
-            var serialNumber2 = new SerialNumber("group a", "code a", "article a", 888)
-                                    {
-                                        SernosNumber = 222,
-                                        SernosTRef = 555
-            };
+            var serialNumber1 =
+                new ArchiveSerialNumber { SernosGroup = "group", SernosNumber = 222, TransCode = "code" };
 
-            this.SerialNumberService.Search("222", Arg.Any<IEnumerable<string>>()).Returns(
-                new SuccessResult<ResponseModel<IEnumerable<SerialNumber>>>(
-                    new ResponseModel<IEnumerable<SerialNumber>>(
-                        new List<SerialNumber> { serialNumber1, serialNumber2 }, 
+            var serialNumber2 =
+                new ArchiveSerialNumber { SernosGroup = "new group", SernosNumber = 222, TransCode = "new code" };
+
+            this.ArchiveSerialNumberService.Search("222", Arg.Any<IEnumerable<string>>()).Returns(
+                new SuccessResult<ResponseModel<IEnumerable<ArchiveSerialNumber>>>(
+                    new ResponseModel<IEnumerable<ArchiveSerialNumber>>(
+                        new List<ArchiveSerialNumber> { serialNumber1, serialNumber2 }, 
                         new List<string>())));
 
             this.Response = this.Browser.Get(
@@ -50,7 +45,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SerialNumberService.Received().Search("222", Arg.Any<IEnumerable<string>>());
+            this.ArchiveSerialNumberService.Received().Search("222", Arg.Any<IEnumerable<string>>());
         }
 
         [Test]
@@ -62,10 +57,11 @@
         [Test]
         public void ShouldReturnResource()
         {
-            var resources = this.Response.Body.DeserializeJson<ResponseResource<IEnumerable<SerialNumberResource>>>().ResponseData.ToList();
+            var resources = this.Response.Body
+                .DeserializeJson<ResponseResource<IEnumerable<ArchiveSerialNumberResource>>>().ResponseData.ToList();
             resources.Should().HaveCount(2);
-            resources.Should().Contain(s => s.SernosTRef == 123);
-            resources.Should().Contain(s => s.SernosTRef == 555);
+            resources.Should().Contain(s => s.SernosGroup == "group");
+            resources.Should().Contain(s => s.SernosGroup == "new group");
         }
     }
 }
