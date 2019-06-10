@@ -68,6 +68,7 @@
             var resource = this.Bind<SerialNumberQueryResource>();
 
             var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
+
             var result = this.serialNumberService.Search(resource.SernosNumber.ToString(), privileges);
             return this.Negotiate
                 .WithModel(result)
