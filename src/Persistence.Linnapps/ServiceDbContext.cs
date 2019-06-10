@@ -211,7 +211,7 @@
         private void BuildArchiveSerialNumbers(ModelBuilder builder)
         {
             builder.Entity<ArchiveSerialNumber>().ToTable("SERNOS_ARCH_VIEW");
-            builder.Entity<ArchiveSerialNumber>().HasKey(s => new { s.SernosGroup, s.SernosNumber, s.TransCode });
+            builder.Entity<ArchiveSerialNumber>().HasKey(s => new { s.SernosGroup, s.SernosNumber, s.TransCode, s.SernosDate });
             builder.Entity<ArchiveSerialNumber>().Property(s => s.SernosGroup).HasColumnName("SERNOS_GROUP")
                 .HasMaxLength(10);
             builder.Entity<ArchiveSerialNumber>().Property(s => s.SernosNumber).HasColumnName("SERNOS_NUMBER");
