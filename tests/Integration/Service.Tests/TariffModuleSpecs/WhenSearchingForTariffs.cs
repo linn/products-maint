@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.Tests.TariffModuleSpecs
+namespace Linn.Products.Service.Tests.TariffModuleSpecs
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -30,8 +30,11 @@
                 TariffCode = "test-1",
                 Description = "test-case-1"
             };
-            this.TariffService.Search(this.searchTerm)
-                .Returns(new SuccessResult<IEnumerable<Tariff>>(new List<Tariff> { tariff2 }));
+            this.TariffService.Search(this.searchTerm, Arg.Any<IEnumerable<string>>())
+                .Returns(new SuccessResult<ResponseModel<IEnumerable<Tariff>>>(
+                    new ResponseModel<IEnumerable<Tariff>>(
+                        new List<Tariff> { tariff2 },
+                        new List<string>())));
 
             this.Response = this.Browser.Get(
                 "/products/maint/tariffs",
@@ -52,7 +55,7 @@
         [Test]
         public void ShouldReturnResourceFilteredBySearchTerm()
         {
-            var resources = this.Response.Body.DeserializeJson<IEnumerable<TariffResource>>().ToList();
+            var resources = this.Response.Body.DeserializeJson<ResponseResource<IEnumerable<TariffResource>>>().ResponseData.ToList();
             resources.Should().HaveCount(1);
             resources.Should().Contain(a => a.TariffCode == "test-1");
         }

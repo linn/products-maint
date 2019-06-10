@@ -9,11 +9,12 @@ describe('<Tariffs />', () => {
 
     beforeEach(() => {
         props = {
-            tariffs: [
+            items: [
                 {
                     tariffCode: 'A',
                     description: 'Description of the product needed to explain tariff code',
-                    duty: 20
+                    duty: 20,
+                    links: [{ rel: 'tariff.admin', href: '' }]
                 },
                 {
                     tariffCode: 'B',

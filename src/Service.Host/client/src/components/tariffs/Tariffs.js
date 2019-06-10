@@ -1,11 +1,12 @@
 ﻿import React from 'react';
+import { Tooltip } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { Typeahead, CreateButton, ErrorCard } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
 
-const Tariffs = ({ tariffs, fetchItems, loading, clearSearch, errorMessage }) => {
-    const results = tariffs.map(tariff => ({
+const Tariffs = ({ items, fetchItems, loading, clearSearch, errorMessage }) => {
+    const results = items.map(tariff => ({
         ...tariff,
         name: tariff.tariffCode,
         description:
@@ -13,6 +14,13 @@ const Tariffs = ({ tariffs, fetchItems, loading, clearSearch, errorMessage }) =>
                 ? `${tariff.description.substring(0, 100)} ...`
                 : tariff.description
     }));
+
+    const hasPermission = () => {
+        if (items[0]) {
+            return items[0].links.some(l => l.rel === 'tariff.admin');
+        }
+        return false;
+    };
 
     return (
         <Page>
@@ -32,7 +40,20 @@ const Tariffs = ({ tariffs, fetchItems, loading, clearSearch, errorMessage }) =>
                     />
                 </Grid>
                 <Grid item xs={2}>
-                    <CreateButton createUrl="/products/maint/tariffs/create" />
+                    <Tooltip
+                        title={
+                            hasPermission() ? '' : 'You are not authorised to perform this action'
+                        }
+                        placement="top-end"
+                        disableFocusListener
+                    >
+                        <span style={{ float: 'right' }}>
+                            <CreateButton
+                                disabled={!hasPermission()}
+                                createUrl="/products/maint/tariffs/create"
+                            />
+                        </span>
+                    </Tooltip>
                 </Grid>
             </Grid>
         </Page>
@@ -40,7 +61,7 @@ const Tariffs = ({ tariffs, fetchItems, loading, clearSearch, errorMessage }) =>
 };
 
 Tariffs.propTypes = {
-    tariffs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+    items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     loading: PropTypes.bool,
     fetchItems: PropTypes.func.isRequired,
     clearSearch: PropTypes.func.isRequired,

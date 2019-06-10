@@ -36,7 +36,7 @@ namespace Linn.Products.Service.Tests.TariffModuleSpecs
                     with.Dependency(this.TariffService);
                     with.Dependency<IResourceBuilder<ResponseModel<Tariff>>>(new TariffResourceBuilder());
                     with.Dependency(this.AuthorisationService);
-                    with.Dependency<IResourceBuilder<IEnumerable<Tariff>>>(new TariffsResourceBuilder());
+                    with.Dependency<IResourceBuilder<ResponseModel<IEnumerable<Tariff>>>>(new TariffsResourceBuilder());
                     with.Module<TariffModule>();
                     with.ResponseProcessor<TariffResponseProcessor>();
                     with.ResponseProcessor<TariffsResponseProcessor>();

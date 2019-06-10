@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.Tests.SalesPackageModuleSpecs
+namespace Linn.Products.Service.Tests.SalesPackageModuleSpecs
 {
     using System;
     using System.Linq;
@@ -18,8 +18,6 @@
     using NUnit.Framework;
 
     using PagedList.Core;
-
-    using Expression = System.Linq.Expressions.Expression;
 
     internal class WhenGettingAllSalesPackagesSortedPaginated : ContextBase
     {

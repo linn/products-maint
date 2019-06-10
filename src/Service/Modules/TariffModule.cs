@@ -34,9 +34,20 @@ namespace Linn.Products.Service.Modules
         private object GetTariffs()
         {
             var resource = this.Bind<QueryResource>();
+
+            if (this.Context?.CurrentUser == null)
+            {
+                return this.Negotiate.WithModel(string.IsNullOrEmpty(resource.SearchTerm)
+                                                    ? this.tariffService.GetAll()
+                                                    : this.tariffService.Search(resource.SearchTerm))
+                    .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                    .WithView("Index");
+            }
+
+            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
             var tariffs = string.IsNullOrEmpty(resource.SearchTerm)
-                              ? this.tariffService.GetAll()
-                              : this.tariffService.Search(resource.SearchTerm);
+                              ? this.tariffService.GetAll(privileges)
+                              : this.tariffService.Search(resource.SearchTerm, privileges);
 
             return this.Negotiate.WithModel(tariffs).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");

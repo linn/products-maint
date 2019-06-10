@@ -1,4 +1,4 @@
-﻿import { collectionStoreFactory } from '@linn-it/linn-form-components-library';
+﻿import { collectionWithLinksStoreFactory } from '@linn-it/linn-form-components-library';
 import { tariffsActionTypes as actionTypes } from '../actions';
 import * as itemTypes from '../itemTypes';
 
@@ -8,4 +8,8 @@ const defaultState = {
     searchItems: []
 };
 
-export default collectionStoreFactory(itemTypes.tariffs.actionType, actionTypes, defaultState);
+export default collectionWithLinksStoreFactory(
+    itemTypes.tariffs.actionType,
+    actionTypes,
+    defaultState
+);

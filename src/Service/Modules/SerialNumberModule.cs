@@ -27,8 +27,7 @@
         public SerialNumberModule(
             ISerialNumberFacadeService serialNumberService,
             IAuthorisationService authorisationService,
-            IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource>
-                archiveSerialNumberService)
+            IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource> archiveSerialNumberService)
         {
             this.serialNumberService = serialNumberService;
             this.authorisationService = authorisationService;
@@ -71,9 +70,17 @@
 
         private object GetSerialNumbers()
         {
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
             var resource = this.Bind<SerialNumberQueryResource>();
+
+            if (this.Context?.CurrentUser == null)
+            {
+                return this.Negotiate.WithModel(this.archiveSerialNumberService.Search(resource.SernosNumber.ToString()))
+                    .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
+            }
+
+            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
             var result = this.archiveSerialNumberService.Search(resource.SernosNumber.ToString(), privileges);
+
             return this.Negotiate
                 .WithModel(result)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)

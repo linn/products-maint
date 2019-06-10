@@ -1,4 +1,5 @@
 import React from 'react';
+import { Tooltip } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import {
@@ -11,6 +12,13 @@ import Page from '../../containers/Page';
 import { sortEntityList } from '../../helpers/utilities';
 
 function VatCodes({ vatCodes, loading, errorMessage }) {
+    const hasPermission = () => {
+        if (vatCodes[0]) {
+            return vatCodes[0].links.some(l => l.rel === 'vat.admin');
+        }
+        return false;
+    };
+
     return (
         <Page>
             <Grid container spacing={24}>
@@ -25,7 +33,22 @@ function VatCodes({ vatCodes, loading, errorMessage }) {
                     </Grid>
                 ) : (
                     <Grid item xs={12}>
-                        <CreateButton createUrl="/products/maint/vat-codes/create" />
+                        <Tooltip
+                            title={
+                                hasPermission()
+                                    ? ''
+                                    : 'You are not authorised to perform this action'
+                            }
+                            placement="top-end"
+                            disableFocusListener
+                        >
+                            <span style={{ float: 'right' }}>
+                                <CreateButton
+                                    disabled={!hasPermission()}
+                                    createUrl="/products/maint/vat-codes/create"
+                                />
+                            </span>
+                        </Tooltip>
                         <EntityList
                             title="Vat Codes"
                             entityList={sortEntityList(vatCodes, 'code')}
