@@ -70,6 +70,8 @@
             builder.RegisterType<SernosTransactionService>().As<IFacadeService<SernosTrans, string, SernosTransactionResource, SernosTransactionResource>>();
             builder.RegisterType<SernosCountService>().As<IFacadeService<SernosCount, string, SernosCountResource, SernosCountResource>>();
             builder.RegisterType<SalesArticleSerialNumberFacadeService>().As<ISalesArticleSerialNumberFacadeService>();
+            builder.RegisterType<ArchiveSerialNumberService>()
+                .As<IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource>>();
 
             // rest client proxies
             builder.RegisterType<RestClient>().As<IRestClient>();

@@ -20,13 +20,18 @@
     {
         private readonly ISerialNumberFacadeService serialNumberService;
         private readonly IAuthorisationService authorisationService;
+        private readonly
+            IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource>
+            archiveSerialNumberService;
 
         public SerialNumberModule(
             ISerialNumberFacadeService serialNumberService,
-            IAuthorisationService authorisationService)
+            IAuthorisationService authorisationService,
+            IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource> archiveSerialNumberService)
         {
             this.serialNumberService = serialNumberService;
             this.authorisationService = authorisationService;
+            this.archiveSerialNumberService = archiveSerialNumberService;
             this.Get("/products/maint/serial-numbers", _ => this.GetSerialNumbers());
             this.Get("/products/maint/serial-numbers/{sernosTRef}", parameters => this.GetSerialNumberByTRef(parameters.sernosTRef));
             this.Post("/products/maint/serial-numbers", _ => this.CreateSerialNumbers());
@@ -69,12 +74,13 @@
 
             if (this.Context?.CurrentUser == null)
             {
-                return this.Negotiate.WithModel(this.serialNumberService.Search(resource.SernosNumber.ToString()))
+                return this.Negotiate.WithModel(this.archiveSerialNumberService.Search(resource.SernosNumber.ToString()))
                     .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
             }
 
             var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
-            var result = this.serialNumberService.Search(resource.SernosNumber.ToString(), privileges);
+            var result = this.archiveSerialNumberService.Search(resource.SernosNumber.ToString(), privileges);
+
             return this.Negotiate
                 .WithModel(result)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
