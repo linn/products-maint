@@ -44,7 +44,7 @@
             }
 
             var resource = this.Bind<SerialNumberCreateResource>();
-            resource.Links = new[] { new LinkResource("entered-by", this.Context.CurrentUser.GetEmployeeUri()) };            
+            resource.Links = new[] { new LinkResource("entered-by", this.Context?.CurrentUser?.GetEmployeeUri()) };            
             var results = new SerialNumberCreateResourceValidator().Validate(resource);
 
             var serialNumbers = this.serialNumberService.CreateSerialNumbers(resource, privileges);

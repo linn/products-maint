@@ -56,7 +56,7 @@ namespace Linn.Products.Service.Modules
         {
             this.RequiresAuthentication();
             var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
 
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.TariffAdmin, privileges))
             {
