@@ -65,8 +65,15 @@
 
         private object GetSerialNumbers()
         {
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
             var resource = this.Bind<SerialNumberQueryResource>();
+
+            if (this.Context?.CurrentUser == null)
+            {
+                return this.Negotiate.WithModel(this.serialNumberService.Search(resource.SernosNumber.ToString()))
+                    .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
+            }
+
+            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
             var result = this.serialNumberService.Search(resource.SernosNumber.ToString(), privileges);
             return this.Negotiate
                 .WithModel(result)

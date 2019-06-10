@@ -66,6 +66,12 @@ namespace Linn.Products.Service.Modules
 
         private object GetVatCodes()
         {
+            if (this.Context?.CurrentUser == null)
+            {
+                return this.Negotiate.WithModel(this.vatCodeService.GetAll()).WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                    .WithView("Index");
+            }
+
             var privileges = this.Context.CurrentUser.GetPrivileges();
 
             var result = this.vatCodeService.GetAll(privileges);
