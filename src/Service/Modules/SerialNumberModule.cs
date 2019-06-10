@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.Modules
+namespace Linn.Products.Service.Modules
 {
     using System.Linq;
 
@@ -19,6 +19,7 @@
     public sealed class SerialNumberModule : NancyModule
     {
         private readonly ISerialNumberFacadeService serialNumberService;
+
         private readonly IAuthorisationService authorisationService;
 
         public SerialNumberModule(
@@ -47,20 +48,16 @@
             resource.Links = new[] { new LinkResource("entered-by", this.Context.CurrentUser.GetEmployeeUri()) };            
             var results = new SerialNumberCreateResourceValidator().Validate(resource);
 
-            var serialNumbers = this.serialNumberService.CreateSerialNumbers(resource, privileges);
             return results.IsValid
-                       ? this.Negotiate.WithModel(serialNumbers)
+                       ? this.Negotiate.WithModel(this.serialNumberService.CreateSerialNumbers(resource, privileges))
                        : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
         }
 
         private object GetSerialNumberByTRef(int sernosTRef)
         {
-            var privileges = this.Context.CurrentUser.GetPrivileges();
-            var result = this.serialNumberService.GetById(sernosTRef, privileges);
             return this.Negotiate
-                .WithModel(result)
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                .WithView("Index");
+                .WithModel(this.serialNumberService.GetById(sernosTRef, this.Context.CurrentUser.GetPrivileges()))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
         }
 
         private object GetSerialNumbers()
@@ -73,10 +70,8 @@
                     .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
             }
 
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
-            var result = this.serialNumberService.Search(resource.SernosNumber.ToString(), privileges);
             return this.Negotiate
-                .WithModel(result)
+                .WithModel(this.serialNumberService.Search(resource.SernosNumber.ToString(), this.Context.CurrentUser.GetPrivileges().ToList()))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
