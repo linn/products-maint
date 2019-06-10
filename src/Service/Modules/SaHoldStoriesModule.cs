@@ -79,7 +79,7 @@
                 return this.Negotiate.WithModel(new UnauthorisedResult<SaHoldStory>("You are not authorised to update hold stories."));
             }
 
-            var employeeUri = this.Context?.CurrentUser?.GetEmployeeUri();
+            var employeeUri = this.Context?.CurrentUser.GetEmployeeUri();
             var resource = this.Bind<SaHoldStoryResource>();
             resource.Links = new[] { new LinkResource("taken-off-hold-by", employeeUri) };
 
@@ -101,6 +101,11 @@
             }
 
             var employeeUri = this.Context?.CurrentUser?.GetEmployeeUri();
+            if (employeeUri == null)
+            {
+                return new BadRequestResult<SaHoldStory>("Could not find an employee number associated with your log on credentials");
+            }
+
             var resource = this.Bind<SaHoldStoryResource>();
             resource.Links = new[] { new LinkResource("put-on-hold-by", employeeUri) };
 
