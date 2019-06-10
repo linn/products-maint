@@ -128,11 +128,12 @@ function SerialNumbers({
                             <TableBody>
                                 {sortEntityList(items, 'sernosDate')
                                     .filter(item => item.sernosGroup === selectedSernosGroup)
-                                    .map(item => (
+                                    .map((item, index) => (
                                         <SernosNote
+                                            // eslint-disable-next-line react/no-array-index-key
                                             key={`${item.sernosDate}${item.articleNumber}${
                                                 item.transCode
-                                            }`}
+                                            }${index}`}
                                             serialNumber={item}
                                             item={getSernosNote(sernosNotes, item)}
                                             addSernosNote={addSernosNote}
