@@ -227,11 +227,16 @@ function Navigation({ classes, sections, loading, username, myStuff, notificatio
                                             <MenuItem onClick={handleClose}>{username}</MenuItem>
                                             {username &&
                                                 myStuff.groups.map(item => (
-                                                    <span>
-                                                        <MenuItem onClick={handleClose}>
-                                                            {item.items[0].title}
-                                                        </MenuItem>
-                                                    </span>
+                                                    <a
+                                                        href={item.items[0].href}
+                                                        key={item.items[0].title}
+                                                    >
+                                                        <span>
+                                                            <MenuItem>
+                                                                {item.items[0].title}
+                                                            </MenuItem>
+                                                        </span>
+                                                    </a>
                                                 ))}
                                             <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
                                         </Menu>

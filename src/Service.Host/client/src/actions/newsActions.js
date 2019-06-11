@@ -4,7 +4,7 @@ import * as actionTypes from './index';
 
 const fetchNews = () => ({
     [RSAA]: {
-        endpoint: `https://app.linn.co.uk/notifications`,
+        endpoint: `${config.proxyRoot}/notifications`,
         method: 'GET',
         options: { requiresAuth: false },
         headers: {
