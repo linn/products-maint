@@ -7,7 +7,9 @@ const fetchMenu = () => ({
         endpoint: `${config.proxyRoot}/intranet/menu-no-auth`,
         method: 'GET',
         options: { requiresAuth: false },
-       
+        headers: {
+            Accept: 'application/json'
+        },
         types: [
             {
                 type: actionTypes.REQUEST_MENU,
