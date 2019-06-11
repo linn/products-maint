@@ -1,6 +1,6 @@
 export const getNews = state => {
     const { news } = state;
-    return news ? news.notifications : null;
+    return news && news.data ? news.data.notifications : null;
 };
 
 export const getNewsLoading = state => {
