@@ -10,9 +10,13 @@ import {
     MenuItem,
     Toolbar,
     Grid,
-    Typography
+    Typography,
+    Badge,
+    Button
 } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Notifications from '@material-ui/icons/Notifications';
 import Panel from './Panel';
 import config from '../config';
 
@@ -25,6 +29,13 @@ const styles = theme => ({
     },
     tabLabel: {
         fontSize: '12px'
+    },
+    snackbarNew: {
+        background: theme.palette.primary.dark,
+        width: '800px'
+    },
+    snackbarSeen: {
+        width: '800px'
     },
     panel: {
         position: 'relative'
@@ -49,9 +60,22 @@ const styles = theme => ({
     }
 });
 
-function Navigation({ classes, sections, loading, username, myStuff }) {
+function Navigation({ classes, sections, loading, username, myStuff, notifications }) {
+    const areUnseenNotifications = () =>
+        notifications &&
+        notifications.some(e => {
+            if (!localStorage.getItem(e.title)) {
+                return true;
+            }
+            return false;
+        });
+
     const [selected, setSelected] = useState(false);
     const [anchorEl, setAnchorEl] = useState();
+    const isUnseen = notification => !localStorage.getItem(notification.title);
+    const [showNotificationDot, setShowNotificationDot] = useState(areUnseenNotifications());
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
     if (sections) {
         const menuIds = sections.map(item => item.id);
 
@@ -63,6 +87,67 @@ function Navigation({ classes, sections, loading, username, myStuff }) {
         };
         const handleSignOut = () => {
             window.location.assign(`${config.authorityUri}account/logout`);
+        };
+
+        const handleDismiss = (key, e) => (
+            <Fragment>
+                <Button
+                    onClick={() => {
+                        closeSnackbar(key);
+                        // add this item to local storage on dismissal to rememeber the user has seen this notification
+                        localStorage.setItem(e.title, e.content);
+                        setShowNotificationDot(areUnseenNotifications());
+                    }}
+                >
+                    {isUnseen(e) ? 'Acknowledge' : 'Dismiss'}
+                </Button>
+            </Fragment>
+        );
+
+        const queueNotifications = () => {
+            if (!notifications || notifications.length === 0) {
+                enqueueSnackbar('No notifications to show!', {
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'right'
+                    },
+                    variant: 'info',
+                    preventDuplicate: true
+                });
+            } // stagger the queuing for effect
+            else {
+                notifications
+                    // queue unseen notifications first
+                    .sort((a, b) => {
+                        if (isUnseen(a) && !isUnseen(b)) {
+                            return 1;
+                        }
+                        if (!isUnseen(a) && isUnseen(b)) {
+                            return -1;
+                        }
+                        return 0;
+                    })
+                    .forEach((e, i) => {
+                        setTimeout(() => {
+                            enqueueSnackbar(`${e.title} ${e.content}`, {
+                                anchorOrigin: {
+                                    vertical: 'bottom',
+                                    horizontal: 'right'
+                                },
+                                ContentProps: {
+                                    classes: {
+                                        // unseen notifications are blue, seen notifications are gray
+                                        root: localStorage.getItem(e.title)
+                                            ? classes.snackbarSeen
+                                            : classes.snackbarNew
+                                    }
+                                },
+                                action: key => handleDismiss(key, e),
+                                preventDuplicate: true
+                            });
+                        }, i * 200); // stagger the queuing for effect
+                    });
+            }
         };
 
         return (
@@ -79,7 +164,7 @@ function Navigation({ classes, sections, loading, username, myStuff }) {
                                     classes={{ container: classes.container }}
                                 >
                                     <Fragment>
-                                        <Grid item xs={11}>
+                                        <Grid item xs={10}>
                                             <Tabs
                                                 classes={{
                                                     root: classes.tabs
@@ -122,6 +207,17 @@ function Navigation({ classes, sections, loading, username, myStuff }) {
                                                 />
                                             </Typography>
                                         </Grid>
+                                        <Grid item xs={1}>
+                                            <Typography variant="h4">
+                                                <Badge
+                                                    badgeContent={showNotificationDot}
+                                                    color="primary"
+                                                    variant="dot"
+                                                >
+                                                    <Notifications onClick={queueNotifications} />
+                                                </Badge>
+                                            </Typography>
+                                        </Grid>
                                         <Menu
                                             id="simple-menu"
                                             anchorEl={anchorEl}
@@ -131,11 +227,16 @@ function Navigation({ classes, sections, loading, username, myStuff }) {
                                             <MenuItem onClick={handleClose}>{username}</MenuItem>
                                             {username &&
                                                 myStuff.groups.map(item => (
-                                                    <span>
-                                                        <MenuItem onClick={handleClose}>
-                                                            {item.items[0].title}
-                                                        </MenuItem>
-                                                    </span>
+                                                    <a
+                                                        href={item.items[0].href}
+                                                        key={item.items[0].title}
+                                                    >
+                                                        <span>
+                                                            <MenuItem>
+                                                                {item.items[0].title}
+                                                            </MenuItem>
+                                                        </span>
+                                                    </a>
                                                 ))}
                                             <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
                                         </Menu>
@@ -176,12 +277,14 @@ Navigation.propTypes = {
     history: PropTypes.shape({}).isRequired,
     loading: PropTypes.bool,
     username: PropTypes.string,
-    myStuff: PropTypes.shape({})
+    myStuff: PropTypes.shape({}),
+    notifications: PropTypes.shape({})
 };
 
 Navigation.defaultProps = {
     sections: null,
     myStuff: null,
+    notifications: null,
     loading: false,
     username: ''
 };
