@@ -7,8 +7,8 @@ const fetchSernosNotes = (sernosNumber, dispatch) => {
 };
 
 const fetchSernosNotesFromSerialNumber = (data, dispatch) => {
-    if (data.length) {
-        const { sernosNumber } = data[0];
+    if (data.responseData.length) {
+        const { sernosNumber } = data.responseData[0];
         fetchSernosNotes(sernosNumber, dispatch);
     }
 };

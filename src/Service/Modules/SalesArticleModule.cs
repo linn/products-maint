@@ -79,18 +79,10 @@
 
         private object GetSalesArticle(string id)
         {
-            if (this.Context.CurrentUser == null)
-            {
-                return this.Negotiate.WithModel(this.salesArticleService.GetById(id.ToUpper()))
-                    .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
-            }
-
-            var privileges = this.Context.CurrentUser.GetPrivileges();
-
-            IEnumerable<string> enumerable = privileges.ToList();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges();
 
             return this.Negotiate
-                .WithModel(this.salesArticleService.GetById(id.ToUpper(), enumerable))
+                .WithModel(this.salesArticleService.GetById(id.ToUpper(), privileges?.ToList()))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }

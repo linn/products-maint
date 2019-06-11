@@ -130,7 +130,9 @@ function SerialNumbers({
                                     .filter(item => item.sernosGroup === selectedSernosGroup)
                                     .map(item => (
                                         <SernosNote
-                                            key={item.sernosTRef}
+                                            key={`${item.sernosDate}${item.articleNumber}${
+                                                item.transCode
+                                            }${item.sernosNumber}`}
                                             serialNumber={item}
                                             item={getSernosNote(sernosNotes, item)}
                                             addSernosNote={addSernosNote}

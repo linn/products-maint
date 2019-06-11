@@ -10,7 +10,7 @@
 
         public int? SernosNumber { get; set; }
 
-        public int SernosTRef { get; set; }
+        public int? SernosTRef { get; set; }
 
         public string TransCode { get; set; }
     }
