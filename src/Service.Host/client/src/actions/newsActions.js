@@ -4,7 +4,7 @@ import * as actionTypes from './index';
 
 const fetchNews = () => ({
     [RSAA]: {
-        endpoint: `${config.proxyRoot}/notifications`,
+        endpoint: `${config.appRoot}/notifications`,
         method: 'GET',
         options: { requiresAuth: false },
         headers: {
