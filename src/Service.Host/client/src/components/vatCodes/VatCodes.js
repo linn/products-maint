@@ -11,10 +11,10 @@ import {
 import Page from '../../containers/Page';
 import { sortEntityList } from '../../helpers/utilities';
 
-function VatCodes({ vatCodes, loading, errorMessage }) {
+function VatCodes({ vatCodes, loading, privileges, errorMessage }) {
     const hasPermission = () => {
-        if (vatCodes[0]) {
-            return vatCodes[0].links.some(l => l.rel === 'vat.admin');
+        if (!(privileges < 1)) {
+            return privileges.some(priv => priv === 'vat.admin');
         }
         return false;
     };
