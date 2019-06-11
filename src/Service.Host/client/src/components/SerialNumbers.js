@@ -63,7 +63,7 @@ function SerialNumbers({
     };
 
     const canAmendOrCreateSerialNumbers = () => {
-        if (privileges) {
+        if (!(privileges < 1)) {
             return privileges.some(priv => priv === 'serial-number.create');
         }
         return false;
