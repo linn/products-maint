@@ -33,6 +33,7 @@
                                            PutOnHoldByEmployee = "Employee",
                                            ReasonStarted = "reason",
                                        };
+           
             var holdStory = new SaHoldStory
                                 {
                                     HoldStoryId = 1,
@@ -42,7 +43,6 @@
                                     SalesArticle = new SalesArticle { ArticleNumber = "KLIMAX/NTK" },
                                     ReasonStarted = "reason",
                                 };
-
             this.SaHoldStoryService.Add(Arg.Any<SaHoldStoryResource>())
                 .Returns(new SuccessResult<SaHoldStory>(holdStory));
 

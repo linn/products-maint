@@ -34,7 +34,9 @@ namespace Linn.Products.Service.Modules
         private object GetTariffs()
         {
             var resource = this.Bind<QueryResource>();
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+            
+            var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
+
             var tariffs = string.IsNullOrEmpty(resource.SearchTerm)
                               ? this.tariffService.GetAll(privileges)
                               : this.tariffService.Search(resource.SearchTerm, privileges);
@@ -45,7 +47,7 @@ namespace Linn.Products.Service.Modules
 
         private object GetTariff(int id)
         { 
-            var tariff = this.tariffService.GetById(id, this.Context.CurrentUser.GetPrivileges().ToList());
+            var tariff = this.tariffService.GetById(id, this.Context?.CurrentUser?.GetPrivileges().ToList());
             return this.Negotiate.WithModel(tariff).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
@@ -54,7 +56,7 @@ namespace Linn.Products.Service.Modules
         {
             this.RequiresAuthentication();
             var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
 
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.TariffAdmin, privileges))
             {

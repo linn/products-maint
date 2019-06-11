@@ -20,13 +20,18 @@
     {
         private readonly ISerialNumberFacadeService serialNumberService;
         private readonly IAuthorisationService authorisationService;
+        private readonly
+            IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource>
+            archiveSerialNumberService;
 
         public SerialNumberModule(
             ISerialNumberFacadeService serialNumberService,
-            IAuthorisationService authorisationService)
+            IAuthorisationService authorisationService,
+            IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource> archiveSerialNumberService)
         {
             this.serialNumberService = serialNumberService;
             this.authorisationService = authorisationService;
+            this.archiveSerialNumberService = archiveSerialNumberService;
             this.Get("/products/maint/serial-numbers", _ => this.GetSerialNumbers());
             this.Get("/products/maint/serial-numbers/{sernosTRef}", parameters => this.GetSerialNumberByTRef(parameters.sernosTRef));
             this.Post("/products/maint/serial-numbers", _ => this.CreateSerialNumbers());
@@ -36,7 +41,7 @@
         {
             this.RequiresAuthentication();
 
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
 
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.SerialNumberAdmin, privileges))
             {
@@ -44,7 +49,7 @@
             }
 
             var resource = this.Bind<SerialNumberCreateResource>();
-            resource.Links = new[] { new LinkResource("entered-by", this.Context.CurrentUser.GetEmployeeUri()) };            
+            resource.Links = new[] { new LinkResource("entered-by", this.Context?.CurrentUser?.GetEmployeeUri()) };            
             var results = new SerialNumberCreateResourceValidator().Validate(resource);
 
             var serialNumbers = this.serialNumberService.CreateSerialNumbers(resource, privileges);
@@ -55,7 +60,7 @@
 
         private object GetSerialNumberByTRef(int sernosTRef)
         {
-            var privileges = this.Context.CurrentUser.GetPrivileges();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges();
             var result = this.serialNumberService.GetById(sernosTRef, privileges);
             return this.Negotiate
                 .WithModel(result)
@@ -65,9 +70,12 @@
 
         private object GetSerialNumbers()
         {
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
             var resource = this.Bind<SerialNumberQueryResource>();
-            var result = this.serialNumberService.Search(resource.SernosNumber.ToString(), privileges);
+
+            var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
+            var result = this.archiveSerialNumberService.Search(resource.SernosNumber.ToString(), privileges);
+
+
             return this.Negotiate
                 .WithModel(result)
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
