@@ -210,7 +210,9 @@ function Navigation({ classes, sections, loading, username, myStuff, notificatio
                                         <Grid item xs={1}>
                                             <Typography variant="h4">
                                                 <Badge
-                                                    badgeContent={showNotificationDot}
+                                                    badgeContent={
+                                                        notifications && showNotificationDot
+                                                    }
                                                     color="primary"
                                                     variant="dot"
                                                 >
