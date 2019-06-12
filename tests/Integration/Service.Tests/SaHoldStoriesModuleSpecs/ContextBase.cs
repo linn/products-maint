@@ -4,18 +4,13 @@
     using System.Security.Claims;
 
     using Linn.Common.Facade;
-    using Linn.Common.Nancy.Facade;
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Domain.Linnapps.Reports;
-    using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Facade.ResourceBuilders;
     using Linn.Products.Resources;
     using Linn.Products.Service.Modules;
     using Linn.Products.Service.ResponseProcessors;
-
-    using Microsoft.Extensions.DependencyModel;
 
     using Nancy.Testing;
 
@@ -58,7 +53,7 @@
                                 {
                                     var claims = new List<Claim>
                                                      {
-                                                         new Claim(ClaimTypes.Role, "employee"),
+                                                         new Claim("employee", "33087"),
                                                          new Claim(ClaimTypes.NameIdentifier, "test-user")
                                                      };
 

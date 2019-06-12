@@ -8,7 +8,6 @@ export const getSernosNote = (sernosNotes, serialNumber) => {
 
     const sernosNote = sernosNotes.find(
         note =>
-            note.sernosTRef === serialNumber.sernosTRef &&
             note.sernosNumber === serialNumber.sernosNumber &&
             note.sernosGroup === serialNumber.sernosGroup &&
             note.transCode === serialNumber.transCode

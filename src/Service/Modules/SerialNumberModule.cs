@@ -21,13 +21,18 @@ namespace Linn.Products.Service.Modules
         private readonly ISerialNumberFacadeService serialNumberService;
 
         private readonly IAuthorisationService authorisationService;
+        private readonly
+            IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource>
+            archiveSerialNumberService;
 
         public SerialNumberModule(
             ISerialNumberFacadeService serialNumberService,
-            IAuthorisationService authorisationService)
+            IAuthorisationService authorisationService,
+            IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource> archiveSerialNumberService)
         {
             this.serialNumberService = serialNumberService;
             this.authorisationService = authorisationService;
+            this.archiveSerialNumberService = archiveSerialNumberService;
             this.Get("/products/maint/serial-numbers", _ => this.GetSerialNumbers());
             this.Get("/products/maint/serial-numbers/{sernosTRef}", parameters => this.GetSerialNumberByTRef(parameters.sernosTRef));
             this.Post("/products/maint/serial-numbers", _ => this.CreateSerialNumbers());
@@ -37,7 +42,7 @@ namespace Linn.Products.Service.Modules
         {
             this.RequiresAuthentication();
 
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+            var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
 
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.SerialNumberAdmin, privileges))
             {
@@ -45,7 +50,7 @@ namespace Linn.Products.Service.Modules
             }
 
             var resource = this.Bind<SerialNumberCreateResource>();
-            resource.Links = new[] { new LinkResource("entered-by", this.Context.CurrentUser.GetEmployeeUri()) };            
+            resource.Links = new[] { new LinkResource("entered-by", this.Context?.CurrentUser?.GetEmployeeUri()) };            
             var results = new SerialNumberCreateResourceValidator().Validate(resource);
 
             return results.IsValid
@@ -64,14 +69,8 @@ namespace Linn.Products.Service.Modules
         {
             var resource = this.Bind<SerialNumberQueryResource>();
 
-            if (this.Context?.CurrentUser == null)
-            {
-                return this.Negotiate.WithModel(this.serialNumberService.Search(resource.SernosNumber.ToString()))
-                    .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
-            }
-
             return this.Negotiate
-                .WithModel(this.serialNumberService.Search(resource.SernosNumber.ToString(), this.Context.CurrentUser.GetPrivileges().ToList()))
+                .WithModel(this.archiveSerialNumberService.Search(resource.SernosNumber.ToString(), this.Context?.CurrentUser?.GetPrivileges().ToList()))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }

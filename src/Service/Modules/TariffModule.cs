@@ -38,19 +38,10 @@ namespace Linn.Products.Service.Modules
         {
             var resource = this.Bind<QueryResource>();
 
-            if (this.Context?.CurrentUser == null)
-            {
-                return this.Negotiate
-                    .WithModel(
-                        string.IsNullOrEmpty(resource.SearchTerm)
-                            ? this.tariffService.GetAll()
-                            : this.tariffService.Search(resource.SearchTerm))
-                    .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
-            }
+            var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
 
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
             var tariffs = string.IsNullOrEmpty(resource.SearchTerm)
-                              ? this.tariffService.GetAll(privileges)
+                              ? this.tariffService.GetAll(this.Context?.CurrentUser?.GetPrivileges().ToList())
                               : this.tariffService.Search(resource.SearchTerm, privileges);
 
             return this.Negotiate.WithModel(tariffs).WithMediaRangeModel("text/html", ApplicationSettings.Get)
@@ -60,14 +51,16 @@ namespace Linn.Products.Service.Modules
         private object GetTariff(int id)
         {
             return this.Negotiate
-                .WithModel(this.tariffService.GetById(id, this.Context.CurrentUser.GetPrivileges().ToList()))
+                .WithModel(this.tariffService.GetById(id, this.Context?.CurrentUser?.GetPrivileges().ToList()))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
+
         }
 
         private object UpdateTariff(int id)
         {
             this.RequiresAuthentication();
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+
+            var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
 
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.TariffAdmin, privileges))
             {
@@ -76,7 +69,7 @@ namespace Linn.Products.Service.Modules
             }
 
             var resource = this.Bind<TariffResource>();
-            resource.Links = new[] { new LinkResource("changed-by", this.Context.CurrentUser.GetEmployeeUri()) };
+            resource.Links = new[] { new LinkResource("changed-by", this.Context?.CurrentUser.GetEmployeeUri()) };
             return this.Negotiate.WithModel(this.tariffService.Update(id, resource, privileges));
         }
 

@@ -25,15 +25,10 @@ namespace Linn.Products.Service.Modules
 
         private object GetRootProduct(string name)
         {
-            if (this.Context.CurrentUser != null)
-            {
                 return this.Negotiate
-                    .WithModel(this.rootProductService.GetById(name, this.Context.CurrentUser.GetPrivileges()))
-                    .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
-            }
-
-            return this.Negotiate.WithModel(this.rootProductService.GetById(name))
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
+                    .WithModel(this.rootProductService.GetById(name, this.Context?.CurrentUser?.GetPrivileges()))
+                    .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                    .WithView("Index");
         }
 
         private object GetRootProducts()

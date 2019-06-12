@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.Modules
+namespace Linn.Products.Service.Modules
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -82,12 +82,6 @@
 
         private object GetSalesArticle(string id)
         {
-            if (this.Context.CurrentUser == null)
-            {
-                return this.Negotiate.WithModel(this.salesArticleService.GetById(id.ToUpper()))
-                    .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
-            }
-
             return this.Negotiate
                 .WithModel(
                     this.salesArticleService.GetById(id.ToUpper(), this.Context.CurrentUser.GetPrivileges().ToList()))
