@@ -41,8 +41,7 @@ describe('<VatCodes />', () => {
                     }
                 ],
                 loading: false,
-                errorMessage: null,
-                privileges: ['vat.admin']
+                errorMessage: null
             });
         });
 
