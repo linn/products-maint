@@ -61,19 +61,12 @@ const styles = theme => ({
 });
 
 function Navigation({ classes, sections, loading, username, myStuff, notifications }) {
-    const areUnseenNotifications = () =>
-        notifications &&
-        notifications.some(e => {
-            if (!localStorage.getItem(e.title)) {
-                return true;
-            }
-            return false;
-        });
-
     const [selected, setSelected] = useState(false);
     const [anchorEl, setAnchorEl] = useState();
     const isUnseen = notification => !localStorage.getItem(notification.title);
-    const [showNotificationDot, setShowNotificationDot] = useState(areUnseenNotifications());
+    const [showNotificationDot, setShowNotificationDot] = useState(
+        notifications && !!localStorage.getItem(e.title)
+    );
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     if (sections) {
@@ -96,7 +89,7 @@ function Navigation({ classes, sections, loading, username, myStuff, notificatio
                         closeSnackbar(key);
                         // add this item to local storage on dismissal to rememeber the user has seen this notification
                         localStorage.setItem(e.title, e.content);
-                        setShowNotificationDot(areUnseenNotifications());
+                        setShowNotificationDot(notifications && !!localStorage.getItem(e.title));
                     }}
                 >
                     {isUnseen(e) ? 'Acknowledge' : 'Dismiss'}
