@@ -18,6 +18,7 @@ namespace Linn.Products.Service.Modules
     public sealed class VatCodeModule : NancyModule
     {
         private readonly IFacadeService<VatCode, string, VatCodeResource, VatCodeResource> vatCodeService;
+
         private readonly IAuthorisationService authorisationService;
 
         public VatCodeModule(
@@ -34,19 +35,20 @@ namespace Linn.Products.Service.Modules
 
         private object AddVatCode()
         {
-            var resource = this.Bind<VatCodeResource>();
             this.RequiresAuthentication();
             var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
 
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.VatAdmin, privileges))
             {
-                return this.Negotiate.WithModel(new UnauthorisedResult<ResponseModel<VatCode>>("You are not authorised to create or edit vat codes"));
+                return this.Negotiate.WithModel(
+                    new UnauthorisedResult<ResponseModel<VatCode>>(
+                        "You are not authorised to create or edit vat codes"));
             }
 
             try
             {
-                return this.Negotiate.WithModel(this.vatCodeService.Add(resource, privileges)).WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                    .WithView("Index");
+                return this.Negotiate.WithModel(this.vatCodeService.Add(this.Bind<VatCodeResource>(), privileges))
+                    .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
             }
             catch (DbUpdateException e)
             {
@@ -56,21 +58,15 @@ namespace Linn.Products.Service.Modules
 
         private object GetVatCodeByCode(string code)
         {
-            var privileges = this.Context?.CurrentUser?.GetPrivileges();
-
-            var result = this.vatCodeService.GetById(code, privileges);
-
-            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                .WithView("Index");
+            return this.Negotiate
+                .WithModel(this.vatCodeService.GetById(code, this.Context?.CurrentUser?.GetPrivileges()))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
         }
 
         private object GetVatCodes()
         {
-            var privileges = this.Context?.CurrentUser?.GetPrivileges();
-
-            var result = this.vatCodeService.GetAll(privileges);
-            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                .WithView("Index");
+            return this.Negotiate.WithModel(this.vatCodeService.GetAll(this.Context?.CurrentUser?.GetPrivileges()))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
         }
 
         private object UpdateVatCode(string code)
@@ -80,16 +76,16 @@ namespace Linn.Products.Service.Modules
 
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.VatAdmin, privileges))
             {
-                return this.Negotiate.WithModel(new UnauthorisedResult<ResponseModel<VatCode>>("You are not authorised to create or edit vat codes"));
+                return this.Negotiate.WithModel(
+                    new UnauthorisedResult<ResponseModel<VatCode>>(
+                        "You are not authorised to create or edit vat codes"));
             }
 
-            var resource = this.Bind<VatCodeResource>();
             try
             {
-                var result = this.vatCodeService.Update(code, resource, privileges);
-
-                return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                .WithView("Index");
+                return this.Negotiate
+                    .WithModel(this.vatCodeService.Update(code, this.Bind<VatCodeResource>(), privileges))
+                    .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
             }
             catch (DbUpdateException e)
             {

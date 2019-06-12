@@ -8,11 +8,13 @@ import salesArticlesSelectors from '../../selectors/salesArticlesSelectors';
 import serialNumbersSelectors from '../../selectors/serialNumbersSelectors';
 import sernosNotesSelectors from '../../selectors/sernosNotesSelectors';
 import sernosNoteSelectors from '../../selectors/sernosNoteSelectors';
+import getPrivileges from '../../selectors/getPrivileges';
 
 const mapStateToProps = state => ({
     items: serialNumbersSelectors.getItems(state),
     loading: serialNumbersSelectors.getLoading(state),
     errorMessage: fetchErrorSelectors(state),
+    privileges: getPrivileges(state),
     salesArticles: salesArticlesSelectors.getItems(state),
     sernosNotes: sernosNotesSelectors.getItems(state),
     snackbarVisible: sernosNoteSelectors.getSnackbarVisible(state),

@@ -5,7 +5,7 @@ import { Typeahead, CreateButton, ErrorCard } from '@linn-it/linn-form-component
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
 
-const Tariffs = ({ items, fetchItems, loading, clearSearch, errorMessage }) => {
+const Tariffs = ({ items, fetchItems, loading, privileges, clearSearch, errorMessage }) => {
     const results = items.map(tariff => ({
         ...tariff,
         name: tariff.tariffCode,
@@ -16,8 +16,8 @@ const Tariffs = ({ items, fetchItems, loading, clearSearch, errorMessage }) => {
     }));
 
     const hasPermission = () => {
-        if (items[0]) {
-            return items[0].links.some(l => l.rel === 'tariff.admin');
+        if (!(privileges.length < 1)) {
+            return privileges.some(priv => priv === 'tariff.admin');
         }
         return false;
     };
@@ -63,6 +63,7 @@ const Tariffs = ({ items, fetchItems, loading, clearSearch, errorMessage }) => {
 Tariffs.propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     loading: PropTypes.bool,
+    privileges: PropTypes.arrayOf(PropTypes.string),
     fetchItems: PropTypes.func.isRequired,
     clearSearch: PropTypes.func.isRequired,
     errorMessage: PropTypes.string
@@ -70,7 +71,8 @@ Tariffs.propTypes = {
 
 Tariffs.defaultProps = {
     loading: false,
-    errorMessage: ''
+    errorMessage: '',
+    privileges: []
 };
 
 export default Tariffs;
