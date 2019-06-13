@@ -28,6 +28,7 @@ import salesArticle from './salesArticle';
 import salesArticles from './salesArticles';
 import saHoldStory from './saHoldStory';
 import menu from './menu';
+import news from './news';
 import vatCode from './vatCode';
 import vatCodes from './vatCodes';
 import productRange from './productRange';
@@ -90,6 +91,7 @@ const rootReducer = combineReducers({
     rootProduct,
     rootProducts,
     sernosUsedOnInvoiceReport,
+    news,
     serialNumberTransCounts
 });
 
