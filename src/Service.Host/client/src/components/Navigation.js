@@ -20,50 +20,46 @@ import Notifications from '@material-ui/icons/Notifications';
 import Panel from './Panel';
 import config from '../config';
 
-const styles = theme => {
-    console.log(theme);
-
-    return {
-        root: {
-            position: 'absolute',
-            width: '100%',
-            top: 0,
-            zIndex: 10
-        },
-        tabLabel: {
-            fontSize: '12px'
-        },
-        snackbarNew: {
-            background: theme.palette.primary.dark,
-            width: '800px'
-        },
-        snackbarSeen: {
-            width: '800px'
-        },
-        panel: {
-            position: 'relative'
-        },
-        menuButton: {
-            marginLeft: -12,
-            marginRight: 20
-        },
-        fullHeight: {
-            ...theme.mixins.toolbar,
-            minWidth: '100px'
-        },
-        toolbar: {
-            paddingLeft: 0,
-            paddingRight: 0
-        },
-        tabs: {
-            ...theme.mixins.toolbar,
-            paddingLeft: 40
-        },
-        container: {
-            width: '100%'
-        }
-    };
-};
+const styles = theme => ({
+    root: {
+        position: 'absolute',
+        width: '100%',
+        top: 0,
+        zIndex: 10
+    },
+    tabLabel: {
+        fontSize: '12px'
+    },
+    snackbarNew: {
+        background: theme.palette.primary.dark,
+        width: '800px'
+    },
+    snackbarSeen: {
+        width: '800px'
+    },
+    panel: {
+        position: 'relative'
+    },
+    menuButton: {
+        marginLeft: -12,
+        marginRight: 20
+    },
+    fullHeight: {
+        ...theme.mixins.toolbar,
+        minWidth: '100px'
+    },
+    toolbar: {
+        paddingLeft: 0,
+        paddingRight: 0
+    },
+    tabs: {
+        ...theme.mixins.toolbar,
+        paddingLeft: 40
+    },
+    container: {
+        width: '100%'
+    }
+});
 
 function Navigation({ classes, sections, loading, username, myStuff, notifications }) {
     const areUnseenNotifications = () =>

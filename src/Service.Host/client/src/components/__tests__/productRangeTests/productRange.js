@@ -30,8 +30,6 @@ describe('<ProductRange />', () => {
         });
 
         it('should render Input Fields', () => {
-            console.log('input fields');
-            console.log(wrapper.debug());
             expect(getInputFields()).toHaveLength(4);
         });
     });
@@ -42,8 +40,6 @@ describe('<ProductRange />', () => {
         });
 
         it('should render loading', () => {
-            console.log('loading');
-            console.log(wrapper.debug());
             expect(getLoading()).toHaveLength(1);
         });
     });
@@ -54,8 +50,6 @@ describe('<ProductRange />', () => {
         });
 
         it('should render ErrorCard', () => {
-            console.log('error card');
-            console.log(wrapper.debug());
             expect(getErrorCard()).toHaveLength(1);
         });
     });
