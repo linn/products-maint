@@ -8,7 +8,7 @@ describe('<ProductRange />', () => {
     const getInputFields = () => wrapper.find('WithStyles(InputField)');
     const getLoading = () => wrapper.find('Loading');
     const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');
-    const shallow = createShallow({ dive: true });
+    const shallow = createShallow({ dive: false });
 
     describe('when loaded', () => {
         beforeEach(() => {
@@ -21,7 +21,7 @@ describe('<ProductRange />', () => {
                     rangeDescription: 'desc'
                 },
                 history: {
-                    push: () => {},
+                    push: () => {}
                 },
                 editStatus: 'view',
                 setEditStatus: () => {}
@@ -30,6 +30,8 @@ describe('<ProductRange />', () => {
         });
 
         it('should render Input Fields', () => {
+            console.log('input fields');
+            console.log(wrapper.debug());
             expect(getInputFields()).toHaveLength(4);
         });
     });
@@ -40,6 +42,8 @@ describe('<ProductRange />', () => {
         });
 
         it('should render loading', () => {
+            console.log('loading');
+            console.log(wrapper.debug());
             expect(getLoading()).toHaveLength(1);
         });
     });
@@ -50,6 +54,8 @@ describe('<ProductRange />', () => {
         });
 
         it('should render ErrorCard', () => {
+            console.log('error card');
+            console.log(wrapper.debug());
             expect(getErrorCard()).toHaveLength(1);
         });
     });

@@ -1,7 +1,6 @@
 ﻿import React from 'react';
 import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import { List, ListItem, Paper, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';import { List, ListItem, Paper, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 const styles = () => ({

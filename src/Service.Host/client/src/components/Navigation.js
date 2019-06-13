@@ -1,7 +1,6 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import {
+import { withStyles } from '@material-ui/core/styles';import {
     Tabs,
     Tab,
     AppBar,
@@ -16,38 +15,77 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Panel from './Panel';
 import config from '../config';
 
-const styles = theme => ({
-    root: {
-        position: 'absolute',
-        width: '100%',
-        top: 0,
-        zIndex: 10
-    },
-    tabLabel: {
-        fontSize: '12px'
-    },
-    panel: {
-        position: 'relative'
-    },
-    menuButton: {
-        marginLeft: -12,
-        marginRight: 20
-    },
-    fullHeight: {
-        ...theme.mixins.toolbar,
-        minWidth: '100px'
-    },
-    toolbar: {
-        paddingLeft: 0,
-        paddingRight: 0
-    },
-    tabs: {
-        ...theme.mixins.toolbar
-    },
-    container: {
-        width: '100%'
-    }
-});
+const styles = theme => {
+    console.log(theme);
+
+    return {
+        root: {
+            position: 'absolute',
+            width: '100%',
+            top: 0,
+            zIndex: 10
+        },
+        tabLabel: {
+            fontSize: '12px'
+        },
+        panel: {
+            position: 'relative'
+        },
+        menuButton: {
+            marginLeft: -12,
+            marginRight: 20
+        },
+        fullHeight: {
+            ...theme.mixins.toolbar,
+            minWidth: '100px'
+        },
+        toolbar: {
+            paddingLeft: 0,
+            paddingRight: 0
+        },
+        tabs: {
+            ...theme.mixins.toolbar,
+            paddingLeft: 40
+        },
+        container: {
+            width: '100%'
+        }
+    };
+};
+
+// ({
+//     root: {
+//         position: 'absolute',
+//         width: '100%',
+//         top: 0,
+//         zIndex: 10
+//     },
+//     tabLabel: {
+//         fontSize: '12px'
+//     },
+//     panel: {
+//         position: 'relative'
+//     },
+//     menuButton: {
+//         marginLeft: -12,
+//         marginRight: 20
+//     },
+//     fullHeight: {
+//         ...theme.mixins.toolbar,
+//         minWidth: '100px'
+//     },
+//     toolbar: {
+//         paddingLeft: 0,
+//         paddingRight: 0
+//     },
+//     tabs: {
+//         ...theme.mixins.toolbar,
+//         paddingLeft: 40
+//     },
+//     container: {
+//         width: '100%'
+//     }
+// });
 
 function Navigation({ classes, sections, loading, username, myStuff }) {
     const [selected, setSelected] = useState(false);
@@ -75,71 +113,69 @@ function Navigation({ classes, sections, loading, username, myStuff }) {
                                     container
                                     alignItems="center"
                                     justify="space-between"
-                                    spacing={24}
+                                    spacing={3}
                                     classes={{ container: classes.container }}
                                 >
-                                    <Fragment>
-                                        <Grid item xs={11}>
-                                            <Tabs
-                                                classes={{
-                                                    root: classes.tabs
-                                                }}
-                                                value={selected}
-                                                onChange={(event, value) => {
-                                                    if (selected === value) {
-                                                        setSelected(false);
-                                                    } else {
-                                                        setSelected(value);
-                                                    }
-                                                }}
-                                                scrollButtons="auto"
-                                                variant="scrollable"
-                                                indicatorColor="primary"
-                                                textColor="primary"
-                                            >
-                                                {sections.map(item => (
-                                                    <Tab
-                                                        id={item.id}
-                                                        key={item.id}
-                                                        classes={{ root: classes.fullHeight }}
-                                                        label={
-                                                            <span className={classes.tabLabel}>
-                                                                {item.title}
-                                                            </span>
-                                                        }
-                                                        selected={false}
-                                                    />
-                                                ))}
-                                            </Tabs>
-                                        </Grid>
-                                        <Grid item xs={1}>
-                                            <Typography variant="h4">
-                                                <AccountCircle
-                                                    aria-owns={anchorEl ? 'simple-menu' : undefined}
-                                                    onClick={handleClick}
-                                                    id={sections.length}
-                                                    key={sections.length}
-                                                />
-                                            </Typography>
-                                        </Grid>
-                                        <Menu
-                                            id="simple-menu"
-                                            anchorEl={anchorEl}
-                                            open={Boolean(anchorEl)}
-                                            onClose={handleClose}
+                                    <Grid item xs={11}>
+                                        <Tabs
+                                            classes={{
+                                                root: classes.tabs
+                                            }}
+                                            value={selected}
+                                            onChange={(event, value) => {
+                                                if (selected === value) {
+                                                    setSelected(false);
+                                                } else {
+                                                    setSelected(value);
+                                                }
+                                            }}
+                                            scrollButtons="auto"
+                                            variant="scrollable"
+                                            indicatorColor="primary"
+                                            textColor="primary"
                                         >
-                                            <MenuItem onClick={handleClose}>{username}</MenuItem>
-                                            {username &&
-                                                myStuff.groups.map(item => (
-                                                    <span>
-                                                        <MenuItem onClick={handleClose}>
-                                                            {item.items[0].title}
-                                                        </MenuItem>
-                                                    </span>
-                                                ))}
-                                            <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
-                                        </Menu>
-                                    </Fragment>
+                                            {sections.map(item => (
+                                                <Tab
+                                                    id={item.id}
+                                                    key={item.id}
+                                                    classes={{ root: classes.fullHeight }}
+                                                    label={
+                                                        <span className={classes.tabLabel}>
+                                                            {item.title}
+                                                        </span>
+                                                    }
+                                                    selected={false}
+                                                />
+                                            ))}
+                                        </Tabs>
+                                    </Grid>
+                                    <Grid item xs={1}>
+                                        <Typography variant="h4">
+                                            <AccountCircle
+                                                aria-owns={anchorEl ? 'simple-menu' : undefined}
+                                                onClick={handleClick}
+                                                id={sections.length}
+                                                key={sections.length}
+                                            />
+                                        </Typography>
+                                    </Grid>
+                                    <Menu
+                                        id="simple-menu"
+                                        anchorEl={anchorEl}
+                                        open={Boolean(anchorEl)}
+                                        onClose={handleClose}
+                                    >
+                                        <MenuItem onClick={handleClose}>{username}</MenuItem>
+                                        {username &&
+                                            myStuff.groups.map(item => (
+                                                <span>
+                                                    <MenuItem onClick={handleClose}>
+                                                        {item.items[0].title}
+                                                    </MenuItem>
+                                                </span>
+                                            ))}
+                                        <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+                                    </Menu>
                                 </Grid>
                             </Toolbar>
                         </AppBar>

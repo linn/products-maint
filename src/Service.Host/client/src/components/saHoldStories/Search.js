@@ -13,7 +13,7 @@ const SaHoldStoriesSearch = ({ items, fetchItems, loading, clearSearch, errorMes
 
     return (
         <Page>
-            <Grid container spacing={24}>
+            <Grid container spacing={3}>
                 {errorMessage && (
                     <Grid item xs={12}>
                         <ErrorCard errorMessage={errorMessage} />

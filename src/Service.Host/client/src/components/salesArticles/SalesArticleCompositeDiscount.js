@@ -85,7 +85,7 @@ function SalesArticleCompositeDiscount({
     };
 
     return (
-        <Grid container spacing={24}>
+        <Grid container spacing={3}>
             {loading || !salesArticleCompositeDiscount ? (
                 <Grid item xs={12}>
                     <Loading />
@@ -98,7 +98,7 @@ function SalesArticleCompositeDiscount({
                         message="Save Successful"
                     />
 
-                    <Grid container spacing={24}>
+                    <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <Title
                                 text={`Composite discount parts for ${
