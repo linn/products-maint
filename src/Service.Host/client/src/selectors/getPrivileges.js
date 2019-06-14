@@ -1,11 +1,13 @@
 export default state => {
-    const priv = state.oidc.user.profile.privilege;
+    const { privilege } = state.oidc.user.profile;
 
-    if (!priv) {
+    if (!privilege) {
         return [];
     }
-    if (priv.length === 1) {
-        return [priv];
+
+    if (!Array.isArray(privilege)) {
+        return [privilege];
     }
+
     return state.oidc.user.profile.privilege;
 };

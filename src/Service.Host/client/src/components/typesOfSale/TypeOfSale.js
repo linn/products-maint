@@ -89,7 +89,7 @@ function TypeOfSale({
                         <ErrorCard errorMessage={errorMessage} />
                     </Grid>
                 )}
-                {loading || !typeOfSale ? (
+                {loading || (!typeOfSale && !creating()) ? (
                     <Grid item xs={12}>
                         <Loading />
                     </Grid>

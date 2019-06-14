@@ -8,7 +8,6 @@
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps.SernosTransactions;
     using Linn.Products.Resources;
-    using Linn.Products.Service.Tests.SernosTransModuleSpecs;
 
     using Nancy;
     using Nancy.Testing;

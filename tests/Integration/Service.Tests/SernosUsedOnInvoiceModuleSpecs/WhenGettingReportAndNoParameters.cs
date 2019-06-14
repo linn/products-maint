@@ -4,8 +4,6 @@
 
     using FluentAssertions;
 
-    using Linn.Common.Reporting.Models;
-
     using Nancy;
 
     using NSubstitute.ExceptionExtensions;

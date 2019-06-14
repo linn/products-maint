@@ -6,7 +6,7 @@ import SernosSequence from '../../components/sernosSequences/SernosSequence';
 import sernosSequenceSelectors from '../../selectors/sernosSequenceSelectors';
 
 const mapStateToProps = state => ({
-    item: sernosSequenceSelectors.getItem(state),
+    item: {},
     editStatus: 'create',
     errorMessage: fetchErrorSelectors(state),
     loading: sernosSequenceSelectors.getLoading(state),
