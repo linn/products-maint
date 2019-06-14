@@ -6,7 +6,7 @@ import TypeOfSale from '../../components/typesOfSale/TypeOfSale';
 import typeOfSaleSelectors from '../../selectors/typeOfSaleSelectors';
 
 const mapStateToProps = state => ({
-    item: typeOfSaleSelectors.getItem(state),
+    item: {},
     editStatus: 'create',
     errorMessage: fetchErrorSelectors(state),
     loading: typeOfSaleSelectors.getLoading(state),

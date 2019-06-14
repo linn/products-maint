@@ -21,7 +21,7 @@
         {
             this.ReportService.GetReport(1, null)
                 .Returns(new ResultsModel() {ReportTitle = new NameModel("t")});
-            
+
             this.Response = this.Browser.Get(
                 "/products/reports/sernos-used-on-invoice",
                 with =>

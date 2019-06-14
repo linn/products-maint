@@ -29,7 +29,6 @@
                         with.Header("Accept", "application/json");
                         with.Query("invoiceNumber", "1");
                         with.Query("consignmentNumber", "1");
-
                     }).Result;
         }
 
