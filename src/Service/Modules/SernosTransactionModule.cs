@@ -6,7 +6,7 @@
 
     using Nancy;
 
-    public class SernosTransactionModule : NancyModule
+    public sealed class SernosTransactionModule : NancyModule
     {
         private readonly IFacadeService<SernosTrans, string, SernosTransactionResource, SernosTransactionResource>
             sernosTransactionService;

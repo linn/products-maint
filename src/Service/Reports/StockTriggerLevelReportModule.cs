@@ -12,8 +12,12 @@
         public StockTriggerLevelReportModule(IStockTriggerLevelsService stockTriggerLevelsService)
         {
             this.stockTriggerLevelsService = stockTriggerLevelsService;
-            this.Get("/products/reports/stock-trigger-levels/{locationId}/{partNumber*}", parameters => this.GetStockTriggerLevelsAtLocation(parameters.locationId, parameters.partNumber));
-            this.Get("/products/reports/parts-at-location/{locationId}", parameters => this.GetPartDataAtLocation(parameters.locationId));
+            this.Get(
+                "/products/reports/stock-trigger-levels/{locationId}/{partNumber*}",
+                parameters => this.GetStockTriggerLevelsAtLocation(parameters.locationId, parameters.partNumber));
+            this.Get(
+                "/products/reports/parts-at-location/{locationId}",
+                parameters => this.GetPartDataAtLocation(parameters.locationId));
         }
 
         private object GetStockTriggerLevelsAtLocation(int locationId, string partNumber)

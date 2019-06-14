@@ -40,7 +40,7 @@
                                     ReasonStarted = "test",
                                     ReasonFinished = "test",
                                     DateFinished = new DateTime().ToShortDateString(),
-                                    TakenOffHoldByEmployee ="Employee",
+                                    TakenOffHoldByEmployee = "Employee",
                                     SalesArticle = "AR",
                                     DateStarted = new DateTime().ToShortDateString(),
                                     PutOnHoldByEmployee = "Employee",

@@ -8,7 +8,6 @@
 
     using Nancy;
     using Nancy.ModelBinding;
-    using Nancy.Security;
 
     public sealed class CartonsModule : NancyModule
     {
@@ -62,7 +61,6 @@
 
         private object GetCartonDetails()
         {
-            this.RequiresAuthentication();
             var results = this.cartonReportsService.GetCartonDetails();
 
             return this.Negotiate

@@ -1,15 +1,13 @@
 ﻿namespace Linn.Products.Facade.Services
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq.Expressions;
 
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
-
-    using PagedList.Core;
 
     public class RootProductService : FacadeService<RootProduct, string, RootProductResource, RootProductResource>
     {

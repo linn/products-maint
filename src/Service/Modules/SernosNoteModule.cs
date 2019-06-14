@@ -1,13 +1,10 @@
 namespace Linn.Products.Service.Modules
 {
-    using System.Linq;
-
     using Linn.Common.Facade;
     using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
     using Linn.Products.Resources.Validators;
-    using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
 
     using Nancy;

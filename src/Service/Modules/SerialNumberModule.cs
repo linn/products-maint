@@ -61,7 +61,7 @@ namespace Linn.Products.Service.Modules
         private object GetSerialNumberByTRef(int sernosTRef)
         {
             return this.Negotiate
-                .WithModel(this.serialNumberService.GetById(sernosTRef, this.Context.CurrentUser.GetPrivileges()))
+                .WithModel(this.serialNumberService.GetById(sernosTRef, this.Context?.CurrentUser?.GetPrivileges()))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
         }
 

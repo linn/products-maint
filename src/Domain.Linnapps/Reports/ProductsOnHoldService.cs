@@ -1,8 +1,7 @@
 ﻿namespace Linn.Products.Domain.Linnapps.Reports
 {
-    using System;
     using System.Linq;
-    
+
     using Linn.Common.Persistence;
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Linnapps.Products;
