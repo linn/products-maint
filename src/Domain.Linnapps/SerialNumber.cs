@@ -9,7 +9,7 @@
         public SerialNumber(string sernosGroup, string transCode, string articleNumber, int createdBy)
         {
             this.ValidateSerialNumber(sernosGroup, transCode, articleNumber);
-            
+
             this.SernosGroup = sernosGroup;
             this.TransCode = transCode;
             this.ArticleNumber = articleNumber;
@@ -27,7 +27,7 @@
         public int? AccountId { get; set; }
 
         public string ArticleNumber { get; set; }
-        
+
         public int CreatedBy { get; set; }
 
         public DateTime? DatePostedToVax { get; set; }

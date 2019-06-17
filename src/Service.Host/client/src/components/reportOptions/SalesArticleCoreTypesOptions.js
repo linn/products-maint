@@ -10,7 +10,7 @@ const SalesArticleCoreTypesOptions = ({ history }) => {
 
     return (
         <Page>
-            <Grid container spacing={24}>
+            <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <Typography variant="h4" gutterBottom>
                         Sales Articles Core Types Report Options

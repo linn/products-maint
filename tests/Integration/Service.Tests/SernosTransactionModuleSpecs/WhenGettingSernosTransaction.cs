@@ -1,12 +1,10 @@
-﻿namespace Linn.Products.Service.Tests.SernosTransModuleSpecs
+﻿namespace Linn.Products.Service.Tests.SernosTransactionModuleSpecs
 {
     using FluentAssertions;
 
     using Linn.Common.Facade;
-    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.SernosTransactions;
     using Linn.Products.Resources;
-    using Linn.Products.Service.Tests.SernosTransactionModuleSpecs;
 
     using Nancy;
     using Nancy.Testing;

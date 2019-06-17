@@ -2,7 +2,6 @@
 {
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
-    using Linn.Products.Resources.Validators;
     using Linn.Products.Service.Models;
 
     using Nancy;

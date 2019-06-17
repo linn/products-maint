@@ -12,7 +12,7 @@
 
     using NUnit.Framework;
 
-    public class WhenAddinSaCoreTypeWithNullDateInvalid : ContextBase
+    public class WhenAddingSaCoreTypeWithNullDateInvalid : ContextBase
     {
         private IResult<SaCoreType> result;
 

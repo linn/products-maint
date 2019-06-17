@@ -18,9 +18,12 @@ namespace Linn.Products.Service.Modules
     public sealed class TariffModule : NancyModule
     {
         private readonly IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService;
+
         private readonly IAuthorisationService authorisationService;
 
-        public TariffModule(IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService, IAuthorisationService authorisationService)
+        public TariffModule(
+            IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService,
+            IAuthorisationService authorisationService)
         {
             this.tariffService = tariffService;
             this.authorisationService = authorisationService;
@@ -34,11 +37,11 @@ namespace Linn.Products.Service.Modules
         private object GetTariffs()
         {
             var resource = this.Bind<QueryResource>();
-            
+
             var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
 
             var tariffs = string.IsNullOrEmpty(resource.SearchTerm)
-                              ? this.tariffService.GetAll(privileges)
+                              ? this.tariffService.GetAll(this.Context?.CurrentUser?.GetPrivileges().ToList())
                               : this.tariffService.Search(resource.SearchTerm, privileges);
 
             return this.Negotiate.WithModel(tariffs).WithMediaRangeModel("text/html", ApplicationSettings.Get)
@@ -46,16 +49,17 @@ namespace Linn.Products.Service.Modules
         }
 
         private object GetTariff(int id)
-        { 
-            var tariff = this.tariffService.GetById(id, this.Context?.CurrentUser?.GetPrivileges().ToList());
-            return this.Negotiate.WithModel(tariff).WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                .WithView("Index");
+        {
+            return this.Negotiate
+                .WithModel(this.tariffService.GetById(id, this.Context?.CurrentUser?.GetPrivileges().ToList()))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
+
         }
 
         private object UpdateTariff(int id)
         {
             this.RequiresAuthentication();
-            var employeeUri = this.Context.CurrentUser.GetEmployeeUri();
+
             var privileges = this.Context?.CurrentUser?.GetPrivileges().ToList();
 
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.TariffAdmin, privileges))
@@ -65,9 +69,8 @@ namespace Linn.Products.Service.Modules
             }
 
             var resource = this.Bind<TariffResource>();
-            resource.Links = new[] { new LinkResource("changed-by", employeeUri) };
-            var tariff = this.tariffService.Update(id, resource, privileges);
-            return this.Negotiate.WithModel(tariff);
+            resource.Links = new[] { new LinkResource("changed-by", this.Context?.CurrentUser.GetEmployeeUri()) };
+            return this.Negotiate.WithModel(this.tariffService.Update(id, resource, privileges));
         }
 
         private object AddTariff()

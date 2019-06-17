@@ -17,7 +17,7 @@ const EanCodes = ({ reportData, loading, options, config }) => {
 
     return (
         <Page>
-            <Grid container spacing={24} justify="center">
+            <Grid container spacing={3} justify="center">
                 <Grid item xs={9}>
                     <Title text={` Sales Article Ean Codes ${optionsTitle}`} />
                 </Grid>

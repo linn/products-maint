@@ -23,7 +23,7 @@
             this.requestResource = new SernosNoteCreateResource()
                                        {
                                            SernosNotes = "notes",
-                                           SernosGroup = "group",                                           
+                                           SernosGroup = "group",
                                            SernosNumber = 222,
                                            SernosTRef = 333,
                                            TransCode = "code"

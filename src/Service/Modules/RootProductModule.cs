@@ -1,7 +1,8 @@
-﻿namespace Linn.Products.Service.Modules
+namespace Linn.Products.Service.Modules
 {
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
     using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
@@ -25,10 +26,8 @@
 
         private object GetRootProduct(string name)
         {
-           
-                var privileges = this.Context?.CurrentUser?.GetPrivileges();
                 return this.Negotiate
-                    .WithModel(this.rootProductService.GetById(name, privileges))
+                    .WithModel(this.rootProductService.GetById(name, this.Context?.CurrentUser?.GetPrivileges()))
                     .WithMediaRangeModel("text/html", ApplicationSettings.Get)
                     .WithView("Index");
         }
@@ -37,8 +36,8 @@
         {
             var resource = this.Bind<QueryResource>();
             var rootProducts = string.IsNullOrEmpty(resource.SearchTerm)
-                              ? this.rootProductService.GetAll()
-                              : this.rootProductService.Search(resource.SearchTerm);
+                                   ? this.rootProductService.GetAll()
+                                   : this.rootProductService.Search(resource.SearchTerm);
 
             return this.Negotiate.WithModel(rootProducts).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");

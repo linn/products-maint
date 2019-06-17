@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import { Grid } from '@material-ui/core';
 import {
@@ -11,8 +10,6 @@ import {
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
-
-const styles = () => ({});
 
 class ProductRange extends Component {
     constructor(props) {
@@ -102,7 +99,7 @@ class ProductRange extends Component {
 
         return (
             <Page>
-                <Grid container spacing={24}>
+                <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <Title text="Product Range Details" />
                     </Grid>
@@ -194,4 +191,4 @@ ProductRange.defaultProps = {
     updateProductRange: null
 };
 
-export default withStyles(styles)(ProductRange);
+export default ProductRange;

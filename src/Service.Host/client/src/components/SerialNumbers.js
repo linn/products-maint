@@ -28,6 +28,7 @@ function SerialNumbers({
     items,
     loading,
     fetchItems,
+    privileges,
     sernosNotes,
     snackbarVisible,
     sernosNoteLoading,
@@ -62,8 +63,8 @@ function SerialNumbers({
     };
 
     const canAmendOrCreateSerialNumbers = () => {
-        if (items.links) {
-            return items.links.some(l => l.rel === 'amend-create-serial-number');
+        if (!(privileges < 1)) {
+            return privileges.some(priv => priv === 'serial-number.create');
         }
         return false;
     };
@@ -158,6 +159,7 @@ SerialNumbers.propTypes = {
     sernosNoteLoading: PropTypes.bool,
     sernosNotesLoading: PropTypes.bool,
     snackbarVisible: PropTypes.bool,
+    privileges: PropTypes.arrayOf(PropTypes.string),
     addSernosNote: PropTypes.func.isRequired,
     updateSernosNote: PropTypes.func.isRequired,
     setSnackbarVisible: PropTypes.func.isRequired,
@@ -169,7 +171,8 @@ SerialNumbers.defaultProps = {
     sernosNoteLoading: false,
     sernosNotesLoading: false,
     snackbarVisible: false,
-    errorMessage: ''
+    errorMessage: '',
+    privileges: []
 };
 
 export default SerialNumbers;

@@ -6,6 +6,7 @@
 
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.Products;
 
     using Microsoft.EntityFrameworkCore;
 

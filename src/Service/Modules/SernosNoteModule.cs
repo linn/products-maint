@@ -1,13 +1,10 @@
-﻿namespace Linn.Products.Service.Modules
+namespace Linn.Products.Service.Modules
 {
-    using System.Linq;
-
     using Linn.Common.Facade;
     using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Resources;
     using Linn.Products.Resources.Validators;
-    using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
 
     using Nancy;
@@ -16,12 +13,13 @@
 
     public sealed class SernosNoteModule : NancyModule
     {
-        private readonly IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource> sernosNoteService;
+        private readonly IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource>
+            sernosNoteService;
 
         private readonly IAuthorisationService authorisationService;
 
         public SernosNoteModule(
-            IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource> sernosNoteService, 
+            IFacadeService<SernosNote, int, SernosNoteCreateResource, SernosNoteResource> sernosNoteService,
             IAuthorisationService authorisationService)
         {
             this.sernosNoteService = sernosNoteService;
@@ -34,17 +32,15 @@
 
         private object GetSernosNoteById(int id)
         {
-            var result = this.sernosNoteService.GetById(id);
-            return this.Negotiate.WithModel(result).WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                .WithView("Index");
+            return this.Negotiate.WithModel(this.sernosNoteService.GetById(id))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
         }
 
         private object GetSernosNotes()
         {
-            var resource = this.Bind<SernosNoteQueryResource>();
-            var results = this.sernosNoteService.Search(resource.SernosNumber.ToString());
-            return this.Negotiate.WithModel(results).WithMediaRangeModel("text/html", ApplicationSettings.Get)
-                .WithView("Index");
+            return this.Negotiate
+                .WithModel(this.sernosNoteService.Search(this.Bind<SernosNoteQueryResource>().SernosNumber.ToString()))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
         }
 
         private object AddSernosNote()

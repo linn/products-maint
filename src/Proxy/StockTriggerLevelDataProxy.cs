@@ -1,6 +1,5 @@
 ﻿namespace Linn.Products.Proxy
 {
-    using System;
     using System.Data;
 
     using Linn.Common.Configuration;

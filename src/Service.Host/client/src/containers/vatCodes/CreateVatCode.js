@@ -5,7 +5,7 @@ import VatCode from '../../components/vatCodes/VatCode';
 import vatCodeSelectors from '../../selectors/vatCodeSelectors';
 
 const mapStateToProps = state => ({
-    item: vatCodeSelectors.getItem(state),
+    item: {},
     editStatus: 'create',
     errorMessage: fetchErrorSelectors(state),
     loading: vatCodeSelectors.getLoading(state),

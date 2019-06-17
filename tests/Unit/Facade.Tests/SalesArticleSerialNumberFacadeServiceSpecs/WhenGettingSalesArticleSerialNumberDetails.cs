@@ -18,10 +18,10 @@
         public void SetUp()
         {
             var salesArticle = new SalesArticle
-                                            {
-                                                ArticleNumber = "article",
-                                                TypeOfSerialNumber = "P1"
-                                            };
+                                   {
+                                       ArticleNumber = "article",
+                                       TypeOfSerialNumber = "P1"
+                                   };
 
             this.SalesArticleRepository.FindById("article").Returns(salesArticle);
             this.SernosPack.GetProductGroup("article").Returns("group");

@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.Tests.SernosUsedOnConsignmentModuleSpecs
+﻿namespace Linn.Products.Service.Tests.SernosUsedOnInvoiceModuleSpecs
 {
     using System.Linq;
 
@@ -6,7 +6,6 @@
 
     using Linn.Common.Reporting.Models;
     using Linn.Common.Reporting.Resources.ReportResultResources;
-    using Linn.Products.Service.Tests.SernosUsedOnInvoiceModuleSpecs;
 
     using Nancy;
     using Nancy.Testing;
