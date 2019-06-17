@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, Paper } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
-import { ReportTable, Title, ErrorCard, Loading } from '@linn-it/linn-form-components-library';
+import { withStyles } from '@material-ui/core/styles';import { ReportTable, Title, ErrorCard, Loading } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 
 const styles = () => ({
@@ -20,7 +19,7 @@ const styles = () => ({
 function StockTriggerLevelParts({ reportData, classes }) {
     return (
         <Paper className={classes.root}>
-            <Grid container spacing={24} justify="center">
+            <Grid container spacing={3} justify="center">
                 <Grid item xs={12}>
                     <Title text={reportData ? reportData.title.displayString : null} />
                 </Grid>

@@ -18,7 +18,7 @@ class SalesProductsByProductRange extends Component {
             !options.includePhasedOut || options.includePhasedOut === 'false' ? 'Live s' : 'S';
         return (
             <Page>
-                <Grid container spacing={24} justify="center">
+                <Grid container spacing={3} justify="center">
                     <Grid item xs={12}>
                         <Grid item xs={10}>
                             <Title

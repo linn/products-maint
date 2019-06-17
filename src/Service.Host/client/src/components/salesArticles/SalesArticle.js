@@ -154,7 +154,7 @@ function SalesArticle({
 
     return (
         <Page>
-            <Grid container spacing={24}>
+            <Grid container spacing={3}>
                 {errorMessage && (
                     <Grid item xs={12}>
                         <ErrorCard errorMessage={errorMessage} />
@@ -185,7 +185,7 @@ function SalesArticle({
                                 <Tab label="Set Composite Discount" />
                             </Tabs>
                             {tab === 0 && (
-                                <Grid container spacing={24}>
+                                <Grid container spacing={3}>
                                     <Grid item xs={6}>
                                         <Title text={salesArticle.articleNumber} />
                                     </Grid>

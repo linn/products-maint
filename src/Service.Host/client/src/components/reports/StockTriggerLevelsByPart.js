@@ -7,8 +7,7 @@ import {
     ReportTable
 } from '@linn-it/linn-form-components-library';
 import { Grid, Paper } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';import PropTypes from 'prop-types';
 
 const styles = () => ({
     root: {
@@ -36,7 +35,7 @@ class StockTriggerLevelsByPart extends Component {
 
         return (
             <Paper className={classes.root}>
-                <Grid container spacing={24} justify="center">
+                <Grid container spacing={3} justify="center">
                     <Grid item xs={12}>
                         <Title text={reportData ? reportData.title.displayString : null} />
                     </Grid>

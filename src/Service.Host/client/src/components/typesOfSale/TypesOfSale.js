@@ -12,7 +12,7 @@ import { sortEntityList } from '../../helpers/utilities';
 
 const TypesOfSale = ({ typesOfSale, loading, errorMessage }) => (
     <Page>
-        <Grid container spacing={24}>
+        <Grid container spacing={3}>
             {errorMessage && (
                 <Grid item xs={12}>
                     <ErrorCard errorMessage={errorMessage} />

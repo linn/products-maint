@@ -15,7 +15,7 @@ function SernosUsedOnInvoiceOptions({ prevOptions, history }) {
         });
     return (
         <Page>
-            <Grid style={{ marginTop: 40 }} container spacing={24} justify="center">
+            <Grid style={{ marginTop: 40 }} container spacing={3} justify="center">
                 <Grid item xs={12}>
                     <Typography variant="h4" gutterBottom>
                         Search Invoice, Consignment or Both:

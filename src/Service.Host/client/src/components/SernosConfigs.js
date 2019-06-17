@@ -11,7 +11,7 @@ import {
 
 const SernosConfigs = ({ sernosConfigs, loading, history, errorMessage }) => (
     <Page history={history}>
-        <Grid container spacing={24}>
+        <Grid container spacing={3}>
             {errorMessage && (
                 <Grid item xs={12}>
                     <ErrorCard errorMessage={errorMessage} />

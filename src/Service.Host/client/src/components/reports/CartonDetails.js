@@ -6,7 +6,7 @@ import Page from '../../containers/Page';
 
 const CartonDetails = ({ reportData, loading }) => (
     <Page>
-        <Grid container spacing={24} justify="center">
+        <Grid container spacing={3} justify="center">
             <Grid item xs={12}>
                 <Title text="Carton Details" />
                 <CreateButton createUrl="/products/maint/carton-types/create" />
