@@ -1,6 +1,5 @@
 ﻿namespace Linn.Products.Service.Reports
 {
-    using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Facade.Services;
     using Linn.Products.Service.Models;
 

@@ -84,7 +84,7 @@ namespace Linn.Products.Service.Modules
         {
             return this.Negotiate
                 .WithModel(
-                    this.salesArticleService.GetById(id.ToUpper(), this.Context.CurrentUser.GetPrivileges().ToList()))
+                    this.salesArticleService.GetById(id.ToUpper(), this.Context?.CurrentUser?.GetPrivileges().ToList()))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
         }
 
@@ -110,7 +110,7 @@ namespace Linn.Products.Service.Modules
                     .WithModel(
                         this.salesArticleService.GetById(
                             resource.ArticleNumber.ToUpper(),
-                            this.Context.CurrentUser.GetPrivileges()))
+                            this.Context?.CurrentUser?.GetPrivileges()))
                     .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
             }
 

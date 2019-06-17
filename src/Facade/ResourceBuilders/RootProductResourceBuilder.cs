@@ -7,7 +7,7 @@
     using Linn.Common.Facade;
     using Linn.Common.Resources;
     using Linn.Products.Domain;
-    using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
 
     public class RootProductResourceBuilder : IResourceBuilder<ResponseModel<RootProduct>>

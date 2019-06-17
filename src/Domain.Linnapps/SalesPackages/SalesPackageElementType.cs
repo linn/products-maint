@@ -5,6 +5,5 @@
         public string ElementType { get; set; }
 
         public string Description { get; set; }
-
     }
 }

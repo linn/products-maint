@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Domain.Linnapps
+﻿namespace Linn.Products.Domain.Linnapps.Products
 {
     using System.Collections.Generic;
 
@@ -9,6 +9,5 @@
         public string Description { get; set; }
 
         public ICollection<SaHoldStory> HoldStories { get; set; }
-
     }
 }
