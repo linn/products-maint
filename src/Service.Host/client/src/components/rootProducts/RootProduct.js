@@ -51,7 +51,7 @@ function RootProduct({ item, snackbarVisible, setSnackbarVisible, loading, error
     };
     return (
         <Page>
-            <Grid container spacing={24}>
+            <Grid container spacing={3}>
                 {errorMessage && (
                     <Grid item xs={12}>
                         <ErrorCard errorMessage={errorMessage} />
@@ -81,7 +81,7 @@ function RootProduct({ item, snackbarVisible, setSnackbarVisible, loading, error
                                     <Tab label="Hold History" />
                                 </Tabs>
                                 {tab === 0 && (
-                                    <Grid container spacing={24}>
+                                    <Grid container spacing={3}>
                                         <Grid item xs={6}>
                                             <Title text={`${item.name} Root Product Details`} />
                                         </Grid>

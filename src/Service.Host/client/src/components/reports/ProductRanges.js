@@ -9,7 +9,7 @@ const ProductRanges = ({ reportData, loading, options, errorMessage }) => {
         !options.includePhasedOut || options.includePhasedOut === 'false' ? 'Live ' : '';
     return (
         <Page>
-            <Grid container spacing={24} justify="center">
+            <Grid container spacing={3} justify="center">
                 <Grid item xs={12}>
                     <Title text={`${optionsTitle} Product Ranges`} />
                 </Grid>

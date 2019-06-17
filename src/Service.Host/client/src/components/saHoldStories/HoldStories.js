@@ -26,7 +26,7 @@ function Report({ reportData, loading }) {
 
 function HoldStories({ reportData, loading, errorMessage }) {
     return (
-        <Grid container spacing={24} justify="center">
+        <Grid container spacing={3} justify="center">
             {errorMessage && (
                 <Grid item xs={12}>
                     <ErrorCard errorMessage={errorMessage} />

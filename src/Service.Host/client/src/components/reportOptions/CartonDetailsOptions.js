@@ -1,7 +1,6 @@
 ﻿import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 
 const styles = () => ({
@@ -43,7 +42,7 @@ class CartonDetailsOptions extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                <Grid container spacing={24} justify="center">
+                <Grid container spacing={3} justify="center">
                     <Button variant="outlined" bsClass="btn" onClick={() => this.handleClick()}>
                         Run Report
                     </Button>

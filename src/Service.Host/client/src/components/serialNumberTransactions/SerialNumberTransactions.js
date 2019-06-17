@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { Loading, CreateButton, getSelfHref } from '@linn-it/linn-form-components-library';
+import { withStyles } from '@material-ui/core/styles';import { Loading, CreateButton, getSelfHref } from '@linn-it/linn-form-components-library';
 import {
     Table,
     TableHead,
@@ -21,7 +20,7 @@ const actionsStyles = theme => ({
     root: {
         flexShrink: 0,
         color: theme.palette.text.secondary,
-        marginLeft: theme.spacing.unit * 2.5
+        marginLeft: theme.spacing(2.5)
     }
 });
 

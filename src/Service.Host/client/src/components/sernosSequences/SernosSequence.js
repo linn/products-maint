@@ -74,7 +74,7 @@ function SernosSequence({
 
     return (
         <Page>
-            <Grid container spacing={24}>
+            <Grid container spacing={3}>
                 <Grid item xs={12}>
                     {creating() ? (
                         <Title text="Create Sernos Sequence" />

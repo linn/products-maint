@@ -5,7 +5,7 @@ import ProductRangesOptions from '../../reportOptions/ProductRangesOptions';
 describe('<ProductRangesOptions />', () => {
     let wrapper;
     let history;
-    const getButton = () => wrapper.find('WithStyles(Button)');
+    const getButton = () => wrapper.find('WithStyles(ForwardRef(Button))');
     const shallow = createShallow({ dive: false });
 
     beforeEach(() => {

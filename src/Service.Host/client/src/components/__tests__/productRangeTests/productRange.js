@@ -8,7 +8,7 @@ describe('<ProductRange />', () => {
     const getInputFields = () => wrapper.find('WithStyles(InputField)');
     const getLoading = () => wrapper.find('Loading');
     const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');
-    const shallow = createShallow({ dive: true });
+    const shallow = createShallow({ dive: false });
 
     describe('when loaded', () => {
         beforeEach(() => {
@@ -21,7 +21,7 @@ describe('<ProductRange />', () => {
                     rangeDescription: 'desc'
                 },
                 history: {
-                    push: () => {},
+                    push: () => {}
                 },
                 editStatus: 'view',
                 setEditStatus: () => {}

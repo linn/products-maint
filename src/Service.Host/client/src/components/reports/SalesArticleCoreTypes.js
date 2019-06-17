@@ -15,7 +15,7 @@ const SalesArticleCoreTypes = ({ reportData, loading, config, errorMessage }) =>
 
     return (
         <Page>
-            <Grid container spacing={24} justify="center">
+            <Grid container spacing={3} justify="center">
                 {errorMessage && (
                     <Grid item xs={12}>
                         <ErrorCard errorMessage={errorMessage} />
