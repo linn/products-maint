@@ -3,7 +3,7 @@ import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import SerialNumberTransaction from '../../components/serialNumberTransactions/SerialNumberTransaction';
 import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import serialNumberTransactionActions from '../../actions/serialNumberTransactionActions';
-import serialNumberTransactionUtilityActions from '../../actions/serialNumberTransactionUtilityActions';
+import serialNumberTransCountsActions from '../../actions/serialNumberTransCountsActions';
 import serialNumberTransactionSelectors from '../../selectors/serialNumberTransactionSelectors';
 import serialNumberTransactionCountsSelectors from '../../selectors/serialNumberTransactionCountsSelectors';
 
@@ -19,7 +19,7 @@ const mapStateToProps = (state, { match }) => ({
 
 const initialise = ({ itemId }) => dispatch => {
     dispatch(serialNumberTransactionActions.fetch(itemId));
-    dispatch(serialNumberTransactionUtilityActions.fetch());
+    dispatch(serialNumberTransCountsActions.fetch());
 };
 
 const mapDispatchToProps = {
