@@ -1,7 +1,6 @@
 ﻿import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
 import SerialNumberTransactions from '../../components/serialNumberTransactions/SerialNumberTransactions';
-import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import serialNumberTransactionsActions from '../../actions/serialNumberTransactionsActions';
 import serialNumberTransactionsSelectors from '../../selectors/serialNumberTransactionsSelectors';
 

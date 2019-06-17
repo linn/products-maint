@@ -1,7 +1,6 @@
 ﻿import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
 import Tariff from '../../components/tariffs/Tariff';
-import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import tariffActions from '../../actions/tariff';
 import tariffSelectors from '../../selectors/tariffSelectors';
 

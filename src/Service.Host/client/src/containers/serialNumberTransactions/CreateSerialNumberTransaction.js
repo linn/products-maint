@@ -1,11 +1,10 @@
 ﻿import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
 import serialNumberTransactionActions from '../../actions/serialNumberTransactionActions';
 import serialNumberTransCountsActions from '../../actions/serialNumberTransCountsActions';
 import SerialNumberTransaction from '../../components/serialNumberTransactions/SerialNumberTransaction';
 import serialNumberTransactionSelectors from '../../selectors/serialNumberTransactionSelectors';
 import serialNumberTransactionCountsSelectors from '../../selectors/serialNumberTransactionCountsSelectors';
-import initialiseOnMount from '../common/functionalInitialiseOnMount';
 
 const mapStateToProps = state => ({
     item: { manualPost: 'N', updateBuiltBy: 'N' },
