@@ -83,6 +83,12 @@ const Root = ({ store }) => (
                             />
 
                             <Route
+                                exact
+                                path="/products"
+                                render={() => <Redirect to="/products/maint" />}
+                            />
+
+                            <Route
                                 path="/"
                                 render={() => {
                                     document.title = 'Products';
