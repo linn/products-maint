@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Grid, Button } from '@material-ui/core';
+
 import {
     SaveBackCancelButtons,
     InputField,
@@ -12,7 +13,6 @@ import {
     Dropdown,
     useSearch
 } from '@linn-it/linn-form-components-library';
-import AutoComplete from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 import { getSernosNote } from '../selectors/sernosNotesSelectors';
 
@@ -222,17 +222,7 @@ function SerialNumber({
                             />
                         </Grid>
                         <Grid item xs={5} />
-                        <Grid item xs={5}>
-                            <AutoComplete
-                                suggestions={salesArticles}
-                                disabled={viewing()}
-                                onChange={handleFieldChange}
-                                propertyName="articleNumber"
-                                label="Article Number Search"
-                                onInputChange={handleSearchTermChange}
-                                isLoading={salesArticlesLoading}
-                            />
-                        </Grid>
+                        <Grid item xs={5} />
                         <Grid item xs={5} />
                         <Grid item xs={5}>
                             <InputField
