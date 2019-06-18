@@ -10,9 +10,9 @@ import {
     ErrorCard,
     SnackbarMessage,
     Dropdown,
-    useSearch,
-    AutoComplete
+    useSearch
 } from '@linn-it/linn-form-components-library';
+import AutoComplete from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 import { getSernosNote } from '../selectors/sernosNotesSelectors';
 
