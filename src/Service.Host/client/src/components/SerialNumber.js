@@ -11,7 +11,8 @@ import {
     ErrorCard,
     SnackbarMessage,
     Dropdown,
-    useSearch
+    useSearch,
+    AutoDropDown
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 import { getSernosNote } from '../selectors/sernosNotesSelectors';
@@ -222,7 +223,17 @@ function SerialNumber({
                             />
                         </Grid>
                         <Grid item xs={5} />
-                        <Grid item xs={5} />
+                        <Grid item xs={5}>
+                            <AutoDropDown
+                                suggestions={salesArticles}
+                                disabled={viewing()}
+                                onChange={handleFieldChange}
+                                propertyName="articleNumber"
+                                label="Article Number Search"
+                                onInputChange={handleSearchTermChange}
+                                isLoading={salesArticlesLoading}
+                            />
+                        </Grid>
                         <Grid item xs={5} />
                         <Grid item xs={5}>
                             <InputField
