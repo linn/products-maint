@@ -3,9 +3,9 @@ import { withRouter } from 'react-router';
 import Navigation from '../components/Navigation';
 import initialiseOnMount from './common/initialiseOnMount';
 import fetchMenu from '../actions/fetchMenuActions';
-import fetchNews from '../actions/newsActions';
+import { markNotificationSeen, fetchNews } from '../actions/newsActions';
 import { getSections, getMenuLoading, getMyStuff } from '../selectors/menuSelectors';
-import { getNews } from '../selectors/newsSelectors';
+import { getSeenNotifications, getUnseenNotifications } from '../selectors/newsSelectors';
 import getUsername from '../selectors/userSelectors';
 
 const mapStateToProps = state => ({
@@ -13,7 +13,8 @@ const mapStateToProps = state => ({
     myStuff: getMyStuff(state),
     username: getUsername(state),
     loading: getMenuLoading(state),
-    notifications: getNews(state)
+    seenNotifications: getSeenNotifications(state),
+    unseenNotifications: getUnseenNotifications(state)
 });
 
 const initialise = state => dispatch => {
@@ -22,7 +23,8 @@ const initialise = state => dispatch => {
 };
 
 const mapDispatchToProps = {
-    initialise
+    initialise,
+    markNotificationSeen
 };
 
 export default withRouter(

@@ -2,7 +2,7 @@ import { RSAA } from 'redux-api-middleware';
 import config from '../config';
 import * as actionTypes from './index';
 
-const fetchNews = () => ({
+export const fetchNews = () => ({
     [RSAA]: {
         endpoint: `${config.appRoot}/notifications`,
         method: 'GET',
@@ -28,4 +28,7 @@ const fetchNews = () => ({
     }
 });
 
-export default fetchNews;
+export const markNotificationSeen = e => ({
+    type: 'MARK_NOTIFICATION_SEEN',
+    title: e.title
+});
