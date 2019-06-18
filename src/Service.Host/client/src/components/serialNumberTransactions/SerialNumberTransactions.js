@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';import { Loading, CreateButton, getSelfHref } from '@linn-it/linn-form-components-library';
+import { withStyles } from '@material-ui/core/styles';
+import { Loading, CreateButton, getSelfHref } from '@linn-it/linn-form-components-library';
 import {
     Table,
     TableHead,

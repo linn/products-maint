@@ -1,13 +1,13 @@
-﻿import { paginationStoreFactory } from '@linn-it/linn-form-components-library';
+﻿import { collectionStoreFactory } from '@linn-it/linn-form-components-library';
 import { serialNumberTransactionsActionTypes as actionTypes } from '../actions';
 import * as itemTypes from '../itemTypes';
 
 const defaultState = {
     loading: false,
-    page: { elements: [], pageNumber: 1, pageSize: 5 }
+    items: []
 };
 
-export default paginationStoreFactory(
+export default collectionStoreFactory(
     itemTypes.serialNumberTransactions.actionType,
     actionTypes,
     defaultState

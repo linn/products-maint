@@ -18,6 +18,7 @@ import sernosConfig from './sernosConfig';
 import sernosConfigs from './sernosConfigs';
 import serialNumberTransaction from './serialNumberTransaction';
 import serialNumberTransactions from './serialNumberTransactions';
+import serialNumberTransactionsPaged from './serialNumberTransactionsPaged';
 import sernosSequence from './sernosSequence';
 import sernosSequences from './sernosSequences';
 import saCoreTypes from './saCoreTypes';
@@ -37,8 +38,6 @@ import productsOnHoldReport from './productsOnHoldReport';
 import salesArticleCoreTypes from './salesArticleCoreTypes/index';
 import salesPackage from './salesPackage';
 import salesPackages from './salesPackages';
-import sernosTransaction from './sernosTransaction';
-import sernosTransactions from './sernosTransactions';
 import rootProducts from './rootProducts/rootProducts';
 import rootProduct from './rootProducts/rootProduct';
 import salesArticleCompositeDiscount from './salesArticleCompositeDiscount';
@@ -63,6 +62,7 @@ const rootReducer = combineReducers({
     sernosConfigs,
     serialNumberTransaction,
     serialNumberTransactions,
+    serialNumberTransactionsPaged,
     sernosSequence,
     sernosSequences,
     saCoreTypes,
@@ -84,8 +84,6 @@ const rootReducer = combineReducers({
     productsOnHoldReport,
     salesPackage,
     salesPackages,
-    sernosTransaction,
-    sernosTransactions,
     salesArticleCompositeDiscount,
     salesArticleSernosDetails,
     rootProduct,

@@ -118,18 +118,6 @@ export const salesPackages = new ItemType(
     '/products/maint/sales-packages'
 );
 
-export const sernosTransaction = new ItemType(
-    'sernosTransaction',
-    'SERNOS_TRANSACTION',
-    '/products/maint/sernos-transactions'
-);
-
-export const sernosTransactions = new ItemType(
-    'sernosTransactions',
-    'SERNOS_TRANSACTIONS',
-    '/products/maint/sernos-transactions'
-);
-
 export const serialNumberTransCounts = new ItemType(
     'serialNumberTransCounts',
     'SERIAL_NUMBER_COUNTS',
@@ -163,5 +151,11 @@ export const serialNumberTransaction = new ItemType(
 export const serialNumberTransactions = new ItemType(
     'serialNumberTransactions',
     'SERIAL_NUMBER_TRANSACTIONS',
+    '/products/maint/serial-number-transactions'
+);
+
+export const serialNumberTransactionsPaged = new ItemType(
+    'serialNumberTransactionsPaged',
+    'SERIAL_NUMBER_TRANSACTIONS_PAGED',
     '/products/maint/serial-number-transactions'
 );
