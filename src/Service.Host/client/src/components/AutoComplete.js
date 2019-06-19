@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { makeStyles } from '@material-ui/styles';
-import { Typography, TextField, MenuItem, Paper } from '@material-ui/core';
+import { withStyles, Typography, TextField, MenuItem, Paper } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
     root: {
         flexGrow: 1
     },
@@ -20,7 +19,7 @@ const useStyles = makeStyles(theme => ({
         overflow: 'hidden'
     },
     noOptionsMessage: {
-        //padding: `${theme.spacing(1)}px ${theme.spacing(2)}px` TODO
+        padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`
     },
     singleValue: {
         fontSize: 16
@@ -33,23 +32,23 @@ const useStyles = makeStyles(theme => ({
     paper: {
         position: 'absolute',
         zIndex: 200,
-        //marginTop: theme.spacing(1),
+        marginTop: theme.spacing(1),
         left: 0,
         right: 0
     },
     divider: {
-        //height: theme.spacing(2)
-    },
-    primary: {
-        //color: theme.palette.text.primary
+        height: theme.spacing(2)
     }
-}));
+});
 
 function NoOptionsMessage(props) {
-    const { innerProps, children } = props;
-    const classes = useStyles();
+    const { selectProps, innerProps, children } = props;
     return (
-        <Typography color="textSecondary" className={classes.noOptionsMessage} {...innerProps}>
+        <Typography
+            color="textSecondary"
+            className={selectProps.classes.noOptionsMessage}
+            {...innerProps}
+        >
             {children}
         </Typography>
     );
@@ -61,8 +60,6 @@ function inputComponent({ inputRef, ...props }) {
 
 function Control(props) {
     const { selectProps, innerRef, children, innerProps, error } = props;
-    const classes = useStyles();
-
     return (
         <TextField
             error={error}
@@ -74,7 +71,7 @@ function Control(props) {
             InputProps={{
                 inputComponent,
                 inputProps: {
-                    className: classes.input,
+                    className: selectProps.classes.input,
                     inputRef: innerRef,
                     children,
                     ...innerProps
@@ -95,21 +92,23 @@ function Option(props) {
 }
 
 function Placeholder(props) {
-    const { innerProps, children } = props;
-    const classes = useStyles();
+    const { selectProps, innerProps, children } = props;
     return (
-        <Typography color="textSecondary" className={classes.placeholder} {...innerProps}>
+        <Typography
+            color="textSecondary"
+            className={selectProps.classes.placeholder}
+            {...innerProps}
+        >
             {children}
         </Typography>
     );
 }
 
 function SingleValue(props) {
-    const { innerProps, children } = props;
-    const classes = useStyles();
+    const { selectProps, innerProps, children } = props;
 
     return (
-        <Typography className={classes.singleValue} {...innerProps}>
+        <Typography className={selectProps.classes.singleValue} {...innerProps}>
             {children}
         </Typography>
     );
@@ -117,17 +116,15 @@ function SingleValue(props) {
 
 function ValueContainer(props) {
     const { selectProps, children } = props;
-    const classes = useStyles();
 
-    return <div className={classes.valueContainer}>{children}</div>;
+    return <div className={selectProps.classes.valueContainer}>{children}</div>;
 }
 
 function Menu(props) {
-    const { innerProps, children } = props;
-    const classes = useStyles();
+    const { selectProps, innerProps, children } = props;
 
     return (
-        <Paper square className={classes.paper} {...innerProps}>
+        <Paper square className={selectProps.classes.paper} {...innerProps}>
             {children}
         </Paper>
     );
@@ -143,60 +140,79 @@ const components = {
     ValueContainer
 };
 
-function AutoComplete(suggestions, disabled, label, onInputChange, isLoading) {
-    const [single, setSingle] = useState(null);
-
-    const handleChange = () => {
-        setSingle('single');
+class AutoComplete extends React.PureComponent {
+    state = {
+        single: null
     };
 
-    const classes = useStyles();
+    handleChange = name => value => {
+        const { propertyName, onChange } = this.props;
+        this.setState({
+            [name]: value
+        });
+        onChange(propertyName, value);
+    };
 
-    if (suggestions && suggestions.length === 1) {
-        setSingle(suggestions[0]);
+    render() {
+        const {
+            classes,
+            theme,
+            suggestions,
+            disabled,
+            label,
+            onInputChange,
+            isLoading
+        } = this.props;
+
+        const { single } = this.state;
+
+        if (suggestions.length === 1) {
+            this.setState({
+                single: suggestions[0]
+            });
+        }
+
+        const selectStyles = {
+            input: base => ({
+                ...base,
+                color: theme.palette.text.primary,
+                '& input': {
+                    font: 'inherit'
+                }
+            })
+        };
+
+        return (
+            <div className={classes.root}>
+                <Select
+                    isDisabled={disabled}
+                    classes={classes}
+                    styles={selectStyles}
+                    options={suggestions}
+                    label={label}
+                    components={components}
+                    placeholder=""
+                    onInputChange={onInputChange}
+                    value={suggestions.length === 1 ? suggestions[0] : single}
+                    onChange={this.handleChange('single')}
+                    isClearable
+                    isLoading={isLoading}
+                />
+            </div>
+        );
     }
-
-    const selectStyles = {
-        input: base => ({
-            ...base,
-            color: classes.primary,
-            '& input': {
-                font: 'inherit'
-            }
-        })
-    };
-
-    return (
-        <div className={classes.root}>
-            <Select
-                isDisabled={disabled}
-                classes={classes}
-                styles={selectStyles}
-                options={suggestions}
-                label={label}
-                components={components}
-                placeholder=""
-                onInputChange={onInputChange}
-                value={suggestions && suggestions.length === 1 ? suggestions[0] : single}
-                onChange={handleChange}
-                isClearable
-                isLoading={isLoading}
-            />
-        </div>
-    );
 }
 
 AutoComplete.defaultProps = {
     disabled: false,
     onInputChange: undefined,
-    suggestions: [],
     isLoading: false
 };
 
 AutoComplete.propTypes = {
     classes: PropTypes.shape({}).isRequired,
     theme: PropTypes.shape({}).isRequired,
-    suggestions: PropTypes.arrayOf(PropTypes.shape),
+    suggestions: PropTypes.arrayOf(PropTypes.shape).isRequired,
     propertyName: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
     label: PropTypes.string.isRequired,
@@ -205,4 +221,4 @@ AutoComplete.propTypes = {
     isLoading: PropTypes.bool
 };
 
-export default AutoComplete;
+export default withStyles(styles, { withTheme: true })(AutoComplete);
