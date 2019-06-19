@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { withStyles, Typography, TextField, MenuItem, Paper } from '@material-ui/core';
+import { Typography, TextField, MenuItem, Paper } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     root: {
