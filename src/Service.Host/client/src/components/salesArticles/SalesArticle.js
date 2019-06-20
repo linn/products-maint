@@ -48,7 +48,7 @@ function SalesArticle({
             setSalesArticle(item);
             setPrevSalesArticle(item);
         }
-    });
+    }, [item, prevSalesArticle]);
 
     const inputInvalid = () =>
         salesArticle.percentageOfRootProductSales < 0 ||

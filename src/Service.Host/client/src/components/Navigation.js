@@ -91,18 +91,16 @@ function Navigation({ classes, sections, loading, username, myStuff, notificatio
         };
 
         const handleDismiss = (key, e) => (
-            <Fragment>
-                <Button
-                    onClick={() => {
-                        closeSnackbar(key);
-                        // add this item to local storage on dismissal to rememeber the user has seen this notification
-                        localStorage.setItem(e.title, e.content);
-                        setShowNotificationDot(areUnseenNotifications());
-                    }}
-                >
-                    {isUnseen(e) ? 'Acknowledge' : 'Dismiss'}
-                </Button>
-            </Fragment>
+            <Button
+                onClick={() => {
+                    closeSnackbar(key);
+                    // add this item to local storage on dismissal to rememeber the user has seen this notification
+                    localStorage.setItem(e.title, e.content);
+                    setShowNotificationDot(areUnseenNotifications());
+                }}
+            >
+                {isUnseen(e) ? 'Acknowledge' : 'Dismiss'}
+            </Button>
         );
 
         const queueNotifications = () => {
