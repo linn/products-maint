@@ -9,12 +9,11 @@ import {
     Title,
     ErrorCard,
     SnackbarMessage,
-    Dropdown,
-    useSearch,
-    AutoComplete
+    Dropdown
 } from '@linn-it/linn-form-components-library';
 import Page from '../containers/Page';
 import { getSernosNote } from '../selectors/sernosNotesSelectors';
+import SalesArticleTypeaheadDialog from '../containers/common/SalesArticleTypeaheadDialog';
 
 function SerialNumber({
     errorMessage,
@@ -25,47 +24,37 @@ function SerialNumber({
     salesArticleSernosDetails,
     snackbarVisible,
     addItem,
-    salesArticlesSearchResults,
     setEditStatus,
     sernosNotes,
     sernosTransactions,
     sernosTransactionsLoading,
     setSnackbarVisible,
     fetchSalesArticleSernosDetails,
-    fetchSalesArticles,
-    salesArticlesLoading,
     clearSerialNumber,
-    clearSalesArticleSernosDetails,
-    clearSearch
+    clearSalesArticleSernosDetails
 }) {
     const [serialNumber, setSerialNumber] = useState({});
     const [prevSerialNumber, setPrevSerialNumber] = useState({});
     const [sernosTransactionsList, setSernosTransactionsList] = useState(['']);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [salesArticles, setSalesArticles] = useState([]);
-
+    const handleArticleNumberChange = newValue => {
+        if (editStatus === 'view') {
+            setEditStatus('edit');
+        }
+        setSerialNumber({
+            ...serialNumber,
+            articleNumber: newValue.articleNumber
+        });
+    };
     const savedFetchSalesArticleSernosDetails = useRef(null);
-
-    useSearch(fetchSalesArticles, searchTerm, clearSearch);
 
     useEffect(() => {
         savedFetchSalesArticleSernosDetails.current = fetchSalesArticleSernosDetails;
     }, [fetchSalesArticleSernosDetails]);
 
     useEffect(() => {
-        setSalesArticles(() =>
-            salesArticlesSearchResults.map(s => ({
-                ...s,
-                label: `${s.articleNumber}: ${s.description}`
-            }))
-        );
-    }, [salesArticlesSearchResults]);
-
-    useEffect(() => {
         if (items === null) {
             setSerialNumber({});
             setPrevSerialNumber(null);
-            setSalesArticles([{}]);
         } else {
             const sernos = items[0];
 
@@ -74,13 +63,6 @@ function SerialNumber({
                 fromSernosNumber: s.fromSernosNumber,
                 toSernosNumber: s.toSernosNumber
             }));
-
-            setSalesArticles([
-                {
-                    articleNumber: sernos.articleNumber,
-                    label: sernos.articleNumber
-                }
-            ]);
 
             setPrevSerialNumber(sernos);
         }
@@ -118,10 +100,6 @@ function SerialNumber({
     }, [salesArticleSernosDetails, serialNumber.articleNumber]);
 
     const viewing = () => editStatus === 'view';
-
-    const handleSearchTermChange = value => {
-        setSearchTerm(value);
-    };
 
     const handleFieldChange = (propertyName, newValue) => {
         if (propertyName === 'articleNumber') {
@@ -223,14 +201,17 @@ function SerialNumber({
                         </Grid>
                         <Grid item xs={5} />
                         <Grid item xs={5}>
-                            <AutoComplete
-                                suggestions={salesArticles}
-                                disabled={viewing()}
-                                onChange={handleFieldChange}
+                            <InputField
+                                disabled
+                                label="Article Number"
+                                type="string"
                                 propertyName="articleNumber"
-                                label="Article Number Search"
-                                onInputChange={handleSearchTermChange}
-                                isLoading={salesArticlesLoading}
+                                value={serialNumber.articleNumber}
+                                onChange={handleFieldChange}
+                            />
+                            <SalesArticleTypeaheadDialog
+                                onSelect={handleArticleNumberChange}
+                                title="Search for sales article"
                             />
                         </Grid>
                         <Grid item xs={5} />
@@ -358,9 +339,7 @@ SerialNumber.propTypes = {
     errorMessage: PropTypes.string,
     loading: PropTypes.bool.isRequired,
     snackbarVisible: PropTypes.bool,
-    salesArticlesSearchResults: PropTypes.arrayOf(PropTypes.shape({})),
     salesArticleSernosDetails: PropTypes.shape({}),
-    salesArticlesLoading: PropTypes.bool,
     sernosNotes: PropTypes.arrayOf(PropTypes.shape({})),
     sernosTransactions: PropTypes.arrayOf(PropTypes.shape({})),
     sernosTransactionsLoading: PropTypes.bool,
@@ -368,18 +347,14 @@ SerialNumber.propTypes = {
     setEditStatus: PropTypes.func.isRequired,
     setSnackbarVisible: PropTypes.func.isRequired,
     fetchSalesArticleSernosDetails: PropTypes.func.isRequired,
-    fetchSalesArticles: PropTypes.func.isRequired,
     clearSerialNumber: PropTypes.func.isRequired,
-    clearSalesArticleSernosDetails: PropTypes.func.isRequired,
-    clearSearch: PropTypes.func.isRequired
+    clearSalesArticleSernosDetails: PropTypes.func.isRequired
 };
 
 SerialNumber.defaultProps = {
     items: {},
     errorMessage: '',
     snackbarVisible: false,
-    salesArticlesSearchResults: [{}],
-    salesArticlesLoading: false,
     salesArticleSernosDetails: null,
     sernosNotes: [],
     sernosTransactions: [],
