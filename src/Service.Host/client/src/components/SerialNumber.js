@@ -202,6 +202,7 @@ function SerialNumber({
                         <Grid item xs={5} />
                         <Grid item xs={5}>
                             <InputField
+                                disabled
                                 label="Article Number"
                                 type="string"
                                 propertyName="articleNumber"
