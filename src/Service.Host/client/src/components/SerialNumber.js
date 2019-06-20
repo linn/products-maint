@@ -347,7 +347,7 @@ SerialNumber.propTypes = {
     setSnackbarVisible: PropTypes.func.isRequired,
     fetchSalesArticleSernosDetails: PropTypes.func.isRequired,
     clearSerialNumber: PropTypes.func.isRequired,
-    clearSalesArticleSernosDetails: PropTypes.func.isRequired,
+    clearSalesArticleSernosDetails: PropTypes.func.isRequired
 };
 
 SerialNumber.defaultProps = {
