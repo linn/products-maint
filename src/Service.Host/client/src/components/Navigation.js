@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -61,20 +61,18 @@ const styles = theme => ({
     }
 });
 
-function Navigation({ classes, sections, loading, username, myStuff, notifications }) {
-    const areUnseenNotifications = () =>
-        notifications &&
-        notifications.some(e => {
-            if (!localStorage.getItem(e.title)) {
-                return true;
-            }
-            return false;
-        });
-
+function Navigation({
+    classes,
+    sections,
+    loading,
+    username,
+    myStuff,
+    seenNotifications,
+    unseenNotifications,
+    markNotificationSeen
+}) {
     const [selected, setSelected] = useState(false);
     const [anchorEl, setAnchorEl] = useState();
-    const isUnseen = notification => !localStorage.getItem(notification.title);
-    const [showNotificationDot, setShowNotificationDot] = useState(areUnseenNotifications());
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     if (sections) {
@@ -90,23 +88,44 @@ function Navigation({ classes, sections, loading, username, myStuff, notificatio
             window.location.assign(`${config.authorityUri}account/logout`);
         };
 
-        const handleDismiss = (key, e) => (
+        const actions = (key, e) => (
             <Fragment>
+                <Button
+                    variant="contained"
+                    onClick={() => {
+                        window.location = e.links.filter(l => l.rel === 'self')[0].href;
+                    }}
+                >
+                    {'View'}
+                </Button>
                 <Button
                     onClick={() => {
                         closeSnackbar(key);
-                        // add this item to local storage on dismissal to rememeber the user has seen this notification
                         localStorage.setItem(e.title, e.content);
-                        setShowNotificationDot(areUnseenNotifications());
+                        markNotificationSeen(e);
                     }}
                 >
-                    {isUnseen(e) ? 'Acknowledge' : 'Dismiss'}
+                    {'Dismiss'}
                 </Button>
             </Fragment>
         );
 
+        const noNotifications = () => {
+            if (!seenNotifications && !unseenNotifications) {
+                return true;
+            }
+            let total = 0;
+            if (seenNotifications) {
+                total += seenNotifications.length;
+            }
+            if (unseenNotifications) {
+                total += unseenNotifications.length;
+            }
+            return total === 0;
+        };
+
         const queueNotifications = () => {
-            if (!notifications || notifications.length === 0) {
+            if (noNotifications()) {
                 enqueueSnackbar('No notifications to show!', {
                     anchorOrigin: {
                         vertical: 'bottom',
@@ -115,39 +134,26 @@ function Navigation({ classes, sections, loading, username, myStuff, notificatio
                     variant: 'info',
                     preventDuplicate: true
                 });
-            } // stagger the queuing for effect
-            else {
-                notifications
-                    // queue unseen notifications first
-                    .sort((a, b) => {
-                        if (isUnseen(a) && !isUnseen(b)) {
-                            return 1;
-                        }
-                        if (!isUnseen(a) && isUnseen(b)) {
-                            return -1;
-                        }
-                        return 0;
-                    })
-                    .forEach((e, i) => {
-                        setTimeout(() => {
-                            enqueueSnackbar(`${e.title} ${e.content}`, {
-                                anchorOrigin: {
-                                    vertical: 'bottom',
-                                    horizontal: 'right'
-                                },
-                                ContentProps: {
-                                    classes: {
-                                        // unseen notifications are blue, seen notifications are gray
-                                        root: localStorage.getItem(e.title)
-                                            ? classes.snackbarSeen
-                                            : classes.snackbarNew
-                                    }
-                                },
-                                action: key => handleDismiss(key, e),
-                                preventDuplicate: true
-                            });
-                        }, i * 200); // stagger the queuing for effect
-                    });
+            } else {
+                unseenNotifications.concat(seenNotifications).forEach((e, i) => {
+                    setTimeout(() => {
+                        enqueueSnackbar(`${e.title} ${e.content}`, {
+                            anchorOrigin: {
+                                vertical: 'bottom',
+                                horizontal: 'right'
+                            },
+                            ContentProps: {
+                                classes: {
+                                    root: localStorage.getItem(e.title)
+                                        ? classes.snackbarSeen
+                                        : classes.snackbarNew
+                                }
+                            },
+                            action: key => actions(key, e),
+                            preventDuplicate: true
+                        });
+                    }, i * 200);
+                });
             }
         };
 
@@ -210,7 +216,11 @@ function Navigation({ classes, sections, loading, username, myStuff, notificatio
                                     <Grid item xs={1}>
                                         <Typography variant="h4">
                                             <Badge
-                                                badgeContent={showNotificationDot}
+                                                badgeContent={
+                                                    unseenNotifications
+                                                        ? unseenNotifications.length
+                                                        : 0
+                                                }
                                                 color="primary"
                                                 variant="dot"
                                             >
@@ -228,9 +238,11 @@ function Navigation({ classes, sections, loading, username, myStuff, notificatio
                                         {username &&
                                             myStuff.groups.map(item => (
                                                 <span>
-                                                    <MenuItem onClick={handleClose}>
-                                                        {item.items[0].title}
-                                                    </MenuItem>
+                                                    <a href={item.items[0].href}>
+                                                        <MenuItem onClick={handleClose}>
+                                                            {item.items[0].title}
+                                                        </MenuItem>
+                                                    </a>
                                                 </span>
                                             ))}
                                         <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
@@ -272,13 +284,16 @@ Navigation.propTypes = {
     loading: PropTypes.bool,
     username: PropTypes.string,
     myStuff: PropTypes.shape({}),
-    notifications: PropTypes.shape({})
+    seenNotifications: PropTypes.arrayOf(PropTypes.shape({})),
+    unseenNotifications: PropTypes.arrayOf(PropTypes.shape({})),
+    markNotificationSeen: PropTypes.func.isRequired
 };
 
 Navigation.defaultProps = {
     sections: null,
     myStuff: null,
-    notifications: null,
+    seenNotifications: [],
+    unseenNotifications: [],
     loading: false,
     username: ''
 };
