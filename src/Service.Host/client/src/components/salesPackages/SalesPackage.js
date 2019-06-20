@@ -121,7 +121,8 @@ function SalesPackage({
         setSalesPackage({ ...salesPackage, elements });
     };
 
-    const inputInvalid = () => newElements.some(e => !e.elementType);
+    const inputInvalid = () =>
+        !salesPackage.salesPackageId || newElements.some(e => !e.elementType);
 
     return (
         <Page>
