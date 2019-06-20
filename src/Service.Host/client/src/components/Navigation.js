@@ -91,17 +91,18 @@ function Navigation({
         const actions = (key, e) => (
             <Fragment>
                 <Button
+                    variant="contained"
+                    onClick={() => {
+                        window.location = e.links.filter(l => l.rel === 'self')[0].href;
+                    }}
+                >
+                    {'View'}
+                </Button>
+                <Button
                     onClick={() => {
                         closeSnackbar(key);
                         localStorage.setItem(e.title, e.content);
                         markNotificationSeen(e);
-                    }}
-                >
-                    {'Dismiss'}
-                </Button>
-                <Button
-                    onClick={() => {
-                        window.location = e.href;
                     }}
                 >
                     {'Dismiss'}
@@ -283,16 +284,16 @@ Navigation.propTypes = {
     loading: PropTypes.bool,
     username: PropTypes.string,
     myStuff: PropTypes.shape({}),
-    seenNotifications: PropTypes.shape({}),
-    unseenNotifications: PropTypes.shape({}),
+    seenNotifications: PropTypes.arrayOf(PropTypes.shape({})),
+    unseenNotifications: PropTypes.arrayOf(PropTypes.shape({})),
     markNotificationSeen: PropTypes.func.isRequired
 };
 
 Navigation.defaultProps = {
     sections: null,
     myStuff: null,
-    seenNotifications: null,
-    unseenNotifications: null,
+    seenNotifications: [],
+    unseenNotifications: [],
     loading: false,
     username: ''
 };
