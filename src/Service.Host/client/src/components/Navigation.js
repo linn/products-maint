@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -88,16 +88,25 @@ function Navigation({
             window.location.assign(`${config.authorityUri}account/logout`);
         };
 
-        const handleDismiss = (key, e) => (
-            <Button
-                onClick={() => {
-                    closeSnackbar(key);
-                    localStorage.setItem(e.title, e.content);
-                    markNotificationSeen(e);
-                }}
-            >
-                {'Dismiss'}
-            </Button>
+        const actions = (key, e) => (
+            <Fragment>
+                <Button
+                    onClick={() => {
+                        closeSnackbar(key);
+                        localStorage.setItem(e.title, e.content);
+                        markNotificationSeen(e);
+                    }}
+                >
+                    {'Dismiss'}
+                </Button>
+                <Button
+                    onClick={() => {
+                        window.location = e.href;
+                    }}
+                >
+                    {'Dismiss'}
+                </Button>
+            </Fragment>
         );
 
         const noNotifications = () => {
@@ -139,7 +148,7 @@ function Navigation({
                                         : classes.snackbarNew
                                 }
                             },
-                            action: key => handleDismiss(key, e),
+                            action: key => actions(key, e),
                             preventDuplicate: true
                         });
                     }, i * 200);
