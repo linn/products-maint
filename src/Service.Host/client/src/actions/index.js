@@ -85,12 +85,6 @@ export const sernosNotesActionTypes = makeActionTypes(itemTypes.sernosNotes.acti
 export const salesPackageActionTypes = makeActionTypes(itemTypes.salesPackage.actionType);
 export const salesPackagesActionTypes = makeActionTypes(itemTypes.salesPackages.actionType, false);
 
-export const sernosTransactionActionTypes = makeActionTypes(itemTypes.sernosTransaction.actionType);
-export const sernosTransactionsActionTypes = makeActionTypes(
-    itemTypes.sernosTransactions.actionType,
-    false
-);
-
 export const salesArticleCompositeDiscountActionTypes = makeActionTypes(
     itemTypes.salesArticleCompositeDiscount.actionType
 );
@@ -100,6 +94,10 @@ export const serialNumberTransactionActionTypes = makeActionTypes(
 );
 export const serialNumberTransactionsActionTypes = makeActionTypes(
     itemTypes.serialNumberTransactions.actionType,
+    false
+);
+export const serialNumberTransactionsPagedActionTypes = makeActionTypes(
+    itemTypes.serialNumberTransactionsPaged.actionType,
     false
 );
 export const serialNumberTransactionCountsActionTypes = makeActionTypes(

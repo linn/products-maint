@@ -1,4 +1,4 @@
-﻿import { PaginationSelectors } from '@linn-it/linn-form-components-library';
+﻿import { CollectionSelectors } from '@linn-it/linn-form-components-library';
 import * as itemTypes from '../itemTypes';
 
-export default new PaginationSelectors(itemTypes.serialNumberTransactions.item, 'transCode');
+export default new CollectionSelectors(itemTypes.serialNumberTransactions.item, 'transCode');

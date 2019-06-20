@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
 import SaHoldStory from '../../components/saHoldStories/SaHoldStory';
-import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import saHoldStorySelectors from '../../selectors/saHoldStorySelectors';
 import saHoldStoryActions from '../../actions/saHoldStoryActions';
 

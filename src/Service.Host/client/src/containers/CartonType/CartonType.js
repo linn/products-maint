@@ -1,9 +1,8 @@
 ﻿import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
 import CartonType from '../../components/CartonType';
 import cartonTypeActions from '../../actions/cartonTypeActions';
 import cartonTypeSelectors from '../../selectors/cartonTypeSelectors';
-import initialiseOnMount from '../common/functionalInitialiseOnMount';
 
 const mapStateToProps = (state, { match }) => ({
     item: cartonTypeSelectors.getItem(state),

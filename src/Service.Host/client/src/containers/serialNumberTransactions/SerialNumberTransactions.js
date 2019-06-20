@@ -1,22 +1,21 @@
 ﻿import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
 import SerialNumberTransactions from '../../components/serialNumberTransactions/SerialNumberTransactions';
-import initialiseOnMount from '../common/functionalInitialiseOnMount';
-import serialNumberTransactionsActions from '../../actions/serialNumberTransactionsActions';
-import serialNumberTransactionsSelectors from '../../selectors/serialNumberTransactionsSelectors';
+import serialNumberTransactionsPagedActions from '../../actions/serialNumberTransactionsPagedActions';
+import serialNumberTransactionsPagedSelectors from '../../selectors/serialNumberTransactionsPagedSelectors';
 
 const mapStateToProps = state => ({
-    page: serialNumberTransactionsSelectors.getPage(state),
-    loading: serialNumberTransactionsSelectors.getLoading(state),
+    page: serialNumberTransactionsPagedSelectors.getPage(state),
+    loading: serialNumberTransactionsPagedSelectors.getLoading(state),
     errorMessage: fetchErrorSelectors(state)
 });
 
 const pageLoad = (pageNumber = 1, rowsPerPage = 5) => dispatch => {
-    dispatch(serialNumberTransactionsActions.fetchPage(pageNumber, rowsPerPage));
+    dispatch(serialNumberTransactionsPagedActions.fetchPage(pageNumber, rowsPerPage));
 };
 
 const initialise = (pageNumber = 1, rowsPerPage = 5) => dispatch => {
-    dispatch(serialNumberTransactionsActions.fetchPage(pageNumber, rowsPerPage));
+    dispatch(serialNumberTransactionsPagedActions.fetchPage(pageNumber, rowsPerPage));
 };
 
 const mapDispatchToProps = {

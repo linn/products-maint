@@ -1,7 +1,6 @@
 ﻿import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
 import SernosConfig from '../../components/SernosConfig';
-import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import sernosConfigActions from '../../actions/sernosConfigActions';
 import sernosConfigSelectors from '../../selectors/sernosConfigSelectors';
 

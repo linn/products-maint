@@ -3,9 +3,9 @@ import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
 import initialiseOnMount from '../common/initialiseOnMount';
 import serialNumberActions from '../../actions/serialNumberActions';
 import SerialNumber from '../../components/SerialNumber';
-import sernosTransactionsActions from '../../actions/sernosTransactionsActions';
+import serialNumberTransactionsActions from '../../actions/serialNumberTransactionsActions';
 import serialNumberSelectors from '../../selectors/serialNumberSelectors';
-import sernosTransactionsSelectors from '../../selectors/sernosTransactionsSelectors';
+import serialNumberTransactionsSelectors from '../../selectors/serialNumberTransactionsSelectors';
 import getSalesArticleSernosDetails from '../../selectors/salesArticleSernosDetailsSelectors';
 import salesArticlesActions from '../../actions/salesArticles';
 import salesArticlesSelectors from '../../selectors/salesArticlesSelectors';
@@ -22,8 +22,8 @@ const mapStateToProps = state => ({
     loading: serialNumberSelectors.getLoading(state),
     salesArticleSernosDetails: getSalesArticleSernosDetails(state),
     sernosNotes: sernosNotesSelectors.getItems(state),
-    sernosTransactions: sernosTransactionsSelectors.getItems(state),
-    sernosTransactionsLoading: sernosTransactionsSelectors.getLoading(state),
+    sernosTransactions: serialNumberTransactionsSelectors.getItems(state),
+    sernosTransactionsLoading: serialNumberTransactionsSelectors.getLoading(state),
     snackbarVisible: serialNumberSelectors.getSnackbarVisible(state),
     salesArticlesSearchResults: salesArticlesSelectors.getSearchItems(state),
     salesArticlesLoading: salesArticlesSelectors.getSearchLoading(state)
@@ -32,7 +32,7 @@ const mapStateToProps = state => ({
 const initialise = () => dispatch => {
     dispatch(serialNumberActions.setEditStatus('create'));
     dispatch(serialNumberActions.create());
-    dispatch(sernosTransactionsActions.fetch());
+    dispatch(serialNumberTransactionsActions.fetch());
     dispatch(clearSalesArticleSernosDetails());
 };
 

@@ -1,7 +1,6 @@
 ﻿import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
 import SalesArticle from '../../components/salesArticles/SalesArticle';
-import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import salesArticleActions from '../../actions/salesArticle';
 import salesArticleSelectors from '../../selectors/salesArticleSelectors';
 import saCoreTypeActions from '../../actions/saCoreTypesActions';

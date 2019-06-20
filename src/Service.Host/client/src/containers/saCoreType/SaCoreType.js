@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
 import SaCoreType from '../../components/SaCoreType';
-import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import saCoreTypeActions from '../../actions/saCoreTypeActions';
 import saCoreTypeSelectors from '../../selectors/saCoreTypeSelectors';
 

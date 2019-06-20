@@ -1,7 +1,6 @@
 ﻿import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
 import SalesArticleCompositeDiscount from '../../components/salesArticles/SalesArticleCompositeDiscount';
-import initialiseOnMount from '../common/functionalInitialiseOnMount';
 import salesArticleCompositeDiscountActions from '../../actions/salesArticleCompositeDiscount';
 import salesArticleCompositeDiscountSelectors from '../../selectors/salesArticleCompositeDiscountSelectors';
 
