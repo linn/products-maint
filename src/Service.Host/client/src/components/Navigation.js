@@ -228,9 +228,11 @@ function Navigation({
                                         {username &&
                                             myStuff.groups.map(item => (
                                                 <span>
-                                                    <MenuItem onClick={handleClose}>
-                                                        {item.items[0].title}
-                                                    </MenuItem>
+                                                    <a href={item.items[0].href}>
+                                                        <MenuItem onClick={handleClose}>
+                                                            {item.items[0].title}
+                                                        </MenuItem>
+                                                    </a>
                                                 </span>
                                             ))}
                                         <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
