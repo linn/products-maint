@@ -66,334 +66,342 @@ import SerialNumberTransaction from '../containers/serialNumberTransactions/Seri
 import CreateSerialNumberTransaction from '../containers/serialNumberTransactions/CreateSerialNumberTransaction';
 import NotFound from './NotFound';
 
+import { MuiThemeProvider } from '@material-ui/core/styles';
+
 const Root = ({ store }) => (
     <div>
         <div style={{ paddingTop: '40px' }}>
             <Provider store={store}>
                 <OidcProvider store={store} userManager={userManager}>
-                    <Router history={history}>
-                        <div>
-                            <Navigation />
-                            <CssBaseline />
-
-                            <Route
-                                exact
-                                path="/"
-                                render={() => <Redirect to="/products/maint" />}
-                            />
-
-                            <Route
-                                exact
-                                path="/products"
-                                render={() => <Redirect to="/products/maint" />}
-                            />
-
-                            <Route
-                                path="/"
-                                render={() => {
-                                    document.title = 'Products';
-                                    return false;
-                                }}
-                            />
-
-                            <Switch>
-                                <Route exact path="/products/maint" component={App} />
+                    <MuiThemeProvider>
+                        <Router history={history}>
+                            <div>
+                                <Navigation />
+                                <CssBaseline />
 
                                 <Route
                                     exact
-                                    path="/products/maint/signin-oidc-client"
-                                    component={Callback}
+                                    path="/"
+                                    render={() => <Redirect to="/products/maint" />}
                                 />
 
                                 <Route
                                     exact
-                                    path="/products/maint/tariffs/create"
-                                    component={CreateTariff}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/tariffs/:id"
-                                    component={Tariff}
-                                />
-                                <Route exact path="/products/maint/tariffs" component={Tariffs} />
-
-                                <Route exact path="/products/reports" component={App} />
-                                <Route
-                                    exact
-                                    path="/products/reports/sales-article-ean-codes"
-                                    component={EanCodesOptions}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/reports/sales-article-ean-codes/report"
-                                    component={EanCodes}
+                                    path="/products"
+                                    render={() => <Redirect to="/products/maint" />}
                                 />
 
                                 <Route
-                                    exact
-                                    path="/products/reports/carton-details"
-                                    component={CartonDetailsOptions}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/reports/carton-details/report"
-                                    component={CartonDetails}
+                                    path="/"
+                                    render={() => {
+                                        document.title = 'Products';
+                                        return false;
+                                    }}
                                 />
 
-                                <Route
-                                    exact
-                                    path="/products/reports/sales-article-core-types"
-                                    component={SalesArticleCoreTypesOptions}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/reports/sales-article-core-types/report"
-                                    component={SalesArticleCoreTypes}
-                                />
+                                <Switch>
+                                    <Route exact path="/products/maint" component={App} />
 
-                                <Route
-                                    exact
-                                    path="/products/maint/serial-number-transactions"
-                                    component={SerialNumberTransactions}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/serial-number-transactions/create"
-                                    component={CreateSerialNumberTransaction}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/serial-number-transactions/:id"
-                                    component={SerialNumberTransaction}
-                                />
+                                    <Route
+                                        exact
+                                        path="/products/maint/signin-oidc-client"
+                                        component={Callback}
+                                    />
 
-                                <Route
-                                    exact
-                                    path="/products/maint/sales-articles"
-                                    component={SalesArticles}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/sales-articles/:articleNumber"
-                                    component={SalesArticle}
-                                />
+                                    <Route
+                                        exact
+                                        path="/products/maint/tariffs/create"
+                                        component={CreateTariff}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/tariffs/:id"
+                                        component={Tariff}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/tariffs"
+                                        component={Tariffs}
+                                    />
 
-                                <Route
-                                    exact
-                                    path="/products/maint/product-ranges/create"
-                                    component={CreateProductRange}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/product-ranges"
-                                    component={ProductRanges}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/product-ranges/:id"
-                                    component={ProductRange}
-                                />
+                                    <Route exact path="/products/reports" component={App} />
+                                    <Route
+                                        exact
+                                        path="/products/reports/sales-article-ean-codes"
+                                        component={EanCodesOptions}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/reports/sales-article-ean-codes/report"
+                                        component={EanCodes}
+                                    />
 
-                                <Route
-                                    exact
-                                    path="/products/maint/sales-packages/create"
-                                    component={CreateSalesPackage}
-                                />
+                                    <Route
+                                        exact
+                                        path="/products/reports/carton-details"
+                                        component={CartonDetailsOptions}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/reports/carton-details/report"
+                                        component={CartonDetails}
+                                    />
 
-                                <Route
-                                    exact
-                                    path="/products/maint/sales-packages/:id"
-                                    component={SalesPackage}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/sales-packages"
-                                    component={SalesPackages}
-                                />
+                                    <Route
+                                        exact
+                                        path="/products/reports/sales-article-core-types"
+                                        component={SalesArticleCoreTypesOptions}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/reports/sales-article-core-types/report"
+                                        component={SalesArticleCoreTypes}
+                                    />
 
-                                <Route
-                                    exact
-                                    path="/products/maint/carton-types/create"
-                                    component={CreateCartonType}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/carton-types/:cartonTypeId"
-                                    component={CartonType}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/carton-types"
-                                    component={CartonDetails}
-                                />
+                                    <Route
+                                        exact
+                                        path="/products/maint/serial-number-transactions"
+                                        component={SerialNumberTransactions}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/serial-number-transactions/create"
+                                        component={CreateSerialNumberTransaction}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/serial-number-transactions/:id"
+                                        component={SerialNumberTransaction}
+                                    />
 
-                                <Route
-                                    exact
-                                    path="/products/maint/serial-numbers/create"
-                                    component={CreateSerialNumber}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/serial-numbers"
-                                    component={SerialNumbers}
-                                />
+                                    <Route
+                                        exact
+                                        path="/products/maint/sales-articles"
+                                        component={SalesArticles}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/sales-articles/:articleNumber"
+                                        component={SalesArticle}
+                                    />
 
-                                <Route
-                                    exact
-                                    path="/products/maint/sernos-configs"
-                                    component={SernosConfigs}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/sernos-configs/create"
-                                    component={CreateSernosConfig}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/sernos-configs/:sernosConfigId"
-                                    component={SernosConfig}
-                                />
+                                    <Route
+                                        exact
+                                        path="/products/maint/product-ranges/create"
+                                        component={CreateProductRange}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/product-ranges"
+                                        component={ProductRanges}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/product-ranges/:id"
+                                        component={ProductRange}
+                                    />
 
-                                <Route
-                                    exact
-                                    path="/products/maint/sernos-sequences"
-                                    component={SernosSequences}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/sernos-sequences/create"
-                                    component={CreateSernosSequence}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/sernos-sequences/:sequenceName"
-                                    component={SernosSequence}
-                                />
+                                    <Route
+                                        exact
+                                        path="/products/maint/sales-packages/create"
+                                        component={CreateSalesPackage}
+                                    />
 
-                                <Route
-                                    exact
-                                    path="/products/maint/sa-core-types"
-                                    component={SaCoreTypes}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/sa-core-types/create"
-                                    component={CreateSaCoreType}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/sa-core-types/:coreType"
-                                    component={SaCoreType}
-                                />
+                                    <Route
+                                        exact
+                                        path="/products/maint/sales-packages/:id"
+                                        component={SalesPackage}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/sales-packages"
+                                        component={SalesPackages}
+                                    />
 
-                                <Route
-                                    exact
-                                    path="/products/maint/types-of-sale"
-                                    component={TypesOfSale}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/types-of-sale/create"
-                                    component={CreateTypeOfSale}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/types-of-sale/:typeOfSaleId"
-                                    component={TypeOfSale}
-                                />
+                                    <Route
+                                        exact
+                                        path="/products/maint/carton-types/create"
+                                        component={CreateCartonType}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/carton-types/:cartonTypeId"
+                                        component={CartonType}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/carton-types"
+                                        component={CartonDetails}
+                                    />
 
-                                <Route
-                                    exact
-                                    path="/products/maint/vat-codes"
-                                    component={VatCodes}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/vat-codes/create"
-                                    component={CreateVatCode}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/vat-codes/:vatCodeId"
-                                    component={VatCode}
-                                />
+                                    <Route
+                                        exact
+                                        path="/products/maint/serial-numbers/create"
+                                        component={CreateSerialNumber}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/serial-numbers"
+                                        component={SerialNumbers}
+                                    />
 
-                                <Route
-                                    exact
-                                    path="/products/reports/product-ranges"
-                                    component={ProductRangesOptions}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/reports/product-ranges/report"
-                                    component={ProductRangesReport}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/reports/sales-products-by-product-range"
-                                    component={SalesProductsByProductRange}
-                                />
+                                    <Route
+                                        exact
+                                        path="/products/maint/sernos-configs"
+                                        component={SernosConfigs}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/sernos-configs/create"
+                                        component={CreateSernosConfig}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/sernos-configs/:sernosConfigId"
+                                        component={SernosConfig}
+                                    />
 
-                                <Route
-                                    exact
-                                    path="/products/reports/parts-at-location/:locationId"
-                                    component={StockTriggerLevelParts}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/reports/stock-trigger-levels/:locationId/:partNumber"
-                                    component={StockTriggerLevelsByPart}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/reports/sa-hold-stories/:holdStoryId"
-                                    component={SaHoldStory}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/reports/products-on-hold"
-                                    component={ProductsOnHold}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/put-product-on-hold/:articleNumber"
-                                    component={CreateSaHoldStory}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/close-hold-story/:holdStoryId"
-                                    component={CloseSaHoldStory}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/root-products"
-                                    component={RootProducts}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/root-products/:name"
-                                    component={RootProduct}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/maint/root-products/:name/put-on-hold"
-                                    component={CreateSaHoldStory}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/reports/sernos-used-on-invoice"
-                                    component={sernosUsedOnInvoiceOptions}
-                                />
-                                <Route
-                                    exact
-                                    path="/products/reports/sernos-used-on-invoice/report"
-                                    component={SernosUsedOnInvoice}
-                                />
-                                <Route exact path="/:sectionId" component={MenuPage} />
-                                <Route component={NotFound} />
-                            </Switch>
-                        </div>
-                    </Router>
+                                    <Route
+                                        exact
+                                        path="/products/maint/sernos-sequences"
+                                        component={SernosSequences}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/sernos-sequences/create"
+                                        component={CreateSernosSequence}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/sernos-sequences/:sequenceName"
+                                        component={SernosSequence}
+                                    />
+
+                                    <Route
+                                        exact
+                                        path="/products/maint/sa-core-types"
+                                        component={SaCoreTypes}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/sa-core-types/create"
+                                        component={CreateSaCoreType}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/sa-core-types/:coreType"
+                                        component={SaCoreType}
+                                    />
+
+                                    <Route
+                                        exact
+                                        path="/products/maint/types-of-sale"
+                                        component={TypesOfSale}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/types-of-sale/create"
+                                        component={CreateTypeOfSale}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/types-of-sale/:typeOfSaleId"
+                                        component={TypeOfSale}
+                                    />
+
+                                    <Route
+                                        exact
+                                        path="/products/maint/vat-codes"
+                                        component={VatCodes}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/vat-codes/create"
+                                        component={CreateVatCode}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/vat-codes/:vatCodeId"
+                                        component={VatCode}
+                                    />
+
+                                    <Route
+                                        exact
+                                        path="/products/reports/product-ranges"
+                                        component={ProductRangesOptions}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/reports/product-ranges/report"
+                                        component={ProductRangesReport}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/reports/sales-products-by-product-range"
+                                        component={SalesProductsByProductRange}
+                                    />
+
+                                    <Route
+                                        exact
+                                        path="/products/reports/parts-at-location/:locationId"
+                                        component={StockTriggerLevelParts}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/reports/stock-trigger-levels/:locationId/:partNumber"
+                                        component={StockTriggerLevelsByPart}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/reports/sa-hold-stories/:holdStoryId"
+                                        component={SaHoldStory}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/reports/products-on-hold"
+                                        component={ProductsOnHold}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/put-product-on-hold/:articleNumber"
+                                        component={CreateSaHoldStory}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/close-hold-story/:holdStoryId"
+                                        component={CloseSaHoldStory}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/root-products"
+                                        component={RootProducts}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/root-products/:name"
+                                        component={RootProduct}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/maint/root-products/:name/put-on-hold"
+                                        component={CreateSaHoldStory}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/reports/sernos-used-on-invoice"
+                                        component={sernosUsedOnInvoiceOptions}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/reports/sernos-used-on-invoice/report"
+                                        component={SernosUsedOnInvoice}
+                                    />
+                                    <Route exact path="/:sectionId" component={MenuPage} />
+                                    <Route component={NotFound} />
+                                </Switch>
+                            </div>
+                        </Router>
+                    </MuiThemeProvider>
                 </OidcProvider>
             </Provider>
         </div>
