@@ -103,7 +103,10 @@ module.exports = {
         alias: {
             react: path.resolve('./node_modules/react'),
             'react-dom': path.resolve('./node_modules/react-dom')
-        }
+        },
+        //symlinks: true,
+        modules: [path.resolve('node_modules'), 'node_modules'].concat(/* ... */),
+        //symlinks: false
     },
     devtool: 'inline-source-map',
     // From https://github.com/gaearon/react-hot-boilerplate/blob/next/webpack.config.js

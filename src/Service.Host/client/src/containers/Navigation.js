@@ -1,12 +1,18 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import Navigation from '../components/Navigation';
+import {
+    Navigation,
+    fetchMenu,
+    markNotificationSeen,
+    fetchNews
+} from '@linn-it/linn-form-components-library';
 import initialiseOnMount from './common/initialiseOnMount';
-import fetchMenu from '../actions/fetchMenuActions';
-import { markNotificationSeen, fetchNews } from '../actions/newsActions';
+//import fetchMenu from '../actions/fetchMenuActions';
+//import { markNotificationSeen, fetchNews } from '../actions/newsActions';
 import { getSections, getMenuLoading, getMyStuff } from '../selectors/menuSelectors';
 import { getSeenNotifications, getUnseenNotifications } from '../selectors/newsSelectors';
 import getUsername from '../selectors/userSelectors';
+import config from '../config';
 
 const mapStateToProps = state => ({
     sections: getSections(state),
@@ -14,12 +20,13 @@ const mapStateToProps = state => ({
     username: getUsername(state),
     loading: getMenuLoading(state),
     seenNotifications: getSeenNotifications(state),
-    unseenNotifications: getUnseenNotifications(state)
+    unseenNotifications: getUnseenNotifications(state),
+    authRoot: config.authorityUri
 });
 
 const initialise = state => dispatch => {
-    dispatch(fetchMenu(state));
-    dispatch(fetchNews(state));
+    dispatch(fetchMenu(state, config.proxyRoot));
+    dispatch(fetchNews(state, config.proxyRoot));
 };
 
 const mapDispatchToProps = {
