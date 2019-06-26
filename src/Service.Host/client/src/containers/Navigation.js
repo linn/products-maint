@@ -7,8 +7,6 @@ import {
     fetchNews
 } from '@linn-it/linn-form-components-library';
 import initialiseOnMount from './common/initialiseOnMount';
-//import fetchMenu from '../actions/fetchMenuActions';
-//import { markNotificationSeen, fetchNews } from '../actions/newsActions';
 import { getSections, getMenuLoading, getMyStuff } from '../selectors/menuSelectors';
 import { getSeenNotifications, getUnseenNotifications } from '../selectors/newsSelectors';
 import getUsername from '../selectors/userSelectors';
