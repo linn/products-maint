@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
+import { getMenuSection, getMenuLoading } from '@linn-it/linn-form-components-library';
 import MenuPage from '../components/MenuPage';
-import { getMenuSection, getMenuLoading } from '../selectors/menuSelectors';
 
 const getsectionId = ownProps => ownProps.match.params.sectionId;
 

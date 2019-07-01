@@ -4,11 +4,14 @@ import {
     Navigation,
     fetchMenu,
     markNotificationSeen,
-    fetchNews
+    fetchNews,
+    getSections,
+    getMenuLoading,
+    getMyStuff,
+    getSeenNotifications,
+    getUnseenNotifications
 } from '@linn-it/linn-form-components-library';
 import initialiseOnMount from './common/initialiseOnMount';
-import { getSections, getMenuLoading, getMyStuff } from '../selectors/menuSelectors';
-import { getSeenNotifications, getUnseenNotifications } from '../selectors/newsSelectors';
 import getUsername from '../selectors/userSelectors';
 import config from '../config';
 
