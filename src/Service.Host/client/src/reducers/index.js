@@ -1,4 +1,4 @@
-﻿import { fetchErrorReducer as fetchError } from '@linn-it/linn-form-components-library';
+﻿import { fetchErrorReducer as fetchError, menu, news } from '@linn-it/linn-form-components-library';
 import { combineReducers } from 'redux';
 import { reducer as oidc } from 'redux-oidc';
 import eanCodesReport from './eanCodesReport';
@@ -28,8 +28,6 @@ import typeOfSale from './typeOfSale';
 import salesArticle from './salesArticle';
 import salesArticles from './salesArticles';
 import saHoldStory from './saHoldStory';
-import menu from './menu';
-import news from './news';
 import vatCode from './vatCode';
 import vatCodes from './vatCodes';
 import productRange from './productRange';
