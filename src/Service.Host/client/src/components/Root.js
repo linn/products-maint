@@ -74,7 +74,7 @@ const Root = ({ store }) => (
                     <MuiThemeProvider>
                         <Router history={history}>
                             <div>
-                                <Navigation />
+                                <Navigation store={store} />
                                 <CssBaseline />
 
                                 <Route
