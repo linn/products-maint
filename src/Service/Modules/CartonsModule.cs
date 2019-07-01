@@ -23,8 +23,8 @@
             this.cartonTypeService = cartonTypeService;
 
             this.Get("/products/reports/carton-details", _ => this.GetCartonDetails());
-            this.Get("/products/maint/carton-types/{name}", parameters => this.GetCartonType(parameters.name));
-            this.Put("/products/maint/carton-types/{name}", parameters => this.UpdateCartonType(parameters.name));
+            this.Get("/products/maint/carton-types/{name*}", parameters => this.GetCartonType(parameters.name));
+            this.Put("/products/maint/carton-types/{name*}", parameters => this.UpdateCartonType(parameters.name));
             this.Post("/products/maint/carton-types", _ => this.AddCartonType());
         }
 
