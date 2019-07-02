@@ -68,6 +68,11 @@ module.exports = {
             }
         ]
     },
+    resolve: {
+        alias: {
+            notistack: path.resolve('./node_modules/notistack')
+        }
+    },
     devtool: 'cheap-source-map' // enum
     // enhance debugging by adding meta info for the browser devtools
 };

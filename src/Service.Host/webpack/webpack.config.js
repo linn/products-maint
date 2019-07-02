@@ -105,8 +105,8 @@ module.exports = {
             'react-dom': path.resolve('./node_modules/react-dom'),
             'react-redux': path.resolve('./node_modules/react-redux'),
             notistack: path.resolve('./node_modules/notistack')
-        },
-        modules: [path.resolve('node_modules'), 'node_modules'].concat(/* ... */)
+        }
+        //modules: [path.resolve('node_modules'), 'node_modules'].concat(/* ... */)
     },
     devtool: 'inline-source-map',
     // From https://github.com/gaearon/react-hot-boilerplate/blob/next/webpack.config.js
