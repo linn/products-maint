@@ -12,7 +12,6 @@ then
 fi
 
 cd ./src/Service.Host
-npm config set '@bit:registry' https://node.bitsrc.io
 npm install
 npm run build
 cd ../..
