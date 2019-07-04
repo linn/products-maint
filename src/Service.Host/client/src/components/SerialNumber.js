@@ -11,9 +11,16 @@ import {
     SnackbarMessage,
     Dropdown
 } from '@linn-it/linn-form-components-library';
+import { makeStyles } from '@material-ui/styles';
 import Page from '../containers/Page';
 import { getSernosNote } from '../selectors/sernosNotesSelectors';
 import SalesArticleTypeaheadDialog from '../containers/common/SalesArticleTypeaheadDialog';
+
+const useStyles = makeStyles(theme => ({
+    searchIcon: {
+        paddingTop: theme.spacing(2)
+    }
+}));
 
 function SerialNumber({
     errorMessage,
@@ -36,6 +43,9 @@ function SerialNumber({
     const [serialNumber, setSerialNumber] = useState({});
     const [prevSerialNumber, setPrevSerialNumber] = useState({});
     const [sernosTransactionsList, setSernosTransactionsList] = useState(['']);
+
+    const classes = useStyles();
+
     const handleArticleNumberChange = newValue => {
         if (editStatus === 'view') {
             setEditStatus('edit');
@@ -208,11 +218,16 @@ function SerialNumber({
                                 propertyName="articleNumber"
                                 value={serialNumber.articleNumber}
                                 onChange={handleFieldChange}
+                                fullWidth
                             />
-                            <SalesArticleTypeaheadDialog
-                                onSelect={handleArticleNumberChange}
-                                title="Search for sales article"
-                            />
+                        </Grid>
+                        <Grid item xs={1}>
+                            <div className={classes.searchIcon}>
+                                <SalesArticleTypeaheadDialog
+                                    onSelect={handleArticleNumberChange}
+                                    title="Search for sales article"
+                                />
+                            </div>
                         </Grid>
                         <Grid item xs={5} />
                         <Grid item xs={5}>
@@ -237,8 +252,8 @@ function SerialNumber({
                         </Grid>
                         <Grid item xs={5}>
                             <InputField
-                                error={fromSernosNumberInvalid()}
-                                errorText="Required field"
+                                required
+                                helperText="This field is required"
                                 disabled={viewing()}
                                 fullWidth
                                 label="From Serial Number"
@@ -301,7 +316,7 @@ function SerialNumber({
                                 }
                             />
                         </Grid>
-                        <Grid item xs={8}>
+                        <Grid item xs={10}>
                             <InputField
                                 disabled={viewing()}
                                 fullWidth
@@ -362,3 +377,4 @@ SerialNumber.defaultProps = {
 };
 
 export default SerialNumber;
+// export default SerialNumber;

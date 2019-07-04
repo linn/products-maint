@@ -108,6 +108,7 @@ function SaCoreType({
                                 maxLength={8}
                             />
                         </Grid>
+                        <Grid item xs={8} />
                         <Grid item xs={8}>
                             <InputField
                                 value={saCoreType.description}
@@ -118,7 +119,8 @@ function SaCoreType({
                                 propertyName="description"
                             />
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={4} />
+                        <Grid item xs={4}>
                             <InputField
                                 fullWidth
                                 type="number"
@@ -129,7 +131,8 @@ function SaCoreType({
                                 propertyName="lookAheadDays"
                             />
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={8} />
+                        <Grid item xs={4}>
                             <InputField
                                 fullWidth
                                 type="number"
@@ -140,7 +143,8 @@ function SaCoreType({
                                 propertyName="triggerLevel"
                             />
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={8} />
+                        <Grid item xs={4}>
                             <InputField
                                 fullWidth
                                 type="number"
@@ -151,7 +155,8 @@ function SaCoreType({
                                 propertyName="sortOrder"
                             />
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={8} />
+                        <Grid item xs={4}>
                             <InputField
                                 fullWidth
                                 type="date"

@@ -64,9 +64,12 @@ function SerialNumberTransaction({
     };
 
     const transCodeInvalid = () => creating() && !serialNumberTransaction.transCode;
+
     const descriptionInvalid = () => !serialNumberTransaction.transDescription;
+
     const sernosCountSelected = () =>
         newElements.length > 0 && newElements.some(element => !element.sernosCount);
+
     const invalidSernosCountSelection = () => {
         const usedSernosCounts = creating()
             ? newElements
@@ -210,7 +213,7 @@ function SerialNumberTransaction({
                                 }
                                 onChange={handleFieldChange}
                                 propertyName="transCode"
-                                error={transCodeInvalid()}
+                                required
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -220,7 +223,8 @@ function SerialNumberTransaction({
                                 fullWidth
                                 onChange={handleFieldChange}
                                 propertyName="transDescription"
-                                error={descriptionInvalid()}
+                                required
+                                helperText={!creating() && 'This field is required'}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -231,23 +235,25 @@ function SerialNumberTransaction({
                                 items={yesNoOptions}
                                 onChange={handleFieldChange}
                                 propertyName="manualPost"
-                                error={!serialNumberTransaction.manualPost}
+                                required
+                                helperText={!creating() && 'This field is required'}
                             />
                         </Grid>
-                        <Grid container>
-                            <Grid item xs={6}>
-                                <InputField
-                                    value={serialNumberTransaction.comments}
-                                    label="Comments"
-                                    rows={3}
-                                    fullWidth
-                                    onChange={handleFieldChange}
-                                    propertyName="comments"
-                                />
-                            </Grid>
+
+                        <Grid item xs={6} />
+
+                        <Grid item xs={6}>
+                            <InputField
+                                value={serialNumberTransaction.comments}
+                                label="Comments"
+                                rows={3}
+                                fullWidth
+                                onChange={handleFieldChange}
+                                propertyName="comments"
+                            />
                         </Grid>
 
-                        <Table>
+                        <Table size="small">
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Count</TableCell>
@@ -260,21 +266,19 @@ function SerialNumberTransaction({
                             <TableBody>
                                 {serialNumberTransaction.sernosTransCounts &&
                                     serialNumberTransaction.sernosTransCounts.map((row, index) => (
-                                        // except if sorting
-                                        // eslint-disable-next-line react/no-array-index-key
-                                        <TableRow style={cursor} key={index}>
+                                        <TableRow style={cursor} key={row.transCode}>
                                             <TableCell>
                                                 <InputField
                                                     disabled
                                                     value={row.sernosCount}
-                                                    label="Count"
+                                                    // label="Count"
                                                     propertyName="count"
                                                 />
                                             </TableCell>
                                             <TableCell>
                                                 <InputField
                                                     value={row.countIncrement}
-                                                    label="Count Increment"
+                                                    // label="Count Increment"
                                                     type="number"
                                                     error={typeof row.countIncrement !== 'number'}
                                                     onChange={handleElementChange}
@@ -284,7 +288,7 @@ function SerialNumberTransaction({
                                             <TableCell>
                                                 <InputField
                                                     value={row.correctValue}
-                                                    label="Correct Value"
+                                                    // label="Correct Value"
                                                     error={typeof row.correctValue !== 'number'}
                                                     onChange={handleElementChange}
                                                     propertyName={`${index},correctValue`}
@@ -293,7 +297,7 @@ function SerialNumberTransaction({
                                             <TableCell>
                                                 <Dropdown
                                                     value={row.checkError}
-                                                    label="Check Error"
+                                                    // label="Check Error"
                                                     items={errorOptions}
                                                     onChange={handleElementChange}
                                                     propertyName={`${index},checkError`}
@@ -303,7 +307,7 @@ function SerialNumberTransaction({
                                                 <InputField
                                                     type="text"
                                                     value={row.checkErrorMess}
-                                                    label="Message"
+                                                    // label="Message"
                                                     maxLength={128}
                                                     onChange={handleElementChange}
                                                     propertyName={`${index},checkErrorMess`}

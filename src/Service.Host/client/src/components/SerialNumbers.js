@@ -17,12 +17,24 @@ import {
     TableRow,
     TableCell,
     TableBody,
-    Tooltip
+    Tooltip,
+    Grid
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import { getSernosNote } from '../selectors/sernosNotesSelectors';
 import SernosNote from './SernosNote';
 import Page from '../containers/Page';
 import { sortEntityList, sortList } from '../helpers/utilities';
+
+const useStyles = makeStyles(theme => ({
+    marginTop: {
+        marginTop: theme.spacing(3)
+    },
+    createButton: {
+        float: 'right',
+        paddingTop: theme.spacing(3)
+    }
+}));
 
 function SerialNumbers({
     items,
@@ -41,6 +53,8 @@ function SerialNumbers({
     const [searchTerm, setSearchTerm] = useState(null);
     const [sernosGroups, setSernosGroups] = useState([]);
     const [selectedSernosGroup, setSelectedSernosGroup] = useState('');
+
+    const classes = useStyles();
 
     useSearch(fetchItems, searchTerm, null, 'sernosNumber');
 
@@ -77,23 +91,29 @@ function SerialNumbers({
             {errorMessage && <ErrorCard errorMessage={errorMessage} />}
             <Title text="Serial Numbers" />
 
-            <SearchInputField
-                label="Search by Serial Number"
-                placeholder="Serial Number"
-                onChange={handleSearchTermChange}
-                propertyName="searchTerm"
-                type="number"
-                value={searchTerm}
-            />
-
-            <Tooltip title={tooltipText()} placement="top-end" disableFocusListener>
-                <span style={{ float: 'right' }}>
-                    <CreateButton
-                        disabled={!canAmendOrCreateSerialNumbers()}
-                        createUrl="/products/maint/serial-numbers/create"
+            <Grid container>
+                <Grid item xs={4}>
+                    <SearchInputField
+                        label="Search by Serial Number"
+                        fullWidth
+                        placeholder="Serial Number"
+                        onChange={handleSearchTermChange}
+                        propertyName="searchTerm"
+                        type="number"
+                        value={searchTerm}
                     />
-                </span>
-            </Tooltip>
+                </Grid>
+                <Grid item xs={8}>
+                    <Tooltip title={tooltipText()} placement="top-end" disableFocusListener>
+                        <span className={classes.createButton}>
+                            <CreateButton
+                                disabled={!canAmendOrCreateSerialNumbers()}
+                                createUrl="/products/maint/serial-numbers/create"
+                            />
+                        </span>
+                    </Tooltip>
+                </Grid>
+            </Grid>
 
             {loading || sernosNoteLoading || sernosNotesLoading ? (
                 <Loading />
@@ -106,16 +126,20 @@ function SerialNumbers({
                             message="Save Successful"
                         />
 
-                        <Dropdown
-                            value={selectedSernosGroup || ''}
-                            label="Filter by Sernos Group"
-                            fullWidth
-                            items={sernosGroups.length ? sernosGroups : ['']}
-                            onChange={handleSalesArticleChange}
-                            propertyName="serialNumbered"
-                        />
+                        <Grid container>
+                            <Grid item xs={4} className={classes.marginTop}>
+                                <Dropdown
+                                    value={selectedSernosGroup || ''}
+                                    label="Filter by Sernos Group"
+                                    fullWidth
+                                    items={sernosGroups.length ? sernosGroups : ['']}
+                                    onChange={handleSalesArticleChange}
+                                    propertyName="serialNumbered"
+                                />
+                            </Grid>
+                        </Grid>
 
-                        <Table>
+                        <Table size="small" className={classes.marginTop}>
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Sernos Date</TableCell>
@@ -131,9 +155,7 @@ function SerialNumbers({
                                     .filter(item => item.sernosGroup === selectedSernosGroup)
                                     .map(item => (
                                         <SernosNote
-                                            key={`${item.sernosDate}${item.articleNumber}${
-                                                item.transCode
-                                            }${item.sernosNumber}`}
+                                            key={`${item.sernosDate}${item.articleNumber}${item.transCode}${item.sernosNumber}`}
                                             serialNumber={item}
                                             item={getSernosNote(sernosNotes, item)}
                                             addSernosNote={addSernosNote}

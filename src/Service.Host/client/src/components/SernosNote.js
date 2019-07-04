@@ -6,11 +6,20 @@ import Done from '@material-ui/icons/Done';
 import { Button, TableRow, TableCell } from '@material-ui/core';
 import { InputField, getSelfHref } from '@linn-it/linn-form-components-library';
 import moment from 'moment';
+import { makeStyles } from '@material-ui/styles';
+
+const useStyles = makeStyles(theme => ({
+    cancelButton: {
+        marginLeft: theme.spacing(1)
+    }
+}));
 
 function SernosNote({ serialNumber, item, updateSernosNote, addSernosNote }) {
     const [editing, setEditing] = useState(false);
     const [sernosNote, setSernosNote] = useState({});
     const [prevSernosNote, setPrevSernosNote] = useState({});
+
+    const classes = useStyles();
 
     useEffect(() => {
         if (item !== prevSernosNote) {
@@ -66,11 +75,10 @@ function SernosNote({ serialNumber, item, updateSernosNote, addSernosNote }) {
                 <Fragment>
                     <TableCell>
                         <InputField
-                            error={sernosNoteInvalid()}
                             fullWidth
-                            helperText={sernosNoteInvalid() ? 'This field is required' : ''}
+                            required
+                            helperText="This field is required"
                             label="Notes"
-                            margin="dense"
                             maxLength={2000}
                             propertyName="sernosNotes"
                             value={sernosNote.sernosNotes}
@@ -78,10 +86,22 @@ function SernosNote({ serialNumber, item, updateSernosNote, addSernosNote }) {
                         />
                     </TableCell>
                     <TableCell>
-                        <Button disabled={sernosNoteInvalid()} onClick={handleSaveClick}>
+                        <Button
+                            disabled={sernosNoteInvalid()}
+                            onClick={handleSaveClick}
+                            color="primary"
+                            variant="outlined"
+                        >
                             <Done />
                         </Button>
-                        <Button onClick={handleCancelClick}>
+                        <Button
+                            onClick={handleCancelClick}
+                            color="secondary"
+                            variant="outlined"
+                            classes={{
+                                root: classes.cancelButton
+                            }}
+                        >
                             <Clear />
                         </Button>
                     </TableCell>
@@ -90,7 +110,12 @@ function SernosNote({ serialNumber, item, updateSernosNote, addSernosNote }) {
                 <Fragment>
                     <TableCell>{sernosNote.sernosNotes}</TableCell>
                     <TableCell>
-                        <Button onClick={() => setEditing(true)}>
+                        <Button
+                            color="primary"
+                            aria-label="Edit"
+                            variant="outlined"
+                            onClick={() => setEditing(true)}
+                        >
                             <EditIcon />
                         </Button>
                     </TableCell>

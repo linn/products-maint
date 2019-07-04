@@ -1,8 +1,15 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Loading, CreateButton, getSelfHref } from '@linn-it/linn-form-components-library';
 import {
+    Loading,
+    CreateButton,
+    getSelfHref,
+    ErrorCard,
+    Title
+} from '@linn-it/linn-form-components-library';
+import {
+    Link,
     Table,
     TableHead,
     TableBody,
@@ -11,7 +18,6 @@ import {
     TableRow,
     TableCell
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 
 import TablePaginationActions from '../common/TablePaginationActions';
@@ -25,11 +31,19 @@ const actionsStyles = theme => ({
     }
 });
 
+const styles = {
+    link: {
+        '&:hover': {
+            cursor: 'pointer'
+        }
+    }
+};
+
 const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: true })(
     TablePaginationActions
 );
 
-function SerialNumberTransactions({ page, loading, pageLoad }) {
+function SerialNumberTransactions({ page, loading, pageLoad, errorMessage, classes, history }) {
     const [localPage, setLocalPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -48,12 +62,15 @@ function SerialNumberTransactions({ page, loading, pageLoad }) {
 
     return (
         <Page>
+            <Title text="Serial Number Transactions" />
+            {errorMessage && <ErrorCard errorMessage={errorMessage} />}
+
             {loading || !page ? (
                 <Loading />
             ) : (
                 <Fragment>
                     <CreateButton createUrl="/products/maint/serial-number-transactions/create" />
-                    <Table>
+                    <Table size="small">
                         <TableHead>
                             <TableRow>
                                 <TableCell>Trans Code</TableCell>
@@ -74,6 +91,11 @@ function SerialNumberTransactions({ page, loading, pageLoad }) {
                                                 <Link
                                                     key={row.transCode}
                                                     to={identifySelfLink(row)}
+                                                    classes={{ root: classes.link }}
+                                                    variant="button"
+                                                    onClick={() =>
+                                                        history.push(identifySelfLink(row))
+                                                    }
                                                 >
                                                     <EditIcon />
                                                 </Link>
@@ -110,7 +132,14 @@ function SerialNumberTransactions({ page, loading, pageLoad }) {
 SerialNumberTransactions.propTypes = {
     page: PropTypes.PropTypes.shape({}).isRequired,
     loading: PropTypes.bool.isRequired,
-    pageLoad: PropTypes.func.isRequired
+    pageLoad: PropTypes.func.isRequired,
+    history: PropTypes.shape({}).isRequired,
+    classes: PropTypes.shape({}).isRequired,
+    errorMessage: PropTypes.string
 };
 
-export default SerialNumberTransactions;
+SerialNumberTransactions.defaultProps = {
+    errorMessage: ''
+};
+
+export default withStyles(styles)(SerialNumberTransactions);
