@@ -198,7 +198,7 @@ function SerialNumber({
                             onClose={() => setSnackbarVisible(false)}
                             visible={snackbarVisible}
                         />
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <Dropdown
                                 disabled={viewing()}
                                 fullWidth
@@ -209,8 +209,8 @@ function SerialNumber({
                                 value={serialNumber.transCode}
                             />
                         </Grid>
-                        <Grid item xs={5} />
-                        <Grid item xs={5}>
+                        <Grid item xs={8} />
+                        <Grid item xs={4}>
                             <InputField
                                 disabled
                                 label="Article Number"
@@ -230,7 +230,7 @@ function SerialNumber({
                             </div>
                         </Grid>
                         <Grid item xs={5} />
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <InputField
                                 disabled
                                 fullWidth
@@ -241,7 +241,7 @@ function SerialNumber({
                                 value={serialNumber.sernosGroup}
                             />
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <InputField
                                 disabled
                                 fullWidth
@@ -250,7 +250,8 @@ function SerialNumber({
                                 value={serialNumber.serialNumbered}
                             />
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={4} />
+                        <Grid item xs={4}>
                             <InputField
                                 required
                                 helperText="This field is required"
@@ -264,7 +265,7 @@ function SerialNumber({
                                 value={serialNumber.fromSernosNumber}
                             />
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <InputField
                                 disabled={viewing()}
                                 fullWidth
@@ -276,7 +277,8 @@ function SerialNumber({
                                 value={serialNumber.toSernosNumber}
                             />
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={4} />
+                        <Grid item xs={4}>
                             <InputField
                                 disabled={viewing()}
                                 fullWidth
@@ -288,8 +290,8 @@ function SerialNumber({
                                 value={serialNumber.prevSernosNumber}
                             />
                         </Grid>
-                        <Grid item xs={5} />
-                        <Grid item xs={5}>
+                        <Grid item xs={8} />
+                        <Grid item xs={4}>
                             <InputField
                                 disabled
                                 fullWidth
@@ -301,7 +303,7 @@ function SerialNumber({
                                 value={serialNumber.sernosTRef}
                             />
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <InputField
                                 disabled
                                 fullWidth
@@ -316,7 +318,7 @@ function SerialNumber({
                                 }
                             />
                         </Grid>
-                        <Grid item xs={10}>
+                        <Grid item xs={8}>
                             <InputField
                                 disabled={viewing()}
                                 fullWidth
