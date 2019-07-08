@@ -5,7 +5,7 @@ import SernosConfig from '../../SernosConfig';
 describe('<SernosConfig />', () => {
     let wrapper;
     let props;
-    const getInputFields = () => wrapper.find('WithStyles(InputField)');
+    const getInputFields = () => wrapper.find('InputField');
     const getDropdowns = () => wrapper.find('Dropdown');
     const getLoading = () => wrapper.find('Loading');
     const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');

@@ -7,9 +7,9 @@ describe('<TypeOfSale />', () => {
     let props;
     const getLoading = () => wrapper.find('Loading');
     const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');
-    const getInputFields = () => wrapper.find('WithStyles(InputField)');
+    const getInputFields = () => wrapper.find('InputField');
     const getOnOffSwitch = () => wrapper.find('OnOffSwitch');
-    const getButtons = () => wrapper.find('WithStyles(SaveBackCancelButtons)');
+    const getButtons = () => wrapper.find('SaveBackCancelButtons');
     const shallow = createShallow({ dive: false });
     beforeEach(() => {
         props = {

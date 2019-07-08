@@ -1,12 +1,14 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';import {
+import { withStyles } from '@material-ui/core/styles';
+import {
     Loading,
     CreateButton,
     ErrorCard,
     getSelfHref
 } from '@linn-it/linn-form-components-library';
 import {
+    Link,
     Table,
     TableHead,
     TableBody,
@@ -16,7 +18,7 @@ import {
     TableCell,
     TableSortLabel
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import makeStyles from '@material-ui/styles/makeStyles';
 import EditIcon from '@material-ui/icons/Edit';
 
 import TablePaginationActions from '../common/TablePaginationActions';
@@ -26,20 +28,30 @@ const actionsStyles = theme => ({
     root: {
         flexShrink: 0,
         color: theme.palette.text.secondary,
-        marginLeft: theme.spacing(2.5)
+        marginLeft: theme.spacing(2)
     }
 });
+
+const useStyles = makeStyles(() => ({
+    link: {
+        '&:hover': {
+            cursor: 'pointer'
+        }
+    }
+}));
 
 const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: true })(
     TablePaginationActions
 );
 
-function SalesPackages({ page, loading, pageLoad, pageSortedLoad, errorMessage }) {
+function SalesPackages({ page, loading, pageLoad, pageSortedLoad, errorMessage, history }) {
     const [rowOpen, setRowOpen] = useState();
     const [localPage, setLocalPage] = useState(0);
     const [localOrderBy, setOrderBy] = useState();
     const [asc, setAsc] = useState(false);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    const classes = useStyles();
 
     const handleRowOnClick = salesPackageId =>
         rowOpen === salesPackageId ? setRowOpen(null) : setRowOpen(salesPackageId);
@@ -75,7 +87,7 @@ function SalesPackages({ page, loading, pageLoad, pageSortedLoad, errorMessage }
             ) : (
                 <Fragment>
                     <CreateButton createUrl="/products/maint/sales-packages/create" />
-                    <Table>
+                    <Table size="small">
                         <TableHead>
                             <TableRow>
                                 <TableCell
@@ -123,6 +135,11 @@ function SalesPackages({ page, loading, pageLoad, pageSortedLoad, errorMessage }
                                                 <Link
                                                     key={row.salesPackageId}
                                                     to={identifySelfLink(row)}
+                                                    classes={{ root: classes.link }}
+                                                    variant="button"
+                                                    onClick={() =>
+                                                        history.push(identifySelfLink(row))
+                                                    }
                                                 >
                                                     <EditIcon />
                                                 </Link>
@@ -177,7 +194,8 @@ SalesPackages.propTypes = {
     loading: PropTypes.bool.isRequired,
     pageLoad: PropTypes.func.isRequired,
     pageSortedLoad: PropTypes.func.isRequired,
-    errorMessage: PropTypes.string
+    errorMessage: PropTypes.string,
+    history: PropTypes.shape({}).isRequired
 };
 
 SalesPackages.defaultProps = {

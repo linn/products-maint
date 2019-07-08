@@ -11,9 +11,16 @@ import {
     SnackbarMessage,
     Dropdown
 } from '@linn-it/linn-form-components-library';
+import { makeStyles } from '@material-ui/styles';
 import Page from '../containers/Page';
 import { getSernosNote } from '../selectors/sernosNotesSelectors';
 import SalesArticleTypeaheadDialog from '../containers/common/SalesArticleTypeaheadDialog';
+
+const useStyles = makeStyles(theme => ({
+    searchIcon: {
+        paddingTop: theme.spacing(2)
+    }
+}));
 
 function SerialNumber({
     errorMessage,
@@ -36,6 +43,9 @@ function SerialNumber({
     const [serialNumber, setSerialNumber] = useState({});
     const [prevSerialNumber, setPrevSerialNumber] = useState({});
     const [sernosTransactionsList, setSernosTransactionsList] = useState(['']);
+
+    const classes = useStyles();
+
     const handleArticleNumberChange = newValue => {
         if (editStatus === 'view') {
             setEditStatus('edit');
@@ -188,7 +198,7 @@ function SerialNumber({
                             onClose={() => setSnackbarVisible(false)}
                             visible={snackbarVisible}
                         />
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <Dropdown
                                 disabled={viewing()}
                                 fullWidth
@@ -199,8 +209,8 @@ function SerialNumber({
                                 value={serialNumber.transCode}
                             />
                         </Grid>
-                        <Grid item xs={5} />
-                        <Grid item xs={5}>
+                        <Grid item xs={8} />
+                        <Grid item xs={4}>
                             <InputField
                                 disabled
                                 label="Article Number"
@@ -208,14 +218,19 @@ function SerialNumber({
                                 propertyName="articleNumber"
                                 value={serialNumber.articleNumber}
                                 onChange={handleFieldChange}
-                            />
-                            <SalesArticleTypeaheadDialog
-                                onSelect={handleArticleNumberChange}
-                                title="Search for sales article"
+                                fullWidth
                             />
                         </Grid>
+                        <Grid item xs={1}>
+                            <div className={classes.searchIcon}>
+                                <SalesArticleTypeaheadDialog
+                                    onSelect={handleArticleNumberChange}
+                                    title="Search for sales article"
+                                />
+                            </div>
+                        </Grid>
                         <Grid item xs={5} />
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <InputField
                                 disabled
                                 fullWidth
@@ -226,7 +241,7 @@ function SerialNumber({
                                 value={serialNumber.sernosGroup}
                             />
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <InputField
                                 disabled
                                 fullWidth
@@ -235,10 +250,11 @@ function SerialNumber({
                                 value={serialNumber.serialNumbered}
                             />
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={4} />
+                        <Grid item xs={4}>
                             <InputField
-                                error={fromSernosNumberInvalid()}
-                                errorText="Required field"
+                                required
+                                helperText="This field is required"
                                 disabled={viewing()}
                                 fullWidth
                                 label="From Serial Number"
@@ -249,7 +265,7 @@ function SerialNumber({
                                 value={serialNumber.fromSernosNumber}
                             />
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <InputField
                                 disabled={viewing()}
                                 fullWidth
@@ -261,7 +277,8 @@ function SerialNumber({
                                 value={serialNumber.toSernosNumber}
                             />
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={4} />
+                        <Grid item xs={4}>
                             <InputField
                                 disabled={viewing()}
                                 fullWidth
@@ -273,8 +290,8 @@ function SerialNumber({
                                 value={serialNumber.prevSernosNumber}
                             />
                         </Grid>
-                        <Grid item xs={5} />
-                        <Grid item xs={5}>
+                        <Grid item xs={8} />
+                        <Grid item xs={4}>
                             <InputField
                                 disabled
                                 fullWidth
@@ -286,7 +303,7 @@ function SerialNumber({
                                 value={serialNumber.sernosTRef}
                             />
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={4}>
                             <InputField
                                 disabled
                                 fullWidth
@@ -362,3 +379,4 @@ SerialNumber.defaultProps = {
 };
 
 export default SerialNumber;
+// export default SerialNumber;

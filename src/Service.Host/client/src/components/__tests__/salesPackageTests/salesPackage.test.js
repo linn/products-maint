@@ -5,7 +5,7 @@ import SalesPackage from '../../salesPackages/SalesPackage';
 describe('<SalesPackage />', () => {
     let props;
     let wrapper;
-    const getInputFields = () => wrapper.find('WithStyles(InputField)');
+    const getInputFields = () => wrapper.find('InputField');
     const getLoading = () => wrapper.find('Loading');
     const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');
     const shallow = createShallow({ dive: false });

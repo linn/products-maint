@@ -5,7 +5,7 @@ import { Typeahead, CreateButton, ErrorCard } from '@linn-it/linn-form-component
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
 
-const Tariffs = ({ items, fetchItems, loading, privileges, clearSearch, errorMessage }) => {
+function Tariffs({ items, fetchItems, loading, privileges, clearSearch, errorMessage, history }) {
     const results = items.map(tariff => ({
         ...tariff,
         name: tariff.tariffCode,
@@ -37,6 +37,7 @@ const Tariffs = ({ items, fetchItems, loading, privileges, clearSearch, errorMes
                         clearSearch={clearSearch}
                         loading={loading}
                         title="Search by tariff code or description"
+                        history={history}
                     />
                 </Grid>
                 <Grid item xs={2}>
@@ -58,7 +59,7 @@ const Tariffs = ({ items, fetchItems, loading, privileges, clearSearch, errorMes
             </Grid>
         </Page>
     );
-};
+}
 
 Tariffs.propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -66,7 +67,8 @@ Tariffs.propTypes = {
     privileges: PropTypes.arrayOf(PropTypes.string),
     fetchItems: PropTypes.func.isRequired,
     clearSearch: PropTypes.func.isRequired,
-    errorMessage: PropTypes.string
+    errorMessage: PropTypes.string,
+    history: PropTypes.shape({}).isRequired
 };
 
 Tariffs.defaultProps = {
