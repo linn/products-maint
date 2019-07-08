@@ -36,30 +36,28 @@ function SalesArticlesByTariff({ reportData, loading, history, errorMessage }) {
         history.push('/products/maint/tariffs');
     };
     return (
-        // <Page>
-            <Grid container spacing={3} justify="center">
-                {errorMessage && (
-                    <Grid item xs={12}>
-                        <ErrorCard errorMessage={errorMessage} />
-                    </Grid>
-                )}
+        <Page>
+        <Grid container spacing={3} justify="center">
+            {errorMessage && (
                 <Grid item xs={12}>
-                    <Grid item xs={10}>
-                        <Title
-                            text={
-                                loading || !reportData ? 'Loading' : reportData.title.displayString
-                            }
-                        />
-                    </Grid>
+                    <ErrorCard errorMessage={errorMessage} />
                 </Grid>
-                <Grid item xs={12}>
-                    <Report reportData={reportData} loading={loading} />
-                </Grid>
-                <Grid item xs={12}>
-                    <BackButton backClick={handleBackClick} />
+            )}
+            <Grid item xs={12}>
+                <Grid item xs={10}>
+                    <Title
+                        text={loading || !reportData ? 'Loading' : reportData.title.displayString}
+                    />
                 </Grid>
             </Grid>
-        // </Page>
+            <Grid item xs={12}>
+                <Report reportData={reportData} loading={loading} />
+            </Grid>
+            <Grid item xs={12}>
+                <BackButton backClick={handleBackClick} />
+            </Grid>
+        </Grid>
+        </Page>
     );
 }
 

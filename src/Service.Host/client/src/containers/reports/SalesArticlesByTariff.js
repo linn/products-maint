@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 import { ReportSelectors } from '@linn-it/linn-form-components-library';
 import SalesArticlesByTariff from '../../components/reports/SalesArticlesByTariff';
 import initialiseOnMount from '../common/initialiseOnMount';
 import salesArticlesByTariffReport from '../../actions/salesArticlesByTariffReport';
 import config from '../../config';
 
-const reportSelectors = new ReportSelectors('salesArticlesByTariff');
+const reportSelectors = new ReportSelectors('salesArticlesByTariffReport');
 
 const getOptions = ownProps => {
-    const options = {tariffId: 7};// ownProps.match.params;
+    const options = queryString.parse(ownProps.location.search);
     return options;
 };
 
