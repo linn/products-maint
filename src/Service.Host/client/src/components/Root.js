@@ -5,7 +5,7 @@ import { OidcProvider } from 'redux-oidc';
 import { Router } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import PropTypes from 'prop-types';
-import { MenuPage, Navigation, linnTheme } from '@linn-it/linn-form-components-library';
+import { Navigation, linnTheme } from '@linn-it/linn-form-components-library';
 import { ThemeProvider } from '@material-ui/styles';
 import history from '../history';
 import App from './App';
@@ -394,7 +394,6 @@ const Root = ({ store }) => (
                                         path="/products/reports/sernos-used-on-invoice/report"
                                         component={SernosUsedOnInvoice}
                                     />
-                                    <Route exact path="/:sectionId" component={MenuPage} />
                                     <Route component={NotFound} />
                                 </Switch>
                             </div>

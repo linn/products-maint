@@ -1,4 +1,4 @@
-﻿import { fetchErrorReducer as fetchError, menu, news } from '@linn-it/linn-form-components-library';
+import { reducers as sharedLibraryReducers } from '@linn-it/linn-form-components-library';
 import { combineReducers } from 'redux';
 import { reducer as oidc } from 'redux-oidc';
 import eanCodesReport from './eanCodesReport';
@@ -65,7 +65,6 @@ const rootReducer = combineReducers({
     sernosSequences,
     saCoreTypes,
     saCoreType,
-    fetchError,
     salesArticle,
     salesArticles,
     typesOfSale,
@@ -73,7 +72,6 @@ const rootReducer = combineReducers({
     stockTriggerLevelsReport,
     saHoldStoriesReport,
     saHoldStory,
-    menu,
     salesArticleCoreTypes,
     vatCode,
     vatCodes,
@@ -87,8 +85,8 @@ const rootReducer = combineReducers({
     rootProduct,
     rootProducts,
     sernosUsedOnInvoiceReport,
-    news,
-    serialNumberTransCounts
+    serialNumberTransCounts,
+    ...sharedLibraryReducers
 });
 
 export default rootReducer;
