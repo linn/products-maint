@@ -36,7 +36,7 @@ function SalesArticlesByTariff({ reportData, loading, history, errorMessage }) {
         history.push('/products/maint/tariffs');
     };
     return (
-        <Page>
+        // <Page>
             <Grid container spacing={3} justify="center">
                 {errorMessage && (
                     <Grid item xs={12}>
@@ -59,7 +59,7 @@ function SalesArticlesByTariff({ reportData, loading, history, errorMessage }) {
                     <BackButton backClick={handleBackClick} />
                 </Grid>
             </Grid>
-        </Page>
+        // </Page>
     );
 }
 

@@ -7,15 +7,15 @@ import config from '../../config';
 
 const reportSelectors = new ReportSelectors('salesArticlesByTariff');
 
-// const getOptions = ownProps => {
-//     const options = ownProps.match.params;
-//     return options;
-// };
+const getOptions = ownProps => {
+    const options = {tariffId: 7};// ownProps.match.params;
+    return options;
+};
 
 const mapStateToProps = (state, ownProps) => ({
     reportData: reportSelectors.getReportData(state),
     loading: reportSelectors.getReportLoading(state),
-    // partNumber: getOptions(ownProps),
+    options: getOptions(ownProps),
     config
 });
 
