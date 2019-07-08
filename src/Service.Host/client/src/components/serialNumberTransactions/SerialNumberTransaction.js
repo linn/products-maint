@@ -271,14 +271,12 @@ function SerialNumberTransaction({
                                                 <InputField
                                                     disabled
                                                     value={row.sernosCount}
-                                                    // label="Count"
                                                     propertyName="count"
                                                 />
                                             </TableCell>
                                             <TableCell>
                                                 <InputField
                                                     value={row.countIncrement}
-                                                    // label="Count Increment"
                                                     type="number"
                                                     error={typeof row.countIncrement !== 'number'}
                                                     onChange={handleElementChange}
@@ -288,7 +286,6 @@ function SerialNumberTransaction({
                                             <TableCell>
                                                 <InputField
                                                     value={row.correctValue}
-                                                    // label="Correct Value"
                                                     error={typeof row.correctValue !== 'number'}
                                                     onChange={handleElementChange}
                                                     propertyName={`${index},correctValue`}
@@ -297,7 +294,6 @@ function SerialNumberTransaction({
                                             <TableCell>
                                                 <Dropdown
                                                     value={row.checkError}
-                                                    // label="Check Error"
                                                     items={errorOptions}
                                                     onChange={handleElementChange}
                                                     propertyName={`${index},checkError`}
@@ -307,7 +303,6 @@ function SerialNumberTransaction({
                                                 <InputField
                                                     type="text"
                                                     value={row.checkErrorMess}
-                                                    // label="Message"
                                                     maxLength={128}
                                                     onChange={handleElementChange}
                                                     propertyName={`${index},checkErrorMess`}
@@ -324,7 +319,6 @@ function SerialNumberTransaction({
                                                 <Dropdown
                                                     value={element.sernosCount}
                                                     items={sernosCountOptions}
-                                                    label="Count"
                                                     propertyName={`${index},sernosCount`}
                                                     onChange={handleNewElement}
                                                     error={!element.sernosCount}
@@ -333,7 +327,6 @@ function SerialNumberTransaction({
                                             <TableCell>
                                                 <InputField
                                                     value={element.countIncrement}
-                                                    label="Count Increment"
                                                     type="number"
                                                     error={
                                                         typeof element.countIncrement !== 'number'
@@ -345,7 +338,6 @@ function SerialNumberTransaction({
                                             <TableCell>
                                                 <InputField
                                                     value={element.correctValue}
-                                                    label="Correct Value"
                                                     type="number"
                                                     error={typeof element.correctValue !== 'number'}
                                                     onChange={handleNewElement}
@@ -355,7 +347,6 @@ function SerialNumberTransaction({
                                             <TableCell>
                                                 <Dropdown
                                                     value={element.checkError}
-                                                    label="Check Error"
                                                     items={errorOptions}
                                                     onChange={handleNewElement}
                                                     propertyName={`${index},checkError`}
@@ -365,7 +356,6 @@ function SerialNumberTransaction({
                                                 <InputField
                                                     type="text"
                                                     value={element.checkErrorMess}
-                                                    label="Message"
                                                     onChange={handleNewElement}
                                                     maxLength={128}
                                                     propertyName={`${index},checkErrorMess`}
