@@ -181,7 +181,7 @@ function SalesPackage({
                         </Grid>
                         <Grid item xs={4} />
 
-                        <Table>
+                        <Table size="small">
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Type</TableCell>
