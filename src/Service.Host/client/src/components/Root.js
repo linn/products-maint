@@ -65,6 +65,7 @@ import SerialNumberTransactions from '../containers/serialNumberTransactions/Ser
 import SerialNumberTransaction from '../containers/serialNumberTransactions/SerialNumberTransaction';
 import CreateSerialNumberTransaction from '../containers/serialNumberTransactions/CreateSerialNumberTransaction';
 import NotFound from './NotFound';
+import SalesArticlesByTariff from '../containers/reports/SalesArticlesByTariff';
 
 const Root = ({ store }) => (
     <div>
@@ -170,6 +171,11 @@ const Root = ({ store }) => (
                                         exact
                                         path="/products/maint/serial-number-transactions/:id"
                                         component={SerialNumberTransaction}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/reports/sales-articles/get-by-tariff"
+                                        component={SalesArticlesByTariff}
                                     />
 
                                     <Route

@@ -31,6 +31,10 @@
 
         protected ISalesArticleSerialNumberFacadeService SalesArticleSerialNumberFacadeService { get; private set; }
 
+        protected ISalesArticleReportService SalesArticleReportService { get; private set; }
+
+        
+
         [SetUp]
         public void EstablishContext()
         {
@@ -38,6 +42,7 @@
             this.SalesArticleForecastService = Substitute.For<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
             this.SalesArticleCompositeDiscountFacadeService = Substitute.For<ISalesArticleCompositeDiscountFacadeService>();
             this.SalesArticleSerialNumberFacadeService = Substitute.For<ISalesArticleSerialNumberFacadeService>();
+            this.SalesArticleReportService = Substitute.For<ISalesArticleReportService>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
@@ -46,6 +51,7 @@
                     with.Dependency(this.SalesArticleForecastService);
                     with.Dependency(this.SalesArticleCompositeDiscountFacadeService);
                     with.Dependency(this.SalesArticleSerialNumberFacadeService);
+                    with.Dependency(this.SalesArticleReportService);
                     with.Dependency<IResourceBuilder<ResponseModel<SalesArticle>>>(new SalesArticleResourceBuilder());
                     with.Dependency<IResourceBuilder<IEnumerable<SalesArticle>>>(new SalesArticlesResourceBuilder());
                     with.Dependency<IResourceBuilder<SalesArticleCompositeDiscount>>(

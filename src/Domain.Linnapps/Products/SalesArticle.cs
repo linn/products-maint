@@ -45,6 +45,8 @@
 
         public ICollection<SaHoldStory> HoldStories { get; set; }
 
+        public int TariffId { get; set; }
+
         public void Update(
             string forecastType,
             DateTime? forecastFromDate,

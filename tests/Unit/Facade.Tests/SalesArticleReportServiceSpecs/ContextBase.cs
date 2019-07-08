@@ -1,5 +1,7 @@
 ﻿namespace Linn.Products.Facade.Tests.SalesArticleReportServiceSpecs
 {
+    using Linn.Common.Persistence;
+    using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.Reports;
     using Linn.Products.Facade.Services;
 
@@ -15,12 +17,15 @@
 
         protected ISalesArticleReports SalesArticleReports { get; private set; }
 
+
+        protected IRepository<SalesArticle, string> salesArticleRepository;
         [SetUp]
         public void SetUpContext()
         {
             this.EanCodeReportService = Substitute.For<IEanCodeReportService>();
             this.SalesArticleReports = Substitute.For<ISalesArticleReports>();
-            this.Sut = new SalesArticleReportService(this.EanCodeReportService, this.SalesArticleReports);
+            this.salesArticleRepository = Substitute.For<IRepository<SalesArticle, string>>();
+            this.Sut = new SalesArticleReportService(this.EanCodeReportService, this.SalesArticleReports, this.salesArticleRepository);
         }
     }
 }

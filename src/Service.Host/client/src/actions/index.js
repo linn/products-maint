@@ -104,3 +104,7 @@ export const serialNumberTransactionCountsActionTypes = makeActionTypes(
     itemTypes.serialNumberTransCounts.actionType,
     false
 );
+export const salesArticlesByTariffReportActionTypes = makeActionTypes(
+    reportTypes.salesArticlesByTariffReport.actionType,
+    false
+);
