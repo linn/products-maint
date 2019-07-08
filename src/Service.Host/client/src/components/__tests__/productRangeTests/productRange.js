@@ -5,7 +5,7 @@ import ProductRange from '../../productRanges/ProductRange';
 describe('<ProductRange />', () => {
     let wrapper;
     let props;
-    const getInputFields = () => wrapper.find('WithStyles(InputField)');
+    const getInputFields = () => wrapper.find('InputField');
     const getLoading = () => wrapper.find('Loading');
     const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');
     const shallow = createShallow({ dive: false });

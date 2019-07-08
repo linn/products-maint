@@ -7,8 +7,8 @@ describe('<CartonType />', () => {
     let props;
 
     const getLoading = () => wrapper.find('Loading');
-    const getInputFields = () => wrapper.find('WithStyles(InputField)');
-    const getButtons = () => wrapper.find('WithStyles(SaveBackCancelButtons)');
+    const getInputFields = () => wrapper.find('InputField');
+    const getButtons = () => wrapper.find('SaveBackCancelButtons');
 
     const shallow = createShallow({ dive: false });
 

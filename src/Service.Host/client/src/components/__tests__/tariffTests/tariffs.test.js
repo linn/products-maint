@@ -30,7 +30,7 @@ describe('<Tariffs />', () => {
 
     describe('when tariifs have loaded', () => {
         it('should render typeahead list', () => {
-            expect(wrapper.find('WithStyles(Typeahead)')).toHaveLength(1);
+            expect(wrapper.find('Typeahead')).toHaveLength(1);
         });
         it('should render a create button', () => {
             expect(wrapper.find('WithStyles(CreateButton)')).toHaveLength(1);
