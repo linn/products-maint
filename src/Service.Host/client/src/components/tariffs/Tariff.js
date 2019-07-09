@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { Grid, Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import {
     SaveBackCancelButtons,
@@ -103,6 +104,14 @@ function Tariff({
                                 propertyName="tariffCode"
                                 error={!tariff.tariffCode}
                             />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Button style={"position": "fixed"}
+                                component={Link}
+                                to={`/products/reports/sales-articles/get-by-tariff?tariffId=${itemId}`}
+                            >
+                                View products
+                            </Button>
                         </Grid>
                         <Grid item xs={8} />
                         <Grid item xs={8}>

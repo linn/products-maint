@@ -17,15 +17,19 @@
 
         protected ISalesArticleReports SalesArticleReports { get; private set; }
 
-
         protected IRepository<SalesArticle, string> salesArticleRepository;
+
+        protected IRepository<Tariff, int> tariffRepository;
+
         [SetUp]
         public void SetUpContext()
         {
             this.EanCodeReportService = Substitute.For<IEanCodeReportService>();
             this.SalesArticleReports = Substitute.For<ISalesArticleReports>();
             this.salesArticleRepository = Substitute.For<IRepository<SalesArticle, string>>();
-            this.Sut = new SalesArticleReportService(this.EanCodeReportService, this.SalesArticleReports, this.salesArticleRepository);
+            this.tariffRepository = Substitute.For<IRepository<Tariff, int>>();
+            this.Sut = new SalesArticleReportService(
+                this.EanCodeReportService, this.SalesArticleReports, this.salesArticleRepository, this.tariffRepository);
         }
     }
 }

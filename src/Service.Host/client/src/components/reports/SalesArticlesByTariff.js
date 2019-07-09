@@ -18,7 +18,7 @@ function Report({ reportData, loading }) {
         <Fragment>
             {reportData && reportData.results.length > 0 ? (
                 <ReportTable
-                    showRowTitles={false}
+                    showRowTitles
                     reportData={reportData}
                     showTotals={false}
                     title={reportData ? reportData.title.displayString : null}
@@ -37,26 +37,28 @@ function SalesArticlesByTariff({ reportData, loading, history, errorMessage }) {
     };
     return (
         <Page>
-        <Grid container spacing={3} justify="center">
-            {errorMessage && (
+            <Grid container spacing={3} justify="center">
+                {errorMessage && (
+                    <Grid item xs={12}>
+                        <ErrorCard errorMessage={errorMessage} />
+                    </Grid>
+                )}
                 <Grid item xs={12}>
-                    <ErrorCard errorMessage={errorMessage} />
+                    <Grid item xs={10}>
+                        <Title
+                            text={
+                                loading || !reportData ? 'Loading' : reportData.title.displayString
+                            }
+                        />
+                    </Grid>
                 </Grid>
-            )}
-            <Grid item xs={12}>
-                <Grid item xs={10}>
-                    <Title
-                        text={loading || !reportData ? 'Loading' : reportData.title.displayString}
-                    />
+                <Grid item xs={12}>
+                    <Report reportData={reportData} loading={loading} />
+                </Grid>
+                <Grid item xs={12}>
+                    <BackButton backClick={handleBackClick} />
                 </Grid>
             </Grid>
-            <Grid item xs={12}>
-                <Report reportData={reportData} loading={loading} />
-            </Grid>
-            <Grid item xs={12}>
-                <BackButton backClick={handleBackClick} />
-            </Grid>
-        </Grid>
         </Page>
     );
 }
