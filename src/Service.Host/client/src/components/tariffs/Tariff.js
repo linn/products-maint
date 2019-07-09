@@ -106,7 +106,7 @@ function Tariff({
                             />
                         </Grid>
                         <Grid item xs={4}>
-                            <Button style={"position": "fixed"}
+                            <Button
                                 component={Link}
                                 to={`/products/reports/sales-articles/get-by-tariff?tariffId=${itemId}`}
                             >
