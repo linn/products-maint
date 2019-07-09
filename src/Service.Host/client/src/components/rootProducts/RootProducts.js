@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { Typeahead, ErrorCard } from '@linn-it/linn-form-components-library';
+import { ErrorCard, Typeahead } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
 
@@ -26,7 +26,7 @@ const RootProducts = ({ items, fetchItems, loading, clearSearch, errorMessage, h
                         clearSearch={clearSearch}
                         loading={loading}
                         title="Search for Root Product"
-                        history={history}
+                        handleClick={href => history.push(href)}
                     />
                 </Grid>
             </Grid>
@@ -46,7 +46,7 @@ RootProducts.propTypes = {
     fetchItems: PropTypes.func.isRequired,
     clearSearch: PropTypes.func.isRequired,
     errorMessage: PropTypes.string,
-    history: PropTypes.shape({}).isRequired
+    history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
 RootProducts.defaultProps = {

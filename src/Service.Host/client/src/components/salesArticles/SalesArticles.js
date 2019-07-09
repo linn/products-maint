@@ -25,7 +25,7 @@ function SalesArticles({ items, fetchItems, loading, clearSearch, errorMessage, 
                         clearSearch={clearSearch}
                         loading={loading}
                         title="Search for Sales Article"
-                        history={history}
+                        handleClick={href => history.push(href)}
                     />
                 </Grid>
             </Grid>
@@ -46,7 +46,7 @@ SalesArticles.propTypes = {
     fetchItems: PropTypes.func.isRequired,
     clearSearch: PropTypes.func.isRequired,
     errorMessage: PropTypes.string,
-    history: PropTypes.shape({}).isRequired
+    history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
 SalesArticles.defaultProps = {

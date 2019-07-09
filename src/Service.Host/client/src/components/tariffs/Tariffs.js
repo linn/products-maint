@@ -37,7 +37,7 @@ function Tariffs({ items, fetchItems, loading, privileges, clearSearch, errorMes
                         clearSearch={clearSearch}
                         loading={loading}
                         title="Search by tariff code or description"
-                        history={history}
+                        handleClick={href => history.push(href)}
                     />
                 </Grid>
                 <Grid item xs={2}>
@@ -68,7 +68,7 @@ Tariffs.propTypes = {
     fetchItems: PropTypes.func.isRequired,
     clearSearch: PropTypes.func.isRequired,
     errorMessage: PropTypes.string,
-    history: PropTypes.shape({}).isRequired
+    history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
 Tariffs.defaultProps = {
