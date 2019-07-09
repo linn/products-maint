@@ -26,20 +26,17 @@ namespace Linn.Products.Service.Modules
 
         private readonly ISalesArticleSerialNumberFacadeService salesArticleSerialNumberFacadeService;
 
-        private readonly ISalesArticleReportService salesArticleReportService;
-
         public SalesArticleModule(
             IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> salesArticleService,
             ISalesArticleCompositeDiscountFacadeService salesArticleCompositeDiscountFacadeService,
             ISalesArticleService salesArticleProxyService,
-            ISalesArticleSerialNumberFacadeService salesArticleSerialNumberFacadeService,
-            ISalesArticleReportService salesArticleReportService)
+            ISalesArticleSerialNumberFacadeService salesArticleSerialNumberFacadeService)
         {
             this.salesArticleService = salesArticleService;
             this.salesArticleCompositeDiscountFacadeService = salesArticleCompositeDiscountFacadeService;
             this.salesArticleProxyService = salesArticleProxyService;
             this.salesArticleSerialNumberFacadeService = salesArticleSerialNumberFacadeService;
-            this.salesArticleReportService = salesArticleReportService;
+
 
             this.Get("/products/maint/sales-articles", _ => this.GetSalesArticles());
             this.Get("/products/maint/sales-articles/{id*}", parameters => this.GetSalesArticle(parameters.id));

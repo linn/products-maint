@@ -45,6 +45,7 @@
 
         public ICollection<SaHoldStory> HoldStories { get; set; }
 
+        // deliberately not mapping TariffId as it is set in the new products app
         public int TariffId { get; set; }
 
         public void Update(
