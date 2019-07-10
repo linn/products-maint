@@ -155,7 +155,6 @@ function SalesPackage({
                                 fullWidth
                                 disabled={!creating()}
                                 value={salesPackage.salesPackageId}
-                                label="Sales Package Id"
                                 helperText={
                                     !creating()
                                         ? 'This field cannot be changed'
@@ -171,7 +170,6 @@ function SalesPackage({
                         <Grid item xs={8}>
                             <InputField
                                 value={salesPackage.description}
-                                label="Description"
                                 fullWidth
                                 rows={3}
                                 onChange={handleFieldChange}
@@ -181,7 +179,7 @@ function SalesPackage({
                         </Grid>
                         <Grid item xs={4} />
 
-                        <Table>
+                        <Table size="small">
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Type</TableCell>
@@ -199,7 +197,6 @@ function SalesPackage({
                                                 <InputField
                                                     disabled
                                                     value={row.elementType}
-                                                    label="Type"
                                                     propertyName="type"
                                                     maxLength={10}
                                                 />
@@ -207,7 +204,6 @@ function SalesPackage({
                                             <TableCell>
                                                 <InputField
                                                     value={row.sequence}
-                                                    label="Sequence"
                                                     type="number"
                                                     onChange={handleElementChange}
                                                     propertyName={`${index},sequence`}
@@ -216,7 +212,6 @@ function SalesPackage({
                                             <TableCell>
                                                 <InputField
                                                     value={row.quantity}
-                                                    label="Quantity"
                                                     type="number"
                                                     onChange={handleElementChange}
                                                     propertyName={`${index},quantity`}
@@ -232,7 +227,6 @@ function SalesPackage({
                                             <TableCell>
                                                 <InputField
                                                     value={element.elementType}
-                                                    label="Type"
                                                     onChange={handleNewElement}
                                                     propertyName={`${index},elementType`}
                                                     maxLength={10}
@@ -247,7 +241,6 @@ function SalesPackage({
                                             <TableCell>
                                                 <InputField
                                                     value={element.sequence}
-                                                    label="Sequence"
                                                     type="number"
                                                     onChange={handleNewElement}
                                                     propertyName={`${index},sequence`}
@@ -256,7 +249,6 @@ function SalesPackage({
                                             <TableCell>
                                                 <InputField
                                                     value={element.quantity}
-                                                    label="Quantity"
                                                     type="number"
                                                     onChange={handleNewElement}
                                                     propertyName={`${index},quantity`}

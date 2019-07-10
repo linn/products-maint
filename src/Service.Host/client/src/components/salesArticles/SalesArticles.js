@@ -4,7 +4,7 @@ import { Typeahead, ErrorCard } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
 
-const SalesArticles = ({ items, fetchItems, loading, clearSearch, errorMessage }) => {
+function SalesArticles({ items, fetchItems, loading, clearSearch, errorMessage, history }) {
     const forecastItems = items.map(item => ({
         ...item,
         name: item.articleNumber
@@ -25,12 +25,13 @@ const SalesArticles = ({ items, fetchItems, loading, clearSearch, errorMessage }
                         clearSearch={clearSearch}
                         loading={loading}
                         title="Search for Sales Article"
+                        history={history}
                     />
                 </Grid>
             </Grid>
         </Page>
     );
-};
+}
 
 SalesArticles.propTypes = {
     items: PropTypes.arrayOf(
@@ -44,7 +45,8 @@ SalesArticles.propTypes = {
     loading: PropTypes.bool,
     fetchItems: PropTypes.func.isRequired,
     clearSearch: PropTypes.func.isRequired,
-    errorMessage: PropTypes.string
+    errorMessage: PropTypes.string,
+    history: PropTypes.shape({}).isRequired
 };
 
 SalesArticles.defaultProps = {
