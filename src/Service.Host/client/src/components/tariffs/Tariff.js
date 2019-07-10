@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
 import {
     SaveBackCancelButtons,
@@ -66,6 +67,14 @@ function Tariff({
         setTariff({ ...tariff, [propertyName]: newValue });
     };
 
+    const useStyles = makeStyles(theme => ({
+        productsButton: {
+            marginTop: theme.spacing(3)
+        }
+    }));
+
+    const classes = useStyles();
+
     return (
         <Page>
             <Grid container spacing={3}>
@@ -109,6 +118,8 @@ function Tariff({
                             <Button
                                 component={Link}
                                 to={`/products/reports/sales-articles/get-by-tariff?tariffId=${itemId}`}
+                                variant="outlined"
+                                className={classes.productsButton}
                             >
                                 View products
                             </Button>
