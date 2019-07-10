@@ -9,7 +9,6 @@ import {
     Title
 } from '@linn-it/linn-form-components-library';
 import {
-    Link,
     Table,
     TableHead,
     TableBody,
@@ -18,7 +17,7 @@ import {
     TableRow,
     TableCell
 } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
+import { makeStyles } from '@material-ui/styles';
 
 import TablePaginationActions from '../common/TablePaginationActions';
 import Page from '../../containers/Page';
@@ -31,24 +30,23 @@ const actionsStyles = theme => ({
     }
 });
 
-const styles = {
-    link: {
+const useStyles = makeStyles(() => ({
+    clickRow: {
         '&:hover': {
             cursor: 'pointer'
         }
     }
-};
+}));
 
 const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: true })(
     TablePaginationActions
 );
 
-function SerialNumberTransactions({ page, loading, pageLoad, errorMessage, classes, history }) {
+function SerialNumberTransactions({ page, loading, pageLoad, errorMessage, history }) {
     const [localPage, setLocalPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-
+    const localClasses = useStyles();
     const identifySelfLink = row => getSelfHref(row);
-
     const handleChangePage = (event, pge) => {
         setLocalPage(pge);
         pageLoad(pge + 1, rowsPerPage); // page number must be incremented because the starting index on the server is 1
@@ -75,31 +73,20 @@ function SerialNumberTransactions({ page, loading, pageLoad, errorMessage, class
                             <TableRow>
                                 <TableCell>Trans Code</TableCell>
                                 <TableCell>Description</TableCell>
-                                <TableCell>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {page.elements &&
                                 page.elements.map(row => (
                                     <Fragment key={row.transCode}>
-                                        <TableRow>
+                                        <TableRow
+                                            className={localClasses.clickRow}
+                                            onClick={() => history.push(identifySelfLink(row))}
+                                        >
                                             <TableCell component="th" scope="row">
                                                 {row.transCode}
                                             </TableCell>
-                                            <TableCell>{row.description}</TableCell>
-                                            <TableCell>
-                                                <Link
-                                                    key={row.transCode}
-                                                    to={identifySelfLink(row)}
-                                                    classes={{ root: classes.link }}
-                                                    variant="button"
-                                                    onClick={() =>
-                                                        history.push(identifySelfLink(row))
-                                                    }
-                                                >
-                                                    <EditIcon />
-                                                </Link>
-                                            </TableCell>
+                                            <TableCell>{row.transDescription}</TableCell>
                                         </TableRow>
                                     </Fragment>
                                 ))}
@@ -130,11 +117,13 @@ function SerialNumberTransactions({ page, loading, pageLoad, errorMessage, class
 }
 
 SerialNumberTransactions.propTypes = {
-    page: PropTypes.PropTypes.shape({}).isRequired,
+    page: PropTypes.PropTypes.shape({
+        elements: PropTypes.array,
+        totalItemCount: PropTypes.number
+    }).isRequired,
     loading: PropTypes.bool.isRequired,
     pageLoad: PropTypes.func.isRequired,
-    history: PropTypes.shape({}).isRequired,
-    classes: PropTypes.shape({}).isRequired,
+    history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     errorMessage: PropTypes.string
 };
 
@@ -142,4 +131,4 @@ SerialNumberTransactions.defaultProps = {
     errorMessage: ''
 };
 
-export default withStyles(styles)(SerialNumberTransactions);
+export default SerialNumberTransactions;
