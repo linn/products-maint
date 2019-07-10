@@ -416,7 +416,7 @@ SerialNumberTransaction.defaultProps = {
 
 SerialNumberTransaction.propTypes = {
     item: PropTypes.shape({}),
-    history: PropTypes.shape({}).isRequired,
+    history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     editStatus: PropTypes.string.isRequired,
     sernosTransCountTypes: PropTypes.arrayOf(PropTypes.shape({})),
     errorMessage: PropTypes.string,

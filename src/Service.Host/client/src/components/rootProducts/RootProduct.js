@@ -167,7 +167,12 @@ RootProduct.defaultProps = {
 };
 
 RootProduct.propTypes = {
-    item: PropTypes.shape({}),
+    item: PropTypes.shape({
+        description: PropTypes.string,
+        name: PropTypes.string,
+        onHold: PropTypes.bool,
+        links: PropTypes.array
+    }),
     errorMessage: PropTypes.string,
     loading: PropTypes.bool,
     snackbarVisible: PropTypes.bool,

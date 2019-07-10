@@ -78,7 +78,6 @@
                 .WithModel(
                     this.salesArticleReportService.GetSalesArticleByTariff(resource.TariffId))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
-
         }
     }
 }
