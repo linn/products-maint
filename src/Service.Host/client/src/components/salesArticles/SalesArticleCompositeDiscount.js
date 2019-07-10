@@ -30,7 +30,7 @@ function SalesArticleCompositeDiscount({
             setSalesArticleCompositeDiscount(item);
             setPrevSalesArticleCompositeDiscount(item);
         }
-    });
+    }, [item, prevSalesArticleCompositeDiscount]);
 
     const editing = () => editStatus === 'edit';
     const viewing = () => editStatus === 'view';
@@ -101,9 +101,7 @@ function SalesArticleCompositeDiscount({
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <Title
-                                text={`Composite discount parts for ${
-                                    salesArticleCompositeDiscount.articleNumber
-                                }`}
+                                text={`Composite discount parts for ${salesArticleCompositeDiscount.articleNumber}`}
                             />
                         </Grid>
                         <Grid item xs={4}>

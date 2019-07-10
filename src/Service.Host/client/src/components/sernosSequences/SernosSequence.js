@@ -37,7 +37,7 @@ function SernosSequence({
             setSernosSequence(item);
             setPrevSernosSequence(item);
         }
-    });
+    }, [item, prevSernosSequence]);
 
     const sequenceNameInvalid = () => !sernosSequence.sequenceName;
     const descriptionInvalid = () => !sernosSequence.description;
@@ -177,7 +177,7 @@ SernosSequence.propTypes = {
         nextSerialNumber: PropTypes.number,
         dateClosed: PropTypes.string
     }),
-    history: PropTypes.shape({}).isRequired,
+    history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,
