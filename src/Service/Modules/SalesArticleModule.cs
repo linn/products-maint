@@ -37,6 +37,7 @@ namespace Linn.Products.Service.Modules
             this.salesArticleProxyService = salesArticleProxyService;
             this.salesArticleSerialNumberFacadeService = salesArticleSerialNumberFacadeService;
 
+
             this.Get("/products/maint/sales-articles", _ => this.GetSalesArticles());
             this.Get("/products/maint/sales-articles/{id*}", parameters => this.GetSalesArticle(parameters.id));
             this.Put("/products/maint/sales-articles/{id*}", parameters => this.UpdateSalesArticle(parameters.id));

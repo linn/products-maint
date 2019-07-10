@@ -20,6 +20,7 @@
             this.Get("/products/reports/sales-article-ean-codes/export", _ => this.GetSalesArticlesByEanCodeExport());
             this.Get("/products/reports/sales-article-core-types", _ => this.GetSalesArticlesCoreTypeReport());
             this.Get("/products/reports/sales-article-core-types/export", _ => this.GetSalesArticlesCoreTypeReportExport());
+            this.Get("/products/reports/sales-articles/get-by-tariff", _ => this.GetByTariff());
         }
 
         private object GetSalesArticlesByEanCode()
@@ -68,6 +69,16 @@
                 .WithModel(results)
                 .WithAllowedMediaRange("text/csv")
                 .WithView("Index");
+        }
+
+        private object GetByTariff()
+        {
+            var resource = this.Bind<SalesArticleReportRequestResource>();
+            return this.Negotiate
+                .WithModel(
+                    this.salesArticleReportService.GetSalesArticleByTariff(resource.TariffId))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
+
         }
     }
 }
