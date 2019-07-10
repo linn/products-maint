@@ -35,3 +35,9 @@ export const sernosUsedOnInvoiceReport = new ItemType(
     'SERNOS_USED_ON_INVOICE',
     '/products/reports/sernos-used-on-invoice'
 );
+
+export const salesArticlesByTariffReport = new ItemType(
+    'salesArticlesByTariffReport',
+    'SALES_ARTICLES_BY_TARIFF',
+    '/products/reports/sales-articles/get-by-tariff'
+);
