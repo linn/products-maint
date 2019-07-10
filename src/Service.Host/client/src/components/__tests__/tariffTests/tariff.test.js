@@ -1,37 +1,65 @@
 import React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import configureMockStore from 'redux-mock-store';
+import { MemoryRouter } from 'react-router-dom';
+import { createMount } from '@material-ui/core/test-utils';
+import { Provider } from 'react-redux';
 import Tariff from '../../tariffs/Tariff';
 
 describe('<Tariff />', () => {
-    let props;
+    let mount;
+    const mockStore = configureMockStore();
+    const store = mockStore({});
+
+    const mountWithProps = props =>
+        mount(
+            <Provider store={store}>
+                <MuiThemeProvider theme={createMuiTheme()}>
+                    <MemoryRouter>
+                        <Tariff {...props} />
+                    </MemoryRouter>
+                </MuiThemeProvider>
+            </Provider>
+        );
+
     let wrapper;
+
+    const defaultProps = {
+        loading: false,
+        item: {
+            tariffCode: 'P1',
+            description: 'tariff description for a black box',
+            duty: 1
+        },
+        editStatus: 'view'
+    };
+
+    beforeEach(() => {
+        mount = createMount();
+    });
+
     const getInputFields = () => wrapper.find('InputField');
     const getLoading = () => wrapper.find('Loading');
     const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');
-    const shallow = createShallow({ dive: false });
-    wrapper = shallow(<Tariff {...props} />);
 
     describe('when loaded', () => {
         beforeEach(() => {
-            wrapper.setProps({
-                loading: false,
-                item: {
-                    tariffCode: 'P1',
-                    description: 'tariff description for a black box',
-                    duty: 1
-                },
-                editStatus: 'view'
-            });
+            wrapper = mountWithProps(defaultProps);
         });
 
-        it('should render Input Fields', () => {
+        it('should render Form Elements', () => {
             expect(getInputFields()).toHaveLength(5);
+        });
+
+        it('should have save button disabled', () => {
+            const SaveButton = wrapper.find('ForwardRef(Button)').at(2);
+            expect(SaveButton.props().disabled).toBe(true);
         });
     });
 
     describe('when loading', () => {
         beforeEach(() => {
-            wrapper.setProps({ loading: true });
+            wrapper = mountWithProps({ ...defaultProps, loading: true });
         });
 
         it('should render loading Spinner', () => {
@@ -41,11 +69,19 @@ describe('<Tariff />', () => {
 
     describe('when there is an error', () => {
         beforeEach(() => {
-            wrapper.setProps({ errorMessage: 'an error has occurred', loading: false });
+            wrapper = mountWithProps({ ...defaultProps, errorMessage: 'some error' });
         });
 
         it('should render ErrorCard', () => {
             expect(getErrorCard()).toHaveLength(1);
+        });
+    });
+
+    describe('when state changes', () => {
+        beforeEach(() => {
+            const setState = jest.fn();
+            const useStateSpy = jest.spyOn(React, 'useState');
+            useStateSpy.mockImplementation(init => [init, setState]);
         });
     });
 });
