@@ -16,7 +16,7 @@
     "jest": {
         "coverageDirectory": "./coverage/",
         "collectCoverageFrom": [
-            "client/src/componenets/tariffs/tariff.{js}"
+             "client/src/**/*.{js}"
         ],
         "collectCoverage": true,
         "setupFiles": [
