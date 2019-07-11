@@ -16,7 +16,7 @@
     "jest": {
         "coverageDirectory": "./coverage/",
         "collectCoverageFrom": [
-             "client/src/**/*.{js}"
+            "client/src/**/*.{js}"
         ],
         "collectCoverage": true,
         "setupFiles": [
@@ -78,6 +78,7 @@
         "@material-ui/styles": "^4.1.2",
         "@testing-library/jest-dom": "^4.0.0",
         "@testing-library/react": "^8.0.4",
+        "asyncawait": "^1.0.8",
         "babel-polyfill": "^6.26.0",
         "core-js": "^2.6.3",
         "eslint": "^5.15.1",
