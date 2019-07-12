@@ -26,10 +26,7 @@
         ],
         "transform": {
             "^.+\\.js$": "babel-jest"
-        },
-        "transformIgnorePatterns": [
-            "<rootDir>/node_modules/"
-          ]
+        }
     },
     "author": "",
     "license": "ISC",
@@ -104,6 +101,7 @@
         "redux-mock-store": "^1.5.3",
         "redux-oidc": "^3.0.2",
         "redux-thunk": "^2.3.0",
+        "regenerator-runtime": "^0.13.2",
         "typeface-roboto": "0.0.54"
     }
 }
