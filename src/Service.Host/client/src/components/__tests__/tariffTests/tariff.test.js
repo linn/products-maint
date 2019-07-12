@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { render, fireEvent, cleanup } from '../../../test-utils';
 import Tariff from '../../tariffs/Tariff';
 
-afterEach(cleanup);
+//afterEach(cleanup);
 
 const addTariffMock = jest.fn();
 const updateTariffMock = jest.fn();
