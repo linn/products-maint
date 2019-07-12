@@ -62,8 +62,16 @@ describe('When viewing', () => {
     test('Should have save button disabled', () => {
         const { getByText } = render(<Tariff {...defaultProps} />);
         const item = getByText('Save');
-        expect(item).toBeInTheDocument();
         expect(item.closest('button')).toHaveAttribute('disabled');
+    });
+
+    test('should change to edit mode on input', () => {
+        const { getByDisplayValue } = render(<Tariff {...defaultProps} />);
+        const input = getByDisplayValue('tariff description for a black box');
+        fireEvent.change(input, {
+            target: { value: 'new value' }
+        });
+        expect(setEditStatusMock).toHaveBeenCalledWith('edit');
     });
 });
 
