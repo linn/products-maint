@@ -1,5 +1,4 @@
 import React from 'react';
-import '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, fireEvent, cleanup } from '../../../test-utils';
 import Tariff from '../../tariffs/Tariff';
