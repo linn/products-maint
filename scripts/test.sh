@@ -5,8 +5,9 @@ set -ev
 if [ "$CI" ] && [ "$TRAVIS" ]
 then 
 	source ~/.nvm/nvm.sh; 
-	nvm install 6;
-	nvm use 6;
+	nvm install 8.10.0;
+	nvm use 8.10.0;
+	npm i -g npm;
 fi
 
 # c# tests
