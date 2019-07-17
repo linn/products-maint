@@ -9,6 +9,7 @@ then
 	source ~/.nvm/nvm.sh; 
 	nvm install 8.10.0;
 	nvm use 8.10.0;
+	npm i -g npm
 fi
 
 cd ./src/Service.Host
