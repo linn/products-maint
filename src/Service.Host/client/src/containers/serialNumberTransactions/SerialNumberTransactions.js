@@ -10,11 +10,11 @@ const mapStateToProps = state => ({
     errorMessage: fetchErrorSelectors(state)
 });
 
-const pageLoad = (pageNumber = 1, rowsPerPage = 5) => dispatch => {
+const pageLoad = (pageNumber = 1, rowsPerPage = 10) => dispatch => {
     dispatch(serialNumberTransactionsPagedActions.fetchPage(pageNumber, rowsPerPage));
 };
 
-const initialise = (pageNumber = 1, rowsPerPage = 5) => dispatch => {
+const initialise = (pageNumber = 1, rowsPerPage = 10) => dispatch => {
     dispatch(serialNumberTransactionsPagedActions.fetchPage(pageNumber, rowsPerPage));
 };
 

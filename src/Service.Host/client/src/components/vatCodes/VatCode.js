@@ -86,7 +86,7 @@ function VatCode({
     };
 
     return (
-        <Page>
+        <Page width="s">
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     {creating() ? (

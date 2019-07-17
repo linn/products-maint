@@ -20,7 +20,7 @@ function VatCodes({ vatCodes, loading, errorMessage }) {
     };
 
     return (
-        <Page>
+        <Page width="s">
             <Grid container spacing={3}>
                 {errorMessage && (
                     <Grid item xs={12}>

@@ -12,15 +12,15 @@ const mapStateToProps = state => ({
     classes: {}
 });
 
-const pageLoad = (pageNumber = 1, rowsPerPage = 5) => dispatch => {
+const pageLoad = (pageNumber = 1, rowsPerPage = 10) => dispatch => {
     dispatch(salesPackagesActions.fetchPage(pageNumber, rowsPerPage));
 };
 
-const pageSortedLoad = (pageNumber = 1, rowsPerPage = 5, sortBy, asc) => dispatch => {
+const pageSortedLoad = (pageNumber = 1, rowsPerPage = 10, sortBy, asc) => dispatch => {
     dispatch(salesPackagesActions.fetchSortedPage(pageNumber, rowsPerPage, sortBy, asc));
 };
 
-const initialise = ({ pageNumber = 1, pageSize = 5 }) => dispatch => {
+const initialise = ({ pageNumber = 1, pageSize = 10 }) => dispatch => {
     dispatch(salesPackagesActions.fetchPage(pageNumber, pageSize));
 };
 

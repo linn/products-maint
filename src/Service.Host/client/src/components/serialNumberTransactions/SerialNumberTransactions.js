@@ -1,64 +1,27 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import {
     Loading,
     CreateButton,
-    getSelfHref,
     ErrorCard,
-    Title
+    Title,
+    PaginatedTable,
+    useTablePagination
 } from '@linn-it/linn-form-components-library';
-import {
-    Link,
-    Table,
-    TableHead,
-    TableBody,
-    TablePagination,
-    TableFooter,
-    TableRow,
-    TableCell
-} from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-
-import TablePaginationActions from '../common/TablePaginationActions';
 import Page from '../../containers/Page';
 
-const actionsStyles = theme => ({
-    root: {
-        flexShrink: 0,
-        color: theme.palette.text.secondary,
-        marginLeft: theme.spacing(2.5)
-    }
-});
+function SerialNumberTransactions({ page, loading, pageLoad, errorMessage, history }) {
+    const [pageOptions, setPageOptions] = useTablePagination(pageLoad);
 
-const styles = {
-    link: {
-        '&:hover': {
-            cursor: 'pointer'
-        }
-    }
-};
+    const handleRowLinkClick = href => history.push(href);
 
-const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: true })(
-    TablePaginationActions
-);
+    const columns = ['Trans Code', 'Description'];
 
-function SerialNumberTransactions({ page, loading, pageLoad, errorMessage, classes, history }) {
-    const [localPage, setLocalPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
-
-    const identifySelfLink = row => getSelfHref(row);
-
-    const handleChangePage = (event, pge) => {
-        setLocalPage(pge);
-        pageLoad(pge + 1, rowsPerPage); // page number must be incremented because the starting index on the server is 1
-    };
-
-    const handleChangeRowsPerPage = event => {
-        setLocalPage(0);
-        setRowsPerPage(event.target.value);
-        pageLoad(localPage + 1, event.target.value);
-    };
+    const rows = page.elements.map(el => ({
+        transCode: el.transCode,
+        description: el.description,
+        links: el.links
+    }));
 
     return (
         <Page>
@@ -70,59 +33,15 @@ function SerialNumberTransactions({ page, loading, pageLoad, errorMessage, class
             ) : (
                 <Fragment>
                     <CreateButton createUrl="/products/maint/serial-number-transactions/create" />
-                    <Table size="small">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Trans Code</TableCell>
-                                <TableCell>Description</TableCell>
-                                <TableCell>Actions</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {page.elements &&
-                                page.elements.map(row => (
-                                    <Fragment key={row.transCode}>
-                                        <TableRow>
-                                            <TableCell component="th" scope="row">
-                                                {row.transCode}
-                                            </TableCell>
-                                            <TableCell>{row.description}</TableCell>
-                                            <TableCell>
-                                                <Link
-                                                    key={row.transCode}
-                                                    to={identifySelfLink(row)}
-                                                    classes={{ root: classes.link }}
-                                                    variant="button"
-                                                    onClick={() =>
-                                                        history.push(identifySelfLink(row))
-                                                    }
-                                                >
-                                                    <EditIcon />
-                                                </Link>
-                                            </TableCell>
-                                        </TableRow>
-                                    </Fragment>
-                                ))}
-                        </TableBody>
-                        <TableFooter>
-                            {page.totalItemCount && (
-                                <TableRow>
-                                    <TablePagination
-                                        rowsPerPageOptions={[5, 10, 25, 50]}
-                                        count={page.totalItemCount}
-                                        rowsPerPage={rowsPerPage}
-                                        page={localPage}
-                                        SelectProps={{
-                                            native: true
-                                        }}
-                                        onChangePage={handleChangePage}
-                                        onChangeRowsPerPage={handleChangeRowsPerPage}
-                                        ActionsComponent={TablePaginationActionsWrapped}
-                                    />
-                                </TableRow>
-                            )}
-                        </TableFooter>
-                    </Table>
+
+                    <PaginatedTable
+                        columns={columns}
+                        handleRowLinkClick={handleRowLinkClick}
+                        rows={rows}
+                        pageOptions={pageOptions}
+                        setPageOptions={setPageOptions}
+                        totalItemCount={page.totalItemCount}
+                    />
                 </Fragment>
             )}
         </Page>
@@ -130,11 +49,11 @@ function SerialNumberTransactions({ page, loading, pageLoad, errorMessage, class
 }
 
 SerialNumberTransactions.propTypes = {
-    page: PropTypes.PropTypes.shape({}).isRequired,
+    page: PropTypes.PropTypes.shape({ elements: PropTypes.array, totalItemCount: PropTypes.number })
+        .isRequired,
     loading: PropTypes.bool.isRequired,
     pageLoad: PropTypes.func.isRequired,
-    history: PropTypes.shape({}).isRequired,
-    classes: PropTypes.shape({}).isRequired,
+    history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     errorMessage: PropTypes.string
 };
 
@@ -142,4 +61,4 @@ SerialNumberTransactions.defaultProps = {
     errorMessage: ''
 };
 
-export default withStyles(styles)(SerialNumberTransactions);
+export default SerialNumberTransactions;
