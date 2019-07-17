@@ -15,7 +15,7 @@ function SalesPackages({ page, loading, pageLoad, pageSortedLoad, errorMessage, 
 
     const handleRowLinkClick = href => history.push(href);
 
-    const columns = ['Sales Package Id', 'Description'];
+    const columns = { salesPackageId: 'Sales Package Id', description: 'Description' };
 
     const rows = page.elements.map(e => ({
         ...e,

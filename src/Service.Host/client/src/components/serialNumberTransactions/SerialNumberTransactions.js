@@ -15,7 +15,7 @@ function SerialNumberTransactions({ page, loading, pageLoad, errorMessage, histo
 
     const handleRowLinkClick = href => history.push(href);
 
-    const columns = ['Trans Code', 'Description'];
+    const columns = { transCode: 'Trans Code', transDescription: 'Description' };
 
     const rows = page.elements.map(el => ({
         transCode: el.transCode,
