@@ -19,7 +19,7 @@ function SerialNumberTransactions({ page, loading, pageLoad, errorMessage, histo
 
     const rows = page.elements.map(el => ({
         transCode: el.transCode,
-        description: el.description,
+        description: el.transDescription,
         links: el.links
     }));
 
