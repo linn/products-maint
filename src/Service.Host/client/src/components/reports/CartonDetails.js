@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { ReportTable, Loading, CreateButton, Title } from '@linn-it/linn-form-components-library';
+import { Loading, CreateButton, ReportTable, Title } from '@linn-it/linn-form-components-library';
 import { Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';

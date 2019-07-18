@@ -38,10 +38,7 @@ describe('<SalesPackages />', () => {
             wrapper = shallow(<SalesPackages {...props} />);
         });
         it('should render a table', () => {
-            expect(wrapper.find('WithStyles(ForwardRef(Table))')).toHaveLength(1);
-        });
-        it('should render a table with four rows including the header', () => {
-            expect(wrapper.find('WithStyles(ForwardRef(TableRow))')).toHaveLength(5);
+            expect(wrapper.find('PaginatedTable')).toHaveLength(1);
         });
     });
 
