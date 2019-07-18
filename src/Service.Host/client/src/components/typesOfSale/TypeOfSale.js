@@ -33,7 +33,7 @@ function TypeOfSale({
             setTypeOfSale(item);
             setPrevTypeOfSale(item);
         }
-    });
+    }, [item, prevTypeOfSale]);
 
     const creating = () => editStatus === 'create';
     const editing = () => editStatus === 'edit';
@@ -184,7 +184,7 @@ TypeOfSale.propTypes = {
         nominal: PropTypes.string,
         realSale: PropTypes.string
     }),
-    history: PropTypes.shape({}).isRequired,
+    history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,

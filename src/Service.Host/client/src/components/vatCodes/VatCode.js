@@ -192,7 +192,7 @@ VatCode.propTypes = {
         rate: PropTypes.number,
         reason: PropTypes.string
     }),
-    history: PropTypes.shape({}).isRequired,
+    history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,

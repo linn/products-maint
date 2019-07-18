@@ -337,7 +337,9 @@ SalesArticle.defaultProps = {
         forecastFromDate: PropTypes.string,
         forecastToDate: PropTypes.string,
         forecastType: PropTypes.string,
-        percentageOfRootProductSales: PropTypes.number
+        percentageOfRootProductSales: PropTypes.number,
+        onHold: PropTypes.bool,
+        links: PropTypes.array
     }),
     updateSalesArticle: null,
     loading: null,
@@ -347,8 +349,17 @@ SalesArticle.defaultProps = {
 };
 
 SalesArticle.propTypes = {
-    item: PropTypes.shape({}),
-    history: PropTypes.shape({}).isRequired,
+    item: PropTypes.shape({
+        id: PropTypes.string,
+        description: PropTypes.string,
+        forecastFromDate: PropTypes.string,
+        forecastToDate: PropTypes.string,
+        forecastType: PropTypes.string,
+        percentageOfRootProductSales: PropTypes.number,
+        onHold: PropTypes.bool,
+        links: PropTypes.array
+    }),
+    history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
     itemId: PropTypes.string,

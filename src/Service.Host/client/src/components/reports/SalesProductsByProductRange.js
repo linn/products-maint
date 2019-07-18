@@ -51,7 +51,10 @@ class SalesProductsByProductRange extends Component {
 SalesProductsByProductRange.propTypes = {
     history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     reportData: PropTypes.shape({}),
-    options: PropTypes.shape({}),
+    options: PropTypes.shape({
+        productRangeName: PropTypes.string,
+        includePhasedOut: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+    }),
     loading: PropTypes.bool
 };
 

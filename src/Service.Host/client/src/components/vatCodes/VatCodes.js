@@ -64,7 +64,7 @@ function VatCodes({ vatCodes, loading, errorMessage }) {
 }
 
 VatCodes.propTypes = {
-    vatCodes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+    vatCodes: PropTypes.arrayOf(PropTypes.shape({ links: PropTypes.array })).isRequired,
     loading: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string
 };
