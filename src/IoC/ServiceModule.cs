@@ -34,6 +34,7 @@
             builder.RegisterType<CartonDetailsReportService>().As<ICartonDetailsReportService>();
             builder.RegisterType<ProductReports>().As<IProductReports>();
             builder.RegisterType<StockTriggerLevelReportService>().As<IStockTriggerLevelReportService>();
+            builder.RegisterType<OrdersByNominalReportService>().As<IOrdersByNominalReportService>();
             builder.RegisterType<SernosUsedOnInvoiceReportService>().As<ISernosUsedOnInvoiceReportService>();
             builder.RegisterType<SaHoldStoryService>().As<ISaHoldStoryService>();
             builder.RegisterType<SalesArticleReports>().As<ISalesArticleReports>();
@@ -53,6 +54,7 @@
             builder.RegisterType<SernosSequenceService>().As<IFacadeService<SernosSequence, string, SernosSequenceResource, SernosSequenceResource>>();
             builder.RegisterType<TypeOfSaleService>().As<IFacadeService<TypeOfSale, string, TypeOfSaleResource, TypeOfSaleResource>>();
             builder.RegisterType<StockTriggerLevelsService>().As<IStockTriggerLevelsService>();
+            builder.RegisterType<OrdersByNominalService>().As<IOrdersByNominalService>();
             builder.RegisterType<SaHoldStoryFacadeService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
             builder.RegisterType<ProductsOnHoldReportService>().As<IProductsOnHoldReportService>();
             builder.RegisterType<SernosUsedOnInvoiceFacade>().As<ISernosUsedOnInvoiceFacade>();
@@ -82,6 +84,7 @@
 
             // Oracle proxies
             builder.RegisterType<StockTriggerLevelDataProxy>().As<IStockTriggerLevelDataService>();
+            builder.RegisterType<OrdersByNominalDatabaseService>().As<IOrdersByNominalDatabaseService>();
             builder.RegisterType<DatabaseProxy>().As<IDatabaseService>();
             builder.RegisterType<SalesArticleCompositeDiscountProxyService>().As<ISalesArticleCompositeDiscountService>();
             builder.RegisterType<SernosPack>().As<ISernosPack>();
