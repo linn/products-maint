@@ -8,7 +8,7 @@ import {
     Title,
     ErrorCard,
     SnackbarMessage,
-    getHref
+    utilities
 } from '@linn-it/linn-form-components-library';
 import HoldStoriesByRootProduct from '../../containers/saHoldStories/HoldStoriesByRootProduct';
 
@@ -36,7 +36,7 @@ function RootProduct({ item, snackbarVisible, setSnackbarVisible, loading, error
         if (canChangeHoldStatus()) {
             props = {
                 component: Link,
-                to: getHref(item, rel)
+                to: utilities.getHref(item, rel)
             };
         } else {
             props = {

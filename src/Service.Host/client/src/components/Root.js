@@ -66,6 +66,8 @@ import SerialNumberTransaction from '../containers/serialNumberTransactions/Seri
 import CreateSerialNumberTransaction from '../containers/serialNumberTransactions/CreateSerialNumberTransaction';
 import NotFound from './NotFound';
 import SalesArticlesByTariff from '../containers/reports/SalesArticlesByTariff';
+import OrdersByNominal from '../containers/reports/OrdersByNominalReport';
+import OrdersByNominalReport from '../containers/reports/OrdersByNominalReport';
 
 const Root = ({ store }) => (
     <div>
@@ -399,6 +401,11 @@ const Root = ({ store }) => (
                                         exact
                                         path="/products/reports/sernos-used-on-invoice/report"
                                         component={SernosUsedOnInvoice}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/reports/orders-by-nominal"
+                                        component={OrdersByNominalReport}
                                     />
                                     <Route component={NotFound} />
                                 </Switch>

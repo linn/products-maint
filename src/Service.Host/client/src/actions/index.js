@@ -22,6 +22,10 @@ export const sernosUsedOnInvoiceReportActionTypes = makeReportActionTypes(
     reportTypes.sernosUsedOnInvoiceReport.actionType
 );
 
+export const ordersByNominalReportActionTypes = makeReportActionTypes(
+    reportTypes.ordersByNominalReport.actionType
+);
+
 export const REQUEST_STOCK_TRIGGER_LEVELS_REPORT = 'REQUEST_STOCK_TRIGGER_LEVELS_REPORT';
 export const RECEIVE_STOCK_TRIGGER_LEVELS_REPORT = 'RECEIVE_STOCK_TRIGGER_LEVELS_REPORT';
 

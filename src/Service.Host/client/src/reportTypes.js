@@ -41,3 +41,9 @@ export const salesArticlesByTariffReport = new ItemType(
     'SALES_ARTICLES_BY_TARIFF',
     '/products/reports/sales-articles/get-by-tariff'
 );
+
+export const ordersByNominalReport = new ItemType(
+    'ordersByNominalReport',
+    'ORDERS_BY_NOMINAL',
+    '/products/reports/orders-by-nominal'
+);

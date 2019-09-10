@@ -159,3 +159,9 @@ export const serialNumberTransactionsPaged = new ItemType(
     'SERIAL_NUMBER_TRANSACTIONS_PAGED',
     '/products/maint/serial-number-transactions'
 );
+
+export const pcasRevisions = new ItemType(
+    'pcasRevisions',
+    'PCAS_REVISIONS',
+    '/products/maintenance/pcas-revisions'
+);
