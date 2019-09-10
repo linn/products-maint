@@ -19,7 +19,6 @@ const tos = {
 const defaultProps = {
     loading: false,
     itemId: 'SACD',
-    item: tos,
     editStatus: 'view',
     addItem: addMock,
     updateItem: updateMock,
@@ -40,7 +39,7 @@ describe('When Loading', () => {
 
 describe('When Snackbar Visible', () => {
     it('should render snackbar', () => {
-        const { getByText } = render(<TypeOfSale {...defaultProps} snackbarVisible />);
+        const { getByText } = render(<TypeOfSale {...defaultProps} item={tos} snackbarVisible />);
         const item = getByText('Save Successful');
         expect(item).toBeInTheDocument();
     });
@@ -48,24 +47,24 @@ describe('When Snackbar Visible', () => {
 
 describe('When viewing', () => {
     it('should not display spinner', () => {
-        const { queryByRole } = render(<TypeOfSale {...defaultProps} loading={false} />);
+        const { queryByRole } = render(<TypeOfSale {...defaultProps} item={tos} loading={false} />);
         expect(queryByRole('progressbar')).toBeNull();
     });
 
     test('Should display form fields', () => {
-        const { getByDisplayValue } = render(<TypeOfSale {...defaultProps} />);
+        const { getByDisplayValue } = render(<TypeOfSale item={tos} {...defaultProps} />);
         const item = getByDisplayValue('SACD');
         expect(item).toBeInTheDocument();
     });
 
     test('Should have save button disabled', () => {
-        const { getByText } = render(<TypeOfSale {...defaultProps} />);
+        const { getByText } = render(<TypeOfSale {...defaultProps} item={tos} />);
         const item = getByText('Save');
         expect(item.closest('button')).toHaveAttribute('disabled');
     });
 
     test('should change to edit mode on input', () => {
-        const { getByDisplayValue } = render(<TypeOfSale {...defaultProps} />);
+        const { getByDisplayValue } = render(<TypeOfSale {...defaultProps} item={tos} />);
         const input = getByDisplayValue('SALES OF LINN RECORDS SACDS');
         fireEvent.change(input, {
             target: { value: 'new value' }
@@ -76,20 +75,16 @@ describe('When viewing', () => {
 
 describe('When Editing', () => {
     test('Should have save button enabled if input is Valid', () => {
-        const { getByText } = render(<TypeOfSale {...defaultProps} editStatus="edit" />);
+        const { getByText } = render(<TypeOfSale {...defaultProps} item={tos} editStatus="edit" />);
         const item = getByText('Save');
         expect(item).toBeInTheDocument();
         expect(item.closest('button')).not.toHaveAttribute('disabled');
     });
 
-    test('Should have save button disabled and no description', () => {
-        const noDescription = {
-            ...tos,
-            description: ''
-        };
-
+    test('Should have save button disabled if input is inalid', () => {
+        // a type of sale is invalid if any of the fields are blank, only testing for no description here for brevity...
         const { getByText } = render(
-            <TypeOfSale {...defaultProps} item={noDescription} editStatus="edit" />
+            <TypeOfSale {...defaultProps} item={{ ...tos, description: '' }} editStatus="edit" />
         );
         const item = getByText('Save');
         expect(item).toBeInTheDocument();
@@ -98,8 +93,8 @@ describe('When Editing', () => {
 });
 
 describe('When updating', () => {
-    test('Should call updateItem and change set edit status to view', () => {
-        const { getByText } = render(<TypeOfSale {...defaultProps} editStatus="edit" />);
+    test('Should call updateItem when save clicked and change set edit status to view', () => {
+        const { getByText } = render(<TypeOfSale {...defaultProps} item={tos} editStatus="edit" />);
         fireEvent(
             getByText('Save'),
             new MouseEvent('click', {
@@ -114,16 +109,14 @@ describe('When updating', () => {
 
 describe('When creating', () => {
     test('Should have save button disabled if fields blank', () => {
-        const { getByText } = render(
-            <TypeOfSale {...defaultProps} item={{}} editStatus="create" />
-        );
+        const { getByText } = render(<TypeOfSale {...defaultProps} editStatus="create" />);
         const saveButton = getByText('Save');
         expect(saveButton.closest('button')).toHaveAttribute('disabled');
     });
 
     test('Should call addTypeOfSale when save clicked if data is valid', () => {
         const { getByText, getAllByDisplayValue } = render(
-            <TypeOfSale {...defaultProps} item={{}} editStatus="create" />
+            <TypeOfSale {...defaultProps} editStatus="create" />
         );
 
         // we need to fill the inputs before we are allowed to click save
