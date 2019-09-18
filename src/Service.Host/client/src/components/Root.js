@@ -66,6 +66,7 @@ import SerialNumberTransaction from '../containers/serialNumberTransactions/Seri
 import CreateSerialNumberTransaction from '../containers/serialNumberTransactions/CreateSerialNumberTransaction';
 import NotFound from './NotFound';
 import SalesArticlesByTariff from '../containers/reports/SalesArticlesByTariff';
+import SalesArticleTriggerLevels from '../containers/reports/SalesArticleTriggerLevels';
 
 const Root = ({ store }) => (
     <div>
@@ -87,6 +88,12 @@ const Root = ({ store }) => (
                                 <Route
                                     exact
                                     path="/products"
+                                    render={() => <Redirect to="/products/maint" />}
+                                />
+
+                                <Route
+                                    exact
+                                    path="/products/reports/sales-articles"
                                     render={() => <Redirect to="/products/maint" />}
                                 />
 
@@ -399,6 +406,11 @@ const Root = ({ store }) => (
                                         exact
                                         path="/products/reports/sernos-used-on-invoice/report"
                                         component={SernosUsedOnInvoice}
+                                    />
+                                    <Route
+                                        exact
+                                        path="/products/reports/sales-articles/trigger-levels"
+                                        component={SalesArticleTriggerLevels}
                                     />
                                     <Route component={NotFound} />
                                 </Switch>

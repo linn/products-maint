@@ -43,6 +43,7 @@ import salesArticleSernosDetails from './salesArticleSernosDetails';
 import sernosUsedOnInvoiceReport from './sernosUsedOnInvoiceReport';
 import serialNumberTransCounts from './serialNumberTransCounts';
 import salesArticlesByTariffReport from './salesArticlesByTariffReport';
+import salesArticleTriggerLevelsReport from './salesArticleTriggerLevelsReport';
 
 const rootReducer = combineReducers({
     oidc,
@@ -88,6 +89,7 @@ const rootReducer = combineReducers({
     sernosUsedOnInvoiceReport,
     serialNumberTransCounts,
     salesArticlesByTariffReport,
+    salesArticleTriggerLevelsReport,
     ...sharedLibraryReducers
 });
 
