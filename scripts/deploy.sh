@@ -15,19 +15,17 @@ if [ "${TRAVIS_BRANCH}" = "master" ]; then
 
     aws s3 cp s3://$S3_BUCKET_NAME/products-maint/production.env ./secrets.env
 
+    source ./secrets.env
     STACK_NAME=products-maint
-    APP_ROOT=http://app.linn.co.uk
-    PROXY_ROOT=http://app.linn.co.uk
-	  ENV_SUFFIX=
+    ENV_SUFFIX=
   else
     # pull request based on master - deploy to sys
     echo deploy to sys
 
     aws s3 cp s3://$S3_BUCKET_NAME/products-maint/sys.env ./secrets.env
 
+    source ./secrets.env
     STACK_NAME=products-maint-sys
-    APP_ROOT=http://app-sys.linn.co.uk
-    PROXY_ROOT=http://app.linn.co.uk
     ENV_SUFFIX=-sys
   fi
 else
@@ -36,9 +34,8 @@ else
 
     aws s3 cp s3://$S3_BUCKET_NAME/products-maint/int.env ./secrets.env
 
+    source ./secrets.env
     STACK_NAME=products-maint-int
-    APP_ROOT=http://app-int.linn.co.uk
-    PROXY_ROOT=http://app.linn.co.uk
     ENV_SUFFIX=-int
 fi
 
