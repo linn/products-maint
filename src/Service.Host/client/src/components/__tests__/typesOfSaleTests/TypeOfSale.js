@@ -1,5 +1,6 @@
 import React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
+import { OnOffSwitch } from '@linn-it/linn-form-components-library';
 import TypeOfSale from '../../typesOfSale/TypeOfSale';
 
 describe('<TypeOfSale />', () => {
@@ -8,7 +9,7 @@ describe('<TypeOfSale />', () => {
     const getLoading = () => wrapper.find('Loading');
     const getErrorCard = () => wrapper.find('WithStyles(ErrorCard)');
     const getInputFields = () => wrapper.find('InputField');
-    const getOnOffSwitch = () => wrapper.find('OnOffSwitch');
+    const getOnOffSwitch = () => wrapper.find(OnOffSwitch);
     const getButtons = () => wrapper.find('SaveBackCancelButtons');
     const shallow = createShallow({ dive: false });
     beforeEach(() => {
@@ -37,7 +38,7 @@ describe('<TypeOfSale />', () => {
         });
     });
 
-    describe('when sernos cofig has loaded without error message', () => {
+    describe('when sernos config has loaded without error message', () => {
         beforeEach(() => {
             wrapper.setProps({
                 typeOfSale: {
@@ -56,12 +57,12 @@ describe('<TypeOfSale />', () => {
             expect(getInputFields()).toHaveLength(4);
         });
 
-        it('should render switch', () => {
-            expect(getOnOffSwitch()).toHaveLength(1);
-        });
-
         it('should render buttons', () => {
             expect(getButtons()).toHaveLength(1);
+        });
+
+        it('should render switch', () => {
+            expect(getOnOffSwitch()).toHaveLength(1);
         });
     });
 });

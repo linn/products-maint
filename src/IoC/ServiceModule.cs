@@ -7,6 +7,7 @@
     using Linn.Common.Configuration;
     using Linn.Common.Facade;
     using Linn.Common.Proxy;
+    using Linn.Common.Reporting.Models;
     using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
@@ -79,6 +80,7 @@
             builder.RegisterType<CartonProxy>().As<ICartonRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
             builder.RegisterType<ProductRangeProxy>().As<IProductRangeRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
             builder.RegisterType<SalesProductProxy>().As<ISalesProductRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
+            builder.RegisterType<ProductionTriggerLevelsProxyService>().As<IProductionTriggerLevelsService>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
 
             // Oracle proxies
             builder.RegisterType<StockTriggerLevelDataProxy>().As<IStockTriggerLevelDataService>();
@@ -90,6 +92,9 @@
             builder.RegisterType<OracleConnection>().As<IDbConnection>().WithParameter("connectionString", ConnectionStrings.ManagedConnectionString());
             builder.RegisterType<OracleCommand>().As<IDbCommand>();
             builder.RegisterType<OracleDataAdapter>().As<IDataAdapter>();
+
+            // common services
+            builder.RegisterType<ReportingHelper>().As<IReportingHelper>();
         }
     }
 }

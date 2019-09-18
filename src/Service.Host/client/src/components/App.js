@@ -48,6 +48,9 @@ function App() {
                 <ListItem component={Link} to="/products/reports/products-on-hold" button>
                     <Typography color="primary">Products On Hold</Typography>
                 </ListItem>
+                <ListItem component={Link} to="/products/reports/sales-articles/trigger-levels" button>
+                    <Typography color="primary">Sales Article Production Trigger Levels</Typography>
+                </ListItem>
             </List>
             <Typography variant="h6">Utilities</Typography>
             <List>

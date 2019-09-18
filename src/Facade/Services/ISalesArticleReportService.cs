@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using Linn.Common.Facade;
     using Linn.Common.Reporting.Models;
-    using Linn.Products.Domain.Linnapps.Products;
 
     public interface ISalesArticleReportService
     {
@@ -18,5 +17,7 @@
         IResult<IEnumerable<IEnumerable<string>>> GetSalesArticleCoreTypesCsv();
 
         IResult<ResultsModel> GetSalesArticleByTariff(int tariffId);
+
+        IResult<ResultsModel> GetSalesArticleTriggerLevels();
     }
 }

@@ -4,7 +4,7 @@ import ProductRanges from '../../reports/ProductRanges';
 
 describe('<ProductRanges />', () => {
     let wrapper;
-    const getReportTable = () => wrapper.find('WithStyles(ReportTable)');
+    const getReportTable = () => wrapper.find('ReportTable');
     const getLoading = () => wrapper.find('Loading');
     const shallow = createShallow({ dive: false });
 

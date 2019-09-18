@@ -4,7 +4,7 @@ import CartonDetails from '../../reports/CartonDetails';
 
 describe('<CartonDetails />', () => {
     let wrapper;
-    const getReportTable = () => wrapper.find('WithStyles(ReportTable)');
+    const getReportTable = () => wrapper.find('ReportTable');
     const getLoading = () => wrapper.find('Loading');
     const shallow = createShallow({ dive: false });
 

@@ -5,5 +5,7 @@
     public interface ISalesArticleReports
     {
         ResultsModel SalesArticleCoreTypeReport();
+
+        ResultsModel SalesArticleTriggerLevelsReport();
     }
 }

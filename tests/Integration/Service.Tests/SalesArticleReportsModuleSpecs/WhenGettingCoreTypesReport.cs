@@ -20,12 +20,9 @@
         [SetUp]
         public void SetUp()
         {
-            var results = new ResultsModel(new[] { "col1 " });
+            var results = new ResultsModel { ReportTitle = new NameModel("t") };
             this.SalesArticleReportService.GetSalesArticleCoreTypes()
-                .Returns(new SuccessResult<ResultsModel>(results)
-                             {
-                                 Data = new ResultsModel { ReportTitle = new NameModel("t") }
-                             });
+                .Returns(new SuccessResult<ResultsModel>(results));
 
             this.Response = this.Browser.Get(
                 "/products/reports/sales-article-core-types",

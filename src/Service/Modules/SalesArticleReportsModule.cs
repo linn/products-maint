@@ -21,6 +21,17 @@
             this.Get("/products/reports/sales-article-core-types", _ => this.GetSalesArticlesCoreTypeReport());
             this.Get("/products/reports/sales-article-core-types/export", _ => this.GetSalesArticlesCoreTypeReportExport());
             this.Get("/products/reports/sales-articles/get-by-tariff", _ => this.GetByTariff());
+            this.Get("/products/reports/sales-articles/trigger-levels", _ => this.GetSalesArticleTriggerLevels());
+        }
+
+        private object GetSalesArticleTriggerLevels()
+        {
+            var results = this.salesArticleReportService.GetSalesArticleTriggerLevels();
+
+            return this.Negotiate
+                .WithModel(results)
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                .WithView("Index");
         }
 
         private object GetSalesArticlesByEanCode()

@@ -15,22 +15,21 @@
 
     using NUnit.Framework;
 
-    public class WhenGettingByTariffCode : ContextBase
+    public class WhenGettingTriggerLevelsReport : ContextBase
     {
         [SetUp]
         public void SetUp()
         {
-            var results = new ResultsModel { ReportTitle = new NameModel("sa") };
-            this.SalesArticleReportService.GetSalesArticleByTariff(1)
+            var results = new ResultsModel { ReportTitle = new NameModel("t") };
+            this.SalesArticleReportService.GetSalesArticleTriggerLevels()
                 .Returns(new SuccessResult<ResultsModel>(results));
 
             this.Response = this.Browser.Get(
-                "/products/reports/sales-articles/get-by-tariff",
+                "/products/reports/sales-articles/trigger-levels",
                 with =>
-                    {
-                        with.Header("Accept", "application/json");
-                        with.Query("tariffId", "1");
-                    }).Result;
+                {
+                    with.Header("Accept", "application/json");
+                }).Result;
         }
 
         [Test]
@@ -42,14 +41,14 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SalesArticleReportService.Received().GetSalesArticleByTariff(1);
+            this.SalesArticleReportService.Received().GetSalesArticleTriggerLevels();
         }
 
         [Test]
         public void ShouldReturnResource()
         {
             var resource = this.Response.Body.DeserializeJson<ReportReturnResource>();
-            resource.ReportResults.First().title.displayString.Should().Be("sa");
+            resource.ReportResults.First().title.displayString.Should().Be("t");
         }
     }
 }

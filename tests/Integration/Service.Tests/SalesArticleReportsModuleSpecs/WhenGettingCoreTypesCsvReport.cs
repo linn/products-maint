@@ -5,7 +5,6 @@
     using FluentAssertions;
 
     using Linn.Common.Facade;
-    using Linn.Common.Reporting.Models;
 
     using Nancy;
 
@@ -18,7 +17,6 @@
         [SetUp]
         public void SetUp()
         {
-            var results = new ResultsModel(new[] { "col1 " });
             this.SalesArticleReportService.GetSalesArticleCoreTypesCsv()
                 .Returns(new SuccessResult<IEnumerable<IEnumerable<string>>>(new List<List<string>>()));
 
