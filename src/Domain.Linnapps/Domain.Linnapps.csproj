@@ -10,7 +10,7 @@
     <PackageReference Include="Linn.Common.Configuration" Version="2.0.0" />
     <PackageReference Include="Linn.Common.Domain" Version="1.0.0" />
     <PackageReference Include="linn.common.persistence" Version="2.0.1" />
-    <PackageReference Include="Linn.Common.Reporting" Version="1.0.2" />
+    <PackageReference Include="Linn.Common.Reporting" Version="1.0.3" />
     <PackageReference Include="Linn.Common.Serialization" Version="2.1.0" />
   </ItemGroup>
 
