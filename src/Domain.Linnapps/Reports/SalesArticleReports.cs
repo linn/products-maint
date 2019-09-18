@@ -67,40 +67,42 @@
                 var article = this.salesArticleRepository.FindById(productionTriggerLevel.PartNumber);
                 if (article != null)
                 {
-                    values.Add(new CalculationValueModel { RowId = article.ArticleNumber, ColumnId = "Cit", TextDisplay = productionTriggerLevel.CitCode });
-                    values.Add(new CalculationValueModel { RowId = article.ArticleNumber, ColumnId = "Core Type", TextDisplay = article.SaCoreType.Description });
-                    if (productionTriggerLevel.VariableTriggerLevel.HasValue)
-                    {
-                        values.Add(
-                            new CalculationValueModel
-                                {
-                                    RowId = article.ArticleNumber,
-                                    ColumnId = "Variable Trigger",
-                                    TextDisplay = productionTriggerLevel.VariableTriggerLevel.Value.ToString()
-                                });
-                    }
-
-                    if (productionTriggerLevel.OverrideTriggerLevel.HasValue)
-                    {
-                        values.Add(
-                            new CalculationValueModel
-                                {
-                                    RowId = article.ArticleNumber,
-                                    ColumnId = "Override Trigger",
-                                    TextDisplay = productionTriggerLevel.OverrideTriggerLevel.Value.ToString()
+                    values.Add(
+                        new CalculationValueModel
+                            {
+                                RowId = article.ArticleNumber,
+                                ColumnId = "Cit",
+                                TextDisplay = productionTriggerLevel.CitCode
                             });
-                    }
-
-                    if (productionTriggerLevel.KanbanSize.HasValue)
-                    {
-                        values.Add(
-                            new CalculationValueModel
-                                {
-                                    RowId = article.ArticleNumber,
-                                    ColumnId = "Kanban Size",
-                                    TextDisplay = productionTriggerLevel.KanbanSize.Value.ToString()
+                    values.Add(
+                        new CalculationValueModel
+                            {
+                                RowId = article.ArticleNumber,
+                                ColumnId = "Core Type",
+                                TextDisplay = article.SaCoreType?.Description
                             });
-                    }
+                    values.Add(
+                        new CalculationValueModel
+                            {
+                                RowId = article.ArticleNumber,
+                                ColumnId = "Variable Trigger",
+                                TextDisplay = productionTriggerLevel.VariableTriggerLevel?.ToString()
+                            });
+                    values.Add(
+                        new CalculationValueModel
+                            {
+                                RowId = article.ArticleNumber,
+                                ColumnId = "Override Trigger",
+                                TextDisplay = productionTriggerLevel.OverrideTriggerLevel?.ToString()
+                        });
+
+                    values.Add(
+                        new CalculationValueModel
+                            {
+                                RowId = article.ArticleNumber,
+                                ColumnId = "Kanban Size",
+                                TextDisplay = productionTriggerLevel.KanbanSize?.ToString()
+                        });
                 }
             }
 
