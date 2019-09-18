@@ -108,3 +108,7 @@ export const salesArticlesByTariffReportActionTypes = makeReportActionTypes(
     reportTypes.salesArticlesByTariffReport.actionType,
     false
 );
+export const salesArticleTriggerLevelsReportActionTypes = makeReportActionTypes(
+    reportTypes.salesArticleTriggerLevelsReport.actionType,
+    false
+);

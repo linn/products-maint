@@ -41,3 +41,9 @@ export const salesArticlesByTariffReport = new ItemType(
     'SALES_ARTICLES_BY_TARIFF',
     '/products/reports/sales-articles/get-by-tariff'
 );
+
+export const salesArticleTriggerLevelsReport = new ItemType(
+    'salesArticleTriggerLevelsReport',
+    'SALES_ARTICLE_TRIGGER_LEVELS',
+    '/products/reports/sales-articles/trigger-levels'
+);
