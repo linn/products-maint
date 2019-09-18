@@ -20,12 +20,9 @@
         [SetUp]
         public void SetUp()
         {
-            var results = new ResultsModel(new[] { "col1 " });
-            this.SalesArticleReportService.GetEanCodeResults(true, true).Returns(
-                new SuccessResult<ResultsModel>(results)
-                    {
-                        Data = new ResultsModel { ReportTitle = new NameModel("t") }
-                    });
+            var results = new ResultsModel { ReportTitle = new NameModel("t") };
+            this.SalesArticleReportService.GetEanCodeResults(true, true)
+                .Returns(new SuccessResult<ResultsModel>(results));
 
             this.Response = this.Browser.Get(
                 "/products/reports/sales-article-ean-codes",

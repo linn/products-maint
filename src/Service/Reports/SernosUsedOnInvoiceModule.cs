@@ -20,7 +20,7 @@
         private object GetSernosUsedOnInvoice()
         {
             var resource = this.Bind<SernosUsedOnInvoiceReportRequestResource>();
-            var results =  this.facadeService.GetReport(resource.InvoiceNumber, resource.ConsignmentNumber);
+            var results = this.facadeService.GetReport(resource.InvoiceNumber, resource.ConsignmentNumber);
             return this.Negotiate.WithModel(results).WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
         }
     }

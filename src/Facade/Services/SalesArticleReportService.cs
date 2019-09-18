@@ -77,6 +77,12 @@
             return new SuccessResult<ResultsModel>(resultsModel);
         }
 
+        public IResult<ResultsModel> GetSalesArticleTriggerLevels()
+        {
+            var results = this.salesArticleReports.SalesArticleTriggerLevelsReport();
+            return new SuccessResult<ResultsModel>(results);
+        }
+
         public IResult<IEnumerable<IEnumerable<string>>> GetSalesArticleCoreTypesCsv()
         {
             var results = this.salesArticleReports.SalesArticleCoreTypeReport()
