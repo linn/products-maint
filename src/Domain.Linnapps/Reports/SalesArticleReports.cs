@@ -62,9 +62,10 @@
             resultsModel.AddSortedColumns(columns);
             var triggerLevels = this.productionTriggerLevelsService.GetAll();
             var values = new List<CalculationValueModel>();
+            var salesArticles = this.salesArticleRepository.FilterBy(a => triggerLevels.Select(ab => ab.PartNumber).Contains(a.ArticleNumber)).ToList();
             foreach (var productionTriggerLevel in triggerLevels)
             {
-                var article = this.salesArticleRepository.FindById(productionTriggerLevel.PartNumber);
+                var article = salesArticles.FirstOrDefault(a => a.ArticleNumber == productionTriggerLevel.PartNumber);
                 if (article != null)
                 {
                     values.Add(
