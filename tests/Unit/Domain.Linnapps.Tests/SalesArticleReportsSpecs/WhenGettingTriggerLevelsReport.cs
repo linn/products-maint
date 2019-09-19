@@ -1,7 +1,9 @@
 ﻿namespace Linn.Products.Domain.Linnapps.Tests.SalesArticleReportsSpecs
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
 
     using FluentAssertions;
 
@@ -37,8 +39,8 @@
                                         SaCoreType = new SaCoreType(2, "two")
                                     };
             this.ProductionTriggerLevelsService.GetAll().Returns(this.triggerLevels.AsQueryable());
-            this.SalesArticleRepository.FindById("P1").Returns(salesArticle1);
-            this.SalesArticleRepository.FindById("P2").Returns(salesArticle2);
+            this.SalesArticleRepository.FilterBy(Arg.Any<Expression<Func<SalesArticle, bool>>>())
+                .Returns(new List<SalesArticle> { salesArticle1, salesArticle2 }.AsQueryable());
 
             this.Results = this.Sut.SalesArticleTriggerLevelsReport();
         }
