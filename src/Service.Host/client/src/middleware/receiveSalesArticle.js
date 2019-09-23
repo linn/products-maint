@@ -1,9 +1,9 @@
-﻿import { getHref } from '@linn-it/linn-form-components-library';
+﻿import { utilities } from '@linn-it/linn-form-components-library';
 import * as actionTypes from '../actions';
 import saCoreTypeActions from '../actions/saCoreTypeActions';
 
 const fetchSaCoreType = (data, dispatch) => {
-    const saCoreTypeHref = getHref(data, 'sa-core-type');
+    const saCoreTypeHref = utilities.getHref(data, 'sa-core-type');
     if (saCoreTypeHref) {
         dispatch(saCoreTypeActions.fetchByHref(saCoreTypeHref));
     }
