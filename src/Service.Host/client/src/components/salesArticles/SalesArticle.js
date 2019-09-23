@@ -10,8 +10,7 @@ import {
     SaveBackCancelButtons,
     SnackbarMessage,
     Dropdown,
-    getHref,
-    getSelfHref
+    utilities
 } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
@@ -72,7 +71,7 @@ function SalesArticle({
         if (canChangeHoldStatus()) {
             props = {
                 component: Link,
-                to: getHref(salesArticle, rel),
+                to: utilities.getHref(salesArticle, rel),
                 disabled: salesArticle.rootProductOnHold
             };
         } else {
@@ -109,8 +108,8 @@ function SalesArticle({
 
         setSalesArticle({ ...salesArticle, [propertyName]: newValue });
     };
-    const salesArticleCoreTypeHref = getHref(salesArticle, 'sa-core-type')
-        ? getHref(salesArticle, 'sa-core-type')
+    const salesArticleCoreTypeHref = utilities.getHref(salesArticle, 'sa-core-type')
+        ? utilities.getHref(salesArticle, 'sa-core-type')
         : '';
 
     const handleLinkRelChange = (rel, newValue) => {
@@ -136,7 +135,7 @@ function SalesArticle({
         saCoreTypeItems = saCoreTypes
             .filter(sa => !sa.dateInvalid)
             .map(sa => ({
-                id: getSelfHref(sa),
+                id: utilities.getSelfHref(sa),
                 displayText: sa.description
             }));
         saCoreTypeItems.push({ id: '', displayText: '' });

@@ -4,7 +4,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import Clear from '@material-ui/icons/Clear';
 import Done from '@material-ui/icons/Done';
 import { Button, TableRow, TableCell } from '@material-ui/core';
-import { InputField, getSelfHref } from '@linn-it/linn-form-components-library';
+import { InputField, utilities } from '@linn-it/linn-form-components-library';
 import moment from 'moment';
 import { makeStyles } from '@material-ui/styles';
 
@@ -46,7 +46,7 @@ function SernosNote({ serialNumber, item, updateSernosNote, addSernosNote }) {
     };
 
     const handleSaveClick = () => {
-        const href = getSelfHref(sernosNote);
+        const href = utilities.getSelfHref(sernosNote);
         if (href) {
             updateSernosNote(sernosNote.sernosNoteId, sernosNote);
         } else {
