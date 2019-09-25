@@ -25,7 +25,9 @@ const mapStateToProps = state => ({
     sernosTransactions: serialNumberTransactionsSelectors.getItems(state),
     sernosTransactionsLoading: serialNumberTransactionsSelectors.getLoading(state),
     snackbarVisible: serialNumberSelectors.getSnackbarVisible(state),
-    salesArticlesSearchResults: salesArticlesSelectors.getSearchItems(state),
+    salesArticlesSearchResults: salesArticlesSelectors
+        .getSearchItems(state)
+        .map(s => ({ ...s, id: s.articleNumber, name: s.articleNumber })),
     salesArticlesLoading: salesArticlesSelectors.getSearchLoading(state)
 });
 
