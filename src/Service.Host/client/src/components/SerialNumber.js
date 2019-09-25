@@ -9,12 +9,12 @@ import {
     Title,
     ErrorCard,
     SnackbarMessage,
-    Dropdown
+    Dropdown,
+    TypeaheadDialog
 } from '@linn-it/linn-form-components-library';
 import { makeStyles } from '@material-ui/styles';
 import Page from '../containers/Page';
 import { getSernosNote } from '../selectors/sernosNotesSelectors';
-import SalesArticleTypeaheadDialog from '../containers/common/SalesArticleTypeaheadDialog';
 
 const useStyles = makeStyles(theme => ({
     searchIcon: {
@@ -38,7 +38,11 @@ function SerialNumber({
     setSnackbarVisible,
     fetchSalesArticleSernosDetails,
     clearSerialNumber,
-    clearSalesArticleSernosDetails
+    clearSalesArticleSernosDetails,
+    salesArticlesSearchResults,
+    salesArticlesLoading,
+    fetchSalesArticles,
+    clearSearch
 }) {
     const [serialNumber, setSerialNumber] = useState({});
     const [prevSerialNumber, setPrevSerialNumber] = useState({});
@@ -223,9 +227,13 @@ function SerialNumber({
                         </Grid>
                         <Grid item xs={1}>
                             <div className={classes.searchIcon}>
-                                <SalesArticleTypeaheadDialog
+                                <TypeaheadDialog
+                                    title="Search For Sales Article"
                                     onSelect={handleArticleNumberChange}
-                                    title="Search for sales article"
+                                    searchItems={salesArticlesSearchResults}
+                                    loading={salesArticlesLoading}
+                                    fetchItems={fetchSalesArticles}
+                                    clearSearch={() => clearSearch}
                                 />
                             </div>
                         </Grid>
@@ -351,12 +359,15 @@ function SerialNumber({
 
 SerialNumber.propTypes = {
     items: PropTypes.shape({}),
-    history: PropTypes.shape({}).isRequired,
+    history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     editStatus: PropTypes.string.isRequired,
     errorMessage: PropTypes.string,
     loading: PropTypes.bool.isRequired,
     snackbarVisible: PropTypes.bool,
-    salesArticleSernosDetails: PropTypes.shape({}),
+    salesArticleSernosDetails: PropTypes.shape({
+        sernosGroup: PropTypes.string,
+        serialNumbered: PropTypes.string
+    }),
     sernosNotes: PropTypes.arrayOf(PropTypes.shape({})),
     sernosTransactions: PropTypes.arrayOf(PropTypes.shape({})),
     sernosTransactionsLoading: PropTypes.bool,
@@ -365,7 +376,11 @@ SerialNumber.propTypes = {
     setSnackbarVisible: PropTypes.func.isRequired,
     fetchSalesArticleSernosDetails: PropTypes.func.isRequired,
     clearSerialNumber: PropTypes.func.isRequired,
-    clearSalesArticleSernosDetails: PropTypes.func.isRequired
+    clearSalesArticleSernosDetails: PropTypes.func.isRequired,
+    salesArticlesSearchResults: PropTypes.arrayOf(PropTypes.shape({})),
+    salesArticlesLoading: PropTypes.bool,
+    fetchSalesArticles: PropTypes.func.isRequired,
+    clearSearch: PropTypes.func.isRequired
 };
 
 SerialNumber.defaultProps = {
@@ -375,8 +390,9 @@ SerialNumber.defaultProps = {
     salesArticleSernosDetails: null,
     sernosNotes: [],
     sernosTransactions: [],
-    sernosTransactionsLoading: false
+    sernosTransactionsLoading: false,
+    salesArticlesSearchResults: null,
+    salesArticlesLoading: false
 };
 
 export default SerialNumber;
-// export default SerialNumber;
