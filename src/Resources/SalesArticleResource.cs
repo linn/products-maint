@@ -40,5 +40,6 @@
         
         public bool RootProductOnHold { get; set; }
 
+        public string ProductIdOnChip { get; set; }
     }
 }
