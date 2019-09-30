@@ -328,6 +328,8 @@
             builder.Entity<SalesArticle>().Property(t => t.RootProduct).HasColumnName("ROOT_PRODUCT");
             builder.Entity<SalesArticle>().Property(t => t.TariffId).HasColumnName("TARIFF_ID");
             builder.Entity<SalesArticle>().Property(t => t.TypeOfSerialNumber).HasColumnName("TYPE_OF_SERIAL_NUMBER").HasMaxLength(2);
+            builder.Entity<SalesArticle>().Property(t => t.ProductIdOnChip).HasColumnName("PRODUCT_ID_ON_CHIP")
+                .HasMaxLength(1);
             builder.Entity<SalesArticle>().HasOne(t => t.SaCoreType);
             builder.Entity<SalesArticle>().HasMany(t => t.HoldStories).WithOne(e => e.SalesArticle);
         }

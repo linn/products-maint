@@ -36,7 +36,8 @@
                            TypeOfSerialNumber = salesArticleResponseModel.ResponseData.TypeOfSerialNumber,
                            Links = this.BuildLinks(salesArticleResponseModel).ToArray(),
                            OnHold = IsOnHold(salesArticleResponseModel),
-                           RootProductOnHold = RootProductGroupIsOnHold(salesArticleResponseModel)
+                           RootProductOnHold = RootProductGroupIsOnHold(salesArticleResponseModel),
+                           ProductIdOnChip = salesArticleResponseModel.ResponseData.ProductIdOnChip
                        };
         }
 
