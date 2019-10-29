@@ -20,14 +20,16 @@ const ProductRanges = ({ reportData, loading, options, errorMessage }) => {
                 )}
                 <Grid item xs={12}>
                     {loading ? <Loading /> : ''}
-                    <ReportTable
-                        reportData={reportData}
-                        showTotals={false}
-                        placeholderRows={10}
-                        placeholderColumns={3}
-                        showRowTitles={false}
-                        showTitle={false}
-                    />
+                    {reportData && reportData.results.length > 0 && (
+                        <ReportTable
+                            reportData={reportData}
+                            showTotals={false}
+                            placeholderRows={10}
+                            placeholderColumns={3}
+                            showRowTitles={false}
+                            showTitle={false}
+                        />
+                    )}
                 </Grid>
             </Grid>
         </Page>
