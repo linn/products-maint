@@ -32,15 +32,17 @@ class SalesProductsByProductRange extends Component {
                     </Grid>
                     <Grid item xs={12}>
                         {loading ? <Loading /> : ''}
-                        <ReportTable
-                            reportData={reportData}
-                            showTotals={false}
-                            placeholderRows={10}
-                            placeholderColumns={3}
-                            showRowTitles={false}
-                            showTitle={false}
-                            hasExternalLinks
-                        />
+                        {reportData && reportData.results.length > 0 && (
+                            <ReportTable
+                                reportData={reportData}
+                                showTotals={false}
+                                placeholderRows={10}
+                                placeholderColumns={3}
+                                showRowTitles={false}
+                                showTitle={false}
+                                hasExternalLinks
+                            />
+                        )}
                     </Grid>
                 </Grid>
             </Page>

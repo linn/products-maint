@@ -13,14 +13,16 @@ const CartonDetails = ({ reportData, loading }) => (
             </Grid>
             <Grid item xs={12}>
                 {loading && <Loading />}
-                <ReportTable
-                    reportData={reportData}
-                    showTotals={false}
-                    showRowTitles
-                    placeholderRows={10}
-                    placeholderColumns={3}
-                    showTitle={false}
-                />
+                {reportData && reportData.results.length > 0 && (
+                    <ReportTable
+                        reportData={reportData}
+                        showTotals={false}
+                        showRowTitles
+                        placeholderRows={10}
+                        placeholderColumns={3}
+                        showTitle={false}
+                    />
+                )}
             </Grid>
         </Grid>
     </Page>
