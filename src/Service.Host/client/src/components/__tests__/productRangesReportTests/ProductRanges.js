@@ -8,7 +8,7 @@ describe('<ProductRanges />', () => {
     const getLoading = () => wrapper.find('Loading');
     const shallow = createShallow({ dive: false });
 
-    const reportData = { results: [] };
+    const reportData = { results: [{ rowTitle: 'title' }, { rowTitle: 'title2' }] };
     const config = { appRoot: '' };
     const options = { includePhasedOut: false };
 
