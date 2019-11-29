@@ -24,7 +24,7 @@
 
         protected IAuthorisationService AuthorisationService { get; private set; }
 
-        protected IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource> ArchiveSerialNumberService { get; private set; }
+        protected IArchiveSerialNumberFacadeService ArchiveSerialNumberService { get; private set; }
 
         [SetUp]
         public void EstablishContext()
@@ -34,8 +34,7 @@
             this.AuthorisationService.HasPermissionFor(
                 AuthorisedAction.SerialNumberAdmin,
                 Arg.Any<IEnumerable<string>>()).Returns(true);
-            this.ArchiveSerialNumberService = Substitute
-                .For<IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource>>();
+            this.ArchiveSerialNumberService = Substitute.For<IArchiveSerialNumberFacadeService>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>

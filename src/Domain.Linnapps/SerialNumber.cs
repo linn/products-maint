@@ -20,7 +20,7 @@
 
         public string SernosGroup { get; private set; }
 
-        public int SernosNumber { get; set; }
+        public int? SernosNumber { get; set; }
 
         public string TransCode { get; private set; }
 

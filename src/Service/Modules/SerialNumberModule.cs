@@ -21,14 +21,13 @@ namespace Linn.Products.Service.Modules
         private readonly ISerialNumberFacadeService serialNumberService;
 
         private readonly IAuthorisationService authorisationService;
-        private readonly
-            IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource>
-            archiveSerialNumberService;
+
+        private readonly IArchiveSerialNumberFacadeService archiveSerialNumberService;
 
         public SerialNumberModule(
             ISerialNumberFacadeService serialNumberService,
             IAuthorisationService authorisationService,
-            IFacadeService<ArchiveSerialNumber, int, ArchiveSerialNumberResource, ArchiveSerialNumberResource> archiveSerialNumberService)
+            IArchiveSerialNumberFacadeService archiveSerialNumberService)
         {
             this.serialNumberService = serialNumberService;
             this.authorisationService = authorisationService;
@@ -68,6 +67,16 @@ namespace Linn.Products.Service.Modules
         private object GetSerialNumbers()
         {
             var resource = this.Bind<SerialNumberQueryResource>();
+
+            if (resource.DocumentNumber != null)
+            {
+                return this.Negotiate
+                    .WithModel(
+                        this.archiveSerialNumberService.SearchByDocumentNumber(
+                            (int)resource.DocumentNumber,
+                            this.Context?.CurrentUser?.GetPrivileges().ToList()))
+                    .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
+            }
 
             return this.Negotiate
                 .WithModel(this.archiveSerialNumberService.Search(resource.SernosNumber.ToString(), this.Context?.CurrentUser?.GetPrivileges().ToList()))
