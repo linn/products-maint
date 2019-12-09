@@ -22,7 +22,7 @@
 
         public string SernosGroup { get; set; }
 
-        public int SernosNumber { get; set; }
+        public int? SernosNumber { get; set; }
 
         public int SernosTRef { get; set; }
 

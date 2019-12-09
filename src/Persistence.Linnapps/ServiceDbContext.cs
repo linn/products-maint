@@ -211,7 +211,7 @@
         private void BuildArchiveSerialNumbers(ModelBuilder builder)
         {
             builder.Entity<ArchiveSerialNumber>().ToTable("SERNOS_ARCH_VIEW");
-            builder.Entity<ArchiveSerialNumber>().HasKey(s => new { s.SernosGroup, s.SernosNumber, s.TransCode, s.SernosDate });
+            builder.Entity<ArchiveSerialNumber>().HasKey(s => new { s.SernosGroup, s.TransCode, s.SernosDate });
             builder.Entity<ArchiveSerialNumber>().Property(s => s.SernosGroup).HasColumnName("SERNOS_GROUP")
                 .HasMaxLength(10);
             builder.Entity<ArchiveSerialNumber>().Property(s => s.SernosNumber).HasColumnName("SERNOS_NUMBER");
@@ -233,7 +233,7 @@
         {
             builder.Entity<SerialNumber>().ToTable("SERNOS");
             builder.Entity<SerialNumber>().HasKey(s => s.SernosTRef);
-            builder.Entity<SerialNumber>().HasAlternateKey(r => new { r.SernosGroup, r.SernosNumber, r.TransCode });
+            builder.Entity<SerialNumber>().HasAlternateKey(r => new { r.SernosGroup, r.SernosTRef, r.TransCode });
             builder.Entity<SerialNumber>().Property(s => s.SernosTRef).HasColumnName("SERNOS_TREF");
             builder.Entity<SerialNumber>().Property(s => s.SernosGroup).HasColumnName("SERNOS_GROUP").HasMaxLength(10);
             builder.Entity<SerialNumber>().Property(s => s.SernosNumber).HasColumnName("SERNOS_NUMBER");
