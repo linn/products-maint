@@ -15,7 +15,6 @@ if [ "${TRAVIS_BRANCH}" = "master" ]; then
 
     aws s3 cp s3://$S3_BUCKET_NAME/products-maint/production.env ./secrets.env
 
-    source ./secrets.env
     STACK_NAME=products-maint
     ENV_SUFFIX=
   else
@@ -24,7 +23,6 @@ if [ "${TRAVIS_BRANCH}" = "master" ]; then
 
     aws s3 cp s3://$S3_BUCKET_NAME/products-maint/sys.env ./secrets.env
 
-    source ./secrets.env
     STACK_NAME=products-maint-sys
     ENV_SUFFIX=-sys
   fi
@@ -34,7 +32,6 @@ else
 
     aws s3 cp s3://$S3_BUCKET_NAME/products-maint/int.env ./secrets.env
 
-    source ./secrets.env
     STACK_NAME=products-maint-int
     ENV_SUFFIX=-int
 fi
