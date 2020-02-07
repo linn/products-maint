@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { getItemErrorDetailMessage } from '@linn-it/linn-form-components-library';
 import SalesPackage from '../../components/salesPackages/SalesPackage';
 import salesPackagesActions from '../../actions/salesPackages/salesPackage';
 import salesPackageSelectors from '../../selectors/salesPackageSelectors';
+import * as itemTypes from '../../itemTypes';
 
 const mapStateToProps = state => ({
     item: {},
     editStatus: 'create',
     loading: salesPackageSelectors.getLoading(state),
-    errorMessage: fetchErrorSelectors(state),
+    errorMessage: getItemErrorDetailMessage(state, itemTypes.salesPackage.item),
     snackbarVisible: salesPackageSelectors.getSnackbarVisible(state)
 });
 
@@ -18,7 +19,4 @@ const mapDispatchToProps = {
     setEditStatus: salesPackagesActions.setEditStatus
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SalesPackage);
+export default connect(mapStateToProps, mapDispatchToProps)(SalesPackage);

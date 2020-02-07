@@ -13,7 +13,7 @@ describe('ean Codes Report reducer', () => {
         };
 
         const action = {
-            type: actionTypes.REQUEST_EAN_CODE_REPORT,
+            type: actionTypes.REQUEST_EAN_CODE,
             payload: {
                 options: { cartonisedOnly: 'true', includePhasedOut: 'false' }
             }
@@ -43,7 +43,7 @@ describe('ean Codes Report reducer', () => {
         };
 
         const action = {
-            type: actionTypes.RECEIVE_EAN_CODE_REPORT,
+            type: actionTypes.RECEIVE_EAN_CODE,
             payload: {
                 data: { reportResults: [{ result: 1 }] },
                 options: { cartonisedOnly: 'true', includePhasedOut: 'false' }

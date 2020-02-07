@@ -1,15 +1,19 @@
 import { connect } from 'react-redux';
-import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
+import {
+    getItemErrorDetailMessage,
+    initialiseOnMount
+} from '@linn-it/linn-form-components-library';
 import SaHoldStory from '../../components/saHoldStories/SaHoldStory';
 import saHoldStorySelectors from '../../selectors/saHoldStorySelectors';
 import saHoldStoryActions from '../../actions/saHoldStoryActions';
+import * as itemTypes from '../../itemTypes';
 
 const mapStateToProps = (state, { match }) => ({
     item: saHoldStorySelectors.getItem(state),
     editStatus: 'edit',
     itemId: match.params.holdStoryId || null,
     loading: saHoldStorySelectors.getLoading(state),
-    errorMessage: fetchErrorSelectors(state),
+    errorMessage: getItemErrorDetailMessage(state, itemTypes.saHoldStory.item),
     snackbarVisible: saHoldStorySelectors.getSnackbarVisible(state)
 });
 
@@ -24,7 +28,4 @@ const mapDispatchToProps = {
     updateSaHoldStory: saHoldStoryActions.update
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(SaHoldStory));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(SaHoldStory));

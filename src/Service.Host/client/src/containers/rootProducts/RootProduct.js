@@ -1,17 +1,18 @@
 import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { getItemErrorDetailMessage } from '@linn-it/linn-form-components-library';
 import RootProduct from '../../components/rootProducts/RootProduct';
 import initialiseOnMount from '../common/initialiseOnMount';
 import rootProductActions from '../../actions/rootProducts/rootProduct';
 import rootProductSelectors from '../../selectors/rootProducts/rootProductSelectors';
+import * as itemTypes from '../../itemTypes';
 
 const mapStateToProps = (state, { match }) => ({
     item: rootProductSelectors.getItem(state),
     itemId: match.params.name,
     editStatus: rootProductSelectors.getEditStatus(state),
     loading: rootProductSelectors.getLoading(state),
-    errorMessage: fetchErrorSelectors(state),
-    snackbarVisible: rootProductSelectors.getSnackbarVisible(state)
+    errorMessage: getItemErrorDetailMessage(state),
+    snackbarVisible: rootProductSelectors.getSnackbarVisible(state, itemTypes.rootProduct.item)
 });
 
 const initialise = ({ itemId }) => dispatch => {
@@ -26,7 +27,4 @@ const mapDispatchToProps = {
     setSnackbarVisible: rootProductActions.setSnackbarVisible
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(RootProduct));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(RootProduct));

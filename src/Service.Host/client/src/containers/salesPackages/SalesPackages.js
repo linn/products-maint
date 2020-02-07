@@ -1,14 +1,15 @@
 ﻿import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { getItemErrorDetailMessage } from '@linn-it/linn-form-components-library';
 import SalesPackages from '../../components/salesPackages/SalesPackages';
 import salesPackagesActions from '../../actions/salesPackages/salesPackages';
 import initialiseOnMount from '../common/initialiseOnMount';
 import salesPackagesSelectors from '../../selectors/salesPackagesSelectors';
+import * as itemTypes from '../../itemTypes';
 
 const mapStateToProps = state => ({
     page: salesPackagesSelectors.getPage(state),
     loading: salesPackagesSelectors.getLoading(state),
-    errorMessage: fetchErrorSelectors(state),
+    errorMessage: getItemErrorDetailMessage(state, itemTypes.salesPackage.item),
     classes: {}
 });
 
@@ -30,7 +31,4 @@ const mapDispatchToProps = {
     pageSortedLoad
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(SalesPackages));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(SalesPackages));

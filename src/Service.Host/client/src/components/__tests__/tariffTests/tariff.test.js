@@ -1,6 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render, fireEvent, cleanup } from '../../../test-utils';
+import { fireEvent, cleanup } from '@testing-library/react';
+import render from '../../../test-utils';
 import Tariff from '../../tariffs/Tariff';
 
 afterEach(cleanup);

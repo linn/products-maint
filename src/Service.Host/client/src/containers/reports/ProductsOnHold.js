@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { ReportSelectors, fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { ReportSelectors, getItemErrorDetailMessage } from '@linn-it/linn-form-components-library';
 import ProductsOnHold from '../../components/reports/ProductsOnHold';
 import initialiseOnMount from '../common/initialiseOnMount';
 import fetchProductsOnHold from '../../actions/productsOnHoldReportActions';
@@ -10,7 +10,7 @@ const reportSelectors = new ReportSelectors('productsOnHoldReport');
 const mapStateToProps = state => ({
     reportData: reportSelectors.getReportData(state),
     loading: reportSelectors.getReportLoading(state),
-    errorMessage: fetchErrorSelectors(state),
+    errorMessage: getItemErrorDetailMessage(state, 'productsOnHoldReport'),
     config
 });
 
@@ -22,7 +22,4 @@ const mapDispatchToProps = {
     initialise
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(ProductsOnHold));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(ProductsOnHold));

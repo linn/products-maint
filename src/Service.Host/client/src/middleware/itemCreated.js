@@ -6,5 +6,6 @@ export default () => next => action => {
     if (action.type !== 'RECEIVE_NEW_SERNOS_NOTE' && action.type.startsWith('RECEIVE_NEW_')) {
         history.push(utilities.getSelfHref(action.payload.data));
     }
+
     return result;
 };

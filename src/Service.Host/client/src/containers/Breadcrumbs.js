@@ -6,9 +6,4 @@ const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {};
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(Breadcrumbs)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Breadcrumbs));

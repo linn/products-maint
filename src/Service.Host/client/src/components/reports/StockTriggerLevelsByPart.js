@@ -7,7 +7,8 @@ import {
     ReportTable
 } from '@linn-it/linn-form-components-library';
 import { Grid, Paper } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 
 const styles = () => ({
     root: {

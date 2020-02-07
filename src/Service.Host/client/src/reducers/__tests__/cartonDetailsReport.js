@@ -12,7 +12,7 @@ describe('carton details report reducer', () => {
         };
 
         const action = {
-            type: actionTypes.cartonDetailsReportActionTypes.REQUEST_CARTON_DETAILS_REPORT,
+            type: actionTypes.cartonDetailsReportActionTypes.REQUEST_CARTON_DETAILS,
             payload: {}
         };
 
@@ -37,7 +37,7 @@ describe('carton details report reducer', () => {
         };
 
         const action = {
-            type: actionTypes.cartonDetailsReportActionTypes.RECEIVE_CARTON_DETAILS_REPORT,
+            type: actionTypes.cartonDetailsReportActionTypes.RECEIVE_CARTON_DETAILS,
             payload: {
                 data: { reportResults: [{ result: 1 }] }
             }

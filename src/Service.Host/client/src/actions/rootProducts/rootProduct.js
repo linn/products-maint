@@ -4,6 +4,7 @@ import * as itemTypes from '../../itemTypes';
 import config from '../../config';
 
 export default new UpdateApiActions(
+    itemTypes.rootProduct.item,
     itemTypes.rootProduct.actionType,
     itemTypes.rootProduct.uri,
     actionTypes,

@@ -20,7 +20,7 @@ export const eanCodesReport = new ItemType(
 
 export const productRangesReport = new ItemType(
     'productRangesReport',
-    'PRODUCT_RANGES',
+    'PRODUCT_RANGES_REPORT',
     '/products/reports/product-ranges'
 );
 

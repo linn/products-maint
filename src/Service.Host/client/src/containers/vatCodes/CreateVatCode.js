@@ -1,13 +1,17 @@
 ﻿import { connect } from 'react-redux';
-import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
+import {
+    getItemErrorDetailMessage,
+    initialiseOnMount
+} from '@linn-it/linn-form-components-library';
 import vatCodeActions from '../../actions/vatCodeActions';
 import VatCode from '../../components/vatCodes/VatCode';
 import vatCodeSelectors from '../../selectors/vatCodeSelectors';
+import * as itemTypes from '../../itemTypes';
 
 const mapStateToProps = state => ({
     item: {},
     editStatus: 'create',
-    errorMessage: fetchErrorSelectors(state),
+    errorMessage: getItemErrorDetailMessage(state, itemTypes.vatCode.item),
     loading: vatCodeSelectors.getLoading(state),
     snackbarVisible: vatCodeSelectors.getSnackbarVisible(state)
 });
@@ -24,7 +28,4 @@ const mapDispatchToProps = {
     setSnackbarVisible: vatCodeActions.setSnackbarVisible
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(VatCode));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(VatCode));

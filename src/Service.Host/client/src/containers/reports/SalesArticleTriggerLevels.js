@@ -6,7 +6,7 @@ import config from '../../config';
 
 const reportSelectors = new ReportSelectors('salesArticleTriggerLevelsReport');
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     reportData: reportSelectors.getReportData(state),
     loading: reportSelectors.getReportLoading(state),
     config

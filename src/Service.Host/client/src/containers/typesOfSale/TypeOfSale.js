@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { getItemErrorDetailMessage } from '@linn-it/linn-form-components-library';
 import TypeOfSale from '../../components/typesOfSale/TypeOfSale';
 import initialiseOnMount from '../common/initialiseOnMount';
 import typeOfSaleActions from '../../actions/typeOfSaleActions';
 import typeOfSaleSelectors from '../../selectors/typeOfSaleSelectors';
+import * as itemTypes from '../../itemTypes';
 
 const mapStateToProps = (state, { match }) => ({
     item: typeOfSaleSelectors.getItem(state),
@@ -11,7 +12,7 @@ const mapStateToProps = (state, { match }) => ({
     editStatus: typeOfSaleSelectors.getEditStatus(state),
     loading: typeOfSaleSelectors.getLoading(state),
     snackbarVisible: typeOfSaleSelectors.getSnackbarVisible(state),
-    errorMessage: fetchErrorSelectors(state)
+    errorMessage: getItemErrorDetailMessage(state, itemTypes.typeOfSale.item)
 });
 
 const initialise = ({ itemId }) => dispatch => {
@@ -25,7 +26,4 @@ const mapDispatchToProps = {
     setSnackbarVisible: typeOfSaleActions.setSnackbarVisible
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(TypeOfSale));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(TypeOfSale));

@@ -4,6 +4,7 @@ import * as reportTypes from '../reportTypes';
 import config from '../config';
 
 export default new ReportActions(
+    reportTypes.productRangesReport.item,
     reportTypes.productRangesReport.actionType,
     reportTypes.productRangesReport.uri,
     actionTypes,

@@ -1,4 +1,8 @@
-import { reducers as sharedLibraryReducers } from '@linn-it/linn-form-components-library';
+import {
+    reducers as sharedLibraryReducers,
+    fetchErrorReducer
+} from '@linn-it/linn-form-components-library';
+import { connectRouter } from 'connected-react-router';
 import { combineReducers } from 'redux';
 import { reducer as oidc } from 'redux-oidc';
 import eanCodesReport from './eanCodesReport';
@@ -44,53 +48,65 @@ import sernosUsedOnInvoiceReport from './sernosUsedOnInvoiceReport';
 import serialNumberTransCounts from './serialNumberTransCounts';
 import salesArticlesByTariffReport from './salesArticlesByTariffReport';
 import salesArticleTriggerLevelsReport from './salesArticleTriggerLevelsReport';
+import * as itemTypes from '../itemTypes';
+import * as reportTypes from '../reportTypes';
+import historyStore from './history';
 
-const rootReducer = combineReducers({
-    oidc,
-    eanCodesReport,
-    cartonDetailsReport,
-    tariff,
-    tariffs,
-    productRangesReport,
-    salesProductsByProductRangeReport,
-    cartonType,
-    serialNumber,
-    serialNumbers,
-    sernosNote,
-    sernosNotes,
-    sernosConfig,
-    sernosConfigs,
-    serialNumberTransaction,
-    serialNumberTransactions,
-    serialNumberTransactionsPaged,
-    sernosSequence,
-    sernosSequences,
-    saCoreTypes,
-    saCoreType,
-    salesArticle,
-    salesArticles,
-    typesOfSale,
-    typeOfSale,
-    stockTriggerLevelsReport,
-    saHoldStoriesReport,
-    saHoldStory,
-    salesArticleCoreTypes,
-    vatCode,
-    vatCodes,
-    productRange,
-    productRanges,
-    productsOnHoldReport,
-    salesPackage,
-    salesPackages,
-    salesArticleCompositeDiscount,
-    salesArticleSernosDetails,
-    rootProduct,
-    rootProducts,
-    sernosUsedOnInvoiceReport,
-    serialNumberTransCounts,
-    salesArticlesByTariffReport,
-    salesArticleTriggerLevelsReport,
-    ...sharedLibraryReducers
+const errors = fetchErrorReducer({
+    ...itemTypes,
+    ...reportTypes
 });
+
+const rootReducer = history =>
+    combineReducers({
+        oidc,
+        historyStore,
+        router: connectRouter(history),
+        eanCodesReport,
+        cartonDetailsReport,
+        errors,
+        tariff,
+        tariffs,
+        productRangesReport,
+        salesProductsByProductRangeReport,
+        cartonType,
+        serialNumber,
+        serialNumbers,
+        sernosNote,
+        sernosNotes,
+        sernosConfig,
+        sernosConfigs,
+        serialNumberTransaction,
+        serialNumberTransactions,
+        serialNumberTransactionsPaged,
+        sernosSequence,
+        sernosSequences,
+        saCoreTypes,
+        saCoreType,
+        salesArticle,
+        salesArticles,
+        typesOfSale,
+        typeOfSale,
+        stockTriggerLevelsReport,
+        saHoldStoriesReport,
+        saHoldStory,
+        salesArticleCoreTypes,
+        vatCode,
+        vatCodes,
+        productRange,
+        productRanges,
+        productsOnHoldReport,
+        salesPackage,
+        salesPackages,
+        salesArticleCompositeDiscount,
+        salesArticleSernosDetails,
+        rootProduct,
+        rootProducts,
+        sernosUsedOnInvoiceReport,
+        serialNumberTransCounts,
+        salesArticlesByTariffReport,
+        salesArticleTriggerLevelsReport,
+        ...sharedLibraryReducers
+    });
 
 export default rootReducer;

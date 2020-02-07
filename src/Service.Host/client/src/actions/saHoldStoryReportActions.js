@@ -4,9 +4,7 @@ import * as actionTypes from './index';
 
 export const fetchSaHoldStoriesReport = articleNumber => ({
     [RSAA]: {
-        endpoint: `${
-            config.appRoot
-        }/products/reports/sa-hold-stories-for-sales-article/${articleNumber}`,
+        endpoint: `${config.appRoot}/products/reports/sa-hold-stories-for-sales-article/${articleNumber}`,
         method: 'GET',
         options: { requiresAuth: true },
         headers: {

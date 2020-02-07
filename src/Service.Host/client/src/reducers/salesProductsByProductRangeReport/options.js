@@ -4,7 +4,7 @@ const defaultState = { includePhasedOut: false };
 
 export default function options(state = defaultState, action) {
     switch (action.type) {
-        case actionTypes.REQUEST_SALES_PRODUCTS_BY_RANGE_REPORT:
+        case actionTypes.REQUEST_SALES_PRODUCTS_BY_RANGE:
             return {
                 ...state,
                 includePhasedOut: action.payload.options.includePhasedOut === 'true',
