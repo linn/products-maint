@@ -8,6 +8,7 @@ import configureStore from './configureStore';
 import Root from './components/Root';
 import userManager from './helpers/userManager';
 import 'typeface-roboto';
+import '../assets/printStyles.css';
 
 const initialState = {};
 const store = configureStore(initialState);
