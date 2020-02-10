@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Facade.Tests.ProductRangeServiceSpecs
 {
     using FluentAssertions;
+    using FluentAssertions.Extensions;
 
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps.Products;
@@ -21,18 +22,14 @@
         [SetUp]
         public void SetUp()
         {
-            this.productRange = new ProductRange
-                                    {
-                                        Id = 111
-                                    };
+            this.productRange = new ProductRange { Id = 111 };
             this.resource = new ProductRangeUpdateResource
                                 {
                                     RangeName = "new name",
                                     RangeDescription = "new description",
                                     DateInvalid = 1.December(2021).ToString("o")
                                 };
-            this.ProductRangeRepository.FindById(111)
-                .Returns(this.productRange);
+            this.ProductRangeRepository.FindById(111).Returns(this.productRange);
             this.result = this.Sut.Update(111, this.resource);
         }
 

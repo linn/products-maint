@@ -3,6 +3,7 @@
     using System.Collections.Generic;
 
     using FluentAssertions;
+    using FluentAssertions.Extensions;
 
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps.Products;
@@ -17,7 +18,6 @@
 
     public class WhenUpdatingSalesArticleForecast : ContextBase
     {
-
         private SalesArticleResource resource;
 
         [SetUp]

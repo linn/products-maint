@@ -52,7 +52,7 @@ namespace Linn.Products.Service.Modules
             }
             catch (DbUpdateException e)
             {
-                return new BadRequestResult<VatCode>(e.InnerException.Message);
+                return new BadRequestResult<VatCode>(e.InnerException?.Message);
             }
         }
 
@@ -89,7 +89,7 @@ namespace Linn.Products.Service.Modules
             }
             catch (DbUpdateException e)
             {
-                return new BadRequestResult<VatCode>(e.InnerException.Message);
+                return new BadRequestResult<VatCode>(e.InnerException?.Message);
             }
         }
     }

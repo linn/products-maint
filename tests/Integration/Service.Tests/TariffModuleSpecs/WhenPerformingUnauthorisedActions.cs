@@ -2,9 +2,7 @@ namespace Linn.Products.Service.Tests.TariffModuleSpecs
 {
     using System.Collections.Generic;
 
-    using Linn.Common.Facade;
     using Linn.Products.Domain;
-    using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Resources;
 
     using Nancy;
@@ -16,8 +14,6 @@ namespace Linn.Products.Service.Tests.TariffModuleSpecs
 
     public class WhenPerformingUnauthorisedActions : ContextBase
     {
-        private TariffResource requestResource;
-
         [SetUp]
         public void SetUp()
         {
@@ -30,7 +26,7 @@ namespace Linn.Products.Service.Tests.TariffModuleSpecs
                     {
                         with.Header("Accept", "application/json");
                         with.Header("Content-Type", "application/json");
-                        with.JsonBody(this.requestResource);
+                        with.JsonBody(new TariffResource());
                     }).Result;
         }
 

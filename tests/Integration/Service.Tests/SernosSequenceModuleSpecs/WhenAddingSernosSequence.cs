@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Service.Tests.SernosSequenceModuleSpecs
 {
     using FluentAssertions;
+    using FluentAssertions.Extensions;
 
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
@@ -21,7 +22,11 @@
         public void SetUp()
         {
             this.requestResource = new SernosSequenceResource { SequenceName = "KRYSTAL" };
-            var sernosSequence = new SernosSequence("KRYSTAL", "KRYSTAL MOVING COIL CARTRIDGE", 1940, 21.February(2019));
+            var sernosSequence = new SernosSequence(
+                "KRYSTAL",
+                "KRYSTAL MOVING COIL CARTRIDGE",
+                1940,
+                21.February(2019));
             this.SernosSequenceService.Add(Arg.Any<SernosSequenceResource>()).Returns(
                 new CreatedResult<SernosSequence>(sernosSequence) { Data = sernosSequence });
 

@@ -53,7 +53,6 @@ namespace Linn.Products.Service.Modules
             return this.Negotiate
                 .WithModel(this.tariffService.GetById(id, this.Context?.CurrentUser?.GetPrivileges().ToList()))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
-
         }
 
         private object UpdateTariff(int id)
