@@ -4,6 +4,7 @@
     using System.Linq;
 
     using FluentAssertions;
+    using FluentAssertions.Extensions;
 
     using NSubstitute;
 

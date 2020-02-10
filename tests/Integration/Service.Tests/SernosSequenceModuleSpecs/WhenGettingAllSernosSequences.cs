@@ -1,10 +1,10 @@
 ﻿namespace Linn.Products.Service.Tests.SernosSequenceModuleSpecs
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
     using FluentAssertions;
+    using FluentAssertions.Extensions;
 
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;
@@ -22,7 +22,11 @@
         [SetUp]
         public void SetUp()
         {
-            var sernosSequence1 = new SernosSequence("KRYSTAL", "KRYSTAL MOVING COIL CARTRIDGE", 1940, 21.February(2019));
+            var sernosSequence1 = new SernosSequence(
+                "KRYSTAL",
+                "KRYSTAL MOVING COIL CARTRIDGE",
+                1940,
+                21.February(2019));
             var sernosSequence2 = new SernosSequence("QNAP", "QNAP NAS (TS210)", 10000, null);
             this.SernosSequenceService.GetAll().Returns(
                 new SuccessResult<IEnumerable<SernosSequence>>(

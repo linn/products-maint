@@ -17,14 +17,13 @@
 
     public class WhenGettingSalesArticle : ContextBase
     {
-        private ResponseModel<SalesArticle> salesArticleResponseModel;
-
         [SetUp]
         public void SetUp()
         {
             var salesArticle = new SalesArticle { ArticleNumber = "sa" };
             var responseModel = new ResponseModel<SalesArticle>(salesArticle, null);
-            this.SalesArticleForecastService.GetById("SA", Arg.Any<IEnumerable<string>>()).Returns(new SuccessResult<ResponseModel<SalesArticle>>(responseModel));
+            this.SalesArticleForecastService.GetById("SA", Arg.Any<IEnumerable<string>>())
+                .Returns(new SuccessResult<ResponseModel<SalesArticle>>(responseModel));
 
             this.Response = this.Browser.Get(
                 "/products/maint/sales-articles",

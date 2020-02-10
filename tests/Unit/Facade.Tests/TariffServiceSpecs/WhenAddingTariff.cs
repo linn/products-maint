@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Facade.Tests.TariffServiceSpecs
 {
     using FluentAssertions;
+    using FluentAssertions.Extensions;
 
     using Linn.Common.Facade;
     using Linn.Common.Resources;

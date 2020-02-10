@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Service.Tests.SernosSequenceModuleSpecs
 {
     using FluentAssertions;
+    using FluentAssertions.Extensions;
 
     using Linn.Common.Facade;
     using Linn.Products.Domain.Linnapps;

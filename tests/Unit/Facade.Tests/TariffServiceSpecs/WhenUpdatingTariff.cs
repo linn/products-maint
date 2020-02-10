@@ -3,6 +3,8 @@
     using System;
 
     using FluentAssertions;
+    using FluentAssertions.Extensions;
+
     using Linn.Common.Facade;
     using Linn.Common.Resources;
     using Linn.Products.Domain.Linnapps.Products;
