@@ -1,15 +1,19 @@
 ﻿import { connect } from 'react-redux';
-import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
+import {
+    getItemErrorDetailMessage,
+    initialiseOnMount
+} from '@linn-it/linn-form-components-library';
 import Tariff from '../../components/tariffs/Tariff';
 import tariffActions from '../../actions/tariff';
 import tariffSelectors from '../../selectors/tariffSelectors';
+import * as itemTypes from '../../itemTypes';
 
 const mapStateToProps = (state, { match }) => ({
     item: tariffSelectors.getItem(state),
     itemId: match.params.id,
     editStatus: tariffSelectors.getEditStatus(state),
     loading: tariffSelectors.getLoading(state),
-    errorMessage: fetchErrorSelectors(state),
+    errorMessage: getItemErrorDetailMessage(state, itemTypes.tariff.item),
     snackbarVisible: tariffSelectors.getSnackbarVisible(state)
 });
 
@@ -25,7 +29,4 @@ const mapDispatchToProps = {
     setSnackbarVisible: tariffActions.setSnackbarVisible
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(Tariff));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(Tariff));

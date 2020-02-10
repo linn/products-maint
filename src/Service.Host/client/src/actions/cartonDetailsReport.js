@@ -4,6 +4,7 @@ import * as reportTypes from '../reportTypes';
 import config from '../config';
 
 export default new ReportActions(
+    reportTypes.cartonDetailsReport.item,
     reportTypes.cartonDetailsReport.actionType,
     reportTypes.cartonDetailsReport.uri,
     actionTypes,

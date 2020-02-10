@@ -4,6 +4,7 @@ import * as itemTypes from '../itemTypes';
 import config from '../config';
 
 export default new FetchApiActions(
+    itemTypes.sernosConfigs.item,
     itemTypes.sernosConfigs.actionType,
     itemTypes.sernosConfigs.uri,
     actionTypes,

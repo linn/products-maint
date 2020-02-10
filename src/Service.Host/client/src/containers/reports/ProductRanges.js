@@ -1,6 +1,6 @@
 ﻿import { connect } from 'react-redux';
 import queryString from 'query-string';
-import { ReportSelectors, fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { ReportSelectors, getItemErrorDetailMessage } from '@linn-it/linn-form-components-library';
 import ProductRanges from '../../components/reports/ProductRanges';
 import initialiseOnMount from '../common/initialiseOnMount';
 import actions from '../../actions/productRangesReport';
@@ -19,7 +19,7 @@ const getOptions = ownProps => {
 const mapStateToProps = (state, ownProps) => ({
     reportData: reportSelectors.getReportData(state),
     loading: reportSelectors.getReportLoading(state),
-    errorMessage: fetchErrorSelectors(state),
+    errorMessage: getItemErrorDetailMessage(state, reportTypes.productRangesReport.item),
     options: getOptions(ownProps),
     config
 });
@@ -32,7 +32,4 @@ const mapDispatchToProps = {
     initialise
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(ProductRanges));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(ProductRanges));

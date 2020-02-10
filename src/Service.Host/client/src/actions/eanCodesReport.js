@@ -4,6 +4,7 @@ import * as reportTypes from '../reportTypes';
 import config from '../config';
 
 export default new ReportActions(
+    reportTypes.eanCodesReport.item,
     reportTypes.eanCodesReport.actionType,
     reportTypes.eanCodesReport.uri,
     actionTypes,

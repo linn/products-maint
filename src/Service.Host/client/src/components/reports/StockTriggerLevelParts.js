@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Paper } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';import { ReportTable, Title, ErrorCard, Loading } from '@linn-it/linn-form-components-library';
+import { withStyles } from '@material-ui/core/styles';
+import { ReportTable, Title, ErrorCard, Loading } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 
 const styles = () => ({

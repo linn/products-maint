@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { ReportSelectors, fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { ReportSelectors, getItemErrorDetailMessage } from '@linn-it/linn-form-components-library';
 import HoldStoriesBySalesArticle from '../../components/saHoldStories/HoldStories';
 import initialiseOnMount from '../common/initialiseOnMount';
 import { fetchSaHoldStoriesReport } from '../../actions/saHoldStoryReportActions';
@@ -10,7 +10,7 @@ const reportSelectors = new ReportSelectors('saHoldStoriesReport');
 const mapStateToProps = (state, { match }) => ({
     reportData: reportSelectors.getReportData(state),
     loading: reportSelectors.getReportLoading(state),
-    errorMessage: fetchErrorSelectors(state),
+    errorMessage: getItemErrorDetailMessage(state, 'saHoldStoriesReport'),
     articleNumber: match.params.articleNumber,
     config
 });

@@ -4,7 +4,7 @@ const defaultState = { includePhasedOut: false, cartonisedOnly: true };
 
 export default function options(state = defaultState, action) {
     switch (action.type) {
-        case actionTypes.REQUEST_EAN_CODE_REPORT:
+        case actionTypes.REQUEST_EAN_CODE:
             return {
                 ...state,
                 includePhasedOut: action.payload.options.includePhasedOut === 'true',

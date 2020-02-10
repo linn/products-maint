@@ -1,8 +1,12 @@
 import { connect } from 'react-redux';
-import { fetchErrorSelectors, initialiseOnMount } from '@linn-it/linn-form-components-library';
+import {
+    getItemErrorDetailMessage,
+    initialiseOnMount
+} from '@linn-it/linn-form-components-library';
 import SaCoreType from '../../components/SaCoreType';
 import saCoreTypeActions from '../../actions/saCoreTypeActions';
 import saCoreTypeSelectors from '../../selectors/saCoreTypeSelectors';
+import * as itemTypes from '../../itemTypes';
 
 const mapStateToProps = (state, { match }) => ({
     item: saCoreTypeSelectors.getItem(state),
@@ -10,7 +14,7 @@ const mapStateToProps = (state, { match }) => ({
     editStatus: saCoreTypeSelectors.getEditStatus(state),
     loading: saCoreTypeSelectors.getLoading(state),
     snackbarVisible: saCoreTypeSelectors.getSnackbarVisible(state),
-    errorMessage: fetchErrorSelectors(state)
+    errorMessage: getItemErrorDetailMessage(state, itemTypes.saCoreType.item)
 });
 
 const initialise = ({ itemId }) => dispatch => {
@@ -25,7 +29,4 @@ const mapDispatchToProps = {
     setSnackbarVisible: saCoreTypeActions.setSnackbarVisible
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(SaCoreType));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(SaCoreType));

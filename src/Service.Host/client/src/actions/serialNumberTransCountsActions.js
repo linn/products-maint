@@ -4,6 +4,7 @@ import * as itemTypes from '../itemTypes';
 import config from '../config';
 
 export default new FetchApiActions(
+    itemTypes.serialNumberTransCounts.item,
     itemTypes.serialNumberTransCounts.actionType,
     itemTypes.serialNumberTransCounts.uri,
     actionTypes,

@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { getItemErrorDetailMessage } from '@linn-it/linn-form-components-library';
 import initialiseOnMount from '../common/initialiseOnMount';
 import sernosSequenceActions from '../../actions/sernosSequenceActions';
 import SernosSequence from '../../components/sernosSequences/SernosSequence';
 import sernosSequenceSelectors from '../../selectors/sernosSequenceSelectors';
+import * as itemTypes from '../../itemTypes';
 
 const mapStateToProps = state => ({
     item: {},
     editStatus: 'create',
-    errorMessage: fetchErrorSelectors(state),
+    errorMessage: getItemErrorDetailMessage(state, itemTypes.sernosSequence.item),
     loading: sernosSequenceSelectors.getLoading(state),
     snackbarVisible: sernosSequenceSelectors.getSnackbarVisible(state)
 });
@@ -25,7 +26,4 @@ const mapDispatchToProps = {
     setSnackbarVisible: sernosSequenceActions.setSnackbarVisible
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(SernosSequence));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(SernosSequence));

@@ -4,6 +4,7 @@ import * as itemTypes from '../itemTypes';
 import config from '../config';
 
 export default new UpdateApiActions(
+    itemTypes.sernosNote.item,
     itemTypes.sernosNote.actionType,
     itemTypes.sernosNote.uri,
     actionTypes,

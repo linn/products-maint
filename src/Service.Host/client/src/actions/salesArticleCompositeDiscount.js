@@ -4,6 +4,7 @@ import * as itemTypes from '../itemTypes';
 import config from '../config';
 
 export default new UpdateApiActions(
+    itemTypes.salesArticleCompositeDiscount.item,
     itemTypes.salesArticleCompositeDiscount.actionType,
     itemTypes.salesArticleCompositeDiscount.uri,
     actionTypes,

@@ -31,7 +31,4 @@ const mapDispatchToProps = {
     initialise
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(EanCodes));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(EanCodes));

@@ -1,13 +1,14 @@
 ﻿import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { getItemErrorDetailMessage } from '@linn-it/linn-form-components-library';
 import cartonTypeActions from '../../actions/cartonTypeActions';
 import CartonType from '../../components/CartonType';
 import cartonTypeSelectors from '../../selectors/cartonTypeSelectors';
+import * as itemTypes from '../../itemTypes';
 
 const mapStateToProps = state => ({
     item: {},
     editStatus: 'create',
-    errorMessage: fetchErrorSelectors(state),
+    errorMessage: getItemErrorDetailMessage(state, itemTypes.cartonType.item),
     loading: cartonTypeSelectors.getLoading(state),
     snackbarVisible: cartonTypeSelectors.getSnackbarVisible(state)
 });
@@ -19,7 +20,4 @@ const mapDispatchToProps = {
     setSnackbarVisible: cartonTypeActions.setSnackbarVisible
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CartonType);
+export default connect(mapStateToProps, mapDispatchToProps)(CartonType);

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { getItemErrorDetailMessage } from '@linn-it/linn-form-components-library';
 import initialiseOnMount from '../common/initialiseOnMount';
 import serialNumberActions from '../../actions/serialNumberActions';
 import SerialNumber from '../../components/SerialNumber';
@@ -14,11 +14,12 @@ import {
     clearSalesArticleSernosDetails
 } from '../../actions/salesArticleSernosDetails';
 import sernosNotesSelectors from '../../selectors/sernosNotesSelectors';
+import * as itemTypes from '../../itemTypes';
 
 const mapStateToProps = state => ({
     items: serialNumberSelectors.getItem(state),
     editStatus: serialNumberSelectors.getEditStatus(state),
-    errorMessage: fetchErrorSelectors(state),
+    errorMessage: getItemErrorDetailMessage(state, itemTypes.serialNumber.item),
     loading: serialNumberSelectors.getLoading(state),
     salesArticleSernosDetails: getSalesArticleSernosDetails(state),
     sernosNotes: sernosNotesSelectors.getItems(state),
@@ -50,7 +51,4 @@ const mapDispatchToProps = {
     clearSearch: salesArticlesActions.clearSearch
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(SerialNumber));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(SerialNumber));

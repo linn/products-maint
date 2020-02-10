@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
-import { fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { getItemErrorDetailMessage } from '@linn-it/linn-form-components-library';
 import productRangeActions from '../../actions/productRange';
 import ProductRange from '../../components/productRanges/ProductRange';
 import initialiseOnMount from '../common/initialiseOnMount';
+import * as itemTypes from '../../itemTypes';
 
 const mapStateToProps = state => ({
     productRange: { dateInvalid: null },
-    errorMessage: fetchErrorSelectors(state),
+    errorMessage: getItemErrorDetailMessage(state, itemTypes.productRange.item),
     editStatus: 'create'
 });
 
@@ -21,7 +22,4 @@ const mapDispatchToProps = {
     setEditStatus: productRangeActions.setEditStatus
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(ProductRange));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(ProductRange));

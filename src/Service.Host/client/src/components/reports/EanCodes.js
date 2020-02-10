@@ -9,11 +9,7 @@ const EanCodes = ({ reportData, loading, options, config }) => {
         options.cartonisedOnly && options.cartonisedOnly !== 'false'
             ? '(Cartonised products only)'
             : '';
-    const href = `${
-        config.appRoot
-    }/products/reports/sales-article-ean-codes/export?includePhasedOut=${
-        options.includePhasedOut
-    }&cartonisedOnly=${options.cartonisedOnly}`;
+    const href = `${config.appRoot}/products/reports/sales-article-ean-codes/export?includePhasedOut=${options.includePhasedOut}&cartonisedOnly=${options.cartonisedOnly}`;
 
     return (
         <Page>

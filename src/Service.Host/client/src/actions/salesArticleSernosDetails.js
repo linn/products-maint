@@ -4,9 +4,7 @@ import * as actionTypes from './index';
 
 export const fetchSalesArticleSernosDetails = articleNumber => ({
     [RSAA]: {
-        endpoint: `${
-            config.appRoot
-        }/products/maint/sales-articles/serial-number-details/${articleNumber}`,
+        endpoint: `${config.appRoot}/products/maint/sales-articles/serial-number-details/${articleNumber}`,
         method: 'GET',
         headers: {
             Accept: 'application/json'

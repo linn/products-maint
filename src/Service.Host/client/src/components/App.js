@@ -1,6 +1,8 @@
 ﻿import React from 'react';
 import { Link } from 'react-router-dom';
-import { List, ListItem, Typography } from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Typography from '@material-ui/core/Typography';
 import Page from '../containers/Page';
 
 function App() {
@@ -48,7 +50,11 @@ function App() {
                 <ListItem component={Link} to="/products/reports/products-on-hold" button>
                     <Typography color="primary">Products On Hold</Typography>
                 </ListItem>
-                <ListItem component={Link} to="/products/reports/sales-articles/trigger-levels" button>
+                <ListItem
+                    component={Link}
+                    to="/products/reports/sales-articles/trigger-levels"
+                    button
+                >
                     <Typography color="primary">Sales Article Production Trigger Levels</Typography>
                 </ListItem>
             </List>

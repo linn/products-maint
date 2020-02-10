@@ -13,7 +13,7 @@ describe('Sales Product By Range Report reducer', () => {
         };
 
         const action = {
-            type: actionTypes.REQUEST_SALES_PRODUCTS_BY_RANGE_REPORT,
+            type: actionTypes.REQUEST_SALES_PRODUCTS_BY_RANGE,
             payload: {
                 options: { productRangeId: 1, includePhasedOut: 'false' }
             }
@@ -42,7 +42,7 @@ describe('Sales Product By Range Report reducer', () => {
         };
 
         const action = {
-            type: actionTypes.RECEIVE_SALES_PRODUCTS_BY_RANGE_REPORT,
+            type: actionTypes.RECEIVE_SALES_PRODUCTS_BY_RANGE,
             payload: {
                 data: { reportResults: [{ result: 1 }] },
                 options: { includePhasedOut: 'false' }

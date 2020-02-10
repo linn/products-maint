@@ -4,6 +4,7 @@ import * as itemTypes from '../itemTypes';
 import config from '../config';
 
 export default new UpdateApiActions(
+    itemTypes.saHoldStory.item,
     itemTypes.saHoldStory.actionType,
     itemTypes.saHoldStory.uri,
     actionTypes,

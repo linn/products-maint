@@ -22,7 +22,4 @@ const mapDispatchToProps = {
     initialise
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(CartonDetails));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(CartonDetails));

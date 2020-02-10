@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-import { ReportSelectors, fetchErrorSelectors } from '@linn-it/linn-form-components-library';
+import { ReportSelectors, getItemErrorDetailMessage } from '@linn-it/linn-form-components-library';
 import SernosUsedOnInvoice from '../../components/reports/SernosUsedOnInvoice';
 import initialiseOnMount from '../common/initialiseOnMount';
 import actions from '../../actions/sernosUsedOnInvoiceReport';
@@ -24,7 +24,7 @@ const mapStateToProps = (state, ownProps) => ({
     reportData: reportSelectors.getReportData(state),
     loading: reportSelectors.getReportLoading(state),
     options: getOptions(ownProps),
-    errorMessage: fetchErrorSelectors(state),
+    errorMessage: getItemErrorDetailMessage(state, reportTypes.sernosUsedOnInvoiceReport.item),
     config
 });
 
@@ -36,7 +36,4 @@ const mapDispatchToProps = {
     initialise
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(initialiseOnMount(SernosUsedOnInvoice));
+export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(SernosUsedOnInvoice));
