@@ -5,6 +5,7 @@ import thunkMiddleware from 'redux-thunk';
 import reducer from './reducers';
 import authorization from './middleware/authorization';
 import itemCreated from './middleware/itemCreated';
+import serialNumbers from './middleware/serialNumbers';
 
 // eslint-disable-next-line no-underscore-dangle
 const composeEnhancers =
@@ -12,7 +13,7 @@ const composeEnhancers =
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 })) ||
     compose;
 
-const middleware = [authorization, api, thunkMiddleware, itemCreated];
+const middleware = [authorization, api, thunkMiddleware, itemCreated, serialNumbers];
 
 export const history = createBrowserHistory();
 
