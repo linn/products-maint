@@ -38,6 +38,7 @@ describe('<SalesPackages />', () => {
             wrapper = shallow(<SalesPackages {...props} />);
         });
         it('should render a table', () => {
+            console.log(wrapper.debug());
             expect(wrapper.find('PaginatedTable')).toHaveLength(1);
         });
     });
