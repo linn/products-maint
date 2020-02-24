@@ -40,6 +40,7 @@
             builder.RegisterType<EmployeeRepository>().As<IRepository<Employee, int>>();
             builder.RegisterType<RootProductRepository>().As<IRepository<RootProduct, string>>();
             builder.RegisterType<ArchiveSerialNumberRepository>().As<IRepository<ArchiveSerialNumber, int>>();
+            builder.RegisterType<SalesAnalysisRepository>().As<IQueryRepository<SalesAnalysis>>();
         }
     }
 }
