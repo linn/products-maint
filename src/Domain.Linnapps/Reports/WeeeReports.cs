@@ -46,10 +46,9 @@
                 this.rootProductRepository.FilterBy(r => salesArticles.Any(s => s.RootProduct == r.Name)).ToList();
 
             var model = new ResultsModel
-            {
-                ReportTitle = new NameModel(
-                                    $"UK WEEE Report - Details from {fromDate:d} - {toDate:d}")
-            };
+                            {
+                                ReportTitle = new NameModel($"UK WEEE Report - Details from {fromDate:d} - {toDate:d}")
+                            };
 
             var columns = this.ModelColumns();
 
@@ -63,9 +62,9 @@
         }
 
         private List<CalculationValueModel> SetModelRows(
-            List<SalesAnalysis> salesAnalyses,
-            List<SalesArticle> salesArticles,
-            List<RootProduct> rootProducts)
+            IEnumerable<SalesAnalysis> salesAnalyses,
+            IEnumerable<SalesArticle> salesArticles,
+            IEnumerable<RootProduct> rootProducts)
         {
             var values = new List<CalculationValueModel>();
 
