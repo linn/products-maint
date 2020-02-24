@@ -10,7 +10,7 @@
 
         public string AccountingCompany { get; set; }
 
-        public string Countrycode { get; set; }
+        public string CountryCode { get; set; }
 
         public string DocumentType { get; set; }
 
