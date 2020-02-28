@@ -49,7 +49,7 @@ namespace Linn.Products.Service.Modules
             }
 
             var resource = this.Bind<SerialNumberCreateResource>();
-            resource.Links = new[] { new LinkResource("entered-by", this.Context?.CurrentUser?.GetEmployeeUri()) };            
+            resource.Links = new[] { new LinkResource("entered-by", this.Context?.CurrentUser?.GetEmployeeUri()) };
             var results = new SerialNumberCreateResourceValidator().Validate(resource);
 
             return results.IsValid
