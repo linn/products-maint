@@ -74,38 +74,38 @@
 
                 var quantity = analyses.Count();
 
-                var totalWeight = article.Weight * quantity;
+                var salesPart = salesParts.FirstOrDefault(w => w.Name == article.ArticleNumber);
 
-                var salesPart = salesParts.FirstOrDefault(r => r.Name == article.RootProduct);
-
-                values.Add(
-                    new CalculationValueModel
-                    {
-                        RowId = article.ArticleNumber,
-                        TextDisplay = article.ArticleNumber,
-                        ColumnId = "Article Number"
-                    });
-
-                values.Add(
-                    new CalculationValueModel
-                    {
-                        RowId = article.ArticleNumber,
-                        TextDisplay = salesPart?.Description,
-                        ColumnId = "Description"
-                    });
-
-                values.Add(
-                    new CalculationValueModel
-                    {
-                        RowId = article.ArticleNumber,
-                        Quantity = quantity,
-                        ColumnId = "Quantity"
-                    });
+                var totalWeight = salesPart?.NettWeight * quantity;
 
                 values.Add(
                     new CalculationValueModel
                         {
-                            RowId = article.ArticleNumber, Quantity = new decimal(totalWeight ?? 0), ColumnId = "Total Nett Weight"
+                            RowId = article.ArticleNumber,
+                            TextDisplay = article.ArticleNumber,
+                            ColumnId = "Article Number"
+                        });
+
+                values.Add(
+                    new CalculationValueModel
+                        {
+                            RowId = article.ArticleNumber,
+                            TextDisplay = salesPart?.Description,
+                            ColumnId = "Description"
+                        });
+
+                values.Add(
+                    new CalculationValueModel
+                        {
+                            RowId = article.ArticleNumber, Quantity = quantity, ColumnId = "Quantity"
+                        });
+
+                values.Add(
+                    new CalculationValueModel
+                        {
+                            RowId = article.ArticleNumber,
+                            Quantity = new decimal(totalWeight ?? 0),
+                            ColumnId = "Total Nett Weight"
                         });
             }
 

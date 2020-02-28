@@ -335,7 +335,6 @@
                 .HasMaxLength(1);
             builder.Entity<SalesArticle>().HasOne(t => t.SaCoreType);
             builder.Entity<SalesArticle>().HasMany(t => t.HoldStories).WithOne(e => e.SalesArticle);
-            builder.Entity<SalesArticle>().Property(t => t.Weight).HasColumnName("WEIGHT");
         }
 
         private void BuildVatCode(ModelBuilder builder)

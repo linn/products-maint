@@ -50,8 +50,6 @@
         // deliberately not mapping TariffId as it is set in the new products app
         public int TariffId { get; set; }
 
-        public double? Weight { get; set; }
-
         public void Update(
             string forecastType,
             DateTime? forecastFromDate,
