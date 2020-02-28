@@ -8,42 +8,42 @@
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
-    using Linn.Products.Domain.Linnapps.Reports;
+    using Linn.Products.Domain.Repositories;
 
     public class WEEEReports : IWEEEReports
     {
         private readonly IQueryRepository<SalesAnalysis> salesAnalysisRepository;
 
-        private readonly IRepository<RootProduct, string> rootProductRepository;
-
         private readonly IRepository<SalesArticle, string> salesArticleRepository;
 
         private readonly IReportingHelper reportingHelper;
 
+        private readonly ISalesPartRepository salesPartRepository;
+
         public WEEEReports(
             IQueryRepository<SalesAnalysis> salesAnalysisRepository,
-            IRepository<RootProduct, string> rootProductRepository,
             IRepository<SalesArticle, string> salesArticleRepository,
-            IReportingHelper reportingHelper)
+            IReportingHelper reportingHelper,
+            ISalesPartRepository salesPartRepository)
         {
             this.salesAnalysisRepository = salesAnalysisRepository;
-            this.rootProductRepository = rootProductRepository;
             this.salesArticleRepository = salesArticleRepository;
             this.reportingHelper = reportingHelper;
+            this.salesPartRepository = salesPartRepository;
         }
 
         public ResultsModel GetUKWEEEReport(DateTime fromDate, DateTime toDate)
         {
+            var weeeParts = this.salesPartRepository.GetWEEESalesProducts().ToList();
+
             var salesAnalyses = this.salesAnalysisRepository.FilterBy(
                 s => s.SanlDate >= fromDate && s.SanlDate <= toDate && s.AccountingCompany == "LINN"
-                     && s.CountryCode == "GB" && s.DocumentType == "I").ToList();
+                     && s.CountryCode == "GB" && s.DocumentType == "I"
+                     && weeeParts.Any(w => w.Name == s.ArticleNumber)).ToList();
 
             var salesArticles = this.salesArticleRepository.FilterBy(
-                article => salesAnalyses.Any(analysis => analysis.ArticleNumber == article.ArticleNumber)
+                article => salesAnalyses.Any(a => a.ArticleNumber == article.ArticleNumber)
                            && article.RootProduct != "SERVICE").ToList();
-
-            var rootProducts =
-                this.rootProductRepository.FilterBy(r => salesArticles.Any(s => s.RootProduct == r.Name)).ToList();
 
             var model = new ResultsModel
                             {
@@ -54,7 +54,7 @@
 
             model.AddSortedColumns(columns);
 
-            var values = this.SetModelRows(salesAnalyses, salesArticles, rootProducts);
+            var values = this.SetModelRows(salesAnalyses, salesArticles, weeeParts);
 
             this.reportingHelper.AddResultsToModel(model, values, CalculationValueModelType.Quantity, true);
 
@@ -64,7 +64,7 @@
         private List<CalculationValueModel> SetModelRows(
             IEnumerable<SalesAnalysis> salesAnalyses,
             IEnumerable<SalesArticle> salesArticles,
-            IEnumerable<RootProduct> rootProducts)
+            IEnumerable<SalesPart> salesParts)
         {
             var values = new List<CalculationValueModel>();
 
@@ -76,7 +76,7 @@
 
                 var totalWeight = article.Weight * quantity;
 
-                var rootProduct = rootProducts.ToList().FirstOrDefault(r => r.Name == article.RootProduct);
+                var salesPart = salesParts.FirstOrDefault(r => r.Name == article.RootProduct);
 
                 values.Add(
                     new CalculationValueModel
@@ -90,44 +90,12 @@
                     new CalculationValueModel
                     {
                         RowId = article.ArticleNumber,
-                        TextDisplay = article.InvoiceDescription,
-                        ColumnId = "Invoice Description"
-                    });
-
-                values.Add(
-                    new CalculationValueModel
-                    {
-                        RowId = article.ArticleNumber,
-                        TextDisplay = rootProduct?.Name,
-                        ColumnId = "Root Product"
-                    });
-                
-                values.Add(
-                    new CalculationValueModel
-                    {
-                        RowId = article.ArticleNumber,
-                        TextDisplay = rootProduct?.Description,
+                        TextDisplay = salesPart?.Description,
                         ColumnId = "Description"
                     });
 
                 values.Add(
                     new CalculationValueModel
-                        {
-                            RowId = article.ArticleNumber,
-                            Quantity = new decimal(article.Weight ?? 0),
-                            ColumnId = "Individual Product Weight"
-                        });
-
-                values.Add(
-                    new CalculationValueModel
-                    {
-                        RowId = article.ArticleNumber,
-                        Quantity = quantity,
-                        ColumnId = "Quantity"
-                    });
-
-                values.Add(
-                    new CalculationValueModel
                     {
                         RowId = article.ArticleNumber,
                         Quantity = quantity,
@@ -137,7 +105,7 @@
                 values.Add(
                     new CalculationValueModel
                         {
-                            RowId = article.ArticleNumber, Quantity = new decimal(totalWeight ?? 0), ColumnId = "Weight"
+                            RowId = article.ArticleNumber, Quantity = new decimal(totalWeight ?? 0), ColumnId = "Total Nett Weight"
                         });
             }
 
@@ -152,30 +120,14 @@
                                {
                                    SortOrder = 0, GridDisplayType = GridDisplayType.TextValue
                                },
-                           new AxisDetailsModel("Invoice Description")
+                           new AxisDetailsModel("Description")
                                {
                                    SortOrder = 1, GridDisplayType = GridDisplayType.TextValue
                                },
-                           new AxisDetailsModel("Root Product")
+                           new AxisDetailsModel("Quantity") { SortOrder = 2, GridDisplayType = GridDisplayType.Value },
+                           new AxisDetailsModel("Total Nett Weight")
                                {
-                                   SortOrder = 2, GridDisplayType = GridDisplayType.TextValue
-                               },
-                           new AxisDetailsModel("Description")
-                               {
-                                   SortOrder = 3, GridDisplayType = GridDisplayType.TextValue
-                               },
-                           new AxisDetailsModel("Individual Product Weight")
-                               {
-                                   SortOrder = 4, GridDisplayType = GridDisplayType.Value, DecimalPlaces = 2
-                               },
-                           new AxisDetailsModel("SA Analysis Group 3")
-                               {
-                                   SortOrder = 5, GridDisplayType = GridDisplayType.TextValue
-                               },
-                           new AxisDetailsModel("Quantity") { SortOrder = 6, GridDisplayType = GridDisplayType.Value },
-                           new AxisDetailsModel("Weight")
-                               {
-                                   SortOrder = 7, GridDisplayType = GridDisplayType.Value, DecimalPlaces = 2
+                                   SortOrder = 3, GridDisplayType = GridDisplayType.Value, DecimalPlaces = 2
                                },
                        };
         }

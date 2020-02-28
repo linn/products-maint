@@ -4,7 +4,7 @@
 
     using Linn.Common.Facade;
     using Linn.Common.Reporting.Models;
-    using Linn.Products.Domain.Linnapps.Reports;
+    using Linn.Products.Domain.Reports;
     using Linn.Products.Resources;
 
     public class WEEEReportsService : IWEEEReportsService
@@ -18,7 +18,6 @@
 
         public IResult<ResultsModel> GetWEEEReport(WEEEReportRequestResource resource)
         {
-            // TODO implement country switch
             var results = this.WEEEReports.GetUKWEEEReport(
                 DateTime.Parse(resource.FromDate),
                 DateTime.Parse(resource.ToDate));

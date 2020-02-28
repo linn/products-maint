@@ -13,21 +13,22 @@
     using Linn.Products.Proxy.Exceptions;
     using Linn.Products.Resources.External;
 
-    public class SalesProductProxy : ISalesProductRepository
+    public class SalesPartProxy : ISalesPartRepository
     {
         private readonly IRestClient restClient;
 
         private readonly string rootUri;
 
-        public SalesProductProxy(IRestClient restClient, string rootUri)
+        public SalesPartProxy(IRestClient restClient, string rootUri)
         {
             this.restClient = restClient;
             this.rootUri = rootUri;
         }
 
-        public IEnumerable<SalesProduct> GetSalesProducts()
+        public IEnumerable<SalesPart> GetWEEESalesProducts()
         {
-            var uri = new Uri($"{this.rootUri}/products/sales-products", UriKind.RelativeOrAbsolute);
+            var uri = new Uri($"http://localhost:51620/products/sales-parts/weee-parts", UriKind.RelativeOrAbsolute);
+
             var response = this.restClient.Get(
                 CancellationToken.None,
                 uri,
@@ -40,19 +41,15 @@
             }
 
             var json = new JsonSerializer();
-            var results = json.Deserialize<IEnumerable<SalesProductResource>>(response.Value);
+            var results = json.Deserialize<IEnumerable<SalesPartResource>>(response.Value);
 
             return results.Select(
-                p => new SalesProduct(p.Name)
+                p => new SalesPart()
                          {
-                             Id = p.Id,
                              Description = p.Description,
-                             ProductRange =
-                                 p.ProductRange == null
-                                     ? null
-                                     : new ProductRange(p.ProductRange.Name) { Id = p.ProductRange.Id },
-                             PhasedOutOn =
-                                 string.IsNullOrEmpty(p.PhasedOutOn) ? (DateTime?)null : DateTime.Parse(p.PhasedOutOn)
+                             Name = p.Name,
+                             WEEEPart = p.WEEEPart,
+                             NettWeight = p.NettWeight
                          });
         }
     }
