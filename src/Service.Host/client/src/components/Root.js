@@ -69,6 +69,8 @@ import CreateSerialNumberTransaction from '../containers/serialNumberTransaction
 import NotFound from './NotFound';
 import SalesArticlesByTariff from '../containers/reports/SalesArticlesByTariff';
 import SalesArticleTriggerLevels from '../containers/reports/SalesArticleTriggerLevels';
+import WeeeReportOptions from '../containers/reportOptions/WeeeReportOptions';
+import WeeeReport from '../containers/reports/WeeeReport';
 
 const Root = ({ store }) => (
     <div>
@@ -414,6 +416,16 @@ const Root = ({ store }) => (
                                             exact
                                             path="/products/reports/sales-articles/trigger-levels"
                                             component={SalesArticleTriggerLevels}
+                                        />
+                                        <Route
+                                            exact
+                                            path="/products/reports/weee"
+                                            component={WeeeReportOptions}
+                                        />
+                                        <Route
+                                            exact
+                                            path="/products/reports/weee/report"
+                                            component={WeeeReport}
                                         />
                                         <Route component={NotFound} />
                                     </Switch>

@@ -105,7 +105,7 @@
                         {
                             RowId = article.ArticleNumber,
                             Quantity = new decimal(totalWeight ?? 0),
-                            ColumnId = "Total Nett Weight"
+                            ColumnId = "Nett Weight"
                         });
             }
 
@@ -125,7 +125,7 @@
                                    SortOrder = 1, GridDisplayType = GridDisplayType.TextValue
                                },
                            new AxisDetailsModel("Quantity") { SortOrder = 2, GridDisplayType = GridDisplayType.Value },
-                           new AxisDetailsModel("Total Nett Weight")
+                           new AxisDetailsModel("Nett Weight")
                                {
                                    SortOrder = 3, GridDisplayType = GridDisplayType.Value, DecimalPlaces = 2
                                },

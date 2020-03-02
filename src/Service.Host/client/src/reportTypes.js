@@ -47,3 +47,5 @@ export const salesArticleTriggerLevelsReport = new ItemType(
     'SALES_ARTICLE_TRIGGER_LEVELS',
     '/products/reports/sales-articles/trigger-levels'
 );
+
+export const weeeReport = new ItemType('weeeReport', 'WEEE', '/products/reports/weee/report');

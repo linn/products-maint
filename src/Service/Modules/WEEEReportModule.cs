@@ -14,7 +14,13 @@ namespace Linn.Products.Service.Modules
         public WEEEReportModule(IWEEEReportsService weeeReportsService)
         {
             this.weeeReportsService = weeeReportsService;
-            this.Get("/products/maint/weee-reports", _ => this.GetWEEEReport());
+            this.Get("/products/reports/weee", _ => this.GetWEEEReportOptions());
+            this.Get("/products/reports/weee/report", _ => this.GetWEEEReport());
+        }
+
+        private object GetWEEEReportOptions()
+        {
+            return this.Negotiate.WithModel(ApplicationSettings.Get()).WithView("Index");
         }
 
         private object GetWEEEReport()
