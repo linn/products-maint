@@ -27,7 +27,7 @@
 
         public IEnumerable<SalesPart> GetWEEESalesProducts()
         {
-            var uri = new Uri($"http://localhost:51620/products/sales-parts/weee-parts", UriKind.RelativeOrAbsolute);
+            var uri = new Uri($"{this.rootUri}/products/sales-parts/weee-parts", UriKind.RelativeOrAbsolute);
 
             var response = this.restClient.Get(
                 CancellationToken.None,
