@@ -112,3 +112,5 @@ export const salesArticleTriggerLevelsReportActionTypes = makeReportActionTypes(
     reportTypes.salesArticleTriggerLevelsReport.actionType,
     false
 );
+
+export const weeeReportActionTypes = makeReportActionTypes(reportTypes.weeeReport.actionType);

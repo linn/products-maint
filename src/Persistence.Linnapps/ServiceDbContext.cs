@@ -51,6 +51,8 @@
 
         public DbSet<ArchiveSerialNumber> ArchiveSerialNumbers { get; set; }
 
+        public DbQuery<SalesAnalysis> SalesAnalyses { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             this.BuildSaCoreType(builder);
@@ -70,6 +72,7 @@
             this.BuildSerialNumbers(builder);
             this.BuildSerialNumberTransactions(builder);
             this.BuildArchiveSerialNumbers(builder);
+            this.QuerySalesAnalyses(builder);
             base.OnModelCreating(builder);
         }
 
@@ -384,6 +387,19 @@
             e.Property(t => t.Name).HasColumnName("ROOT_PRODUCT");
             e.Property(t => t.Description).HasColumnName("DESCRIPTION");
             e.HasMany(t => t.HoldStories).WithOne(f => f.RootProduct);
+        }
+
+        private void QuerySalesAnalyses(ModelBuilder builder)
+        {
+            var q = builder.Query<SalesAnalysis>();
+            q.ToView("SALES_ANALYSIS");
+            q.Property(e => e.SanlId).HasColumnName("SANL_ID");
+            q.Property(e => e.ArticleNumber).HasColumnName("ARTICLE_NUMBER").HasMaxLength(14);
+            q.Property(e => e.AccountingCompany).HasColumnName("ACCOUNTING_COMPANY").HasMaxLength(10);
+            q.Property(e => e.CountryCode).HasColumnName("COUNTRY_CODE").HasMaxLength(2);
+            q.Property(e => e.DocumentType).HasColumnName("DOCUMENT_TYPE").HasMaxLength(1);
+            q.Property(e => e.SanlDate).HasColumnName("SANL_DATE");
+            q.Property(e => e.Quantity).HasColumnName("QUANTITY");
         }
     }
 }

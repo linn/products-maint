@@ -18,4 +18,8 @@
     <PackageReference Include="Linn.Common.Serialization" Version="2.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Linnapps\Domain.Linnapps.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -48,6 +48,7 @@ import sernosUsedOnInvoiceReport from './sernosUsedOnInvoiceReport';
 import serialNumberTransCounts from './serialNumberTransCounts';
 import salesArticlesByTariffReport from './salesArticlesByTariffReport';
 import salesArticleTriggerLevelsReport from './salesArticleTriggerLevelsReport';
+import weeeReport from './weeeReport';
 import * as itemTypes from '../itemTypes';
 import * as reportTypes from '../reportTypes';
 import historyStore from './history';
@@ -106,6 +107,7 @@ const rootReducer = history =>
         serialNumberTransCounts,
         salesArticlesByTariffReport,
         salesArticleTriggerLevelsReport,
+        weeeReport,
         ...sharedLibraryReducers
     });
 

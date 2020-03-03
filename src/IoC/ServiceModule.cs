@@ -41,6 +41,7 @@
             builder.RegisterType<ProductsOnHoldService>().As<IProductsOnHoldService>();
             builder.RegisterType<SerialNumberFactory>().As<ISerialNumberFactory>();
             builder.RegisterType<AuthorisationService>().As<IAuthorisationService>();
+            builder.RegisterType<WEEEReports>().As<IWEEEReports>();
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
@@ -57,6 +58,7 @@
             builder.RegisterType<SaHoldStoryFacadeService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
             builder.RegisterType<ProductsOnHoldReportService>().As<IProductsOnHoldReportService>();
             builder.RegisterType<SernosUsedOnInvoiceFacade>().As<ISernosUsedOnInvoiceFacade>();
+            builder.RegisterType<WEEEReportsService>().As<IWEEEReportsService>();
 
             builder.RegisterType<SaHoldStoryFacadeService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
             builder.RegisterType<SalesArticleService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
@@ -79,6 +81,7 @@
             builder.RegisterType<CartonProxy>().As<ICartonRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
             builder.RegisterType<ProductRangeProxy>().As<IProductRangeRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
             builder.RegisterType<SalesProductProxy>().As<ISalesProductRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
+            builder.RegisterType<SalesPartProxy>().As<ISalesPartRepository>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
             builder.RegisterType<ProductionTriggerLevelsProxyService>().As<IProductionTriggerLevelsService>().WithParameter("rootUri", ConfigurationManager.Configuration["PROXY_ROOT"]);
 
             // Oracle proxies
