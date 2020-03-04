@@ -54,6 +54,8 @@
 
             model.AddSortedColumns(columns);
 
+            salesArticles = salesArticles.OrderBy(s => s.ArticleNumber).ToList();
+
             var values = this.SetModelRows(salesAnalyses, salesArticles, weeeParts);
 
             this.reportingHelper.AddResultsToModel(model, values, CalculationValueModelType.Quantity, true);
@@ -72,7 +74,7 @@
             {
                 var analyses = salesAnalyses.Where(s => s.ArticleNumber == article.ArticleNumber);
 
-                var quantity = analyses.Count();
+                var quantity = analyses.Sum(a => a.Quantity);
 
                 var salesPart = salesParts.FirstOrDefault(w => w.Name == article.ArticleNumber);
 
