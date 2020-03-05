@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
     CreateButton,
@@ -119,7 +119,7 @@ function SerialNumbers({
                 <Loading />
             ) : (
                 items.length > 0 && (
-                    <Fragment>
+                    <>
                         <SnackbarMessage
                             visible={snackbarVisible}
                             onClose={() => setSnackbarVisible(false)}
@@ -153,9 +153,10 @@ function SerialNumbers({
                             <TableBody>
                                 {sortEntityList(items, 'sernosDate')
                                     .filter(item => item.sernosGroup === selectedSernosGroup)
-                                    .map(item => (
+                                    .map((item, i) => (
                                         <SernosNote
-                                            key={`${item.sernosDate}${item.articleNumber}${item.transCode}${item.sernosNumber}`}
+                                            // eslint-disable-next-line react/no-array-index-key
+                                            key={i} // ok since array never sorted or added to
                                             serialNumber={item}
                                             item={getSernosNote(sernosNotes, item)}
                                             addSernosNote={addSernosNote}
@@ -164,7 +165,7 @@ function SerialNumbers({
                                     ))}
                             </TableBody>
                         </Table>
-                    </Fragment>
+                    </>
                 )
             )}
 
