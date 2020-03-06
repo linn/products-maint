@@ -9,6 +9,7 @@
     using Linn.Common.Proxy;
     using Linn.Common.Serialization.Json;
     using Linn.Products.Domain;
+    using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Repositories;
     using Linn.Products.Proxy.Exceptions;
     using Linn.Products.Resources.External;
@@ -48,8 +49,13 @@
                          {
                              Description = p.Description,
                              Name = p.Name,
-                             WEEEPart = p.WEEEPart,
-                             NettWeight = p.NettWeight
+                             RootProduct = new RootProduct
+                                               {
+                                                   Name = p.RootProduct.Name,
+                                                   Description = p.RootProduct.Description,
+                                                   NettWeight = p.RootProduct.NettWeight,
+                                                   WeeeProduct = p.RootProduct.WeeeProduct
+                                               }
                          });
         }
     }
