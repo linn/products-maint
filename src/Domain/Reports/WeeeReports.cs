@@ -78,7 +78,7 @@
 
                 var salesPart = salesParts.FirstOrDefault(w => w.Name == article.ArticleNumber);
 
-                var totalWeight = salesPart?.NettWeight * quantity;
+                var totalWeight = salesPart?.RootProduct.NettWeight * quantity;
 
                 values.Add(
                     new CalculationValueModel
