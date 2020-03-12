@@ -1,6 +1,5 @@
 namespace Linn.Products.IoC
 {
-    using System.Collections;
     using System.Collections.Generic;
 
     using Autofac;
@@ -21,6 +20,7 @@ namespace Linn.Products.IoC
         {
             // resource builders
             builder.RegisterType<ResultsModelResourceBuilder>().As<IResourceBuilder<ResultsModel>>();
+            builder.RegisterType<ResultsModelsResourceBuilder>().As<IResourceBuilder<IEnumerable<ResultsModel>>>();
             builder.RegisterType<TariffResourceBuilder>().As<IResourceBuilder<ResponseModel<Tariff>>>();
             builder.RegisterType<TariffsResourceBuilder>().As<IResourceBuilder<ResponseModel<IEnumerable<Tariff>>>>();
             builder.RegisterType<CartonTypeResourceBuilder>().As<IResourceBuilder<CartonType>>();

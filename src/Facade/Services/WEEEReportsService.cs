@@ -1,11 +1,11 @@
 ﻿namespace Linn.Products.Facade.Services
 {
     using System;
+    using System.Collections.Generic;
 
     using Linn.Common.Facade;
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Reports;
-    using Linn.Products.Resources;
 
     public class WEEEReportsService : IWEEEReportsService
     {
@@ -16,12 +16,16 @@
             this.WEEEReports = weeeReports;
         }
 
-        public IResult<ResultsModel> GetWEEEReport(WEEEReportRequestResource resource)
+        public IResult<ResultsModel> GetUkWeeeReport(DateTime fromDate, DateTime toDate)
         {
-            var results = this.WEEEReports.GetUKWEEEReport(
-                DateTime.Parse(resource.FromDate),
-                DateTime.Parse(resource.ToDate));
+            var results = this.WEEEReports.GetUkWEEEReport(fromDate, toDate);
             return new SuccessResult<ResultsModel>(results);
+        }
+
+        public IResult<IEnumerable<ResultsModel>> GetGermanWeeeReport(DateTime fromDate, DateTime toDate)
+        {
+            var results = this.WEEEReports.GetGermanWeeeReport(fromDate, toDate);
+            return new SuccessResult<IEnumerable<ResultsModel>>(results);
         }
     }
 }
