@@ -132,7 +132,7 @@ function SerialNumbers({
                                     value={selectedSernosGroup || ''}
                                     label="Filter by Sernos Group"
                                     fullWidth
-                                    items={sernosGroups.length ? sernosGroups : ['']}
+                                    items={sernosGroups}
                                     onChange={handleSalesArticleChange}
                                     propertyName="serialNumbered"
                                 />
@@ -156,7 +156,7 @@ function SerialNumbers({
                                     .map((item, i) => (
                                         <SernosNote
                                             // eslint-disable-next-line react/no-array-index-key
-                                            key={i} // ok since array never sorted or added to
+                                            key={`${item.sernosDate}${item.articleNumber}${item.transCode}${item.sernosNumber}-${i}`}
                                             serialNumber={item}
                                             item={getSernosNote(sernosNotes, item)}
                                             addSernosNote={addSernosNote}
