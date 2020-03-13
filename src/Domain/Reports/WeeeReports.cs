@@ -29,7 +29,7 @@
 
         public ResultsModel GetUkWEEEReport(DateTime fromDate, DateTime toDate)
         {
-            var weeeParts = this.salesPartRepository.GetWEEESalesProducts().ToList();
+            var weeeParts = this.salesPartRepository.GetWEEESalesParts().ToList();
 
             var salesAnalyses = this.salesAnalysisRepository.FilterBy(
                 s => s.SanlDate >= fromDate && s.SanlDate <= toDate && s.AccountingCompany == "LINN"
@@ -59,7 +59,7 @@
         {
             var results = new List<ResultsModel>();
 
-            var allWeeeParts = this.salesPartRepository.GetWEEESalesProducts().ToList();
+            var allWeeeParts = this.salesPartRepository.GetWEEESalesParts().ToList();
 
             var salesAnalyses = this.salesAnalysisRepository.FilterBy(
                 s => s.SanlDate >= fromDate && s.SanlDate <= toDate && s.AccountingCompany == "LINN"
@@ -69,11 +69,11 @@
             allWeeeParts = allWeeeParts.Where(w => salesAnalyses.Any(a => a.ArticleNumber == w.Name))
                 .OrderBy(w => w.Name).ToList();
 
-            var weeeParts = allWeeeParts.Where(w => string.IsNullOrEmpty(w.RootProduct.WeeeCategory));
+            var weeeParts = allWeeeParts.Where(w => string.IsNullOrEmpty(w.WeeeCategory));
 
-            var packagingOnlyParts = allWeeeParts.Where(w => w.RootProduct.WeeeCategory == "PACKAGING");
+            var packagingOnlyParts = allWeeeParts.Where(w => w.WeeeCategory == "PACKAGING");
 
-            var cableParts = allWeeeParts.Where(w => w.RootProduct.WeeeCategory == "CABLE");
+            var cableParts = allWeeeParts.Where(w => w.WeeeCategory == "CABLE");
 
             var columns = this.GermanModelColumns();
 
@@ -144,7 +144,7 @@
 
                 var quantity = analyses.Sum(a => a.Quantity);
 
-                var totalWeight = salesPart?.RootProduct.NettWeight * quantity;
+                var totalWeight = salesPart.NettWeight * quantity;
 
                 values.Add(
                     new CalculationValueModel
@@ -225,8 +225,7 @@
 
                 var quantity = analyses.Sum(a => a.Quantity);
 
-                var nettWeight = (part.RootProduct.NettWeight * quantity)
-                                 + (part.RootProduct.MainsCablesPerProduct * 0.25);
+                var nettWeight = (part.NettWeight * quantity) + (part.MainsCablesPerProduct * 0.25);
 
                 values.Add(
                     new CalculationValueModel
@@ -264,7 +263,7 @@
                     new CalculationValueModel
                     {
                         RowId = part.Name,
-                        Quantity = new decimal(part.RootProduct.PackagingNettWeight * quantity ?? 0),
+                        Quantity = new decimal(part.PackagingNettWeight * quantity ?? 0),
                         ColumnId = "Nett Packaging Weight"
                     });
 
@@ -272,7 +271,7 @@
                     new CalculationValueModel
                         {
                             RowId = part.Name,
-                            Quantity = new decimal(part.RootProduct.PackagingFoamNettWeight * quantity ?? 0),
+                            Quantity = new decimal(part.PackagingFoamNettWeight * quantity ?? 0),
                             ColumnId = "Nett Packaging Foam Weight"
                         });
 
@@ -280,7 +279,7 @@
                     new CalculationValueModel
                         {
                             RowId = part.Name,
-                            Quantity = part.RootProduct.MainsCablesPerProduct ?? 0,
+                            Quantity = part.MainsCablesPerProduct ?? 0,
                             ColumnId = "Mains Cables Per Product"
                         });
 
@@ -288,7 +287,7 @@
                     new CalculationValueModel
                         {
                             RowId = part.Name,
-                            TextDisplay = part.RootProduct.DimensionOver50Cm ? "X" : string.Empty,
+                            TextDisplay = part.DimensionOver50Cm ? "X" : string.Empty,
                             ColumnId = "Dimension Over 50cm"
                         });
             }
