@@ -41,7 +41,7 @@
 
             var model = new ResultsModel
                             {
-                                ReportTitle = new NameModel($"UK WEEE Report - Details from {fromDate:d} - {toDate:d}")
+                                ReportTitle = new NameModel($"UK WEEE Report {fromDate:d} - {toDate:d}")
                             };
 
             var columns = this.UkModelColumns();
