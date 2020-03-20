@@ -20,7 +20,7 @@
         [Test]
         public void ShouldReturnResults()
         {
-            this.results.ReportTitle.DisplayValue.Should().Be("UK WEEE Report 19/03/2020 - 19/03/2020");
+            this.results.ReportTitle.DisplayValue.Contains("UK WEEE Report");
             this.results.GetRowValues().Should().HaveCount(2);
             this.results.GetGridTextValue(0, 0).Should().Be("P1");
             this.results.GetGridTextValue(0, 1).Should().Be("DESC1");

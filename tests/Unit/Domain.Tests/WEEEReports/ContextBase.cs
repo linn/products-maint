@@ -34,7 +34,6 @@
             this.ReportingHelper = new ReportingHelper();
             this.SalesAnalysisRepository = Substitute.For<IQueryRepository<SalesAnalysis>>();
 
-            // TODO get the german stuff in here
             this.SalesPartRepository.GetWEEESalesParts().Returns(
                 new List<SalesPart>
                     {
@@ -57,6 +56,20 @@
                                 PackagingFoamNettWeight = 2,
                                 MainsCablesPerProduct = 1,
                                 DimensionOver50Cm = false
+                            },
+                        new SalesPart
+                            {
+                                Name = "P3",
+                                Description = "DESC3",
+                                PackagingNettWeight = 0.5,
+                                WeeeCategory = "PACKAGING"
+                            },
+                        new SalesPart
+                            {
+                                Name = "P4",
+                                Description = "DESC4",
+                                NettWeight = 0.25,
+                                WeeeCategory = "CABLE"
                             }
                     });
 
@@ -64,7 +77,9 @@
                 new List<SalesAnalysis>
                     {
                         new SalesAnalysis { ArticleNumber = "P1", Quantity = 2 },
-                        new SalesAnalysis { ArticleNumber = "P2", Quantity = 1 }
+                        new SalesAnalysis { ArticleNumber = "P2", Quantity = 1 },
+                        new SalesAnalysis { ArticleNumber = "P3", Quantity = 1 },
+                        new SalesAnalysis { ArticleNumber = "P4", Quantity = 1 }
                     }.AsQueryable());
 
             this.Sut = new WEEEReports(this.SalesAnalysisRepository, this.ReportingHelper, this.SalesPartRepository);

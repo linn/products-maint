@@ -36,8 +36,9 @@
                      && s.CountryCode == "GB" && s.DocumentType == "I"
                      && weeeParts.Any(w => w.Name == s.ArticleNumber)).ToList();
 
-            weeeParts = weeeParts.Where(w => salesAnalyses.Any(a => a.ArticleNumber == w.Name)).OrderBy(w => w.Name)
-                .ToList();
+            weeeParts = weeeParts
+                .Where(w => salesAnalyses.Any(a => a.ArticleNumber == w.Name) && string.IsNullOrEmpty(w.WeeeCategory))
+                .OrderBy(w => w.Name).ToList();
 
             var model = new ResultsModel
                             {
