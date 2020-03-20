@@ -7,14 +7,11 @@
     using Linn.Common.Persistence;
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Repositories;
 
     public class WEEEReports : IWEEEReports
     {
         private readonly IQueryRepository<SalesAnalysis> salesAnalysisRepository;
-
-        private readonly IRepository<SalesArticle, string> salesArticleRepository;
 
         private readonly IReportingHelper reportingHelper;
 
@@ -22,99 +19,101 @@
 
         public WEEEReports(
             IQueryRepository<SalesAnalysis> salesAnalysisRepository,
-            IRepository<SalesArticle, string> salesArticleRepository,
             IReportingHelper reportingHelper,
             ISalesPartRepository salesPartRepository)
         {
             this.salesAnalysisRepository = salesAnalysisRepository;
-            this.salesArticleRepository = salesArticleRepository;
             this.reportingHelper = reportingHelper;
             this.salesPartRepository = salesPartRepository;
         }
 
-        public ResultsModel GetUKWEEEReport(DateTime fromDate, DateTime toDate)
+        public ResultsModel GetUkWEEEReport(DateTime fromDate, DateTime toDate)
         {
-            var weeeParts = this.salesPartRepository.GetWEEESalesProducts().ToList();
+            var weeeParts = this.salesPartRepository.GetWEEESalesParts().ToList();
 
             var salesAnalyses = this.salesAnalysisRepository.FilterBy(
                 s => s.SanlDate >= fromDate && s.SanlDate <= toDate && s.AccountingCompany == "LINN"
                      && s.CountryCode == "GB" && s.DocumentType == "I"
                      && weeeParts.Any(w => w.Name == s.ArticleNumber)).ToList();
 
-            var salesArticles = this.salesArticleRepository.FilterBy(
-                article => salesAnalyses.Any(a => a.ArticleNumber == article.ArticleNumber)
-                           && article.RootProduct != "SERVICE").ToList();
+            weeeParts = weeeParts
+                .Where(w => salesAnalyses.Any(a => a.ArticleNumber == w.Name) && string.IsNullOrEmpty(w.WeeeCategory))
+                .OrderBy(w => w.Name).ToList();
 
             var model = new ResultsModel
                             {
-                                ReportTitle = new NameModel($"UK WEEE Report - Details from {fromDate:d} - {toDate:d}")
+                                ReportTitle = new NameModel($"UK WEEE Report {fromDate:d} - {toDate:d}")
                             };
 
-            var columns = this.ModelColumns();
+            var columns = this.UkModelColumns();
 
             model.AddSortedColumns(columns);
 
-            salesArticles = salesArticles.OrderBy(s => s.ArticleNumber).ToList();
-
-            var values = this.SetModelRows(salesAnalyses, salesArticles, weeeParts);
+            var values = this.SetUkModelRows(salesAnalyses, weeeParts);
 
             this.reportingHelper.AddResultsToModel(model, values, CalculationValueModelType.Quantity, true);
 
             return model;
         }
 
-        private List<CalculationValueModel> SetModelRows(
-            IEnumerable<SalesAnalysis> salesAnalyses,
-            IEnumerable<SalesArticle> salesArticles,
-            IEnumerable<SalesPart> salesParts)
+        public IEnumerable<ResultsModel> GetGermanWeeeReport(DateTime fromDate, DateTime toDate)
         {
-            var values = new List<CalculationValueModel>();
+            var results = new List<ResultsModel>();
 
-            foreach (var article in salesArticles)
-            {
-                var analyses = salesAnalyses.Where(s => s.ArticleNumber == article.ArticleNumber);
+            var allWeeeParts = this.salesPartRepository.GetWEEESalesParts().ToList();
 
-                var quantity = analyses.Sum(a => a.Quantity);
+            var salesAnalyses = this.salesAnalysisRepository.FilterBy(
+                s => s.SanlDate >= fromDate && s.SanlDate <= toDate && s.AccountingCompany == "LINN"
+                     && s.CountryCode == "DE" && s.DocumentType == "I"
+                     && allWeeeParts.Any(w => w.Name == s.ArticleNumber)).ToList();
 
-                var salesPart = salesParts.FirstOrDefault(w => w.Name == article.ArticleNumber);
+            allWeeeParts = allWeeeParts.Where(w => salesAnalyses.Any(a => a.ArticleNumber == w.Name))
+                .OrderBy(w => w.Name).ToList();
 
-                var totalWeight = salesPart?.RootProduct.NettWeight * quantity;
+            var weeeParts = allWeeeParts.Where(w => string.IsNullOrEmpty(w.WeeeCategory));
 
-                values.Add(
-                    new CalculationValueModel
-                        {
-                            RowId = article.ArticleNumber,
-                            TextDisplay = article.ArticleNumber,
-                            ColumnId = "Article Number"
-                        });
+            var packagingOnlyParts = allWeeeParts.Where(w => w.WeeeCategory == "PACKAGING");
 
-                values.Add(
-                    new CalculationValueModel
-                        {
-                            RowId = article.ArticleNumber,
-                            TextDisplay = salesPart?.Description,
-                            ColumnId = "Description"
-                        });
+            var cableParts = allWeeeParts.Where(w => w.WeeeCategory == "CABLE");
 
-                values.Add(
-                    new CalculationValueModel
-                        {
-                            RowId = article.ArticleNumber, Quantity = quantity, ColumnId = "Quantity"
-                        });
+            var columns = this.GermanModelColumns();
 
-                values.Add(
-                    new CalculationValueModel
-                        {
-                            RowId = article.ArticleNumber,
-                            Quantity = new decimal(totalWeight ?? 0),
-                            ColumnId = "Nett Weight"
-                        });
-            }
+            var weeeResultsModel = new ResultsModel
+                                       {
+                                           ReportTitle = new NameModel($"WEEE Products from {fromDate:d} - {toDate:d}")
+                                       };
+            var packagingResultsModel = new ResultsModel { ReportTitle = new NameModel("Packaging Only") };
+            var cablesResultsModel = new ResultsModel { ReportTitle = new NameModel("Cables Only") };
 
-            return values;
+
+            weeeResultsModel.AddSortedColumns(columns);
+            packagingResultsModel.AddSortedColumns(columns);
+            cablesResultsModel.AddSortedColumns(columns);
+
+            this.reportingHelper.AddResultsToModel(
+                weeeResultsModel,
+                this.SetGermanModelRows(salesAnalyses, weeeParts),
+                CalculationValueModelType.Quantity,
+                true);
+            this.reportingHelper.AddResultsToModel(
+                packagingResultsModel,
+                this.SetGermanModelRows(salesAnalyses, packagingOnlyParts),
+                CalculationValueModelType.Quantity,
+                true);
+            this.reportingHelper.AddResultsToModel(
+                cablesResultsModel,
+                this.SetGermanModelRows(salesAnalyses, cableParts),
+                CalculationValueModelType.Quantity,
+                true);
+
+            results.Add(weeeResultsModel);
+            results.Add(packagingResultsModel);
+            results.Add(cablesResultsModel);
+
+            return results;
         }
 
-        private List<AxisDetailsModel> ModelColumns()
+        private List<AxisDetailsModel> UkModelColumns()
         {
             return new List<AxisDetailsModel>
                        {
@@ -132,6 +131,169 @@
                                    SortOrder = 3, GridDisplayType = GridDisplayType.Value, DecimalPlaces = 2
                                },
                        };
+        }
+
+        private List<CalculationValueModel> SetUkModelRows(
+            IEnumerable<SalesAnalysis> salesAnalyses,
+            IEnumerable<SalesPart> salesParts)
+        {
+            var values = new List<CalculationValueModel>();
+
+            foreach (var salesPart in salesParts)
+            {
+                var analyses = salesAnalyses.Where(s => s.ArticleNumber == salesPart.Name);
+
+                var quantity = analyses.Sum(a => a.Quantity);
+
+                var totalWeight = salesPart.NettWeight * quantity;
+
+                values.Add(
+                    new CalculationValueModel
+                        {
+                            RowId = salesPart.Name,
+                            TextDisplay = salesPart.Name,
+                            ColumnId = "Article Number"
+                        });
+
+                values.Add(
+                    new CalculationValueModel
+                        {
+                            RowId = salesPart.Name,
+                            TextDisplay = salesPart?.Description,
+                            ColumnId = "Description"
+                        });
+
+                values.Add(
+                    new CalculationValueModel
+                        {
+                            RowId = salesPart.Name, Quantity = quantity, ColumnId = "Quantity"
+                        });
+
+                values.Add(
+                    new CalculationValueModel
+                        {
+                            RowId = salesPart.Name,
+                            Quantity = new decimal(totalWeight ?? 0),
+                            ColumnId = "Nett Weight"
+                        });
+            }
+
+            return values;
+        }
+
+        private List<AxisDetailsModel> GermanModelColumns()
+        {
+            return new List<AxisDetailsModel>
+                       {
+                           new AxisDetailsModel("Article Number")
+                               {
+                                   SortOrder = 0, GridDisplayType = GridDisplayType.TextValue
+                               },
+                           new AxisDetailsModel("Description")
+                               {
+                                   SortOrder = 1, GridDisplayType = GridDisplayType.TextValue
+                               },
+                           new AxisDetailsModel("Quantity") { SortOrder = 2, GridDisplayType = GridDisplayType.Value },
+                           new AxisDetailsModel("Nett Weight")
+                               {
+                                   SortOrder = 3, GridDisplayType = GridDisplayType.Value, DecimalPlaces = 2
+                               },
+                           new AxisDetailsModel("Nett Packaging Weight")
+                               {
+                                   SortOrder = 4, GridDisplayType = GridDisplayType.Value, DecimalPlaces = 2
+                               },
+                           new AxisDetailsModel("Nett Packaging Foam Weight")
+                               {
+                                   SortOrder = 5, GridDisplayType = GridDisplayType.Value, DecimalPlaces = 2
+                               },
+                           new AxisDetailsModel("Dimension Over 50cm")
+                               {
+                                   SortOrder = 6, GridDisplayType = GridDisplayType.TextValue
+                               },
+                           new AxisDetailsModel("Mains Cables Per Product") { SortOrder = 7, GridDisplayType = GridDisplayType.Value },
+                       };
+        }
+
+        private List<CalculationValueModel> SetGermanModelRows(
+            IEnumerable<SalesAnalysis> salesAnalyses,
+            IEnumerable<SalesPart> salesParts)
+        {
+            var values = new List<CalculationValueModel>();
+
+            foreach (var part in salesParts)
+            {
+                var analyses = salesAnalyses.Where(s => s.ArticleNumber == part.Name);
+
+                var quantity = analyses.Sum(a => a.Quantity);
+
+                var nettWeight = (part.NettWeight * quantity) + (part.MainsCablesPerProduct * 0.25);
+
+                values.Add(
+                    new CalculationValueModel
+                    {
+                        RowId = part.Name,
+                        TextDisplay = part.Name,
+                        ColumnId = "Article Number"
+                    });
+
+                values.Add(
+                    new CalculationValueModel
+                    {
+                        RowId = part.Name,
+                        TextDisplay = part.Description,
+                        ColumnId = "Description"
+                    });
+
+                values.Add(
+                    new CalculationValueModel
+                    {
+                        RowId = part.Name,
+                        Quantity = quantity,
+                        ColumnId = "Quantity"
+                    });
+
+                values.Add(
+                    new CalculationValueModel
+                    {
+                        RowId = part.Name,
+                        Quantity = new decimal(nettWeight ?? 0),
+                        ColumnId = "Nett Weight"
+                    });
+
+                values.Add(
+                    new CalculationValueModel
+                    {
+                        RowId = part.Name,
+                        Quantity = new decimal(part.PackagingNettWeight * quantity ?? 0),
+                        ColumnId = "Nett Packaging Weight"
+                    });
+
+                values.Add(
+                    new CalculationValueModel
+                        {
+                            RowId = part.Name,
+                            Quantity = new decimal(part.PackagingFoamNettWeight * quantity ?? 0),
+                            ColumnId = "Nett Packaging Foam Weight"
+                        });
+
+                values.Add(
+                    new CalculationValueModel
+                        {
+                            RowId = part.Name,
+                            Quantity = part.MainsCablesPerProduct ?? 0,
+                            ColumnId = "Mains Cables Per Product"
+                        });
+
+                values.Add(
+                    new CalculationValueModel
+                        {
+                            RowId = part.Name,
+                            TextDisplay = part.DimensionOver50Cm ? "X" : string.Empty,
+                            ColumnId = "Dimension Over 50cm"
+                        });
+            }
+
+            return values;
         }
     }
 }

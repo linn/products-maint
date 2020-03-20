@@ -4,6 +4,6 @@
 
     public interface ISalesPartRepository
     {
-        IEnumerable<SalesPart> GetWEEESalesProducts();
+        IEnumerable<SalesPart> GetWEEESalesParts();
     }
 }

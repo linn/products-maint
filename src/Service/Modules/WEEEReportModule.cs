@@ -1,5 +1,7 @@
 namespace Linn.Products.Service.Modules
 {
+    using System;
+
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
     using Linn.Products.Service.Models;
@@ -27,9 +29,21 @@ namespace Linn.Products.Service.Modules
         {
             var resource = this.Bind<WEEEReportRequestResource>();
 
-            var results = this.weeeReportsService.GetWEEEReport(resource);
+            if (resource.CountryCode == "GB")
+            {
+                return this.Negotiate
+                    .WithModel(
+                        this.weeeReportsService.GetUkWeeeReport(
+                            DateTime.Parse(resource.FromDate),
+                            DateTime.Parse(resource.ToDate))).WithMediaRangeModel("text/html", ApplicationSettings.Get)
+                    .WithView("Index");
+            }
 
-            return this.Negotiate.WithModel(results).WithMediaRangeModel("text/html", ApplicationSettings.Get)
+            return this.Negotiate
+                .WithModel(
+                    this.weeeReportsService.GetGermanWeeeReport(
+                        DateTime.Parse(resource.FromDate),
+                        DateTime.Parse(resource.ToDate))).WithMediaRangeModel("text/html", ApplicationSettings.Get)
                 .WithView("Index");
         }
     }

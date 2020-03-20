@@ -90,7 +90,7 @@
 
         protected override SerialNumber CreateFromResource(SerialNumberCreateResource resource)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         protected override void UpdateFromResource(SerialNumber entity, SerialNumberResource updateResource)

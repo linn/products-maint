@@ -8,10 +8,6 @@
 
         public string Description { get; set; }
 
-        public bool WeeeProduct { get; set; }
-
-        public double? NettWeight { get; set; }
-
         public ICollection<SaHoldStory> HoldStories { get; set; }
     }
 }

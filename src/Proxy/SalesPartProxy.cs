@@ -26,7 +26,7 @@
             this.rootUri = rootUri;
         }
 
-        public IEnumerable<SalesPart> GetWEEESalesProducts()
+        public IEnumerable<SalesPart> GetWEEESalesParts()
         {
             var uri = new Uri($"{this.rootUri}/products/sales-parts/weee-parts", UriKind.RelativeOrAbsolute);
 
@@ -53,8 +53,6 @@
                                                {
                                                    Name = p.RootProduct.Name,
                                                    Description = p.RootProduct.Description,
-                                                   NettWeight = p.RootProduct.NettWeight,
-                                                   WeeeProduct = p.RootProduct.WeeeProduct
                                                }
                          });
         }

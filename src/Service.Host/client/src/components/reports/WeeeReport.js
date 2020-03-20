@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { ReportTable, Loading, ErrorCard } from '@linn-it/linn-form-components-library';
+import { Loading, ErrorCard, MultiReportTable } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
 
@@ -19,11 +19,12 @@ export default function WeeeReport({ reportData, loading, error }) {
                     <Loading />
                 ) : (
                     reportData && (
-                        <ReportTable
+                        <MultiReportTable
                             reportData={reportData}
+                            showTitle={false}
                             showTotals
-                            showTitle
-                            title={reportData.title.displayString}
+                            containsSubtotals
+                            showRowTitles={false}
                         />
                     )
                 )}
