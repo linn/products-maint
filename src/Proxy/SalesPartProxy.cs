@@ -49,10 +49,17 @@
                          {
                              Description = p.Description,
                              Name = p.Name,
+                             DimensionOver50Cm = p.DimensionOver50Cm,
+                             MainsCablesPerProduct = p.MainsCablesPerProduct,
+                             NettWeight = p.NettWeight,
+                             PackagingFoamNettWeight = p.PackagingFoamNettWeight,
+                             PackagingNettWeight = p.PackagingNettWeight,
+                             WeeeCategory = p.WeeeCategory,
+                             WeeeProduct = p.WeeeProduct,
                              RootProduct = new RootProduct
                                                {
                                                    Name = p.RootProduct.Name,
-                                                   Description = p.RootProduct.Description,
+                                                   Description = p.RootProduct.Description
                                                }
                          });
         }
