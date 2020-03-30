@@ -29,11 +29,13 @@
             weee.GetGridTextValue(0, 0).Should().Be("P1");
             weee.GetGridTextValue(0, 1).Should().Be("DESC1");
             weee.GetGridValue(0, 2).Should().Be(2);
-            weee.GetGridValue(0, 3).Should().Be((decimal)4.25);
+            weee.GetGridValue(0, 3).Should().Be(4);
+            weee.GetGridValue(0, 7).Should().Be((decimal)0.5);
             weee.GetGridTextValue(1, 0).Should().Be("P2");
             weee.GetGridTextValue(1, 1).Should().Be("DESC2");
             weee.GetGridValue(1, 2).Should().Be(1);
-            weee.GetGridValue(1, 3).Should().Be((decimal)2.25);
+            weee.GetGridValue(1, 3).Should().Be(2);
+            weee.GetGridValue(1, 7).Should().Be((decimal)0.25);
 
             var packaging = this.result.ElementAt(1);
             packaging.GetGridTextValue(0, 0).Should().Be("P3");
