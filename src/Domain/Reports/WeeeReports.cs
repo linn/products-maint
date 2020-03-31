@@ -210,7 +210,11 @@
                                {
                                    SortOrder = 6, GridDisplayType = GridDisplayType.TextValue
                                },
-                           new AxisDetailsModel("Mains Cables Per Product") { SortOrder = 7, GridDisplayType = GridDisplayType.Value },
+                           new AxisDetailsModel("Weight of Mains Cables")
+                               {
+                                   SortOrder = 7, GridDisplayType = GridDisplayType.Value, DecimalPlaces = 2
+                               },
+                           new AxisDetailsModel("Mains Cables Per Product") { SortOrder = 8, GridDisplayType = GridDisplayType.Value }
                        };
         }
 
@@ -226,7 +230,7 @@
 
                 var quantity = analyses.Sum(a => a.Quantity);
 
-                var nettWeight = (part.NettWeight * quantity) + (part.MainsCablesPerProduct * 0.25);
+                var nettWeight = part.NettWeight * quantity;
 
                 values.Add(
                     new CalculationValueModel
@@ -276,12 +280,21 @@
                             ColumnId = "Nett Packaging Foam Weight"
                         });
 
+
                 values.Add(
                     new CalculationValueModel
                         {
                             RowId = part.Name,
                             Quantity = part.MainsCablesPerProduct ?? 0,
                             ColumnId = "Mains Cables Per Product"
+                    });
+
+                values.Add(
+                    new CalculationValueModel
+                        {
+                            RowId = part.Name,
+                            Quantity = new decimal(part.MainsCablesPerProduct * 0.25 * quantity ?? 0),
+                            ColumnId = "Weight of Mains Cables"
                         });
 
                 values.Add(
