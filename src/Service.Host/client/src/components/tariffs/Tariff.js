@@ -91,7 +91,7 @@ function Tariff({
                         <Loading />
                     </Grid>
                 ) : (
-                    <Fragment>
+                    <>
                         <SnackbarMessage
                             visible={snackbarVisible}
                             onClose={() => setSnackbarVisible(false)}
@@ -180,7 +180,7 @@ function Tariff({
                                 backClick={handleBackClick}
                             />
                         </Grid>
-                    </Fragment>
+                    </>
                 )}
             </Grid>
         </Page>
