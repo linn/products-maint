@@ -51,5 +51,11 @@
         {
             return this.serviceDbContext.SalesArticles.Where(expression).Include(a => a.SaCoreType);
         }
+
+        public void Update(SalesArticle entity)
+        {
+            throw new NotImplementedException();
+            //this.serviceDbContext.SalesArticles.Where(x=>x.ArticleNumber == entity.ArticleNumber).
+        }
     }
 }

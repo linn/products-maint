@@ -9,5 +9,7 @@
         IEnumerable<SalesArticle> Search(string searchTerm);
 
         IEnumerable<SalesArticle> GetByDiscountFamily(string discountFamily, bool includePhasedOut);
+
+        bool ReallocateSalesArticles(string oldTariffCode, string newTariffCode);
     }
 }

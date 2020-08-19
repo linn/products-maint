@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Net;
     using System.Threading;
-
     using Linn.Common.Proxy;
     using Linn.Common.Serialization.Json;
     using Linn.Products.Domain.Linnapps.Models;

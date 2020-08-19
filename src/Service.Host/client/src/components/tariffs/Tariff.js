@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -38,7 +38,7 @@ function Tariff({
             setTariff(item);
             setPrevTariff(item);
         }
-    });
+    }, [creating, item, tariff, prevTariff]);
 
     const dutyNotPercentage = () => tariff.duty < 0 || tariff.duty > 100;
 

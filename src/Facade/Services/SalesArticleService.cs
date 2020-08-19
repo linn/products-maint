@@ -1,8 +1,10 @@
 ﻿namespace Linn.Products.Facade.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Security.Cryptography.X509Certificates;
 
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
@@ -11,9 +13,12 @@
     using Linn.Products.Facade.Extensions;
     using Linn.Products.Resources;
 
-    public class SalesArticleService : FacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>
+    public class SalesArticleService : FacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>, ISalesArticleFacadeService
     {
         private readonly IRepository<SaCoreType, int> coreTypeRepository;
+        private readonly IRepository<SalesArticle, string> salesArticleRepository;
+
+        private readonly ITransactionManager transactionManager;
 
         public SalesArticleService(
             IRepository<SalesArticle, string> repository,
@@ -22,6 +27,8 @@
             : base(repository, transactionManager)
         {
             this.coreTypeRepository = coreTypeRepository;
+            this.salesArticleRepository = repository;
+            this.transactionManager = transactionManager;
         }
 
         protected override SalesArticle CreateFromResource(SalesArticleResource resource)
@@ -46,6 +53,21 @@
         protected override Expression<Func<SalesArticle, bool>> SearchExpression(string searchTerm)
         {
             throw new NotImplementedException();
+        }
+
+        public IResult<ResponseModel<SalesArticlesReallocator>> Reallocate(int oldTariffId, int newTariffId, IEnumerable<string> privileges)
+        {
+            
+            var articlesForReallocation = this.salesArticleRepository.FindAll().Where(x=>x.TariffId == oldTariffId);
+            foreach (var salesArticle in articlesForReallocation)
+            {
+                salesArticle.TariffId = newTariffId;
+            }
+            this.salesArticleRepository.g
+
+            this.transactionManager.Commit();
+            return new SuccessResult<ResponseModel<SalesArticlesReallocator>>( new ResponseModel<SalesArticlesReallocator>( 
+                new SalesArticlesReallocator{OldTariffId = oldTariffId, NewTariffId = newTariffId}, privileges));
         }
     }
 }

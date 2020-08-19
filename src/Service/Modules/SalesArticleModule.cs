@@ -1,24 +1,23 @@
 namespace Linn.Products.Service.Modules
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
     using Linn.Common.Facade;
+    using Linn.Products.Domain;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
     using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
-
     using Nancy;
     using Nancy.ModelBinding;
     using Nancy.Security;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public sealed class SalesArticleModule : NancyModule
     {
-        private readonly IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>
-            salesArticleService;
+        private readonly ISalesArticleFacadeService salesArticleService;
 
         private readonly ISalesArticleCompositeDiscountFacadeService salesArticleCompositeDiscountFacadeService;
 
@@ -26,16 +25,20 @@ namespace Linn.Products.Service.Modules
 
         private readonly ISalesArticleSerialNumberFacadeService salesArticleSerialNumberFacadeService;
 
+        private readonly IAuthorisationService authorisationService;
+
         public SalesArticleModule(
-            IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> salesArticleService,
+            ISalesArticleFacadeService salesArticleService,
             ISalesArticleCompositeDiscountFacadeService salesArticleCompositeDiscountFacadeService,
             ISalesArticleService salesArticleProxyService,
-            ISalesArticleSerialNumberFacadeService salesArticleSerialNumberFacadeService)
+            ISalesArticleSerialNumberFacadeService salesArticleSerialNumberFacadeService,
+            IAuthorisationService authorisationService)
         {
             this.salesArticleService = salesArticleService;
             this.salesArticleCompositeDiscountFacadeService = salesArticleCompositeDiscountFacadeService;
             this.salesArticleProxyService = salesArticleProxyService;
             this.salesArticleSerialNumberFacadeService = salesArticleSerialNumberFacadeService;
+            this.authorisationService = authorisationService;
 
 
             this.Get("/products/maint/sales-articles", _ => this.GetSalesArticles());
@@ -52,6 +55,7 @@ namespace Linn.Products.Service.Modules
             this.Get(
                 "/products/maint/sales-articles/serial-number-details/{id*}",
                 parameters => this.GetSerialNumberDetails(parameters.id));
+            this.Post("/products/maint/sales-articles/reallocate", _ => this.ReallocateSalesArticles());
         }
 
         private object GetSerialNumberDetails(string id)
@@ -119,6 +123,24 @@ namespace Linn.Products.Service.Modules
                 .WithModel(
                     new SuccessResult<IEnumerable<SalesArticle>>(
                         this.salesArticleProxyService.Search(resource.SearchTerm)))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
+        }
+
+        private object ReallocateSalesArticles()
+        {
+            var resource = this.Bind<ReallocateSalesArticlesRequestResource>();
+
+            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+            if (!this.authorisationService.HasPermissionFor(AuthorisedAction.ReallocateSalesArticles, privileges))
+            {
+                return this.Negotiate.WithModel(
+                    new UnauthorisedResult<ResponseModel<bool>>("You are not authorised to reallocate sales articles to a new tariff"));
+            }
+
+            return this.Negotiate
+                .WithModel(
+                    new SuccessResult<ResponseModel<SalesArticlesReallocator>>(
+                        this.salesArticleService.Reallocate(resource.OldTariffId, resource.NewTariffId)))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
         }
     }

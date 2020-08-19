@@ -71,6 +71,7 @@ import SalesArticlesByTariff from '../containers/reports/SalesArticlesByTariff';
 import SalesArticleTriggerLevels from '../containers/reports/SalesArticleTriggerLevels';
 import WeeeReportOptions from '../containers/reportOptions/WeeeReportOptions';
 import WeeeReport from '../containers/reports/WeeeReport';
+import SalesArticleReallocator from '../containers/salesArticles/Reallocator';
 
 const Root = ({ store }) => (
     <div>
@@ -200,7 +201,11 @@ const Root = ({ store }) => (
                                             path="/products/maint/sales-articles/:articleNumber"
                                             component={SalesArticle}
                                         />
-
+                                        <Route
+                                            exact
+                                            path="/products/maint/sales-articles/reallocate"
+                                            component={SalesArticleReallocator}
+                                        />
                                         <Route
                                             exact
                                             path="/products/maint/product-ranges/create"
