@@ -6,6 +6,7 @@
     using System.Linq.Expressions;
     using System.Security.Cryptography.X509Certificates;
 
+    using Linn.Common.Domain.Exceptions;
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
@@ -31,6 +32,27 @@
             this.transactionManager = transactionManager;
         }
 
+        public IResult<ResponseModel<SalesArticlesReallocator>> Reallocate(int oldTariffId, int newTariffId, IEnumerable<string> privileges)
+        {
+            try
+            {
+                var articlesForReallocation = this.salesArticleRepository.FindAll().Where(x => x.TariffId == oldTariffId);
+
+                foreach (var salesArticle in articlesForReallocation)
+                {
+                    salesArticle.TariffId = newTariffId;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestResult<ResponseModel<SalesArticlesReallocator>>($"Error updating sales articles from tariff {oldTariffId} to {newTariffId} - ${ex.Message})");
+            }
+            this.transactionManager.Commit();
+
+            return new SuccessResult<ResponseModel<SalesArticlesReallocator>>(new ResponseModel<SalesArticlesReallocator>(
+                new SalesArticlesReallocator { OldTariffId = oldTariffId, NewTariffId = newTariffId }, privileges));
+        }
+
         protected override SalesArticle CreateFromResource(SalesArticleResource resource)
         {
             throw new NotImplementedException();
@@ -53,21 +75,6 @@
         protected override Expression<Func<SalesArticle, bool>> SearchExpression(string searchTerm)
         {
             throw new NotImplementedException();
-        }
-
-        public IResult<ResponseModel<SalesArticlesReallocator>> Reallocate(int oldTariffId, int newTariffId, IEnumerable<string> privileges)
-        {
-            
-            var articlesForReallocation = this.salesArticleRepository.FindAll().Where(x=>x.TariffId == oldTariffId);
-            foreach (var salesArticle in articlesForReallocation)
-            {
-                salesArticle.TariffId = newTariffId;
-            }
-            this.salesArticleRepository.g
-
-            this.transactionManager.Commit();
-            return new SuccessResult<ResponseModel<SalesArticlesReallocator>>( new ResponseModel<SalesArticlesReallocator>( 
-                new SalesArticlesReallocator{OldTariffId = oldTariffId, NewTariffId = newTariffId}, privileges));
         }
     }
 }

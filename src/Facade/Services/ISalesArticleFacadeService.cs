@@ -9,6 +9,6 @@
 
     public interface ISalesArticleFacadeService : IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>
     {
-        ResponseModel<SalesArticlesReallocator> Reallocate(int oldTariffId, int newTariffId);
+        IResult<ResponseModel<SalesArticlesReallocator>> Reallocate(int oldTariffId, int newTariffId, IEnumerable<string> privileges);
     }
 }

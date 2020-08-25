@@ -15,41 +15,38 @@ import {
 import Page from '../../containers/Page';
 
 function SalesArticleReallocator({
-    reallocateSalesArticles,
+    reallocate,
     history,
     snackbarVisible,
     setSnackbarVisible,
     loading,
     errorMessage,
-    oldTariffSearchLoading,
-    searchForOldTariff,
-    clearOldTariffSearch,
-    oldTariffSearchResults,
-    newTariffSearchLoading,
-    searchForNewTariff,
-    clearNewTariffSearch,
-    newTariffSearchResults
+    tariffSearchLoading,
+    searchForTariff,
+    clearTariffSearch,
+    tariffSearchResults,
+    tariffSearchErrorMessage
 }) {
-    const [oldTariff, setOldTariff] = useState({});
-    const [newTariff, setNewTariff] = useState({});
+    const [oldTariff, setOldTariff] = useState('');
+    const [newTariff, setNewTariff] = useState('');
 
-    const submitEnabled = () => oldTariff() && newTariff();
+    const submitEnabled = () => oldTariff?.length && newTariff?.length;
 
     const handleSubmitClick = () => {
-        reallocateSalesArticles(oldTariff(), newTariff());
+        reallocate(oldTariff, newTariff);
     };
 
     const handleBackClick = () => {
         history.push('/products/maint/tariffs');
     };
 
-    const useStyles = makeStyles(theme => ({
-        productsButton: {
-            marginTop: theme.spacing(3)
-        }
-    }));
+    // const useStyles = makeStyles(theme => ({
+    //     productsButton: {
+    //         marginTop: theme.spacing(3)
+    //     }
+    // }));
 
-    const classes = useStyles();
+    // const classes = useStyles();
 
     return (
         <Page>
@@ -80,13 +77,13 @@ function SalesArticleReallocator({
                                     onSelect={newValue => {
                                         setOldTariff(newValue.tariffCode);
                                     }}
-                                    searchItems={oldTariffSearchResults.map(w => ({
+                                    searchItems={tariffSearchResults.map(w => ({
                                         code: w.tariffCode,
                                         description: w.description
                                     }))}
-                                    loading={oldTariffSearchLoading}
-                                    fetchItems={searchForOldTariff}
-                                    clearSearch={clearOldTariffSearch}
+                                    loading={tariffSearchLoading}
+                                    fetchItems={searchForTariff}
+                                    clearSearch={() => clearTariffSearch}
                                 />
                             </Grid>
                             <Grid item xs={4}>
@@ -95,33 +92,36 @@ function SalesArticleReallocator({
                                     onSelect={newValue => {
                                         setNewTariff(newValue.tariffCode);
                                     }}
-                                    searchItems={newTariffSearchResults.map(w => ({
+                                    searchItems={tariffSearchResults.map(w => ({
                                         code: w.tariffCode,
                                         description: w.description
                                     }))}
-                                    loading={newTariffSearchLoading}
-                                    fetchItems={searchForNewTariff}
-                                    clearSearch={clearNewTariffSearch}
+                                    loading={tariffSearchLoading}
+                                    fetchItems={searchForTariff}
+                                    clearSearch={() => clearTariffSearch}
                                 />
                             </Grid>
                         </Grid>
+                        {tariffSearchErrorMessage && (
+                            <Grid item xs={12}>
+                                <ErrorCard errorMessage={errorMessage} />
+                            </Grid>
+                        )}
                         <Grid item xs={12}>
                             <Grid item xs={4}>
-                                <InputField disabled value={oldTariff()} label="Old Tariff" />
+                                <InputField disabled value={oldTariff} label="Old Tariff" />
                             </Grid>
                             <Grid item xs={4}>
-                                <Button
-                                    component={Link}
-                                    onClick={handleSubmitClick()}
+                                {/* <Button
+                                    onClick={() => handleSubmitClick()}
                                     variant="outlined"
-                                    className={classes.productsButton}
                                     disabled={submitEnabled()}
                                 >
                                     Reallocate products to:
-                                </Button>
+                                </Button> */}
                             </Grid>
                             <Grid item xs={4}>
-                                <InputField disabled value={newTariff()} label="New Tariff" />
+                                <InputField disabled value={newTariff} label="New Tariff" />
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
@@ -135,28 +135,26 @@ function SalesArticleReallocator({
 }
 
 SalesArticleReallocator.defaultProps = {
-    oldTariffSearchResults: null,
-    newTariffSearchResults: null,
+    tariffSearchResults: null,
     loading: null,
     errorMessage: '',
-    snackbarVisible: false
+    snackbarVisible: false,
+    tariffSearchErrorMessage: '',
+    tariffSearchLoading: false
 };
 
 SalesArticleReallocator.propTypes = {
     errorMessage: PropTypes.string,
-    reallocateSalesArticles: PropTypes.func.isRequired,
+    reallocate: PropTypes.func.isRequired,
     history: PropTypes.shape({ push: PropTypes.func }).isRequired,
     loading: PropTypes.bool,
     snackbarVisible: PropTypes.bool,
     setSnackbarVisible: PropTypes.func.isRequired,
-    oldTariffSearchLoading: PropTypes.bool.isRequired,
-    searchForOldTariff: PropTypes.func.isRequired,
-    clearOldTariffSearch: PropTypes.func.isRequired,
-    oldTariffSearchResults: PropTypes.arrayOf(PropTypes.shape({})),
-    newTariffSearchLoading: PropTypes.bool.isRequired,
-    searchForNewTariff: PropTypes.func.isRequired,
-    clearNewTariffSearch: PropTypes.func.isRequired,
-    newTariffSearchResults: PropTypes.arrayOf(PropTypes.shape({}))
+    tariffSearchLoading: PropTypes.bool,
+    searchForTariff: PropTypes.func.isRequired,
+    clearTariffSearch: PropTypes.func.isRequired,
+    tariffSearchResults: PropTypes.arrayOf(PropTypes.shape({})),
+    tariffSearchErrorMessage: PropTypes.string
 };
 
 export default SalesArticleReallocator;

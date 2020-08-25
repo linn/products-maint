@@ -61,7 +61,7 @@
             builder.RegisterType<WEEEReportsService>().As<IWEEEReportsService>();
 
             builder.RegisterType<SaHoldStoryFacadeService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
-            builder.RegisterType<SalesArticleService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
+            builder.RegisterType<SalesArticleService>().As<ISalesArticleFacadeService>();
             builder.RegisterType<VatCodeService>().As<IFacadeService<VatCode, string, VatCodeResource, VatCodeResource>>();
             builder.RegisterType<ProductRangeService>().As<IFacadeService<ProductRange, int, ProductRangeResource, ProductRangeUpdateResource>>();
             builder.RegisterType<SalesPackageService>().As<IFacadeService<SalesPackage, int, SalesPackageResource, SalesPackageResource>>();

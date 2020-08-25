@@ -38,7 +38,7 @@ function Tariff({
             setTariff(item);
             setPrevTariff(item);
         }
-    }, [creating, item, tariff, prevTariff]);
+    });
 
     const dutyNotPercentage = () => tariff.duty < 0 || tariff.duty > 100;
 

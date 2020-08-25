@@ -203,7 +203,7 @@ const Root = ({ store }) => (
                                         />
                                         <Route
                                             exact
-                                            path="/products/maint/sales-articles/reallocate"
+                                            path="/products/maint/sales-articles-reallocate"
                                             component={SalesArticleReallocator}
                                         />
                                         <Route

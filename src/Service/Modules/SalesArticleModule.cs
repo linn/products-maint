@@ -55,7 +55,9 @@ namespace Linn.Products.Service.Modules
             this.Get(
                 "/products/maint/sales-articles/serial-number-details/{id*}",
                 parameters => this.GetSerialNumberDetails(parameters.id));
-            this.Post("/products/maint/sales-articles/reallocate", _ => this.ReallocateSalesArticles());
+            this.Get("/products/maint/sales-articles-reallocate", _ => this.GetApp());
+
+            this.Post("/products/maint/sales-articles-reallocate", _ => this.ReallocateSalesArticles());
         }
 
         private object GetSerialNumberDetails(string id)
@@ -139,9 +141,13 @@ namespace Linn.Products.Service.Modules
 
             return this.Negotiate
                 .WithModel(
-                    new SuccessResult<ResponseModel<SalesArticlesReallocator>>(
-                        this.salesArticleService.Reallocate(resource.OldTariffId, resource.NewTariffId)))
+                        this.salesArticleService.Reallocate(resource.OldTariffId, resource.NewTariffId, privileges))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
+        }
+
+        private object GetApp()
+        {
+            return this.Negotiate.WithModel(ApplicationSettings.Get()).WithView("Index");
         }
     }
 }
