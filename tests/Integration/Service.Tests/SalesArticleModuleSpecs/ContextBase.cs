@@ -5,6 +5,7 @@
     using System.Security.Claims;
 
     using Linn.Common.Facade;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps.Models;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
@@ -25,7 +26,7 @@
     {
         protected ISalesArticleService SalesArticleService { get; private set; }
 
-        protected IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> SalesArticleForecastService { get; private set; }
+        protected ISalesArticleFacadeService SalesArticleForecastService { get; private set; }
 
         protected ISalesArticleCompositeDiscountFacadeService SalesArticleCompositeDiscountFacadeService { get; private set; }
 
@@ -33,16 +34,19 @@
 
         protected ISalesArticleReportService SalesArticleReportService { get; private set; }
 
+        protected IAuthorisationService AuthorisationService { get; set; }
+
         
 
         [SetUp]
         public void EstablishContext()
         {
             this.SalesArticleService = Substitute.For<ISalesArticleService>();
-            this.SalesArticleForecastService = Substitute.For<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
+            this.SalesArticleForecastService = Substitute.For<ISalesArticleFacadeService>();
             this.SalesArticleCompositeDiscountFacadeService = Substitute.For<ISalesArticleCompositeDiscountFacadeService>();
             this.SalesArticleSerialNumberFacadeService = Substitute.For<ISalesArticleSerialNumberFacadeService>();
             this.SalesArticleReportService = Substitute.For<ISalesArticleReportService>();
+            this.AuthorisationService = Substitute.For<IAuthorisationService>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
@@ -52,6 +56,7 @@
                     with.Dependency(this.SalesArticleCompositeDiscountFacadeService);
                     with.Dependency(this.SalesArticleSerialNumberFacadeService);
                     with.Dependency(this.SalesArticleReportService);
+                    with.Dependency(this.AuthorisationService);
                     with.Dependency<IResourceBuilder<ResponseModel<SalesArticle>>>(new SalesArticleResourceBuilder());
                     with.Dependency<IResourceBuilder<IEnumerable<SalesArticle>>>(new SalesArticlesResourceBuilder());
                     with.Dependency<IResourceBuilder<SalesArticleCompositeDiscount>>(
