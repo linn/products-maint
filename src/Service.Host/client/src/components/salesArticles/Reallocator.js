@@ -25,7 +25,12 @@ function SalesArticleReallocator({
     searchForTariff,
     clearTariffSearch,
     tariffSearchResults,
-    tariffSearchErrorMessage
+    tariffSearchErrorMessage,
+    oldTariffSearchLoading,
+    searchForOldTariff,
+    clearOldTariffSearch,
+    oldTariffSearchResults,
+    OldTariffSearchErrorMessage
 }) {
     const [oldTariff, setOldTariff] = useState('');
     const [newTariff, setNewTariff] = useState('');
@@ -40,19 +45,19 @@ function SalesArticleReallocator({
         history.push('/products/maint/tariffs');
     };
 
-    // const useStyles = makeStyles(theme => ({
-    //     productsButton: {
-    //         marginTop: theme.spacing(3)
-    //     }
-    // }));
+    const useStyles = makeStyles(theme => ({
+        bottomMargin: {
+            marginBottom: theme.spacing(1)
+        }
+    }));
 
-    // const classes = useStyles();
+    const classes = useStyles();
 
     return (
         <Page>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
-                    <Title text="Reallocate all products from old tariff to new" />
+                    <Title text="Reallocate products to new Tariff" />
                 </Grid>
                 {errorMessage && (
                     <Grid item xs={12}>
@@ -70,32 +75,36 @@ function SalesArticleReallocator({
                             onClose={() => setSnackbarVisible(false)}
                             message="Save Successful"
                         />
-                        <Grid item xs={12}>
+                        <Grid container xs={12}>
                             <Grid item xs={4}>
-                                <TypeaheadDialog
-                                    title="Search For Old Tariff"
-                                    onSelect={newValue => {
-                                        setOldTariff(newValue.tariffCode);
-                                        clearTariffSearch();
-                                    }}
-                                    searchItems={tariffSearchResults}
-                                    loading={tariffSearchLoading}
-                                    fetchItems={searchForTariff}
-                                    clearSearch={() => clearTariffSearch}
-                                />
+                                <Grid item xs={12} className={classes.bottomMargin}>
+                                    <TypeaheadDialog
+                                        title="Search For Old Tariff"
+                                        onSelect={newValue => {
+                                            setOldTariff(newValue.tariffCode);
+                                        }}
+                                        searchItems={oldTariffSearchResults}
+                                        loading={oldTariffSearchLoading}
+                                        fetchItems={searchForOldTariff}
+                                        clearSearch={() => clearOldTariffSearch}
+                                    />
+                                </Grid>
+                                <InputField disabled value={oldTariff} label="Old Tariff" />
                             </Grid>
-                            <Grid item xs={4}>
-                                <TypeaheadDialog
-                                    title="Search For New Tariff"
-                                    onSelect={newValue => {
-                                        setNewTariff(newValue.tariffCode);
-                                        clearTariffSearch();
-                                    }}
-                                    searchItems={tariffSearchResults}
-                                    loading={tariffSearchLoading}
-                                    fetchItems={searchForTariff}
-                                    clearSearch={() => clearTariffSearch}
-                                />
+                            <Grid item xs={3}>
+                                <Grid item xs={12} className={classes.bottomMargin}>
+                                    <TypeaheadDialog
+                                        title="Search For New Tariff"
+                                        onSelect={newValue => {
+                                            setNewTariff(newValue.tariffCode);
+                                        }}
+                                        searchItems={tariffSearchResults}
+                                        loading={tariffSearchLoading}
+                                        fetchItems={searchForTariff}
+                                        clearSearch={() => clearTariffSearch}
+                                    />
+                                </Grid>
+                                <InputField disabled value={newTariff} label="New Tariff" />
                             </Grid>
                         </Grid>
                         {tariffSearchErrorMessage && (
@@ -104,20 +113,14 @@ function SalesArticleReallocator({
                             </Grid>
                         )}
                         <Grid item xs={12}>
-                            <Grid item xs={4}>
-                                <InputField disabled value={oldTariff} label="Old Tariff" />
-                            </Grid>
-                            <Grid item xs={4}>
-                                {/* <Button
+                            <Grid item xs={3}>
+                                <Button
                                     onClick={() => handleSubmitClick()}
                                     variant="outlined"
                                     disabled={submitEnabled()}
                                 >
-                                    Reallocate products to:
-                                </Button> */}
-                            </Grid>
-                            <Grid item xs={4}>
-                                <InputField disabled value={newTariff} label="New Tariff" />
+                                    Reallocate products
+                                </Button>
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>

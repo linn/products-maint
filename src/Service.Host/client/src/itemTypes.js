@@ -54,6 +54,7 @@ export const salesArticlesReallocate = new ItemType(
 
 export const tariff = new ItemType('tariff', 'TARIFF', '/products/maint/tariffs');
 export const tariffs = new ItemType('tariffs', 'TARIFFS', '/products/maint/tariffs');
+export const oldTariffs = new ItemType('oldTariffs', 'OLD_TARIFFS', '/products/maint/tariffs');
 
 export const typeOfSale = new ItemType(
     'typeOfSale',

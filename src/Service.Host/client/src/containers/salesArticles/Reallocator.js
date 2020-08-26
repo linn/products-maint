@@ -4,10 +4,12 @@ import {
     initialiseOnMount
 } from '@linn-it/linn-form-components-library';
 import Reallocator from '../../components/salesArticles/Reallocator';
-import tariffsActions from '../../actions/tariffs';
 import salesArticleReallocateActions from '../../actions/salesArticlesReallocate';
 import salesArticlesReallocateSelectors from '../../selectors/salesArticlesReallocateSelectors';
+import tariffsActions from '../../actions/tariffs';
 import tariffsSelectors from '../../selectors/tariffsSelectors';
+import oldTariffsActions from '../../actions/oldTariffs';
+import oldTariffsSelectors from '../../selectors/oldTariffsSelectors';
 import * as itemTypes from '../../itemTypes';
 
 const mapStateToProps = state => ({
@@ -18,7 +20,13 @@ const mapStateToProps = state => ({
         .getSearchItems(state)
         .map(s => ({ ...s, id: s.tariffCode, name: s.description })),
     snackbarVisible: salesArticlesReallocateSelectors.getSnackbarVisible(state),
-    tariffSearchErrorMessage: getItemErrorDetailMessage(state, itemTypes.tariffs.item)
+    tariffSearchErrorMessage: getItemErrorDetailMessage(state, itemTypes.tariffs.item),
+    oldTariffSearchLoading: oldTariffsSelectors.getSearchLoading(state),
+
+    oldTariffSearchResults: oldTariffsSelectors
+        .getSearchItems(state)
+        .map(s => ({ ...s, id: s.tariffCode, name: s.description })),
+    OldTariffSearchErrorMessage: getItemErrorDetailMessage(state, itemTypes.oldTariffs.item)
 });
 
 const initialise = () => dispatch => {
@@ -32,7 +40,9 @@ const mapDispatchToProps = {
     setEditStatus: salesArticleReallocateActions.setEditStatus,
     setSnackbarVisible: salesArticleReallocateActions.setSnackbarVisible,
     searchForTariff: tariffsActions.search,
-    clearTariffSearch: tariffsActions.clearSearch
+    clearTariffSearch: tariffsActions.clearSearch,
+    searchForOldTariff: oldTariffsActions.search,
+    clearOldTariffSearch: oldTariffsActions.clearSearch
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(initialiseOnMount(Reallocator));

@@ -53,6 +53,7 @@ import weeeReport from './weeeReport';
 import * as itemTypes from '../itemTypes';
 import * as reportTypes from '../reportTypes';
 import historyStore from './history';
+import oldTariffs from './oldTariffs';
 
 const errors = fetchErrorReducer({
     ...itemTypes,
@@ -110,6 +111,7 @@ const rootReducer = history =>
         salesArticlesByTariffReport,
         salesArticleTriggerLevelsReport,
         weeeReport,
+        oldTariffs,
         ...sharedLibraryReducers
     });
 
