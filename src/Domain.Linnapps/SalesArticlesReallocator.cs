@@ -5,5 +5,6 @@
         public int OldTariffId { get; set; }
 
         public int NewTariffId { get; set; }
+
     }
 }

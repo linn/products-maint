@@ -76,11 +76,9 @@ function SalesArticleReallocator({
                                     title="Search For Old Tariff"
                                     onSelect={newValue => {
                                         setOldTariff(newValue.tariffCode);
+                                        clearTariffSearch();
                                     }}
-                                    searchItems={tariffSearchResults.map(w => ({
-                                        code: w.tariffCode,
-                                        description: w.description
-                                    }))}
+                                    searchItems={tariffSearchResults}
                                     loading={tariffSearchLoading}
                                     fetchItems={searchForTariff}
                                     clearSearch={() => clearTariffSearch}
@@ -91,11 +89,9 @@ function SalesArticleReallocator({
                                     title="Search For New Tariff"
                                     onSelect={newValue => {
                                         setNewTariff(newValue.tariffCode);
+                                        clearTariffSearch();
                                     }}
-                                    searchItems={tariffSearchResults.map(w => ({
-                                        code: w.tariffCode,
-                                        description: w.description
-                                    }))}
+                                    searchItems={tariffSearchResults}
                                     loading={tariffSearchLoading}
                                     fetchItems={searchForTariff}
                                     clearSearch={() => clearTariffSearch}

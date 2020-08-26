@@ -14,12 +14,16 @@ const mapStateToProps = state => ({
     loading: salesArticlesReallocateSelectors.getLoading(state),
     errorMessage: getItemErrorDetailMessage(state, itemTypes.salesArticlesReallocate.item),
     tariffSearchLoading: tariffsSelectors.getSearchLoading(state),
-    tariffSearchResults: tariffsSelectors.getSearchItems(state),
+    tariffSearchResults: tariffsSelectors
+        .getSearchItems(state)
+        .map(s => ({ ...s, id: s.tariffCode, name: s.description })),
     snackbarVisible: salesArticlesReallocateSelectors.getSnackbarVisible(state),
     tariffSearchErrorMessage: getItemErrorDetailMessage(state, itemTypes.tariffs.item)
 });
 
-const initialise = () => {};
+const initialise = () => dispatch => {
+    dispatch(salesArticleReallocateActions.fetch());
+};
 
 const mapDispatchToProps = {
     initialise,
