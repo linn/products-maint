@@ -36,10 +36,11 @@ function SalesArticleReallocator({
     const [oldTariff, setOldTariff] = useState({});
     const [newTariff, setNewTariff] = useState({});
 
-    const submitEnabled = () => !(oldTariff.length && newTariff.length);
+    const submitEnabled = () =>
+        !(typeof oldTariff?.id !== 'undefined' && typeof newTariff?.id !== 'undefined');
 
     const handleSubmitClick = () => {
-        reallocate({ oldTariffId: oldTariff.id, newTariffId: newTariff.id });
+        reallocate({ oldTariffId: `${oldTariff.id}`, newTariffId: `${newTariff.id}` });
     };
 
     const handleBackClick = () => {
@@ -74,7 +75,7 @@ function SalesArticleReallocator({
                         <SnackbarMessage
                             visible={snackbarVisible}
                             onClose={() => setSnackbarVisible(false)}
-                            message={snackbarText}
+                            message={'products reallocated!'}
                         />
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
@@ -95,6 +96,14 @@ function SalesArticleReallocator({
                                     value={oldTariff.tariffCode}
                                     label="Old Tariff"
                                 />
+                                <Button
+                                    href={`/products/reports/sales-articles/get-by-tariff?tariffId=${newTariff.id}`}
+                                    variant="outlined"
+                                    disabled={!(typeof newTariff?.id !== 'undefined')}
+                                    target="_blank"
+                                >
+                                    View products
+                                </Button>
                             </Grid>
                             <Grid item xs={3}>
                                 <Grid item xs={12} className={classes.bottomMargin}>
@@ -114,6 +123,15 @@ function SalesArticleReallocator({
                                     value={newTariff.tariffCode}
                                     label="New Tariff"
                                 />
+
+                                <Button
+                                    href={`/products/reports/sales-articles/get-by-tariff?tariffId=${newTariff.id}`}
+                                    variant="outlined"
+                                    disabled={!(typeof newTariff?.id !== 'undefined')}
+                                    target="_blank"
+                                >
+                                    View products
+                                </Button>
                             </Grid>
                         </Grid>
                         {tariffSearchErrorMessage && (

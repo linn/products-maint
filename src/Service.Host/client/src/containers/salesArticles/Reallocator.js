@@ -18,9 +18,8 @@ const mapStateToProps = state => ({
     tariffSearchLoading: tariffsSelectors.getSearchLoading(state),
     tariffSearchResults: tariffsSelectors
         .getSearchItems(state)
-        .map(s => ({ ...s, id: s.tariffCode, name: s.tariffCode, description: s.description })),
+        .map(s => ({ ...s, id: s.id, name: s.tariffCode, description: s.description })),
     snackbarVisible: salesArticlesReallocateSelectors.getSnackbarVisible(state),
-    snackbarText: salesArticlesReallocateSelectors.getItem(state)?.message,
     tariffSearchErrorMessage: getItemErrorDetailMessage(state, itemTypes.tariffs.item),
     oldTariffSearchLoading: oldTariffsSelectors.getSearchLoading(state),
     oldTariffSearchResults: oldTariffsSelectors
