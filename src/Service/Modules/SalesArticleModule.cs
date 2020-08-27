@@ -1,5 +1,7 @@
 namespace Linn.Products.Service.Modules
 {
+    using System;
+
     using Linn.Common.Facade;
     using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
@@ -14,6 +16,8 @@ namespace Linn.Products.Service.Modules
     using Nancy.Security;
     using System.Collections.Generic;
     using System.Linq;
+
+    using Nancy.Diagnostics;
 
     public sealed class SalesArticleModule : NancyModule
     {
@@ -130,8 +134,8 @@ namespace Linn.Products.Service.Modules
 
         private object ReallocateSalesArticles()
         {
-            var resource = this.Bind<ReallocateSalesArticlesRequestResource>();
-
+            var resource = this.Bind<SalesArticlesReallocatorResource>();
+            
             var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.ReallocateSalesArticles, privileges))
             {

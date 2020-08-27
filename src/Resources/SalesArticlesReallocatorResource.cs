@@ -4,9 +4,9 @@
 
     public class SalesArticlesReallocatorResource : HypermediaResource
     {
-        public int OldTariffId { get; set; }
+        public string OldTariffId { get; set; }
 
-        public int NewTariffId { get; set; }
+        public string NewTariffId { get; set; }
 
     }
 }

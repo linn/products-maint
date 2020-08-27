@@ -32,15 +32,18 @@
             this.transactionManager = transactionManager;
         }
 
-        public IResult<ResponseModel<SalesArticlesReallocator>> Reallocate(int oldTariffId, int newTariffId, IEnumerable<string> privileges)
+        public IResult<ResponseModel<SalesArticlesReallocator>> Reallocate(string oldTariffId, string newTariffId, IEnumerable<string> privileges)
         {
+            var oldId = int.Parse(oldTariffId);
+            var newId = int.Parse(newTariffId);
+
             try
             {
-                var articlesForReallocation = this.salesArticleRepository.FindAll().Where(x => x.TariffId == oldTariffId);
+                var articlesForReallocation = this.salesArticleRepository.FindAll().Where(x => x.TariffId == oldId);
 
                 foreach (var salesArticle in articlesForReallocation)
                 {
-                    salesArticle.TariffId = newTariffId;
+                    salesArticle.TariffId = newId;
                 }
             }
             catch (Exception ex)
@@ -50,7 +53,7 @@
             this.transactionManager.Commit();
 
             return new SuccessResult<ResponseModel<SalesArticlesReallocator>>(new ResponseModel<SalesArticlesReallocator>(
-                new SalesArticlesReallocator { OldTariffId = oldTariffId, NewTariffId = newTariffId }, privileges));
+                new SalesArticlesReallocator { OldTariffId = oldId, NewTariffId = newId }, privileges));
         }
 
         protected override SalesArticle CreateFromResource(SalesArticleResource resource)

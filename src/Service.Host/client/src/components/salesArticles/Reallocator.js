@@ -18,6 +18,7 @@ function SalesArticleReallocator({
     reallocate,
     history,
     snackbarVisible,
+    snackbarText,
     setSnackbarVisible,
     loading,
     errorMessage,
@@ -32,13 +33,13 @@ function SalesArticleReallocator({
     oldTariffSearchResults,
     OldTariffSearchErrorMessage
 }) {
-    const [oldTariff, setOldTariff] = useState('');
-    const [newTariff, setNewTariff] = useState('');
+    const [oldTariff, setOldTariff] = useState({});
+    const [newTariff, setNewTariff] = useState({});
 
-    const submitEnabled = () => oldTariff?.length && newTariff?.length;
+    const submitEnabled = () => !(oldTariff.length && newTariff.length);
 
     const handleSubmitClick = () => {
-        reallocate(oldTariff, newTariff);
+        reallocate({ oldTariffId: oldTariff.id, newTariffId: newTariff.id });
     };
 
     const handleBackClick = () => {
@@ -73,15 +74,15 @@ function SalesArticleReallocator({
                         <SnackbarMessage
                             visible={snackbarVisible}
                             onClose={() => setSnackbarVisible(false)}
-                            message="Save Successful"
+                            message={snackbarText}
                         />
-                        <Grid container xs={12}>
+                        <Grid container spacing={3}>
                             <Grid item xs={4}>
                                 <Grid item xs={12} className={classes.bottomMargin}>
                                     <TypeaheadDialog
                                         title="Search For Old Tariff"
                                         onSelect={newValue => {
-                                            setOldTariff(newValue.tariffCode);
+                                            setOldTariff(newValue);
                                         }}
                                         searchItems={oldTariffSearchResults}
                                         loading={oldTariffSearchLoading}
@@ -89,14 +90,18 @@ function SalesArticleReallocator({
                                         clearSearch={() => clearOldTariffSearch}
                                     />
                                 </Grid>
-                                <InputField disabled value={oldTariff} label="Old Tariff" />
+                                <InputField
+                                    disabled
+                                    value={oldTariff.tariffCode}
+                                    label="Old Tariff"
+                                />
                             </Grid>
                             <Grid item xs={3}>
                                 <Grid item xs={12} className={classes.bottomMargin}>
                                     <TypeaheadDialog
                                         title="Search For New Tariff"
                                         onSelect={newValue => {
-                                            setNewTariff(newValue.tariffCode);
+                                            setNewTariff(newValue);
                                         }}
                                         searchItems={tariffSearchResults}
                                         loading={tariffSearchLoading}
@@ -104,7 +109,11 @@ function SalesArticleReallocator({
                                         clearSearch={() => clearTariffSearch}
                                     />
                                 </Grid>
-                                <InputField disabled value={newTariff} label="New Tariff" />
+                                <InputField
+                                    disabled
+                                    value={newTariff.tariffCode}
+                                    label="New Tariff"
+                                />
                             </Grid>
                         </Grid>
                         {tariffSearchErrorMessage && (
