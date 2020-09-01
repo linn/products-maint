@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Grid, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
@@ -18,7 +17,6 @@ function SalesArticleReallocator({
     reallocate,
     history,
     snackbarVisible,
-    snackbarText,
     setSnackbarVisible,
     loading,
     errorMessage,
@@ -31,7 +29,7 @@ function SalesArticleReallocator({
     searchForOldTariff,
     clearOldTariffSearch,
     oldTariffSearchResults,
-    OldTariffSearchErrorMessage
+    oldTariffSearchErrorMessage
 }) {
     const [oldTariff, setOldTariff] = useState({});
     const [newTariff, setNewTariff] = useState({});
@@ -48,8 +46,11 @@ function SalesArticleReallocator({
     };
 
     const useStyles = makeStyles(theme => ({
-        bottomMargin: {
-            marginBottom: theme.spacing(1)
+        marginTop: {
+            marginTop: theme.spacing(3)
+        },
+        marginLeft: {
+            marginLeft: theme.spacing(12)
         }
     }));
 
@@ -57,7 +58,7 @@ function SalesArticleReallocator({
 
     return (
         <Page>
-            <Grid container spacing={3}>
+            <Grid container>
                 <Grid item xs={12}>
                     <Title text="Reallocate products to new Tariff" />
                 </Grid>
@@ -72,75 +73,71 @@ function SalesArticleReallocator({
                     </Grid>
                 ) : (
                     <>
-                        <SnackbarMessage
-                            visible={snackbarVisible}
-                            onClose={() => setSnackbarVisible(false)}
-                            message={'products reallocated!'}
-                        />
-                        <Grid container spacing={3}>
-                            <Grid item xs={4}>
-                                <Grid item xs={12} className={classes.bottomMargin}>
-                                    <TypeaheadDialog
-                                        title="Search For Old Tariff"
-                                        onSelect={newValue => {
-                                            setOldTariff(newValue);
-                                        }}
-                                        searchItems={oldTariffSearchResults}
-                                        loading={oldTariffSearchLoading}
-                                        fetchItems={searchForOldTariff}
-                                        clearSearch={() => clearOldTariffSearch}
-                                    />
-                                </Grid>
-                                <InputField
-                                    disabled
-                                    value={oldTariff.tariffCode}
-                                    label="Old Tariff"
-                                />
-                                <Button
-                                    href={`/products/reports/sales-articles/get-by-tariff?tariffId=${newTariff.id}`}
-                                    variant="outlined"
-                                    disabled={!(typeof newTariff?.id !== 'undefined')}
-                                    target="_blank"
-                                >
-                                    View products
-                                </Button>
-                            </Grid>
-                            <Grid item xs={3}>
-                                <Grid item xs={12} className={classes.bottomMargin}>
-                                    <TypeaheadDialog
-                                        title="Search For New Tariff"
-                                        onSelect={newValue => {
-                                            setNewTariff(newValue);
-                                        }}
-                                        searchItems={tariffSearchResults}
-                                        loading={tariffSearchLoading}
-                                        fetchItems={searchForTariff}
-                                        clearSearch={() => clearTariffSearch}
-                                    />
-                                </Grid>
-                                <InputField
-                                    disabled
-                                    value={newTariff.tariffCode}
-                                    label="New Tariff"
-                                />
-
-                                <Button
-                                    href={`/products/reports/sales-articles/get-by-tariff?tariffId=${newTariff.id}`}
-                                    variant="outlined"
-                                    disabled={!(typeof newTariff?.id !== 'undefined')}
-                                    target="_blank"
-                                >
-                                    View products
-                                </Button>
-                            </Grid>
+                        <Grid item xs={12}>
+                            <SnackbarMessage
+                                visible={snackbarVisible}
+                                onClose={() => setSnackbarVisible(false)}
+                                message="products reallocated!"
+                            />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <InputField disabled value={oldTariff.tariffCode} label="Old Tariff" />
+                            <TypeaheadDialog
+                                title="Search For Old Tariff"
+                                onSelect={newValue => {
+                                    setOldTariff(newValue);
+                                }}
+                                searchItems={oldTariffSearchResults}
+                                loading={oldTariffSearchLoading}
+                                fetchItems={searchForOldTariff}
+                                clearSearch={() => clearOldTariffSearch}
+                            />
+                        </Grid>
+                        <Grid item xs={2} className={classes.marginTop}>
+                            <Button
+                                href={`/products/reports/sales-articles/get-by-tariff?tariffId=${newTariff.id}`}
+                                variant="outlined"
+                                disabled={!(typeof newTariff?.id !== 'undefined')}
+                                target="_blank"
+                            >
+                                View products
+                            </Button>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <InputField disabled value={newTariff.tariffCode} label="New Tariff" />
+                            <TypeaheadDialog
+                                title="Search For New Tariff"
+                                onSelect={newValue => {
+                                    setNewTariff(newValue);
+                                }}
+                                searchItems={tariffSearchResults}
+                                loading={tariffSearchLoading}
+                                fetchItems={searchForTariff}
+                                clearSearch={() => clearTariffSearch}
+                            />
+                        </Grid>
+                        <Grid item xs={2} className={classes.marginTop}>
+                            <Button
+                                href={`/products/reports/sales-articles/get-by-tariff?tariffId=${newTariff.id}`}
+                                variant="outlined"
+                                disabled={!(typeof newTariff?.id !== 'undefined')}
+                                target="_blank"
+                            >
+                                View products
+                            </Button>
                         </Grid>
                         {tariffSearchErrorMessage && (
                             <Grid item xs={12}>
                                 <ErrorCard errorMessage={errorMessage} />
                             </Grid>
                         )}
-                        <Grid item xs={12}>
-                            <Grid item xs={3}>
+                        {oldTariffSearchErrorMessage && (
+                            <Grid item xs={12}>
+                                <ErrorCard errorMessage={errorMessage} />
+                            </Grid>
+                        )}
+                        <Grid item xs={12} className={classes.marginTop}>
+                            <Grid item xs={3} className={classes.marginLeft}>
                                 <Button
                                     onClick={() => handleSubmitClick()}
                                     variant="outlined"
@@ -150,7 +147,7 @@ function SalesArticleReallocator({
                                 </Button>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} className={classes.marginTop}>
                             <BackButton backClick={handleBackClick} />
                         </Grid>
                     </>
@@ -161,12 +158,15 @@ function SalesArticleReallocator({
 }
 
 SalesArticleReallocator.defaultProps = {
-    tariffSearchResults: null,
     loading: null,
     errorMessage: '',
     snackbarVisible: false,
     tariffSearchErrorMessage: '',
-    tariffSearchLoading: false
+    tariffSearchLoading: false,
+    tariffSearchResults: [{}],
+    oldTariffSearchLoading: false,
+    oldTariffSearchResults: [{}],
+    oldTariffSearchErrorMessage: ''
 };
 
 SalesArticleReallocator.propTypes = {
@@ -180,7 +180,12 @@ SalesArticleReallocator.propTypes = {
     searchForTariff: PropTypes.func.isRequired,
     clearTariffSearch: PropTypes.func.isRequired,
     tariffSearchResults: PropTypes.arrayOf(PropTypes.shape({})),
-    tariffSearchErrorMessage: PropTypes.string
+    tariffSearchErrorMessage: PropTypes.string,
+    oldTariffSearchLoading: PropTypes.bool,
+    searchForOldTariff: PropTypes.func.isRequired,
+    clearOldTariffSearch: PropTypes.func.isRequired,
+    oldTariffSearchResults: PropTypes.arrayOf(PropTypes.shape({})),
+    oldTariffSearchErrorMessage: PropTypes.string
 };
 
 export default SalesArticleReallocator;
