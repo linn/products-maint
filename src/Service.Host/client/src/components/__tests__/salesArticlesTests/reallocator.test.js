@@ -37,8 +37,9 @@ describe('When Loading', () => {
 
 describe('When Snackbar Visible', () => {
     it('should render snackbar', () => {
-        const { getByText } = render(<Reallocator {...defaultProps} snackbarVisible />);
-        const item = getByText('products reallocated!');
+        const props = { ...defaultProps, item: { count: 10 } };
+        const { getByText } = render(<Reallocator {...props} snackbarVisible />);
+        const item = getByText('10 products reallocated!');
         expect(item).toBeInTheDocument();
     });
 });
