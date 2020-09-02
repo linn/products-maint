@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { fireEvent, cleanup } from '@testing-library/react';
+import { cleanup } from '@testing-library/react';
 import render from '../../../test-utils';
 import Reallocator from '../../salesArticles/Reallocator';
 
@@ -11,13 +11,6 @@ const searchForTariffMock = jest.fn();
 const searchForOldTariffMock = jest.fn();
 const clearTariffSearchMock = jest.fn();
 const clearOldTariffSearchMock = jest.fn();
-const tariff = {
-    tariffCode: 'P1',
-    description: 'tariff description for a black box',
-    usTariffCode: 'code',
-    duty: 1,
-    dateInvalid: null
-};
 
 const defaultProps = {
     reallocate: reallocateMock,

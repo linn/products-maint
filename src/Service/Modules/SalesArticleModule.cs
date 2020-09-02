@@ -48,7 +48,6 @@ namespace Linn.Products.Service.Modules
             this.Get("/products/maint/sales-articles", _ => this.GetSalesArticles());
             this.Get("/products/maint/sales-articles/{id*}", parameters => this.GetSalesArticle(parameters.id));
             this.Put("/products/maint/sales-articles/{id*}", parameters => this.UpdateSalesArticle(parameters.id));
-
             this.Get(
                 "/products/maint/sales-articles/composite-discounts/{id*}",
                 parameters => this.GetSalesArticleCompositeDiscount(parameters.id));
@@ -60,7 +59,6 @@ namespace Linn.Products.Service.Modules
                 "/products/maint/sales-articles/serial-number-details/{id*}",
                 parameters => this.GetSerialNumberDetails(parameters.id));
             this.Get("/products/maint/sales-articles-reallocate", _ => this.GetApp());
-
             this.Post("/products/maint/sales-articles-reallocate", _ => this.ReallocateSalesArticles());
         }
 
