@@ -4,8 +4,11 @@
     using System.Collections.Generic;
     using System.Security.Claims;
 
+    using Castle.Core.Resource;
+
     using Linn.Common.Facade;
     using Linn.Products.Domain;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Models;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
@@ -63,11 +66,14 @@
                         new SalesArticleCompositeDiscountResourceBuilder());
                     with.Dependency<IResourceBuilder<SalesArticleSerialNumberDetails>>(
                         new SalesArticleSerialNumberDetailsResourceBuilder());
+                   with.Dependency<IResourceBuilder<ResponseModel<SalesArticlesReallocator>>>(
+                           new SalesArticlesReallocatorResourceBuilder());
                     with.Module<SalesArticleModule>();
                     with.ResponseProcessor<SalesArticleResponseProcessor>();
                     with.ResponseProcessor<SalesArticlesResponseProcessor>();
                     with.ResponseProcessor<SalesArticleCompositeDiscountResponseProcessor>();
                     with.ResponseProcessor<SalesArticleSerialNumberDetailsResponseProcessor>();
+                    with.ResponseProcessor<SalesArticlesReallocatorResponseProcessor>();
                     with.RequestStartup(
                         (container, pipelines, context) =>
                         {
