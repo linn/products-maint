@@ -36,7 +36,7 @@ describe('When Loading', () => {
 });
 
 describe('When Snackbar Visible', () => {
-    it('should render snackbar', () => {
+    it('should render snackbar + tell user count of articles reallocated', () => {
         const props = { ...defaultProps, item: { count: 10 } };
         const { getByText } = render(<Reallocator {...props} snackbarVisible />);
         const item = getByText('10 products reallocated!');
