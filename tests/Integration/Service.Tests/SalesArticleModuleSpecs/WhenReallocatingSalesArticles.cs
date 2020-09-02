@@ -20,11 +20,10 @@
         {
             this.requestResource = new SalesArticlesReallocatorResource { NewTariffId = "21", OldTariffId = "20" };
 
-            var salesArticleReallocator = new SalesArticlesReallocator { NewTariffId = 21, OldTariffId = 20 };
+            var salesArticleReallocatorResponseModel = new ResponseModel<SalesArticlesReallocator>(new SalesArticlesReallocator { NewTariffId = 21, OldTariffId = 20 }, new List<string>());
 
             this.SalesArticleForecastService.Reallocate(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<List<string>>())
-                .Returns(new SuccessResult<ResponseModel<SalesArticlesReallocator>>(new ResponseModel<SalesArticlesReallocator>(
-                    salesArticleReallocator, new List<string>())));
+                .Returns(new SuccessResult<ResponseModel<SalesArticlesReallocator>>(salesArticleReallocatorResponseModel));
 
             this.AuthorisationService.HasPermissionFor(AuthorisedAction.ReallocateSalesArticles, Arg.Any<List<string>>())
                 .Returns(true);

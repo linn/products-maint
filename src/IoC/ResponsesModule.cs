@@ -60,7 +60,7 @@ namespace Linn.Products.IoC
             builder.RegisterType<ArchiveSerialNumbersResourceBuilder>()
                 .As<IResourceBuilder<ResponseModel<IEnumerable<ArchiveSerialNumber>>>>();
             builder.RegisterType<SalesArticlesReallocatorResourceBuilder>()
-                .As<IResourceBuilder<SalesArticlesReallocator>>();
+                .As<IResourceBuilder<ResponseModel<SalesArticlesReallocator>>>();
         }
     }
 }
