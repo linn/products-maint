@@ -15,7 +15,7 @@ function Report({ reportData, loading }) {
         return <Loading />;
     }
     return (
-        <Fragment>
+        <>
             {reportData && reportData.results.length > 0 ? (
                 <ReportTable
                     showRowTitles
@@ -27,7 +27,7 @@ function Report({ reportData, loading }) {
             ) : (
                 <ErrorCard errorMessage="No Sales Articles Found For Specified Tariff" />
             )}
-        </Fragment>
+        </>
     );
 }
 

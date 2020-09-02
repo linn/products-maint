@@ -1,7 +1,6 @@
 namespace Linn.Products.Service.Modules
 {
     using System.Linq;
-
     using Linn.Common.Facade;
     using Linn.Common.Resources;
     using Linn.Products.Domain;
@@ -10,7 +9,6 @@ namespace Linn.Products.Service.Modules
     using Linn.Products.Resources.Validators;
     using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
-
     using Nancy;
     using Nancy.ModelBinding;
     using Nancy.Security;

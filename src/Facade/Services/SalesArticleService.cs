@@ -1,27 +1,53 @@
 ﻿namespace Linn.Products.Facade.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
-
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Domain.Linnapps.Services;
     using Linn.Products.Facade.Extensions;
     using Linn.Products.Resources;
 
-    public class SalesArticleService : FacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>
+    public class SalesArticleService : FacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>, ISalesArticleFacadeService
     {
         private readonly IRepository<SaCoreType, int> coreTypeRepository;
+        private readonly IRepository<SalesArticle, string> salesArticleRepository;
+        private readonly ITransactionManager transactionManager;
+        private readonly ISalesArticleReallocationService salesArticleReallocationService;
+
 
         public SalesArticleService(
             IRepository<SalesArticle, string> repository,
             IRepository<SaCoreType, int> coreTypeRepository,
-            ITransactionManager transactionManager)
+            ITransactionManager transactionManager,
+            ISalesArticleReallocationService salesArticleReallocationService)
             : base(repository, transactionManager)
         {
             this.coreTypeRepository = coreTypeRepository;
+            this.salesArticleRepository = repository;
+            this.transactionManager = transactionManager;
+            this.salesArticleReallocationService = salesArticleReallocationService;
+        }
+
+        public IResult<ResponseModel<SalesArticlesReallocator>> Reallocate(int oldTariffId, int newTariffId, IEnumerable<string> privileges)
+        {
+            var reallocated = new SalesArticlesReallocator();
+            try
+            {
+                reallocated = this.salesArticleReallocationService.Reallocate(oldTariffId, newTariffId);
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestResult<ResponseModel<SalesArticlesReallocator>>($"Error updating sales articles from tariff {oldTariffId} to {newTariffId} - ${ex.Message})");
+            }
+            this.transactionManager.Commit();
+
+            return new SuccessResult<ResponseModel<SalesArticlesReallocator>>(new ResponseModel<SalesArticlesReallocator>(
+                reallocated, privileges));
         }
 
         protected override SalesArticle CreateFromResource(SalesArticleResource resource)

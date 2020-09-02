@@ -72,6 +72,9 @@ function App() {
                 <ListItem component={Link} to="/products/maint/tariffs" button>
                     <Typography color="primary">Tariffs</Typography>
                 </ListItem>
+                <ListItem component={Link} to="/products/maint/sales-articles-reallocate" button>
+                    <Typography color="primary">Reallocate Sales Articles to new Tariff</Typography>
+                </ListItem>
                 <ListItem component={Link} to="/products/maint/types-of-sale" button>
                     <Typography color="primary">Types of Sale</Typography>
                 </ListItem>
