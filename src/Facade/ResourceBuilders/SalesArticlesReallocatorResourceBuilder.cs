@@ -13,8 +13,9 @@
         {
             return new SalesArticlesReallocatorResource
             {
-                OldTariffId = salesArticlesReallocator.ResponseData.OldTariffId.ToString(),
-                NewTariffId = salesArticlesReallocator.ResponseData.NewTariffId.ToString(),
+                OldTariffId = salesArticlesReallocator.ResponseData.OldTariffId,
+                NewTariffId = salesArticlesReallocator.ResponseData.NewTariffId,
+                Count = salesArticlesReallocator.ResponseData.Count,
                 Links = this.BuildLinks(salesArticlesReallocator).ToArray()
             };
         }

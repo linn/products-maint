@@ -4,13 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
-    using System.Security.Cryptography.X509Certificates;
-
-    using Linn.Common.Domain.Exceptions;
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Domain.Linnapps.Services;
     using Linn.Products.Facade.Extensions;
     using Linn.Products.Resources;
 
@@ -18,33 +16,29 @@
     {
         private readonly IRepository<SaCoreType, int> coreTypeRepository;
         private readonly IRepository<SalesArticle, string> salesArticleRepository;
-
         private readonly ITransactionManager transactionManager;
+        private readonly ISalesArticleReallocationService salesArticleReallocationService;
+
 
         public SalesArticleService(
             IRepository<SalesArticle, string> repository,
             IRepository<SaCoreType, int> coreTypeRepository,
-            ITransactionManager transactionManager)
+            ITransactionManager transactionManager,
+            ISalesArticleReallocationService salesArticleReallocationService)
             : base(repository, transactionManager)
         {
             this.coreTypeRepository = coreTypeRepository;
             this.salesArticleRepository = repository;
             this.transactionManager = transactionManager;
+            this.salesArticleReallocationService = salesArticleReallocationService;
         }
 
-        public IResult<ResponseModel<SalesArticlesReallocator>> Reallocate(string oldTariffId, string newTariffId, IEnumerable<string> privileges)
+        public IResult<ResponseModel<SalesArticlesReallocator>> Reallocate(int oldTariffId, int newTariffId, IEnumerable<string> privileges)
         {
-            var oldId = int.Parse(oldTariffId);
-            var newId = int.Parse(newTariffId);
-
+            var reallocated = new SalesArticlesReallocator();
             try
             {
-                var articlesForReallocation = this.salesArticleRepository.FindAll().Where(x => x.TariffId == oldId);
-
-                foreach (var salesArticle in articlesForReallocation)
-                {
-                    salesArticle.TariffId = newId;
-                }
+                reallocated = this.salesArticleReallocationService.Reallocate(oldTariffId, newTariffId);
             }
             catch (Exception ex)
             {
@@ -53,7 +47,7 @@
             this.transactionManager.Commit();
 
             return new SuccessResult<ResponseModel<SalesArticlesReallocator>>(new ResponseModel<SalesArticlesReallocator>(
-                new SalesArticlesReallocator { OldTariffId = oldId, NewTariffId = newId }, privileges));
+                reallocated, privileges));
         }
 
         protected override SalesArticle CreateFromResource(SalesArticleResource resource)

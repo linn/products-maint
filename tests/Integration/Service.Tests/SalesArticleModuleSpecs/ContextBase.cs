@@ -39,7 +39,6 @@
 
         protected IAuthorisationService AuthorisationService { get; set; }
 
-        
 
         [SetUp]
         public void EstablishContext()

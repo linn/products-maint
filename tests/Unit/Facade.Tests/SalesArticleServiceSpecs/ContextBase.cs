@@ -3,6 +3,7 @@
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Domain.Linnapps.Services;
     using Linn.Products.Facade.Services;
 
     using NSubstitute;
@@ -19,16 +20,20 @@
 
         protected ITransactionManager TransactionManager { get; private set; }
 
+        protected ISalesArticleReallocationService ReallocationService { get; private set; }
+
         [SetUp]
         public void SetUpContext()
         {
             this.SalesArticleRepository = Substitute.For<IRepository<SalesArticle, string>>();
             this.SaCoreTypeRepository = Substitute.For<IRepository<SaCoreType, int>>();
             this.TransactionManager = Substitute.For<ITransactionManager>();
+            this.ReallocationService = Substitute.For<ISalesArticleReallocationService>();
             this.Sut = new SalesArticleService(
                 this.SalesArticleRepository,
                 this.SaCoreTypeRepository,
-                this.TransactionManager);
+                this.TransactionManager,
+                this.ReallocationService);
         }
     }
 }

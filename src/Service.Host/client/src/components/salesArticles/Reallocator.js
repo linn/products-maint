@@ -14,6 +14,7 @@ import {
 import Page from '../../containers/Page';
 
 function SalesArticleReallocator({
+    item,
     reallocate,
     history,
     snackbarVisible,
@@ -38,7 +39,10 @@ function SalesArticleReallocator({
         !(typeof oldTariff?.id !== 'undefined' && typeof newTariff?.id !== 'undefined');
 
     const handleSubmitClick = () => {
-        reallocate({ oldTariffId: `${oldTariff.id}`, newTariffId: `${newTariff.id}` });
+        reallocate({
+            oldTariffId: parseInt(oldTariff.id, 10),
+            newTariffId: parseInt(newTariff.id, 10)
+        });
     };
 
     const handleBackClick = () => {
@@ -77,7 +81,7 @@ function SalesArticleReallocator({
                             <SnackbarMessage
                                 visible={snackbarVisible}
                                 onClose={() => setSnackbarVisible(false)}
-                                message="products reallocated!"
+                                message={`${item && item.count} products reallocated!`}
                             />
                         </Grid>
                         <Grid item xs={2}>
@@ -95,9 +99,9 @@ function SalesArticleReallocator({
                         </Grid>
                         <Grid item xs={2} className={classes.marginTop}>
                             <Button
-                                href={`/products/reports/sales-articles/get-by-tariff?tariffId=${newTariff.id}`}
+                                href={`/products/reports/sales-articles/get-by-tariff?tariffId=${oldTariff.id}`}
                                 variant="outlined"
-                                disabled={!(typeof newTariff?.id !== 'undefined')}
+                                disabled={!(typeof oldTariff?.id !== 'undefined')}
                                 target="_blank"
                             >
                                 View products
@@ -166,10 +170,12 @@ SalesArticleReallocator.defaultProps = {
     tariffSearchResults: [{}],
     oldTariffSearchLoading: false,
     oldTariffSearchResults: [{}],
-    oldTariffSearchErrorMessage: ''
+    oldTariffSearchErrorMessage: '',
+    item: { count: 0 }
 };
 
 SalesArticleReallocator.propTypes = {
+    item: PropTypes.shape({ count: PropTypes.string }),
     errorMessage: PropTypes.string,
     reallocate: PropTypes.func.isRequired,
     history: PropTypes.shape({ push: PropTypes.func }).isRequired,

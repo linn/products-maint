@@ -25,7 +25,8 @@ const mapStateToProps = state => ({
     oldTariffSearchResults: oldTariffsSelectors
         .getSearchItems(state)
         .map(s => ({ ...s, id: s.id, name: s.tariffCode, description: s.description })),
-    oldTariffSearchErrorMessage: getItemErrorDetailMessage(state, itemTypes.oldTariffs.item)
+    oldTariffSearchErrorMessage: getItemErrorDetailMessage(state, itemTypes.oldTariffs.item),
+    item: salesArticlesReallocateSelectors.getItem(state)
 });
 
 const initialise = () => dispatch => {

@@ -6,5 +6,7 @@
 
         public int NewTariffId { get; set; }
 
+        public int Count { get; set; }
+
     }
 }

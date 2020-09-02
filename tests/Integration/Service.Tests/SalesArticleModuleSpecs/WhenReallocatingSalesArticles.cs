@@ -18,11 +18,11 @@
         [SetUp]
         public void SetUp()
         {
-            this.requestResource = new SalesArticlesReallocatorResource { NewTariffId = "21", OldTariffId = "20" };
+            this.requestResource = new SalesArticlesReallocatorResource { NewTariffId = 21, OldTariffId = 20 };
 
             var salesArticleReallocatorResponseModel = new ResponseModel<SalesArticlesReallocator>(new SalesArticlesReallocator { NewTariffId = 21, OldTariffId = 20 }, new List<string>());
 
-            this.SalesArticleForecastService.Reallocate(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<List<string>>())
+            this.SalesArticleForecastService.Reallocate(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<List<string>>())
                 .Returns(new SuccessResult<ResponseModel<SalesArticlesReallocator>>(salesArticleReallocatorResponseModel));
 
             this.AuthorisationService.HasPermissionFor(AuthorisedAction.ReallocateSalesArticles, Arg.Any<List<string>>())
@@ -47,8 +47,8 @@
         public void ShouldCallService()
         {
             this.SalesArticleForecastService.Received().Reallocate(
-                Arg.Any<string>(),
-                Arg.Any<string>(),
+                Arg.Any<int>(),
+                Arg.Any<int>(),
                 Arg.Any<List<string>>());
         }
 

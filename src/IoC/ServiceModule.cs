@@ -15,6 +15,7 @@
     using Linn.Products.Domain.Linnapps.Reports;
     using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Domain.Linnapps.SernosTransactions;
+    using Linn.Products.Domain.Linnapps.Services;
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
     using Linn.Products.Facade;
@@ -42,6 +43,7 @@
             builder.RegisterType<SerialNumberFactory>().As<ISerialNumberFactory>();
             builder.RegisterType<AuthorisationService>().As<IAuthorisationService>();
             builder.RegisterType<WEEEReports>().As<IWEEEReports>();
+            builder.RegisterType<SalesArticleReallocationService>().As<ISalesArticleReallocationService>();
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
