@@ -22,8 +22,8 @@ export default function WeeeReportOptions({ history }) {
     };
 
     const handleRunClick = () => {
-        const from = options.fromDate.toISOString();
-        const to = options.toDate.toISOString();
+        const from = options.fromDate.startOf('day').toISOString();
+        const to = options.toDate.endOf('day').toISOString();
 
         const searchString = `?fromDate=${from}&toDate=${to}&countryCode=${options.countryCode}`;
 
