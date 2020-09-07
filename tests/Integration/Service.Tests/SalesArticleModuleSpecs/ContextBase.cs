@@ -4,7 +4,11 @@
     using System.Collections.Generic;
     using System.Security.Claims;
 
+    using Castle.Core.Resource;
+
     using Linn.Common.Facade;
+    using Linn.Products.Domain;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Models;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
@@ -25,7 +29,7 @@
     {
         protected ISalesArticleService SalesArticleService { get; private set; }
 
-        protected IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> SalesArticleForecastService { get; private set; }
+        protected ISalesArticleFacadeService SalesArticleForecastService { get; private set; }
 
         protected ISalesArticleCompositeDiscountFacadeService SalesArticleCompositeDiscountFacadeService { get; private set; }
 
@@ -33,16 +37,18 @@
 
         protected ISalesArticleReportService SalesArticleReportService { get; private set; }
 
-        
+        protected IAuthorisationService AuthorisationService { get; set; }
+
 
         [SetUp]
         public void EstablishContext()
         {
             this.SalesArticleService = Substitute.For<ISalesArticleService>();
-            this.SalesArticleForecastService = Substitute.For<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
+            this.SalesArticleForecastService = Substitute.For<ISalesArticleFacadeService>();
             this.SalesArticleCompositeDiscountFacadeService = Substitute.For<ISalesArticleCompositeDiscountFacadeService>();
             this.SalesArticleSerialNumberFacadeService = Substitute.For<ISalesArticleSerialNumberFacadeService>();
             this.SalesArticleReportService = Substitute.For<ISalesArticleReportService>();
+            this.AuthorisationService = Substitute.For<IAuthorisationService>();
 
             var bootstrapper = new ConfigurableBootstrapper(
                 with =>
@@ -52,17 +58,21 @@
                     with.Dependency(this.SalesArticleCompositeDiscountFacadeService);
                     with.Dependency(this.SalesArticleSerialNumberFacadeService);
                     with.Dependency(this.SalesArticleReportService);
+                    with.Dependency(this.AuthorisationService);
                     with.Dependency<IResourceBuilder<ResponseModel<SalesArticle>>>(new SalesArticleResourceBuilder());
                     with.Dependency<IResourceBuilder<IEnumerable<SalesArticle>>>(new SalesArticlesResourceBuilder());
                     with.Dependency<IResourceBuilder<SalesArticleCompositeDiscount>>(
                         new SalesArticleCompositeDiscountResourceBuilder());
                     with.Dependency<IResourceBuilder<SalesArticleSerialNumberDetails>>(
                         new SalesArticleSerialNumberDetailsResourceBuilder());
+                   with.Dependency<IResourceBuilder<ResponseModel<SalesArticlesReallocator>>>(
+                           new SalesArticlesReallocatorResourceBuilder());
                     with.Module<SalesArticleModule>();
                     with.ResponseProcessor<SalesArticleResponseProcessor>();
                     with.ResponseProcessor<SalesArticlesResponseProcessor>();
                     with.ResponseProcessor<SalesArticleCompositeDiscountResponseProcessor>();
                     with.ResponseProcessor<SalesArticleSerialNumberDetailsResponseProcessor>();
+                    with.ResponseProcessor<SalesArticlesReallocatorResponseProcessor>();
                     with.RequestStartup(
                         (container, pipelines, context) =>
                         {

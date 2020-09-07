@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import { ErrorCard, Typeahead } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
@@ -18,7 +19,7 @@ function SalesArticles({ items, fetchItems, loading, clearSearch, errorMessage, 
                         <ErrorCard errorMessage={errorMessage} />
                     </Grid>
                 )}
-                <Grid item xs={12}>
+                <Grid item xs={10}>
                     <Typeahead
                         items={forecastItems}
                         fetchItems={fetchItems}
@@ -27,6 +28,11 @@ function SalesArticles({ items, fetchItems, loading, clearSearch, errorMessage, 
                         title="Search for Sales Article"
                         history={history}
                     />
+                </Grid>
+                <Grid item xs={2}>
+                    <Button href="/products/maint/sales-articles-reallocate" variant="outlined">
+                        Reallocator Utility
+                    </Button>
                 </Grid>
             </Grid>
         </Page>

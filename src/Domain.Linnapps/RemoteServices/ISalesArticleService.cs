@@ -9,5 +9,6 @@
         IEnumerable<SalesArticle> Search(string searchTerm);
 
         IEnumerable<SalesArticle> GetByDiscountFamily(string discountFamily, bool includePhasedOut);
+        
     }
 }

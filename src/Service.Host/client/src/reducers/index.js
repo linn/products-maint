@@ -31,6 +31,7 @@ import typesOfSale from './typesOfSale';
 import typeOfSale from './typeOfSale';
 import salesArticle from './salesArticle';
 import salesArticles from './salesArticles';
+import salesArticlesReallocate from './salesArticlesReallocate';
 import saHoldStory from './saHoldStory';
 import vatCode from './vatCode';
 import vatCodes from './vatCodes';
@@ -52,6 +53,7 @@ import weeeReport from './weeeReport';
 import * as itemTypes from '../itemTypes';
 import * as reportTypes from '../reportTypes';
 import historyStore from './history';
+import oldTariffs from './oldTariffs';
 
 const errors = fetchErrorReducer({
     ...itemTypes,
@@ -86,6 +88,7 @@ const rootReducer = history =>
         saCoreType,
         salesArticle,
         salesArticles,
+        salesArticlesReallocate,
         typesOfSale,
         typeOfSale,
         stockTriggerLevelsReport,
@@ -108,6 +111,7 @@ const rootReducer = history =>
         salesArticlesByTariffReport,
         salesArticleTriggerLevelsReport,
         weeeReport,
+        oldTariffs,
         ...sharedLibraryReducers
     });
 
