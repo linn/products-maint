@@ -1,7 +1,6 @@
 ﻿namespace Linn.Products.IoC
 {
     using Autofac;
-
     using Linn.Common.Persistence;
     using Linn.Common.Persistence.EntityFramework;
     using Linn.Products.Domain.Linnapps;
@@ -9,10 +8,16 @@
     using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Domain.Linnapps.SernosTransactions;
+    using Linn.Products.Domain.Products;
     using Linn.Products.Persistence.Linnapps;
     using Linn.Products.Persistence.Linnapps.Repositories;
-
+    using Linn.Products.Persistence.Repositories;
     using Microsoft.EntityFrameworkCore;
+    using ProductRange = Linn.Products.Domain.Linnapps.Products.ProductRange;
+    using RootProduct = Linn.Products.Domain.Linnapps.Products.RootProduct;
+    using Tariff = Linn.Products.Domain.Linnapps.Products.Tariff;
+    using TypeOfSale = Linn.Products.Domain.Linnapps.TypeOfSale;
+    using VatCode = Linn.Products.Domain.Linnapps.VatCode;
 
     public class PersistenceModule : Module
     {
@@ -41,6 +46,7 @@
             builder.RegisterType<RootProductRepository>().As<IRepository<RootProduct, string>>();
             builder.RegisterType<ArchiveSerialNumberRepository>().As<IRepository<ArchiveSerialNumber, int>>();
             builder.RegisterType<SalesAnalysisRepository>().As<IQueryRepository<SalesAnalysis>>();
+            builder.RegisterType<ProductSalesPartRepository>().As<IRepository<ProductSalesPart, int>>();
         }
     }
 }

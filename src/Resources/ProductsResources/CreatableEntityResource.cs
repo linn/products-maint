@@ -1,7 +1,6 @@
 ﻿namespace Linn.Products.Resources.ProductsResources
 {
     using System;
-    using Linn.Common.Resources;
 
     public abstract class CreatableEntityResource : EntityResource
     {

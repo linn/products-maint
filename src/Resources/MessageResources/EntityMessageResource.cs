@@ -1,9 +1,7 @@
 ﻿namespace Linn.Products.Resources.MessageResources
 {
-    using Linn.Common.Resources;
     using System;
     using System.Collections.Generic;
-
     using Linn.Products.Resources.ProductsResources;
 
     public abstract class EntityMessageResource

@@ -22,6 +22,6 @@
 
         public double? PackagingFoamNettWeight { get; set; }
 
-        public RootProduct RootProduct { get; set; }
+        public RootProduct RootProduct { get; set; } 
     }
 }

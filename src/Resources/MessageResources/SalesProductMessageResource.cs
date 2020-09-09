@@ -1,14 +1,14 @@
 ﻿namespace Linn.Products.Resources.MessageResources
 {
+    using Linn.Common.Configuration;
     using Linn.Products.Resources.ProductsResources;
     using System.Collections.Generic;
-    using Linn.Common.Configuration;
 
     public class SalesProductMessageResource : EntityMessageIsoDateResource
     {
         public SalesProductMessageResource()
         {
-            this.reportingAttributes = new List<ReportingAttributeResource>();    
+            this.reportingAttributes = new List<ReportingAttributeResource>();
         }
 
         public string name { get; set; }

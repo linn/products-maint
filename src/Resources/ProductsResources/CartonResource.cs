@@ -1,7 +1,5 @@
 ﻿namespace Linn.Products.Resources.ProductsResources
 {
-    using System.Configuration;
-
     using Linn.Common.Configuration;
 
     public class CartonResource : PhaseOutableEntityResource

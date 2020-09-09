@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using Linn.Common.Configuration;
-    using Linn.Common.Resources;
     using Linn.Products.Resources.ProductsResources;
 
     public class RootProductMessageResource : EntityMessageResource
