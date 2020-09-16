@@ -13,7 +13,7 @@
         [Test]
         public void ShouldUpdateTariffIdOfArticles()
         {
-            Assert.Throws<DomainException>(() => this.SalesArticleReallocationService.Reallocate(0, 59));
+            Assert.Throws<DomainException>(() => this.TariffNumberReallocationService.Reallocate(0, 59));
         }
     }
 }

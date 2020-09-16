@@ -15,7 +15,7 @@
         [SetUp]
         public void SetUp()
         {
-          this.Result = this.SalesArticleReallocationService.Reallocate(118, 59);
+          this.Result = this.TariffNumberReallocationService.Reallocate(118, 59);
         }
 
         [Test]

@@ -1,22 +1,48 @@
 ﻿namespace Linn.Products.Facade.Services
 {
-    using System;
-    using System.Linq;
-    using System.Linq.Expressions;
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Domain.Services;
     using Linn.Products.Facade.Extensions;
     using Linn.Products.Resources;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
-    public class TariffService : FacadeService<Tariff, int, TariffResource, TariffResource>
+    public class TariffService : FacadeService<Tariff, int, TariffResource, TariffResource>, ITariffFacadeService
     {
-        private readonly IRepository<Tariff, int> repository;
+        private readonly ITransactionManager transactionManager;
 
-        public TariffService(IRepository<Tariff, int> repository, ITransactionManager transactionManager)
+        private readonly ITariffNumberReallocationService tariffNumberReallocationService;
+
+        public TariffService(
+            IRepository<Tariff, int> repository,
+            ITransactionManager transactionManager,
+            ITariffNumberReallocationService tariffNumberReallocationService)
             : base(repository, transactionManager)
         {
-            this.repository = repository;
+            this.transactionManager = transactionManager;
+            this.tariffNumberReallocationService = tariffNumberReallocationService;
+        }
+
+        public IResult<ResponseModel<TariffsReallocator>> Reallocate(int oldTariffId, int newTariffId, IEnumerable<string> privileges)
+        {
+            var reallocated = new TariffsReallocator();
+            try
+            {
+                reallocated = this.tariffNumberReallocationService.Reallocate(oldTariffId, newTariffId);
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestResult<ResponseModel<TariffsReallocator>>($"Error updating sales articles from tariff {oldTariffId} to {newTariffId} - ${ex.Message})");
+            }
+            this.transactionManager.Commit();
+
+            return new SuccessResult<ResponseModel<TariffsReallocator>>(new ResponseModel<TariffsReallocator>(
+                reallocated, privileges));
         }
 
         protected override Tariff CreateFromResource(TariffResource resource)

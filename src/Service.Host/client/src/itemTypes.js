@@ -46,10 +46,10 @@ export const salesArticles = new ItemType(
     'SALES_ARTICLES',
     '/products/maint/sales-articles'
 );
-export const salesArticlesReallocate = new ItemType(
-    'salesArticlesReallocate',
-    'SALES_ARTICLES_REALLOCATE',
-    '/products/maint/sales-articles-reallocate'
+export const TariffsReallocate = new ItemType(
+    'tariffsReallocate',
+    'TARIFFS_REALLOCATE',
+    '/products/maint/tariffs-reallocate'
 );
 
 export const tariff = new ItemType('tariff', 'TARIFF', '/products/maint/tariffs');

@@ -14,16 +14,16 @@
 
     public class WhenReallocatingSalesArticles : ContextBase
     {
-        private SalesArticlesReallocatorResource requestResource;
+        private TariffReallocatorResource requestResource;
         [SetUp]
         public void SetUp()
         {
-            this.requestResource = new SalesArticlesReallocatorResource { NewTariffId = 21, OldTariffId = 20 };
+            this.requestResource = new TariffReallocatorResource { NewTariffId = 21, OldTariffId = 20 };
 
-            var salesArticleReallocatorResponseModel = new ResponseModel<SalesArticlesReallocator>(new SalesArticlesReallocator { NewTariffId = 21, OldTariffId = 20 }, new List<string>());
+            var salesArticleReallocatorResponseModel = new ResponseModel<TariffsReallocator>(new TariffsReallocator { NewTariffId = 21, OldTariffId = 20 }, new List<string>());
 
             this.SalesArticleForecastService.Reallocate(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<List<string>>())
-                .Returns(new SuccessResult<ResponseModel<SalesArticlesReallocator>>(salesArticleReallocatorResponseModel));
+                .Returns(new SuccessResult<ResponseModel<TariffsReallocator>>(salesArticleReallocatorResponseModel));
 
             this.AuthorisationService.HasPermissionFor(AuthorisedAction.ReallocateSalesArticles, Arg.Any<List<string>>())
                 .Returns(true);
@@ -55,7 +55,7 @@
         [Test]
         public void ShouldReturnResource()
         {
-            var resource = this.Response.Body.DeserializeJson<SalesArticlesReallocatorResource>();
+            var resource = this.Response.Body.DeserializeJson<TariffReallocatorResource>();
             resource.OldTariffId.Should().Be(this.requestResource.OldTariffId);
             resource.NewTariffId.Should().Be(this.requestResource.NewTariffId);
         }

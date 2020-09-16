@@ -1,5 +1,5 @@
 import { itemStoreFactory } from '@linn-it/linn-form-components-library';
-import { salesArticlesReallocateActionTypes as actionTypes } from '../actions';
+import { tariffsReallocateActionTypes as actionTypes } from '../actions';
 import * as itemTypes from '../itemTypes';
 
 const defaultState = {
@@ -8,8 +8,4 @@ const defaultState = {
     searchItems: []
 };
 
-export default itemStoreFactory(
-    itemTypes.salesArticlesReallocate.actionType,
-    actionTypes,
-    defaultState
-);
+export default itemStoreFactory(itemTypes.TariffsReallocate.actionType, actionTypes, defaultState);

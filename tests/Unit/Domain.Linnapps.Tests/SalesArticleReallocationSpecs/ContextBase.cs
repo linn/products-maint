@@ -15,18 +15,18 @@
     {
         protected IRepository<SalesArticle, string> SalesArticleRepository { get; private set; } 
 
-        protected ISalesArticleReallocationService SalesArticleReallocationService { get; set; }
+        protected ITariffNumberReallocationService TariffNumberReallocationService { get; set; }
 
         protected IList<SalesArticle> SalesArticles { get; set; }
 
-        protected SalesArticlesReallocator Result { get; set; }
+        protected TariffsReallocator Result { get; set; }
 
 
         [SetUp]
         public void SetUpContext()
         {
             this.SalesArticleRepository = Substitute.For<IRepository<SalesArticle, string>>();
-            this.SalesArticleReallocationService = new SalesArticleReallocationService(this.SalesArticleRepository);
+            this.TariffNumberReallocationService = new TariffNumberReallocationService(this.SalesArticleRepository);
 
             this.SalesArticles = new List<SalesArticle>
                                   {

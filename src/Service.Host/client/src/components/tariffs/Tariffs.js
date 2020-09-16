@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import { Tooltip } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import { Typeahead, CreateButton, ErrorCard } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
@@ -30,7 +31,7 @@ function Tariffs({ items, fetchItems, loading, privileges, clearSearch, errorMes
                         <ErrorCard errorMessage={errorMessage} />
                     </Grid>
                 )}
-                <Grid item xs={10}>
+                <Grid item xs={8}>
                     <Typeahead
                         items={results}
                         fetchItems={fetchItems}
@@ -39,6 +40,11 @@ function Tariffs({ items, fetchItems, loading, privileges, clearSearch, errorMes
                         title="Search by tariff code or description"
                         history={history}
                     />
+                </Grid>
+                <Grid item xs={2}>
+                    <Button href="/products/maint/tariffs-reallocator" variant="outlined">
+                        Reallocator Utility
+                    </Button>
                 </Grid>
                 <Grid item xs={2}>
                     <Tooltip

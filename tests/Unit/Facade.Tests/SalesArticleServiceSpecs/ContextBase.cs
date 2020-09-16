@@ -20,7 +20,7 @@
 
         protected ITransactionManager TransactionManager { get; private set; }
 
-        protected ISalesArticleReallocationService ReallocationService { get; private set; }
+        protected ITariffNumberReallocationService ReallocationService { get; private set; }
 
         [SetUp]
         public void SetUpContext()
@@ -28,7 +28,7 @@
             this.SalesArticleRepository = Substitute.For<IRepository<SalesArticle, string>>();
             this.SaCoreTypeRepository = Substitute.For<IRepository<SaCoreType, int>>();
             this.TransactionManager = Substitute.For<ITransactionManager>();
-            this.ReallocationService = Substitute.For<ISalesArticleReallocationService>();
+            this.ReallocationService = Substitute.For<ITariffNumberReallocationService>();
             this.Sut = new SalesArticleService(
                 this.SalesArticleRepository,
                 this.SaCoreTypeRepository,

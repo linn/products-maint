@@ -65,8 +65,8 @@
                         new SalesArticleCompositeDiscountResourceBuilder());
                     with.Dependency<IResourceBuilder<SalesArticleSerialNumberDetails>>(
                         new SalesArticleSerialNumberDetailsResourceBuilder());
-                   with.Dependency<IResourceBuilder<ResponseModel<SalesArticlesReallocator>>>(
-                           new SalesArticlesReallocatorResourceBuilder());
+                   with.Dependency<IResourceBuilder<ResponseModel<TariffsReallocator>>>(
+                           new TariffsReallocatorResourceBuilder());
                     with.Module<SalesArticleModule>();
                     with.ResponseProcessor<SalesArticleResponseProcessor>();
                     with.ResponseProcessor<SalesArticlesResponseProcessor>();

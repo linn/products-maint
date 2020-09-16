@@ -8,46 +8,21 @@
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
-    using Linn.Products.Domain.Linnapps.Services;
     using Linn.Products.Facade.Extensions;
     using Linn.Products.Resources;
 
-    public class SalesArticleService : FacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>, ISalesArticleFacadeService
+    public class SalesArticleService : FacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>
     {
         private readonly IRepository<SaCoreType, int> coreTypeRepository;
-        private readonly IRepository<SalesArticle, string> salesArticleRepository;
-        private readonly ITransactionManager transactionManager;
-        private readonly ISalesArticleReallocationService salesArticleReallocationService;
 
 
         public SalesArticleService(
             IRepository<SalesArticle, string> repository,
             IRepository<SaCoreType, int> coreTypeRepository,
-            ITransactionManager transactionManager,
-            ISalesArticleReallocationService salesArticleReallocationService)
+            ITransactionManager transactionManager)
             : base(repository, transactionManager)
         {
             this.coreTypeRepository = coreTypeRepository;
-            this.salesArticleRepository = repository;
-            this.transactionManager = transactionManager;
-            this.salesArticleReallocationService = salesArticleReallocationService;
-        }
-
-        public IResult<ResponseModel<SalesArticlesReallocator>> Reallocate(int oldTariffId, int newTariffId, IEnumerable<string> privileges)
-        {
-            var reallocated = new SalesArticlesReallocator();
-            try
-            {
-                reallocated = this.salesArticleReallocationService.Reallocate(oldTariffId, newTariffId);
-            }
-            catch (Exception ex)
-            {
-                return new BadRequestResult<ResponseModel<SalesArticlesReallocator>>($"Error updating sales articles from tariff {oldTariffId} to {newTariffId} - ${ex.Message})");
-            }
-            this.transactionManager.Commit();
-
-            return new SuccessResult<ResponseModel<SalesArticlesReallocator>>(new ResponseModel<SalesArticlesReallocator>(
-                reallocated, privileges));
         }
 
         protected override SalesArticle CreateFromResource(SalesArticleResource resource)

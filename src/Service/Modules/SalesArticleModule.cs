@@ -21,7 +21,7 @@ namespace Linn.Products.Service.Modules
 
     public sealed class SalesArticleModule : NancyModule
     {
-        private readonly ISalesArticleFacadeService salesArticleService;
+        private readonly IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> salesArticleService;
 
         private readonly ISalesArticleCompositeDiscountFacadeService salesArticleCompositeDiscountFacadeService;
 
@@ -32,7 +32,7 @@ namespace Linn.Products.Service.Modules
         private readonly IAuthorisationService authorisationService;
 
         public SalesArticleModule(
-            ISalesArticleFacadeService salesArticleService,
+            IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> salesArticleService,
             ISalesArticleCompositeDiscountFacadeService salesArticleCompositeDiscountFacadeService,
             ISalesArticleService salesArticleProxyService,
             ISalesArticleSerialNumberFacadeService salesArticleSerialNumberFacadeService,
@@ -59,7 +59,6 @@ namespace Linn.Products.Service.Modules
                 "/products/maint/sales-articles/serial-number-details/{id*}",
                 parameters => this.GetSerialNumberDetails(parameters.id));
             this.Get("/products/maint/sales-articles-reallocate", _ => this.GetApp());
-            this.Post("/products/maint/sales-articles-reallocate", _ => this.ReallocateSalesArticles());
         }
 
         private object GetSerialNumberDetails(string id)
@@ -129,24 +128,7 @@ namespace Linn.Products.Service.Modules
                         this.salesArticleProxyService.Search(resource.SearchTerm)))
                 .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
         }
-
-        private object ReallocateSalesArticles()
-        {
-            var resource = this.Bind<SalesArticlesReallocatorResource>();
-            
-            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
-            if (!this.authorisationService.HasPermissionFor(AuthorisedAction.ReallocateSalesArticles, privileges))
-            {
-                return this.Negotiate.WithModel(
-                    new UnauthorisedResult<ResponseModel<bool>>("You are not authorised to reallocate sales articles to a new tariff"));
-            }
-
-            return this.Negotiate
-                .WithModel(
-                        this.salesArticleService.Reallocate(resource.OldTariffId, resource.NewTariffId, privileges))
-                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
-        }
-
+        
         private object GetApp()
         {
             return this.Negotiate.WithModel(ApplicationSettings.Get()).WithView("Index");
