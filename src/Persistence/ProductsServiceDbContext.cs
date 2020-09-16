@@ -1,7 +1,6 @@
 ﻿namespace Linn.Products.Persistence
 {
     using Linn.Common.Configuration;
-    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Products;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;

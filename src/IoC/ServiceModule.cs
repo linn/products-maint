@@ -1,14 +1,13 @@
 ﻿namespace Linn.Products.IoC
 {
     using System.Data;
-
     using Autofac;
-
     using Linn.Common.Configuration;
     using Linn.Common.Facade;
     using Linn.Common.Proxy;
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain;
+    using Linn.Products.Domain.Dispatchers;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
@@ -20,11 +19,10 @@
     using Linn.Products.Domain.Services;
     using Linn.Products.Facade;
     using Linn.Products.Facade.Services;
+    using Linn.Products.Messaging.Dispatchers;
     using Linn.Products.Proxy;
     using Linn.Products.Resources;
-
     using Oracle.ManagedDataAccess.Client;
-
     using ProductRange = Linn.Products.Domain.Linnapps.Products.ProductRange;
 
     public class ServiceModule : Module

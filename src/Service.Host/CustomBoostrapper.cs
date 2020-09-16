@@ -5,6 +5,7 @@
     using Autofac;
 
     using Linn.Common.Logging;
+    using Linn.Production.IoC;
     using Linn.Products.IoC;
 
     using Nancy;
@@ -60,6 +61,8 @@
                     builder.RegisterModule<AmazonSqsModule>();
                     builder.RegisterModule<LoggingModule>();
                     builder.RegisterModule<ResponsesModule>();
+                    builder.RegisterModule<MessagingModule>();
+
                 });
 
             base.ConfigureApplicationContainer(existingContainer);

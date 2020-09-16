@@ -9,6 +9,7 @@
     using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Domain.Linnapps.SernosTransactions;
     using Linn.Products.Domain.Products;
+    using Linn.Products.Persistence;
     using Linn.Products.Persistence.Linnapps;
     using Linn.Products.Persistence.Linnapps.Repositories;
     using Linn.Products.Persistence.Repositories;
@@ -24,6 +25,8 @@
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ServiceDbContext>().AsSelf().As<DbContext>().InstancePerRequest();
+            builder.RegisterType<ProductsServiceDbContext>().AsSelf().As<DbContext>().InstancePerRequest();
+
             builder.RegisterType<TransactionManager>().As<ITransactionManager>();
 
             // linnapps repositories
