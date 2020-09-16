@@ -2,6 +2,7 @@
 {
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Domain.Services;
     using Linn.Products.Facade.Services;
 
     using NSubstitute;
@@ -16,12 +17,15 @@
 
         protected ITransactionManager TransactionManager { get; private set; }
 
+        protected ITariffNumberReallocationService ReallocationService { get; private set; }
+
         [SetUp]
         public void SetUpContext()
         {
             this.TariffRepository = Substitute.For<IRepository<Tariff, int>>();
             this.TransactionManager = Substitute.For<ITransactionManager>();
-            this.Sut = new TariffService(this.TariffRepository, this.TransactionManager);
+            this.ReallocationService = Substitute.For<ITariffNumberReallocationService>();
+            this.Sut = new TariffService(this.TariffRepository, this.TransactionManager, this.ReallocationService);
         }
     }
 }

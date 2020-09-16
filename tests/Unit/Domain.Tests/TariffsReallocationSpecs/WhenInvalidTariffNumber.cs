@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Domain.Linnapps.Tests.SalesArticleReallocationSpecs
+﻿namespace Linn.Products.Domain.Tests.TariffsReallocationSpecs
 {
     using Linn.Common.Domain.Exceptions;
     using NUnit.Framework;

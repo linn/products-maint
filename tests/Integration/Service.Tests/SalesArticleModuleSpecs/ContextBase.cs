@@ -29,7 +29,7 @@
     {
         protected ISalesArticleService SalesArticleService { get; private set; }
 
-        protected ISalesArticleFacadeService SalesArticleForecastService { get; private set; }
+        protected IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> SalesArticleForecastService { get; private set; }
 
         protected ISalesArticleCompositeDiscountFacadeService SalesArticleCompositeDiscountFacadeService { get; private set; }
 
@@ -44,7 +44,7 @@
         public void EstablishContext()
         {
             this.SalesArticleService = Substitute.For<ISalesArticleService>();
-            this.SalesArticleForecastService = Substitute.For<ISalesArticleFacadeService>();
+            this.SalesArticleForecastService = Substitute.For<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
             this.SalesArticleCompositeDiscountFacadeService = Substitute.For<ISalesArticleCompositeDiscountFacadeService>();
             this.SalesArticleSerialNumberFacadeService = Substitute.For<ISalesArticleSerialNumberFacadeService>();
             this.SalesArticleReportService = Substitute.For<ISalesArticleReportService>();
