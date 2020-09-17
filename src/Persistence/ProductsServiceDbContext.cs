@@ -2,6 +2,8 @@
 {
     using Linn.Common.Configuration;
     using Linn.Products.Domain.Products;
+    using Linn.Products.Domain.Products.Labels;
+
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
 
@@ -16,6 +18,11 @@
         protected override void OnModelCreating(ModelBuilder builder)
         {
             this.BuildSalesParts(builder);
+            //this.BuildSalesPartLabels(builder);
+            //this.BuildSalesPartAttributes(builder);
+
+            this.BuildSalesParts(builder);
+
             base.OnModelCreating(builder);
         }
 
@@ -35,7 +42,6 @@
             base.OnConfiguring(optionsBuilder);
         }
         
-
         private void BuildSalesParts(ModelBuilder builder)
         {
             builder.Entity<ProductSalesPart>().ToTable("SALES_PARTS");
@@ -75,31 +81,52 @@
             //need mapping for labels 
             //this.HasMany(s => s.Labels).Access.CamelCaseField().Cascade.All().AsMap(s => s.Type).KeyColumn("salespart_id");
 
+            //desc PRODUCTS.SALES_PART_LABELS
+            //    Name                  Null Type
+            //-------------------------------------------
+            //                                              ID                    NOT NULL NUMBER(10)
+            //LABELTYPE NOT NULL NVARCHAR2(255) 
+            //NUMBERTOBEPRINTED NUMBER(10)     
+            //INSTALLBYRETAILERONLY NUMBER(1)      
+            //LABELDISPLAYLINE1 NVARCHAR2(50)  
+            //LABELDISPLAYLINE2 NVARCHAR2(50)  
+            //SALESPART_ID NUMBER(10)     
+            //TYPE NVARCHAR2(255) 
+            //NUMBEROFSMALLLABELS NUMBER(10)    
 
             //fix the below for sales part attributes
             //builder.Entity<ProductSalesPart>().HasMany<AttributeValue>(f => f.Attributes).WithOne(x=>x.).HasForeignKey();
             //this.HasManyToMany(s => s.Attributes).Cascade.All().Table("SALES_PART_ATTRIBUTES");
-
+            
+            //"PRODUCTS.SALES_PART_ATTRIBUTES" has salespart_id & attributevalue_id
 
             builder.Entity<ProductSalesPart>().Property(t => t.Notes).HasColumnName("NOTES").HasMaxLength(2000);
             builder.Entity<ProductSalesPart>().Property(t => t.OrderInformation).HasColumnName("ORDERINFORMATION").HasMaxLength(2000);
-
             builder.Entity<ProductSalesPart>().Property(t => t.AccountingCompany).HasColumnName("ACCOUNTINGCOMPANY_ID");
             builder.Entity<ProductSalesPart>().Property(t => t.ExtraBuildWeeks).HasColumnName("EXTRABUILDWEEKS");
-
-
             builder.Entity<ProductSalesPart>().Property(t => t.WeeeProduct).HasColumnName("WEEE_PRODUCT");
             builder.Entity<ProductSalesPart>().Property(t => t.NettWeight).HasColumnName("NETT_WEIGHT");
-
             builder.Entity<ProductSalesPart>().Property(t => t.DimensionOver50Cm).HasColumnName("DIMENSION_OVER_50_CM");
             builder.Entity<ProductSalesPart>().Property(t => t.WeeeCategory).HasColumnName("WEEE_CATEGORY");
-
-
             builder.Entity<ProductSalesPart>().Property(t => t.MainsCablesPerProduct).HasColumnName("MAINS_CABLES_PER_PRODUCT");
             builder.Entity<ProductSalesPart>().Property(t => t.PackagingNettWeight).HasColumnName("PACKAGING_NETT_WEIGHT");
             builder.Entity<ProductSalesPart>().Property(t => t.PackagingFoamNettWeight).HasColumnName("PACKAGING_FOAM_NETT_WEIGHT");
-
-
         }
+
+        //private void BuildSalesParts(ModelBuilder builder)
+        //{
+        //    builder.Entity<SalesPartLabel>().ToTable("SALES_PART_LABELS");
+        //    builder.Entity<ProductSalesPart>().HasKey(t => t.Id);
+        //    builder.Entity<ProductSalesPart>().Property(t => t.Id).HasColumnName("ID").HasMaxLength(10);
+
+        //}
+
+        //private void BuildSalesPartAttributes(ModelBuilder builder)
+        //{
+        //    builder.Entity<SalesPartLabel>().ToTable("SALES_PART_LABELS");
+        //    builder.Entity<ProductSalesPart>().HasKey(t => t.Id);
+        //    builder.Entity<ProductSalesPart>().Property(t => t.Id).HasColumnName("ID").HasMaxLength(10);
+
+        //}
     }
 }

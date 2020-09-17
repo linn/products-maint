@@ -72,7 +72,6 @@
                     with.ResponseProcessor<SalesArticlesResponseProcessor>();
                     with.ResponseProcessor<SalesArticleCompositeDiscountResponseProcessor>();
                     with.ResponseProcessor<SalesArticleSerialNumberDetailsResponseProcessor>();
-                    with.ResponseProcessor<SalesArticlesReallocatorResponseProcessor>();
                     with.RequestStartup(
                         (container, pipelines, context) =>
                         {

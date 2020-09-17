@@ -113,8 +113,7 @@
                 }
             }
         }
-
-        [ForeignKey("ROOTPRODUCT_ID")]
+        
         public IEnumerable<ISalesPartLabel> Labels => this.labels.Values;
 
         public ISalesPartLabel AddLabel(string labelType, ISalesPartLabel label)

@@ -5,6 +5,7 @@ namespace Linn.Products.Service.Tests.TariffModuleSpecs
 
     using Linn.Common.Facade;
     using Linn.Products.Domain;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Facade.ResourceBuilders;
     using Linn.Products.Facade.Services;
@@ -38,9 +39,11 @@ namespace Linn.Products.Service.Tests.TariffModuleSpecs
                     with.Dependency<IResourceBuilder<ResponseModel<Tariff>>>(new TariffResourceBuilder());
                     with.Dependency(this.AuthorisationService);
                     with.Dependency<IResourceBuilder<ResponseModel<IEnumerable<Tariff>>>>(new TariffsResourceBuilder());
+                    with.Dependency<IResourceBuilder<ResponseModel<TariffsReallocator>>>(new TariffsReallocatorResourceBuilder());
                     with.Module<TariffModule>();
                     with.ResponseProcessor<TariffResponseProcessor>();
                     with.ResponseProcessor<TariffsResponseProcessor>();
+                    with.ResponseProcessor<TariffsReallocatorResponseProcessor>();
                     with.RequestStartup(
                         (container, pipelines, context) =>
                         {
