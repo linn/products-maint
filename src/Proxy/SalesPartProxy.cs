@@ -63,5 +63,23 @@
                                                }
                          });
         }
+
+        public void ReallocateSalesParts(int oldTariff, int NewTariff)
+        {
+            var uri = new Uri($"{this.rootUri}/products/sales-parts/reallocate", UriKind.RelativeOrAbsolute);
+            var parametersDictionary = new Dictionary<string, string>();
+            parametersDictionary.Add("oldTariff", oldTariff.ToString());
+            parametersDictionary.Add("newTariff", NewTariff.ToString());
+            var response = this.restClient.Post(
+                CancellationToken.None,
+                uri, 
+                DefaultHeaders.JsonGetHeaders(),
+                parametersDictionary).Result;
+
+            if (response != HttpStatusCode.OK)
+            {
+                throw new ProxyException($"Error trying to reallocate sales products");
+            }
+        }
     }
 }

@@ -121,12 +121,14 @@
 
         //}
 
-        //private void BuildSalesPartAttributes(ModelBuilder builder)
-        //{
-        //    builder.Entity<SalesPartLabel>().ToTable("SALES_PART_LABELS");
-        //    builder.Entity<ProductSalesPart>().HasKey(t => t.Id);
-        //    builder.Entity<ProductSalesPart>().Property(t => t.Id).HasColumnName("ID").HasMaxLength(10);
+        private void BuildSalesPartAttributes(ModelBuilder builder)
+        {
+            builder.Entity<SalesPartLabel>().ToTable("SALES_PART_LABELS");
+            builder.Entity<ProductSalesPart>().HasKey(t => t.Id);
+            builder.Entity<ProductSalesPart>().Property(t => t.Id).HasColumnName("ID").HasMaxLength(10);
+            builder.Entity<ProductSalesPart>().Property(t => t.Id).HasColumnName("ID").HasMaxLength(10);
 
-        //}
+
+        }
     }
 }

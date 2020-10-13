@@ -12,16 +12,22 @@
     using System.Linq;
     using System.Linq.Expressions;
 
+    using Linn.Products.Domain.Repositories;
+    using Linn.Products.Proxy;
+
     public class TariffService : FacadeService<Tariff, int, TariffResource, TariffResource>, ITariffFacadeService
     {
         private readonly ITransactionManager transactionManager;
 
         private readonly ITariffNumberReallocationService tariffNumberReallocationService;
 
+        private readonly ISalesPartRepository salesPartRepository;
+
         public TariffService(
             IRepository<Tariff, int> repository,
             ITransactionManager transactionManager,
-            ITariffNumberReallocationService tariffNumberReallocationService)
+            ITariffNumberReallocationService tariffNumberReallocationService,
+            ISalesPartRepository salesPartRepository)
             : base(repository, transactionManager)
         {
             this.transactionManager = transactionManager;
@@ -33,7 +39,7 @@
             var reallocated = new TariffsReallocator();
             try
             {
-                reallocated = this.tariffNumberReallocationService.Reallocate(oldTariffId, newTariffId);
+                salesPartRepository.ReallocateSalesParts(oldTariffId, newTariffId);
             }
             catch (Exception ex)
             {

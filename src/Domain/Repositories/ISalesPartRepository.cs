@@ -5,5 +5,7 @@
     public interface ISalesPartRepository
     {
         IEnumerable<SalesPart> GetWEEESalesParts();
+
+        void ReallocateSalesParts(int oldTariff, int NewTariff);
     }
 }
