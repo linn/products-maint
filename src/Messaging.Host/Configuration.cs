@@ -1,9 +1,6 @@
 ﻿namespace Linn.Products.Messaging.Host
 {
     using Autofac;
-
-    using Linn.Common.Messaging.RabbitMQ.Autofac;
-    using Linn.Production.IoC;
     using Linn.Products.IoC;
 
     public static class Configuration
@@ -14,7 +11,7 @@
             builder.RegisterModule<AmazonCredentialsModule>();
             builder.RegisterModule<AmazonSqsModule>();
             builder.RegisterModule<LoggingModule>();
-            builder.RegisterModule<MessagingModule>();
+            //builder.RegisterModule<MessagingModule>();
             //builder.RegisterModule<PersistenceModule>();
             //builder.RegisterModule<ServiceModule>();
             // builder.RegisterReceiver("products.q", "products.dlx");

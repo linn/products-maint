@@ -8,11 +8,8 @@
     using Linn.Products.Domain.Linnapps.Repositories;
     using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Domain.Linnapps.SernosTransactions;
-    using Linn.Products.Domain.Products;
-    using Linn.Products.Persistence;
     using Linn.Products.Persistence.Linnapps;
     using Linn.Products.Persistence.Linnapps.Repositories;
-    using Linn.Products.Persistence.Repositories;
     using Microsoft.EntityFrameworkCore;
     using ProductRange = Linn.Products.Domain.Linnapps.Products.ProductRange;
     using RootProduct = Linn.Products.Domain.Linnapps.Products.RootProduct;

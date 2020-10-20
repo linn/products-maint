@@ -7,7 +7,6 @@
     using Linn.Common.Proxy;
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain;
-    using Linn.Products.Domain.Dispatchers;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
