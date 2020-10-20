@@ -9,6 +9,7 @@
     using Linn.Common.Proxy;
     using Linn.Common.Serialization.Json;
     using Linn.Products.Domain;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Repositories;
     using Linn.Products.Proxy.Exceptions;
@@ -64,22 +65,25 @@
                          });
         }
 
-        public void ReallocateSalesParts(int oldTariff, int NewTariff)
+        public TariffsReallocator ReallocateSalesParts(int oldTariff, int NewTariff)
         {
             var uri = new Uri($"{this.rootUri}/products/sales-parts/reallocate", UriKind.RelativeOrAbsolute);
             var parametersDictionary = new Dictionary<string, string>();
             parametersDictionary.Add("oldTariff", oldTariff.ToString());
             parametersDictionary.Add("newTariff", NewTariff.ToString());
-            var response = this.restClient.Post(
+            var response = this.restClient.Post<TariffsReallocator>(
                 CancellationToken.None,
-                uri, 
-                DefaultHeaders.JsonGetHeaders(),
-                parametersDictionary).Result;
+                uri,
+                parametersDictionary,
+                DefaultHeaders.JsonGetHeaders()).Result;
 
-            if (response != HttpStatusCode.OK)
+
+            if (response.StatusCode != HttpStatusCode.OK)
             {
                 throw new ProxyException($"Error trying to reallocate sales products");
             }
+
+            return response.Value;
         }
     }
 }
