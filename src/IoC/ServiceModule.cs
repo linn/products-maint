@@ -16,10 +16,8 @@
     using Linn.Products.Domain.Linnapps.SernosTransactions;
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
-    using Linn.Products.Domain.Services;
     using Linn.Products.Facade;
     using Linn.Products.Facade.Services;
-    using Linn.Products.Messaging.Dispatchers;
     using Linn.Products.Proxy;
     using Linn.Products.Resources;
     using Oracle.ManagedDataAccess.Client;
@@ -41,7 +39,6 @@
             builder.RegisterType<SerialNumberFactory>().As<ISerialNumberFactory>();
             builder.RegisterType<AuthorisationService>().As<IAuthorisationService>();
             builder.RegisterType<WEEEReports>().As<IWEEEReports>();
-            builder.RegisterType<TariffNumberReallocationService>().As<ITariffNumberReallocationService>();
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();

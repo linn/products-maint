@@ -1,37 +1,31 @@
 ﻿namespace Linn.Products.Facade.Services
 {
-    using Linn.Common.Facade;
-    using Linn.Common.Persistence;
-    using Linn.Products.Domain.Linnapps;
-    using Linn.Products.Domain.Linnapps.Products;
-    using Linn.Products.Domain.Services;
-    using Linn.Products.Facade.Extensions;
-    using Linn.Products.Resources;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
-
+    using Linn.Common.Facade;
+    using Linn.Common.Persistence;
+    using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Repositories;
-    using Linn.Products.Proxy;
+    using Linn.Products.Facade.Extensions;
+    using Linn.Products.Resources;
 
     public class TariffService : FacadeService<Tariff, int, TariffResource, TariffResource>, ITariffFacadeService
     {
         private readonly ITransactionManager transactionManager;
-
-        private readonly ITariffNumberReallocationService tariffNumberReallocationService;
 
         private readonly ISalesPartRepository salesPartRepository;
 
         public TariffService(
             IRepository<Tariff, int> repository,
             ITransactionManager transactionManager,
-            ITariffNumberReallocationService tariffNumberReallocationService,
             ISalesPartRepository salesPartRepository)
             : base(repository, transactionManager)
         {
             this.transactionManager = transactionManager;
-            this.tariffNumberReallocationService = tariffNumberReallocationService;
+            this.salesPartRepository = salesPartRepository;
         }
 
         public IResult<ResponseModel<TariffsReallocator>> Reallocate(int oldTariffId, int newTariffId, IEnumerable<string> privileges)

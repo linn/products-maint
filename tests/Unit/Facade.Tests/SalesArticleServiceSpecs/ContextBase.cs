@@ -3,7 +3,6 @@
     using Linn.Common.Persistence;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
-    using Linn.Products.Domain.Services;
     using Linn.Products.Facade.Services;
 
     using NSubstitute;
