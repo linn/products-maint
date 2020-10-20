@@ -42,7 +42,7 @@ function Tariffs({ items, fetchItems, loading, privileges, clearSearch, errorMes
                     />
                 </Grid>
                 <Grid item xs={2}>
-                    <Button href="/products/maint/tariffs-reallocator" variant="outlined">
+                    <Button href="/products/maint/tariffs-reallocate" variant="outlined">
                         Reallocator Utility
                     </Button>
                 </Grid>
