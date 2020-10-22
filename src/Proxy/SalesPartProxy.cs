@@ -71,19 +71,12 @@
             var parametersDictionary = new Dictionary<string, string>();
             parametersDictionary.Add("oldTariff", oldTariff.ToString());
             parametersDictionary.Add("newTariff", newTariff.ToString());
-            var tariffIds = new
-                {
-                    oldTariff,
-                    newTariff
-                };
-
 
             var response = this.restClient.Post<TariffsReallocator>(
                 CancellationToken.None,
                 uri,
                 parametersDictionary,
                 DefaultHeaders.JsonGetHeaders()).Result;
-           // var response = this.restClient.Post(uri, salesPart, this.headers);
 
             if (response.StatusCode != HttpStatusCode.OK)
             {
