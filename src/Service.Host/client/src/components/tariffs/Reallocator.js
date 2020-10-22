@@ -132,12 +132,12 @@ function Reallocator({
                         </Grid>
                         {tariffSearchErrorMessage && (
                             <Grid item xs={12}>
-                                <ErrorCard errorMessage={errorMessage} />
+                                <ErrorCard errorMessage={tariffSearchErrorMessage} />
                             </Grid>
                         )}
                         {oldTariffSearchErrorMessage && (
                             <Grid item xs={12}>
-                                <ErrorCard errorMessage={errorMessage} />
+                                <ErrorCard errorMessage={oldTariffSearchErrorMessage} />
                             </Grid>
                         )}
                         <Grid item xs={12} className={classes.marginTop}>

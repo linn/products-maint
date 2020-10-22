@@ -4,6 +4,7 @@ namespace Linn.Products.Service.Modules
     using Linn.Common.Facade;
     using Linn.Common.Resources;
     using Linn.Products.Domain;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
@@ -100,7 +101,7 @@ namespace Linn.Products.Service.Modules
             if (!this.authorisationService.HasPermissionFor(AuthorisedAction.ReallocateSalesArticles, privileges))
             {
                 return this.Negotiate.WithModel(
-                    new UnauthorisedResult<ResponseModel<bool>>("You are not authorised to reallocate sales articles to a new tariff"));
+                    new UnauthorisedResult<ResponseModel<TariffsReallocator>>("You are not authorised to reallocate sales articles to a new tariff"));
             }
 
             return this.Negotiate

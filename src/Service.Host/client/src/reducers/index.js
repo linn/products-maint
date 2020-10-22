@@ -88,7 +88,7 @@ const rootReducer = history =>
         saCoreType,
         salesArticle,
         salesArticles,
-        salesArticlesReallocate: tariffsReallocate,
+        tariffsReallocate,
         typesOfSale,
         typeOfSale,
         stockTriggerLevelsReport,
