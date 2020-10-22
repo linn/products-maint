@@ -65,18 +65,25 @@
                          });
         }
 
-        public TariffsReallocator ReallocateSalesParts(int oldTariff, int NewTariff)
+        public TariffsReallocator ReallocateSalesParts(int oldTariff, int newTariff)
         {
             var uri = new Uri($"{this.rootUri}/products/sales-parts/reallocate", UriKind.RelativeOrAbsolute);
             var parametersDictionary = new Dictionary<string, string>();
             parametersDictionary.Add("oldTariff", oldTariff.ToString());
-            parametersDictionary.Add("newTariff", NewTariff.ToString());
+            parametersDictionary.Add("newTariff", newTariff.ToString());
+            var tariffIds = new
+                {
+                    oldTariff,
+                    newTariff
+                };
+
+
             var response = this.restClient.Post<TariffsReallocator>(
                 CancellationToken.None,
                 uri,
                 parametersDictionary,
                 DefaultHeaders.JsonGetHeaders()).Result;
-
+           // var response = this.restClient.Post(uri, salesPart, this.headers);
 
             if (response.StatusCode != HttpStatusCode.OK)
             {

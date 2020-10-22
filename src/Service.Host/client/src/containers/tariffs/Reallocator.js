@@ -29,9 +29,7 @@ const mapStateToProps = state => ({
     item: tariffsReallocateSelectors.getItem(state)
 });
 
-const initialise = () => dispatch => {
-    dispatch(tariffsReallocateActions.fetch());
-};
+const initialise = () => () => {};
 
 const mapDispatchToProps = {
     initialise,
