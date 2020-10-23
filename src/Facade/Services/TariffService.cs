@@ -37,7 +37,7 @@
             }
             catch (Exception ex)
             {
-                return new BadRequestResult<ResponseModel<TariffsReallocator>>($"Error updating sales articles from tariff {oldTariffId} to {newTariffId} - ${ex.Message})");
+                return new BadRequestResult<ResponseModel<TariffsReallocator>>($"Error occured whilst trying to update products from tariff {oldTariffId} to {newTariffId}: {ex.Message}");
             }
             this.transactionManager.Commit();
 

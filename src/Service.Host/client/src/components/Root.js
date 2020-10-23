@@ -71,7 +71,7 @@ import SalesArticlesByTariff from '../containers/reports/SalesArticlesByTariff';
 import SalesArticleTriggerLevels from '../containers/reports/SalesArticleTriggerLevels';
 import WeeeReportOptions from '../containers/reportOptions/WeeeReportOptions';
 import WeeeReport from '../containers/reports/WeeeReport';
-import tariffsReallocator from '../containers/tariffs/Reallocator';
+import TariffsReallocator from '../containers/tariffs/Reallocator';
 
 const Root = ({ store }) => (
     <div>
@@ -204,7 +204,7 @@ const Root = ({ store }) => (
                                         <Route
                                             exact
                                             path="/products/maint/tariffs-reallocate"
-                                            component={tariffsReallocator}
+                                            component={TariffsReallocator}
                                         />
                                         <Route
                                             exact

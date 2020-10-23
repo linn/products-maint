@@ -80,7 +80,7 @@
 
             if (response.StatusCode != HttpStatusCode.OK)
             {
-                throw new ProxyException($"Error trying to reallocate sales products");
+                throw new ProxyException($"status code {response.StatusCode}");
             }
 
             return response.Value;

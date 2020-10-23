@@ -4,9 +4,9 @@ import * as itemTypes from '../itemTypes';
 import config from '../config';
 
 export default new UpdateApiActions(
-    itemTypes.TariffsReallocate.item,
-    itemTypes.TariffsReallocate.actionType,
-    itemTypes.TariffsReallocate.uri,
+    itemTypes.tariffsReallocate.item,
+    itemTypes.tariffsReallocate.actionType,
+    itemTypes.tariffsReallocate.uri,
     actionTypes,
     config.appRoot
 );

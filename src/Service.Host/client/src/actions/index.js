@@ -58,7 +58,7 @@ export const saCoreTypesActionTypes = makeActionTypes(itemTypes.saCoreTypes.acti
 
 export const salesArticleActionTypes = makeActionTypes(itemTypes.salesArticle.actionType);
 export const salesArticlesActionTypes = makeActionTypes(itemTypes.salesArticles.actionType, false);
-export const tariffsReallocateActionTypes = makeActionTypes(itemTypes.TariffsReallocate.actionType);
+export const tariffsReallocateActionTypes = makeActionTypes(itemTypes.tariffsReallocate.actionType);
 
 export const rootProductActionTypes = makeActionTypes(itemTypes.rootProduct.actionType);
 export const rootProductsActionTypes = makeActionTypes(itemTypes.rootProducts.actionType, true);

@@ -8,4 +8,4 @@ const defaultState = {
     searchItems: []
 };
 
-export default itemStoreFactory(itemTypes.TariffsReallocate.actionType, actionTypes, defaultState);
+export default itemStoreFactory(itemTypes.tariffsReallocate.actionType, actionTypes, defaultState);
