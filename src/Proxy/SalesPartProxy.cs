@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Net;
     using System.Threading;
-
     using Linn.Common.Proxy;
     using Linn.Common.Serialization.Json;
     using Linn.Products.Domain;
@@ -13,6 +12,7 @@
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Repositories;
     using Linn.Products.Proxy.Exceptions;
+    using Linn.Products.Resources;
     using Linn.Products.Resources.External;
 
     public class SalesPartProxy : ISalesPartRepository
@@ -67,23 +67,21 @@
 
         public TariffsReallocator ReallocateSalesParts(int oldTariff, int newTariff)
         {
-            var uri = new Uri($"{this.rootUri}/products/sales-parts/reallocate", UriKind.RelativeOrAbsolute);
-            var parametersDictionary = new Dictionary<string, string>();
-            parametersDictionary.Add("oldTariff", oldTariff.ToString());
-            parametersDictionary.Add("newTariff", newTariff.ToString());
+            var uri = new Uri($"{this.rootUri}/products/tariffs/reallocate", UriKind.RelativeOrAbsolute);
+     
+            var resource = new TariffReallocatorResource { NewTariffId = newTariff, OldTariffId = oldTariff };
 
-            var response = this.restClient.Post<TariffsReallocator>(
-                CancellationToken.None,
-                uri,
-                parametersDictionary,
-                DefaultHeaders.JsonGetHeaders()).Result;
+            var response = this.restClient.Post<TariffReallocatorResource>(CancellationToken.None, uri, resource);
 
-            if (response.StatusCode != HttpStatusCode.OK)
+            if (response.Result.StatusCode != HttpStatusCode.OK)
             {
-                throw new ProxyException($"status code {response.StatusCode}");
+                throw new ProxyException($"status code {response.Result.StatusCode}");
             }
 
-            return response.Value;
+            var returnedResource = response.Result.Value;
+            var reallocatorToReturn = new TariffsReallocator { Count = returnedResource.Count, NewTariffId = returnedResource.NewTariffId, OldTariffId = returnedResource.OldTariffId };
+
+            return reallocatorToReturn;
         }
     }
 }
