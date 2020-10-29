@@ -13,7 +13,7 @@ import {
 } from '@linn-it/linn-form-components-library';
 import Page from '../../containers/Page';
 
-function SalesArticleReallocator({
+function Reallocator({
     item,
     reallocate,
     history,
@@ -132,12 +132,12 @@ function SalesArticleReallocator({
                         </Grid>
                         {tariffSearchErrorMessage && (
                             <Grid item xs={12}>
-                                <ErrorCard errorMessage={errorMessage} />
+                                <ErrorCard errorMessage={tariffSearchErrorMessage} />
                             </Grid>
                         )}
                         {oldTariffSearchErrorMessage && (
                             <Grid item xs={12}>
-                                <ErrorCard errorMessage={errorMessage} />
+                                <ErrorCard errorMessage={oldTariffSearchErrorMessage} />
                             </Grid>
                         )}
                         <Grid item xs={12} className={classes.marginTop}>
@@ -161,7 +161,7 @@ function SalesArticleReallocator({
     );
 }
 
-SalesArticleReallocator.defaultProps = {
+Reallocator.defaultProps = {
     loading: null,
     errorMessage: '',
     snackbarVisible: false,
@@ -174,7 +174,7 @@ SalesArticleReallocator.defaultProps = {
     item: { count: 0 }
 };
 
-SalesArticleReallocator.propTypes = {
+Reallocator.propTypes = {
     item: PropTypes.shape({ count: PropTypes.string }),
     errorMessage: PropTypes.string,
     reallocate: PropTypes.func.isRequired,
@@ -194,4 +194,4 @@ SalesArticleReallocator.propTypes = {
     oldTariffSearchErrorMessage: PropTypes.string
 };
 
-export default SalesArticleReallocator;
+export default Reallocator;

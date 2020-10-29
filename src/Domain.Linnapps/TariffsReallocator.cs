@@ -1,6 +1,6 @@
 ﻿namespace Linn.Products.Domain.Linnapps
 {
-    public class SalesArticlesReallocator
+    public class TariffsReallocator
     {
         public int OldTariffId { get; set; }
 

@@ -1,12 +1,9 @@
 ﻿namespace Linn.Products.Service.Host
 {
     using System;
-
     using Autofac;
-
     using Linn.Common.Logging;
     using Linn.Products.IoC;
-
     using Nancy;
     using Nancy.Bootstrapper;
     using Nancy.Bootstrappers.Autofac;

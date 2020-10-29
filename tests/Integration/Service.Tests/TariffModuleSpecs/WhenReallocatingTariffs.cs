@@ -1,4 +1,4 @@
-﻿namespace Linn.Products.Service.Tests.SalesArticleModuleSpecs
+﻿namespace Linn.Products.Service.Tests.TariffModuleSpecs
 {
     using System.Collections.Generic;
     using FluentAssertions;
@@ -12,24 +12,24 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class WhenReallocatingSalesArticles : ContextBase
+    public class WhenReallocatingTariffs : ContextBase
     {
-        private SalesArticlesReallocatorResource requestResource;
+        private TariffReallocatorResource requestResource;
         [SetUp]
         public void SetUp()
         {
-            this.requestResource = new SalesArticlesReallocatorResource { NewTariffId = 21, OldTariffId = 20 };
+            this.requestResource = new TariffReallocatorResource { NewTariffId = 21, OldTariffId = 20 };
 
-            var salesArticleReallocatorResponseModel = new ResponseModel<SalesArticlesReallocator>(new SalesArticlesReallocator { NewTariffId = 21, OldTariffId = 20 }, new List<string>());
+            var tariffReallocatorResponseModel = new ResponseModel<TariffsReallocator>(new TariffsReallocator { NewTariffId = 21, OldTariffId = 20 }, new List<string>());
 
-            this.SalesArticleForecastService.Reallocate(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<List<string>>())
-                .Returns(new SuccessResult<ResponseModel<SalesArticlesReallocator>>(salesArticleReallocatorResponseModel));
+            this.TariffService.Reallocate(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<List<string>>())
+                .Returns(new SuccessResult<ResponseModel<TariffsReallocator>>(tariffReallocatorResponseModel));
 
             this.AuthorisationService.HasPermissionFor(AuthorisedAction.ReallocateSalesArticles, Arg.Any<List<string>>())
                 .Returns(true);
 
             this.Response = this.Browser.Post(
-                "/products/maint/sales-articles-reallocate",
+                "/products/maint/tariffs-reallocate",
                 with =>
                     {
                         with.Header("Accept", "application/json");
@@ -46,7 +46,7 @@
         [Test]
         public void ShouldCallService()
         {
-            this.SalesArticleForecastService.Received().Reallocate(
+            this.TariffService.Received().Reallocate(
                 Arg.Any<int>(),
                 Arg.Any<int>(),
                 Arg.Any<List<string>>());
@@ -55,7 +55,7 @@
         [Test]
         public void ShouldReturnResource()
         {
-            var resource = this.Response.Body.DeserializeJson<SalesArticlesReallocatorResource>();
+            var resource = this.Response.Body.DeserializeJson<TariffReallocatorResource>();
             resource.OldTariffId.Should().Be(this.requestResource.OldTariffId);
             resource.NewTariffId.Should().Be(this.requestResource.NewTariffId);
         }

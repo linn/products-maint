@@ -31,7 +31,7 @@ import typesOfSale from './typesOfSale';
 import typeOfSale from './typeOfSale';
 import salesArticle from './salesArticle';
 import salesArticles from './salesArticles';
-import salesArticlesReallocate from './salesArticlesReallocate';
+import tariffsReallocate from './tariffsReallocate';
 import saHoldStory from './saHoldStory';
 import vatCode from './vatCode';
 import vatCodes from './vatCodes';
@@ -88,7 +88,7 @@ const rootReducer = history =>
         saCoreType,
         salesArticle,
         salesArticles,
-        salesArticlesReallocate,
+        tariffsReallocate,
         typesOfSale,
         typeOfSale,
         stockTriggerLevelsReport,

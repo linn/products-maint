@@ -2,7 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { cleanup } from '@testing-library/react';
 import render from '../../../test-utils';
-import Reallocator from '../../salesArticles/Reallocator';
+import Reallocator from '../../tariffs/Reallocator';
 
 afterEach(cleanup);
 
@@ -36,7 +36,7 @@ describe('When Loading', () => {
 });
 
 describe('When Snackbar Visible', () => {
-    it('should render snackbar + tell user count of articles reallocated', () => {
+    it('should render snackbar + tell user count of products reallocated', () => {
         const props = { ...defaultProps, item: { count: 10 } };
         const { getByText } = render(<Reallocator {...props} snackbarVisible />);
         const item = getByText('10 products reallocated!');

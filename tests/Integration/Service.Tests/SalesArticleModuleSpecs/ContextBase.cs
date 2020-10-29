@@ -29,7 +29,7 @@
     {
         protected ISalesArticleService SalesArticleService { get; private set; }
 
-        protected ISalesArticleFacadeService SalesArticleForecastService { get; private set; }
+        protected IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource> SalesArticleForecastService { get; private set; }
 
         protected ISalesArticleCompositeDiscountFacadeService SalesArticleCompositeDiscountFacadeService { get; private set; }
 
@@ -44,7 +44,7 @@
         public void EstablishContext()
         {
             this.SalesArticleService = Substitute.For<ISalesArticleService>();
-            this.SalesArticleForecastService = Substitute.For<ISalesArticleFacadeService>();
+            this.SalesArticleForecastService = Substitute.For<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
             this.SalesArticleCompositeDiscountFacadeService = Substitute.For<ISalesArticleCompositeDiscountFacadeService>();
             this.SalesArticleSerialNumberFacadeService = Substitute.For<ISalesArticleSerialNumberFacadeService>();
             this.SalesArticleReportService = Substitute.For<ISalesArticleReportService>();
@@ -65,14 +65,13 @@
                         new SalesArticleCompositeDiscountResourceBuilder());
                     with.Dependency<IResourceBuilder<SalesArticleSerialNumberDetails>>(
                         new SalesArticleSerialNumberDetailsResourceBuilder());
-                   with.Dependency<IResourceBuilder<ResponseModel<SalesArticlesReallocator>>>(
-                           new SalesArticlesReallocatorResourceBuilder());
+                   with.Dependency<IResourceBuilder<ResponseModel<TariffsReallocator>>>(
+                           new TariffsReallocatorResourceBuilder());
                     with.Module<SalesArticleModule>();
                     with.ResponseProcessor<SalesArticleResponseProcessor>();
                     with.ResponseProcessor<SalesArticlesResponseProcessor>();
                     with.ResponseProcessor<SalesArticleCompositeDiscountResponseProcessor>();
                     with.ResponseProcessor<SalesArticleSerialNumberDetailsResponseProcessor>();
-                    with.ResponseProcessor<SalesArticlesReallocatorResponseProcessor>();
                     with.RequestStartup(
                         (container, pipelines, context) =>
                         {

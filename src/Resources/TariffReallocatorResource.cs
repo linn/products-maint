@@ -2,7 +2,7 @@
 {
     using Linn.Common.Resources;
 
-    public class SalesArticlesReallocatorResource : HypermediaResource
+    public class TariffReallocatorResource : HypermediaResource
     {
         public int OldTariffId { get; set; }
 

@@ -1,7 +1,6 @@
 ﻿namespace Linn.Products.IoC
 {
     using Autofac;
-
     using Linn.Common.Persistence;
     using Linn.Common.Persistence.EntityFramework;
     using Linn.Products.Domain.Linnapps;
@@ -11,14 +10,19 @@
     using Linn.Products.Domain.Linnapps.SernosTransactions;
     using Linn.Products.Persistence.Linnapps;
     using Linn.Products.Persistence.Linnapps.Repositories;
-
     using Microsoft.EntityFrameworkCore;
+    using ProductRange = Linn.Products.Domain.Linnapps.Products.ProductRange;
+    using RootProduct = Linn.Products.Domain.Linnapps.Products.RootProduct;
+    using Tariff = Linn.Products.Domain.Linnapps.Products.Tariff;
+    using TypeOfSale = Linn.Products.Domain.Linnapps.TypeOfSale;
+    using VatCode = Linn.Products.Domain.Linnapps.VatCode;
 
     public class PersistenceModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ServiceDbContext>().AsSelf().As<DbContext>().InstancePerRequest();
+
             builder.RegisterType<TransactionManager>().As<ITransactionManager>();
 
             // linnapps repositories

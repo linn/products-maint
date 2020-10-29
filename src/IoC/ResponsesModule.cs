@@ -5,6 +5,7 @@ namespace Linn.Products.IoC
     using Autofac;
     using Linn.Common.Facade;
     using Linn.Common.Reporting.Models;
+    using Linn.Products.Domain;
     using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Models;
     using Linn.Products.Domain.Linnapps.Products;
@@ -13,6 +14,8 @@ namespace Linn.Products.IoC
     using Linn.Products.Facade.ResourceBuilders;
 
     using PagedList.Core;
+
+    using ProductRange = Linn.Products.Domain.Linnapps.Products.ProductRange;
 
     public class ResponsesModule : Module
     {
@@ -59,8 +62,8 @@ namespace Linn.Products.IoC
             builder.RegisterType<ArchiveSerialNumberResourceBuilder>().As<IResourceBuilder<ResponseModel<ArchiveSerialNumber>>>();
             builder.RegisterType<ArchiveSerialNumbersResourceBuilder>()
                 .As<IResourceBuilder<ResponseModel<IEnumerable<ArchiveSerialNumber>>>>();
-            builder.RegisterType<SalesArticlesReallocatorResourceBuilder>()
-                .As<IResourceBuilder<ResponseModel<SalesArticlesReallocator>>>();
+            builder.RegisterType<TariffsReallocatorResourceBuilder>()
+                .As<IResourceBuilder<ResponseModel<TariffsReallocator>>>();
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿namespace Linn.Products.IoC
 {
     using System.Data;
-
     using Autofac;
-
     using Linn.Common.Configuration;
     using Linn.Common.Facade;
     using Linn.Common.Proxy;
@@ -15,16 +13,13 @@
     using Linn.Products.Domain.Linnapps.Reports;
     using Linn.Products.Domain.Linnapps.SalesPackages;
     using Linn.Products.Domain.Linnapps.SernosTransactions;
-    using Linn.Products.Domain.Linnapps.Services;
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
     using Linn.Products.Facade;
     using Linn.Products.Facade.Services;
     using Linn.Products.Proxy;
     using Linn.Products.Resources;
-
     using Oracle.ManagedDataAccess.Client;
-
     using ProductRange = Linn.Products.Domain.Linnapps.Products.ProductRange;
 
     public class ServiceModule : Module
@@ -43,11 +38,10 @@
             builder.RegisterType<SerialNumberFactory>().As<ISerialNumberFactory>();
             builder.RegisterType<AuthorisationService>().As<IAuthorisationService>();
             builder.RegisterType<WEEEReports>().As<IWEEEReports>();
-            builder.RegisterType<SalesArticleReallocationService>().As<ISalesArticleReallocationService>();
 
             // facade services
             builder.RegisterType<SalesArticleReportService>().As<ISalesArticleReportService>();
-            builder.RegisterType<TariffService>().As<IFacadeService<Tariff, int, TariffResource, TariffResource>>();
+            builder.RegisterType<TariffService>().As<ITariffFacadeService>();
             builder.RegisterType<CartonReportsService>().As<ICartonReportsService>();
             builder.RegisterType<SaHoldStoryReportService>().As<ISaHoldStoriesReportService>();
             builder.RegisterType<ProductsReportsService>().As<IProductsReportsService>();
@@ -63,7 +57,7 @@
             builder.RegisterType<WEEEReportsService>().As<IWEEEReportsService>();
 
             builder.RegisterType<SaHoldStoryFacadeService>().As<IFacadeService<SaHoldStory, int, SaHoldStoryResource, SaHoldStoryResource>>();
-            builder.RegisterType<SalesArticleService>().As<ISalesArticleFacadeService>();
+            builder.RegisterType<SalesArticleService>().As<IFacadeService<SalesArticle, string, SalesArticleResource, SalesArticleResource>>();
             builder.RegisterType<VatCodeService>().As<IFacadeService<VatCode, string, VatCodeResource, VatCodeResource>>();
             builder.RegisterType<ProductRangeService>().As<IFacadeService<ProductRange, int, ProductRangeResource, ProductRangeUpdateResource>>();
             builder.RegisterType<SalesPackageService>().As<IFacadeService<SalesPackage, int, SalesPackageResource, SalesPackageResource>>();

@@ -4,7 +4,9 @@ namespace Linn.Products.Service.Modules
     using Linn.Common.Facade;
     using Linn.Common.Resources;
     using Linn.Products.Domain;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
     using Linn.Products.Resources.Validators;
     using Linn.Products.Service.Extensions;
@@ -15,12 +17,12 @@ namespace Linn.Products.Service.Modules
 
     public sealed class TariffModule : NancyModule
     {
-        private readonly IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService;
+        private readonly ITariffFacadeService tariffService;
 
         private readonly IAuthorisationService authorisationService;
 
         public TariffModule(
-            IFacadeService<Tariff, int, TariffResource, TariffResource> tariffService,
+            ITariffFacadeService tariffService,
             IAuthorisationService authorisationService)
         {
             this.tariffService = tariffService;
@@ -30,6 +32,8 @@ namespace Linn.Products.Service.Modules
             this.Get("/products/maint/tariffs/{id:int}", parameters => this.GetTariff(parameters.id));
             this.Put("/products/maint/tariffs/{id:int}", parameters => this.UpdateTariff(parameters.id));
             this.Post("/products/maint/tariffs", _ => this.AddTariff());
+            this.Post("/products/maint/tariffs-reallocate", _ => this.Reallocate());
+
         }
 
         private object GetTariffs()
@@ -86,6 +90,29 @@ namespace Linn.Products.Service.Modules
             return results.IsValid
                        ? this.Negotiate.WithModel(this.tariffService.Add(resource, privileges))
                        : this.Negotiate.WithModel(results).WithStatusCode(HttpStatusCode.BadRequest);
+        }
+
+
+        private object Reallocate()
+        {
+            var resource = this.Bind<TariffReallocatorResource>();
+
+            var privileges = this.Context.CurrentUser.GetPrivileges().ToList();
+            if (!this.authorisationService.HasPermissionFor(AuthorisedAction.ReallocateSalesArticles, privileges))
+            {
+                return this.Negotiate.WithModel(
+                    new UnauthorisedResult<ResponseModel<TariffsReallocator>>("You are not authorised to reallocate sales articles to a new tariff"));
+            }
+
+            return this.Negotiate
+                .WithModel(
+                    this.tariffService.Reallocate(resource.OldTariffId, resource.NewTariffId, privileges))
+                .WithMediaRangeModel("text/html", ApplicationSettings.Get).WithView("Index");
+        }
+
+        private object GetApp()
+        {
+            return this.Negotiate.WithModel(ApplicationSettings.Get()).WithView("Index");
         }
     }
 }

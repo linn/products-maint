@@ -1,22 +1,48 @@
 ﻿namespace Linn.Products.Facade.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using Linn.Common.Facade;
     using Linn.Common.Persistence;
+    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
+    using Linn.Products.Domain.Repositories;
     using Linn.Products.Facade.Extensions;
     using Linn.Products.Resources;
 
-    public class TariffService : FacadeService<Tariff, int, TariffResource, TariffResource>
+    public class TariffService : FacadeService<Tariff, int, TariffResource, TariffResource>, ITariffFacadeService
     {
-        private readonly IRepository<Tariff, int> repository;
+        private readonly ITransactionManager transactionManager;
 
-        public TariffService(IRepository<Tariff, int> repository, ITransactionManager transactionManager)
+        private readonly ISalesPartRepository salesPartRepository;
+
+        public TariffService(
+            IRepository<Tariff, int> repository,
+            ITransactionManager transactionManager,
+            ISalesPartRepository salesPartRepository)
             : base(repository, transactionManager)
         {
-            this.repository = repository;
+            this.transactionManager = transactionManager;
+            this.salesPartRepository = salesPartRepository;
+        }
+
+        public IResult<ResponseModel<TariffsReallocator>> Reallocate(int oldTariffId, int newTariffId, IEnumerable<string> privileges)
+        {
+            var reallocated = new TariffsReallocator();
+            try
+            {
+                reallocated = this.salesPartRepository.ReallocateSalesParts(oldTariffId, newTariffId);
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestResult<ResponseModel<TariffsReallocator>>($"Error occured whilst trying to update products from tariff {oldTariffId} to {newTariffId}: {ex.Message}");
+            }
+            this.transactionManager.Commit();
+
+            return new SuccessResult<ResponseModel<TariffsReallocator>>(new ResponseModel<TariffsReallocator>(
+                reallocated, privileges));
         }
 
         protected override Tariff CreateFromResource(TariffResource resource)

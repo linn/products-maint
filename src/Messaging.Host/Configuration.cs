@@ -1,8 +1,6 @@
 ﻿namespace Linn.Products.Messaging.Host
 {
     using Autofac;
-
-    using Linn.Common.Messaging.RabbitMQ.Autofac;
     using Linn.Products.IoC;
 
     public static class Configuration
