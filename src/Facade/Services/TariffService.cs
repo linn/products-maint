@@ -33,7 +33,7 @@
             var reallocated = new TariffsReallocator();
             try
             {
-                this.salesPartRepository.ReallocateSalesParts(oldTariffId, newTariffId);
+                reallocated = this.salesPartRepository.ReallocateSalesParts(oldTariffId, newTariffId);
             }
             catch (Exception ex)
             {
