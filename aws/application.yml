@@ -167,7 +167,7 @@ Resources:
         - isTesting
         - !Sub ${TestClusterName}
         - !Sub ${ProductionClusterName}
-      DesiredCount: !If [ isTesting, 0, 1]
+      DesiredCount: !If [ isTesting, 1, 2]
       TaskDefinition: !Ref productsMaintTaskDefinition
       Role: ecsServiceRole
       LoadBalancers:
