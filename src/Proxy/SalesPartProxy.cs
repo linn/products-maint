@@ -27,6 +27,7 @@
             this.rootUri = rootUri;
         }
 
+        // TODO proxy out to products and get non weee sales 
         public IEnumerable<SalesPart> GetWEEESalesParts()
         {
             var uri = new Uri($"{this.rootUri}/products/sales-parts/weee-parts", UriKind.RelativeOrAbsolute);

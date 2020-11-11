@@ -21,10 +21,10 @@ export default function WeeeReport({ reportData, loading, error }) {
                     reportData && (
                         <MultiReportTable
                             reportData={reportData}
-                            showTitle={false}
+                            showTitle
                             showTotals
                             containsSubtotals
-                            showRowTitles={false}
+                            showRowTitles
                         />
                     )
                 )}

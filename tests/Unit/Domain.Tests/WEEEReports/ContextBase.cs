@@ -10,12 +10,15 @@
     using Linn.Common.Persistence;
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Linnapps;
+    using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Reports;
     using Linn.Products.Domain.Repositories;
 
     using NSubstitute;
 
     using NUnit.Framework;
+
+    using Expression = Castle.DynamicProxy.Generators.Emitters.SimpleAST.Expression;
 
     public abstract class ContextBase
     {
@@ -27,12 +30,15 @@
 
         protected IQueryRepository<SalesAnalysis> SalesAnalysisRepository { get; private set; }
 
-        [SetUp]
+        protected IRepository<SalesArticle, string> SalesArticleRepository { get; set; }
+
+            [SetUp]
         public void SetUpContext()
         {
             this.SalesPartRepository = Substitute.For<ISalesPartRepository>();
             this.ReportingHelper = new ReportingHelper();
             this.SalesAnalysisRepository = Substitute.For<IQueryRepository<SalesAnalysis>>();
+            this.SalesArticleRepository = Substitute.For<IRepository<SalesArticle, string>>();
 
             this.SalesPartRepository.GetWEEESalesParts().Returns(
                 new List<SalesPart>
@@ -79,10 +85,19 @@
                         new SalesAnalysis { ArticleNumber = "P1", Quantity = 2 },
                         new SalesAnalysis { ArticleNumber = "P2", Quantity = 1 },
                         new SalesAnalysis { ArticleNumber = "P3", Quantity = 1 },
-                        new SalesAnalysis { ArticleNumber = "P4", Quantity = 1 }
+                        new SalesAnalysis { ArticleNumber = "P4", Quantity = 1 },
+                        new SalesAnalysis { ArticleNumber = "P5", Quantity = 1 }
                     }.AsQueryable());
 
-            this.Sut = new WEEEReports(this.SalesAnalysisRepository, this.ReportingHelper, this.SalesPartRepository);
+            this.SalesArticleRepository.FilterBy(Arg.Any<Expression<Func<SalesArticle, bool>>>()).Returns(
+                new List<SalesArticle> { new SalesArticle { ArticleNumber = "P5", InvoiceDescription = "DESC5" } }
+                    .AsQueryable());
+
+            this.Sut = new WEEEReports(
+                this.SalesAnalysisRepository,
+                this.ReportingHelper,
+                this.SalesPartRepository,
+                this.SalesArticleRepository);
         }
     }
 }
