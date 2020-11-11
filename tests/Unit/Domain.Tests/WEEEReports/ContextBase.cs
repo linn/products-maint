@@ -51,7 +51,8 @@
                                 PackagingNettWeight = 2,
                                 PackagingFoamNettWeight = 2,
                                 MainsCablesPerProduct = 1,
-                                DimensionOver50Cm = true
+                                DimensionOver50Cm = true,
+                                WeeeProduct = true
                             },
                         new SalesPart
                             {
@@ -61,21 +62,24 @@
                                 PackagingNettWeight = 2,
                                 PackagingFoamNettWeight = 2,
                                 MainsCablesPerProduct = 1,
-                                DimensionOver50Cm = false
+                                DimensionOver50Cm = false,
+                                WeeeProduct = true
                             },
                         new SalesPart
                             {
                                 Name = "P3",
                                 Description = "DESC3",
                                 PackagingNettWeight = 0.5,
-                                WeeeCategory = "PACKAGING"
+                                WeeeCategory = "PACKAGING",
+                                WeeeProduct = true
                             },
                         new SalesPart
                             {
                                 Name = "P4",
                                 Description = "DESC4",
                                 NettWeight = 0.25,
-                                WeeeCategory = "CABLE"
+                                WeeeCategory = "CABLE",
+                                WeeeProduct = true
                             }
                     });
 
@@ -90,7 +94,7 @@
                     }.AsQueryable());
 
             this.SalesArticleRepository.FilterBy(Arg.Any<Expression<Func<SalesArticle, bool>>>()).Returns(
-                new List<SalesArticle> { new SalesArticle { ArticleNumber = "P5", InvoiceDescription = "DESC5" } }
+                new List<SalesArticle> { new SalesArticle { ArticleNumber = "P5", InvoiceDescription = "DESC5" }, }
                     .AsQueryable());
 
             this.Sut = new WEEEReports(

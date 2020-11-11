@@ -32,36 +32,54 @@
             this.salesArticleRepository = salesArticleRepository;
         }
 
-        // TODO add non weee sales to the uk weee report
-        // add another two mini report lines just showing the totals of all over and under 50 mm packaging?q
-
-        public ResultsModel GetUkWEEEReport(DateTime fromDate, DateTime toDate)
+        public IEnumerable<ResultsModel> GetUkWEEEReport(DateTime fromDate, DateTime toDate)
         {
+            var results = new List<ResultsModel>();
+
             var weeeParts = this.salesPartRepository.GetWEEESalesParts().ToList();
 
             var salesAnalyses = this.salesAnalysisRepository.FilterBy(
                 s => s.SanlDate >= fromDate && s.SanlDate <= toDate && s.AccountingCompany == "LINN"
-                     && s.CountryCode == "GB" && s.DocumentType == "I"
-                     && weeeParts.Any(w => w.Name == s.ArticleNumber)).ToList();
+                     && s.CountryCode == "GB" && s.DocumentType == "I").ToList();
+
+            var weeeSalesAnalyses = salesAnalyses.Where(s => weeeParts.Any(w => w.Name == s.ArticleNumber)).ToList();
 
             weeeParts = weeeParts
-                .Where(w => salesAnalyses.Any(a => a.ArticleNumber == w.Name) && string.IsNullOrEmpty(w.WeeeCategory))
+                .Where(w => weeeSalesAnalyses.Any(a => a.ArticleNumber == w.Name) && string.IsNullOrEmpty(w.WeeeCategory))
                 .OrderBy(w => w.Name).ToList();
+
+            var nonWeeeSalesAnanlyses =
+                salesAnalyses.Where(s => weeeParts.All(p => p.Name != s.ArticleNumber && s.Quantity != 0));
+
+            var nonWeeeSalesArticles = this.salesArticleRepository
+                .FilterBy(s => nonWeeeSalesAnanlyses.Any(a => a.ArticleNumber == s.ArticleNumber))
+                .OrderBy(s => s.ArticleNumber).ToList();
 
             var model = new ResultsModel
                             {
                                 ReportTitle = new NameModel($"UK WEEE Report {fromDate:d} - {toDate:d}")
                             };
+            var nonWeeeResultsModel = new ResultsModel { ReportTitle = new NameModel("Sales of non WEEE Products") };
 
             var columns = this.UkModelColumns();
+            var nonWeeeColumns = this.NonWeeeColumns();
 
             model.AddSortedColumns(columns);
+            nonWeeeResultsModel.AddSortedColumns(nonWeeeColumns);
 
-            var values = this.SetUkModelRows(salesAnalyses, weeeParts);
+            var values = this.SetUkModelRows(weeeSalesAnalyses, weeeParts);
 
             this.reportingHelper.AddResultsToModel(model, values, CalculationValueModelType.Quantity, true);
+            this.reportingHelper.AddResultsToModel(
+                nonWeeeResultsModel,
+                this.SetNonWeeeModelRows(weeeSalesAnalyses, nonWeeeSalesArticles),
+                CalculationValueModelType.Quantity,
+                true);
 
-            return model;
+            results.Add(model);
+            results.Add(model);
+
+            return results;
         }
 
         public IEnumerable<ResultsModel> GetGermanWeeeReport(DateTime fromDate, DateTime toDate)
@@ -81,9 +99,12 @@
 
             var weeeParts = allWeeeParts.Where(w => string.IsNullOrEmpty(w.WeeeCategory));
 
+            var nonWeeeSalesAnanlyses =
+                salesAnalyses.Where(s => weeeParts.All(p => p.Name != s.ArticleNumber && s.Quantity != 0));
+            
             var nonWeeeSalesArticles = this.salesArticleRepository
-                .FilterBy(s => salesAnalyses.Any(a => a.ArticleNumber == s.ArticleNumber)).OrderBy(s => s.ArticleNumber)
-                .ToList();
+                .FilterBy(s => nonWeeeSalesAnanlyses.Any(a => a.ArticleNumber == s.ArticleNumber))
+                .OrderBy(s => s.ArticleNumber).ToList();
 
             var packagingOnlyParts = allWeeeParts.Where(w => w.WeeeCategory == "PACKAGING");
 
@@ -133,7 +154,7 @@
                 true);
             this.reportingHelper.AddResultsToModel(
                 nonWeeeResultsModel,
-                this.SetNonWeeeModelRows(weeeSalesAnalyses, nonWeeeSalesArticles),
+                this.SetNonWeeeModelRows(nonWeeeSalesAnanlyses, nonWeeeSalesArticles),
                 CalculationValueModelType.Quantity,
                 true);
 

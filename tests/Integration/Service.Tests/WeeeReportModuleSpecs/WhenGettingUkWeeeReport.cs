@@ -1,6 +1,7 @@
 ﻿namespace Linn.Products.Service.Tests.WeeeReportModuleSpecs
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using FluentAssertions;
@@ -22,10 +23,10 @@
         [SetUp]
         public void SetUp()
         {
-            var results = new ResultsModel { ReportTitle = new NameModel("Title") };
+            var results = new List<ResultsModel> { new ResultsModel { ReportTitle = new NameModel("Title") } };
 
             this.WeeeReportsService.GetUkWeeeReport(Arg.Any<DateTime>(), Arg.Any<DateTime>())
-                .Returns(new SuccessResult<ResultsModel>(results));
+                .Returns(new SuccessResult<IEnumerable<ResultsModel>>(results));
 
             this.Response = this.Browser.Get(
                 "/products/reports/weee/report",
