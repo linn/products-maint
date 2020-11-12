@@ -5,8 +5,6 @@
     using System.Linq;
     using System.Linq.Expressions;
 
-    using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
-
     using Linn.Common.Persistence;
     using Linn.Common.Reporting.Models;
     using Linn.Products.Domain.Linnapps;
@@ -17,8 +15,6 @@
     using NSubstitute;
 
     using NUnit.Framework;
-
-    using Expression = Castle.DynamicProxy.Generators.Emitters.SimpleAST.Expression;
 
     public abstract class ContextBase
     {

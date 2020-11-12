@@ -1,6 +1,5 @@
 ﻿namespace Linn.Products.Domain.Tests.WEEEReports
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
