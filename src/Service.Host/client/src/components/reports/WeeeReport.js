@@ -34,7 +34,9 @@ export default function WeeeReport({ reportData, loading, error }) {
 }
 
 WeeeReport.propTypes = {
-    reportData: PropTypes.shape({ title: PropTypes.shape({ displayString: PropTypes.string }) }),
+    reportData: PropTypes.arrayOf(
+        PropTypes.shape({ title: PropTypes.shape({ displayString: PropTypes.string }) })
+    ),
     loading: PropTypes.bool,
     error: PropTypes.string
 };

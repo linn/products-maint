@@ -49,7 +49,7 @@
                 .OrderBy(w => w.Name).ToList();
 
             var nonWeeeSalesAnanlyses =
-                salesAnalyses.Where(s => weeeParts.All(p => p.Name != s.ArticleNumber && s.Quantity != 0));
+                salesAnalyses.Where(s => weeeParts.All(p => p.Name != s.ArticleNumber) && s.Quantity != 0);
 
             var nonWeeeSalesArticles = this.salesArticleRepository
                 .FilterBy(s => nonWeeeSalesAnanlyses.Any(a => a.ArticleNumber == s.ArticleNumber))
@@ -72,12 +72,12 @@
             this.reportingHelper.AddResultsToModel(model, values, CalculationValueModelType.Quantity, true);
             this.reportingHelper.AddResultsToModel(
                 nonWeeeResultsModel,
-                this.SetNonWeeeModelRows(weeeSalesAnalyses, nonWeeeSalesArticles),
+                this.SetNonWeeeModelRows(nonWeeeSalesAnanlyses, nonWeeeSalesArticles),
                 CalculationValueModelType.Quantity,
                 true);
 
             results.Add(model);
-            results.Add(model);
+            results.Add(nonWeeeResultsModel);
 
             return results;
         }
@@ -100,7 +100,7 @@
             var weeeParts = allWeeeParts.Where(w => string.IsNullOrEmpty(w.WeeeCategory));
 
             var nonWeeeSalesAnanlyses =
-                salesAnalyses.Where(s => weeeParts.All(p => p.Name != s.ArticleNumber && s.Quantity != 0));
+                salesAnalyses.Where(s => allWeeeParts.All(p => p.Name != s.ArticleNumber) && s.Quantity != 0);
             
             var nonWeeeSalesArticles = this.salesArticleRepository
                 .FilterBy(s => nonWeeeSalesAnanlyses.Any(a => a.ArticleNumber == s.ArticleNumber))
