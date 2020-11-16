@@ -7,7 +7,7 @@
 
     public interface IWEEEReports
     {
-        ResultsModel GetUkWEEEReport(DateTime fromDate, DateTime toDate);
+        IEnumerable<ResultsModel> GetUkWEEEReport(DateTime fromDate, DateTime toDate);
 
         IEnumerable<ResultsModel> GetGermanWeeeReport(DateTime fromDate, DateTime toDate);
     }

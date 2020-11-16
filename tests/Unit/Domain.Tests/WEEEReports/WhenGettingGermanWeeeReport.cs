@@ -1,6 +1,5 @@
 ﻿namespace Linn.Products.Domain.Tests.WEEEReports
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -24,7 +23,7 @@
         [Test]
         public void ShouldGetResults()
         {
-            this.result.Should().HaveCount(3);
+            this.result.Should().HaveCount(5);
             var weee = this.result.First();
             weee.GetGridTextValue(0, 0).Should().Be("P1");
             weee.GetGridTextValue(0, 1).Should().Be("DESC1");
@@ -37,15 +36,29 @@
             weee.GetGridValue(1, 3).Should().Be(2);
             weee.GetGridValue(1, 7).Should().Be((decimal)0.25);
 
-            var packaging = this.result.ElementAt(1);
+            var dimensions = this.result.ElementAt(1);
+            dimensions.GetGridValue(0, 0).Should().Be(4);
+            dimensions.GetGridValue(0, 1).Should().Be(4);
+            dimensions.GetGridValue(0, 2).Should().Be(4);
+            dimensions.GetGridValue(0, 3).Should().Be((decimal)0.5);
+            dimensions.GetGridValue(1, 0).Should().Be(2);
+            dimensions.GetGridValue(1, 1).Should().Be(2);
+            dimensions.GetGridValue(1, 2).Should().Be(2);
+            dimensions.GetGridValue(1, 3).Should().Be((decimal)0.25);
+
+            var packaging = this.result.ElementAt(2);
             packaging.GetGridTextValue(0, 0).Should().Be("P3");
             packaging.GetGridTextValue(0, 1).Should().Be("DESC3");
             packaging.GetGridValue(0, 2).Should().Be(1);
 
-            var cables = this.result.Last();
+            var cables = this.result.ElementAt(3);
             cables.GetGridTextValue(0, 0).Should().Be("P4");
             cables.GetGridTextValue(0, 1).Should().Be("DESC4");
             cables.GetGridValue(0, 2).Should().Be(1);
+
+            var nonWeee = this.result.Last();
+            nonWeee.GetGridTextValue(0, 0).Should().Be("P5");
+            nonWeee.GetGridTextValue(0, 1).Should().Be("DESC5");
         }
     }
 }

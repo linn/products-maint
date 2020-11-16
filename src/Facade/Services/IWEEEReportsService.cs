@@ -8,7 +8,7 @@
 
     public interface IWEEEReportsService
     {
-        IResult<ResultsModel> GetUkWeeeReport(DateTime fromDate, DateTime toDate);
+        IResult<IEnumerable<ResultsModel>> GetUkWeeeReport(DateTime fromDate, DateTime toDate);
 
         IResult<IEnumerable<ResultsModel>> GetGermanWeeeReport(DateTime fromDate, DateTime toDate);
     }

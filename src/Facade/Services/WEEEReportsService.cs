@@ -16,10 +16,10 @@
             this.WEEEReports = weeeReports;
         }
 
-        public IResult<ResultsModel> GetUkWeeeReport(DateTime fromDate, DateTime toDate)
+        public IResult<IEnumerable<ResultsModel>> GetUkWeeeReport(DateTime fromDate, DateTime toDate)
         {
             var results = this.WEEEReports.GetUkWEEEReport(fromDate, toDate);
-            return new SuccessResult<ResultsModel>(results);
+            return new SuccessResult<IEnumerable<ResultsModel>>(results);
         }
 
         public IResult<IEnumerable<ResultsModel>> GetGermanWeeeReport(DateTime fromDate, DateTime toDate)
