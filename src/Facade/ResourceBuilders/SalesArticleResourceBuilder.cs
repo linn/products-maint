@@ -37,7 +37,8 @@
                            Links = this.BuildLinks(salesArticleResponseModel).ToArray(),
                            OnHold = IsOnHold(salesArticleResponseModel),
                            RootProductOnHold = RootProductGroupIsOnHold(salesArticleResponseModel),
-                           ProductIdOnChip = salesArticleResponseModel.ResponseData.ProductIdOnChip
+                           ProductIdOnChip = salesArticleResponseModel.ResponseData.ProductIdOnChip,
+                           SmallLabelType = salesArticleResponseModel.ResponseData.SmallLabelType
                        };
         }
 

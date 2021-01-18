@@ -333,6 +333,9 @@
             builder.Entity<SalesArticle>().Property(t => t.TypeOfSerialNumber).HasColumnName("TYPE_OF_SERIAL_NUMBER").HasMaxLength(2);
             builder.Entity<SalesArticle>().Property(t => t.ProductIdOnChip).HasColumnName("PRODUCT_ID_ON_CHIP")
                 .HasMaxLength(1);
+            builder.Entity<SalesArticle>().Property(t => t.SmallLabelType).HasColumnName("SMALL_LABEL_TYPE")
+                .HasMaxLength(20);
+
             builder.Entity<SalesArticle>().HasOne(t => t.SaCoreType);
             builder.Entity<SalesArticle>().HasMany(t => t.HoldStories).WithOne(e => e.SalesArticle);
         }

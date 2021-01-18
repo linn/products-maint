@@ -50,6 +50,8 @@
         // deliberately not mapping TariffId as it is set in the new products app
         public int TariffId { get; set; }
 
+        public string SmallLabelType { get; set; }
+
         public void Update(
             string forecastType,
             DateTime? forecastFromDate,
