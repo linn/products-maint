@@ -17,11 +17,13 @@
 
     public class WhenGettingSalesArticle : ContextBase
     {
+        private SalesArticle salesArticle;
+
         [SetUp]
         public void SetUp()
         {
-            var salesArticle = new SalesArticle { ArticleNumber = "sa" };
-            var responseModel = new ResponseModel<SalesArticle>(salesArticle, null);
+            this.salesArticle = new SalesArticle { ArticleNumber = "sa", SmallLabelType = "sm" };
+            var responseModel = new ResponseModel<SalesArticle>(this.salesArticle, null);
             this.SalesArticleForecastService.GetById("SA", Arg.Any<IEnumerable<string>>())
                 .Returns(new SuccessResult<ResponseModel<SalesArticle>>(responseModel));
 
@@ -50,7 +52,8 @@
         public void ShouldReturnResource()
         {
             var resource = this.Response.Body.DeserializeJson<SalesArticleResource>();
-            resource.ArticleNumber.Should().Be("sa");
+            resource.ArticleNumber.Should().Be(this.salesArticle.ArticleNumber);
+            resource.SmallLabelType.Should().Be(this.salesArticle.SmallLabelType);
         }
     }
 }

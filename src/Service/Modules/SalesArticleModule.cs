@@ -1,23 +1,20 @@
 namespace Linn.Products.Service.Modules
 {
-    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     using Linn.Common.Facade;
     using Linn.Products.Domain;
-    using Linn.Products.Domain.Linnapps;
     using Linn.Products.Domain.Linnapps.Products;
     using Linn.Products.Domain.Linnapps.RemoteServices;
     using Linn.Products.Facade.Services;
     using Linn.Products.Resources;
     using Linn.Products.Service.Extensions;
     using Linn.Products.Service.Models;
+
     using Nancy;
     using Nancy.ModelBinding;
     using Nancy.Security;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Nancy.Diagnostics;
 
     public sealed class SalesArticleModule : NancyModule
     {
