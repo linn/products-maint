@@ -57,11 +57,13 @@
                              PackagingNettWeight = p.PackagingNettWeight,
                              WeeeCategory = p.WeeeCategory,
                              WeeeProduct = p.WeeeProduct,
-                             RootProduct = new RootProduct
-                                               {
-                                                   Name = p.RootProduct.Name,
-                                                   Description = p.RootProduct.Description
-                                               }
+                             RootProduct = p.RootProduct == null
+                                               ? null
+                                               : new RootProduct
+                                                     {
+                                                         Name = p.RootProduct.Name,
+                                                         Description = p.RootProduct.Description
+                                                     }
                          });
         }
 
