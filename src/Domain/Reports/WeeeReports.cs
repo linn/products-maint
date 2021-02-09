@@ -101,10 +101,14 @@
 
             var nonWeeeSalesAnanlyses =
                 salesAnalyses.Where(s => allWeeeParts.All(p => p.Name != s.ArticleNumber) && s.Quantity != 0);
-            
+
             var nonWeeeSalesArticles = this.salesArticleRepository
                 .FilterBy(s => nonWeeeSalesAnanlyses.Any(a => a.ArticleNumber == s.ArticleNumber))
-                .OrderBy(s => s.ArticleNumber).ToList();
+                .OrderBy(s => s.ArticleNumber).Select(
+                    s => new SalesArticle
+                             {
+                                 ArticleNumber = s.ArticleNumber, InvoiceDescription = s.InvoiceDescription
+                             }).ToList();
 
             var packagingOnlyParts = allWeeeParts.Where(w => w.WeeeCategory == "PACKAGING");
 
