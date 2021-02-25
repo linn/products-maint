@@ -141,10 +141,10 @@ function Tariff({
                         <Grid item xs={3}>
                             <InputField
                                 fullWidth
-                                value={tariff.usTariffCode}
+                                value={tariff.uSTariffCode}
                                 label="US Tariff Code"
                                 onChange={handleFieldChange}
-                                propertyName="usTariffCode"
+                                propertyName="uSTariffCode"
                                 maxLength={14}
                             />
                         </Grid>
