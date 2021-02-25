@@ -12,7 +12,7 @@ const setEditStatusMock = jest.fn();
 const tariff = {
     tariffCode: 'P1',
     description: 'tariff description for a black box',
-    usTariffCode: 'code',
+    uSTariffCode: 'code',
     duty: 1,
     dateInvalid: null
 };
@@ -87,7 +87,7 @@ describe('When Editing', () => {
         const noDescription = {
             tariffCode: 'P1',
             description: '',
-            usTariffCode: 'code',
+            uSTariffCode: 'code',
             duty: 1,
             dateInvalid: null
         };
@@ -121,7 +121,7 @@ describe('When creating', () => {
         const noTariffCode = {
             tariffCode: 'P1',
             description: '',
-            usTariffCode: 'code',
+            uSTariffCode: 'code',
             duty: 1,
             dateInvalid: null
         };
