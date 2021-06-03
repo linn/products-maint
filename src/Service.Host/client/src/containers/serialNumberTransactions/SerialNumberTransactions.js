@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
     errorMessage: getItemErrorDetailMessage(state, itemTypes.serialNumberTransaction.item)
 });
 
-const pageLoad = ({ pageNumber = 1, rowsPerPage = 10 }) => dispatch => {
+const pageLoad = ( pageNumber = 1, rowsPerPage = 10 ) => dispatch => {
     dispatch(serialNumberTransactionsPagedActions.fetchPage(pageNumber, rowsPerPage));
 };
 
