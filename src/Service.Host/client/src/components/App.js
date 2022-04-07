@@ -57,6 +57,13 @@ function App() {
                 >
                     <Typography color="primary">Sales Article Production Trigger Levels</Typography>
                 </ListItem>
+                <ListItem
+                    component={Link}
+                    to="/products/reports/weee"
+                    button
+                >
+                    <Typography color="primary">WEEE Report</Typography>
+                </ListItem>
             </List>
             <Typography variant="h6">Utilities</Typography>
             <List>
