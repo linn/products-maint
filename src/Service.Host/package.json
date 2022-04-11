@@ -88,7 +88,7 @@
         "connected-react-router": "^6.7.0",
         "core-js": "^3.6.4",
         "history": "^4.10.1",
-        "moment": "^2.24.0",
+        "moment": "^2.29.2",
         "notistack": "^0.9.7",
         "numeral": "^2.0.6",
         "oidc-client": "^1.10.1",
