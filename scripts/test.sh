@@ -1,15 +1,6 @@
 #!/bin/bash
 set -ev
 
-# upgrade node to latest version
-if [ "$CI" ] && [ "$TRAVIS" ]
-then 
-	source ~/.nvm/nvm.sh; 
-	nvm install 8.10.0;
-	nvm use 8.10.0;
-	npm i -g npm;
-fi
-
 # c# tests
 dotnet test ./tests/Unit/Domain.Tests/Domain.Tests.csproj
 dotnet test ./tests/Unit/Facade.Tests/Facade.Tests.csproj
