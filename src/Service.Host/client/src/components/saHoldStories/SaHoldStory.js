@@ -65,7 +65,6 @@ function SaHoldStory({
             if (body.rootProduct) {
                 body.rootProduct = decodeURIComponent(body.rootProduct);
             }
-            console.log(body);
             addSaHoldStory(body);
         } else if (editing()) {
             updateSaHoldStory(itemId, saHoldStory);
