@@ -26,9 +26,6 @@ function SaHoldStory({
     match,
     updateSaHoldStory
 }) {
-    const deslugify = articleNumber => articleNumber.replace(/%2F/g, '/');
-    const slugify = articleNumber => articleNumber.replace(/[/]/g, '%2F');
-
     const creating = () => editStatus === 'create';
     const viewing = () => editStatus === 'view';
     const editing = () => editStatus === 'edit';
@@ -37,7 +34,7 @@ function SaHoldStory({
         if (creating()) {
             return {
                 salesArticle: match.params.articleNumber
-                    ? deslugify(match.params.articleNumber)
+                    ? decodeURIComponent(match.params.articleNumber)
                     : null,
                 rootProduct: match.params.name,
                 dateStarted: moment().toISOString()
@@ -54,14 +51,21 @@ function SaHoldStory({
             setSaHoldStory(editing() ? { ...item, dateFinished: moment().toISOString() } : item);
             setPrevSaHoldStory(item);
         }
-    });
+    }, [creating, item, saHoldStory, editing, prevSaHoldStory]);
 
     const createInputInvalid = () => !saHoldStory.reasonStarted;
     const editInputInvalid = () => !saHoldStory.reasonFinished;
 
     const handleSaveClick = () => {
         if (creating()) {
-            addSaHoldStory(saHoldStory);
+            const body = saHoldStory;
+            if (body.salesArticle) {
+                body.salesArticle = decodeURIComponent(body.salesArticle);
+            }
+            if (body.rootProduct) {
+                body.rootProduct = decodeURIComponent(body.rootProduct);
+            }
+            addSaHoldStory(body);
         } else if (editing()) {
             updateSaHoldStory(itemId, saHoldStory);
             history.push(`/products/reports/sa-hold-stories/${itemId}`);
@@ -75,9 +79,9 @@ function SaHoldStory({
     const handleBackClick = () => {
         let url;
         if (saHoldStory.salesArticle) {
-            url = `/products/maint/sales-articles/${slugify(saHoldStory.salesArticle)}`;
+            url = `/products/maint/sales-articles/${encodeURIComponent(saHoldStory.salesArticle)}`;
         } else if (saHoldStory.rootProduct) {
-            url = `/products/maint/root-products/${slugify(saHoldStory.rootProduct)}`;
+            url = `/products/maint/root-products/${encodeURIComponent(saHoldStory.rootProduct)}`;
         }
         history.push(url);
     };
@@ -91,10 +95,12 @@ function SaHoldStory({
 
     const titleText = () => {
         if (creating()) {
-            return `Put ${saHoldStory.salesArticle || saHoldStory.rootProduct} on Hold?`;
+            return `Put ${decodeURIComponent(saHoldStory.salesArticle || saHoldStory.rootProduct)} on Hold?`;
         }
         if (editing()) {
-            return `Take ${saHoldStory.salesArticle || saHoldStory.rootProduct} off Hold?`;
+            return `Take ${decodeURIComponent(
+                saHoldStory.salesArticle || saHoldStory.rootProduct
+            )} off Hold?`;
         }
         return `${saHoldStory.salesArticle || saHoldStory.rootProduct} Hold Story Details`;
     };
@@ -242,7 +248,7 @@ function SaHoldStory({
                                 cancelClick={handleCancelClick}
                                 backClick={handleBackClick}
                             />
-                        </Grid>{' '}
+                        </Grid>
                     </Fragment>
                 )}
             </Grid>
