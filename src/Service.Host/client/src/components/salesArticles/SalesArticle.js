@@ -289,16 +289,6 @@ function SalesArticle({
                                         />
                                     </Grid>
                                     <Grid item xs={6} />
-                                    <Grid item xs={3}>
-                                        <Dropdown
-                                            label="Core Type"
-                                            propertyName="sa-core-type"
-                                            items={saCoreTypeItems}
-                                            fullWidth
-                                            value={salesArticleCoreTypeHref}
-                                            onChange={handleLinkRelChange}
-                                        />
-                                    </Grid>
                                     <Grid item xs={12}>
                                         <SaveBackCancelButtons
                                             saveDisabled={viewing() || inputInvalid()}
