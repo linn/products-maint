@@ -96,9 +96,6 @@ namespace Linn.Products.Service.Host
                         {
                             config.PassThroughWhenStatusCodesAre(HttpStatusCode.Unauthorized, HttpStatusCode.Forbidden);
                         }));
-
-            // not sure we need below
-            app.Use((context, next) => context.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme));
         }
     }
 }
