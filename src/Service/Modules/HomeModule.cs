@@ -19,6 +19,8 @@
             this.Get("/products/maint/(.*)/create", _ => this.GetApp());
 
             this.Get("/products/maint/auth/", _ => this.GetApp());
+            this.Get("/products/maint/auth/logged-out", _ => this.GetApp());
+
 
             this.Get(@"^(.*)$", _ => this.GetApp());
         }

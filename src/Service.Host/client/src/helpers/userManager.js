@@ -35,4 +35,66 @@ export const oidcConfig = {
 
 const userManager = createUserManager(oidcConfig);
 
+export const signOut = () => {
+    if (!cognitoDomain) return;
+
+    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(
+        logoutUri
+    )}`;
+};
+
+export const signOutEntra = () => {
+    const { entraLogoutUri } = config;
+    window.location.href = `${entraLogoutUri}?post_logout_redirect_uri=${encodeURIComponent(
+        logoutUri
+    )}`;
+};
+
+const originalRemoveUser = userManager.removeUser.bind(userManager);
+
+userManager.signoutRedirect = async () => {
+    await originalRemoveUser();
+    signOut();
+};
+
+userManager.signoutPopup = async () => {
+    await originalRemoveUser();
+    signOut();
+};
+
+userManager.removeUser = originalRemoveUser;
+
+// horrible hack to hijack sign out clicks from the Navigation component
+// would be nicer just to be able to change the code, but we are so
+// out of date the with the components library now that it's near impossible
+const hijackSignOutClick = () => {
+    document.addEventListener(
+        'click',
+        event => {
+            const { target } = event;
+
+            const isSignOutClick =
+                (target && target.tagName === 'LI' && target.textContent.includes('Sign Out')) ||
+                (target && target.textContent.includes('Sign Out')) ||
+                (target &&
+                    target.closest &&
+                    target.closest('[role="menuitem"]') &&
+                    target.closest('[role="menuitem"]').textContent.includes('Sign Out'));
+
+            if (isSignOutClick) {
+                event.preventDefault();
+                event.stopPropagation();
+                signOut();
+            }
+        },
+        true
+    );
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hijackSignOutClick);
+} else {
+    hijackSignOutClick();
+}
+
 export default userManager;
