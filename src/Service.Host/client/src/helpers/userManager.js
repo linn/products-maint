@@ -75,7 +75,6 @@ const hijackSignOutClick = () => {
                     target.closest &&
                     target.closest('[role="menuitem"]') &&
                     target.closest('[role="menuitem"]').textContent.includes('Sign Out'));
-
             if (isSignOutClick) {
                 event.preventDefault();
                 event.stopPropagation();
