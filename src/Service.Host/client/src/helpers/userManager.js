@@ -50,19 +50,15 @@ export const signOutEntra = () => {
     )}`;
 };
 
-const originalRemoveUser = userManager.removeUser.bind(userManager);
-
 userManager.signoutRedirect = async () => {
-    await originalRemoveUser();
+    await userManager.removeUser();
     signOut();
 };
 
 userManager.signoutPopup = async () => {
-    await originalRemoveUser();
+    await userManager.removeUser();
     signOut();
 };
-
-userManager.removeUser = originalRemoveUser;
 
 // horrible hack to hijack sign out clicks from the Navigation component
 // would be nicer just to be able to change the code, but we are so
