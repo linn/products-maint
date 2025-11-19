@@ -10,9 +10,6 @@ Parameters:
   proxyRoot:
     Type: String
     Description: proxy root
-  authorityUri:
-    Type: String
-    Description: OIDC authority uri
   databaseHost:
     Type: String
     Description: Database host
@@ -58,6 +55,18 @@ Parameters:
     Type: AWS::SSM::Parameter::Value<String>
     Description: Name of production cluster
     Default: ProductionClusterName
+  cognitoHost:
+    Type: String
+    Description: Cognito host
+  cognitoClientId:
+    Type: String
+    Description: Cognito client id
+  cognitoDomainPrefix:
+    Type: String
+    Description: Cognito domain prefix
+  entraLogoutUri:
+    Type: String
+    Description: Entra logout uri
 
 Conditions:
   isTesting: !Or
@@ -141,8 +150,6 @@ Resources:
           Value: !Ref appRoot
         - Name: PROXY_ROOT
           Value: !Ref proxyRoot
-        - Name: AUTHORITY_URI
-          Value: !Ref authorityUri
         - Name: LOG_AMAZON_SQSQUEUEURI
           Value: !ImportValue logging-queue-url
         - Name: LOG_ENVIRONMENT
@@ -159,6 +166,14 @@ Resources:
           Value:
             Fn::ImportValue:
               !Sub "kms-key-alias${environmentSuffix}"
+        - Name: COGNITO_HOST
+          Value: !Ref cognitoHost
+        - Name: COGNITO_CLIENT_ID
+          Value: !Ref cognitoClientId
+        - Name: COGNITO_DOMAIN_PREFIX
+          Value: !Ref cognitoDomainPrefix
+        - Name: ENTRA_LOGOUT_URI
+          Value: !Ref entraLogoutUri
   productsMaintService:
     Type: AWS::ECS::Service
     Properties:

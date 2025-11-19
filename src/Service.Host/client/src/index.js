@@ -30,7 +30,11 @@ const render = Component => {
     );
 };
 
-if ((!user || user.expired) && window.location.pathname !== '/products/maint/signin-oidc-client') {
+if (
+    (!user || user.expired) &&
+    window.location.pathname !== '/products/maint/auth/' &&
+    window.location.pathname !== '/products/maint/auth/logged-out'
+) {
     userManager.signinRedirect({
         data: { redirect: window.location.pathname + window.location.search }
     });

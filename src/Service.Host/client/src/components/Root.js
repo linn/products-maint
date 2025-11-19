@@ -16,6 +16,7 @@ import Tariff from '../containers/tariffs/Tariff';
 import Tariffs from '../containers/tariffs/Tariffs';
 import CreateTariff from '../containers/tariffs/CreateTariff';
 import userManager from '../helpers/userManager';
+import LoggedOut from './LoggedOut';
 import EanCodesOptions from '../containers/reportOptions/EanCodesOptions';
 import EanCodes from '../containers/reports/EanCodes';
 import CartonDetailsOptions from './reportOptions/CartonDetailsOptions';
@@ -116,8 +117,14 @@ const Root = ({ store }) => (
 
                                         <Route
                                             exact
-                                            path="/products/maint/signin-oidc-client"
+                                            path="/products/maint/auth/"
                                             component={Callback}
+                                        />
+
+                                        <Route
+                                            exact
+                                            path="/products/maint/auth/logged-out"
+                                            component={LoggedOut}
                                         />
 
                                         <Route
