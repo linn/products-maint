@@ -116,8 +116,16 @@ const Root = ({ store }) => (
 
                                         <Route
                                             exact
-                                            path="/products/maint/signin-oidc-client"
+                                            path="/products/maint/auth/"
                                             component={Callback}
+                                        />
+
+                                        <Route
+                                            exact
+                                            path="/products/maint/auth/logged-out"
+                                            render={() => (
+                                                <div>You have been logged out successfully.</div>
+                                            )}
                                         />
 
                                         <Route

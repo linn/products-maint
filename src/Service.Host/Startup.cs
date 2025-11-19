@@ -11,8 +11,10 @@ namespace Linn.Products.Service.Host
 
     using Linn.Common.Authentication.Host.Extensions;
     using Linn.Common.Configuration;
+    using Linn.Products.Service.Models;
 
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.DataProtection;
@@ -44,13 +46,28 @@ namespace Linn.Products.Service.Host
                 .SetApplicationName("auth-oidc")
                 .PersistKeysToAwsS3(new S3XmlRepositoryConfig(keysBucketName))
                 .ProtectKeysWithAwsKms(new KmsXmlEncryptorConfig(kmsKeyAlias) { DiscriminatorAsContext = true });
+            var appSettings = ApplicationSettings.Get();
 
-            services.AddLinnAuthentication(
-                options =>
+            services.AddAuthentication(options =>
                     {
-                        options.Authority = ConfigurationManager.Configuration["AUTHORITY_URI"];
-                        options.CallbackPath = new PathString("/products/maint/signin-oidc");
+                        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    })
+                .AddJwtBearer(options =>
+                    {
+                        options.Authority = appSettings.CognitoHost;
+                        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                                                                {
+                                                                    ValidateIssuer = true,
+                                                                    ValidIssuer = appSettings.CognitoHost,
+                                                                    ValidateAudience = false,
+                                                                    ValidAudience = appSettings.CognitoClientId,
+                                                                    ValidateLifetime = true,
+                                                                    ValidateIssuerSigningKey = true
+                                                                };
                     });
+
+            services.AddAuthorization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
