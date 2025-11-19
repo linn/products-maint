@@ -87,8 +87,8 @@ namespace Linn.Products.Service.Host
                                             ForwardedHeaders = ForwardedHeaders.XForwardedProto
                                         });
 
-            app.UseBearerTokenAuthentication();
             app.UseAuthentication();
+            app.UseBearerTokenAuthentication();
 
             app.UseOwin(
                 x => x.UseNancy(
@@ -96,8 +96,6 @@ namespace Linn.Products.Service.Host
                         {
                             config.PassThroughWhenStatusCodesAre(HttpStatusCode.Unauthorized, HttpStatusCode.Forbidden);
                         }));
-
-            app.Use((context, next) => context.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme));
         }
     }
 }
