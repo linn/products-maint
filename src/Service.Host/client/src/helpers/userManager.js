@@ -19,7 +19,6 @@ function getCognitoDomain(prefix, authorityUri) {
     return '';
 }
 
-// eslint-disable-next-line no-unused-vars
 const cognitoDomain = getCognitoDomain(domainPrefix, authority);
 
 export const oidcConfig = {
