@@ -67,6 +67,9 @@ Parameters:
   entraLogoutUri:
     Type: String
     Description: Entra logout uri
+  legacyAuthorityUri:
+    Type: String
+    Description: legacy auth uri
 
 Conditions:
   isTesting: !Or
@@ -174,6 +177,8 @@ Resources:
           Value: !Ref cognitoDomainPrefix
         - Name: ENTRA_LOGOUT_URI
           Value: !Ref entraLogoutUri
+        - Name: LEGACY_AUTHORITY_URI
+          Value: !Ref legacyAuthorityUri
   productsMaintService:
     Type: AWS::ECS::Service
     Properties:
