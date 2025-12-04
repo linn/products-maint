@@ -51,8 +51,9 @@
             services.AddLinnAuthentication(
             options =>
             {
-                        options.Authority = "https://www-sys.linn.co.uk/auth/";
-                        options.CallbackPath = new PathString("/products/maint/signin-oidc");
+                options.Authority = ConfigurationManager.Configuration["LEGACY_AUTHORITY_URI"];
+
+                options.CallbackPath = new PathString("/products/maint/signin-oidc");
                     });
 
             // 2) new cognito JWT provider
@@ -96,8 +97,6 @@
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole();
-
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             if (env.IsDevelopment())
