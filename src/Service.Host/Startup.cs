@@ -108,6 +108,7 @@
                 new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.XForwardedProto });
 
             app.UseAuthentication();
+            app.UseBearerTokenAuthentication();
 
             app.UseOwin(
                 x => x.UseNancy(
