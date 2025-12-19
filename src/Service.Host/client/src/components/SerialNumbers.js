@@ -17,7 +17,6 @@ import {
     TableRow,
     TableCell,
     TableBody,
-    Tooltip,
     Grid
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -40,7 +39,6 @@ function SerialNumbers({
     items,
     loading,
     fetchItems,
-    privileges,
     sernosNotes,
     snackbarVisible,
     sernosNoteLoading,
@@ -76,16 +74,6 @@ function SerialNumbers({
         setSearchTerm(args[1]);
     };
 
-    const canAmendOrCreateSerialNumbers = () => {
-        if (!(privileges < 1)) {
-            return privileges.some(priv => priv === 'serial-number.create');
-        }
-        return false;
-    };
-
-    const tooltipText = () =>
-        canAmendOrCreateSerialNumbers() ? '' : 'You are not authorised to complete this action';
-
     return (
         <Page>
             {errorMessage && <ErrorCard errorMessage={errorMessage} />}
@@ -104,14 +92,7 @@ function SerialNumbers({
                     />
                 </Grid>
                 <Grid item xs={8}>
-                    <Tooltip title={tooltipText()} placement="top-end" disableFocusListener>
-                        <span className={classes.createButton}>
-                            <CreateButton
-                                disabled={!canAmendOrCreateSerialNumbers()}
-                                createUrl="/products/maint/serial-numbers/create"
-                            />
-                        </span>
-                    </Tooltip>
+                    <CreateButton createUrl="/products/maint/serial-numbers/create" />
                 </Grid>
             </Grid>
 
@@ -182,7 +163,6 @@ SerialNumbers.propTypes = {
     sernosNoteLoading: PropTypes.bool,
     sernosNotesLoading: PropTypes.bool,
     snackbarVisible: PropTypes.bool,
-    privileges: PropTypes.arrayOf(PropTypes.string),
     addSernosNote: PropTypes.func.isRequired,
     updateSernosNote: PropTypes.func.isRequired,
     setSnackbarVisible: PropTypes.func.isRequired,
@@ -194,8 +174,7 @@ SerialNumbers.defaultProps = {
     sernosNoteLoading: false,
     sernosNotesLoading: false,
     snackbarVisible: false,
-    errorMessage: '',
-    privileges: []
+    errorMessage: ''
 };
 
 export default SerialNumbers;

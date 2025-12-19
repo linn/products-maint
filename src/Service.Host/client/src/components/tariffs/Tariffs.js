@@ -1,12 +1,11 @@
 ﻿import React from 'react';
-import { Tooltip } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Typeahead, CreateButton, ErrorCard } from '@linn-it/linn-form-components-library';
 import PropTypes from 'prop-types';
 import Page from '../../containers/Page';
 
-function Tariffs({ items, fetchItems, loading, privileges, clearSearch, errorMessage, history }) {
+function Tariffs({ items, fetchItems, loading, clearSearch, errorMessage, history }) {
     const results = items.map(tariff => ({
         ...tariff,
         name: tariff.tariffCode,
@@ -15,13 +14,6 @@ function Tariffs({ items, fetchItems, loading, privileges, clearSearch, errorMes
                 ? `${tariff.description.substring(0, 100)} ...`
                 : tariff.description
     }));
-
-    const hasPermission = () => {
-        if (!(privileges.length < 1)) {
-            return privileges.some(priv => priv === 'tariff.admin');
-        }
-        return false;
-    };
 
     return (
         <Page>
@@ -47,20 +39,7 @@ function Tariffs({ items, fetchItems, loading, privileges, clearSearch, errorMes
                     </Button>
                 </Grid>
                 <Grid item xs={2}>
-                    <Tooltip
-                        title={
-                            hasPermission() ? '' : 'You are not authorised to perform this action'
-                        }
-                        placement="top-end"
-                        disableFocusListener
-                    >
-                        <span style={{ float: 'right' }}>
-                            <CreateButton
-                                disabled={!hasPermission()}
-                                createUrl="/products/maint/tariffs/create"
-                            />
-                        </span>
-                    </Tooltip>
+                    <CreateButton createUrl="/products/maint/tariffs/create" />
                 </Grid>
             </Grid>
         </Page>
@@ -70,7 +49,6 @@ function Tariffs({ items, fetchItems, loading, privileges, clearSearch, errorMes
 Tariffs.propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     loading: PropTypes.bool,
-    privileges: PropTypes.arrayOf(PropTypes.string),
     fetchItems: PropTypes.func.isRequired,
     clearSearch: PropTypes.func.isRequired,
     errorMessage: PropTypes.string,
@@ -79,8 +57,7 @@ Tariffs.propTypes = {
 
 Tariffs.defaultProps = {
     loading: false,
-    errorMessage: '',
-    privileges: []
+    errorMessage: ''
 };
 
 export default Tariffs;
